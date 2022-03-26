@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://finCurcyBrowse.caption"
+        focusComponent="genNodesTable">
+    <data readOnly="true">
+        <collection id="genNodesDc"
+                    class="ca.ampautomation.ampata.entity.GenNode"
+                    fetchPlan="genCurcy-fetch-plan-base">
+            <loader id="genNodesDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinCurcy']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="genNodesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="genNodesDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="genNodesTable"
+                    width="100%"
+                    dataContainer="genNodesDc">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinCurcy.edit"/>
+                    </properties>
+                </action>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinCurcy.edit"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="sortOrder"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="inst"/>
+                <column id="name1"/>
+                <column id="name1Pat1_Id"/>
+                <column id="name1Pat1_Id2"/>
+                <column id="name2"/>
+                <column id="abrv"/>
+                <column id="desc1"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="genNodesTable.create"/>
+                <button id="editBtn" action="genNodesTable.edit"/>
+                <button id="refreshBtn" action="genNodesTable.refresh"/>
+                <button id="removeBtn" action="genNodesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
