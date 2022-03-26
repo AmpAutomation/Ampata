@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://finRateBrowse.caption"
+        focusComponent="finRatesTable">
+    <data readOnly="true">
+        <collection id="finRatesDc"
+                    class="ca.ampautomation.ampata.entity.FinRate"
+                    fetchPlan="finRate-fetch-plan-base">
+            <loader id="finRatesDl">
+                <query>
+                    <![CDATA[select e from ampata_FinRate e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="finRatesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="finRatesDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2"/>
+                    <propertyFilter operation="CONTAINS" property="name1"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="finRatesTable"
+                    width="100%"
+                    dataContainer="finRatesDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2" caption="id2"/>
+                <column id="name1" caption="name"/>
+                <column id="beg.date1" caption="beg.date1">
+                    <formatter>
+                        <date format="yyyy-MM-dd"/>
+                    </formatter>
+                </column>
+                <column id="rate" >
+                    <formatter>
+                        <number format="#0.000000"/>
+                    </formatter>
+                </column>
+                <column id="rateInv">
+                    <formatter>
+                        <number format="#0.000000"/>
+                    </formatter>
+                </column>
+                <column id="finCurcy1_Id"/>
+                <column id="finCurcy1_Id2"/>
+                <column id="finCurcy2_Id"/>
+                <column id="finCurcy2_Id2"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="finRatesTable.create"/>
+                <button id="editBtn" action="finRatesTable.edit"/>
+                <button id="refreshBtn" action="finRatesTable.refresh"/>
+                <button id="removeBtn" action="finRatesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

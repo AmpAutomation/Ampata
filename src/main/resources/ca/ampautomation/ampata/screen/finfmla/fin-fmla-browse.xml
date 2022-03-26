@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://finFmlaBrowse.caption"
+        focusComponent="finFmlasTable">
+    <data readOnly="true">
+        <collection id="finFmlasDc"
+                    class="ca.ampautomation.ampata.entity.FinFmla"
+                    fetchPlan="finFmla-fetch-plan-base">
+            <loader id="finFmlasDl">
+                <query>
+                    <![CDATA[select e from ampata_FinFmla e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="finFmlasTable" spacing="true">
+        <filter id="filter"
+                dataLoader="finFmlasDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2"/>
+                    <propertyFilter operation="CONTAINS" property="name1"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="finFmlasTable"
+                    width="100%"
+                    dataContainer="finFmlasDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="sortOrder"/>
+                <column id="name1"/>
+                <column id="desc1"/>
+                <column id="fmla"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="finFmlasTable.create"/>
+                <button id="editBtn" action="finFmlasTable.edit"/>
+                <button id="refreshBtn" action="finFmlasTable.refresh"/>
+                <button id="removeBtn" action="finFmlasTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

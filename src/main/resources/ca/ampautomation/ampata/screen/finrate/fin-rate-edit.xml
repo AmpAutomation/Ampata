@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://finRateEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="finRateDc"
+                  class="ca.ampautomation.ampata.entity.FinRate"
+                  fetchPlan="finRate-fetch-plan-base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="finRateDc">
+            <column width="350px">
+                <textField id="id2Field" property="id2"/>
+                <textField id="name1Field" property="name1"/>
+                <dateField id="begDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd"/>
+                <textField id="rateField" property="rate">
+                    <formatter>
+                        <number format="#0.000000###"/>
+                    </formatter>
+                </textField>
+                <textField id="rateInvField" property="rateInv">
+                <formatter>
+                    <number format="#0.000000###"/>
+                </formatter>
+            </textField>
+                <entityPicker id="finCurcy1_IdField" property="finCurcy1_Id">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="finCurcy1_Id2Field" property="finCurcy1_Id2"/>
+                <entityPicker id="finCurcy2_IdField" property="finCurcy2_Id">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="finCurcy2_Id2Field" property="finCurcy2_Id2"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
