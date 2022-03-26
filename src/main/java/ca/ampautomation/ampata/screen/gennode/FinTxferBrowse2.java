@@ -39,6 +39,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private Metadata metadata;
 
     @Autowired
+    private MetadataTools metadataTools;
+
+    @Autowired
     private GroupTable<GenNode> table;
 
     @Autowired
@@ -278,25 +281,23 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
     }
 
-    @Autowired
-    private MetadataTools metadataTools;
 
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
         table.getSelected().stream()
-/*
-                .map(this::makeCopy)
-                .forEach(copy -> {
+//                .map(this::makeCopy)
+                .forEach(orig -> {
+                    GenNode copy = makeCopy(orig);
                     GenNode savedCopy = dataManager.save(copy);
                     genNodesDc.getMutableItems().add(savedCopy);
                     logger.debug("Duplicated FinTxfer " + copy.getId2() + " "
-//                            + "[" + orig.getId() + "]"
+                            + "[" + orig.getId() + "]"
                             +" -> "
                             +"[" + copy.getId() + "]"
                     );
-*/
 
+/*
                 .forEach(orig -> {
                     GenNode copy = makeCopy(orig);
                     GenNode trackedCopy = dataContext.merge(copy);
@@ -307,21 +308,21 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                             +" -> "
                             +"[" + copy.getId() + "]"
                     );
+*/
 
                 });
     }
 
 
-/*
     private GenNode makeCopy(GenNode orig) {
         GenNode copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
         return copy;
     }
-*/
 
 
 
+/*
     private GenNode makeCopy(GenNode orig) {
 
             GenNode copy = metadata.create(GenNode.class);
@@ -453,14 +454,17 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                     +" -> "
                     +"[" + copy.getId() + "]"
                     );
-    /*
+    */
+/*
             notifications.create()
                     .withCaption("Duplicated Id2: " + e.getId2().toString())
                     .show();
-*/
+*//*
+
 
         return copy;
     }
+*/
 
 
 

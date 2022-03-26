@@ -637,6 +637,179 @@ public class GenNode {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+
+
+    public String getId2() {
+        return id2;
+    }
+
+    public void setId2(String id2) {
+        this.id2 = id2;
+    }
+
+    public String getId2Calc() {
+        return id2Calc;
+    }
+
+    public void setId2Calc(String id2Calc) {
+        this.id2Calc = id2Calc;
+    }
+
+    public Boolean getId2Cmp() {
+        return id2Cmp;
+    }
+
+    public void setId2Cmp(Boolean id2Cmp) {
+        this.id2Cmp = id2Cmp;
+    }
+
+    public Integer getId2Dup() {
+        return id2Dup;
+    }
+
+    public void setId2Dup(Integer id2Dup) {
+        this.id2Dup = id2Dup;
+    }
+
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+
+    public GenNode getParent1_Id() {
+        return parent1_Id;
+    }
+
+    public void setParent1_Id(GenNode parent1_Id) {
+        this.parent1_Id = parent1_Id;
+    }
+
+    public String getParent1_Id2() {
+        return parent1_Id2;
+    }
+
+    public void setParent1_Id2(String parent1_Id2) {
+        this.parent1_Id2 = parent1_Id2;
+    }
+
+    public String getAncestors1_Id2() {
+        return ancestors1_Id2;
+    }
+
+    public void setAncestors1_Id2(String ancestors1_Id2) {
+        this.ancestors1_Id2 = ancestors1_Id2;
+    }
+
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
+    }
+
+
+    public void setType1_Id(GenNodeType type1_Id) {
+        this.type1_Id = type1_Id;
+    }
+
+    public GenNodeType getType1_Id() {
+        return type1_Id;
+    }
+
+    public String getType1_Id2() {
+        return type1_Id2;
+    }
+
+    public void setType1_Id2(String type1_Id2) {
+        this.type1_Id2 = type1_Id2;
+    }
+
+
+    public String getInst() {
+        return inst;
+    }
+
+    public void setInst(String inst) {
+        this.inst = inst;
+    }
+
+    public String getName1() {
+        return name1;
+    }
+
+    public void setName1(String name1) {
+        this.name1 = name1;
+    }
+
+
+    public GenPat getName1Pat1_Id() {
+        return name1Pat1_Id;
+    }
+
+    public void setName1Pat1_Id(GenPat name1Pat1_Id) {
+        this.name1Pat1_Id = name1Pat1_Id;
+    }
+
+    public String getName1Pat1_Id2() {
+        return name1Pat1_Id2;
+    }
+
+    public void setName1Pat1_Id2(String name1Pat1_Id2) {
+        this.name1Pat1_Id2 = name1Pat1_Id2;
+    }
+
+
+    public String getName2() {
+        return name2;
+    }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
+
+    public String getAbrv() {
+        return abrv;
+    }
+
+    public void setAbrv(String abrv) {
+        this.abrv = abrv;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.abrv = code;
+    }
+
+    public String getDesc1() {
+        return desc1;
+    }
+
+    public void setDesc1(String desc1) {
+        this.desc1 = desc1;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+
+
+
     public String getGenDocVer1_Code() {
         return genDocVer1_Code;
     }
@@ -673,33 +846,11 @@ public class GenNode {
         this.genDocVer1_Code = genDocRev1_Code;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     public String getVer() {
         return ver;
     }
 
-    public void setVer(String ver) {
-        this.ver = ver;
-    }
-
-    public void setType1_Id(GenNodeType type1_Id) {
-        this.type1_Id = type1_Id;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
+    public void setVer(String ver) { this.ver = ver;}
 
     public String getGenAgent2_Id2() {
         return genAgent2_Id2;
@@ -937,14 +1088,6 @@ public class GenNode {
 
     public void setBegBal(BigDecimal begBal) {
         this.begBal = begBal;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
 
@@ -1717,145 +1860,7 @@ public class GenNode {
         this.genTag1_Id = genTag1_Id;
     }
 
-    public GenPat getName1Pat1_Id() {
-        return name1Pat1_Id;
-    }
 
-    public void setName1Pat1_Id(GenPat name1Pat1_Id) {
-        this.name1Pat1_Id = name1Pat1_Id;
-    }
-
-    public String getType1_Id2() {
-        return type1_Id2;
-    }
-
-    public void setType1_Id2(String type1_Id2) {
-        this.type1_Id2 = type1_Id2;
-    }
-
-    public void setParent1_Id(GenNode parent1_Id) {
-        this.parent1_Id = parent1_Id;
-    }
-
-    public void setInst(String inst) {
-        this.inst = inst;
-    }
-
-    public void setName1(String name1) {
-        this.name1 = name1;
-    }
-
-    public void setAbrv(String abrv) {
-        this.abrv = abrv;
-    }
-
-    public void setDesc1(String desc1) {
-        this.desc1 = desc1;
-    }
-
-    public Integer getSortOrder() {
-        return sortOrder;
-    }
-
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
-    }
-
-    public String getAncestors1_Id2() {
-        return ancestors1_Id2;
-    }
-
-    public void setAncestors1_Id2(String ancestors1_Id2) {
-        this.ancestors1_Id2 = ancestors1_Id2;
-    }
-
-    public String getName2() {
-        return name2;
-    }
-
-    public void setName2(String name2) {
-        this.name2 = name2;
-    }
-
-    public String getName1Pat1_Id2() {
-        return name1Pat1_Id2;
-    }
-
-    public void setName1Pat1_Id2(String name1Pat1_Id2) {
-        this.name1Pat1_Id2 = name1Pat1_Id2;
-    }
-
-    public String getParent1_Id2() {
-        return parent1_Id2;
-    }
-
-    public void setParent1_Id2(String parent1_Id2) {
-        this.parent1_Id2 = parent1_Id2;
-    }
-
-    public GenNode getParent1_Id() {
-        return parent1_Id;
-    }
-
-    public String getId2Calc() {
-        return id2Calc;
-    }
-
-    public void setId2Calc(String id2Calc) {
-        this.id2Calc = id2Calc;
-    }
-
-    public GenNode getGenNode_1_Id() {
-        return parent1_Id;
-    }
-
-    public void setGenNode_1_Id(GenNode genNode_1_Id) {
-        this.parent1_Id = genNode_1_Id;
-    }
-
-    public Integer getId2Dup() {
-        return id2Dup;
-    }
-
-    public void setId2Dup(Integer id2Dup) {
-        this.id2Dup = id2Dup;
-    }
-
-    public Boolean getId2Cmp() {
-        return id2Cmp;
-    }
-
-    public void setId2Cmp(Boolean id2Cmp) {
-        this.id2Cmp = id2Cmp;
-    }
-
-    public GenNodeType getType1_Id() {
-        return type1_Id;
-    }
-
-    public String getInst() {
-        return inst;
-    }
-
-    public String getAbrv() {
-        return abrv;
-    }
-
-    public String getDesc1() {
-        return desc1;
-    }
-
-    public String getId2() {
-        return id2;
-    }
-
-    public void setId2(String id2) {
-        this.id2 = id2;
-    }
-
-    public String getName1() {
-        return name1;
-    }
 
     public Date getDeletedDate() {
         return deletedDate;

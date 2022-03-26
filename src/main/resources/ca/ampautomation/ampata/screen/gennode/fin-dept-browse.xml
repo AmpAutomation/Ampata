@@ -50,6 +50,7 @@
                         <property name="screenId" value="ampata_FinDept.edit"/>
                     </properties>
                 </action>
+                <action id="duplicate" />
                 <action id="edit" type="edit">
                     <properties>
                         <property name="screenId" value="ampata_FinDept.edit"/>
@@ -78,6 +79,7 @@
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="genNodesTable.create"/>
+                <button id="duplicateBtn" action="genNodesTable.duplicate" caption="Duplicate" icon="font-icon:COPY"/>
                 <button id="editBtn" action="genNodesTable.edit"/>
                 <button id="refreshBtn" action="genNodesTable.refresh"/>
                 <button id="removeBtn" action="genNodesTable.remove"/>
