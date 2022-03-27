@@ -6,6 +6,8 @@ import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -14,6 +16,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -637,6 +640,9 @@ public class GenNode {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+
+    @Transient
+    private Logger logger = LoggerFactory.getLogger(GenNode.class);
 
     public String getId2() {
         return id2;
@@ -1924,5 +1930,145 @@ public class GenNode {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public String getId2CalcFrFields(){
+        String logPrfx = "getId2CalcFrFields";
+        logger.trace(logPrfx + " --> ");
+        final String SEP = "/";
+        StringBuilder sb = new StringBuilder();
+        SimpleDateFormat frmtDt = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat frmtTm = new SimpleDateFormat("hhmm");
+
+        switch (className) {
+            case "FinTxset", "FinTxact", "FinTxfer":
+                if (beg.getDate1() == null) {
+                    logger.debug(logPrfx + " --- beg.date1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+                }
+                if (beg.getTime1() == null) {
+                    logger.debug(logPrfx + " --- beg.time1: null");
+                } else{
+                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+                }
+                break;
+            default:
+
+        };
+
+        switch (className){
+            case "FinTxset":
+                //Date
+                sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+
+                //Time
+                sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
+                break;
+
+            case "FinTxact":
+                //Date
+                if (finTxset1_BegDate1 == null) {
+                    logger.debug(logPrfx + " --- finTxset1_BegDate1: null");
+                    sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+                }else{
+                    logger.debug(logPrfx + " --- finTxset1_BegDate1: " + frmtDt.format(finTxset1_BegDate1));
+                    sb.append(SEP + "D" + frmtDt.format(finTxset1_BegDate1));
+                }
+
+                //Time
+                if (finTxset1_BegTime1 == null) {
+                    logger.debug(logPrfx + " --- finTxset1_BegTime1: null");
+                    if (beg.getTime1() != null) {
+                        sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));;
+                    }else{
+                        sb.append(SEP + "T0000");
+                    }
+                }else{
+                    logger.debug(logPrfx + " --- finTxset1_BegTime1: " + frmtDt.format(finTxset1_BegTime1));
+                    sb.append(SEP + "T" + frmtTm.format(finTxset1_BegTime1));;
+                }
+                break;
+
+            case "FinTxfer":
+                //Date
+                if (finTxact1_BegDate1 == null) {
+                    logger.debug(logPrfx + " --- finTxact1_BegDate1: null");
+                    sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+                }else{
+                    logger.debug(logPrfx + " --- finTxact1_BegDate1: " + frmtDt.format(finTxact1_BegDate1));
+                    sb.append(SEP + "D" + frmtDt.format(finTxact1_BegDate1));
+                }
+
+                //Time
+                if (finTxact1_BegTime1 == null) {
+                    logger.debug(logPrfx + " --- finTxact1_BegTime1: null");
+                    if (beg.getTime1() != null) {
+                        sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
+                    }else{
+                        sb.append(SEP + "T0000");
+                    }
+                }else{
+                    logger.debug(logPrfx + " --- finTxact1_BegTime1: " + frmtDt.format(finTxact1_BegTime1));
+                    sb.append(SEP + "T" + frmtTm.format(finTxact1_BegTime1));
+                }
+                break;
+
+            default:
+        }
+
+
+        switch (className){
+            case "FinTxset":
+            case "FinTxact":
+            case "FinTxfer":
+                //IdX
+                if (idX == null) {
+                    logger.debug(logPrfx + " --- idX: null");
+                    sb.append(SEP + "X00");
+                }else{
+                    logger.debug(logPrfx + " --- idX: " + idX.toString());
+                    sb.append(SEP + "X" + String.format("%02d", idX));
+                }
+                break;
+            default:
+        }
+
+        switch (className){
+            case "FinTxact":
+            case "FinTxfer":
+                //IdY
+                if (idY == null) {
+                    logger.debug(logPrfx + " --- idY: null");
+                    sb.append(SEP + "Y00");
+                }else{
+                    logger.debug(logPrfx + " --- idY: " + idY.toString());
+                    sb.append(SEP + "Y" + String.format("%02d", idY));
+                }
+                break;
+            default:
+        }
+
+        switch (className){
+            case "FinTxfer":
+                //IdZ
+                if (idZ == null) {
+                    logger.debug(logPrfx + " --- idZ: null");
+                    sb.append(SEP + "Z00");
+                }else {
+                    logger.debug(logPrfx + " --- idZ: " + idZ.toString());
+                    sb.append(SEP + "Z" + String.format("%02d", idZ));
+                }
+                break;
+            default:
+        }
+
+        logger.debug(logPrfx + " --- sb: " + sb);
+        logger.trace(logPrfx + " <--- ");
+        return sb.toString();
+
+    }
+
 }
 

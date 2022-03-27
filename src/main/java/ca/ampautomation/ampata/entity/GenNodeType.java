@@ -64,6 +64,12 @@ public class GenNodeType {
     @Lob
     private String desc1;
 
+    @Column(name = "BAL_SIGN_ON_DEBT")
+    private Integer balSignOnDebt;
+
+    @Column(name = "BAL_SIGN_ON_CRED")
+    private Integer balSignOnCred;
+
     @Column(name = "VERSION", nullable = false)
     @Version
     private Integer version;
@@ -94,6 +100,22 @@ public class GenNodeType {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
+
+    public Integer getBalSignOnCred() {
+        return balSignOnCred;
+    }
+
+    public void setBalSignOnCred(Integer balSignOnCred) {
+        this.balSignOnCred = balSignOnCred;
+    }
+
+    public Integer getBalSignOnDebt() {
+        return balSignOnDebt;
+    }
+
+    public void setBalSignOnDebt(Integer balSignOnDebt) {
+        this.balSignOnDebt = balSignOnDebt;
+    }
 
     public Integer getSortOrder() {
         return sortOrder;

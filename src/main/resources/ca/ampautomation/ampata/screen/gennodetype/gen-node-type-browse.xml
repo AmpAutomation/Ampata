@@ -47,7 +47,7 @@
                    hierarchyProperty="parent1_Id">
             <actions>
                 <action id="create" type="create"/>
-                <action id="duplicate" />
+                <action id="duplicate"/>
                 <action id="edit" type="edit"/>
                 <action id="refresh" type="refresh"/>
                 <action id="remove" type="remove"/>
