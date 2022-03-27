@@ -90,31 +90,49 @@
         <property name="code"/>
         <property name="desc1"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="genNode-fetch-plan-base" extends="genNode-fetch-plan-lean">
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+    <fetchPlan entity="ampata_GenNode" name="genNode-fetch-plan-base" extends="_instance_name">
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="className"/>
         <property name="ancestors1_Id2"/>
+        <property name="parent1_Id2"/>
+        <property name="sortOrder"/>
+        <property name="type1_Id2"/>
+        <property name="inst"/>
+        <property name="name1"/>
+        <property name="name1Pat1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="status"/>
+        <property name="note"/>
         <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genDocVer1_Id2"/>
         <property name="genDocVer1_Code"/>
         <property name="genDocVer1_Ver"/>
         <property name="genDocVer1_Name1"/>
-        <property name="genFile1_Id" fetchPlan="_base"/>
         <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
         <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
         <property name="genTag1_Id2"/>
-        <property name="note"/>
-        <property name="genChan1_Id2"/>
-        <property name="genChan1_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id2"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id2"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
         <property name="genTag2_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
+        <property name="genTag3_Id2"/>
+        <property name="genTag4_Id2"/>
+        <property name="namePrfx"/>
+        <property name="nameFrst"/>
+        <property name="nameMidl"/>
+        <property name="nameLast"/>
+        <property name="nameSufx"/>
+        <property name="genAgent1_Id2"/>
+        <property name="beg" fetchPlan="_base"/>
+        <property name="genAgent2_Id2"/>
+        <property name="end" fetchPlan="_base"/>
+        <property name="genChan1_Id2"/>
+        <property name="genFile1_URI"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="name1Pat1_Id" fetchPlan="_base"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="finAcct-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
@@ -145,7 +163,46 @@
         <property name="genAgent2_Id2"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="genTag-fetch-plan-base" extends="genNode-fetch-plan-lean"/>
+    <fetchPlan entity="ampata_GenNode" name="genTag-fetch-plan-base" extends="_base">
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="genDocVer1_Id" fetchPlan="_base"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="name1Pat1_Id" fetchPlan="_base"/>
+        <property name="genTag1_Id" fetchPlan="_base"/>
+        <property name="genFile1_Id" fetchPlan="_base"/>
+        <property name="genTag4_Id" fetchPlan="_base"/>
+        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag2_Id" fetchPlan="_base"/>
+        <property name="beg" fetchPlan="_base"/>
+        <property name="genAgent2_Id" fetchPlan="_base"/>
+        <property name="genAgent1_Id" fetchPlan="_base"/>
+        <property name="end" fetchPlan="_base"/>
+        <property name="finTxset1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_GenChan1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_GenChan1_Id" fetchPlan="_base"/>
+        <property name="genChan1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_Type1_Id" fetchPlan="_base"/>
+        <property name="finStmt1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_Type1_Id" fetchPlan="_base"/>
+        <property name="finAcct1_Id" fetchPlan="_base"/>
+        <property name="finTaxLne1_Type1_Id" fetchPlan="_base"/>
+        <property name="finTaxLne1_Id" fetchPlan="_base"/>
+        <property name="finDept1_Id" fetchPlan="_base"/>
+        <property name="finAcct1_Type1_Id" fetchPlan="_base"/>
+        <property name="finTxfer1_Id" fetchPlan="_base"/>
+        <property name="finFmla1_Id" fetchPlan="_base"/>
+        <property name="finCurcy1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_Why1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_Why1_Id" fetchPlan="_base"/>
+        <property name="finWhy1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_What1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_What1_Id" fetchPlan="_base"/>
+        <property name="finWhat1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_How1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_How1_Id" fetchPlan="_base"/>
+        <property name="finHow1_Id" fetchPlan="_base"/>
+    </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genCurcy-fetch-plan-base" extends="genNode-fetch-plan-lean"/>
     <fetchPlan entity="ampata_GenNode" name="genChan-fetch-plan-base" extends="genNode-fetch-plan-lean">
         <property name="genChan1_Id" fetchPlan="_instance_name"/>
@@ -210,51 +267,30 @@
         <property name="stmtRefId"/>
         <property name="finTxset1_FinAccts1_Id2"/>
         <property name="finTxact1_FinAccts1_Id2"/>
-        <property name="finAcct1_Id" fetchPlan="_instance_name"/>
         <property name="finAcct1_Id2"/>
-        <property name="finAcct1_Type1_Id" fetchPlan="_instance_name"/>
         <property name="finAcct1_Type1_Id2"/>
-        <property name="finDept1_Id" fetchPlan="_instance_name"/>
         <property name="finDept1_Id2"/>
-        <property name="finTaxLne1_Id" fetchPlan="_instance_name"/>
         <property name="finTaxLne1_Id2"/>
         <property name="finTaxLne1_Code"/>
-        <property name="finTaxLne1_Type1_Id" fetchPlan="_instance_name"/>
         <property name="finTaxLne1_Type1_Id2"/>
-        <property name="finHow1_Id" fetchPlan="_instance_name"/>
         <property name="finHow1_Id2"/>
         <property name="whatText1"/>
-        <property name="finWhat1_Id" fetchPlan="_instance_name"/>
         <property name="finWhat1_Id2"/>
         <property name="finTxact1_WhatText1"/>
-        <property name="finTxact1_What1_Id" fetchPlan="_instance_name"/>
         <property name="finTxact1_What1_Id2"/>
         <property name="finTxset1_WhatText1"/>
-        <property name="finTxset1_What1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_What1_Id2"/>
         <property name="whyText1"/>
-        <property name="finWhy1_Id" fetchPlan="_instance_name"/>
         <property name="finWhy1_Id2"/>
         <property name="finTxact1_WhyText1"/>
-        <property name="finTxact1_Why1_Id" fetchPlan="_instance_name"/>
         <property name="finTxact1_Why1_Id2"/>
         <property name="finTxset1_WhyText1"/>
-        <property name="finTxset1_Why1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_Why1_Id2"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>
-        <property name="finCurcy1_Id" fetchPlan="_instance_name"/>
         <property name="finCurcy1_Id2"/>
-        <property name="finFmla1_Id" fetchPlan="_instance_name"/>
         <property name="finFmla1_Id2"/>
-        <property name="finTxfer1_Id" fetchPlan="_instance_name">
-            <property name="amtDebt"/>
-            <property name="amtCred"/>
-            <property name="amtNet"/>
-            <property name="finAcct1_Id2"/>
-            <property name="finAcct1_Type1_Id2"/>
-        </property>
         <property name="finTxfer1_Id2"/>
         <property name="finTxfer1_EI1_Rate"/>
         <property name="calcRslt"/>
@@ -262,11 +298,36 @@
         <property name="finTxact1_GenDocVers1_Id2"/>
         <property name="finTxset1_GenTags1_Id2"/>
         <property name="finTxact1_GenTags1_Id2"/>
-        <property name="beg" fetchPlan="_base"/>
-        <property name="finTxact1_BegDate1"/>
-        <property name="finTxact1_BegTime1"/>
-        <property name="finTxset1_BegDate1"/>
+        <property name="finTxset1_GenChan1_Id2"/>
+        <property name="finTxact1_GenChan1_Id2"/>
+        <property name="finTxact1_How1_Id2"/>
+        <property name="finTxset1_How1_Id2"/>
         <property name="finTxset1_BegTime1"/>
+        <property name="finTxset1_BegDate1"/>
+        <property name="finTxact1_BegTime1"/>
+        <property name="finTxact1_BegDate1"/>
+        <property name="finTxfer1_Id" fetchPlan="_base">
+            <property name="finCurcy1_Id" fetchPlan="_base"/>
+        </property>
+        <property name="finDept1_Id" fetchPlan="_base"/>
+        <property name="finFmla1_Id" fetchPlan="_base"/>
+        <property name="finWhat1_Id" fetchPlan="_base"/>
+        <property name="finAcct1_Id" fetchPlan="_base"/>
+        <property name="finCurcy1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_Why1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_Why1_Id" fetchPlan="_base"/>
+        <property name="finWhy1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_What1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_What1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_How1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_How1_Id" fetchPlan="_base"/>
+        <property name="finHow1_Id" fetchPlan="_base"/>
+        <property name="finTaxLne1_Type1_Id" fetchPlan="_base"/>
+        <property name="finTaxLne1_Id" fetchPlan="_base"/>
+        <property name="finAcct1_Type1_Id" fetchPlan="_base"/>
+        <property name="finTxact1_GenChan1_Id" fetchPlan="_base"/>
+        <property name="finTxset1_GenChan1_Id" fetchPlan="_base"/>
+        <property name="genChan1_Id" fetchPlan="_base"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="finTxact-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="genTag2_Id" fetchPlan="_instance_name"/>

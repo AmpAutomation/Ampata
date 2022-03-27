@@ -49,10 +49,10 @@ public class GenNodeBrowse extends StandardLookup<GenNode> {
                     GenNode copy = makeCopy(orig);
                     GenNode savedCopy = dataManager.save(copy);
                     genNodesDc.getMutableItems().add(savedCopy);
-                    logger.debug("Duplicated GenAgent " + copy.getId2() + " "
-                            + "[" + orig.getId() + "]"
-                            +" -> "
-                            +"[" + copy.getId() + "]"
+                    logger.debug("Duplicated GenAgent " + copy.getId2()
+                            + " [" + orig.getId() + "]"
+                            + " -> "
+                            + "[" + copy.getId() + "]"
                     );
 
 

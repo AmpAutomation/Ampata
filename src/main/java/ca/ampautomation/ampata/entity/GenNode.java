@@ -552,7 +552,7 @@ public class GenNode {
     @Column(name = "FIN_TXFER1__ID2")
     private String finTxfer1_Id2;
 
-    @Column(name = "FIN_TXFER1__EI1__RATE", precision = 19, scale = 2)
+    @Column(name = "FIN_TXFER1__EI1__RATE", precision = 19, scale = 9)
     private BigDecimal finTxfer1_EI1_Rate;
 
     @Column(name = "CALC_RSLT", precision = 19, scale = 2)
@@ -636,7 +636,6 @@ public class GenNode {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
-
 
 
     public String getId2() {

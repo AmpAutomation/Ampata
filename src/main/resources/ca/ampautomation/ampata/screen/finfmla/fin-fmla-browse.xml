@@ -46,6 +46,7 @@
                     dataContainer="finFmlasDc">
             <actions>
                 <action id="create" type="create"/>
+                <action id="duplicate"/>
                 <action id="edit" type="edit"/>
                 <action id="refresh" type="refresh"/>
                 <action id="remove" type="remove"/>
@@ -66,6 +67,7 @@
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="finFmlasTable.create"/>
+                <button id="duplicateBtn" action="finFmlasTable.duplicate"/>
                 <button id="editBtn" action="finFmlasTable.edit"/>
                 <button id="refreshBtn" action="finFmlasTable.refresh"/>
                 <button id="removeBtn" action="finFmlasTable.remove"/>
