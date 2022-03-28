@@ -28,7 +28,7 @@
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="genNodeDc">
                 <column width="350px">
-                    <textField id="id2Field" property="id2"/>
+                    <textField id="id2Field" property="id2"/>git command line application (WinP-Mark)
                     <textField id="id2CalcField" property="id2Calc"/>
                     <checkBox id="id2CmpField" property="id2Cmp"/>
                     <textField id="id2DupField" property="id2Dup"/>

@@ -392,7 +392,7 @@
         <property name="finTxacts1_FinAccts1_Id2"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNodeType" name="finAcctType-fetch-plan-base" extends="genNodeType-fetch-plan-base">
-        <property name="balSignOnDebt"/>
-        <property name="balSignOnCred"/>
+        <property name="balIncOnDebt"/>
+        <property name="balIncOnCred"/>
     </fetchPlan>
 </fetchPlans>

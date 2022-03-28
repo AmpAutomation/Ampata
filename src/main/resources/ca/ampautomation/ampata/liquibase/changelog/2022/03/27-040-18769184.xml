@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <dropColumn columnName="BAL_SIGN_ON_CRED" tableName="AMPATA_GEN_NODE_TYPE"/>
+
+        <dropColumn columnName="BAL_SIGN_ON_DEBT" tableName="AMPATA_GEN_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="2" author="ampata">
+        <addColumn tableName="AMPATA_GEN_NODE_TYPE">
+            <column name="BAL_SIGN_ON_CRED" type="BOOLEAN"/>
+            <column name="BAL_SIGN_ON_DEBT" type="BOOLEAN"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

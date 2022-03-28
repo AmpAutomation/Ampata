@@ -9,7 +9,7 @@
                     fetchPlan="finAcctType-fetch-plan-base">
             <loader id="genNodeTypesDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinAcctType' ]]>
+                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinAcct' ]]>
                 </query>
             </loader>
         </collection>
@@ -39,9 +39,17 @@
                     width="100%"
                     dataContainer="genNodeTypesDc">
             <actions>
-                <action id="create" type="create"/>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinAcctType.edit"/>
+                    </properties>
+                </action>
                 <action id="duplicate"/>
-                <action id="edit" type="edit"/>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinAcctType.edit"/>
+                    </properties>
+                </action>
                 <action id="refresh" type="refresh"/>
                 <action id="remove" type="remove"/>
             </actions>
@@ -56,8 +64,8 @@
                 <column id="name1"/>
                 <column id="abrv"/>
                 <column id="desc1"/>
-                <column id="balSignOnDebt"/>
-                <column id="balSignOnCred"/>
+                <column id="balIncOnDebt"/>
+                <column id="balIncOnCred"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

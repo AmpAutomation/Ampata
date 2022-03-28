@@ -14,7 +14,7 @@ public class FinAcctTypeEdit extends StandardEditor<GenNodeType> {
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
-        classNameField.setValue("FinAcctType");
+        classNameField.setValue("FinAcct");
     }
 
 

@@ -46,8 +46,8 @@
                     <textArea id="desc1Field" property="desc1" rows="5"/>
                 </column>
                 <column width="350px">
-                    <textField id="balSignOnDebtField" property="balSignOnDebt"/>
-                    <textField id="balSignOnCredField" property="balSignOnCred"/>
+                    <checkBox id="balIncOnDebtField" property="balIncOnDebt"/>
+                    <checkBox id="balIncOnCredField" property="balIncOnCred"/>
                 </column>
             </form>
         </scrollBox>

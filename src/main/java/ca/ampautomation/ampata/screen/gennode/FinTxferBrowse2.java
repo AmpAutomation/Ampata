@@ -3,6 +3,7 @@ package ca.ampautomation.ampata.screen.gennode;
 import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButton;
 import ca.ampautomation.ampata.entity.FinFmla;
 import ca.ampautomation.ampata.entity.FinRate;
+import ca.ampautomation.ampata.entity.GenNodeType;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.*;
@@ -17,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -60,13 +60,18 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private TextFieldWithButton id2FieldWithButton;
 
     @Autowired
-    private TextFieldWithButton id2CalcFieldWithButton;
+    private TextField id2CalcField;
 
     Logger logger = LoggerFactory.getLogger(FinTxferBrowse2.class);
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         classNameField.setValue("FinTxfer");
+    }
+
+    @Subscribe("updateDesc1Btn")
+    public void onupdateDesc1Btn(Button.ClickEvent event) {
+        updateDesc1();
     }
 
     @Subscribe("id2FieldWithButton")
@@ -84,24 +89,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         thisFinTxfer.setId2(thisFinTxfer.getId2Calc());
 
         logger.debug(logPrfx + " --- id2: " + thisFinTxfer.getId2());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("id2CalcFieldWithButton")
-    public void onId2CalcFieldWithButtonClick(Button.ClickEvent event) {
-        String logPrfx = "onId2CalcFieldWithButtonClick";
-        logger.trace(logPrfx + " --> ");
-
-        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
-        if (thisFinTxfer == null) {
-            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        thisFinTxfer.setId2Calc(thisFinTxfer.getId2CalcFrFields());
-
-        logger.debug(logPrfx + " --- id2Calc: " + thisFinTxfer.getId2Calc());
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -303,6 +290,59 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
+    @Subscribe("calcAmtNetBtn")
+    public void onCalcAmtNetBtn(Button.ClickEvent event) {
+        String logPrfx = "onCalcAmtNetBtn";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        GenNode thisFinAcct = thisFinTxfer.getFinAcct1_Id();
+        if (thisFinAcct == null) {
+            logger.debug(logPrfx + " --- finAcct1_Id is null. Please select an account.");
+            notifications.create().withCaption("FinAcct1_Id is null. Please select an account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        GenNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        if (thisFinAcctType == null) {
+            logger.debug(logPrfx + " --- finAcct1_Id.type1_Id is null. Please select an account.");
+            notifications.create().withCaption("FinAcct1_Id.type1_Id is null. Please select a type for this account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        Boolean balIncOnDebt = thisFinAcctType.getBalIncOnDebt();
+        Boolean balIncOnCred = thisFinAcctType.getBalIncOnCred();
+        BigDecimal netAmt = BigDecimal.valueOf(0);
+
+        if (thisFinTxfer.getAmtDebt() != null) {
+            if (balIncOnDebt == null || !balIncOnDebt) {
+                netAmt = netAmt.subtract(thisFinTxfer.getAmtDebt());
+            } else {
+                netAmt = netAmt.add(thisFinTxfer.getAmtDebt());
+            }
+        }
+
+        if (thisFinTxfer.getAmtCred() != null) {
+            if (balIncOnCred == null || !balIncOnCred) {
+                netAmt = netAmt.subtract(thisFinTxfer.getAmtCred());
+            } else {
+                netAmt = netAmt.add(thisFinTxfer.getAmtCred());
+            }
+        }
+        thisFinTxfer.setAmtNet(netAmt);
+        logger.debug(logPrfx + " --- amtNet: " + netAmt);
+        logger.trace(logPrfx + " <-- ");
+    }
+
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
@@ -376,4 +416,139 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
     }
 
+    @Subscribe("idXField")
+    public void onIdXFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
+
+        updateId2Calc();
+    }
+
+    @Subscribe("idYField")
+    public void onIdYFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
+
+        updateId2Calc();
+    }
+
+    @Subscribe("idZField")
+    public void onIdZFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
+
+        updateId2Calc();
+
+    }
+
+    @Subscribe("BegDate1Field")
+    public void onBegDate1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+
+        updateId2Calc();
+
+    }
+
+
+    @Subscribe("BegTime1Field")
+    public void onBegTime1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+
+        updateId2Calc();
+    }
+
+    @Subscribe("finTxact1_BegDate1Field")
+    public void onFinTxact1_BegDate1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+
+        updateId2Calc();
+    }
+
+    @Subscribe("finTxact1_BegTime1Field")
+    public void onFinTxact1_BegTime1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+
+        updateId2Calc();
+    }
+
+
+    @Subscribe("id2FieldWithButton")
+    public void onId2FieldWithBUttonValueChange(HasValue.ValueChangeEvent<String> event) {
+        updateId2Cmp();
+        updateId2Dup();
+    }
+    @Subscribe("id2CalcField")
+    public void onId2CalcFieldValueChange(HasValue.ValueChangeEvent<String> event) {
+        updateId2Cmp();
+    }
+
+    public void updateId2Calc(){
+        String logPrfx = "updateId2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        thisFinTxfer.setId2Calc(thisFinTxfer.getId2CalcFrFields());
+
+        logger.debug(logPrfx + " --- id2Calc: " + thisFinTxfer.getId2Calc());
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    public void updateId2Cmp() {
+        String logPrfx = "updateId2Cmp";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        thisFinTxfer.setId2Cmp(!thisFinTxfer.getId2().equals(thisFinTxfer.getId2Calc()));
+
+        logger.debug(logPrfx + " --- id2Cmp: " + thisFinTxfer.getId2Cmp());
+        logger.trace(logPrfx + " <-- ");
+
+    }
+    public void updateId2Dup() {
+        String logPrfx = "updateId2Dup";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        if (thisFinTxfer.getId2() != null){
+            Integer id2Dup = dataManager.loadValue("select count(e) from ampata_GenNode e where e.className = 'FinTxfer' and e.id2 = :id2",Integer.class)
+                    .store("main")
+                    .parameter("id2",thisFinTxfer.getId2())
+                    .one();
+            thisFinTxfer.setId2Dup(id2Dup);
+
+            logger.debug(logPrfx + " --- id2Dup: " + id2Dup);
+
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    public void updateDesc1(){
+
+        String logPrfx = "updateDesc1";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = genNodeDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        String desc1 ="";
+        //thisFinTxfer.setDesc1(desc1);
+
+        logger.debug(logPrfx + " --- desc1: " + desc1);
+        logger.trace(logPrfx + " <-- ");
+    }
 }

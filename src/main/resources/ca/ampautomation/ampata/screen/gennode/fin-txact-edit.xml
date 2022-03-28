@@ -9,11 +9,12 @@
                   fetchPlan="finTxact-fetch-plan-base">
             <loader/>
         </instance>
+
         <collection id="genNodeTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
             <fetchPlan extends="_instance_name"/>
             <loader id="genNodeTypesDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxfer' order by e.id2]]>
+                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxact' order by e.id2]]>
                 </query>
             </loader>
         </collection>

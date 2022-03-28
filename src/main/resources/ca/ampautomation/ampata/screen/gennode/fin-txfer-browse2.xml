@@ -306,7 +306,7 @@
                                 <form id="tab1Form" dataContainer="genNodeDc" width="100%" height="100%">
                                     <column width="350px">
                                         <app:textFieldWithButton id="id2FieldWithButton" property="id2"/>
-                                        <app:textFieldWithButton id="id2CalcFieldWithButton" property="id2Calc" editable="false"/>
+                                        <textField id="id2CalcField" property="id2Calc" editable="false"/>
                                         <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
                                         <textField id="id2DupField" property="id2Dup" editable="false"/>
                                         <textField id="classNameField" property="className" enable="false"/>
@@ -322,7 +322,8 @@
                                         <textField id="name1Field" property="name1" width="100%"/>
                                     </column>
                                     <column width="350px">
-                                        <textArea id="desc1Field" property="desc1" rowspan="8" width="100%"/>
+                                        <textArea id="desc1Field" property="desc1" rows="8" rowspan="4" width="100%"/>
+                                        <button id="updateDesc1Btn" caption="Update desc1" align="TOP_RIGHT"/>
                                         <entityComboBox id="genChan1_IdField" dataContainer="genNodeDc"
                                                         optionsContainer="genChansDc"
                                                         property="genChan1_Id">
@@ -553,6 +554,7 @@
                                         <textField id="amtDebtField" property="amtDebt"/>
                                         <textField id="amtCredField" property="amtCred"/>
                                         <textField id="amtNetField" property="amtNet" editable="false"/>
+                                        <button id="calcAmtNetBtn" caption="Refresh amtNet" align="TOP_RIGHT"/>
 
                                         <entityComboBox id="finCurcy1_IdField" dataContainer="genNodeDc"
                                                         optionsContainer="finCurcysDc"
