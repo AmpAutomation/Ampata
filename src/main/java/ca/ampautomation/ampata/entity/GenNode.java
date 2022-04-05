@@ -644,6 +644,14 @@ public class GenNode {
     @Transient
     private Logger logger = LoggerFactory.getLogger(GenNode.class);
 
+    public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) {
+        this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2;
+    }
+
+    public void setCredSum(BigDecimal credSum) {
+        this.credSum = credSum;
+    }
+
     public String getId2() {
         return id2;
     }
@@ -1954,6 +1962,23 @@ public class GenNode {
                     logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
                 }
                 break;
+            case "FinStmt":
+                if (beg.getDate1() == null) {
+                    logger.debug(logPrfx + " --- beg.date1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+                }
+
+                if (getFinAcct1_Id() == null) {
+                    logger.debug(logPrfx + " --- finAcct1_Id: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- finAcct1_Id: " + finAcct1_Id.getId());
+                }
+                break;
             default:
 
         };
@@ -2013,6 +2038,9 @@ public class GenNode {
                     logger.debug(logPrfx + " --- finTxact1_BegTime1: " + frmtDt.format(finTxact1_BegTime1));
                     sb.append(SEP + "T" + frmtTm.format(finTxact1_BegTime1));
                 }
+                break;
+            case "FinStmt":
+                sb.append(finAcct1_Id.getId2() + SEP + "D" + frmtDt.format(finTxact1_BegDate1));
                 break;
 
             default:

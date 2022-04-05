@@ -21,9 +21,13 @@
         <item screen="ampata_FinCurcy.browse"
               caption="msg://ca.ampautomation.ampata.screen.gennode/finCurcyBrowse.menu"/>
         <item screen="ampata_FinDept.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finDeptBrowse.menu"/>
-        <item screen="ampata_FinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse.menu"/>
+        <menu id="finAcct" caption="Statements">
+            <item screen="ampata_FinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse.menu"/>
+            <item screen="ampata_FinStmt.browse2"
+                  caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse2.menu"/>
+        </menu>
         <separator> --- </separator>
-        <menu id="financeTxact" caption="Transactions">
+        <menu id="finTxact" caption="Transactions">
             <item screen="ampata_FinTxset.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxsetBrowse.menu"/>
             <item screen="ampata_FinTxset.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxsetBrowse2.menu"/>
             <separator> --- </separator>

@@ -32,12 +32,13 @@
                 width="800"/>
     <layout expand="genNodeTypesTable" spacing="true">
         <filter id="filter"
-                dataLoader="genNodeTypesDl">
+                dataLoader="genNodeTypesDl" columnsCount="4">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
-                    <propertyFilter operation="CONTAINS" property="id2"/>
-                    <propertyFilter operation="CONTAINS" property="name1"/>
+                    <propertyFilter operation="CONTAINS" property="id2" editable="true"/>
+                    <propertyFilter operation="CONTAINS" property="className" editable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" editable="true"/>
                 </configuration>
             </configurations>
         </filter>

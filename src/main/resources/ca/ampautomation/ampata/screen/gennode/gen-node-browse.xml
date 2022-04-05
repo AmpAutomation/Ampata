@@ -32,13 +32,14 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="genNodesTable" spacing="true">
-        <filter id="filter"
+        <filter id="filter" columnsCount="1"
                 dataLoader="genNodesDl">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
                     <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
-                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="className" operationEditable="true"/>
+                    <propertyFilter operation="EQUAL" property="type1_Id" operationEditable="true"/>
                 </configuration>
             </configurations>
         </filter>

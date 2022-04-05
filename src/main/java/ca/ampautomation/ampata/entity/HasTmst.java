@@ -6,7 +6,12 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.Date;
+import java.util.Locale;
 
 @JmixEntity(name = "ampata_HasTmst")
 @Embeddable
@@ -55,6 +60,13 @@ public class HasTmst {
 
     public void setDate1(Date date1) {
         this.date1 = date1;
+        ZoneId timeZone = ZoneId.systemDefault();
+        LocalDate localDate = date1.toInstant().atZone(timeZone).toLocalDate();
+        date1Yr = localDate.getYear();
+        date1Qtr = ((localDate.getMonthValue() - 1) / 4) + 1;
+        date1Mon = localDate.getMonthValue();
+        date1Mon2 = localDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.CANADA);
+        date1Day =  localDate.getDayOfMonth();
     }
 
     public Date getDate1() {
@@ -67,6 +79,10 @@ public class HasTmst {
 
     public void setTime1(Date time1) {
         this.time1 = time1;
+        ZoneId timeZone = ZoneId.systemDefault();
+        LocalTime localTime = time1.toInstant().atZone(timeZone).toLocalTime();
+        time1Hr = localTime.getHour();
+        time1Min = localTime.getMinute();
     }
 
     public Date getTime1() {
