@@ -7,10 +7,7 @@ import ca.ampautomation.ampata.entity.GenNodeType;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.*;
-import io.jmix.ui.model.CollectionContainer;
-import io.jmix.ui.model.CollectionLoader;
-import io.jmix.ui.model.DataContext;
-import io.jmix.ui.model.InstanceContainer;
+import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.GenNode;
 import io.jmix.ui.screen.LookupComponent;
@@ -29,6 +26,12 @@ import java.util.UUID;
 @LookupComponent("table")
 public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
+
+    @Autowired
+    private DataComponents dataComponents;
+
+    @Autowired
+    private FetchPlans fetchPlans;
 
     @Autowired
     private DataContext dataContext;
@@ -54,8 +57,51 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private InstanceContainer<GenNode> finTxferDc;
 
-    @Autowired
+    
+    private CollectionContainer<GenNodeType> finTxferTypesDc;
+
+    private CollectionLoader<GenNodeType> finTxferTypesDl;
+
+
+    private CollectionContainer<GenNode> genChansDc;
+
+    private CollectionLoader<GenNode> genChansDl;
+
+
+    private CollectionContainer<GenNode> finTxactsDc;
+
     private CollectionLoader<GenNode> finTxactsDl;
+
+
+    private CollectionContainer<GenNode> finStmtsDc;
+
+    private CollectionLoader<GenNode> finStmtsDl;
+
+    
+    private CollectionContainer<GenNode> finDeptsDc;
+
+    private CollectionLoader<GenNode> finDeptsDl;
+
+    
+    private CollectionContainer<GenNode> finTaxLnesDc;
+
+    private CollectionLoader<GenNode> finTaxLnesDl;
+
+
+    private CollectionContainer<GenNode> finAcctsDc;
+
+    private CollectionLoader<GenNode> finAcctsDl;
+
+
+    private CollectionContainer<GenNode> finCurcysDc;
+
+    private CollectionLoader<GenNode> finCurcysDl;
+
+
+    private CollectionContainer<GenNode> finTxfer1sDc;
+
+    private CollectionLoader<GenNode> finTxfer1sDl;
+
 
     @Autowired
     private TextField<String> classNameField;
@@ -66,6 +112,33 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private TextField<String> id2CalcField;
 
+    @Autowired
+    private EntityComboBox<GenNodeType> type1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genChan1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finTxact1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finStmt1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finDept1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finTaxLne1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finAcct1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finCurcy1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finTxfer1_IdField;
+    
     @Autowired
     private TextField<String> finTxact1_Id2CalcField;
 
@@ -85,7 +158,125 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.warn("A WARN Message");
         logger.error("An ERROR Message");
 */
+
+        finTxferTypesDc = dataComponents.createCollectionContainer(GenNodeType.class);
+        finTxferTypesDl = dataComponents.createCollectionLoader();
+        finTxferTypesDl.setQuery("select e from ampata_GenNodeType e where e.className = 'FinTxfer' order by e.id2");
+        FetchPlan finTxferTypesFp = fetchPlans.builder(GenNodeType.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finTxferTypesDl.setFetchPlan(finTxferTypesFp);
+        finTxferTypesDl.setContainer(finTxferTypesDc);
+        finTxferTypesDl.setDataContext(getScreenData().getDataContext());
+        type1_IdField.setOptionsContainer(finTxferTypesDc);
+
+
+        genChansDc = dataComponents.createCollectionContainer(GenNode.class);
+        genChansDl = dataComponents.createCollectionLoader();
+        genChansDl.setQuery("select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2");
+        FetchPlan genChansFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genChansDl.setFetchPlan(genChansFp);
+        genChansDl.setContainer(genChansDc);
+        genChansDl.setDataContext(getScreenData().getDataContext());
+
+        genChan1_IdField.setOptionsContainer(genChansDc);
+
+
+        finTxactsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finTxactsDl = dataComponents.createCollectionLoader();
+        finTxactsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinTxact' order by e.id2");
+        FetchPlan finTxactsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finTxactsDl.setFetchPlan(finTxactsFp);
+        finTxactsDl.setContainer(finTxactsDc);
+        finTxactsDl.setDataContext(getScreenData().getDataContext());
+
+        finTxact1_IdField.setOptionsContainer(finTxactsDc);
+        
+
+        finStmtsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finStmtsDl = dataComponents.createCollectionLoader();
+        finStmtsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinStmt' order by e.id2");
+        FetchPlan finStmtsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finStmtsDl.setFetchPlan(finStmtsFp);
+        finStmtsDl.setContainer(finStmtsDc);
+        finStmtsDl.setDataContext(getScreenData().getDataContext());
+
+        finStmt1_IdField.setOptionsContainer(finStmtsDc);
+
+        
+        finDeptsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finDeptsDl = dataComponents.createCollectionLoader();
+        finDeptsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinDept' order by e.id2");
+        FetchPlan finDeptsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finDeptsDl.setFetchPlan(finDeptsFp);
+        finDeptsDl.setContainer(finDeptsDc);
+        finDeptsDl.setDataContext(getScreenData().getDataContext());
+
+        finDept1_IdField.setOptionsContainer(finDeptsDc);
+
+
+        finTaxLnesDc = dataComponents.createCollectionContainer(GenNode.class);
+        finTaxLnesDl = dataComponents.createCollectionLoader();
+        finTaxLnesDl.setQuery("select e from ampata_GenNode e where e.className = 'GenDocFrg' order by e.id2");
+        FetchPlan finTaxLnesFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finTaxLnesDl.setFetchPlan(finTaxLnesFp);
+        finTaxLnesDl.setContainer(finTaxLnesDc);
+        finTaxLnesDl.setDataContext(getScreenData().getDataContext());
+
+        finTaxLne1_IdField.setOptionsContainer(finTaxLnesDc);
+
+
+        finAcctsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finAcctsDl = dataComponents.createCollectionLoader();
+        finAcctsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinAcct' order by e.id2");
+        FetchPlan finAcctsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finAcctsDl.setFetchPlan(finAcctsFp);
+        finAcctsDl.setContainer(finAcctsDc);
+        finAcctsDl.setDataContext(getScreenData().getDataContext());
+
+        finAcct1_IdField.setOptionsContainer(finAcctsDc);
+
+
+        finCurcysDc = dataComponents.createCollectionContainer(GenNode.class);
+        finCurcysDl = dataComponents.createCollectionLoader();
+        finCurcysDl.setQuery("select e from ampata_GenNode e where e.className = 'FinCurcy' order by e.id2");
+        FetchPlan finCurcysFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finCurcysDl.setFetchPlan(finCurcysFp);
+        finCurcysDl.setContainer(finCurcysDc);
+        finCurcysDl.setDataContext(getScreenData().getDataContext());
+
+        finCurcy1_IdField.setOptionsContainer(finCurcysDc);
+
+
+        finTxfer1sDc = dataComponents.createCollectionContainer(GenNode.class);
+        finTxfer1sDl = dataComponents.createCollectionLoader();
+        finTxfer1sDl.setQuery("select e from ampata_GenNode e where e.className = 'FinTxfer' order by e.id2");
+        FetchPlan finTxfer1sFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finTxfer1sDl.setFetchPlan(finTxfer1sFp);
+        finTxfer1sDl.setContainer(finTxfer1sDc);
+        finTxfer1sDl.setDataContext(getScreenData().getDataContext());
+
+        finTxfer1_IdField.setOptionsContainer(finTxfer1sDc);
+
+
         logger.trace(logPrfx + " <--- ");
+
 
     }
 
@@ -279,6 +470,29 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
+    @Subscribe("updateListType1_IdFieldBtn")
+    public void onUpdateListType1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListType1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finTxferTypesDl.load();
+        logger.debug(logPrfx + " --- called finTxferTypesDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListGenChan1_IdFieldBtn")
+    public void onUpdateListGenChan1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListGenChan1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        genChansDl.load();
+        logger.debug(logPrfx + " --- called genChansDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    
     @Subscribe("updateDesc1FieldBtn")
     public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateDesc1FieldBtn";
@@ -442,14 +656,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onUpdateListFinTxact1_IdFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-
-        GenNode thisFinTxfer = finTxferDc.getItemOrNull();
-        if (thisFinTxfer == null) {
-            logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
         finTxactsDl.load();
         logger.debug(logPrfx + " --- called finTxactsDl.load() ");
 
@@ -524,6 +730,73 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.trace(logPrfx + " <-- ");
     }
+
+    @Subscribe("updateListFinStmt1_IdFieldBtn")
+    public void onUpdateListFinStmt1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinStmt1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finStmtsDl.load();
+        logger.debug(logPrfx + " --- called finStmtsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinDept1_IdFieldBtn")
+    public void onUpdateListFinDept1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinDept1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finDeptsDl.load();
+        logger.debug(logPrfx + " --- called finDeptsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTaxLne1_IdFieldBtn")
+    public void onUpdateListFinTaxLne1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTaxLne1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finTaxLnesDl.load();
+        logger.debug(logPrfx + " --- called finTaxLnesDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinAcct1_IdFieldBtn")
+    public void onUpdateListFinAcct1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinAcct1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finAcctsDl.load();
+        logger.debug(logPrfx + " --- called finAcctsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinCurcy1_IdFieldBtn")
+    public void onUpdateListFinCurcy1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinCurcy1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTxfer1_IdFieldBtn")
+    public void onUpdateListFinTxfer1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTxfer1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finTxfer1sDl.load();
+        logger.debug(logPrfx + " --- called finTxfer1sDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
 
     @Subscribe("updateFinTxfer1_EI1_RateBtn")
     public void onUpdateFinTxfer1_EI1_RateBtnClick(Button.ClickEvent event) {

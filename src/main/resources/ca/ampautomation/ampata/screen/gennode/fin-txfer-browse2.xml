@@ -19,44 +19,6 @@
             <loader/>
         </instance>
 
-        <collection id="finTxferTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finTxferTypesDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxfer' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finTxsetsDc"
-                    class="ca.ampautomation.ampata.entity.GenNode"
-                    fetchPlan="finTxfer-fetch-plan-base">
-            <loader id="finTxsetsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxset' ORDER BY e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finTxactsDc"
-                    class="ca.ampautomation.ampata.entity.GenNode"
-                    fetchPlan="finTxfer-fetch-plan-base">
-            <loader id="finTxactsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxact' ORDER BY e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genChansDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genChansDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
         <collection id="genDocsDc" class="ca.ampautomation.ampata.entity.GenNode">
             <fetchPlan extends="_instance_name"/>
             <loader id="genDocsDl">
@@ -71,60 +33,6 @@
             <loader id="genTagsDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'GenTag' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finAcctsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finAcctsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinAcct' order by e.sortOrder]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finDeptsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finDeptssDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinDept' order by e.sortOrder]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finStmtsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finStmtsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmt' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finTaxsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finTaxsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTax' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finCurcysDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finCurcysDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinCurcy' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finTxfers1Dc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finTxfers1Dl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxfer' order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -324,25 +232,28 @@
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH"/>
                                         </hbox>
                                         <textField id="classNameField" property="className" enable="false"/>
-                                        <entityComboBox id="type1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finTxferTypesDc"
-                                                        property="type1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox spacing="true" caption="id2Dup" expand="type1_IdField">
+                                            <entityComboBox id="type1_IdField" dataContainer="finTxferDc"
+                                                            property="type1_Id">
+                                                <actions>
+                                                    <action id="entityLookup" type="entity_lookup"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListType1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="name1Field" property="name1" width="100%"/>
                                     </column>
                                     <column width="350px">
-                                        <entityComboBox id="genChan1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="genChansDc"
-                                                        property="genChan1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox spacing="true" caption="genChan1_Id" expand="genChan1_IdField">
+                                            <entityComboBox id="genChan1_IdField" dataContainer="finTxferDc"
+                                                            property="genChan1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListGenChan1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="genChan1_Id2Field" property="genChan1_Id2" width="100%"/>
                                     </column>
                                     <column width="350px">
@@ -443,12 +354,10 @@
                                         <hbox caption="finTxact1_FinTxfers1_Id2" expand="finTxact1_FinTxfers1_Id2Field" width="100%" colspan="3">
                                             <textArea id="finTxact1_FinTxfers1_Id2Field" dataContainer="finTxferDc" property="finTxact1_FinTxfers1_Id2" rows="1" colspan="3"/>
                                         </hbox>
-                                        <hbox caption="finTxact1_IdField" expand="finTxact1_IdField">
+                                        <hbox caption="finTxact1_Id" expand="finTxact1_IdField">
                                             <entityComboBox id="finTxact1_IdField" dataContainer="finTxferDc"
-                                                            optionsContainer="finTxactsDc"
                                                             property="finTxact1_Id">
                                                 <actions>
-                                                    <action id="entityLookup" type="entity_lookup"/>
                                                     <action id="entityClear" type="entity_clear"/>
                                                 </actions>
                                             </entityComboBox>
@@ -477,14 +386,15 @@
                                  spacing="true">
                                 <form id="tab4Form" dataContainer="finTxferDc" width="100%">
                                     <column width="350px">
-                                        <entityComboBox id="finStmt1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finStmtsDc"
-                                                        property="finStmt1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox caption="finStmt1_Id" expand="finStmt1_IdField">
+                                            <entityComboBox id="finStmt1_IdField" dataContainer="finTxferDc"
+                                                            property="finStmt1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinStmt1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="finStmt1_Id2Field" property="finStmt1_Id2"/>
                                         <textField id="stmtDescL1Field" property="stmtDescL1"/>
                                         <textField id="stmtDescL2Field" property="stmtDescL2"/>
@@ -493,25 +403,27 @@
                                         <textField id="stmtRefIdField" property="stmtRefId"/>
                                     </column>
                                     <column width="350px">
-                                        <entityComboBox id="finDept1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finDeptsDc"
-                                                        property="finDept1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox caption="finDept1_Id" expand="finDept1_IdField">
+                                            <entityComboBox id="finDept1_IdField" dataContainer="finTxferDc"
+                                                            property="finDept1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinDept1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="finDept1_Id2Field" property="finDept1_Id2"/>
                                     </column>
                                     <column width="350px">
-                                        <entityComboBox id="finTaxLne1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finTaxsDc"
-                                                        property="finTaxLne1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox caption="finTaxLne1_Id" expand="finTaxLne1_IdField">
+                                            <entityComboBox id="finTaxLne1_IdField" dataContainer="finTxferDc"
+                                                            property="finTaxLne1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinTaxLne1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="finTaxLne1_Id2Field" property="finTaxLne1_Id2"/>
                                         <textField id="finTaxLne1_CodeField" property="finTaxLne1_Code"/>
                                         <entityPicker id="finTaxLne1_Type1_IdField" property="finTaxLne1_Type1_Id">
@@ -536,14 +448,15 @@
                                         <hbox spacing="true" caption="finTxact1_FinAccts1_Id2" width="100%" colspan="3">
                                             <textArea id="finTxact1_FinAccts1_Id2Field" dataContainer="finTxferDc" property="finTxact1_FinAccts1_Id2" width="100%" rows="1" editable="false"/>
                                         </hbox>
-                                        <entityComboBox id="finAcct1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finAcctsDc"
-                                                        property="finAcct1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox caption="finAcct1_Id" expand="finAcct1_IdField">
+                                            <entityComboBox id="finAcct1_IdField" dataContainer="finTxferDc"
+                                                            property="finAcct1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinAcct1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <textField id="finAcct_Type1_Id2Field" property="finAcct1_Type1_Id2" editable="false"/>
                                     </column>
                                     <column width="350px">
@@ -553,15 +466,16 @@
                                             <textField id="amtNetField" dataContainer="finTxferDc" property="amtNet" editable="false" width="100%"/>
                                             <button id="updateCalcAmtNetBtn" icon="font-icon:REFRESH"/>
                                         </hbox>
+                                        <hbox caption="finCurcy1_Id" expand="finCurcy1_IdField">
+                                            <entityComboBox id="finCurcy1_IdField" dataContainer="finTxferDc"
+                                                            property="finCurcy1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinCurcy1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
 
-                                        <entityComboBox id="finCurcy1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finCurcysDc"
-                                                        property="finCurcy1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
                                     </column>
                                     <column width="350px">
                                         <entityComboBox id="finFmla1_IdField" dataContainer="finTxferDc"
@@ -572,14 +486,15 @@
                                                 <action id="entityClear" type="entity_clear"/>
                                             </actions>
                                         </entityComboBox>
-                                        <entityComboBox id="finTxfer1_IdField" dataContainer="finTxferDc"
-                                                        optionsContainer="finTxfers1Dc"
-                                                        property="finTxfer1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
+                                        <hbox caption="finTxfer1_Id" expand="finTxfer1_IdField">
+                                            <entityComboBox id="finTxfer1_IdField" dataContainer="finTxferDc"
+                                                            property="finTxfer1_Id">
+                                                <actions>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinTxfer1_IdFieldBtn" icon="font-icon:LIST"/>
+                                        </hbox>
                                         <hbox spacing="true" caption="finTxfer1_EI1_Rate" expand="finTxfer1_EI1_RateField">
                                             <textField id="finTxfer1_EI1_RateField" dataContainer="finTxferDc" property="finTxfer1_EI1_Rate" width="100%">
                                                 <formatter>
