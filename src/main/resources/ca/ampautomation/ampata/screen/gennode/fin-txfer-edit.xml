@@ -3,7 +3,7 @@
         caption="msg://finTxferEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="genNodeDc"
+        <instance id="finTxferDc"
                   class="ca.ampautomation.ampata.entity.GenNode"
                   fetchPlan="finTxfer-fetch-plan-base">
             <loader/>
@@ -26,13 +26,13 @@
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="genNodeDc">
+            <form id="form" dataContainer="finTxferDc">
                 <tabSheet width="1200px">
                     <tab id="tab_1"
                          caption="General"
                          margin="true"
                          spacing="true">
-                        <form id="tab1Form" dataContainer="genNodeDc">
+                        <form id="tab1Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <textField id="id2Field" property="id2"/>
                                 <button id="id2Button" caption="Set id2" align="TOP_CENTER"/>
@@ -72,7 +72,7 @@
                          caption="Docs, Files"
                          margin="true"
                          spacing="true">
-                        <form id="tab2Form" dataContainer="genNodeDc">
+                        <form id="tab2Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <textArea id="finTxset1_GenDocVers1_Id2Field" property="finTxset1_GenDocVers1_Id2" rows="4"/>
                                 <textArea id="finTxact1_GenDocVers1_Id2Field" property="finTxact1_GenDocVers1_Id2" rows="4"/>
@@ -101,7 +101,7 @@
                          caption="Chan, Tags"
                          margin="true"
                          spacing="true">
-                        <form id="tab3Form" dataContainer="genNodeDc">
+                        <form id="tab3Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <entityPicker id="genChan1_IdField" property="genChan1_Id">
                                     <actions>
@@ -151,7 +151,7 @@
                          caption="FinTxset, FinTxact"
                          margin="true"
                          spacing="true">
-                        <form id="tab4Form" dataContainer="genNodeDc">
+                        <form id="tab4Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <textArea id="finTxset1_FinTxacts1_Id2Field" property="finTxset1_FinTxacts1_Id2" rows="4"/>
                                 <entityPicker id="finTxset1_IdField" property="finTxset1_Id">
@@ -196,7 +196,7 @@
                          caption="Stmt, Acct"
                          margin="true"
                          spacing="true">
-                        <form id="tab5Form" dataContainer="genNodeDc">
+                        <form id="tab5Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <entityPicker id="finStmt1_IdField" property="finStmt1_Id">
                                     <actions>
@@ -241,7 +241,7 @@
                          caption="Dept, Tax"
                          margin="true"
                          spacing="true">
-                        <form id="tab6Form" dataContainer="genNodeDc">
+                        <form id="tab6Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <textField id="finDept1_Id2Field" property="finDept1_Id2"/>
                                 <entityPicker id="finTaxLne1_IdField" property="finTaxLne1_Id">
@@ -268,7 +268,7 @@
                          caption="How, What, Why"
                          margin="true"
                          spacing="true">
-                        <form id="tab7Form" dataContainer="genNodeDc">
+                        <form id="tab7Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <entityPicker id="finHow1_IdField" property="finHow1_Id">
                                     <actions>
@@ -337,7 +337,7 @@
                          caption="Amt, Fmla"
                          margin="true"
                          spacing="true">
-                        <form id="tab8Form" dataContainer="genNodeDc">
+                        <form id="tab8Form" dataContainer="finTxferDc">
                             <column width="350px">
                                 <textField id="amtDebtField" property="amtDebt"/>
                                 <textField id="amtCredField" property="amtCred"/>

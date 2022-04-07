@@ -2,12 +2,12 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finCurcyBrowse.caption"
-        focusComponent="genNodesTable">
+        focusComponent="finCurcysTable">
     <data readOnly="true">
-        <collection id="genNodesDc"
+        <collection id="finCurcysDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="genCurcy-fetch-plan-base">
-            <loader id="genNodesDl">
+            <loader id="finCurcysDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'FinCurcy']]>
                 </query>
@@ -30,9 +30,9 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="genNodesTable" spacing="true">
+    <layout expand="finCurcysTable" spacing="true">
         <filter id="filter"
-                dataLoader="genNodesDl">
+                dataLoader="finCurcysDl">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -41,9 +41,9 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="genNodesTable"
+        <groupTable id="finCurcysTable"
                     width="100%"
-                    dataContainer="genNodesDc">
+                    dataContainer="finCurcysDc">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -77,10 +77,10 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="genNodesTable.create"/>
-                <button id="editBtn" action="genNodesTable.edit"/>
-                <button id="refreshBtn" action="genNodesTable.refresh"/>
-                <button id="removeBtn" action="genNodesTable.remove"/>
+                <button id="createBtn" action="finCurcysTable.create"/>
+                <button id="editBtn" action="finCurcysTable.edit"/>
+                <button id="refreshBtn" action="finCurcysTable.refresh"/>
+                <button id="removeBtn" action="finCurcysTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

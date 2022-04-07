@@ -2,12 +2,12 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finTxsetBrowse.caption"
-        focusComponent="genNodesTable">
+        focusComponent="finTxsetsTable">
     <data readOnly="true">
-        <collection id="genNodesDc"
+        <collection id="finTxsetsDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finTxset-fetch-plan-base">
-            <loader id="genNodesDl">
+            <loader id="finTxsetsDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxset']]>
                 </query>
@@ -30,14 +30,14 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="genNodesTable" spacing="true">
+    <layout expand="finTxsetsTable" spacing="true">
         <filter id="filter"
-                dataLoader="genNodesDl">
+                dataLoader="finTxsetsDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="genNodesTable"
+        <groupTable id="finTxsetsTable"
                     width="100%"
-                    dataContainer="genNodesDc">
+                    dataContainer="finTxsetsDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -123,10 +123,10 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="genNodesTable.create"/>
-                <button id="editBtn" action="genNodesTable.edit"/>
-                <button id="refreshBtn" action="genNodesTable.refresh"/>
-                <button id="removeBtn" action="genNodesTable.remove"/>
+                <button id="createBtn" action="finTxsetsTable.create"/>
+                <button id="editBtn" action="finTxsetsTable.edit"/>
+                <button id="refreshBtn" action="finTxsetsTable.refresh"/>
+                <button id="removeBtn" action="finTxsetsTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

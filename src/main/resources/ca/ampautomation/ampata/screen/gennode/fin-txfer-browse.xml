@@ -4,7 +4,7 @@
         caption="msg://finTxferBrowse.caption"
         focusComponent="genNodesTable">
     <data readOnly="true">
-        <collection id="genNodesDc"
+        <collection id="finTxfersDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finTxfer-fetch-plan-base">
             <loader id="genNodesDl">
@@ -43,7 +43,7 @@
         </filter>
         <groupTable id="genNodesTable"
                     width="100%"
-                    dataContainer="genNodesDc">
+                    dataContainer="finTxfersDc">
             <actions>
                 <action id="create" type="create">
                     <properties>

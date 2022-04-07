@@ -149,13 +149,13 @@ public class GenNode {
     @Column(name = "GEN_DOC_VER1__ID2")
     private String genDocVer1_Id2;
 
-    @Column(name = "GEN_DOC_REV1__CODE")
+    @Column(name = "GEN_DOC_VER1__CODE")
     private String genDocVer1_Code;
 
-    @Column(name = "GEN_DOC_REV1__REV")
+    @Column(name = "GEN_DOC_VER1__VER")
     private String genDocVer1_Ver;
 
-    @Column(name = "GEN_DOC_REV1__NAME1")
+    @Column(name = "GEN_DOC_VER1__NAME1")
     private String genDocVer1_Name1;
 
     @JoinColumn(name = "GEN_FILE1__ID")
@@ -176,21 +176,21 @@ public class GenNode {
     @ManyToOne(fetch = FetchType.LAZY)
     private GenNode genTag1_Id;
 
-    @Column(name = "GEN_TAG1_ID2")
+    @Column(name = "GEN_TAG1__ID2")
     private String genTag1_Id2;
 
     @JoinColumn(name = "GEN_TAG2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private GenNode genTag2_Id;
 
-    @Column(name = "GEN_TAG2_ID2")
+    @Column(name = "GEN_TAG2__ID2")
     private String genTag2_Id2;
 
     @JoinColumn(name = "GEN_TAG3__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private GenNode genTag3_Id;
 
-    @Column(name = "GEN_TAG3_ID2")
+    @Column(name = "GEN_TAG3__ID2")
     private String genTag3_Id2;
 
     @JoinColumn(name = "GEN_TAG4__ID")
@@ -340,7 +340,7 @@ public class GenNode {
     @ManyToOne(fetch = FetchType.LAZY)
     private GenNodeType finTxset1_Type1_Id;
 
-    @Column(name = "FIN_TXSET__TYPE1__ID2")
+    @Column(name = "FIN_TXSET1__TYPE1__ID2")
     private String finTxset1_Type1_Id2;
 
     @Lob

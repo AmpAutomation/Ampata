@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("ampata_FinTxfer.edit")
 @UiDescriptor("fin-txfer-edit.xml")
-@EditedEntityContainer("genNodeDc")
+@EditedEntityContainer("finTxferDc")
 public class FinTxferEdit extends StandardEditor<GenNode> {
     @Autowired
     private TextField<String> classNameField;

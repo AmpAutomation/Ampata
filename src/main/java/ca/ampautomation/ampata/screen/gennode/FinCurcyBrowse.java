@@ -5,6 +5,6 @@ import ca.ampautomation.ampata.entity.GenNode;
 
 @UiController("ampata_FinCurcy.browse")
 @UiDescriptor("fin-curcy-browse.xml")
-@LookupComponent("genNodesTable")
+@LookupComponent("finCurcysTable")
 public class FinCurcyBrowse extends StandardLookup<GenNode> {
 }

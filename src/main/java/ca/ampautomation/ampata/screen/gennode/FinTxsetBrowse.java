@@ -5,6 +5,6 @@ import ca.ampautomation.ampata.entity.GenNode;
 
 @UiController("ampata_FinTxset.browse")
 @UiDescriptor("fin-txset-browse.xml")
-@LookupComponent("genNodesTable")
+@LookupComponent("finTxsetTable")
 public class FinTxsetBrowse extends StandardLookup<GenNode> {
 }

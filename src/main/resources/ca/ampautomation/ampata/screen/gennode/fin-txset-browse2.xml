@@ -4,23 +4,23 @@
         xmlns:app="http://schemas.company.com/ui.ex1/0.1/app-ui-components.xsd"
         focusComponent="table">
     <data>
-        <collection id="genNodesDc"
+        <collection id="finTxsetsDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finTxset-fetch-plan-base">
-            <loader id="genNodesDl">
+            <loader id="finTxsetsDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxset']]>
                 </query>
             </loader>
         </collection>
-        <instance id="genNodeDc"
+        <instance id="finTxsetDc"
                   class="ca.ampautomation.ampata.entity.GenNode"
                   fetchPlan="finTxset-fetch-plan-base">
             <loader/>
         </instance>
-        <collection id="genNodeTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
+        <collection id="finTxsetTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
             <fetchPlan extends="_instance_name"/>
-            <loader id="genNodeTypesDl">
+            <loader id="finTxsetTypesDl">
                 <query>
                     <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxset' order by e.id2]]>
                 </query>
@@ -94,7 +94,7 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
-                <filter id="filter" dataLoader="genNodesDl">
+                <filter id="filter" dataLoader="finTxsetsDl">
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
@@ -105,7 +105,7 @@
                 </filter>
                 <groupTable id="table"
                             width="100%"
-                            dataContainer="genNodesDc">
+                            dataContainer="finTxsetsDc">
                     <actions>
                         <action id="create" type="create"/>
                         <action id="duplicate"/>
@@ -206,21 +206,21 @@
             </vbox>
             <vbox id="editBox" height="100%" margin="false,false,false,true" expand="fieldGroupBox" spacing="true">
                 <scrollBox id="fieldGroupBox">
-                    <form id="form" dataContainer="genNodeDc" width="100%" height="100%">
+                    <form id="form" dataContainer="finTxsetDc" width="100%" height="100%">
                         <tabSheet width="100%">
                             <tab id="tab_1"
                                  caption="General"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab1Form" dataContainer="genNodeDc" width="100%" height="100%">
+                                <form id="tab1Form" dataContainer="finTxsetDc" width="100%" height="100%">
                                     <column width="350px">
                                         <app:textFieldWithButton id="id2FieldWithButton" property="id2"/>
                                         <app:textFieldWithButton id="id2CalcFieldWithButton" property="id2Calc" editable="false"/>
                                         <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
                                         <textField id="id2DupField" property="id2Dup" editable="false"/>
                                         <textField id="classNameField" property="className" enable="false"/>
-                                        <entityComboBox id="type1_IdField" dataContainer="genNodeDc"
-                                                        optionsContainer="genNodeTypesDc"
+                                        <entityComboBox id="type1_IdField" dataContainer="finTxsetDc"
+                                                        optionsContainer="finTxsetTypesDc"
                                                         property="type1_Id">
                                             <actions>
                                                 <action id="entityLookup" type="entity_lookup"/>
@@ -232,7 +232,7 @@
                                     </column>
                                     <column width="350px">
                                         <textArea id="desc1Field" property="desc1" rowspan="8" width="100%"/>
-                                        <entityComboBox id="genChan1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genChan1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genChansDc"
                                                         property="genChan1_Id">
                                             <actions>
@@ -253,10 +253,10 @@
                                  caption="Docs, Files, Tags"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab2Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab2Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
                                         <textArea id="genDocs1_Id2Field" property="genDocVers1_Id2" rows="4"/>
-                                        <entityComboBox id="genDocVer1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genDocVer1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genDocsDc"
                                                         property="genDocVer1_Id">
                                             <actions>
@@ -278,7 +278,7 @@
                                     </column>
                                     <column width="350px">
                                         <textArea id="genTags1_Id2Field" property="genTags1_Id2" rows="4"/>
-                                        <entityComboBox id="genTag1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genTag1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genTagsDc"
                                                         property="genTag1_Id">
                                             <actions>
@@ -287,7 +287,7 @@
                                             </actions>
                                         </entityComboBox>
                                         <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
-                                        <entityComboBox id="genTag2_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genTag2_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genTagsDc"
                                                         property="genTag2_Id">
                                             <actions>
@@ -296,7 +296,7 @@
                                             </actions>
                                         </entityComboBox>
                                         <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
-                                        <entityComboBox id="genTag3_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genTag3_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genTagsDc"
                                                         property="genTag3_Id">
                                             <actions>
@@ -305,7 +305,7 @@
                                             </actions>
                                         </entityComboBox>
                                         <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
-                                        <entityComboBox id="genTag4_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="genTag4_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="genTagsDc"
                                                         property="genTag4_Id">
                                             <actions>
@@ -321,7 +321,7 @@
                                  caption="FinTxset, FinTxact"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab3Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab3Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
                                         <textArea id="finTxacts1_Id2Field" property="finTxacts1_Id2" rows="4"/>
                                         <textArea id="finTxacts1_FinAccts1_Id2Field" property="finTxacts1_FinAccts1_Id2" rows="4"/>
@@ -338,7 +338,7 @@
                                  caption="Stmt, Dept, Tax"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab4Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab4Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
                                     </column>
                                     <column width="350px">
@@ -351,7 +351,7 @@
                                  caption="Acct, Amt, Fmla"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab5Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab5Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
                                     </column>
                                     <column width="350px">
@@ -364,9 +364,9 @@
                                  caption="How, What, Why"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab6Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab6Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
-                                        <entityComboBox id="finHow1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="finHow1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="finHowsDc"
                                                         property="finHow1_Id">
                                             <actions>
@@ -378,7 +378,7 @@
                                     </column>
                                     <column width="350px">
                                         <textField id="whatText1Field" property="whatText1"/>
-                                        <entityComboBox id="finWhat1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="finWhat1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="finWhatsDc"
                                                         property="finWhat1_Id">
                                             <actions>
@@ -390,7 +390,7 @@
                                     </column>
                                     <column width="350px">
                                         <textField id="whyText1Field" property="whyText1"/>
-                                        <entityComboBox id="finWhy1_IdField" dataContainer="genNodeDc"
+                                        <entityComboBox id="finWhy1_IdField" dataContainer="finTxsetDc"
                                                         optionsContainer="finWhysDc"
                                                         property="finWhy1_Id">
                                             <actions>
@@ -406,7 +406,7 @@
                                  caption="Note"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab7Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab7Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="100%">
                                         <textArea id="noteField" property="note"
                                                   height="100%" width="100%"/>
@@ -417,7 +417,7 @@
                                  caption="Other"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab8Form" dataContainer="genNodeDc" width="100%">
+                                <form id="tab8Form" dataContainer="finTxsetDc" width="100%">
                                     <column width="350px">
                                     </column>
                                     <column width="350px">

@@ -3,7 +3,7 @@
         caption="msg://finTxsetEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="genNodeDc"
+        <instance id="finTsetDc"
                   class="ca.ampautomation.ampata.entity.GenNode"
                   fetchPlan="finTxset-fetch-plan-base">
             <loader/>
@@ -26,7 +26,7 @@
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="genNodeDc">
+            <form id="form" dataContainer="finTsetDc">
                 <column width="350px">
                     <textField id="id2Field" property="id2"/>git command line application (WinP-Mark)
                     <textField id="id2CalcField" property="id2Calc"/>

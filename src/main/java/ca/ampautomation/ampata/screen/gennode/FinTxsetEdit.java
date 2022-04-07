@@ -5,6 +5,6 @@ import ca.ampautomation.ampata.entity.GenNode;
 
 @UiController("ampata_FinTxset.edit")
 @UiDescriptor("fin-txset-edit.xml")
-@EditedEntityContainer("genNodeDc")
+@EditedEntityContainer("finTsetDc")
 public class FinTxsetEdit extends StandardEditor<GenNode> {
 }

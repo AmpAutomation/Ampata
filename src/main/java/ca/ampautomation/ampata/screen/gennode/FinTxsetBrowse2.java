@@ -41,10 +41,10 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
     private Notifications notifications;
 
     @Autowired
-    private CollectionContainer<GenNode> genNodesDc;
+    private CollectionContainer<GenNode> finTxsetsDc;
 
     @Autowired
-    private InstanceContainer<GenNode> genNodeDc;
+    private InstanceContainer<GenNode> finTxsetDc;
 
     @Autowired
     private TextField<String> classNameField;
@@ -68,9 +68,9 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onId2FieldWithButtonClick";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinTxset = genNodeDc.getItemOrNull();
+        GenNode thisFinTxset = finTxsetDc.getItemOrNull();
         if (thisFinTxset == null) {
-            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- finTxsetDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -86,9 +86,9 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onId2CalcFieldWithButtonClick";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinTxset = genNodeDc.getItemOrNull();
+        GenNode thisFinTxset = finTxsetDc.getItemOrNull();
         if (thisFinTxset == null) {
-            logger.debug(logPrfx + " --- genNodeDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- finTxsetDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
