@@ -1,15 +1,12 @@
 package ca.ampautomation.ampata.screen.gennode;
 
 import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButton;
-import ca.ampautomation.ampata.entity.FinFmla;
-import ca.ampautomation.ampata.entity.FinRate;
-import ca.ampautomation.ampata.entity.GenNodeType;
+import ca.ampautomation.ampata.entity.*;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.GenNode;
 import io.jmix.ui.screen.LookupComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,6 +100,26 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private CollectionLoader<GenNode> finTxfer1sDl;
 
 
+    private CollectionContainer<FinFmla> finFmlasDc;
+
+    private CollectionLoader<FinFmla> finFmlasDl;
+
+
+    private CollectionContainer<FinHow> finHowsDc;
+
+    private CollectionLoader<FinHow> finHowsDl;
+
+
+    private CollectionContainer<FinWhat> finWhatsDc;
+
+    private CollectionLoader<FinWhat> finWhatsDl;
+
+
+    private CollectionContainer<FinWhy> finWhysDc;
+
+    private CollectionLoader<FinWhy> finWhysDl;
+
+
     @Autowired
     private TextField<String> classNameField;
 
@@ -141,6 +158,31 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     
     @Autowired
     private TextField<String> finTxact1_Id2CalcField;
+
+    @Autowired
+    private EntityComboBox<FinFmla>  finFmla1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinHow>  finHow1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinWhat>  finWhat1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinWhat>  finTxact1_Id_FinWhat1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinWhat>  finTxset1_Id_FinWhat1_IdField;
+
+
+    @Autowired
+    private EntityComboBox<FinWhy>  finWhy1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinWhy>  finTxact1_Id_FinWhy1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinWhy>  finTxset1_Id_FinWhy1_IdField;
 
 
 
@@ -274,6 +316,62 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         finTxfer1_IdField.setOptionsContainer(finTxfer1sDc);
 
+
+        finFmlasDc = dataComponents.createCollectionContainer(FinFmla.class);
+        finFmlasDl = dataComponents.createCollectionLoader();
+        finFmlasDl.setQuery("select e from ampata_FinFmla e order by e.id2");
+        FetchPlan finFmlasFp = fetchPlans.builder(FinFmla.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finFmlasDl.setFetchPlan(finFmlasFp);
+        finFmlasDl.setContainer(finFmlasDc);
+        finFmlasDl.setDataContext(getScreenData().getDataContext());
+
+        finFmla1_IdField.setOptionsContainer(finFmlasDc);
+
+
+        finHowsDc = dataComponents.createCollectionContainer(FinHow.class);
+        finHowsDl = dataComponents.createCollectionLoader();
+        finHowsDl.setQuery("select e from ampata_FinHow e order by e.id2");
+        FetchPlan finHowsFp = fetchPlans.builder(FinHow.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finHowsDl.setFetchPlan(finHowsFp);
+        finHowsDl.setContainer(finHowsDc);
+        finHowsDl.setDataContext(getScreenData().getDataContext());
+
+        finHow1_IdField.setOptionsContainer(finHowsDc);
+
+
+        finWhatsDc = dataComponents.createCollectionContainer(FinWhat.class);
+        finWhatsDl = dataComponents.createCollectionLoader();
+        finWhatsDl.setQuery("select e from ampata_FinWhat e order by e.id2");
+        FetchPlan finWhatsFp = fetchPlans.builder(FinWhat.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finWhatsDl.setFetchPlan(finWhatsFp);
+        finWhatsDl.setContainer(finWhatsDc);
+        finWhatsDl.setDataContext(getScreenData().getDataContext());
+
+        finWhat1_IdField.setOptionsContainer(finWhatsDc);
+        finTxact1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
+        finTxset1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
+
+
+        finWhysDc = dataComponents.createCollectionContainer(FinWhy.class);
+        finWhysDl = dataComponents.createCollectionLoader();
+        finWhysDl.setQuery("select e from ampata_FinWhy e order by e.id2");
+        FetchPlan finWhysFp = fetchPlans.builder(FinWhy.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finWhysDl.setFetchPlan(finWhysFp);
+        finWhysDl.setContainer(finWhysDc);
+        finWhysDl.setDataContext(getScreenData().getDataContext());
+
+        finWhy1_IdField.setOptionsContainer(finWhysDc);
+        finTxact1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
+        finTxset1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
+        
 
         logger.trace(logPrfx + " <--- ");
 
@@ -850,6 +948,93 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Subscribe("updateListFinFmla1_IdFieldBtn")
+    public void onUpdateListFinFmla1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinFmla1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finFmlasDl.load();
+        logger.debug(logPrfx + " --- called finFmlasDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinHow1_IdFieldBtn")
+    public void onUpdateListFinHow1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinHow1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finHowsDl.load();
+        logger.debug(logPrfx + " --- called finHowsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinWhat1_IdFieldBtn")
+    public void onUpdateListFinWhat1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinWhat1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhatsDl.load();
+        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTxact1_Id_What1_IdFieldBtn")
+    public void onUpdateListFinTxact1_Id_What1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTxact1_Id_What1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhatsDl.load();
+        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTxset1_Id_What1_IdFieldBtn")
+    public void onUpdateListFinTxset1_Id_What1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTxset1_Id_What1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhatsDl.load();
+        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }   
+    
+    @Subscribe("updateListFinWhy1_IdFieldBtn")
+    public void onUpdateListFinWhy1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinWhy1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhysDl.load();
+        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTxact1_Id_Why1_IdFieldBtn")
+    public void onUpdateListFinTxact1_Id_Why1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTxact1_Id_Why1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhysDl.load();
+        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListFinTxset1_Id_Why1_IdFieldBtn")
+    public void onUpdateListFinTxset1_Id_Why1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinTxset1_Id_Why1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finWhysDl.load();
+        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
 
 
     public void updateAllCalc(GenNode thisFinTxfer){
