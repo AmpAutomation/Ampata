@@ -29,7 +29,7 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
-                <filter id="filter" dataLoader="genNodesDl" collapsable="true" collapsed="true" columnsCount="6">>
+                <filter id="filter" dataLoader="genNodesDl" collapsable="true" collapsed="true" columnsCount="4">>
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
@@ -291,7 +291,7 @@
                                  margin="true"
                                  spacing="true">
                                 <form id="tab4Form" dataContainer="finTxactDc">
-                                    <column width="480px">
+                                    <column width="420px">
                                         <hbox caption="finTxset1_Id" expand="finTxset1_IdField" width="100%">
                                             <entityComboBox id="finTxset1_IdField" dataContainer="finTxactDc"
                                                             property="finTxset1_Id" tabIndex="10">
@@ -329,13 +329,13 @@
                                         <textField id="finTxset1_Type1_IdField" property="finTxset1_Type1_Id" editable="false"
                                                    tabIndex="10"/>
                                     </column>
-                                    <column width="360px">
+                                    <column width="240px">
                                         <dateField id="finTxset1_BegDate1Field" property="finTxset1_BegDate1"
                                                    dateFormat="yyyy-MM-dd" tabIndex="20"/>
                                         <timeField id="finTxset1_BegTime1Field" property="finTxset1_BegTime1"
                                                    timeFormat="hh:mm" tabIndex="20"/>
                                     </column>
-                                    <column width="480px">
+                                    <column width="420px">
                                         <hbox width="100%"/>
                                         <hbox caption="finTxset1_Id.finHow1_Id" expand="finTxset1_Id_FinHow1_IdField">
                                             <entityComboBox id="finTxset1_Id_FinHow1_IdField" dataContainer="finTxactDc"

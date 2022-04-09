@@ -352,7 +352,7 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
 
         GenNode copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
-        copy.setIdZ(copy.getIdZ() + 1);
+        copy.setIdY(copy.getIdY() == null ? 1: copy.getIdY() + 1);
         copy.setId2(copy.getId2CalcFrFields());
         copy.setId2Calc(copy.getId2CalcFrFields());
 

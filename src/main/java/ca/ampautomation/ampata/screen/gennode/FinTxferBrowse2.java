@@ -503,9 +503,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         GenNode copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
-        copy.setIdZ(copy.getIdZ() + 1);
-        copy.setId2(copy.getId2CalcFrFields());
+        copy.setIdZ(copy.getIdZ() == null ? 1: copy.getIdZ() + 1);
         copy.setId2Calc(copy.getId2CalcFrFields());
+        copy.setId2(copy.getId2Calc());
 
         logger.trace(logPrfx + " <--- ");
         return copy;
