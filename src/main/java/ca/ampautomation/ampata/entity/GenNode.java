@@ -386,17 +386,32 @@ public class GenNode {
     @Column(name = "STMT_DESC_L1")
     private String stmtDescL1;
 
+    @Column(name = "FIN_STMT_ITM1__DESC1")
+    private String finStmtItm1_Desc1;
+
     @Column(name = "STMT_DESC_L2")
     private String stmtDescL2;
+
+    @Column(name = "FIN_STMT_ITM1__DESC2")
+    private String finStmtItm1_Desc2;
 
     @Column(name = "STMT_DESC_L3")
     private String stmtDescL3;
 
+    @Column(name = "FIN_STMT_ITM1__DESC3")
+    private String finStmtItm1_Desc3;
+
     @Column(name = "STMT_DESC_AMT")
     private String stmtDescAmt;
 
+    @Column(name = "FIN_STMT_ITM1__DESC_AMT")
+    private String finStmtItm1_DescAmt;
+
     @Column(name = "STMT_REF_ID")
     private String stmtRefId;
+
+    @Column(name = "FIN_STMT_ITM1__REF_ID")
+    private String finStmtItm1_RefId;
 
     @Lob
     @Column(name = "FIN_TXSET1__FIN_ACCTS1__ID2")
@@ -643,6 +658,46 @@ public class GenNode {
 
     @Transient
     private Logger logger = LoggerFactory.getLogger(GenNode.class);
+
+    public String getFinStmtItm1_RefId() {
+        return finStmtItm1_RefId;
+    }
+
+    public void setFinStmtItm1_RefId(String finStmtItm1_RefId) {
+        this.finStmtItm1_RefId = finStmtItm1_RefId;
+    }
+
+    public String getFinStmtItm1_DescAmt() {
+        return finStmtItm1_DescAmt;
+    }
+
+    public void setFinStmtItm1_DescAmt(String finStmtItm1_DescAmt) {
+        this.finStmtItm1_DescAmt = finStmtItm1_DescAmt;
+    }
+
+    public String getFinStmtItm1_Desc3() {
+        return finStmtItm1_Desc3;
+    }
+
+    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) {
+        this.finStmtItm1_Desc3 = finStmtItm1_Desc3;
+    }
+
+    public String getFinStmtItm1_Desc2() {
+        return finStmtItm1_Desc2;
+    }
+
+    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) {
+        this.finStmtItm1_Desc2 = finStmtItm1_Desc2;
+    }
+
+    public String getFinStmtItm1_Desc1() {
+        return finStmtItm1_Desc1;
+    }
+
+    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) {
+        this.finStmtItm1_Desc1 = finStmtItm1_Desc1;
+    }
 
     public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) {
         this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2;

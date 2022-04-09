@@ -23,7 +23,6 @@ import java.util.UUID;
 @LookupComponent("table")
 public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
-
     @Autowired
     private DataComponents dataComponents;
 
@@ -63,6 +62,16 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private CollectionContainer<GenNode> genChansDc;
 
     private CollectionLoader<GenNode> genChansDl;
+
+
+    private CollectionContainer<GenNode> genDocVersDc;
+
+    private CollectionLoader<GenNode> genDocVersDl;
+
+
+    private CollectionContainer<GenNode> genTagsDc;
+
+    private CollectionLoader<GenNode> genTagsDl;
 
 
     private CollectionContainer<GenNode> finTxactsDc;
@@ -136,6 +145,12 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genChan1_IdField;
 
     @Autowired
+    private EntityComboBox<GenNode> genDocVer1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genTag1_IdField;
+
+    @Autowired
     private EntityComboBox<GenNode> finTxact1_IdField;
 
     @Autowired
@@ -171,19 +186,12 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private EntityComboBox<FinWhat>  finTxact1_Id_FinWhat1_IdField;
 
-    @Autowired
-    private EntityComboBox<FinWhat>  finTxset1_Id_FinWhat1_IdField;
-
 
     @Autowired
     private EntityComboBox<FinWhy>  finWhy1_IdField;
 
     @Autowired
     private EntityComboBox<FinWhy>  finTxact1_Id_FinWhy1_IdField;
-
-    @Autowired
-    private EntityComboBox<FinWhy>  finTxset1_Id_FinWhy1_IdField;
-
 
 
     Logger logger = LoggerFactory.getLogger(FinTxferBrowse2.class);
@@ -224,6 +232,32 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         genChansDl.setDataContext(getScreenData().getDataContext());
 
         genChan1_IdField.setOptionsContainer(genChansDc);
+
+
+        genDocVersDc = dataComponents.createCollectionContainer(GenNode.class);
+        genDocVersDl = dataComponents.createCollectionLoader();
+        genDocVersDl.setQuery("select e from ampata_GenNode e where e.className = 'GenDocVer' order by e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genDocVersDl.setFetchPlan(genDocVersFp);
+        genDocVersDl.setContainer(genDocVersDc);
+        genDocVersDl.setDataContext(getScreenData().getDataContext());
+
+        genDocVer1_IdField.setOptionsContainer(genDocVersDc);
+
+
+        genTagsDc = dataComponents.createCollectionContainer(GenNode.class);
+        genTagsDl = dataComponents.createCollectionLoader();
+        genTagsDl.setQuery("select e from ampata_GenNode e where e.className = 'GenTag' order by e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genTagsDl.setFetchPlan(genTagsFp);
+        genTagsDl.setContainer(genTagsDc);
+        genTagsDl.setDataContext(getScreenData().getDataContext());
+
+        genTag1_IdField.setOptionsContainer(genTagsDc);
 
 
         finTxactsDc = dataComponents.createCollectionContainer(GenNode.class);
@@ -355,7 +389,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         finWhat1_IdField.setOptionsContainer(finWhatsDc);
         finTxact1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
-        finTxset1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
 
 
         finWhysDc = dataComponents.createCollectionContainer(FinWhy.class);
@@ -370,8 +403,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         finWhy1_IdField.setOptionsContainer(finWhysDc);
         finTxact1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
-        finTxset1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
-        
+
 
         logger.trace(logPrfx + " <--- ");
 
@@ -408,7 +440,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        //updateAllCalc(thisFinTxfer);
+        //updateAllFrontEndCalc(thisFinTxfer);
 
         thisFinTxfer.setClassName("FinTxfer");
         logger.debug(logPrfx + " --- className: FinTxfer");
@@ -417,9 +449,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
     }
 
-    @Subscribe("updateAllCalcBtn")
-    public void onUpdateAllCalcBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateAllCalcBtnClick";
+    @Subscribe("updateAllRowAllBackEndCalcBtn")
+    public void onUpdateAllRowAllBackEndCalcBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAllRowAllBackEndCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -429,11 +461,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateAllCalc(thisFinTxfer);
+        updateAllFrontEndCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
-
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
@@ -480,23 +511,23 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         return copy;
     }
 
-    @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2FieldBtnClick";
+    @Subscribe("updateAllFrontEndCalcBtn")
+    public void onUpdateAllFrontEndCalcBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAllFrontEndCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
         if (thisFinTxfer == null) {
-            logger.debug(logPrfx + " --- finTxferDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisFinTxfer.setId2(thisFinTxfer.getId2Calc());
+        updateAllFrontEndCalc(thisFinTxfer);
 
-        logger.debug(logPrfx + " --- id2: " + thisFinTxfer.getId2());
         logger.trace(logPrfx + " <-- ");
     }
+
 
     @Subscribe("id2Field")
     public void onId2FieldValueChange(HasValue.ValueChangeEvent<String> event) {
@@ -513,6 +544,24 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         updateId2Cmp(thisFinTxfer);
         updateId2Dup(thisFinTxfer);
 
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateId2FieldBtn")
+    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2FieldBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinTxfer = finTxferDc.getItemOrNull();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- finTxferDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        thisFinTxfer.setId2(thisFinTxfer.getId2Calc());
+
+        logger.debug(logPrfx + " --- id2: " + thisFinTxfer.getId2());
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -586,6 +635,28 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         genChansDl.load();
         logger.debug(logPrfx + " --- called genChansDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListGenDocVer1_IdFieldBtn")
+    public void onUpdateListGenDocVer1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListGenDocVer1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        genDocVersDl.load();
+        logger.debug(logPrfx + " --- called genDocVersDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateListGenTag1_IdFieldBtn")
+    public void onUpdateListGenTag1_IdFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListGenTag1_IdFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        genTagsDl.load();
+        logger.debug(logPrfx + " --- called genTagsDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -992,17 +1063,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateListFinTxset1_Id_What1_IdFieldBtn")
-    public void onUpdateListFinTxset1_Id_What1_IdFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateListFinTxset1_Id_What1_IdFieldBtn";
-        logger.trace(logPrfx + " --> ");
-
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }   
-    
     @Subscribe("updateListFinWhy1_IdFieldBtn")
     public void onUpdateListFinWhy1_IdFieldBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateListFinWhy1_IdFieldBtn";
@@ -1025,20 +1085,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateListFinTxset1_Id_Why1_IdFieldBtn")
-    public void onUpdateListFinTxset1_Id_Why1_IdFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateListFinTxset1_Id_Why1_IdFieldBtn";
-        logger.trace(logPrfx + " --> ");
-
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    public void updateAllCalc(GenNode thisFinTxfer){
-        String logPrfx = "updateAllCalc";
+    private void updateAllFrontEndCalc(GenNode thisFinTxfer){
+        String logPrfx = "updateAllFrontEndCalc";
         logger.trace(logPrfx + " --> ");
 
         updateId2Calc(thisFinTxfer);
@@ -1050,7 +1098,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    public void updateId2Calc(GenNode thisFinTxfer){
+    private void updateId2Calc(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -1062,7 +1110,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateId2Cmp(GenNode thisFinTxfer) {
+    private void updateId2Cmp(GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -1072,7 +1120,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.trace(logPrfx + " <-- ");
     }
-    public void updateId2Dup(GenNode thisFinTxfer) {
+    private void updateId2Dup(GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -1089,7 +1137,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateDesc1(GenNode thisFinTxfer){
+    private void updateDesc1(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
@@ -1101,7 +1149,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateFinTxact1_IdField(GenNode thisFinTxfer){
+    private void updateFinTxact1_IdField(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateFinTxact1_IdField";
         logger.trace(logPrfx + " --> ");
@@ -1137,7 +1185,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateFinTxact1_Id2CalcField(GenNode thisFinTxfer){
+    private void updateFinTxact1_Id2CalcField(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateFinTxact1_Id2CalcField";
         logger.trace(logPrfx + " --> ");
@@ -1149,7 +1197,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateFinTxfer1_EI1_Rate(GenNode thisFinTxfer){
+    private void updateFinTxfer1_EI1_Rate(GenNode thisFinTxfer){
         //Assume thisFinTxfer is not null
         String logPrfx = "updateFinTxfer1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
@@ -1261,7 +1309,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateCalcRslt(GenNode thisFinTxfer){
+    private void updateCalcRslt(GenNode thisFinTxfer){
         //Assume thisFinTxfer is not null
         String logPrfx = "updateCalcRslt";
         logger.trace(logPrfx + " --> ");

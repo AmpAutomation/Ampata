@@ -18,66 +18,13 @@
                   fetchPlan="finStmt-fetch-plan-base">
             <loader/>
         </instance>
+
         <collection id="finTxfersDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finTxfer-fetch-plan-base">
             <loader id="finTxfersDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.finStmt1_Id = :finStmt1_Id]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genNodeTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genNodeTypesDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxfer' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genChansDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genChansDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genDocVersDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genDocVersDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenDocVer' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genFilesDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genFilesDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenFile' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="genTagsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="genTagsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenTag' order by e.id2]]>
-                </query>
-            </loader>
-        </collection>
-
-        <collection id="finAcctsDc" class="ca.ampautomation.ampata.entity.GenNode">
-            <fetchPlan extends="_instance_name"/>
-            <loader id="finAcctsDl">
-                <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinAcct' order by e.sortOrder]]>
                 </query>
             </loader>
         </collection>
@@ -95,14 +42,16 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
-                <filter id="filter" dataLoader="finStmtsDl" collapsable="true" collapsed="true" columnsCount="4">
+                <filter id="filter" dataLoader="finStmtsDl" collapsable="true" collapsed="true" columnsCount="6">
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
-                            <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
-                            <propertyFilter operation="EQUAL" property="finAcct1_Id" operationEditable="true"/>
-                            <propertyFilter operation="GREATER_OR_EQUAL" property="beg.date1" operationEditable="true"/>
-                            <propertyFilter operation="LESS_OR_EQUAL" property="beg.date1" operationEditable="true"/>
+                            <propertyFilter caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
+                            <propertyFilter caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true" colspan="2"/>
+                            <propertyFilter caption="end.date1" operation="GREATER_OR_EQUAL" property="end.date1" operationEditable="true"/>
+                            <propertyFilter caption="end.date1" operation="LESS_OR_EQUAL" property="end.date1" operationEditable="true"/>
+                            <propertyFilter caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true"/>
+                            <propertyFilter caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true" />
                         </configuration>
                     </configurations>
                 </filter>
@@ -145,13 +94,16 @@
                     <simplePagination/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
+                        <button id="refreshBtn" action="table.refresh"/>
+                        <button id="updateAllRowAllBackEndCalcBtn" caption="Update AR All BE Calc Values" icon="font-icon:REFRESH"/>
+                        <label value="|" align="MIDDLE_CENTER"/>
                         <button id="createBtn" action="table.create"/>
                         <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
-                        <button id="editBtn" action="table.edit"/>
-                        <button id="refreshBtn" action="table.refresh"/>
                         <button id="removeBtn" action="table.remove"/>
+                        <button id="editBtn" action="table.edit"/>
                         <button id="finStmtHideBtn" caption="Hide Stmt Details" icon="font-icon:EYE"/>
-                        <button id="finStmtUpdateAllCalcBtn" caption="Update All Calc Values" icon="font-icon:REFRESH"/>
+                        <button id="updateAllFrontEndCalcBtn" caption="Update All FE Calc Values" icon="font-icon:REFRESH"/>
+                        <label value="|" align="MIDDLE_CENTER"/>
                         <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
                     </buttonsPanel>
                 </groupTable>
@@ -167,84 +119,158 @@
                              caption="General"
                              margin="true"
                              spacing="true">
-                            <form id="tab1Form" dataContainer="finStmtDc" width="100%" height="100%">
-                                <column width="350px">
-                                    <app:textFieldWithButton id="id2FieldWithButton" property="id2"/>
-                                    <textField id="id2CalcField" property="id2Calc" editable="false"/>
-                                    <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
-                                    <textField id="id2DupField" property="id2Dup" editable="false"/>
+                            <form id="tab1Form" dataContainer="finStmtDc">
+                                <column width="360px">
+                                    <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
+                                        <textArea id="desc1Field" dataContainer="finStmtDc" property="desc1" rows="1" tabIndex="10"/>
+                                        <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2" expand="id2Field" width="100%">
+                                        <textField id="id2Field" dataContainer="finStmtDc" property="id2" tabIndex="10"/>
+                                        <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                                        <textField id="id2CalcField" dataContainer="finStmtDc" property="id2Calc" editable="false" tabIndex="10"/>
+                                        <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
+                                        <checkBox id="id2CmpField" dataContainer="finStmtDc" property="id2Cmp" editable="false" tabIndex="10"/>
+                                        <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Dup" expand="id2DupField" width="100%">
+                                        <textField id="id2DupField" dataContainer="finStmtDc" property="id2Dup" editable="false" tabIndex="10"/>
+                                        <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
                                     <textField id="classNameField" property="className" editable="false"/>
-                                    <entityComboBox id="type1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="genNodeTypesDc"
-                                                    property="type1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="type1_Id2Field" property="type1_Id2" width="100%" editable="false"/>
-                                    <textField id="name1Field" property="name1" width="100%"/>
+                                    <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                        <entityComboBox id="type1_IdField" dataContainer="finStmtDc"
+                                                        property="type1_Id" tabIndex="10">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateListType1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textField id="name1Field" property="name1" width="100%" tabIndex="10"/>
                                 </column>
-                                <column width="350px">
-                                    <textArea id="desc1Field" property="desc1" rows="8" rowspan="4" width="100%"/>
-                                    <button id="updateDesc1Btn" caption="Update desc1" align="TOP_RIGHT"/>
-                                    <entityComboBox id="genChan1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="genChansDc"
-                                                    property="genChan1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="genChan1_Id2Field" property="genChan1_Id2" width="100%" editable="false"/>
+                                <column width="360px">
+                                    <hbox caption="genChan1_Id" expand="genChan1_IdField" width="100%">
+                                        <entityComboBox id="genChan1_IdField" dataContainer="finStmtDc" tabIndex="20"
+                                                        property="genChan1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateListGenChan1_IdFieldBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                    </hbox>
                                 </column>
-                                <column width="350px">
-                                    <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd" caption="Beg Date"/>
-                                    <dateField id="EndDate1Field" property="end.date1" dateFormat="yyyy-MM-dd" caption="End Date"/>
+                                <column width="240px">
+                                    <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd" caption="Beg Date"
+                                               tabIndex="30"/>
+                                    <dateField id="EndDate1Field" property="end.date1" dateFormat="yyyy-MM-dd" caption="End Date"
+                                               tabIndex="30"/>
                                 </column>
                             </form>
                         </tab>
                         <tab id="tab_2"
-                             caption="Docs, Files, Tags"
+                             caption="Docs, Tags"
                              margin="true"
                              spacing="true">
-                            <form id="tab2Form" dataContainer="finStmtDc" width="100%">
-                                <column width="350px">
-                                    <textArea id="genDocs1_Id2Field" property="genDocVers1_Id2" rows="4" editable="false"/>
-                                    <entityComboBox id="genDocVer1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="genDocVersDc"
-                                                    property="genDocVer1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="genDocVer1_Id2Field" property="genDocVer1_Id2"/>
+                            <form id="tab2Form" dataContainer="finStmtDc">
+                                <column width="360px">
+                                    <hbox caption="genDocVer1_Id" expand="genDocVer1_IdField">
+                                        <entityComboBox id="genDocVer1_IdField" dataContainer="finStmtDc"
+                                                        property="genDocVer1_Id" tabIndex="10">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenDocVer1_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenDocVer1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
                                 </column>
-                                <column width="350px">
-                                    <hbox/>
-                                    <entityComboBox id="genFile1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="genFilesDc"
-                                                    property="genFile1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="genFile1_Id2Field" property="genFile1_Id2" editable="false"/>
-                                    <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"/>
+                                <column width="360px">
+                                    <hbox caption="genFile1_Id" expand="genFile1_IdField">
+                                        <entityComboBox id="genFile1_IdField" dataContainer="finStmtDc"
+                                                        property="genFile1_Id" tabIndex="20">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenFile1_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenFile1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"
+                                              tabIndex="20"/>
                                 </column>
-                                <column width="350px">
-                                    <textArea id="genTags1_Id2Field" property="genTags1_Id2" rows="4"/>
-                                    <entityComboBox id="genTag1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="genTagsDc"
-                                                    property="genTag1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
+                                <column width="360px">
+                                    <hbox caption="genTag1_Id" expand="genTag1_IdField" width="100%">
+                                        <entityComboBox id="genTag1_IdField" dataContainer="finStmtDc"
+                                                        property="genTag1_Id" tabIndex="30">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenTag1_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenTag1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textField id="genTag1_Id2Field" property="genTag1_Id2" editable="false" tabIndex="-1"/>
+                                    <hbox caption="genTag2_Id" expand="genTag2_IdField" width="100%">
+                                        <entityComboBox id="genTag2_IdField" dataContainer="finStmtDc"
+                                                        property="genTag2_Id" tabIndex="30">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenTag2_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenTag2_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textField id="genTag2_Id2Field" property="genTag2_Id2" editable="false" tabIndex="-1"/>
+                                    <hbox caption="genTag3_Id" expand="genTag3_IdField" width="100%" >
+                                        <entityComboBox id="genTag3_IdField" dataContainer="finStmtDc"
+                                                        property="genTag3_Id" tabIndex="30">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenTag3_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenTag3_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textField id="genTag3_Id2Field" property="genTag3_Id2" editable="false" tabIndex="-1"/>
+                                    <hbox caption="genTag4_Id" expand="genTag4_IdField" width="100%">
+                                        <entityComboBox id="genTag4_IdField" dataContainer="finStmtDc"
+                                                        property="genTag4_Id" tabIndex="30">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenTag4_IdFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                        <button id="updateListGenTag4_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <textField id="genTag4_Id2Field" property="genTag4_Id2" editable="false" tabIndex="-1"/>
+                                </column>
+                                <column width="360px">
                                 </column>
                             </form>
                         </tab>
@@ -252,51 +278,63 @@
                              caption="Acct, Sum, Status"
                              margin="true"
                              spacing="true">
-                            <form id="tab5Form" dataContainer="finStmtDc" width="100%">
-                                <column width="350px">
-                                    <entityComboBox id="finAcct1_IdField" dataContainer="finStmtDc"
-                                                    optionsContainer="finAcctsDc"
-                                                    property="finAcct1_Id">
-                                        <actions>
-                                            <action id="entityLookup" type="entity_lookup"/>
-                                            <action id="entityClear" type="entity_clear"/>
-                                        </actions>
-                                    </entityComboBox>
-                                    <textField id="finAcct1_Id2Field" property="finAcct1_Id2"/>
-                                    <textField id="finAcct_Type1_Id2Field" property="finAcct1_Type1_Id2" editable="false"/>
+                            <form id="tab5Form" dataContainer="finStmtDc">
+                                <column width="360px">
+                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField">
+                                        <entityComboBox id="finAcct1_IdField" dataContainer="finStmtDc"
+                                                        property="finAcct1_Id" tabIndex="10">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateListFinAcct1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="FinAcct1_Id.type1_Id" expand="FinAcct1_Id_Type1_IdField">
+                                        <entityComboBox id="FinAcct1_Id_Type1_IdField" dataContainer="finStmtDc"
+                                                        property="finAcct1_Id.type1_Id" tabIndex="10">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateListFinAcct1_Id_Type1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
                                     <comboBox id="statusField"
-                                                    dataContainer="finStmtDc"
-                                                    property="status">
+                                              dataContainer="finStmtDc"
+                                              property="status" tabIndex="10">
                                     </comboBox>
 
                                 </column>
-                                <column width="350px">
-                                    <textField id="begBalField" property="begBal"/>
-                                    <textField id="endBalField" property="endBal" editable="false"/>
-                                    <textField id="debtSumField" property="debtSum"/>
-                                    <textField id="credSumField" property="credSum"/>
-                                    <textField id="netSumField" property="netSum" editable="false"/>
+                                <column width="240px">
+                                    <textField id="begBalField" property="begBal" width="100%" tabIndex="20"/>
+                                    <textField id="endBalField" property="endBal" width="100%" editable="false" tabIndex="20"/>
+                                    <textField id="debtSumField" property="debtSum" width="100%" tabIndex="20"/>
+                                    <textField id="credSumField" property="credSum" width="100%" tabIndex="20"/>
+                                    <textField id="netSumField" property="netSum" width="100%" editable="false" tabIndex="20"/>
                                 </column>
-                                <column width="350px">
-                                    <hbox/>
-                                    <hbox/>
-                                    <hbox spacing="true">
+                                <column width="360px">
+                                    <hbox width="100%"/>
+                                    <hbox width="100%"/>
+                                    <hbox spacing="true" width="100%">
                                         <label value="Calc"/>
-                                        <textField id="debtSumCalcField" editable="false" width="100%"/>
+                                        <textField id="debtSumCalcField" editable="false" width="100%" tabIndex="30"/>
                                         <label value="Diff"/>
-                                        <textField id="debtSumDiffField" editable="false" width="100%"/>
+                                        <textField id="debtSumDiffField" editable="false" width="100%" tabIndex="30"/>
                                     </hbox>
-                                    <hbox spacing="true">
+                                    <hbox spacing="true" width="100%">
                                         <label value="Calc"/>
-                                        <textField id="credSumCalcField" editable="false" width="100%"/>
+                                        <textField id="credSumCalcField" editable="false" width="100%" tabIndex="30"/>
                                         <label value="Diff"/>
-                                        <textField id="credSumDiffField" editable="false" width="100%"/>
+                                        <textField id="credSumDiffField" editable="false" width="100%" tabIndex="30"/>
                                     </hbox>
-                                    <hbox spacing="true">
+                                    <hbox spacing="true" width="100%">
                                         <label value="Calc"/>
-                                        <textField id="netSumCalcField" editable="false" width="100%"/>
+                                        <textField id="netSumCalcField" editable="false" width="100%" tabIndex="30"/>
                                         <label value="Diff"/>
-                                        <textField id="netSumDiffField" editable="false" width="100%"/>
+                                        <textField id="netSumDiffField" editable="false" width="100%" tabIndex="30"/>
                                     </hbox>
                                 </column>
                             </form>
@@ -306,9 +344,8 @@
                              margin="true"
                              spacing="true">
                             <form id="tab7Form" dataContainer="finStmtDc" width="100%">
-                                <column width="100%">
-                                    <textArea id="noteField" property="note"
-                                              height="100%" width="100%"/>
+                                <column width="840px">
+                                    <textArea id="noteField" property="note" tabIndex="10"/>
                                 </column>
                             </form>
                         </tab>
@@ -335,7 +372,46 @@
                     <columns>
                         <column id="id2"/>
                         <column id="type1_Id"/>
-                        <column id="desc1"/>
+                        <column id="desc1" width="180px"/>
+                        <column id="finTxact1_Id"/>
+                        <column id="finTxact1_EI1_Role" caption="Role"/>
+                        <column id="finTxact1_Type1_Id" caption="Txact-Type"/>
+                        <column id="genChan1_Id" caption="Chan"/>
+                        <column id="finAcct1_Id"/>
+                        <column id="finDept1_Id"/>
+                        <column id="amtDebt"/>
+                        <column id="amtCred"/>
+                        <column id="amtNet"/>
+                        <column id="finCurcy1_Id"/>
+                        <column id="beg.date1" caption="Date1">
+                            <formatter>
+                                <date format="yyyy-MM-dd"/>
+                            </formatter>
+                        </column>
+                        <column id="finTxact1_BegDate1" caption="Txact-Date1">
+                            <formatter>
+                                <date format="yyyy-MM-dd"/>
+                            </formatter>
+                        </column>
+                        <column id="idX"/>
+                        <column id="idY"/>
+                        <column id="idZ"/>
+
+                        <column id="finStmtItm1_Desc1"/>
+                        <column id="finStmtItm1_Desc2"/>
+                        <column id="finStmtItm1_Desc3"/>
+                        <column id="finStmtItm1_DescAmt"/>
+                        <column id="finStmtItm1_RefId"/>
+
+                        <column id="finTaxLne1_Id"/>
+                        <column id="finTaxLne1_Code"/>
+
+                        <column id="finHow1_Id"/>
+                        <column id="whatText1"/>
+                        <column id="finWhat1_Id"/>
+                        <column id="whyText1"/>
+                        <column id="finWhy1_Id"/>
+
                         <column id="genDocVers1_Id2"/>
                         <column id="genDocVer1_Id"/>
                         <column id="genDocVer1_Id2"/>
@@ -344,59 +420,7 @@
                         <column id="genTags1_Id2"/>
                         <column id="genTag1_Id"/>
                         <column id="genTag1_Id2"/>
-                        <column id="beg.date1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
-                        <column id="beg.time1"/>
-                        <column id="finTxact1_BegDate1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
-                        <column id="finTxact1_BegTime1"/>
-                        <column id="genChan1_Id"/>
-                        <column id="genChan1_Id2"/>
-                        <column id="finTxset1_Id"/>
-                        <column id="finTxset1_EI1_Role"/>
-                        <column id="finTxset1_Type1_Id2"/>
-                        <column id="finTxact1_Id"/>
-                        <column id="finTxact1_EI1_Role"/>
-                        <column id="finTxact1_Type1_Id2"/>
-                        <column id="idX"/>
-                        <column id="idY"/>
-                        <column id="idZ"/>
-                        <column id="stmtDescL1"/>
-                        <column id="stmtDescL2"/>
-                        <column id="stmtDescL3"/>
-                        <column id="stmtDescAmt"/>
-                        <column id="stmtRefId"/>
-                        <column id="finAcct1_Id"/>
-                        <column id="finDept1_Id"/>
-                        <column id="finTaxLne1_Id"/>
-                        <column id="finTaxLne1_Code"/>
-                        <column id="finHow1_Id"/>
-                        <column id="whatText1"/>
-                        <column id="finWhat1_Id"/>
-                        <column id="finTxact1_WhatText1"/>
-                        <column id="finTxact1_What1_Id"/>
-                        <column id="finTxset1_WhatText1"/>
-                        <column id="finTxset1_What1_Id"/>
-                        <column id="whyText1"/>
-                        <column id="finWhy1_Id"/>
-                        <column id="finTxact1_WhyText1"/>
-                        <column id="finTxact1_Why1_Id"/>
-                        <column id="finTxset1_WhyText1"/>
-                        <column id="finTxset1_Why1_Id"/>
-                        <column id="amtDebt"/>
-                        <column id="amtCred"/>
-                        <column id="amtNet"/>
-                        <column id="finCurcy1_Id"/>
-                        <column id="finFmla1_Id"/>
-                        <column id="finTxfer1_Id"/>
-                        <column id="finTxfer1_EI1_Rate"/>
-                        <column id="calcRslt"/>
+                        <column id="note"/>
                     </columns>
                     <simplePagination/>
                     <buttonsPanel id="buttonsPanel2"

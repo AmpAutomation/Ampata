@@ -36,7 +36,6 @@
             <separator> --- </separator>
             <item screen="ampata_FinTxfer.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxferBrowse.menu"/>
             <item screen="ampata_FinTxfer.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxferBrowse2.menu"/>
-            <item screen="ampata_FinTxfer.browse3" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxferBrowse3.menu"/>
         </menu>
         <menu id="financeEntity" caption="Entities">
             <item screen="ampata_FinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.finfmla/finFmlaBrowse.menu"/>

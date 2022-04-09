@@ -1,9 +1,7 @@
 package ca.ampautomation.ampata.screen.gennode;
 
-import io.jmix.core.DataManager;
-import io.jmix.core.Metadata;
-import io.jmix.core.MetadataTools;
-import io.jmix.core.UuidProvider;
+import ca.ampautomation.ampata.entity.GenNodeType;
+import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
@@ -24,6 +22,11 @@ import java.util.Map;
 @UiDescriptor("fin-stmt-browse2.xml")
 @LookupComponent("table")
 public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
+    @Autowired
+    private DataComponents dataComponents;
+
+    @Autowired
+    private FetchPlans fetchPlans;
 
     @Autowired
     private DataContext dataContext;
@@ -38,9 +41,6 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private MetadataTools metadataTools;
 
     @Autowired
-    private Notifications notifications;
-
-    @Autowired
     private GroupTable<GenNode> table;
 
     @Autowired
@@ -50,16 +50,66 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private Form form;
 
     @Autowired
-    private CollectionContainer<GenNode> finStmtsDc;
+    private Notifications notifications;
 
     @Autowired
-    private InstanceContainer<GenNode> finStmtDc;
+    private CollectionContainer<GenNode> finStmtsDc;
 
     @Autowired
     private CollectionLoader<GenNode> finStmtsDl;
 
     @Autowired
+    private InstanceContainer<GenNode> finStmtDc;
+
+    @Autowired
+    private CollectionContainer<GenNode> finTxfersDc;
+
+    @Autowired
     private CollectionLoader<GenNode> finTxfersDl;
+
+
+    private CollectionContainer<GenNodeType> finStmtTypesDc;
+
+    private CollectionLoader<GenNodeType> finStmtTypesDl;
+
+
+    private CollectionContainer<GenNode> genChansDc;
+
+    private CollectionLoader<GenNode> genChansDl;
+
+
+    private CollectionContainer<GenNode> genDocVersDc;
+
+    private CollectionLoader<GenNode> genDocVersDl;
+
+
+    private CollectionContainer<GenNode> genTagsDc;
+
+    private CollectionLoader<GenNode> genTagsDl;
+
+
+    @Autowired
+    private TextField<String> classNameField;
+
+    @Autowired
+    private TextField<String> id2Field;
+
+    @Autowired
+    private TextField<String> id2CalcField;
+
+    @Autowired
+    private EntityComboBox<GenNodeType> type1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genChan1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genDocVer1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genTag1_IdField;
+
+
 
     Logger logger = LoggerFactory.getLogger(FinStmtBrowse2.class);
 
@@ -92,55 +142,65 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Subscribe
     public void onInit(InitEvent event) {
+        String logPrfx = "onFinStmtHideBtnClick";
+        logger.trace(logPrfx + " --> ");
+
         List<String> list = new ArrayList<>();
         list.add("Reconciled");
         list.add("Non-Reconciled");
         statusField.setOptionsList(list);
-    }
 
-    @Subscribe("finStmtHideBtn")
-    public void onFinStmtHideBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onFinStmtHideBtnClick";
-        logger.trace(logPrfx + " --> ");
-        if (form.isVisible()){
-            form.setVisible(false);
-            finStmtHideBtn.setCaption("Show Stmt Details");
-        }else{
-            form.setVisible(true);
-            finStmtHideBtn.setCaption("Hide Stmt Details");
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
 
-    @Subscribe("finStmtUpdateAllCalcBtn")
-    public void onFinStmtUpdateAllCalcBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onFinStmtUpdateAllCalcBtnClick";
-        logger.trace(logPrfx + " --> ");
+        finStmtTypesDc = dataComponents.createCollectionContainer(GenNodeType.class);
+        finStmtTypesDl = dataComponents.createCollectionLoader();
+        finStmtTypesDl.setQuery("select e from ampata_GenNodeType e where e.className = 'FinStmt' order by e.id2");
+        FetchPlan finStmtTypesFp = fetchPlans.builder(GenNodeType.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finStmtTypesDl.setFetchPlan(finStmtTypesFp);
+        finStmtTypesDl.setContainer(finStmtTypesDc);
+        finStmtTypesDl.setDataContext(getScreenData().getDataContext());
+        type1_IdField.setOptionsContainer(finStmtTypesDc);
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateAllCalc(thisFinStmt);
 
-        logger.trace(logPrfx + " <-- ");
-    }
+        genChansDc = dataComponents.createCollectionContainer(GenNode.class);
+        genChansDl = dataComponents.createCollectionLoader();
+        genChansDl.setQuery("select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2");
+        FetchPlan genChansFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genChansDl.setFetchPlan(genChansFp);
+        genChansDl.setContainer(genChansDc);
+        genChansDl.setDataContext(getScreenData().getDataContext());
 
-    @Subscribe("finTxferHideBtn")
-    public void onFinTxferHideBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onFinTxferHideBtnClick";
-        logger.trace(logPrfx + " --> ");
+        genChan1_IdField.setOptionsContainer(genChansDc);
 
-        if (table2.isVisible()){
-            table2.setVisible(false);
-            finTxferHideBtn.setCaption("Show Txfers");
-        }else{
-            table2.setVisible(true);
-            finTxferHideBtn.setCaption("Hide Txfers");
-        }
+
+        genDocVersDc = dataComponents.createCollectionContainer(GenNode.class);
+        genDocVersDl = dataComponents.createCollectionLoader();
+        genDocVersDl.setQuery("select e from ampata_GenNode e where e.className = 'GenDocVer' order by e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genDocVersDl.setFetchPlan(genDocVersFp);
+        genDocVersDl.setContainer(genDocVersDc);
+        genDocVersDl.setDataContext(getScreenData().getDataContext());
+
+        genDocVer1_IdField.setOptionsContainer(genDocVersDc);
+
+
+        genTagsDc = dataComponents.createCollectionContainer(GenNode.class);
+        genTagsDl = dataComponents.createCollectionLoader();
+        genTagsDl.setQuery("select e from ampata_GenNode e where e.className = 'GenTag' order by e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genTagsDl.setFetchPlan(genTagsFp);
+        genTagsDl.setContainer(genTagsDc);
+        genTagsDl.setDataContext(getScreenData().getDataContext());
+
+        genTag1_IdField.setOptionsContainer(genTagsDc);
+
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -215,6 +275,53 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         return copy;
     }
 
+    @Subscribe("finStmtHideBtn")
+    public void onFinStmtHideBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onFinStmtHideBtnClick";
+        logger.trace(logPrfx + " --> ");
+        if (form.isVisible()){
+            form.setVisible(false);
+            finStmtHideBtn.setCaption("Show Stmt Details");
+        }else{
+            form.setVisible(true);
+            finStmtHideBtn.setCaption("Hide Stmt Details");
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateAllFrontEndCalcBtn")
+    public void onUpdateAllFrontEndCalcBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAllFrontEndCalcBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateAllFrontEndCalc(thisFinStmt);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("finTxferHideBtn")
+    public void onFinTxferHideBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onFinTxferHideBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        if (table2.isVisible()){
+            table2.setVisible(false);
+            finTxferHideBtn.setCaption("Show Txfers");
+        }else{
+            table2.setVisible(true);
+            finTxferHideBtn.setCaption("Hide Txfers");
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
     @Subscribe("begBalField")
     public void onBegBalFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
         String logPrfx = "begBalField";
@@ -246,7 +353,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             return;
         }
         thisFinStmt.setClassName("FinStmt");
-        updateAllCalc(thisFinStmt);
+        updateAllFrontEndCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -306,8 +413,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateAllCalc(GenNode thisFinStmt){
-        String logPrfx = "updateAllCalc";
+    public void updateAllFrontEndCalc(GenNode thisFinStmt){
+        String logPrfx = "updateAllFrontEndCalc";
         logger.trace(logPrfx + " --> ");
 
         updateFinAcct1_Type1_Id2(thisFinStmt);
