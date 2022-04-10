@@ -250,16 +250,16 @@ public class GenNode {
     @Column(name = "FIN_TXACT1__BEG_DATE1")
     private Date finTxact1_BegDate1;
 
-    @Column(name = "FIN_TXACT1__BEG_TIME1")
     @Temporal(TemporalType.TIME)
+    @Column(name = "FIN_TXACT1__BEG_TIME1")
     private Date finTxact1_BegTime1;
 
-    @Column(name = "FIN_TXSET1__BEG_DATE1")
     @Temporal(TemporalType.DATE)
+    @Column(name = "FIN_TXSET1__BEG_DATE1")
     private Date finTxset1_BegDate1;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "FIN_TXSET1__BEG_TIME1")
-    @Temporal(TemporalType.TIME)
     private Date finTxset1_BegTime1;
 
     @AttributeOverrides({
@@ -658,6 +658,38 @@ public class GenNode {
 
     @Transient
     private Logger logger = LoggerFactory.getLogger(GenNode.class);
+
+    public void setFinTxset1_BegTime1(Date finTxset1_BegTime1) {
+        this.finTxset1_BegTime1 = finTxset1_BegTime1;
+    }
+
+    public Date getFinTxset1_BegTime1() {
+        return finTxset1_BegTime1;
+    }
+
+    public void setFinTxact1_BegTime1(Date finTxact1_BegTime1) {
+        this.finTxact1_BegTime1 = finTxact1_BegTime1;
+    }
+
+    public Date getFinTxact1_BegTime1() {
+        return finTxact1_BegTime1;
+    }
+
+    public void setFinTxset1_BegDate1(Date finTxset1_BegDate1) {
+        this.finTxset1_BegDate1 = finTxset1_BegDate1;
+    }
+
+    public Date getFinTxset1_BegDate1() {
+        return finTxset1_BegDate1;
+    }
+
+    public void setFinTxact1_BegDate1(Date finTxact1_BegDate1) {
+        this.finTxact1_BegDate1 = finTxact1_BegDate1;
+    }
+
+    public Date getFinTxact1_BegDate1() {
+        return finTxact1_BegDate1;
+    }
 
     public String getFinStmtItm1_RefId() {
         return finStmtItm1_RefId;
@@ -1081,22 +1113,6 @@ public class GenNode {
         this.finTxset1_FinAccts_Id2 = finTxset1_FinAccts_Id2;
     }
 
-
-    public Date getFinTxset1_BegTime1() {
-        return finTxset1_BegTime1;
-    }
-
-    public void setFinTxset1_BegTime1(Date finTxset1_BegTime1) {
-        this.finTxset1_BegTime1 = finTxset1_BegTime1;
-    }
-
-    public Date getFinTxset1_BegDate1() {
-        return finTxset1_BegDate1;
-    }
-
-    public void setFinTxset1_BegDate1(Date finTxset1_BegDate1) {
-        this.finTxset1_BegDate1 = finTxset1_BegDate1;
-    }
 
     public void setBeg(HasTmst beg) {
         this.beg = beg;
@@ -1713,22 +1729,6 @@ public class GenNode {
         return finTxact1_FinTxfers1_Id2;
     }
 
-    public Date getFinTxact1_BegDate1() {
-        return finTxact1_BegDate1;
-    }
-
-    public void setFinTxact1_BegDate1(Date finTxact1_BegDate1) {
-        this.finTxact1_BegDate1 = finTxact1_BegDate1;
-    }
-
-    public Date getFinTxact1_BegTime1() {
-        return finTxact1_BegTime1;
-    }
-
-    public void setFinTxact1_BegTime1(Date finTxact1_BegTime1) {
-        this.finTxact1_BegTime1 = finTxact1_BegTime1;
-    }
-
     public String getFinTxact1_Id2Calc() {
         return finTxact1_Id2Calc;
     }
@@ -2001,6 +2001,14 @@ public class GenNode {
         StringBuilder sb = new StringBuilder();
         SimpleDateFormat frmtDt = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat frmtTm = new SimpleDateFormat("hhmm");
+/*
+        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
+                                        .appendPattern("yyyyMMdd")
+                                        .toFormatter();
+        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+                                        .appendPattern("hhmm")
+                                        .toFormatter();
+*/
 
         switch (className) {
             case "FinTxset", "FinTxact", "FinTxfer":
@@ -2010,11 +2018,13 @@ public class GenNode {
                     return "";
                 } else {
                     logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+//                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
                 }
                 if (beg.getTime1() == null) {
                     logger.debug(logPrfx + " --- beg.time1: null");
                 } else{
                     logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+//                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
                 }
                 break;
             case "FinStmt":
@@ -2024,6 +2034,7 @@ public class GenNode {
                     return "";
                 } else {
                     logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
+//                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
                 }
 
                 if (getFinAcct1_Id() == null) {
@@ -2041,10 +2052,13 @@ public class GenNode {
         switch (className){
             case "FinTxset":
                 //Date
+
                 sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+//                sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
 
                 //Time
                 sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
+//                sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
                 break;
 
             case "FinTxact":
@@ -2052,9 +2066,12 @@ public class GenNode {
                 if (finTxset1_BegDate1 == null) {
                     logger.debug(logPrfx + " --- finTxset1_BegDate1: null");
                     sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+//                    sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
                 }else{
                     logger.debug(logPrfx + " --- finTxset1_BegDate1: " + frmtDt.format(finTxset1_BegDate1));
+//                    logger.debug(logPrfx + " --- finTxset1_BegDate1: " + finTxset1_BegDate1.format(frmtDt));
                     sb.append(SEP + "D" + frmtDt.format(finTxset1_BegDate1));
+//                    sb.append(SEP + "D" + finTxset1_BegDate1.format(frmtDt));
                 }
 
                 //Time
@@ -2062,12 +2079,15 @@ public class GenNode {
                     logger.debug(logPrfx + " --- finTxset1_BegTime1: null");
                     if (beg.getTime1() != null) {
                         sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));;
+//                        sb.append(SEP + "T" + beg.getTime1().format(frmtTm));;
                     }else{
                         sb.append(SEP + "T0000");
                     }
                 }else{
                     logger.debug(logPrfx + " --- finTxset1_BegTime1: " + frmtDt.format(finTxset1_BegTime1));
-                    sb.append(SEP + "T" + frmtTm.format(finTxset1_BegTime1));;
+                    sb.append(SEP + "T" + frmtDt.format(finTxset1_BegTime1));;
+//                    logger.debug(logPrfx + " --- finTxset1_BegTime1: " + finTxset1_BegTime1.format(frmtDt));
+//                    sb.append(SEP + "T" + finTxset1_BegTime1.format(frmtDt));;
                 }
                 break;
 
@@ -2076,9 +2096,12 @@ public class GenNode {
                 if (finTxact1_BegDate1 == null) {
                     logger.debug(logPrfx + " --- finTxact1_BegDate1: null");
                     sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
+//                    sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
                 }else{
                     logger.debug(logPrfx + " --- finTxact1_BegDate1: " + frmtDt.format(finTxact1_BegDate1));
                     sb.append(SEP + "D" + frmtDt.format(finTxact1_BegDate1));
+//                    logger.debug(logPrfx + " --- finTxact1_BegDate1: " + finTxact1_BegDate1.format(frmtDt));
+//                    sb.append(SEP + "D" + finTxact1_BegDate1.format(frmtDt));
                 }
 
                 //Time
@@ -2086,16 +2109,20 @@ public class GenNode {
                     logger.debug(logPrfx + " --- finTxact1_BegTime1: null");
                     if (beg.getTime1() != null) {
                         sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
+//                        sb.append(SEP + "T" + beg.getTime1().format(frmtTm));
                     }else{
                         sb.append(SEP + "T0000");
                     }
                 }else{
                     logger.debug(logPrfx + " --- finTxact1_BegTime1: " + frmtDt.format(finTxact1_BegTime1));
-                    sb.append(SEP + "T" + frmtTm.format(finTxact1_BegTime1));
+                    sb.append(SEP + "T" + frmtDt.format(finTxact1_BegTime1));
+//                    logger.debug(logPrfx + " --- finTxact1_BegTime1: " + finTxact1_BegTime1.format(frmtDt));
+//                    sb.append(SEP + "T" + finTxact1_BegTime1.format(frmtDt));
                 }
                 break;
             case "FinStmt":
                 sb.append(finAcct1_Id.getId2() + SEP + "D" + frmtDt.format(finTxact1_BegDate1));
+//                sb.append(finAcct1_Id.getId2() + SEP + "D" + finTxact1_BegDate1.format(frmtDt));
                 break;
 
             default:

@@ -2,12 +2,12 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finTxferBrowse.caption"
-        focusComponent="genNodesTable">
+        focusComponent="finTxfersTable">
     <data readOnly="true">
         <collection id="finTxfersDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finTxfer-fetch-plan-base">
-            <loader id="genNodesDl">
+            <loader id="finTxfersDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxfer']]>
                 </query>
@@ -30,9 +30,9 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="genNodesTable" spacing="true">
+    <layout expand="finTxfersTable" spacing="true">
         <filter id="filter"
-                dataLoader="genNodesDl">
+                dataLoader="finTxfersDl">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -41,7 +41,7 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="genNodesTable"
+        <groupTable id="finTxfersTable"
                     width="100%"
                     dataContainer="finTxfersDc">
             <actions>
@@ -93,63 +93,36 @@
                 <column id="genTag4_Id2"/>
                 <column id="genChan1_Id"/>
                 <column id="genChan1_Id2"/>
-                <column id="finTxset1_FinTxacts1_Id2"/>
-                <column id="finTxset1_Id"/>
-                <column id="finTxset1_Id2"/>
-                <column id="finTxset1_Id2Calc"/>
-                <column id="finTxset1_EI1_Role"/>
-                <column id="finTxset1_Type1_Id"/>
-                <column id="finTxset1_Type1_Id2"/>
-                <column id="finTxact1_FinTxfers1_Id2"/>
                 <column id="finTxact1_Id"/>
                 <column id="finTxact1_Id2"/>
                 <column id="finTxact1_Id2Calc"/>
                 <column id="finTxact1_EI1_Role"/>
-                <column id="finTxact1_Type1_Id"/>
                 <column id="finTxact1_Type1_Id2"/>
                 <column id="idX"/>
                 <column id="idY"/>
                 <column id="idZ"/>
                 <column id="finStmt1_Id"/>
                 <column id="finStmt1_Id2"/>
-                <column id="stmtDescL1"/>
-                <column id="stmtDescL2"/>
-                <column id="stmtDescL3"/>
-                <column id="stmtDescAmt"/>
-                <column id="stmtRefId"/>
-                <column id="finTxset1_FinAccts1_Id2"/>
-                <column id="finTxact1_FinAccts1_Id2"/>
+                <column id="finStmtItm1_Desc1"/>
+                <column id="finStmtItm1_Desc2"/>
+                <column id="finStmtItm1_Desc3"/>
+                <column id="finStmtItm1_DescAmt"/>
+                <column id="finStmtItm1_RefId"/>
                 <column id="finAcct1_Id"/>
                 <column id="finAcct1_Id2"/>
-                <column id="finAcct1_Type1_Id"/>
-                <column id="finAcct1_Type1_Id2"/>
                 <column id="finDept1_Id"/>
                 <column id="finDept1_Id2"/>
                 <column id="finTaxLne1_Id"/>
                 <column id="finTaxLne1_Id2"/>
                 <column id="finTaxLne1_Code"/>
-                <column id="finTaxLne1_Type1_Id"/>
-                <column id="finTaxLne1_Type1_Id2"/>
                 <column id="finHow1_Id"/>
                 <column id="finHow1_Id2"/>
                 <column id="whatText1"/>
                 <column id="finWhat1_Id"/>
                 <column id="finWhat1_Id2"/>
-                <column id="finTxact1_WhatText1"/>
-                <column id="finTxact1_What1_Id"/>
-                <column id="finTxact1_What1_Id2"/>
-                <column id="finTxset1_WhatText1"/>
-                <column id="finTxset1_What1_Id"/>
-                <column id="finTxset1_What1_Id2"/>
                 <column id="whyText1"/>
                 <column id="finWhy1_Id"/>
                 <column id="finWhy1_Id2"/>
-                <column id="finTxact1_WhyText1"/>
-                <column id="finTxact1_Why1_Id"/>
-                <column id="finTxact1_Why1_Id2"/>
-                <column id="finTxset1_WhyText1"/>
-                <column id="finTxset1_Why1_Id"/>
-                <column id="finTxset1_Why1_Id2"/>
                 <column id="amtDebt"/>
                 <column id="amtCred"/>
                 <column id="amtNet"/>
@@ -161,18 +134,14 @@
                 <column id="finTxfer1_Id2"/>
                 <column id="finTxfer1_EI1_Rate"/>
                 <column id="calcRslt"/>
-                <column id="finTxset1_GenDocVers1_Id2"/>
-                <column id="finTxact1_GenDocVers1_Id2"/>
-                <column id="finTxset1_GenTags1_Id2"/>
-                <column id="finTxact1_GenTags1_Id2"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="genNodesTable.create"/>
-                <button id="editBtn" action="genNodesTable.edit"/>
-                <button id="refreshBtn" action="genNodesTable.refresh"/>
-                <button id="removeBtn" action="genNodesTable.remove"/>
+                <button id="createBtn" action="finTxfersTable.create"/>
+                <button id="editBtn" action="finTxfersTable.edit"/>
+                <button id="refreshBtn" action="finTxfersTable.refresh"/>
+                <button id="removeBtn" action="finTxfersTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -60,8 +61,20 @@ public class HasTmst {
 
     public void setDate1(Date date1) {
         this.date1 = date1;
-        ZoneId timeZone = ZoneId.systemDefault();
-        LocalDate localDate = date1.toInstant().atZone(timeZone).toLocalDate();
+
+        if (date1 == null) {
+            date1Yr = null;
+            date1Qtr = null;
+            date1Mon = null;
+            date1Mon2 = null;
+            date1Day =  null;
+            return;
+        }
+
+        LocalDate localDate = Instant.ofEpochMilli(date1.getTime())
+                                  .atZone(ZoneId.systemDefault())
+                                  .toLocalDate();
+
         date1Yr = localDate.getYear();
         date1Qtr = ((localDate.getMonthValue() - 1) / 4) + 1;
         date1Mon = localDate.getMonthValue();
@@ -71,10 +84,6 @@ public class HasTmst {
 
     public Date getDate1() {
         return date1;
-    }
-
-    public Integer getDate1Day() {
-        return date1Day;
     }
 
     public void setTime1(Date time1) {
@@ -87,6 +96,10 @@ public class HasTmst {
 
     public Date getTime1() {
         return time1;
+    }
+
+    public Integer getDate1Day() {
+        return date1Day;
     }
 
     public Integer getTime1Min() {

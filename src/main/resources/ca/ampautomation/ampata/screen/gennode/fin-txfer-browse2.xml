@@ -54,6 +54,7 @@
                     </actions>
                     <columns>
                         <column id="id2"/>
+                        <column id="id2Dup"/>
                         <column id="type1_Id"/>
                         <column id="desc1" width="180px"/>
                         <column id="finTxact1_Id"/>
@@ -415,35 +416,26 @@
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finStmtItm1_Desc1" expand="finStmtItm1_Desc1Field" width="100%">
-                                            <entityComboBox id="finStmtItm1_Desc1Field" dataContainer="finTxferDc"
-                                                            property="finStmtItm1_Desc1" tabIndex="10">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
+                                            <comboBox id="finStmtItm1_Desc1Field" dataContainer="finTxferDc"
+                                            property="finStmtItm1_Desc1" tabIndex="10">
+
+                                            </comboBox>
                                             <button id="updateListFinStmtItm1_Desc1FieldBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finStmtItm1_Desc2" expand="finStmtItm1_Desc2Field" width="100%">
-                                            <entityComboBox id="finStmtItm1_Desc2Field" dataContainer="finTxferDc"
-                                                            property="finStmtItm1_Desc2">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
+                                            <comboBox id="finStmtItm1_Desc2Field" dataContainer="finTxferDc"
+                                                      property="finStmtItm1_Desc2" tabIndex="10">
+
+                                            </comboBox>
                                             <button id="updateListFinStmtItm1_Desc2FieldBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finStmtItm1_Desc3" expand="finStmtItm1_Desc3Field" width="100%">
-                                            <entityComboBox id="finStmtItm1_Desc3Field" dataContainer="finTxferDc"
-                                                            property="finStmtItm1_Desc3" tabIndex="10">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
+                                            <comboBox id="finStmtItm1_Desc3Field" dataContainer="finTxferDc"
+                                                      property="finStmtItm1_Desc3" tabIndex="10">
+
+                                            </comboBox>
                                             <button id="updateListFinStmtItm1_Desc3FieldBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
