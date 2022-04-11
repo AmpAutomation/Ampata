@@ -41,6 +41,7 @@
                             <propertyFilter caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true"/>
                             <propertyFilter caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true" />
                         </configuration>
+                        <configuration id=" "/>
                     </configurations>
                 </filter>
                 <groupTable id="table"
@@ -347,8 +348,6 @@
                                             <button id="updateListFinTxact1_Id_Type1_IdFieldBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <textField id="finTxact1_Type1_IdField" property="finTxact1_Type1_Id" editable="false"
-                                                   tabIndex="10"/>
                                     </column>
                                     <column width="240px">
                                         <dateField id="finTxact1_BegDate1Field" property="finTxact1_BegDate1"
@@ -399,7 +398,7 @@
                                 </form>
                             </tab>
                             <tab id="tab_5"
-                                 caption="Stmt, Dept, Tax"
+                                 caption="Stmt, Tax"
                                  margin="true"
                                  spacing="true">
                                 <form id="tab5Form" dataContainer="finTxferDc">
@@ -445,17 +444,6 @@
                                                    tabIndex="10"/>
                                     </column>
                                     <column width="480px">
-                                        <hbox caption="finDept1_Id" expand="finDept1_IdField" width="100%">
-                                            <entityComboBox id="finDept1_IdField" dataContainer="finTxferDc"
-                                                            property="finDept1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateListFinDept1_IdFieldBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
                                         <hbox caption="finTaxLne1_Id" expand="finTaxLne1_IdField" width="100%">
                                             <entityComboBox id="finTaxLne1_IdField" dataContainer="finTxferDc"
                                                             property="finTaxLne1_Id" tabIndex="20">
@@ -483,7 +471,7 @@
                                 </form>
                             </tab>
                             <tab id="tab_6"
-                                 caption="Acct, Amt, Fmla"
+                                 caption="Acct, Dept, Amt, Fmla"
                                  margin="true"
                                  spacing="true">
                                 <form id="tab6Form" dataContainer="finTxferDc">
@@ -508,6 +496,17 @@
                                                 </actions>
                                             </entityComboBox>
                                             <button id="updateListFinAcct1_Id_Type1_IdFieldBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="finDept1_Id" expand="finDept1_IdField" width="100%">
+                                            <entityComboBox id="finDept1_IdField" dataContainer="finTxferDc"
+                                                            property="finDept1_Id" tabIndex="20">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateListFinDept1_IdFieldBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                     </column>

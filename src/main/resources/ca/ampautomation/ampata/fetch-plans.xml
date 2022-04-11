@@ -172,29 +172,17 @@
         <property name="genAgent2_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="finTxset1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_GenChan1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_GenChan1_Id" fetchPlan="_base"/>
         <property name="genChan1_Id" fetchPlan="_base"/>
         <property name="finTxact1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_Type1_Id" fetchPlan="_base"/>
         <property name="finStmt1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_Type1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id" fetchPlan="_base"/>
-        <property name="finTaxLne1_Type1_Id" fetchPlan="_base"/>
         <property name="finTaxLne1_Id" fetchPlan="_base"/>
         <property name="finDept1_Id" fetchPlan="_base"/>
-        <property name="finAcct1_Type1_Id" fetchPlan="_base"/>
         <property name="finTxfer1_Id" fetchPlan="_base"/>
         <property name="finFmla1_Id" fetchPlan="_base"/>
         <property name="finCurcy1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_Why1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_Why1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_What1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_What1_Id" fetchPlan="_base"/>
         <property name="finWhat1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_How1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_How1_Id" fetchPlan="_base"/>
         <property name="finHow1_Id" fetchPlan="_base"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genCurcy-fetch-plan-base" extends="genNode-fetch-plan-lean"/>
@@ -255,7 +243,6 @@
         <property name="finTxset1_Id2"/>
         <property name="finTxset1_Id2Calc"/>
         <property name="finTxset1_EI1_Role"/>
-        <property name="finTxset1_Type1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_Type1_Id2"/>
         <property name="idX"/>
         <property name="idY"/>
@@ -267,13 +254,11 @@
         <property name="finWhat1_Id" fetchPlan="_instance_name"/>
         <property name="finWhat1_Id2"/>
         <property name="finTxset1_WhatText1"/>
-        <property name="finTxset1_What1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_What1_Id2"/>
         <property name="whyText1"/>
         <property name="finWhy1_Id" fetchPlan="_instance_name"/>
         <property name="finWhy1_Id2"/>
         <property name="finTxset1_WhyText1"/>
-        <property name="finTxset1_Why1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_Why1_Id2"/>
 
         <property name="finTxset1_GenDocVers1_Id2"/>

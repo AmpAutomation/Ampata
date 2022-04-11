@@ -246,22 +246,6 @@ public class GenNode {
     @Embedded
     private HasTmst beg;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FIN_TXACT1__BEG_DATE1")
-    private Date finTxact1_BegDate1;
-
-    @Temporal(TemporalType.TIME)
-    @Column(name = "FIN_TXACT1__BEG_TIME1")
-    private Date finTxact1_BegTime1;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FIN_TXSET1__BEG_DATE1")
-    private Date finTxset1_BegDate1;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "FIN_TXSET1__BEG_TIME1")
-    private Date finTxset1_BegTime1;
-
     @AttributeOverrides({
             @AttributeOverride(name = "ts1", column = @Column(name = "END_TS1")),
             @AttributeOverride(name = "date1", column = @Column(name = "END_DATE1")),
@@ -305,23 +289,14 @@ public class GenNode {
     @Column(name = "GEN_CHAN1__ID2")
     private String genChan1_Id2;
 
-    @JoinColumn(name = "FIN_TXACT1__GEN_CHAN1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNode finTxact1_GenChan1_Id;
 
-    @Column(name = "FIN_TXACT1__GEN_CHAN1__ID2")
-    private String finTxact1_GenChan1_Id2;
-
-    @JoinColumn(name = "FIN_TXSET1__GEN_CHAN1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNode finTxset1_GenChan1_Id;
-
-    @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
-    private String finTxset1_GenChan1_Id2;
 
     @Lob
     @Column(name = "FIN_TXSET1__FIN_TXACTS1__ID2")
     private String finTxset1_FinTxacts1_Id2;
+    @Lob
+    @Column(name = "FIN_TXSET1__FIN_ACCTS1__ID2")
+    private String finTxset1_FinAccts1_Id2;
 
     @JoinColumn(name = "FIN_TXSET1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -336,16 +311,51 @@ public class GenNode {
     @Column(name = "FIN_TXSET1__EI1__ROLE")
     private String finTxset1_EI1_Role;
 
-    @JoinColumn(name = "FIN_TXSET1__TYPE1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNodeType finTxset1_Type1_Id;
-
     @Column(name = "FIN_TXSET1__TYPE1__ID2")
     private String finTxset1_Type1_Id2;
+
+
+
+    @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
+    private String finTxset1_GenChan1_Id2;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FIN_TXSET1__BEG_DATE1")
+    private Date finTxset1_BegDate1;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FIN_TXSET1__BEG_TIME1")
+    private Date finTxset1_BegTime1;
+
+
+    @Column(name = "FIN_TXSET1__HOW1__ID2")
+    private String finTxset1_How1_Id2;
+
+
+    @Column(name = "FIN_TXSET1__WHAT_TEXT1")
+    private String finTxset1_WhatText1;
+
+    @Column(name = "FIN_TXSET1__WHAT1__ID2")
+    private String finTxset1_What1_Id2;
+
+
+    @Column(name = "FIN_TXSET1__WHY_TEXT1")
+    private String finTxset1_WhyText1;
+
+    @Column(name = "FIN_TXSET1__WHY1__ID2")
+    private String finTxset1_Why1_Id2;
+
+
+
+
 
     @Lob
     @Column(name = "FIN_TXACT1__FIN_TXFERS1__ID2")
     private String finTxact1_FinTxfers1_Id2;
+
+    @Lob
+    @Column(name = "FIN_TXACT1__FIN_ACCTS1__ID2")
+    private String finTxact1_FinAccts1_Id2;
 
     @JoinColumn(name = "FIN_TXACT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -360,12 +370,37 @@ public class GenNode {
     @Column(name = "FIN_TXACT1__EI1__ROLE")
     private String finTxact1_EI1_Role;
 
-    @JoinColumn(name = "FIN_TXACT1__TYPE1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNodeType finTxact1_Type1_Id;
-
     @Column(name = "FIN_TXACT1__TYPE1__ID2")
     private String finTxact1_Type1_Id2;
+
+    @Column(name = "FIN_TXACT1__GEN_CHAN1__ID2")
+    private String finTxact1_GenChan1_Id2;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "FIN_TXACT1__BEG_DATE1")
+    private Date finTxact1_BegDate1;
+
+    @Temporal(TemporalType.TIME)
+    @Column(name = "FIN_TXACT1__BEG_TIME1")
+    private Date finTxact1_BegTime1;
+
+    @Column(name = "FIN_TXACT1__HOW1__ID2")
+    private String finTxact1_How1_Id2;
+
+
+    @Column(name = "FIN_TXACT1__WHAT_TEXT1")
+    private String finTxact1_WhatText1;
+
+    @Column(name = "FIN_TXACT1__WHAT1__ID2")
+    private String finTxact1_What1_Id2;
+
+
+    @Column(name = "FIN_TXACT1__WHY_TEXT1")
+    private String finTxact1_WhyText1;
+
+    @Column(name = "FIN_TXACT1__WHY1__ID2")
+    private String finTxact1_Why1_Id2;
+
 
     @Column(name = "ID_X")
     private Integer idX;
@@ -383,43 +418,20 @@ public class GenNode {
     @Column(name = "FIN_STMT1__ID2")
     private String finStmt1_Id2;
 
-    @Column(name = "STMT_DESC_L1")
-    private String stmtDescL1;
-
     @Column(name = "FIN_STMT_ITM1__DESC1")
     private String finStmtItm1_Desc1;
-
-    @Column(name = "STMT_DESC_L2")
-    private String stmtDescL2;
 
     @Column(name = "FIN_STMT_ITM1__DESC2")
     private String finStmtItm1_Desc2;
 
-    @Column(name = "STMT_DESC_L3")
-    private String stmtDescL3;
-
     @Column(name = "FIN_STMT_ITM1__DESC3")
     private String finStmtItm1_Desc3;
-
-    @Column(name = "STMT_DESC_AMT")
-    private String stmtDescAmt;
 
     @Column(name = "FIN_STMT_ITM1__DESC_AMT")
     private String finStmtItm1_DescAmt;
 
-    @Column(name = "STMT_REF_ID")
-    private String stmtRefId;
-
     @Column(name = "FIN_STMT_ITM1__REF_ID")
     private String finStmtItm1_RefId;
-
-    @Lob
-    @Column(name = "FIN_TXSET1__FIN_ACCTS1__ID2")
-    private String finTxset1_FinAccts1_Id2;
-
-    @Lob
-    @Column(name = "FIN_TXACT1__FIN_ACCTS1__ID2")
-    private String finTxact1_FinAccts1_Id2;
 
     @JoinColumn(name = "FIN_ACCT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -427,10 +439,6 @@ public class GenNode {
 
     @Column(name = "FIN_ACCT1__ID2")
     private String finAcct1_Id2;
-
-    @JoinColumn(name = "FIN_ACCT1__TYPE1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNodeType finAcct1_Type1_Id;
 
     @Column(name = "FIN_ACCT1__TYPE1__ID2")
     private String finAcct1_Type1_Id2;
@@ -452,10 +460,6 @@ public class GenNode {
     @Column(name = "FIN_TAX_LNE1__CODE")
     private String finTaxLne1_Code;
 
-    @JoinColumn(name = "FIN_TAX_LNE1__TYPE1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private GenNodeType finTaxLne1_Type1_Id;
-
     @Column(name = "FIN_TAX_LNE1__TYPE1__ID2")
     private String finTaxLne1_Type1_Id2;
 
@@ -465,20 +469,6 @@ public class GenNode {
 
     @Column(name = "FIN_HOW1__ID2")
     private String finHow1_Id2;
-
-    @JoinColumn(name = "FIN_TXACT1__HOW1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinHow finTxact1_How1_Id;
-
-    @Column(name = "FIN_TXACT1__HOW1__ID2")
-    private String finTxact1_How1_Id2;
-
-    @JoinColumn(name = "FIN_TXSET1__HOW1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinHow finTxset1_How1_Id;
-
-    @Column(name = "FIN_TXSET1__HOW1__ID2")
-    private String finTxset1_How1_Id2;
 
     @Column(name = "WHAT_TEXT1")
     private String whatText1;
@@ -490,26 +480,6 @@ public class GenNode {
     @Column(name = "FIN_WHAT1__ID2")
     private String finWhat1_Id2;
 
-    @Column(name = "FIN_TXACT1__WHAT_TEXT1")
-    private String finTxact1_WhatText1;
-
-    @JoinColumn(name = "FIN_TXACT1__WHAT1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinWhat finTxact1_What1_Id;
-
-    @Column(name = "FIN_TXACT1__WHAT1__ID2")
-    private String finTxact1_What1_Id2;
-
-    @Column(name = "FIN_TXSET1__WHAT_TEXT1")
-    private String finTxset1_WhatText1;
-
-    @JoinColumn(name = "FIN_TXSET1__WHAT1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinWhat finTxset1_What1_Id;
-
-    @Column(name = "FIN_TXSET1__WHAT1__ID2")
-    private String finTxset1_What1_Id2;
-
     @Column(name = "WHY_TEXT1")
     private String whyText1;
 
@@ -519,26 +489,6 @@ public class GenNode {
 
     @Column(name = "FIN_WHY1__ID2")
     private String finWhy1_Id2;
-
-    @Column(name = "FIN_TXACT1__WHY_TEXT1")
-    private String finTxact1_WhyText1;
-
-    @JoinColumn(name = "FIN_TXACT1__WHY1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinWhy finTxact1_Why1_Id;
-
-    @Column(name = "FIN_TXACT1__WHY1__ID2")
-    private String finTxact1_Why1_Id2;
-
-    @Column(name = "FIN_TXSET1__WHY_TEXT1")
-    private String finTxset1_WhyText1;
-
-    @JoinColumn(name = "FIN_TXSET1__WHY1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private FinWhy finTxset1_Why1_Id;
-
-    @Column(name = "FIN_TXSET1__WHY1__ID2")
-    private String finTxset1_Why1_Id2;
 
     @Column(name = "AMT_DEBT", precision = 19, scale = 2)
     private BigDecimal amtDebt;
@@ -659,84 +609,12 @@ public class GenNode {
     @Transient
     private Logger logger = LoggerFactory.getLogger(GenNode.class);
 
-    public void setFinTxset1_BegTime1(Date finTxset1_BegTime1) {
-        this.finTxset1_BegTime1 = finTxset1_BegTime1;
+    public UUID getId() {
+        return id;
     }
 
-    public Date getFinTxset1_BegTime1() {
-        return finTxset1_BegTime1;
-    }
-
-    public void setFinTxact1_BegTime1(Date finTxact1_BegTime1) {
-        this.finTxact1_BegTime1 = finTxact1_BegTime1;
-    }
-
-    public Date getFinTxact1_BegTime1() {
-        return finTxact1_BegTime1;
-    }
-
-    public void setFinTxset1_BegDate1(Date finTxset1_BegDate1) {
-        this.finTxset1_BegDate1 = finTxset1_BegDate1;
-    }
-
-    public Date getFinTxset1_BegDate1() {
-        return finTxset1_BegDate1;
-    }
-
-    public void setFinTxact1_BegDate1(Date finTxact1_BegDate1) {
-        this.finTxact1_BegDate1 = finTxact1_BegDate1;
-    }
-
-    public Date getFinTxact1_BegDate1() {
-        return finTxact1_BegDate1;
-    }
-
-    public String getFinStmtItm1_RefId() {
-        return finStmtItm1_RefId;
-    }
-
-    public void setFinStmtItm1_RefId(String finStmtItm1_RefId) {
-        this.finStmtItm1_RefId = finStmtItm1_RefId;
-    }
-
-    public String getFinStmtItm1_DescAmt() {
-        return finStmtItm1_DescAmt;
-    }
-
-    public void setFinStmtItm1_DescAmt(String finStmtItm1_DescAmt) {
-        this.finStmtItm1_DescAmt = finStmtItm1_DescAmt;
-    }
-
-    public String getFinStmtItm1_Desc3() {
-        return finStmtItm1_Desc3;
-    }
-
-    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) {
-        this.finStmtItm1_Desc3 = finStmtItm1_Desc3;
-    }
-
-    public String getFinStmtItm1_Desc2() {
-        return finStmtItm1_Desc2;
-    }
-
-    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) {
-        this.finStmtItm1_Desc2 = finStmtItm1_Desc2;
-    }
-
-    public String getFinStmtItm1_Desc1() {
-        return finStmtItm1_Desc1;
-    }
-
-    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) {
-        this.finStmtItm1_Desc1 = finStmtItm1_Desc1;
-    }
-
-    public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) {
-        this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2;
-    }
-
-    public void setCredSum(BigDecimal credSum) {
-        this.credSum = credSum;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getId2() {
@@ -909,6 +787,130 @@ public class GenNode {
 
 
 
+    public String getGenChan1_Id2() {
+        return genChan1_Id2;
+    }
+
+    public void setGenChan1_Id2(String genChan1_Id2) {
+        this.genChan1_Id2 = genChan1_Id2;
+    }
+
+    public GenNode getGenChan1_Id() {
+        return genChan1_Id;
+    }
+
+    public void setGenChan1_Id(GenNode genChan1_Id) {
+        this.genChan1_Id = genChan1_Id;
+    }
+
+
+
+
+    public void setBeg(HasTmst beg) {
+        this.beg = beg;
+    }
+
+    public HasTmst getBeg() {
+        return beg;
+    }
+
+    public void setEnd(HasTmst end) {
+        this.end = end;
+    }
+
+    public HasTmst getEnd() {
+        return end;
+    }
+
+
+    public Integer getIdX() {
+        return idX;
+    }
+
+    public void setIdX(Integer idX) {
+        this.idX = idX;
+        updateId2s();
+
+    }
+
+    public Integer getIdY() {
+        return idY;
+    }
+
+    public void setIdY(Integer idY) {
+        this.idY = idY;
+        updateId2s();
+    }
+
+    public Integer getIdZ() {
+        return idZ;
+    }
+
+    public void setIdZ(Integer idZ) {
+        this.idZ = idZ;
+        updateId2s();
+    }
+
+
+    private void updateId2s(){
+
+        String id2Calc = "";
+
+        switch (className) {
+            case "FinTxset":
+                id2Calc = getId2CalcFrFields();
+                setId2Calc(id2Calc);
+                break;
+
+            case "FinTxact":
+                id2Calc = getId2CalcFrFields();
+                if (id2Calc != null
+                        && id2Calc != ""
+                        && id2Calc != this.id2Calc) {
+                    setId2Calc(id2Calc);
+                    setFinTxset1_Id2Calc(id2Calc.substring(0,20));
+                }
+                break;
+
+            case "FinTxfer":
+                id2Calc = getId2CalcFrFields();
+                if (id2Calc != null
+                        && id2Calc != ""
+                        && id2Calc != this.id2Calc) {
+                    setId2Calc(id2Calc);
+                    setFinTxact1_Id2Calc(id2Calc.substring(0,24));
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+
+    public String getGenDocVers1_Id2() {
+        return genDocVers1_Id2;
+    }
+
+    public void setGenDocVers1_Id2(String genDocVers1_Id2) {
+        this.genDocVers1_Id2 = genDocVers1_Id2;
+    }
+
+    public GenNode getGenDocVer1_Id() {
+        return genDocVer1_Id;
+    }
+
+    public void setGenDocVer1_Id(GenNode genDocVer1_Id) {
+        this.genDocVer1_Id = genDocVer1_Id;
+    }
+
+    public String getGenDocVer1_Id2() {
+        return genDocVer1_Id2;
+    }
+
+    public void setGenDocVer1_Id2(String genDocVer1_Id2) {
+        this.genDocVer1_Id2 = genDocVer1_Id2;
+    }
 
     public String getGenDocVer1_Code() {
         return genDocVer1_Code;
@@ -922,29 +924,111 @@ public class GenNode {
         return genDocVer1_Name1;
     }
 
-    public String getGenDocVerRev1_Name1() {
-        return genDocVer1_Name1;
+
+    public GenNode getGenFile1_Id() {
+        return genFile1_Id;
     }
 
-    public void setGenDocVerRev1_Name1(String genDocRev1_Name1) {
-        this.genDocVer1_Name1 = genDocRev1_Name1;
+    public void setGenFile1_Id(GenNode genFile1_Id) {
+        this.genFile1_Id = genFile1_Id;
     }
 
-    public String getGenDocVerRev1_Ver() {
-        return genDocVer1_Ver;
+    public String getGenFile1_Id2() {
+        return genFile1_Id2;
     }
 
-    public void setGenDocVerRev1_Ver(String genDocRev1_Ver) {
-        this.genDocVer1_Ver = genDocRev1_Ver;
+    public void setGenFile1_Id2(String genFile1_Id2) {
+        this.genFile1_Id2 = genFile1_Id2;
     }
 
-    public String getGenDocVerRev1_Code() {
-        return genDocVer1_Code;
+    public URI getGenFile1_URI() {
+        return genFile1_URI;
     }
 
-    public void setGenDocVerRev1_Code(String genDocRev1_Code) {
-        this.genDocVer1_Code = genDocRev1_Code;
+    public void setGenFile1_URI(URI genFile1_URI) {
+        this.genFile1_URI = genFile1_URI;
     }
+
+
+
+    public String getGenTags1_Id2() {
+        return genTags1_Id2;
+    }
+
+    public void setGenTags1_Id2(String genTags1_Id2) {
+        this.genTags1_Id2 = genTags1_Id2;
+    }
+
+
+    public GenNode getGenTag1_Id() {
+        return genTag1_Id;
+    }
+
+    public void setGenTag1_Id(GenNode genTag1_Id) {
+        this.genTag1_Id = genTag1_Id;
+    }
+
+    public String getGenTag1_Id2() {
+        return genTag1_Id2;
+    }
+
+    public void setGenTag1_Id2(String genTag1_Id2) {
+        this.genTag1_Id2 = genTag1_Id2;
+    }
+
+
+    public GenNode getGenTag2_Id() {
+        return genTag2_Id;
+    }
+
+    public void setGenTag2_Id(GenNode genTag2_Id) {
+        this.genTag2_Id = genTag2_Id;
+    }
+
+    public String getGenTag2_Id2() {
+        return genTag2_Id2;
+    }
+
+    public void setGenTag2_Id2(String genTag2_Id2) {
+        this.genTag2_Id2 = genTag2_Id2;
+    }
+
+
+    public GenNode getGenTag3_Id() {
+        return genTag3_Id;
+    }
+
+    public void setGenTag3_Id(GenNode genTag3_Id) {
+        this.genTag3_Id = genTag3_Id;
+    }
+
+    public String getGenTag3_Id2() {
+        return genTag3_Id2;
+    }
+
+    public void setGenTag3_Id2(String genTag3_Id2) {
+        this.genTag3_Id2 = genTag3_Id2;
+    }
+
+
+    public GenNode getGenTag4_Id() {
+        return genTag4_Id;
+    }
+
+    public void setGenTag4_Id(GenNode genTag4_Id) {
+        this.genTag4_Id = genTag4_Id;
+    }
+
+    public String getGenTag4_Id2() {
+        return genTag4_Id2;
+    }
+
+    public void setGenTag4_Id2(String genTag4_Id2) {
+        this.genTag4_Id2 = genTag4_Id2;
+    }
+
+
+
 
     public String getVer() {
         return ver;
@@ -952,20 +1036,12 @@ public class GenNode {
 
     public void setVer(String ver) { this.ver = ver;}
 
-    public String getGenAgent2_Id2() {
-        return genAgent2_Id2;
+    public GenNode getGenAgent1_Id() {
+        return genAgent1_Id;
     }
 
-    public void setGenAgent2_Id2(String genAgent2_Id2) {
-        this.genAgent2_Id2 = genAgent2_Id2;
-    }
-
-    public GenNode getGenAgent2_Id() {
-        return genAgent2_Id;
-    }
-
-    public void setGenAgent2_Id(GenNode genAgent2_Id) {
-        this.genAgent2_Id = genAgent2_Id;
+    public void setGenAgent1_Id(GenNode genAgent1_Id) {
+        this.genAgent1_Id = genAgent1_Id;
     }
 
     public String getGenAgent1_Id2() {
@@ -976,36 +1052,30 @@ public class GenNode {
         this.genAgent1_Id2 = genAgent1_Id2;
     }
 
-    public GenNode getGenAgent1_Id() {
-        return genAgent1_Id;
+
+    public GenNode getGenAgent2_Id() {
+        return genAgent2_Id;
     }
 
-    public void setGenAgent1_Id(GenNode genAgent1_Id) {
-        this.genAgent1_Id = genAgent1_Id;
+    public void setGenAgent2_Id(GenNode genAgent2_Id) {
+        this.genAgent2_Id = genAgent2_Id;
     }
 
-    public String getNameMidl() {
-        return nameMidl;
+    public String getGenAgent2_Id2() {
+        return genAgent2_Id2;
     }
 
-    public void setNameMidl(String nameMidl) {
-        this.nameMidl = nameMidl;
+    public void setGenAgent2_Id2(String genAgent2_Id2) {
+        this.genAgent2_Id2 = genAgent2_Id2;
     }
 
-    public String getNameSufx() {
-        return nameSufx;
+
+    public String getNamePrfx() {
+        return namePrfx;
     }
 
-    public void setNameSufx(String nameSufx) {
-        this.nameSufx = nameSufx;
-    }
-
-    public String getNameLast() {
-        return nameLast;
-    }
-
-    public void setNameLast(String nameLast) {
-        this.nameLast = nameLast;
+    public void setNamePrfx(String namePrfx) {
+        this.namePrfx = namePrfx;
     }
 
     public String getNameFrst() {
@@ -1016,12 +1086,204 @@ public class GenNode {
         this.nameFrst = nameFrst;
     }
 
-    public String getNamePrfx() {
-        return namePrfx;
+    public String getNameMidl() {
+        return nameMidl;
     }
 
-    public void setNamePrfx(String namePrfx) {
-        this.namePrfx = namePrfx;
+    public void setNameMidl(String nameMidl) {
+        this.nameMidl = nameMidl;
+    }
+
+    public String getNameLast() {
+        return nameLast;
+    }
+
+    public void setNameLast(String nameLast) {
+        this.nameLast = nameLast;
+    }
+
+    public String getNameSufx() {
+        return nameSufx;
+    }
+
+    public void setNameSufx(String nameSufx) {
+        this.nameSufx = nameSufx;
+    }
+
+
+
+
+
+    public String getFinTxset1_FinAccts1_Id2() {
+        return finTxset1_FinAccts1_Id2;
+    }
+
+    public String getFinTxset1_FinTxacts1_Id2() {
+        return finTxset1_FinTxacts1_Id2;
+    }
+
+    public void setFinTxset1_FinTxacts1_Id2(String finTxset1_FinTxacts1_Id2) {
+        this.finTxset1_FinTxacts1_Id2 = finTxset1_FinTxacts1_Id2;
+    }
+
+    public String getFinTxset1_FinAccts_Id2() {
+        return finTxset1_FinAccts_Id2;
+    }
+
+    public void setFinTxset1_FinAccts_Id2(String finTxset1_FinAccts_Id2) {
+        this.finTxset1_FinAccts_Id2 = finTxset1_FinAccts_Id2;
+    }
+
+
+    public GenNode getFinTxset1_Id() {
+        return finTxset1_Id;
+    }
+
+    public void setFinTxset1_Id(GenNode finTxset1_Id) {
+        this.finTxset1_Id = finTxset1_Id;
+    }
+
+    public String getFinTxset1_Id2() {
+        return finTxset1_Id2;
+    }
+
+    public void setFinTxset1_Id2(String finTxset1_Id2) {
+        this.finTxset1_Id2 = finTxset1_Id2;
+    }
+
+    public String getFinTxset1_Id2Calc() {
+        return finTxset1_Id2Calc;
+    }
+
+    public void setFinTxset1_Id2Calc(String finTxset1_Id2Calc) {
+        this.finTxset1_Id2Calc = finTxset1_Id2Calc;
+    }
+
+    public String getFinTxset1_Type1_Id2() {
+        return finTxset1_Type1_Id2;
+    }
+
+    public void setFinTxset1_Type1_Id2(String finTxset1_Type1_Id2) {
+        this.finTxset1_Type1_Id2 = finTxset1_Type1_Id2;
+    }
+
+
+    public String getFinTxset1_EI1_Role() {
+        return finTxset1_EI1_Role;
+    }
+
+    public void setFinTxset1_EI1_Role(String finTxset1_EI1_Role) {
+        this.finTxset1_EI1_Role = finTxset1_EI1_Role;
+    }
+
+
+    public void setFinTxset1_BegDate1(Date finTxset1_BegDate1) {
+        this.finTxset1_BegDate1 = finTxset1_BegDate1;
+    }
+
+    public Date getFinTxset1_BegDate1() {
+        return finTxset1_BegDate1;
+    }
+
+
+    public void setFinTxset1_BegTime1(Date finTxset1_BegTime1) {
+        this.finTxset1_BegTime1 = finTxset1_BegTime1;
+    }
+
+    public Date getFinTxset1_BegTime1() {
+        return finTxset1_BegTime1;
+    }
+
+
+
+    public String getFinTxset1_GenTags1_Id2() {
+        return finTxset1_GenTags1_Id2;
+    }
+
+    public void setFinTxset1_GenTags1_Id2(String finTxset1_GenTags1_Id2) {
+        this.finTxset1_GenTags1_Id2 = finTxset1_GenTags1_Id2;
+    }
+
+    public String getFinTxset1_GenDocVers1_Id2() {
+        return finTxset1_GenDocVers1_Id2;
+    }
+
+    public void setFinTxset1_GenDocVers1_Id2(String finTxset1_GenDocVers1_Id2) {
+        this.finTxset1_GenDocVers1_Id2 = finTxset1_GenDocVers1_Id2;
+    }
+
+
+
+    public String getFinTxset1_GenChan1_Id2() {
+        return finTxset1_GenChan1_Id2;
+    }
+
+    public void setFinTxset1_GenChan1_Id2(String finTxset1_GenChan1_Id2) {
+        this.finTxset1_GenChan1_Id2 = finTxset1_GenChan1_Id2;
+    }
+
+
+
+    public String getFinTxset1_How1_Id2() {
+        return finTxset1_How1_Id2;
+    }
+
+    public void setFinTxset1_How1_Id2(String finTxset1_How1_Id2) {
+        this.finTxset1_How1_Id2 = finTxset1_How1_Id2;
+    }
+
+    public String getFinTxset1_WhatText1() {
+        return finTxset1_WhatText1;
+    }
+
+    public void setFinTxset1_WhatText1(String finTxset1_WhatText1) {
+        this.finTxset1_WhatText1 = finTxset1_WhatText1;
+    }
+
+
+    public String getFinTxset1_What1_Id2() {
+        return finTxset1_What1_Id2;
+    }
+
+    public void setFinTxset1_What1_Id2(String finTxset1_What1_Id2) {
+        this.finTxset1_What1_Id2 = finTxset1_What1_Id2;
+    }
+
+
+    public String getFinTxset1_WhyText1() {
+        return finTxset1_WhyText1;
+    }
+
+    public void setFinTxset1_WhyText1(String finTxset1_WhyText1) {
+        this.finTxset1_WhyText1 = finTxset1_WhyText1;
+    }
+
+    public String getFinTxset1_Why1_Id2() {
+        return finTxset1_Why1_Id2;
+    }
+
+    public void setFinTxset1_Why1_Id2(String finTxset1_Why1_Id2) {
+        this.finTxset1_Why1_Id2 = finTxset1_Why1_Id2;
+    }
+
+
+
+
+
+    public String getFinTxacts1_Id2() {
+        return finTxacts1_Id2;
+    }
+
+    public void setFinTxacts1_Id2(String finTxacts1_Id2) {
+        this.finTxacts1_Id2 = finTxacts1_Id2;
+    }
+
+    public String getFinTxact1_FinTxfers1_Id2() {
+        return finTxact1_FinTxfers1_Id2;
+    }
+
+    public String getFinTxact1_FinAccts1_Id2() {
+        return finTxact1_FinAccts1_Id2;
     }
 
     public String getFinTxacts1_FinAccts1_Id2() {
@@ -1032,29 +1294,347 @@ public class GenNode {
         this.finTxacts1_FinAccts1_Id2 = finTxacts1_FinAccts1_Id2;
     }
 
-    public String getFinTxacts1_Id2() {
-        return finTxacts1_Id2;
+
+
+    public GenNode getFinTxact1_Id() {
+        return finTxact1_Id;
     }
 
-    public void setFinTxacts1_Id2(String finTxacts1_Id2) {
-        this.finTxacts1_Id2 = finTxacts1_Id2;
+    public void setFinTxact1_Id(GenNode finTxact1_Id) {
+        this.finTxact1_Id = finTxact1_Id;
     }
 
-    public void setEnd(HasTmst end) {
-        this.end = end;
+    public String getFinTxact1_Id2() {
+        return finTxact1_Id2;
     }
 
-    public HasTmst getEnd() {
-        return end;
+    public void setFinTxact1_Id2(String finTxact1_Id2) {
+        this.finTxact1_Id2 = finTxact1_Id2;
     }
 
-    public GenNode getFinTxset1_Id() {
-        return finTxset1_Id;
+    public String getFinTxact1_Id2Calc() {
+        return finTxact1_Id2Calc;
     }
 
-    public void setFinTxset1_Id(GenNode finTxset1_Id) {
-        this.finTxset1_Id = finTxset1_Id;
+    public void setFinTxact1_Id2Calc(String finTxact1_Id2Calc) {
+        this.finTxact1_Id2Calc = finTxact1_Id2Calc;
     }
+
+    public String getFinTxact1_Type1_Id2() {
+        return finTxact1_Type1_Id2;
+    }
+
+    public void setFinTxact1_Type1_Id2(String finTxact1_Type1_Id2) {
+        this.finTxact1_Type1_Id2 = finTxact1_Type1_Id2;
+    }
+
+    public String getFinTxact1_EI1_Role() {
+        return finTxact1_EI1_Role;
+    }
+
+    public void setFinTxact1_EI1_Role(String finTxact1_EI1_Role) {
+        this.finTxact1_EI1_Role = finTxact1_EI1_Role;
+    }
+
+
+    public String getFinTxact1_GenChan1_Id2() {
+        return finTxact1_GenChan1_Id2;
+    }
+
+    public void setFinTxact1_GenChan1_Id2(String finTxact1_GenChan1_Id2) {
+        this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2;
+    }
+
+    public void setFinTxact1_BegTime1(Date finTxact1_BegTime1) {
+        this.finTxact1_BegTime1 = finTxact1_BegTime1;
+    }
+
+    public Date getFinTxact1_BegTime1() {
+        return finTxact1_BegTime1;
+    }
+
+    public void setFinTxact1_BegDate1(Date finTxact1_BegDate1) {
+        this.finTxact1_BegDate1 = finTxact1_BegDate1;
+    }
+
+    public Date getFinTxact1_BegDate1() {
+        return finTxact1_BegDate1;
+    }
+
+
+    public String getFinTxact1_How1_Id2() {
+        return finTxact1_How1_Id2;
+    }
+
+    public void setFinTxact1_How1_Id2(String finTxact1_How1_Id2) {
+        this.finTxact1_How1_Id2 = finTxact1_How1_Id2;
+    }
+
+
+    public String getFinTxact1_WhatText1() {
+        return finTxact1_WhatText1;
+    }
+
+    public void setFinTxact1_WhatText1(String finTxact1_WhatText1) {
+        this.finTxact1_WhatText1 = finTxact1_WhatText1;
+    }
+
+    public String getFinTxact1_What1_Id2() {
+        return finTxact1_What1_Id2;
+    }
+
+    public void setFinTxact1_What1_Id2(String finTxact1_What1_Id2) {
+        this.finTxact1_What1_Id2 = finTxact1_What1_Id2;
+    }
+
+
+    public String getFinTxact1_WhyText1() {
+        return finTxact1_WhyText1;
+    }
+
+    public void setFinTxact1_WhyText1(String finTxact1_WhyText1) {
+        this.finTxact1_WhyText1 = finTxact1_WhyText1;
+    }
+
+    public String getFinTxact1_Why1_Id2() {
+        return finTxact1_Why1_Id2;
+    }
+
+    public void setFinTxact1_Why1_Id2(String finTxact1_Why1_Id2) {
+        this.finTxact1_Why1_Id2 = finTxact1_Why1_Id2;
+    }
+
+
+
+
+
+    public String getFinStmt1_Id2() {
+        return finStmt1_Id2;
+    }
+
+    public void setFinStmt1_Id2(String finStmt1_Id2) {
+        this.finStmt1_Id2 = finStmt1_Id2;
+    }
+
+    public GenNode getFinStmt1_Id() {
+        return finStmt1_Id;
+    }
+
+    public void setFinStmt1_Id(GenNode finStmt1_Id) {
+        this.finStmt1_Id = finStmt1_Id;
+    }
+
+
+    public String getFinStmtItm1_RefId() {
+        return finStmtItm1_RefId;
+    }
+
+    public void setFinStmtItm1_RefId(String finStmtItm1_RefId) {
+        this.finStmtItm1_RefId = finStmtItm1_RefId;
+    }
+
+    public String getFinStmtItm1_DescAmt() {
+        return finStmtItm1_DescAmt;
+    }
+
+    public void setFinStmtItm1_DescAmt(String finStmtItm1_DescAmt) {
+        this.finStmtItm1_DescAmt = finStmtItm1_DescAmt;
+    }
+
+    public String getFinStmtItm1_Desc3() {
+        return finStmtItm1_Desc3;
+    }
+
+    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) {
+        this.finStmtItm1_Desc3 = finStmtItm1_Desc3;
+    }
+
+    public String getFinStmtItm1_Desc2() {
+        return finStmtItm1_Desc2;
+    }
+
+    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) {
+        this.finStmtItm1_Desc2 = finStmtItm1_Desc2;
+    }
+
+    public String getFinStmtItm1_Desc1() {
+        return finStmtItm1_Desc1;
+    }
+
+    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) {
+        this.finStmtItm1_Desc1 = finStmtItm1_Desc1;
+    }
+
+
+    public String getFinAcct1_Type1_Id2() {
+        return finAcct1_Type1_Id2;
+    }
+
+    public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) {
+        this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2;
+    }
+
+
+    public GenNode getFinAcct1_Id() {
+        return finAcct1_Id;
+    }
+
+    public void setFinAcct1_Id(GenNode finAcct1_Id) {
+        this.finAcct1_Id = finAcct1_Id;
+    }
+
+    public String getFinAcct1_Id2() {
+        return finAcct1_Id2;
+    }
+
+    public void setFinAcct1_Id2(String finAcct1_Id2) {
+        this.finAcct1_Id2 = finAcct1_Id2;
+    }
+
+
+
+    public GenNode getFinDept1_Id() {
+        return finDept1_Id;
+    }
+
+    public void setFinDept1_Id(GenNode finDept1_Id) {
+        this.finDept1_Id = finDept1_Id;
+    }
+
+    public String getFinDept1_Id2() {
+        return finDept1_Id2;
+    }
+
+    public void setFinDept1_Id2(String finDept1_Id2) {
+        this.finDept1_Id2 = finDept1_Id2;
+    }
+
+
+
+    public BigDecimal getAmtNet() {
+        return amtNet;
+    }
+
+    public void setAmtNet(BigDecimal amtNet) {
+        this.amtNet = amtNet;
+    }
+
+    public BigDecimal getAmtCred() {
+        return amtCred;
+    }
+
+    public void setAmtCred(BigDecimal amtCred) {
+        this.amtCred = amtCred;
+    }
+
+    public BigDecimal getAmtDebt() {
+        return amtDebt;
+    }
+
+    public void setAmtDebt(BigDecimal amtDebt) {
+        this.amtDebt = amtDebt;
+    }
+
+    public GenNode getFinCurcy1_Id() {
+        return finCurcy1_Id;
+    }
+
+    public void setFinCurcy1_Id(GenNode finCurcy1_Id) {
+        this.finCurcy1_Id = finCurcy1_Id;
+    }
+
+    public String getFinCurcy1_Id2() {
+        return finCurcy1_Id2;
+    }
+
+    public void setFinCurcy1_Id2(String finCurcy1_Id2) {
+        this.finCurcy1_Id2 = finCurcy1_Id2;
+    }
+
+
+
+    public GenNode getFinTaxLne1_Id() {
+        return finTaxLne1_Id;
+    }
+
+    public void setFinTaxLne1_Id(GenNode finTax_1_Id) {
+        this.finTaxLne1_Id = finTax_1_Id;
+    }
+
+    public String getFinTaxLne1_Id2() {
+        return finTaxLne1_Id2;
+    }
+
+    public void setFinTaxLne1_Id2(String finTaxLne1_Id2) {
+        this.finTaxLne1_Id2 = finTaxLne1_Id2;
+    }
+
+    public String getFinTaxLne1_Type1_Id2() {
+        return finTaxLne1_Type1_Id2;
+    }
+
+    public void setFinTaxLne1_Type1_Id2(String finTaxLne1_Type1_Id2) {
+        this.finTaxLne1_Type1_Id2 = finTaxLne1_Type1_Id2;
+    }
+
+    public String getFinTaxLne1_Code() {
+        return finTaxLne1_Code;
+    }
+
+    public void setFinTaxLne1_Code(String finTaxLne1_Code) {
+        this.finTaxLne1_Code = finTaxLne1_Code;
+    }
+
+
+    public FinFmla getFinFmla1_Id() {
+        return finFmla1_Id;
+    }
+
+    public void setFinFmla1_Id(FinFmla finFmla1_Id) {
+        this.finFmla1_Id = finFmla1_Id;
+    }
+
+    public String getFinFmla1_Id2() {
+        return finFmla1_Id2;
+    }
+
+    public void setFinFmla1_Id2(String finFmla1_Id2) {
+        this.finFmla1_Id2 = finFmla1_Id2;
+    }
+
+
+    public GenNode getFinTxfer1_Id() {
+        return finTxfer1_Id;
+    }
+
+    public void setFinTxfer1_Id(GenNode finTxfer1_Id) {
+        this.finTxfer1_Id = finTxfer1_Id;
+    }
+
+    public String getFinTxfer1_Id2() {
+        return finTxfer1_Id2;
+    }
+
+    public void setFinTxfer1_Id2(String finTxfer1_Id2) {
+        this.finTxfer1_Id2 = finTxfer1_Id2;
+    }
+
+    public BigDecimal getFinTxfer1_EI1_Rate() {
+        return finTxfer1_EI1_Rate;
+    }
+
+    public void setFinTxfer1_EI1_Rate(BigDecimal finTxfer1_EI1_Rate) {
+        this.finTxfer1_EI1_Rate = finTxfer1_EI1_Rate;
+    }
+
+    public BigDecimal getCalcRslt() {
+        return calcRslt;
+    }
+
+    public void setCalcRslt(BigDecimal calcRslt) {
+        this.calcRslt = calcRslt;
+    }
+
 
 
     public String getFinTxfers1_Id2() {
@@ -1072,6 +1652,7 @@ public class GenNode {
     public void setFinTxfers1_FinAccts1_Id2(String finTxfers1_FinAccts1_Id2) {
         this.finTxfers1_FinAccts1_Id2 = finTxfers1_FinAccts1_Id2;
     }
+
 
     public Boolean getDebtEqCred() {
         return debtEqCred;
@@ -1105,22 +1686,7 @@ public class GenNode {
         this.finTxfers1_DebtSum = finTxfers1_DebtSum;
     }
 
-    public String getFinTxset1_FinAccts_Id2() {
-        return finTxset1_FinAccts_Id2;
-    }
 
-    public void setFinTxset1_FinAccts_Id2(String finTxset1_FinAccts_Id2) {
-        this.finTxset1_FinAccts_Id2 = finTxset1_FinAccts_Id2;
-    }
-
-
-    public void setBeg(HasTmst beg) {
-        this.beg = beg;
-    }
-
-    public HasTmst getBeg() {
-        return beg;
-    }
 
     public String getStatus() {
         return status;
@@ -1138,24 +1704,20 @@ public class GenNode {
         this.netSum = netSum;
     }
 
-    public BigDecimal getCredSum() {
-        return credSum;
-    }
-
-    public BigDecimal getTxferOut() {
-        return credSum;
-    }
-
-    public void setTxferOut(BigDecimal txferOut) {
-        this.credSum = txferOut;
-    }
-
     public BigDecimal getDebtSum() {
         return debtSum;
     }
 
     public void setDebtSum(BigDecimal debtSum) {
         this.debtSum = debtSum;
+    }
+
+    public BigDecimal getCredSum() {
+        return credSum;
+    }
+
+    public void setCredSum(BigDecimal credSum) {
+        this.credSum = credSum;
     }
 
     public BigDecimal getEndBal() {
@@ -1175,571 +1737,6 @@ public class GenNode {
     }
 
 
-    public String getGenChan1_Id2() {
-        return genChan1_Id2;
-    }
-
-    public void setGenChan1_Id2(String genChan1_Id2) {
-        this.genChan1_Id2 = genChan1_Id2;
-    }
-
-    public GenNode getGenChan1_Id() {
-        return genChan1_Id;
-    }
-
-    public void setGenChan1_Id(GenNode genChan1_Id) {
-        this.genChan1_Id = genChan1_Id;
-    }
-
-
-    public String getFinAcct1_Id2() {
-        return finAcct1_Id2;
-    }
-
-    public void setFinAcct1_Id2(String finAcct1_Id2) {
-        this.finAcct1_Id2 = finAcct1_Id2;
-    }
-
-    public GenNode getFinAcct1_Id() {
-        return finAcct1_Id;
-    }
-
-    public void setFinAcct1_Id(GenNode finAcct1_Id) {
-        this.finAcct1_Id = finAcct1_Id;
-    }
-
-
-
-    public String getFinTxset1_EI1_Role() {
-        return finTxset1_EI1_Role;
-    }
-
-    public void setFinTxset1_EI1_Role(String finTxset1_EI1_Role) {
-        this.finTxset1_EI1_Role = finTxset1_EI1_Role;
-    }
-
-    public String getFinTxset1_Id2Calc() {
-        return finTxset1_Id2Calc;
-    }
-
-    public void setFinTxset1_Id2Calc(String finTxset1_Id2Calc) {
-        this.finTxset1_Id2Calc = finTxset1_Id2Calc;
-    }
-
-    public String getFinTxset1_Id2() {
-        return finTxset1_Id2;
-    }
-
-    public void setFinTxset1_Id2(String finTxset1_Id2) {
-        this.finTxset1_Id2 = finTxset1_Id2;
-    }
-
-    public String getFinTxset1_GenTags1_Id2() {
-        return finTxset1_GenTags1_Id2;
-    }
-
-    public void setFinTxset1_GenTags1_Id2(String finTxset1_GenTags1_Id2) {
-        this.finTxset1_GenTags1_Id2 = finTxset1_GenTags1_Id2;
-    }
-
-    public String getFinTxact1_GenTags1_Id2() {
-        return finTxact1_GenTags1_Id2;
-    }
-
-    public void setFinTxact1_GenTags1_Id2(String finTxact1_GenTags1_Id2) {
-        this.finTxact1_GenTags1_Id2 = finTxact1_GenTags1_Id2;
-    }
-
-    public String getFinTxset1_GenDocVers1_Id2() {
-        return finTxset1_GenDocVers1_Id2;
-    }
-
-    public void setFinTxset1_GenDocVers1_Id2(String finTxset1_GenDocVers1_Id2) {
-        this.finTxset1_GenDocVers1_Id2 = finTxset1_GenDocVers1_Id2;
-    }
-
-    public String getFinTxact1_GenDocVers1_Id2() {
-        return finTxact1_GenDocVers1_Id2;
-    }
-
-    public void setFinTxact1_GenDocVers1_Id2(String finTxact1_GenDocVers1_Id2) {
-        this.finTxact1_GenDocVers1_Id2 = finTxact1_GenDocVers1_Id2;
-    }
-
-    public String getFinTxset1_WhyText1() {
-        return finTxset1_WhyText1;
-    }
-
-    public void setFinTxset1_WhyText1(String finTxset1_WhyText1) {
-        this.finTxset1_WhyText1 = finTxset1_WhyText1;
-    }
-
-    public String getFinTxact1_WhyText1() {
-        return finTxact1_WhyText1;
-    }
-
-    public void setFinTxact1_WhyText1(String finTxact1_WhyText1) {
-        this.finTxact1_WhyText1 = finTxact1_WhyText1;
-    }
-
-    public String getFinTxset1_WhatText1() {
-        return finTxset1_WhatText1;
-    }
-
-    public void setFinTxset1_WhatText1(String finTxset1_WhatText1) {
-        this.finTxset1_WhatText1 = finTxset1_WhatText1;
-    }
-
-    public String getFinTxact1_WhatText1() {
-        return finTxact1_WhatText1;
-    }
-
-    public void setFinTxact1_WhatText1(String finTxact1_WhatText1) {
-        this.finTxact1_WhatText1 = finTxact1_WhatText1;
-    }
-
-    public String getFinTxset1_Why1_Id2() {
-        return finTxset1_Why1_Id2;
-    }
-
-    public void setFinTxset1_Why1_Id2(String finTxset1_Why1_Id2) {
-        this.finTxset1_Why1_Id2 = finTxset1_Why1_Id2;
-    }
-
-    public FinWhy getFinTxset1_Why1_Id() {
-        return finTxset1_Why1_Id;
-    }
-
-    public void setFinTxset1_Why1_Id(FinWhy finTxset1_Why1_Id) {
-        this.finTxset1_Why1_Id = finTxset1_Why1_Id;
-    }
-
-    public String getFinTxact1_Why1_Id2() {
-        return finTxact1_Why1_Id2;
-    }
-
-    public void setFinTxact1_Why1_Id2(String finTxact1_Why1_Id2) {
-        this.finTxact1_Why1_Id2 = finTxact1_Why1_Id2;
-    }
-
-    public FinWhy getFinTxact1_Why1_Id() {
-        return finTxact1_Why1_Id;
-    }
-
-    public void setFinTxact1_Why1_Id(FinWhy finTxact1_Why1_Id) {
-        this.finTxact1_Why1_Id = finTxact1_Why1_Id;
-    }
-
-    public String getFinTxset1_What1_Id2() {
-        return finTxset1_What1_Id2;
-    }
-
-    public void setFinTxset1_What1_Id2(String finTxset1_What1_Id2) {
-        this.finTxset1_What1_Id2 = finTxset1_What1_Id2;
-    }
-
-    public FinWhat getFinTxset1_What1_Id() {
-        return finTxset1_What1_Id;
-    }
-
-    public void setFinTxset1_What1_Id(FinWhat finTxset1_What1_Id) {
-        this.finTxset1_What1_Id = finTxset1_What1_Id;
-    }
-
-    public String getFinTxact1_What1_Id2() {
-        return finTxact1_What1_Id2;
-    }
-
-    public void setFinTxact1_What1_Id2(String finTxact1_What1_Id2) {
-        this.finTxact1_What1_Id2 = finTxact1_What1_Id2;
-    }
-
-    public FinWhat getFinTxact1_What1_Id() {
-        return finTxact1_What1_Id;
-    }
-
-    public void setFinTxact1_What1_Id(FinWhat finTxact1_What1_Id) {
-        this.finTxact1_What1_Id = finTxact1_What1_Id;
-    }
-
-    public String getFinTxset1_GenChan1_Id2() {
-        return finTxset1_GenChan1_Id2;
-    }
-
-    public void setFinTxset1_GenChan1_Id2(String finTxset1_GenChan1_Id2) {
-        this.finTxset1_GenChan1_Id2 = finTxset1_GenChan1_Id2;
-    }
-
-    public GenNode getFinTxset1_GenChan1_Id() {
-        return finTxset1_GenChan1_Id;
-    }
-
-    public void setFinTxset1_GenChan1_Id(GenNode finTxset1_GenChan1_Id) {
-        this.finTxset1_GenChan1_Id = finTxset1_GenChan1_Id;
-    }
-
-    public String getFinTxact1_GenChan1_Id2() {
-        return finTxact1_GenChan1_Id2;
-    }
-
-    public void setFinTxact1_GenChan1_Id2(String finTxact1_GenChan1_Id2) {
-        this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2;
-    }
-
-    public GenNode getFinTxact1_GenChan1_Id() {
-        return finTxact1_GenChan1_Id;
-    }
-
-    public void setFinTxact1_GenChan1_Id(GenNode finTxact1_GenChan1_Id) {
-        this.finTxact1_GenChan1_Id = finTxact1_GenChan1_Id;
-    }
-
-    public String getFinTxset1_How1_Id2() {
-        return finTxset1_How1_Id2;
-    }
-
-    public void setFinTxset1_How1_Id2(String finTxset1_How1_Id2) {
-        this.finTxset1_How1_Id2 = finTxset1_How1_Id2;
-    }
-
-    public FinHow getFinTxset1_How1_Id() {
-        return finTxset1_How1_Id;
-    }
-
-    public void setFinTxset1_How1_Id(FinHow finTxset1_How1_Id) {
-        this.finTxset1_How1_Id = finTxset1_How1_Id;
-    }
-
-    public String getFinTxact1_How1_Id2() {
-        return finTxact1_How1_Id2;
-    }
-
-    public void setFinTxact1_How1_Id2(String finTxact1_How1_Id2) {
-        this.finTxact1_How1_Id2 = finTxact1_How1_Id2;
-    }
-
-    public FinHow getFinTxact1_How1_Id() {
-        return finTxact1_How1_Id;
-    }
-
-    public void setFinTxact1_How1_Id(FinHow finTxact1_How1_Id) {
-        this.finTxact1_How1_Id = finTxact1_How1_Id;
-    }
-
-    public GenNode getFinTaxLne1_Id() {
-        return finTaxLne1_Id;
-    }
-
-    public void setFinTaxLne1_Id(GenNode finTax_1_Id) {
-        this.finTaxLne1_Id = finTax_1_Id;
-    }
-
-    public String getFinTaxLne1_Id2() {
-        return finTaxLne1_Id2;
-    }
-
-    public void setFinTaxLne1_Id2(String finTaxLne1_Id2) {
-        this.finTaxLne1_Id2 = finTaxLne1_Id2;
-    }
-
-    public String getFinTaxLne1_Code() {
-        return finTaxLne1_Code;
-    }
-
-    public void setFinTaxLne1_Code(String finTaxLne1_Code) {
-        this.finTaxLne1_Code = finTaxLne1_Code;
-    }
-
-    public String getFinTxset1_FinTxacts1_Id2() {
-        return finTxset1_FinTxacts1_Id2;
-    }
-
-    public void setFinTxset1_FinTxacts1_Id2(String finTxset1_FinTxacts1_Id2) {
-        this.finTxset1_FinTxacts1_Id2 = finTxset1_FinTxacts1_Id2;
-    }
-    public String getFinTxfer1_Id2() {
-        return finTxfer1_Id2;
-    }
-
-    public void setFinTxfer1_Id2(String finTxfer1_Id2) {
-        this.finTxfer1_Id2 = finTxfer1_Id2;
-    }
-
-    public String getFinFmla1_Id2() {
-        return finFmla1_Id2;
-    }
-
-    public void setFinFmla1_Id2(String finFmla1_Id2) {
-        this.finFmla1_Id2 = finFmla1_Id2;
-    }
-
-    public BigDecimal getFinTxfer1_EI1_Rate() {
-        return finTxfer1_EI1_Rate;
-    }
-
-    public void setFinTxfer1_EI1_Rate(BigDecimal finTxfer1_EI1_Rate) {
-        this.finTxfer1_EI1_Rate = finTxfer1_EI1_Rate;
-    }
-
-    public FinFmla getFinFmla1_Id() {
-        return finFmla1_Id;
-    }
-
-    public void setFinFmla1_Id(FinFmla finFmla1_Id) {
-        this.finFmla1_Id = finFmla1_Id;
-    }
-
-    public GenNode getFinTxfer1_Id() {
-        return finTxfer1_Id;
-    }
-
-    public void setFinTxfer1_Id(GenNode finTxfer1_Id) {
-        this.finTxfer1_Id = finTxfer1_Id;
-    }
-
-    public BigDecimal getCalcRslt() {
-        return calcRslt;
-    }
-
-    public void setCalcRslt(BigDecimal calcRslt) {
-        this.calcRslt = calcRslt;
-    }
-
-    public String getFinCurcy1_Id2() {
-        return finCurcy1_Id2;
-    }
-
-    public void setFinCurcy1_Id2(String finCurcy1_Id2) {
-        this.finCurcy1_Id2 = finCurcy1_Id2;
-    }
-
-    public GenNode getFinCurcy1_Id() {
-        return finCurcy1_Id;
-    }
-
-    public void setFinCurcy1_Id(GenNode finCurcy1_Id) {
-        this.finCurcy1_Id = finCurcy1_Id;
-    }
-
-    public String getFinTaxLne1_Type1_Id2() {
-        return finTaxLne1_Type1_Id2;
-    }
-
-    public void setFinTaxLne1_Type1_Id2(String finTaxLne1_Type1_Id2) {
-        this.finTaxLne1_Type1_Id2 = finTaxLne1_Type1_Id2;
-    }
-
-    public GenNodeType getFinTaxLne1_Type1_Id() {
-        return finTaxLne1_Type1_Id;
-    }
-
-    public void setFinTaxLne1_Type1_Id(GenNodeType finTaxLne1_Type1_Id) {
-        this.finTaxLne1_Type1_Id = finTaxLne1_Type1_Id;
-    }
-
-    public String getFinStmt1_Id2() {
-        return finStmt1_Id2;
-    }
-
-    public void setFinStmt1_Id2(String finStmt1_Id2) {
-        this.finStmt1_Id2 = finStmt1_Id2;
-    }
-
-    public GenNode getFinStmt1_Id() {
-        return finStmt1_Id;
-    }
-
-    public void setFinStmt1_Id(GenNode finStmt1_Id) {
-        this.finStmt1_Id = finStmt1_Id;
-    }
-
-    public GenNodeType getFinAcct1_Type1_Id() {
-        return finAcct1_Type1_Id;
-    }
-
-    public void setFinAcct1_Type1_Id(GenNodeType finAcct1_Type1_Id) {
-        this.finAcct1_Type1_Id = finAcct1_Type1_Id;
-    }
-
-    public GenNodeType getFinTxset1_Type1_Id() {
-        return finTxset1_Type1_Id;
-    }
-
-    public void setFinTxset1_Type1_Id(GenNodeType finTxset1_Type1_Id) {
-        this.finTxset1_Type1_Id = finTxset1_Type1_Id;
-    }
-
-    public String getFinTxact1_Type1_Id2() {
-        return finTxact1_Type1_Id2;
-    }
-
-    public void setFinTxact1_Type1_Id2(String finTxact1_Type1_Id2) {
-        this.finTxact1_Type1_Id2 = finTxact1_Type1_Id2;
-    }
-
-    public GenNodeType getFinTxact1_Type1_Id() {
-        return finTxact1_Type1_Id;
-    }
-
-    public void setFinTxact1_Type1_Id(GenNodeType finTxact1_Type1_Id) {
-        this.finTxact1_Type1_Id = finTxact1_Type1_Id;
-    }
-
-    public String getFinTxset1_Type1_Id2() {
-        return finTxset1_Type1_Id2;
-    }
-
-    public void setFinTxset1_Type1_Id2(String finTxset1_Type1_Id2) {
-        this.finTxset1_Type1_Id2 = finTxset1_Type1_Id2;
-    }
-
-    public BigDecimal getAmtNet() {
-        return amtNet;
-    }
-
-    public void setAmtNet(BigDecimal amtNet) {
-        this.amtNet = amtNet;
-    }
-
-    public BigDecimal getAmtCred() {
-        return amtCred;
-    }
-
-    public void setAmtCred(BigDecimal amtCred) {
-        this.amtCred = amtCred;
-    }
-
-    public BigDecimal getAmtDebt() {
-        return amtDebt;
-    }
-
-    public void setAmtDebt(BigDecimal amtDebt) {
-        this.amtDebt = amtDebt;
-    }
-
-    public GenNode getFinDept1_Id() {
-        return finDept1_Id;
-    }
-
-    public void setFinDept1_Id(GenNode finDept1_Id) {
-        this.finDept1_Id = finDept1_Id;
-    }
-
-    public String getFinDept1_Id2() {
-        return finDept1_Id2;
-    }
-
-    public void setFinDept1_Id2(String finDept1_Id2) {
-        this.finDept1_Id2 = finDept1_Id2;
-    }
-
-    public String getFinTxact1_EI1_Role() {
-        return finTxact1_EI1_Role;
-    }
-
-    public void setFinTxact1_EI1_Role(String finTxact1_EI1_Role) {
-        this.finTxact1_EI1_Role = finTxact1_EI1_Role;
-    }
-
-    public String getFinAcct1_Type1_Id2() {
-        return finAcct1_Type1_Id2;
-    }
-
-    public String getFinTxact1_FinAccts1_Id2() {
-        return finTxact1_FinAccts1_Id2;
-    }
-
-    public String getFinTxset1_FinAccts1_Id2() {
-        return finTxset1_FinAccts1_Id2;
-    }
-
-    public String getStmtRefId() {
-        return stmtRefId;
-    }
-
-    public void setStmtRefId(String stmtRefId) {
-        this.stmtRefId = stmtRefId;
-    }
-
-    public String getStmtDescAmt() {
-        return stmtDescAmt;
-    }
-
-    public void setStmtDescAmt(String stmtDescAmt) {
-        this.stmtDescAmt = stmtDescAmt;
-    }
-
-    public String getStmtDescL3() {
-        return stmtDescL3;
-    }
-
-    public void setStmtDescL3(String stmtDescL3) {
-        this.stmtDescL3 = stmtDescL3;
-    }
-
-    public String getStmtDescL2() {
-        return stmtDescL2;
-    }
-
-    public void setStmtDescL2(String stmtDescL2) {
-        this.stmtDescL2 = stmtDescL2;
-    }
-
-    public String getStmtDescL1() {
-        return stmtDescL1;
-    }
-
-    public void setStmtDescL1(String stmtDescL1) {
-        this.stmtDescL1 = stmtDescL1;
-    }
-
-    public Integer getIdZ() {
-        return idZ;
-    }
-
-    public void setIdZ(Integer idZ) {
-        this.idZ = idZ;
-    }
-
-    public Integer getIdY() {
-        return idY;
-    }
-
-    public void setIdY(Integer idY) {
-        this.idY = idY;
-    }
-
-    public Integer getIdX() {
-        return idX;
-    }
-
-    public void setIdX(Integer idX) {
-        this.idX = idX;
-    }
-
-    public String getFinTxact1_Id2() {
-        return finTxact1_Id2;
-    }
-
-    public void setFinTxact1_Id2(String finTxact1_Id2) {
-        this.finTxact1_Id2 = finTxact1_Id2;
-    }
-
-    public String getFinTxact1_FinTxfers1_Id2() {
-        return finTxact1_FinTxfers1_Id2;
-    }
-
-    public String getFinTxact1_Id2Calc() {
-        return finTxact1_Id2Calc;
-    }
-
-    public GenNode getFinTxact1_Id() {
-        return finTxact1_Id;
-    }
-
-    public void setFinTxact1_Id(GenNode finTxact1_Id) {
-        this.finTxact1_Id = finTxact1_Id;
-    }
 
 
     public String getFinHow1_Id2() {
@@ -1797,135 +1794,13 @@ public class GenNode {
     public void setFinWhy1_Id(FinWhy finWhy1_Id) {
         this.finWhy1_Id = finWhy1_Id;
     }
+
     public String getFinWhy1_Id2() {
         return finWhy1_Id2;
     }
 
     public void setFinWhy1_Id2(String finWhy1_Id2) {
         this.finWhy1_Id2 = finWhy1_Id2;
-    }
-
-
-    public String getGenDocVers1_Id2() {
-        return genDocVers1_Id2;
-    }
-
-    public void setGenDocVers1_Id2(String genDocVers1_Id2) {
-        this.genDocVers1_Id2 = genDocVers1_Id2;
-    }
-
-    public String getGenFile1_Id2() {
-        return genFile1_Id2;
-    }
-
-    public void setGenFile1_Id2(String genFile1_Id2) {
-        this.genFile1_Id2 = genFile1_Id2;
-    }
-
-    public URI getGenFile1_URI() {
-        return genFile1_URI;
-    }
-
-    public void setGenFile1_URI(URI genFile1_URI) {
-        this.genFile1_URI = genFile1_URI;
-    }
-
-    public GenNode getGenFile1_Id() {
-        return genFile1_Id;
-    }
-
-    public void setGenFile1_Id(GenNode genFile1_Id) {
-        this.genFile1_Id = genFile1_Id;
-    }
-
-    public String getGenDocVer1_Id2() {
-        return genDocVer1_Id2;
-    }
-
-    public void setGenDocVer1_Id2(String genDocVer1_Id2) {
-        this.genDocVer1_Id2 = genDocVer1_Id2;
-    }
-
-    public GenNode getGenDocVer1_Id() {
-        return genDocVer1_Id;
-    }
-
-    public void setGenDocVer1_Id(GenNode genDocVer1_Id) {
-        this.genDocVer1_Id = genDocVer1_Id;
-    }
-
-
-
-    public String getGenTags1_Id2() {
-        return genTags1_Id2;
-    }
-
-    public void setGenTags1_Id2(String genTags1_Id2) {
-        this.genTags1_Id2 = genTags1_Id2;
-    }
-
-    public String getGenTag4_Id2() {
-        return genTag4_Id2;
-    }
-
-    public void setGenTag4_Id2(String genTag4_Id2) {
-        this.genTag4_Id2 = genTag4_Id2;
-    }
-
-    public String getGenTag3_Id2() {
-        return genTag3_Id2;
-    }
-
-    public void setGenTag3_Id2(String genTag3_Id2) {
-        this.genTag3_Id2 = genTag3_Id2;
-    }
-
-    public String getGenTag2_Id2() {
-        return genTag2_Id2;
-    }
-
-    public void setGenTag2_Id2(String genTag2_Id2) {
-        this.genTag2_Id2 = genTag2_Id2;
-    }
-
-    public String getGenTag1_Id2() {
-        return genTag1_Id2;
-    }
-
-    public void setGenTag1_Id2(String genTag1_Id2) {
-        this.genTag1_Id2 = genTag1_Id2;
-    }
-
-    public GenNode getGenTag4_Id() {
-        return genTag4_Id;
-    }
-
-    public void setGenTag4_Id(GenNode genTag4_Id) {
-        this.genTag4_Id = genTag4_Id;
-    }
-
-    public GenNode getGenTag3_Id() {
-        return genTag3_Id;
-    }
-
-    public void setGenTag3_Id(GenNode genTag3_Id) {
-        this.genTag3_Id = genTag3_Id;
-    }
-
-    public GenNode getGenTag2_Id() {
-        return genTag2_Id;
-    }
-
-    public void setGenTag2_Id(GenNode genTag2_Id) {
-        this.genTag2_Id = genTag2_Id;
-    }
-
-    public GenNode getGenTag1_Id() {
-        return genTag1_Id;
-    }
-
-    public void setGenTag1_Id(GenNode genTag1_Id) {
-        this.genTag1_Id = genTag1_Id;
     }
 
 
@@ -1986,13 +1861,7 @@ public class GenNode {
         this.version = version;
     }
 
-    public UUID getId() {
-        return id;
-    }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getId2CalcFrFields(){
         String logPrfx = "getId2CalcFrFields";

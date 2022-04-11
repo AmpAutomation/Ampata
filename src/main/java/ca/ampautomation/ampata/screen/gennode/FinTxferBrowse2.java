@@ -710,7 +710,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+//        updateId2Calc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -727,7 +727,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+//        updateId2Calc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -744,7 +744,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+//        updateId2Calc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1285,10 +1285,15 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_Id2CalcField";
         logger.trace(logPrfx + " --> ");
 
+/*
         String finTxact1_Id2Calc ="";
-        finTxact1_Id2CalcField.setValue(thisFinTxfer.getId2Calc().substring(0,24));
+        finTxact1_Id2Calc = thisFinTxfer.getId2Calc().substring(0,24);
+        thisFinTxfer.setFinTxact1_Id2("");
+
+        finTxact1_Id2CalcField.setValue(finTxact1_Id2Calc);
 
         logger.debug(logPrfx + " --- finTxact1_Id2Calc: " + finTxact1_Id2Calc);
+*/
         logger.trace(logPrfx + " <-- ");
     }
 
