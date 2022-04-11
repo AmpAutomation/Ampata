@@ -1129,8 +1129,8 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         }
 
 
-//        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
-        Date date1 = thisFinTxfer.getBeg().getDate1();
+        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
+//        Date date1 = thisFinTxfer.getBeg().getDate1();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
         if (date1 == null) {

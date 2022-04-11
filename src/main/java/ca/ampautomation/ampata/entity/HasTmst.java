@@ -6,10 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
@@ -17,13 +14,11 @@ import java.util.Locale;
 @JmixEntity(name = "ampata_HasTmst")
 @Embeddable
 public class HasTmst {
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "TS1")
-    private Date ts1;
+    private LocalDateTime ts1;
 
-    @Temporal(TemporalType.DATE)
     @Column(name = "DATE1")
-    private Date date1;
+    private LocalDate date1;
 
     @javax.persistence.Column
     private Integer date1Yr;
@@ -41,9 +36,8 @@ public class HasTmst {
     private Integer date1Day;
 
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "TIME1")
-    private Date time1;
+    private LocalTime time1;
 
     @javax.persistence.Column
     private Integer time1Hr;
@@ -51,15 +45,15 @@ public class HasTmst {
     @javax.persistence.Column
     private Integer time1Min;
 
-    public void setTs1(Date ts1) {
+    public void setTs1(LocalDateTime ts1) {
         this.ts1 = ts1;
     }
 
-    public Date getTs1() {
+    public LocalDateTime getTs1() {
         return ts1;
     }
 
-    public void setDate1(Date date1) {
+    public void setDate1(LocalDate date1) {
         this.date1 = date1;
 
         if (date1 == null) {
@@ -71,10 +65,13 @@ public class HasTmst {
             return;
         }
 
+/*
         LocalDate localDate = Instant.ofEpochMilli(date1.getTime())
                                   .atZone(ZoneId.systemDefault())
                                   .toLocalDate();
+*/
 
+        LocalDate localDate = date1;
         date1Yr = localDate.getYear();
         date1Qtr = ((localDate.getMonthValue() - 1) / 4) + 1;
         date1Mon = localDate.getMonthValue();
@@ -82,19 +79,22 @@ public class HasTmst {
         date1Day =  localDate.getDayOfMonth();
     }
 
-    public Date getDate1() {
+    public LocalDate getDate1() {
         return date1;
     }
 
-    public void setTime1(Date time1) {
+    public void setTime1(LocalTime time1) {
         this.time1 = time1;
+/*
         ZoneId timeZone = ZoneId.systemDefault();
         LocalTime localTime = time1.toInstant().atZone(timeZone).toLocalTime();
-        time1Hr = localTime.getHour();
+*/
+        LocalTime localTime = time1;
+                time1Hr = localTime.getHour();
         time1Min = localTime.getMinute();
     }
 
-    public Date getTime1() {
+    public LocalTime getTime1() {
         return time1;
     }
 

@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.SimpleFormatter;
 
-
 @UiController("ampata_FinTxfer.browse2")
 @UiDescriptor("fin-txfer-browse2.xml")
 @LookupComponent("table")
@@ -151,6 +150,12 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genChan1_IdField;
 
     @Autowired
+    private DateField<LocalDate> BegDate1Field;
+
+    @Autowired
+    private TimeField<LocalTime> BegTime1Field;
+
+    @Autowired
     private EntityComboBox<GenNode> genDocVer1_IdField;
 
     @Autowired
@@ -179,6 +184,13 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     
     @Autowired
     private TextField<String> finTxact1_Id2CalcField;
+
+
+    @Autowired
+    private DateField<LocalDate> finTxact1_BegDate1Field;
+
+    @Autowired
+    private TimeField<LocalTime> finTxact1_BegTime1Field;
 
     @Autowired
     private EntityComboBox<FinFmla>  finFmla1_IdField;
@@ -212,18 +224,25 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     
     Logger logger = LoggerFactory.getLogger(FinTxferBrowse2.class);
 
+    Boolean isEditableData = false;
+
+    /*
+    InitEvent is sent when the screen controller and all its declaratively defined components are created,
+    and dependency injection is completed. Nested fragments are not initialized yet. Some visual components
+    are not fully initialized, for example, buttons are not linked with actions.
+     */
     @Subscribe
     public void onInit(InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
-/*
+        /*
         logger.trace("A TRACE Message");
         logger.debug("A DEBUG Message");
         logger.info("An INFO Message");
         logger.warn("A WARN Message");
         logger.error("An ERROR Message");
-*/
+        */
 
         finTxferTypesDc = dataComponents.createCollectionContainer(GenNodeType.class);
         finTxferTypesDl = dataComponents.createCollectionLoader();
@@ -421,7 +440,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         finTxact1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
 
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
 
 
     }
@@ -433,15 +452,73 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.debug(logPrfx + " -- Changed entity: " + event.getEntity());
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
     }
 
+
+    /*
+    AfterInitEvent is sent when the screen controller and all its declaratively defined components are created,
+    dependency injection is completed, and all components have completed their internal initialization procedures.
+    Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can
+    create visual and data components and perform additional initialization if it depends on initialized nested
+    fragments.
+    */
+
+    @Subscribe
+    public void onAfterInit(AfterInitEvent event) {
+        String logPrfx = "onAfterInit";
+        logger.trace(logPrfx + " --> ");
+
+        isEditableData = false;
+        logger.debug(logPrfx + " --- isEditableData: false");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    /*
+    InitEntityEvent is sent in screens inherited from StandardEditor and MasterDetailScreen
+    before the new entity instance is set to edited entity container.
+    Use this event listener to initialize default values in the new entity instance
+    */
+    @Subscribe
+    public void onInitEntity(InitEntityEvent<GenNode> event) {
+        String logPrfx = "onInitEntity";
+        logger.trace(logPrfx + " --> ");
+
+        isEditableData = true;
+        logger.debug(logPrfx + " --- isEditableData: true");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    /*
+    BeforeShowEvent is sent right before the screen is shown, for example, it is not added to the application UI yet.
+    Security restrictions are applied to UI components. In this event listener, you can load data,
+    check permissions and modify UI components.
+    */
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         String logPrfx = "onBeforeShow";
         logger.trace(logPrfx + " --> ");
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    /*
+    AfterShowEvent is sent right after the screen is shown, for example, when it is added to the application UI.
+    In this event listener, you can show notifications, dialogs or other screens
+    */
+    @Subscribe
+    protected void onAfterShow(AfterShowEvent event) {
+        String logPrfx = "onAfterShow";
+        logger.trace(logPrfx + " --> ");
+
+        isEditableData = false;
+        logger.debug(logPrfx + " --- isEditableData: false");
+
+        logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe(id = "finTxfersDc", target = Target.DATA_CONTAINER)
@@ -457,6 +534,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             return;
         }
         //updateAllFrontEndCalc(thisFinTxfer);
+
+        isEditableData = false;
+        logger.debug(logPrfx + " --- isEditableData: false");
 
         thisFinTxfer.setClassName("FinTxfer");
         logger.debug(logPrfx + " --- className: FinTxfer");
@@ -523,7 +603,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         copy.setId2Calc(copy.getId2CalcFrFields());
         copy.setId2(copy.getId2Calc());
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
         return copy;
     }
 
@@ -710,7 +790,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-//        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -727,7 +811,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-//        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -744,7 +832,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-//        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -761,7 +852,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -779,13 +874,17 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("finTxact1_BegDate1Field")
-    public void onFinTxact1_BegDate1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+    public void onFinTxact1_BegDate1FieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
         String logPrfx = "onFinTxact1_BegDate1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -796,13 +895,17 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("finTxact1_BegTime1Field")
-    public void onFinTxact1_BegTime1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
+    public void onFinTxact1_BegTime1FieldValueChange(HasValue.ValueChangeEvent<LocalTime> event) {
         String logPrfx = "onFinTxact1_BegTime1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -813,7 +916,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisFinTxfer);
+        if (isEditableData) {
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinTxfer)");
+            String id2Calc = updateId2Calc(thisFinTxfer);
+            updateFinTxact1_Id2Calc(thisFinTxfer, id2Calc.substring(0,24));
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1193,7 +1300,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    private void updateId2Calc(GenNode thisFinTxfer){
+    private String updateId2Calc(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -1203,6 +1310,19 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
 
         logger.trace(logPrfx + " <-- ");
+        return  id2Calc;
+    }
+
+    private String updateId2Calc(GenNode thisFinTxfer, String id2Calc){
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateId2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        thisFinTxfer.setId2Calc(id2Calc);
+        logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+
+        logger.trace(logPrfx + " <-- ");
+        return  id2Calc;
     }
 
     private void updateId2Cmp(GenNode thisFinTxfer) {
@@ -1280,6 +1400,31 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
+    private String updateFinTxact1_Id2Calc(GenNode thisFinTxfer){
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateFinTxact1_Id2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        String finTxact1_Id2Calc = thisFinTxfer.getId2CalcFrFields().substring(0,24);
+        thisFinTxfer.setFinTxact1_Id2Calc(finTxact1_Id2Calc);
+        logger.debug(logPrfx + " --- finTxact1_Id2Calc: " + finTxact1_Id2Calc);
+
+        logger.trace(logPrfx + " <-- ");
+        return finTxact1_Id2Calc;
+    }
+
+    private String updateFinTxact1_Id2Calc(GenNode thisFinTxfer, String finTxact1_Id2Calc){
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateFinTxact1_Id2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        thisFinTxfer.setFinTxact1_Id2Calc(finTxact1_Id2Calc);
+        logger.debug(logPrfx + " --- finTxact1_Id2Calc: " + finTxact1_Id2Calc);
+
+        logger.trace(logPrfx + " <-- ");
+        return finTxact1_Id2Calc;
+    }
+
     private void updateFinTxact1_Id2CalcField(GenNode thisFinTxfer){
         // Assume thisFinTxfer is not null
         String logPrfx = "updateFinTxact1_Id2CalcField";
@@ -1335,8 +1480,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
 
-//        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
-        Date date1 = thisFinTxfer.getBeg().getDate1();
+        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
+//        Date date1 = thisFinTxfer.getBeg().getDate1();
         SimpleDateFormat frmtDt = new SimpleDateFormat("yyyyMMdd");
 /*
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
