@@ -474,6 +474,16 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onInitEntity";
         logger.trace(logPrfx + " --> ");
 
+        GenNode thisFinTxfer = event.getEntity();
+        if (thisFinTxfer == null) {
+            logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        thisFinTxfer.setClassName("FinTxfer");
+        logger.debug(logPrfx + " --- className: FinTxfer");
+
         isEditableData = true;
         logger.debug(logPrfx + " --- isEditableData: true");
 
