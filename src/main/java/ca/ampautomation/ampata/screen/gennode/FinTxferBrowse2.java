@@ -150,12 +150,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genChan1_IdField;
 
     @Autowired
-    private DateField<LocalDate> BegDate1Field;
-
-    @Autowired
-    private TimeField<LocalTime> BegTime1Field;
-
-    @Autowired
     private EntityComboBox<GenNode> genDocVer1_IdField;
 
     @Autowired
@@ -185,12 +179,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private TextField<String> finTxact1_Id2CalcField;
 
-
-    @Autowired
-    private DateField<LocalDate> finTxact1_BegDate1Field;
-
-    @Autowired
-    private TimeField<LocalTime> finTxact1_BegTime1Field;
 
     @Autowired
     private EntityComboBox<FinFmla>  finFmla1_IdField;
@@ -841,7 +829,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
     @Subscribe("BegDate1Field")
-    public void onBegDate1FieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+    public void onBegDate1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
         String logPrfx = "onBegDate1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -863,7 +851,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
 
     @Subscribe("BegTime1Field")
-    public void onBegTime1FieldValueChange(HasValue.ValueChangeEvent<LocalTime> event) {
+    public void onBegTime1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
         String logPrfx = "onBegTime1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -884,7 +872,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
     @Subscribe("finTxact1_BegDate1Field")
-    public void onFinTxact1_BegDate1FieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+    public void onFinTxact1_BegDate1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
         String logPrfx = "onFinTxact1_BegDate1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -905,7 +893,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
     @Subscribe("finTxact1_BegTime1Field")
-    public void onFinTxact1_BegTime1FieldValueChange(HasValue.ValueChangeEvent<LocalTime> event) {
+    public void onFinTxact1_BegTime1FieldValueChange(HasValue.ValueChangeEvent<Date> event) {
         String logPrfx = "onFinTxact1_BegTime1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -1480,8 +1468,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
 
-        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
-//        Date date1 = thisFinTxfer.getBeg().getDate1();
+        Date date1 = thisFinTxfer.getBeg().getDate1();
+//        LocalDate date1 = thisFinTxfer.getBeg().getDate1();
         SimpleDateFormat frmtDt = new SimpleDateFormat("yyyyMMdd");
 /*
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()

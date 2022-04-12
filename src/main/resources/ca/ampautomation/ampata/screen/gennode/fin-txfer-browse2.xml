@@ -201,9 +201,9 @@
                                         <textField id="idYField" property="idY" tabIndex="30"/>
                                         <textField id="idZField" property="idZ" tabIndex="30"/>
                                         <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd" tabIndex="30"
-                                                   caption="beg.date1" datatype="localDate"/>
+                                                   caption="beg.date1"/>
                                         <timeField id="BegTime1Field" property="beg.time1" timeFormat="hh:mm" tabIndex="30"
-                                                   caption="beg.time1" datatype="localTime"/>
+                                                   caption="beg.time1"/>
                                     </column>
                                     <column width="360px">
                                     </column>
@@ -351,9 +351,9 @@
                                     </column>
                                     <column width="240px">
                                         <dateField id="finTxact1_BegDate1Field" property="finTxact1_BegDate1"
-                                                   dateFormat="yyyy-MM-dd" tabIndex="20" datatype="localDate"/>
+                                                   dateFormat="yyyy-MM-dd" tabIndex="20"/>
                                         <timeField id="finTxact1_BegTime1Field" property="finTxact1_BegTime1"
-                                                   timeFormat="hh:mm" tabIndex="20" datatype="localTime"/>
+                                                   timeFormat="hh:mm" tabIndex="20"/>
                                     </column>
                                     <column width="420px">
                                         <hbox width="100%"/>

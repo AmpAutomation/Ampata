@@ -12,7 +12,7 @@
                     <option name="generateDdlType" value="CREATE_AND_UPDATE" />
                     <option name="nameLengthMode" value="POSTGRES" />
                     <option name="supportedTypes">
-                      <option value="postgres" />
+                      <option value="hsql" />
                     </option>
                   </DataStoreSettings>
                 </value>
@@ -52,6 +52,16 @@
           <option name="host" value=".jmix/hsqldb" />
           <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/ampata" />
           <option name="user" value="sa" />
+        </SavedDbProperties>
+        <SavedDbProperties>
+          <option name="databaseName" value="${RDS_DB_NAME}" />
+          <option name="dbType" value="postgres" />
+          <option name="dbmsVersion" />
+          <option name="host" value="${RDS_HOSTNAME}" />
+          <option name="pass" value="${RDS_PASSWORD}" />
+          <option name="port" value="${RDS_PORT}" />
+          <option name="url" value="jdbc:postgresql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}" />
+          <option name="user" value="${RDS_USERNAME}" />
         </SavedDbProperties>
       </list>
     </option>
