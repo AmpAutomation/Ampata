@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://finTxsetBrowse.caption"
+        focusComponent="finTxsetsTable">
+    <data readOnly="true">
+        <collection id="finTxsetsDc"
+                    class="ca.ampautomation.ampata.entity.GenNode"
+                    fetchPlan="finTxset-fetch-plan-base">
+            <loader id="finTxsetsDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxset']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="finTxsetsTable" spacing="true">
+        <filter id="filter"
+                dataLoader="finTxsetsDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="finTxsetsTable"
+                    width="100%"
+                    dataContainer="finTxsetsDc">
+            <actions>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="className"/>
+                <column id="parent1_Id"/>
+                <column id="parent1_Id2"/>
+                <column id="ancestors1_Id2"/>
+                <column id="sortOrder"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="inst"/>
+                <column id="name1"/>
+                <column id="name1Pat1_Id"/>
+                <column id="name1Pat1_Id2"/>
+                <column id="name2"/>
+                <column id="abrv"/>
+                <column id="code"/>
+                <column id="desc1"/>
+                <column id="status"/>
+                <column id="note"/>
+                <column id="genDocVers1_Id2"/>
+                <column id="genDocVer1_Id"/>
+                <column id="genDocVer1_Id2"/>
+                <column id="genDocVer1_Code"/>
+                <column id="genDocVer1_Ver"/>
+                <column id="genDocVer1_Name1"/>
+                <column id="genFile1_Id2"/>
+                <column id="genTags1_Id2"/>
+                <column id="genTag1_Id2"/>
+                <column id="genTag2_Id2"/>
+                <column id="genTag3_Id2"/>
+                <column id="genTag4_Id2"/>
+                <column id="namePrfx"/>
+                <column id="nameFrst"/>
+                <column id="nameMidl"/>
+                <column id="nameLast"/>
+                <column id="nameSufx"/>
+                <column id="genAgent1_Id2"/>
+                <column id="genAgent2_Id2"/>
+                <column id="beg.ts1"/>
+                <column id="beg.date1"/>
+                <column id="beg.date1Yr"/>
+                <column id="beg.date1Qtr"/>
+                <column id="beg.date1Mon"/>
+                <column id="beg.date1Mon2"/>
+                <column id="beg.date1Day"/>
+                <column id="beg.time1"/>
+                <column id="beg.time1Hr"/>
+                <column id="beg.time1Min"/>
+                <column id="end.ts1"/>
+                <column id="end.date1"/>
+                <column id="end.date1Yr"/>
+                <column id="end.date1Qtr"/>
+                <column id="end.date1Mon"/>
+                <column id="end.date1Mon2"/>
+                <column id="end.date1Day"/>
+                <column id="end.time1"/>
+                <column id="end.time1Hr"/>
+                <column id="end.time1Min"/>
+                <column id="genChan1_Id"/>
+                <column id="genChan1_Id2"/>
+                <column id="idX"/>
+                <column id="finHow1_Id"/>
+                <column id="finHow1_Id2"/>
+                <column id="whatText1"/>
+                <column id="finWhat1_Id"/>
+                <column id="finWhat1_Id2"/>
+                <column id="whyText1"/>
+                <column id="finWhy1_Id"/>
+                <column id="finWhy1_Id2"/>
+                <column id="finTxfers1_Id2"/>
+                <column id="finTxacts1_Id2"/>
+                <column id="finTxacts1_FinAccts1_Id2"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="finTxsetsTable.create"/>
+                <button id="editBtn" action="finTxsetsTable.edit"/>
+                <button id="refreshBtn" action="finTxsetsTable.refresh"/>
+                <button id="removeBtn" action="finTxsetsTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

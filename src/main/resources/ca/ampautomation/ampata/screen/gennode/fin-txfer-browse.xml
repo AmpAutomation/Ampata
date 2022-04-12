@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://finTxferBrowse.caption"
+        focusComponent="finTxfersTable">
+    <data readOnly="true">
+        <collection id="finTxfersDc"
+                    class="ca.ampautomation.ampata.entity.GenNode"
+                    fetchPlan="finTxfer-fetch-plan-base">
+            <loader id="finTxfersDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxfer']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="finTxfersTable" spacing="true">
+        <filter id="filter"
+                dataLoader="finTxfersDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="finTxfersTable"
+                    width="100%"
+                    dataContainer="finTxfersDc">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxfer.edit"/>
+                    </properties>
+                </action>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxfer.edit"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+                <action id="duplicate" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="parent1_Id"/>
+                <column id="parent1_Id2"/>
+                <column id="ancestors1_Id2"/>
+                <column id="sortOrder"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="inst"/>
+                <column id="name1"/>
+                <column id="name1Pat1_Id"/>
+                <column id="name1Pat1_Id2"/>
+                <column id="name2"/>
+                <column id="abrv"/>
+                <column id="desc1"/>
+                <column id="genDocVers1_Id2"/>
+                <column id="genDocVer1_Id"/>
+                <column id="genDocVer1_Id2"/>
+                <column id="genFile1_Id"/>
+                <column id="genFile1_Id2"/>
+                <column id="genTags1_Id2"/>
+                <column id="genTag1_Id"/>
+                <column id="genTag1_Id2"/>
+                <column id="genTag2_Id"/>
+                <column id="genTag2_Id2"/>
+                <column id="genTag3_Id"/>
+                <column id="genTag3_Id2"/>
+                <column id="genTag4_Id"/>
+                <column id="genTag4_Id2"/>
+                <column id="genChan1_Id"/>
+                <column id="genChan1_Id2"/>
+                <column id="finTxact1_Id"/>
+                <column id="finTxact1_Id2"/>
+                <column id="finTxact1_Id2Calc"/>
+                <column id="finTxact1_EI1_Role"/>
+                <column id="finTxact1_Type1_Id2"/>
+                <column id="idX"/>
+                <column id="idY"/>
+                <column id="idZ"/>
+                <column id="finStmt1_Id"/>
+                <column id="finStmt1_Id2"/>
+                <column id="finStmtItm1_Desc1"/>
+                <column id="finStmtItm1_Desc2"/>
+                <column id="finStmtItm1_Desc3"/>
+                <column id="finStmtItm1_DescAmt"/>
+                <column id="finStmtItm1_RefId"/>
+                <column id="finAcct1_Id"/>
+                <column id="finAcct1_Id2"/>
+                <column id="finDept1_Id"/>
+                <column id="finDept1_Id2"/>
+                <column id="finTaxLne1_Id"/>
+                <column id="finTaxLne1_Id2"/>
+                <column id="finTaxLne1_Code"/>
+                <column id="finHow1_Id"/>
+                <column id="finHow1_Id2"/>
+                <column id="whatText1"/>
+                <column id="finWhat1_Id"/>
+                <column id="finWhat1_Id2"/>
+                <column id="whyText1"/>
+                <column id="finWhy1_Id"/>
+                <column id="finWhy1_Id2"/>
+                <column id="amtDebt"/>
+                <column id="amtCred"/>
+                <column id="amtNet"/>
+                <column id="finCurcy1_Id"/>
+                <column id="finCurcy1_Id2"/>
+                <column id="finFmla1_Id"/>
+                <column id="finFmla1_Id2"/>
+                <column id="finTxfer1_Id"/>
+                <column id="finTxfer1_Id2"/>
+                <column id="finTxfer1_EI1_Rate"/>
+                <column id="calcRslt"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="finTxfersTable.create"/>
+                <button id="editBtn" action="finTxfersTable.edit"/>
+                <button id="refreshBtn" action="finTxfersTable.refresh"/>
+                <button id="removeBtn" action="finTxfersTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

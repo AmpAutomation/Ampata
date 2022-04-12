@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://finTxactEdit.caption"
+        xmlns:app="http://schemas.company.com/ui.ex1/0.1/app-ui-components.xsd"
+        focusComponent="form">
+    <data>
+        <instance id="genNodeDc"
+                  class="ca.ampautomation.ampata.entity.GenNode"
+                  fetchPlan="finTxact-fetch-plan-base">
+            <loader/>
+        </instance>
+
+        <collection id="genNodeTypesDc" class="ca.ampautomation.ampata.entity.GenNodeType">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="genNodeTypesDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNodeType e where e.className = 'FinTxact' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="genChansDc" class="ca.ampautomation.ampata.entity.GenNode">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="genChansDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="genDocsDc" class="ca.ampautomation.ampata.entity.GenNode">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="genDocsDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenDocVer' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="genTagsDc" class="ca.ampautomation.ampata.entity.GenNode">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="genTagsDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenTag' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finCurcysDc" class="ca.ampautomation.ampata.entity.GenNode">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finCurcysDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinCurcy' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finTxfersDc" class="ca.ampautomation.ampata.entity.GenNode">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finTxfersDl">
+                <query>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxfer' order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finFmlasDc" class="ca.ampautomation.ampata.entity.FinFmla">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finFmlasDl">
+                <query>
+                    <![CDATA[select e from ampata_FinFmla e order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finHowsDc" class="ca.ampautomation.ampata.entity.FinHow">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finHowsDl">
+                <query>
+                    <![CDATA[select e from ampata_FinHow e order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finWhatsDc" class="ca.ampautomation.ampata.entity.FinWhat">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finWhatsDl">
+                <query>
+                    <![CDATA[select e from ampata_FinWhat e order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+        <collection id="finWhysDc" class="ca.ampautomation.ampata.entity.FinWhy">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="finWhysDl">
+                <query>
+                    <![CDATA[select e from ampata_FinWhy e order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="genNodeDc" width="100%" height="100%">
+                <tabSheet width="100%">
+                    <tab id="tab_1"
+                         caption="General"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab1Form" dataContainer="genNodeDc" width="100%" height="100%">
+                            <column width="350px">
+                                <app:textFieldWithButton id="id2FieldWithButton" property="id2"/>
+                                <app:textFieldWithButton id="id2CalcFieldWithButton" property="id2Calc" editable="false"/>
+                                <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
+                                <textField id="id2DupField" property="id2Dup" editable="false"/>
+                                <textField id="classNameField" property="className" enable="false"/>
+                                <entityComboBox id="type1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genNodeTypesDc"
+                                                property="type1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="type1_Id2Field" property="type1_Id2" width="100%"/>
+                                <textField id="name1Field" property="name1" width="100%"/>
+                            </column>
+                            <column width="350px">
+                                <textArea id="desc1Field" property="desc1" rowspan="8" width="100%"/>
+                                <entityComboBox id="genChan1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genChansDc"
+                                                property="genChan1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genChan1_Id2Field" property="genChan1_Id2" width="100%"/>
+                            </column>
+                            <column width="350px">
+                                <textField id="idXField" property="idX"/>
+                                <textField id="idYField" property="idY"/>
+                                <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd"/>
+                                <timeField id="BegTime1Field" property="beg.time1" timeFormat="hh:mm"/>
+                                <dateField id="finTxset1_BegDate1Field" property="finTxset1_BegDate1"
+                                           dateFormat="yyyy-MM-dd"/>
+                                <timeField id="finTxset1_BegTime1Field" property="finTxset1_BegTime1"
+                                           timeFormat="hh:mm"/>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_2"
+                         caption="Docs, Files, Tags"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab2Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                                <textArea id="finTxset1_GenDocVers1_Id2Field" property="finTxset1_GenDocVers1_Id2" rows="4"/>
+                                <textArea id="genDocs1_Id2Field" property="genDocVers1_Id2" rows="4"/>
+                                <entityComboBox id="genDocVer1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genDocsDc"
+                                                property="genDocVer1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genDocVer1_Id2Field" property="genDocVer1_Id2"/>
+                            </column>
+                            <column width="350px">
+                                <entityPicker id="genFile1_IdField" property="genFile1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="genFile1_Id2Field" property="genFile1_Id2"/>
+                                <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"/>
+                            </column>
+                            <column width="350px">
+                                <textArea id="finTxset1_GenTags1_Id2Field" property="finTxset1_GenTags1_Id2" rows="4"/>
+                                <textArea id="genTags1_Id2Field" property="genTags1_Id2" rows="4"/>
+                                <entityComboBox id="genTag1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
+                                <entityComboBox id="genTag2_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag2_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
+                                <entityComboBox id="genTag3_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag3_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
+                                <entityComboBox id="genTag4_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag4_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag4_Id2Field" property="genTag4_Id2"/>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_3"
+                         caption="FinTxset, FinTxact"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab3Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                                <textArea id="finTxset1_FinTxacts1_Id2Field" property="finTxset1_FinTxacts1_Id2" rows="4"/>
+                                <entityPicker id="finTxset1_IdField" property="finTxset1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="finTxset1_Id2Field" property="finTxset1_Id2"/>
+                                <textField id="finTxset1_Id2CalcField" property="finTxset1_Id2Calc"/>
+                                <textField id="finTxset1_EI1_RoleField" property="finTxset1_EI1_Role"/>
+                                <entityPicker id="finTxset1_Type1_IdField" property="finTxset1_Type1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="finTxset1_Type1_Id2Field" property="finTxset1_Type1_Id2"/>
+                            </column>
+                            <column width="350px">
+                                <textArea id="finTxact1_FinTxfers1_Id2Field" property="finTxact1_FinTxfers1_Id2" rows="4"/>
+                            </column>
+                            <column width="350px">
+                            </column>
+
+                        </form>
+                    </tab>
+                    <tab id="tab_4"
+                         caption="Stmt, Dept, Tax"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab4Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                            </column>
+                            <column width="350px">
+                            </column>
+                            <column width="350px">
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_5"
+                         caption="Acct, Amt, Fmla"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab5Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                            </column>
+                            <column width="350px">
+                                <textField id="finTxfers1_DebtSumField" property="finTxfers1_DebtSum"/>
+                                <textField id="finTxfers1_CredSumField" property="finTxfers1_CredSum"/>
+                                <textField id="finTxfers1_IdCntField" property="finTxfers1_IdCnt"/>
+                                <checkBox id="debtEqCredField" property="debtEqCred"/>
+                                <button caption="Calculate" align="TOP_CENTER"/>
+                            </column>
+                            <column width="350px">
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_6"
+                         caption="How, What, Why"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab6Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                                <entityComboBox id="finHow1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="finHowsDc"
+                                                property="finHow1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="finHow1_Id2Field" property="finHow1_Id2"/>
+                            </column>
+                            <column width="350px">
+                                <textField id="whatText1Field" property="whatText1"/>
+                                <entityComboBox id="finWhat1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="finWhatsDc"
+                                                property="finWhat1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="finWhat1_Id2Field" property="finWhat1_Id2"/>
+                                <textField id="finTxset1_WhatText1Field" property="finTxset1_WhatText1"/>
+                                <entityComboBox id="finTxset1_What1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="finWhatsDc"
+                                                property="finTxset1_What1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="finTxset1_What1_Id2Field" property="finTxset1_What1_Id2"/>
+                            </column>
+                            <column width="350px">
+                                <textField id="whyText1Field" property="whyText1"/>
+                                <entityComboBox id="finWhy1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="finWhysDc"
+                                                property="finWhy1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="finWhy1_Id2Field" property="finWhy1_Id2"/>
+                                <textField id="finTxset1_WhyText1Field" property="finTxset1_WhyText1"/>
+                                <entityComboBox id="finTxset1_Why1_IdField" dataContainer="genNodeDc"
+                                                optionsContainer="finWhysDc"
+                                                property="finTxset1_Why1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="finTxset1_Why1_Id2Field" property="finTxset1_Why1_Id2"/>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_7"
+                         caption="Note"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab7Form" dataContainer="genNodeDc" width="100%">
+                            <column width="100%">
+                                <textArea id="noteField" property="note"
+                                          height="100%" width="100%"/>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_8"
+                         caption="Other"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab8Form" dataContainer="genNodeDc" width="100%">
+                            <column width="350px">
+                            </column>
+                            <column width="350px">
+                            </column>
+                            <column width="350px">
+                            </column>
+                        </form>
+                    </tab>
+                </tabSheet>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

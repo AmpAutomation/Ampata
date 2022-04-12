@@ -1,0 +1,10 @@
+<composite xmlns="http://jmix.io/schema/ui/composite">
+    <cssLayout id="textFieldWButton_rootBox"
+               width="100%"
+               stylename="v-component-group">
+        <textField id="textFieldWithButton_valueField"/>
+        <button id="textFieldWithButton_button1"
+                icon="font-icon:REFRESH"
+                stylename=" icon-only"/>
+    </cssLayout>
+</composite>
