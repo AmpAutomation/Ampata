@@ -133,8 +133,6 @@
         <property name="parent1_Id" fetchPlan="_base"/>
         <property name="type1_Id" fetchPlan="_base"/>
         <property name="name1Pat1_Id" fetchPlan="_base"/>
-        <property name="end" fetchPlan="_base"/>
-        <property name="beg" fetchPlan="_base"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
         <property name="genFile1_Id" fetchPlan="_base"/>
         <property name="genDocVer1_Id" fetchPlan="_base"/>
