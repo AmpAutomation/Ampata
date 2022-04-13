@@ -68,16 +68,8 @@
                         <column id="amtCred"/>
                         <column id="amtNet"/>
                         <column id="finCurcy1_Id"/>
-                        <column id="beg.date1" caption="Date1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
-                        <column id="finTxact1_BegDate1" caption="Txact-Date1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
+                        <column id="beg.date1" caption="Date1"/>
+                        <column id="finTxact1_BegDate1" caption="Txact-Date1"/>
                         <column id="idX"/>
                         <column id="idY"/>
                         <column id="idZ"/>
@@ -200,10 +192,10 @@
                                         <textField id="idXField" property="idX" tabIndex="30"/>
                                         <textField id="idYField" property="idY" tabIndex="30"/>
                                         <textField id="idZField" property="idZ" tabIndex="30"/>
-                                        <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd" tabIndex="30"
-                                                   caption="beg.date1" datatype="localDate"/>
-                                        <timeField id="BegTime1Field" property="beg.time1" timeFormat="hh:mm" tabIndex="30"
-                                                   caption="beg.time1" datatype="localTime"/>
+                                        <dateField id="BegDate1Field" property="beg.date1" tabIndex="30"
+                                                   caption="beg.date1"/>
+                                        <timeField id="BegTime1Field" property="beg.time1" tabIndex="30"
+                                                   caption="beg.time1"/>
                                     </column>
                                     <column width="360px">
                                     </column>
@@ -351,9 +343,9 @@
                                     </column>
                                     <column width="240px">
                                         <dateField id="finTxact1_BegDate1Field" property="finTxact1_BegDate1"
-                                                   dateFormat="yyyy-MM-dd" tabIndex="20" datatype="localDate"/>
+                                                   tabIndex="20"/>
                                         <timeField id="finTxact1_BegTime1Field" property="finTxact1_BegTime1"
-                                                   timeFormat="hh:mm" tabIndex="20" datatype="localTime"/>
+                                                   tabIndex="20"/>
                                     </column>
                                     <column width="420px">
                                         <hbox width="100%"/>

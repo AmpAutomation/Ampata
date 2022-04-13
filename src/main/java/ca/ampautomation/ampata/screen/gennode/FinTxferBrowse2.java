@@ -871,6 +871,21 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Install(to = "table.[beg.date1]", subject = "formatter")
+    private String tableBegDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table.[finTxact1_BegDate1]", subject = "formatter")
+    private String tableFinTxact1_BegDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
 
     @Subscribe("BegTime1Field")
     public void onBegTime1FieldValueChange(HasValue.ValueChangeEvent<LocalTime> event) {
