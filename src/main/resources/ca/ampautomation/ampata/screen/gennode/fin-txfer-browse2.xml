@@ -320,8 +320,8 @@
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finTxact1_Id2Calc" expand="finTxact1_Id2CalcField">
-                                            <textField id="finTxact1_Id2CalcField" property="finTxact1_Id2Calc" editable="false" width="100%"
-                                                       tabIndex="10"/>
+                                            <textField id="finTxact1_Id2CalcField" dataContainer="finTxferDc" property="finTxact1_Id2Calc"
+                                                       tabIndex="10" editable="false"/>
                                             <button id="updateFinTxact1_Id2CalcBtn" icon="font-icon:REFRESH"
                                                     tabIndex="-1"/>
                                             <button id="createFinTxact1_Id2CalcFieldBtn" icon="font-icon:ASTERISK"

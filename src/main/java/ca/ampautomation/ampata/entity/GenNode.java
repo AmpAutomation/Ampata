@@ -1309,12 +1309,15 @@ public class GenNode {
         this.finTxact1_Id2 = finTxact1_Id2;
     }
 
-    public String getFinTxact1_Id2Calc() {
-        return finTxact1_Id2Calc;
-    }
+    public String getFinTxact1_Id2Calc() { return finTxact1_Id2Calc;}
 
     public void setFinTxact1_Id2Calc(String finTxact1_Id2Calc) {
+        String logPrfx = "setFinTxact1_Id2Calc()";
+        logger.trace(logPrfx + " --> ");
+
         this.finTxact1_Id2Calc = finTxact1_Id2Calc;
+
+        logger.trace(logPrfx + " <-- ");
     }
 
     public String getFinTxact1_Type1_Id2() {
