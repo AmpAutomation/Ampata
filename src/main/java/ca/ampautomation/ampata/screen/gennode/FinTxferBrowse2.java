@@ -12,6 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.transaction.*;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,6 +33,15 @@ import java.util.logging.SimpleFormatter;
 @UiDescriptor("fin-txfer-browse2.xml")
 @LookupComponent("table")
 public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
+
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Autowired
+    private GenNodeRepository repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -162,6 +177,15 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genTag1_IdField;
 
     @Autowired
+    private EntityComboBox<GenNode> genTag2_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genTag3_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> genTag4_IdField;
+
+    @Autowired
     private EntityComboBox<GenNode> finTxact1_IdField;
 
     @Autowired
@@ -197,6 +221,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     private EntityComboBox<FinHow>  finHow1_IdField;
+
+    @Autowired
+    private EntityComboBox<FinHow>  finTxact1_Id_FinHow1_IdField;
+
 
     @Autowired
     private EntityComboBox<FinWhat>  finWhat1_IdField;
@@ -293,6 +321,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         genTagsDl.setDataContext(getScreenData().getDataContext());
 
         genTag1_IdField.setOptionsContainer(genTagsDc);
+        genTag2_IdField.setOptionsContainer(genTagsDc);
+        genTag3_IdField.setOptionsContainer(genTagsDc);
+        genTag4_IdField.setOptionsContainer(genTagsDc);
 
 
         finTxactsDc = dataComponents.createCollectionContainer(GenNode.class);
@@ -410,6 +441,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         finHowsDl.setDataContext(getScreenData().getDataContext());
 
         finHow1_IdField.setOptionsContainer(finHowsDc);
+        finTxact1_Id_FinHow1_IdField.setOptionsContainer(finHowsDc);
 
 
         finWhatsDc = dataComponents.createCollectionContainer(FinWhat.class);
@@ -560,14 +592,37 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onUpdateAllRowAllBackEndCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinTxfer = finTxferDc.getItemOrNull();
-        if (thisFinTxfer == null) {
-            logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+/*
+        EntityManager em = entityManagerFactory.createEntityManager()
+
+        try (Transaction tx = persistence.createTransaction()) {
+            // get EntityManager for the current transaction
+            EntityManager em = persistence.getEntityManager();
+            // create and execute Query
+            Query query = em.createQuery(
+                    "select sum(o.amount) from sample_Order o where o.customer.id = :customerId");
+            query.setParameter("customerId", customerId);
+//            result = (BigDecimal) query.getFirstResult();
+            // commit transaction
+            tx.commit();
+        } catch (HeuristicRollbackException e) {
+            e.printStackTrace();
+        } catch (SystemException e) {
+            e.printStackTrace();
+        } catch (HeuristicMixedException e) {
+            e.printStackTrace();
+        } catch (RollbackException e) {
+            e.printStackTrace();
         }
-        updateAllFrontEndCalc(thisFinTxfer);
+*/
+
+        logger.debug(logPrfx + " --- executing Db-Proc->Gen_Node_Pr_Upd");
+        repo.execGenNodePrUpd();
+        logger.debug(logPrfx + " --- finished Db-Proc->Gen_Node_Pr_Upd");
+        logger.debug(logPrfx + " --- executing Db-Proc->Fin_Txfer_Pr_Upd");
+        repo.execFinTxferPrUpd();
+        logger.debug(logPrfx + " --- finished Db-Proc->Fin_Txfer_Pr_Upd");
+        repo.execGenNodePrUpd();
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1057,8 +1112,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
             GenNode savedFinTxact = dataManager.save(newFinTxact);
 
-            logger.debug(logPrfx + " --- created FinTxfer id: " + savedFinTxact.getId());
-            notifications.create().withCaption("Created FinTxfer id2:" + savedFinTxact.getId2()).show();
+            GenNode mergedFinTxact = dataContext.merge(savedFinTxact);
+            logger.debug(logPrfx + " --- created FinTxfer id: " + mergedFinTxact.getId());
+            notifications.create().withCaption("Created FinTxfer id2:" + mergedFinTxact.getId2()).show();
 
             //finTxactsDl.load();
             //logger.debug(logPrfx + " --- called finTxactsDl.load() ");
@@ -1458,7 +1514,6 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
         thisFinTxfer.setFinTxact1_Id(finTxact1_Id);
-        finTxfersDc.getMutableItems().add(thisFinTxfer);
 
 
         logger.debug(logPrfx + " --- finTxact1_Id.Id: " + finTxact1_Id.getId());
@@ -1495,6 +1550,14 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxfer1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
 
+        GenNode finTxfer1 = thisFinTxfer.getFinTxfer1_Id();
+        if (finTxfer1 == null) {
+            logger.debug(logPrfx + " --- finTxfer1: null");
+            notifications.create().withCaption("Unable to get reference to the other FinTxfer. Please ensure a Fin/Txfer.Id is selected it has a currency is selected.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
         BigDecimal rate = BigDecimal.valueOf(0);
         boolean qryRsltGood = false;
 
@@ -1505,25 +1568,25 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.debug(logPrfx + " --- qry: " +  qry);
 
-        UUID curcyFrId = thisFinTxfer.getFinTxfer1_Id().getFinCurcy1_Id().getId();
-        if (curcyFrId == null) {
-            logger.debug(logPrfx + " --- curcyFrId: null");
+        GenNode curcyFr = thisFinTxfer.getFinTxfer1_Id().getFinCurcy1_Id();
+        if (curcyFr == null) {
+            logger.debug(logPrfx + " --- curcyFr: null");
             notifications.create().withCaption("Unable to get the currency from the other FinTxfer. Please ensure a Fin/Txfer.Id is selected it has a currency is selected.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }else{
-            logger.debug(logPrfx + " --- curcyFrId: " + curcyFrId);
+            logger.debug(logPrfx + " --- curcyFr.Id: " + curcyFr.getId());
 
         }
 
-        UUID curcyToId = thisFinTxfer.getFinCurcy1_Id().getId();
-        if (curcyToId == null) {
-            logger.debug(logPrfx + " --- curcyToId: null");
+        GenNode curcyTo = thisFinTxfer.getFinCurcy1_Id();
+        if (curcyTo == null) {
+            logger.debug(logPrfx + " --- curcyTo: null");
             notifications.create().withCaption("Unable to get the currency from this FinTxfer. Please ensure a currency is selected.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }else{
-            logger.debug(logPrfx + " --- curcyToId: " + curcyToId);
+            logger.debug(logPrfx + " --- curcyTo.Id: " + curcyTo.getId());
 
         }
 
@@ -1556,8 +1619,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                             + " and   ft.finCurcy2_Id.id = :curcyTo"
                             + " and   ft.beg.date1 = :date1"
                     )
-                    .parameter("curcyFr", curcyFrId)
-                    .parameter("curcyTo", curcyToId)
+                    .parameter("curcyFr", curcyFr.getId())
+                    .parameter("curcyTo", curcyTo.getId())
                     .parameter("date1", date1)
                     .one()
             ;
@@ -1583,8 +1646,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                                 + " and   ft.finCurcy2_Id.id = :curcyTo"
                                 + " and   ft.beg.date1 = :date1"
                         )
-                        .parameter("curcyFr", curcyToId)
-                        .parameter("curcyTo", curcyFrId)
+                        .parameter("curcyFr", curcyTo.getId())
+                        .parameter("curcyTo", curcyFr.getId())
                         .parameter("date1", date1)
                         .one()
                 ;

@@ -13,10 +13,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -54,6 +54,10 @@ import java.util.UUID;
 @Entity(name = "ampata_GenNode")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
+@NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd",
+        procedureName = "Gen_Node_Pr_Upd")
+@NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd",
+        procedureName = "Fin_Txfer_Pr_Upd")
 public class GenNode {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
