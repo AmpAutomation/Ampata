@@ -9,12 +9,18 @@ import javax.persistence.NamedStoredProcedureQuery;
 import java.util.List;
 
 @Transactional
-public interface GenNodeRepository extends CrudRepository<GenNode, Long>  {
+public interface GenNodeRepository extends CrudRepository<GenNode, Long>, GenNodeRepositoryCustom  {
 
     @Procedure(name = "GenNode.execGenNodePrUpd")
     void execGenNodePrUpd();
 
+    @Procedure(name = "GenNode.execGenNodePrUpd2")
+    void execGenNodePrUpd2(@Param("inParam1") String inParam1);
+
     @Procedure(name = "GenNode.execFinTxferPrUpd")
     void execFinTxferPrUpd();
+
+    @Procedure(name = "GenNode.execFinTxferPrUpd2")
+    void execFinTxferPrUpd2(@Param("inParam1") String inParam1);
 
 }
