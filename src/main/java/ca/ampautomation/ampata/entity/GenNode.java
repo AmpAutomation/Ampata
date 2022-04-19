@@ -54,20 +54,39 @@ import java.util.UUID;
 @Entity(name = "ampata_GenNode")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
+@NamedStoredProcedureQueries({
+
 @NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd",
-        procedureName = "Gen_Node_Pr_Upd", parameters = {})
+        procedureName = "Gen_Node_Pr_Upd", parameters = {
+
+}),
+
 @NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd2",
         procedureName = "Gen_Node_Pr_Upd2"
         , parameters = {
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
-        })
+}),
+
+@NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd3",
+        procedureName = "Gen_Node_Pr_Upd3"
+        , parameters = {
+             @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
+            ,@StoredProcedureParameter(mode = ParameterMode.OUT, name = "outParam1", type = String.class)
+}),
+
 @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd",
-        procedureName = "Fin_Txfer_Pr_Upd", parameters = {})
+        procedureName = "Fin_Txfer_Pr_Upd", parameters = {
+
+}),
+
 @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd2",
         procedureName = "Fin_Txfer_Pr_Upd2"
         , parameters = {
             @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
-        })
+}),
+
+})
+
 public class GenNode {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)

@@ -618,10 +618,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.debug(logPrfx + " --- executing Db-Proc->Gen_Node_Pr_Upd");
         repo.execGenNodePrUpd2("");
+        repo.execGenNodePrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc->Gen_Node_Pr_Upd");
 
         logger.debug(logPrfx + " --- executing Db-Proc->Fin_Txfer_Pr_Upd");
-        repo.execFinTxferPrUpd2("");
+        repo.execFinTxferPrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc->Fin_Txfer_Pr_Upd");
 
         logger.trace(logPrfx + " <-- ");

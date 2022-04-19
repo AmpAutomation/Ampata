@@ -17,6 +17,9 @@ public interface GenNodeRepository extends CrudRepository<GenNode, Long>, GenNod
     @Procedure(name = "GenNode.execGenNodePrUpd2")
     void execGenNodePrUpd2(@Param("inParam1") String inParam1);
 
+    @Procedure(name = "GenNode.execGenNodePrUpd3")
+    String execGenNodePrUpd3(@Param("inParam1") String inParam1);
+
     @Procedure(name = "GenNode.execFinTxferPrUpd")
     void execFinTxferPrUpd();
 
