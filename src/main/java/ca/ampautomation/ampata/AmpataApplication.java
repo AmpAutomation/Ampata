@@ -2,7 +2,6 @@ package ca.ampautomation.ampata;
 
 import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButton;
 import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButtonLoader;
-import ca.ampautomation.ampata.screen.gennode.FinTxferBrowse2;
 import com.google.common.base.Strings;
 import io.jmix.ui.sys.registration.ComponentRegistration;
 import io.jmix.ui.sys.registration.ComponentRegistrationBuilder;
@@ -30,7 +29,6 @@ public class AmpataApplication {
 
     Logger logger = LoggerFactory.getLogger(AmpataApplication.class);
 
-
     public static void main(String[] args) {
         SpringApplication.run(AmpataApplication.class, args);
     }
@@ -55,7 +53,7 @@ public class AmpataApplication {
         logger.debug(logPrfx + " --- dataSourceProperties.getDriverClassName(): " + dataSourceProperties.getDriverClassName());
         logger.debug(logPrfx + " --- dataSourceProperties.getUsername(): " + dataSourceProperties.getUsername());
 
-        DataSourceBuilder dsb =         dataSourceProperties.initializeDataSourceBuilder();
+        DataSourceBuilder<?> dsb = dataSourceProperties.initializeDataSourceBuilder();
 
         logger.trace(logPrfx + " <-- ");
         return dsb.build();
