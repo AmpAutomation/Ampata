@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -356,6 +359,38 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         updateAllFrontEndCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
+    }
+
+    @Install(to = "table.[beg.date1]", subject = "formatter")
+    private String tableBegDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table.[end.date1]", subject = "formatter")
+    private String tableEndDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table2.[beg.date1]", subject = "formatter")
+    private String table2BegDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table2.[finTxact1_BegDate1]", subject = "formatter")
+    private String table2FinTxact1_BegDate1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
     }
 
     @Subscribe("credSumField")

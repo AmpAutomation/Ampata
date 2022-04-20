@@ -69,16 +69,8 @@
                         <column id="id2Calc"/>
                         <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="beg.date1" caption="Beg-Date">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
-                        <column id="end.date1" caption="End-Date">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
+                        <column id="beg.date1" caption="Beg-Date"/>
+                        <column id="end.date1" caption="End-Date"/>
                         <column id="genChan1_Id" caption="genChan1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
                         <column id="begBal"/>
@@ -383,16 +375,8 @@
                         <column id="amtCred"/>
                         <column id="amtNet"/>
                         <column id="finCurcy1_Id"/>
-                        <column id="beg.date1" caption="Date1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
-                        <column id="finTxact1_BegDate1" caption="Txact-Date1">
-                            <formatter>
-                                <date format="yyyy-MM-dd"/>
-                            </formatter>
-                        </column>
+                        <column id="beg.date1" caption="Date1"/>
+                        <column id="finTxact1_BegDate1" caption="Txact-Date1"/>
                         <column id="idX"/>
                         <column id="idY"/>
                         <column id="idZ"/>

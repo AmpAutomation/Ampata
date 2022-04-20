@@ -124,6 +124,8 @@
                         <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
                         <button id="removeBtn" action="table.remove"/>
                         <button id="editBtn" action="table.edit"/>
+                        <button id="movePrevBtn" caption="Move Prev" icon="ARROW_UP"/>
+                        <button id="moveNextBtn" caption="Move Next" icon="ARROW_DOWN"/>
                         <button id="updateAllFrontEndCalcBtn" caption="Update All FE Calc Values" icon="font-icon:REFRESH"/>
                     </buttonsPanel>
                 </groupTable>

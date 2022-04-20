@@ -4,8 +4,10 @@ import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.impl.EntityInternals;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -426,6 +428,7 @@ public class GenNode {
     private Integer idY;
 
     @Column(name = "ID_Z")
+    @JmixProperty
     private Integer idZ;
 
     @JoinColumn(name = "FIN_STMT1__ID")
@@ -908,6 +911,7 @@ public class GenNode {
         String logPrfx = "setIdZ";
         logger.trace(logPrfx + " --> ");
 
+//        EntityInternals.fireListeners((io.jmix.core.Entity) this, "idZ", this.idZ, idZ);
         this.idZ = idZ;
 
 /*
