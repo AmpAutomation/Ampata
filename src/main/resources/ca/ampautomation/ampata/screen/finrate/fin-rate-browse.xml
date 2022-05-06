@@ -32,12 +32,20 @@
                 width="800"/>
     <layout expand="finRatesTable" spacing="true">
         <filter id="filter"
-                dataLoader="finRatesDl">
+                dataLoader="finRatesDl" collapsable="true" collapsed="true" columnsCount="4">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
-                    <propertyFilter operation="CONTAINS" property="id2"/>
-                    <propertyFilter operation="CONTAINS" property="name1"/>
+                    <propertyFilter id="propFilter_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
+                    <propertyFilter id="propFilter_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
+                    <propertyFilter id="propFilter_beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                    <propertyFilter id="propFilter_beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                    <propertyFilter id="propFilter_finCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
+                        <entityComboBox metaClass="ampata_GenNode"/>
+                    </propertyFilter>
+                    <propertyFilter id="propFilter_finCurcy2_Id" caption="finCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
+                        <entityComboBox metaClass="ampata_GenNode"/>
+                    </propertyFilter>
                 </configuration>
             </configurations>
         </filter>
@@ -53,11 +61,7 @@
             <columns>
                 <column id="id2" caption="id2"/>
                 <column id="name1" caption="name"/>
-                <column id="beg.date1" caption="beg.date1">
-                    <formatter>
-                        <date format="yyyy-MM-dd"/>
-                    </formatter>
-                </column>
+                <column id="beg1.date1" caption="beg1.date1"/>
                 <column id="rate" >
                     <formatter>
                         <number format="#0.000000"/>
@@ -69,17 +73,21 @@
                     </formatter>
                 </column>
                 <column id="finCurcy1_Id"/>
-                <column id="finCurcy1_Id2"/>
                 <column id="finCurcy2_Id"/>
-                <column id="finCurcy2_Id2"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="finRatesTable.create"/>
-                <button id="editBtn" action="finRatesTable.edit"/>
-                <button id="refreshBtn" action="finRatesTable.refresh"/>
-                <button id="removeBtn" action="finRatesTable.remove"/>
+                <hbox spacing="true">
+                    <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
+                </hbox>
+                <hbox spacing="true">
+                    <button id="createBtn" action="finRatesTable.create"/>
+                    <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                    <button id="editBtn" action="finRatesTable.edit"/>
+                    <button id="refreshBtn" action="finRatesTable.refresh"/>
+                    <button id="removeBtn" action="finRatesTable.remove"/>
+                </hbox>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

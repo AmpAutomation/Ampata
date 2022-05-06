@@ -154,26 +154,26 @@
                         <column id="nameSufx"/>
                         <column id="genAgent1_Id2"/>
                         <column id="genAgent2_Id2"/>
-                        <column id="beg.ts1"/>
-                        <column id="beg.date1"/>
-                        <column id="beg.date1Yr"/>
-                        <column id="beg.date1Qtr"/>
-                        <column id="beg.date1Mon"/>
-                        <column id="beg.date1Mon2"/>
-                        <column id="beg.date1Day"/>
-                        <column id="beg.time1"/>
-                        <column id="beg.time1Hr"/>
-                        <column id="beg.time1Min"/>
-                        <column id="end.ts1"/>
-                        <column id="end.date1"/>
-                        <column id="end.date1Yr"/>
-                        <column id="end.date1Qtr"/>
-                        <column id="end.date1Mon"/>
-                        <column id="end.date1Mon2"/>
-                        <column id="end.date1Day"/>
-                        <column id="end.time1"/>
-                        <column id="end.time1Hr"/>
-                        <column id="end.time1Min"/>
+                        <column id="beg1.ts1"/>
+                        <column id="beg1.date1"/>
+                        <column id="beg1.date1Yr"/>
+                        <column id="beg1.date1Qtr"/>
+                        <column id="beg1.date1Mon"/>
+                        <column id="beg1.date1Mon2"/>
+                        <column id="beg1.date1Day"/>
+                        <column id="beg1.time1"/>
+                        <column id="beg1.time1Hr"/>
+                        <column id="beg1.time1Min"/>
+                        <column id="end1.ts1"/>
+                        <column id="end1.date1"/>
+                        <column id="end1.date1Yr"/>
+                        <column id="end1.date1Qtr"/>
+                        <column id="end1.date1Mon"/>
+                        <column id="end1.date1Mon2"/>
+                        <column id="end1.date1Day"/>
+                        <column id="end1.time1"/>
+                        <column id="end1.time1Hr"/>
+                        <column id="end1.time1Min"/>
                         <column id="genChan1_Id"/>
                         <column id="genChan1_Id2"/>
                         <column id="idX"/>
@@ -244,8 +244,8 @@
                                     </column>
                                     <column width="350px">
                                         <textField id="idXField" property="idX"/>
-                                        <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd"/>
-                                        <timeField id="BegTime1Field" property="beg.time1" timeFormat="hh:mm"/>
+                                        <dateField id="BegDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
+                                        <timeField id="BegTime1Field" property="beg1.time1" timeFormat="hh:mm"/>
                                     </column>
                                 </form>
                             </tab>

@@ -75,27 +75,27 @@
                 <column id="desc1"/>
                 <column id="finAcct1_Id"/>
                 <column id="finAcct1_Id2"/>
-                <column id="beg.ts1"/>
-                <column id="beg.date1">
+                <column id="beg1.ts1"/>
+                <column id="beg1.date1">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="beg.date1Yr" visible="false"/>
-                <column id="beg.date1Qtr" visible="false"/>
-                <column id="beg.date1Mon" visible="false"/>
-                <column id="beg.date1Mon2" visible="false"/>
-                <column id="beg.date1Day" visible="false"/>
-                <column id="end.date1">
+                <column id="beg1.date1Yr" visible="false"/>
+                <column id="beg1.date1Qtr" visible="false"/>
+                <column id="beg1.date1Mon" visible="false"/>
+                <column id="beg1.date1Mon2" visible="false"/>
+                <column id="beg1.date1Day" visible="false"/>
+                <column id="end1.date1">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="end.date1Yr" visible="false"/>
-                <column id="end.date1Qtr" visible="false"/>
-                <column id="end.date1Mon" visible="false"/>
-                <column id="end.date1Mon2" visible="false"/>
-                <column id="end.date1Day" visible="false"/>
+                <column id="end1.date1Yr" visible="false"/>
+                <column id="end1.date1Qtr" visible="false"/>
+                <column id="end1.date1Mon" visible="false"/>
+                <column id="end1.date1Mon2" visible="false"/>
+                <column id="end1.date1Day" visible="false"/>
                 <column id="begBal"/>
                 <column id="endBal"/>
                 <column id="debtSum"/>

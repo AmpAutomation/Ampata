@@ -180,9 +180,9 @@
                      spacing="true">
                     <form id="tab4Form" dataContainer="genNodeDc">
                         <column width="350px">
-                            <dateField id="begDate1Field" property="beg.date1"
+                            <dateField id="begDate1Field" property="beg1.date1"
                                        caption="Beg.Date1" dateFormat="yyyy-MM-dd"/>
-                            <dateField id="endDate1Field" property="end.date1"
+                            <dateField id="endDate1Field" property="end1.date1"
                                        caption="End.Date1" dateFormat="yyyy-MM-dd"/>
                         </column>
                         <column width="350px">

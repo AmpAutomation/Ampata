@@ -4,18 +4,18 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import java.util.Date;
+import java.time.LocalTime;
+import java.time.format.TextStyle;
+import java.util.Locale;
+import java.util.Objects;
 
 @JmixEntity(name = "ampata_HasTime")
 @Embeddable
 public class HasTime {
 
 
-    @Temporal(TemporalType.TIME)
     @Column(name = "TIME1")
-    private Date time1;
+    private LocalTime time1;
 
     @javax.persistence.Column
     private Integer time1Hr;
@@ -23,11 +23,14 @@ public class HasTime {
     @javax.persistence.Column
     private Integer time1Min;
 
-    public void setTime1(Date time1) {
-        this.time1 = time1;
+    public void setTime1(LocalTime time1) {
+        if (!Objects.equals(this.time1, time1)) {
+            this.time1 = time1;
+            updateAllFields();
+        }
     }
 
-    public Date getTime1() {
+    public LocalTime getTime1() {
         return time1;
     }
 
@@ -37,6 +40,11 @@ public class HasTime {
 
     public Integer getTime1Hr() {
         return time1Hr;
+    }
+
+    public void updateAllFields(){
+        time1Hr = time1.getHour();
+        time1Min = time1.getMinute();
     }
 
 }

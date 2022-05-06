@@ -21,4 +21,10 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
         this.em.createNativeQuery("call Fin_Txfer_Pr_Upd()").executeUpdate();
     }
 
+    @Override
+    @Transactional
+    public void execFinStmtPrUpdNative(){
+        this.em.createNativeQuery("call Fin_Stmt_Pr_Upd()").executeUpdate();
+    }
+
 }

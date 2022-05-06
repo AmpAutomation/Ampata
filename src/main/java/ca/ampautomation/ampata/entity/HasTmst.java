@@ -10,6 +10,7 @@ import java.time.*;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 @JmixEntity(name = "ampata_HasTmst")
 @Embeddable
@@ -46,53 +47,42 @@ public class HasTmst {
     private Integer time1Min;
 
     public void setTs1(LocalDateTime ts1) {
-        this.ts1 = ts1;
+        if (!Objects.equals(this.ts1, ts1)){
+            this.ts1 = ts1;
+            updateAllFields();
+        }
     }
 
     public LocalDateTime getTs1() {
         return ts1;
     }
 
+    /*
     public void setDate1(LocalDate date1) {
-        this.date1 = date1;
-
-        if (date1 == null) {
-            date1Yr = null;
-            date1Qtr = null;
-            date1Mon = null;
-            date1Mon2 = null;
-            date1Day =  null;
-            return;
+        if (!Objects.equals(this.date1, date1)){
+            this.date1 = date1;
+            updateDate1();
         }
-
-/*
-        LocalDate localDate = Instant.ofEpochMilli(date1.getTime())
-                                  .atZone(ZoneId.systemDefault())
-                                  .toLocalDate();
-*/
-
-        LocalDate localDate = date1;
-        date1Yr = localDate.getYear();
-        date1Qtr = ((localDate.getMonthValue() - 1) / 4) + 1;
-        date1Mon = localDate.getMonthValue();
-        date1Mon2 = localDate.getMonth().getDisplayName(TextStyle.SHORT, Locale.CANADA);
-        date1Day =  localDate.getDayOfMonth();
+        if (!Objects.equals(this.ts1,date1.atTime(this.time1))){
+            setTs1(date1.atTime(this.time1));}
     }
+    */
 
     public LocalDate getDate1() {
         return date1;
     }
 
+    /*
     public void setTime1(LocalTime time1) {
-        this.time1 = time1;
-/*
-        ZoneId timeZone = ZoneId.systemDefault();
-        LocalTime localTime = time1.toInstant().atZone(timeZone).toLocalTime();
-*/
-        LocalTime localTime = time1;
-        time1Hr = localTime.getHour();
-        time1Min = localTime.getMinute();
+        if (!Objects.equals(this.time1, time1)){
+            this.time1 = time1;
+            updateTime1();
+        }
+        if (!Objects.equals(this.ts1,time1.atDate(this.date1))){
+            setTs1(time1.atDate(this.date1));}
+
     }
+    */
 
     public LocalTime getTime1() {
         return time1;
@@ -124,6 +114,31 @@ public class HasTmst {
 
     public Integer getDate1Yr() {
         return date1Yr;
+    }
+
+    public void updateDate1(){
+    }
+    public void updateAllFields(){
+        if (ts1 == null) {
+            date1Yr = null;
+            date1Qtr = null;
+            date1Mon = null;
+            date1Mon2 = null;
+            date1Day =  null;
+            time1Hr = null;
+            time1Min = null;
+        }else{
+            date1 = ts1.toLocalDate();
+            date1Yr = date1.getYear();
+            date1Qtr = ((date1.getMonthValue() - 1) / 4) + 1;
+            date1Mon = date1.getMonthValue();
+            date1Mon2 = date1.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+            date1Day = date1.getDayOfMonth();
+
+            time1 = ts1.toLocalTime();
+            time1Hr = time1.getHour();
+            time1Min = time1.getMinute();
+        }
     }
 
 }

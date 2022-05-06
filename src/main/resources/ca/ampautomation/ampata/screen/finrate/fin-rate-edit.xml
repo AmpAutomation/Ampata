@@ -29,7 +29,7 @@
             <column width="350px">
                 <textField id="id2Field" property="id2"/>
                 <textField id="name1Field" property="name1"/>
-                <dateField id="begDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd"/>
+                <dateField id="begDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
                 <textField id="rateField" property="rate">
                     <formatter>
                         <number format="#0.000000###"/>

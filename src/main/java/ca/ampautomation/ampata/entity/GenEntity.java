@@ -5,6 +5,8 @@ import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -85,6 +87,10 @@ public class GenEntity {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
+
+    @Transient
+    protected Logger logger = LoggerFactory.getLogger(GenEntity.class);
+
 
     public String getDesc1() {
         return desc1;
@@ -221,4 +227,7 @@ public class GenEntity {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public String getId2CalcFrFields(){return "";}
+
 }

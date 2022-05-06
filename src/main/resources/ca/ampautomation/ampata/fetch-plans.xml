@@ -43,7 +43,7 @@
         <property name="type1_Id2"/>
         <property name="name1"/>
         <property name="desc1"/>
-        <property name="beg" fetchPlan="_base"/>
+        <property name="beg1" fetchPlan="_base"/>
         <property name="rate"/>
         <property name="rateInv"/>
         <property name="finCurcy1_Id" fetchPlan="_instance_name"/>
@@ -89,8 +89,8 @@
         <property name="abrv"/>
         <property name="code"/>
         <property name="desc1"/>
-        <property name="end" fetchPlan="_base"/>
-        <property name="beg" fetchPlan="_base"/>
+        <property name="end1" fetchPlan="_base"/>
+        <property name="beg1" fetchPlan="_base"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genNode-fetch-plan-base" extends="_instance_name">
         <property name="id2Calc"/>
@@ -133,8 +133,13 @@
         <property name="parent1_Id" fetchPlan="_base"/>
         <property name="type1_Id" fetchPlan="_base"/>
         <property name="name1Pat1_Id" fetchPlan="_base"/>
-        <property name="end" fetchPlan="_base"/>
-        <property name="beg" fetchPlan="_base"/>
+        <property name="idTs" fetchPlan="_base"/>
+        <property name="idDt" fetchPlan="_base"/>
+        <property name="idTm" fetchPlan="_base"/>
+        <property name="end1" fetchPlan="_base"/>
+        <property name="beg1" fetchPlan="_base"/>
+        <property name="beg2" fetchPlan="_base"/>
+        <property name="end2" fetchPlan="_base"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
         <property name="genFile1_Id" fetchPlan="_base"/>
         <property name="genDocVer1_Id" fetchPlan="_base"/>
@@ -194,22 +199,20 @@
 
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="finStmt-fetch-plan-base" extends="genNode-fetch-plan-base">
-        <property name="finAcct1_Id" fetchPlan="_base">
-        </property>
+        <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
+        <property name="finAcct1_Type1_Id2"/>
         <property name="begBal"/>
         <property name="endBal"/>
         <property name="debtSum"/>
         <property name="credSum"/>
         <property name="netSum"/>
-        <property name="finAcct1_Type1_Id2"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genDocVer-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id2"/>
         <property name="ver"/>
         <property name="note"/>
-        <property name="beg" fetchPlan="_base"/>
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genDocFrg-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="genDocVer1_Id" fetchPlan="_base">
@@ -234,10 +237,6 @@
     </fetchPlan>
 
     <fetchPlan entity="ampata_GenNode" name="finTxact-fetch-plan-base" extends="genNode-fetch-plan-base">
-        <property name="genTag2_Id" fetchPlan="_instance_name"/>
-        <property name="genTag3_Id" fetchPlan="_instance_name"/>
-        <property name="genTag4_Id" fetchPlan="_instance_name"/>
-        <property name="genChan1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_FinTxacts1_Id2"/>
         <property name="finTxset1_Id" fetchPlan="_instance_name"/>
         <property name="finTxset1_Id2"/>
@@ -264,8 +263,8 @@
         <property name="finTxset1_GenDocVers1_Id2"/>
         <property name="finTxset1_GenTags1_Id2"/>
 
-        <property name="finTxset1_BegDate1"/>
-        <property name="finTxset1_BegTime1"/>
+        <property name="finTxset1_Beg1Date1"/>
+        <property name="finTxset1_Beg1Time1"/>
 
         <property name="finTxfers1_Id2"/>
         <property name="finTxset1_FinAccts_Id2"/>
@@ -309,10 +308,8 @@
         <property name="finTxfer1_Id2"/>
         <property name="finTxfer1_EI1_Rate"/>
         <property name="calcRslt"/>
-        <property name="finTxset1_BegTime1"/>
-        <property name="finTxset1_BegDate1"/>
-        <property name="finTxact1_BegTime1"/>
-        <property name="finTxact1_BegDate1"/>
+        <property name="finTxset1_Beg1Time1"/>
+        <property name="finTxset1_Beg1Date1"/>
         <property name="finTxfer1_Id" fetchPlan="_base">
             <property name="finCurcy1_Id" fetchPlan="_base"/>
         </property>

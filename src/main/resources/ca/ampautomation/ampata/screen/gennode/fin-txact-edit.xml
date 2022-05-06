@@ -157,11 +157,11 @@
                             <column width="350px">
                                 <textField id="idXField" property="idX"/>
                                 <textField id="idYField" property="idY"/>
-                                <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd"/>
-                                <timeField id="BegTime1Field" property="beg.time1" timeFormat="hh:mm"/>
-                                <dateField id="finTxset1_BegDate1Field" property="finTxset1_BegDate1"
+                                <dateField id="BegDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
+                                <timeField id="BegTime1Field" property="beg1.time1" timeFormat="hh:mm"/>
+                                <dateField id="finTxset1_BegDate1Field" property="finTxset1_Beg1Date1"
                                            dateFormat="yyyy-MM-dd"/>
-                                <timeField id="finTxset1_BegTime1Field" property="finTxset1_BegTime1"
+                                <timeField id="finTxset1_BegTime1Field" property="finTxset1_Beg1Time1"
                                            timeFormat="hh:mm"/>
                             </column>
                         </form>

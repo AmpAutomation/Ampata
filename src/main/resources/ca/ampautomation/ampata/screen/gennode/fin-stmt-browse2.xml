@@ -9,7 +9,7 @@
                     fetchPlan="finStmt-fetch-plan-base">
             <loader id="finStmtsDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmt']]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmt' ORDER BY e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -24,7 +24,7 @@
                     fetchPlan="finTxfer-fetch-plan-base">
             <loader id="finTxfersDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.finStmt1_Id = :finStmt1_Id]]>
+                    <![CDATA[select e from ampata_GenNode e where e.finStmt1_Id = :finStmt1_Id ORDER BY e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -46,12 +46,16 @@
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
-                            <propertyFilter caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
-                            <propertyFilter caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true" colspan="2"/>
-                            <propertyFilter caption="end.date1" operation="GREATER_OR_EQUAL" property="end.date1" operationEditable="true"/>
-                            <propertyFilter caption="end.date1" operation="LESS_OR_EQUAL" property="end.date1" operationEditable="true"/>
-                            <propertyFilter caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true"/>
-                            <propertyFilter caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true" />
+                            <propertyFilter id="propFilter_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                            <propertyFilter id="propFilter_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                            <propertyFilter id="propFilter_idDtDate1GE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                            <propertyFilter id="propFilter_idDtDate1LE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                            <propertyFilter id="propFilter_genChan1_Id" caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true">
+                                <entityComboBox metaClass="ampata_GenNode" width="200%"/>
+                            </propertyFilter>
+                            <propertyFilter id="propFilter_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
+                                <entityComboBox metaClass="ampata_GenNode" width="200%"/>
+                            </propertyFilter>
                         </configuration>
                     </configurations>
                 </filter>
@@ -69,8 +73,8 @@
                         <column id="id2Calc"/>
                         <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="beg.date1" caption="Beg-Date"/>
-                        <column id="end.date1" caption="End-Date"/>
+                        <column id="beg1.date1" caption="Beg-Date"/>
+                        <column id="end1.date1" caption="End-Date"/>
                         <column id="genChan1_Id" caption="genChan1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
                         <column id="begBal"/>
@@ -86,17 +90,47 @@
                     <simplePagination/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
-                        <button id="refreshBtn" action="table.refresh"/>
-                        <button id="updateAllRowAllBackEndCalcBtn" caption="Update AR All BE Calc Values" icon="font-icon:REFRESH"/>
-                        <label value="|" align="MIDDLE_CENTER"/>
-                        <button id="createBtn" action="table.create"/>
-                        <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
-                        <button id="removeBtn" action="table.remove"/>
-                        <button id="editBtn" action="table.edit"/>
-                        <button id="finStmtHideBtn" caption="Hide Stmt Details" icon="font-icon:EYE"/>
-                        <button id="updateAllFrontEndCalcBtn" caption="Update All FE Calc Values" icon="font-icon:REFRESH"/>
-                        <label value="|" align="MIDDLE_CENTER"/>
-                        <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
+                        <tabSheet  width="100%">
+                            <tab id="tabCmd1" caption="Main" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
+                                    <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
+                                </hbox>
+                            </tab>
+
+                            <tab id="tabCmd2" caption="View">
+                                <hbox spacing="true">
+                                    <button id="finStmtHideBtn" caption="Hide Stmt Details" icon="font-icon:EYE"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd3" caption="Create" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="createBtn" action="table.create"/>
+                                    <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
+                                    <label value="Tmplt"/>
+                                    <dateField id="tmplt_beg1Date1Field" caption="beg1.date1" datatype="localDate" dateFormat="yyyy-MM-dd"/>
+                                    <dateField id="tmplt_end1Date1Field" caption="end1.date1" datatype="localDate" dateFormat="yyyy-MM-dd"/>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd4" caption="Edit" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="editBtn" action="table.edit"/>
+                                    <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd5" caption="Filter" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="filterPrevEnd1Date1GEBtn" caption="Prev end1.Date1" icon="ARROW_LEFT"/>
+                                    <button id="filterNextEnd1Date1GEBtn" caption="Next end1.Date1" icon="ARROW_RIGHT"/>
+                                </hbox>
+                            </tab>
+                        </tabSheet>
                     </buttonsPanel>
                 </groupTable>
                 <hbox id="lookupActions" spacing="true" visible="false">
@@ -116,6 +150,9 @@
                                     <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
                                         <textArea id="desc1Field" dataContainer="finStmtDc" property="desc1" rows="1" tabIndex="10"/>
                                         <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id" expand="idField" width="100%">
+                                        <textField id="idField" dataContainer="finStmtDc" property="id" editable="false" tabIndex="10"/>
                                     </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="finStmtDc" property="id2" tabIndex="10"/>
@@ -160,9 +197,9 @@
                                     </hbox>
                                 </column>
                                 <column width="240px">
-                                    <dateField id="BegDate1Field" property="beg.date1" dateFormat="yyyy-MM-dd" caption="Beg Date"
+                                    <dateField id="beg1Date1Field" property="beg1.ts1" dateFormat="yyyy-MM-dd" caption="Beg Date"
                                                tabIndex="30"/>
-                                    <dateField id="EndDate1Field" property="end.date1" dateFormat="yyyy-MM-dd" caption="End Date"
+                                    <dateField id="end1Date1Field" property="end1.ts1" dateFormat="yyyy-MM-dd" caption="End Date"
                                                tabIndex="30"/>
                                 </column>
                             </form>
@@ -302,13 +339,12 @@
                                 </column>
                                 <column width="240px">
                                     <textField id="begBalField" property="begBal" width="100%" tabIndex="20"/>
-                                    <textField id="endBalField" property="endBal" width="100%" editable="false" tabIndex="20"/>
                                     <textField id="debtSumField" property="debtSum" width="100%" tabIndex="20"/>
                                     <textField id="credSumField" property="credSum" width="100%" tabIndex="20"/>
                                     <textField id="netSumField" property="netSum" width="100%" editable="false" tabIndex="20"/>
+                                    <textField id="endBalField" property="endBal" width="100%" editable="false" tabIndex="20"/>
                                 </column>
                                 <column width="360px">
-                                    <hbox width="100%"/>
                                     <hbox width="100%"/>
                                     <hbox spacing="true" width="100%">
                                         <label value="Calc"/>
@@ -328,6 +364,7 @@
                                         <label value="Diff"/>
                                         <textField id="netSumDiffField" editable="false" width="100%" tabIndex="30"/>
                                     </hbox>
+                                    <hbox width="100%"/>
                                 </column>
                             </form>
                         </tab>
@@ -343,6 +380,12 @@
                         </tab>
                     </tabSheet>
                 </form>
+                <hbox id="actionsPane" spacing="true" visible="false">
+                    <button id="saveBtn" action="save"/>
+                    <button id="cancelBtn" action="cancel"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+                </hbox>
                 <groupTable id="table2"
                             width="100%"
                             dataContainer="finTxfersDc">
@@ -367,7 +410,7 @@
                         <column id="desc1" width="180px"/>
                         <column id="finTxact1_Id"/>
                         <column id="finTxact1_EI1_Role" caption="Role"/>
-                        <column id="finTxact1_Type1_Id" caption="Txact-Type"/>
+                        <column id="finTxact1_Id.type1_Id" caption="Txact-Type"/>
                         <column id="genChan1_Id" caption="Chan"/>
                         <column id="finAcct1_Id"/>
                         <column id="finDept1_Id"/>
@@ -375,8 +418,7 @@
                         <column id="amtCred"/>
                         <column id="amtNet"/>
                         <column id="finCurcy1_Id"/>
-                        <column id="beg.date1" caption="Date1"/>
-                        <column id="finTxact1_BegDate1" caption="Txact-Date1"/>
+                        <column id="idDt.date1" caption="idDt"/>
                         <column id="idX"/>
                         <column id="idY"/>
                         <column id="idZ"/>
@@ -409,17 +451,14 @@
                     <simplePagination/>
                     <buttonsPanel id="buttonsPanel2"
                                   alwaysVisible="true">
+                        <button id="refreshBtn2" action="table2.refresh2"/>
+                        <label value="|" align="MIDDLE_CENTER"/>
                         <button id="createBtn2" action="table2.create2"/>
                         <button id="duplicateBtn2" action="table2.duplicate2" caption="Duplicate" icon="font-icon:COPY"/>
                         <button id="editBtn2" action="table2.edit2"/>
-                        <button id="refreshBtn2" action="table2.refresh2"/>
                         <button id="removeBtn2" action="table2.remove2"/>
                     </buttonsPanel>
                 </groupTable>
-                <hbox id="actionsPane" spacing="true" visible="false">
-                    <button id="saveBtn" action="save"/>
-                    <button id="cancelBtn" action="cancel"/>
-                </hbox>
             </vbox>
         </split>
     </layout>

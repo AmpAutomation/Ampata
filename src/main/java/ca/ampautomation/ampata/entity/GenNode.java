@@ -4,7 +4,6 @@ import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
-import io.jmix.core.impl.EntityInternals;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.metamodel.annotation.JmixProperty;
@@ -14,7 +13,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -58,34 +56,34 @@ import java.util.UUID;
 //@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
 @NamedStoredProcedureQueries({
 
-@NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd",
-        procedureName = "Gen_Node_Pr_Upd", parameters = {
+        @NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd",
+                procedureName = "Gen_Node_Pr_Upd", parameters = {
 
-}),
+        }),
 
-@NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd2",
-        procedureName = "Gen_Node_Pr_Upd2"
-        , parameters = {
-            @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
-}),
+        @NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd2",
+                procedureName = "Gen_Node_Pr_Upd2"
+                , parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
+        }),
 
-@NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd3",
-        procedureName = "Gen_Node_Pr_Upd3"
-        , parameters = {
-             @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
-            ,@StoredProcedureParameter(mode = ParameterMode.OUT, name = "outParam1", type = String.class)
-}),
+        @NamedStoredProcedureQuery(name = "GenNode.execGenNodePrUpd3",
+                procedureName = "Gen_Node_Pr_Upd3"
+                , parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
+                , @StoredProcedureParameter(mode = ParameterMode.OUT, name = "outParam1", type = String.class)
+        }),
 
-@NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd",
-        procedureName = "Fin_Txfer_Pr_Upd", parameters = {
+        @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd",
+                procedureName = "Fin_Txfer_Pr_Upd", parameters = {
 
-}),
+        }),
 
-@NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd2",
-        procedureName = "Fin_Txfer_Pr_Upd2"
-        , parameters = {
-            @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
-}),
+        @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd2",
+                procedureName = "Fin_Txfer_Pr_Upd2"
+                , parameters = {
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
+        }),
 
 })
 
@@ -258,36 +256,68 @@ public class GenNode {
     private String genAgent2_Id2;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "BEG_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "BEG_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "BEG_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG_TIME1_MIN"))
+            @AttributeOverride(name = "ts1", column = @Column(name = "BEG1_TS1")),
+            @AttributeOverride(name = "date1", column = @Column(name = "BEG1_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG1_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG1_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG1_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG1_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG1_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "BEG1_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG1_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG1_TIME1_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst beg;
+    private HasTmst beg1;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "ts1", column = @Column(name = "BEG2_TS1")),
+            @AttributeOverride(name = "date1", column = @Column(name = "BEG2_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG2_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG2_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG2_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG2_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG2_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "BEG2_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG2_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG2_TIME1_MIN"))
+    })
+    private HasTmst beg2;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "END_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "END_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "END_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "END_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "END_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "END_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "END_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "END_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "END_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "END_TIME1_MIN"))
+            @AttributeOverride(name = "ts1", column = @Column(name = "END1_TS1")),
+            @AttributeOverride(name = "date1", column = @Column(name = "END1_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "END1_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "END1_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "END1_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "END1_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "END1_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "END1_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "END1_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "END1_TIME1_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst end;
+    private HasTmst end1;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "ts1", column = @Column(name = "END2_TS1")),
+            @AttributeOverride(name = "date1", column = @Column(name = "END2_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "END2_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "END2_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "END2_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "END2_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "END2_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "END2_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "END2_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "END2_TIME1_MIN"))
+    })
+    private HasTmst end2;
 
     @Column(name = "BEG_BAL", precision = 19, scale = 2)
     private BigDecimal begBal;
@@ -345,11 +375,11 @@ public class GenNode {
     @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
     private String finTxset1_GenChan1_Id2;
 
-    @Column(name = "FIN_TXSET1__BEG_DATE1")
-    private LocalDate finTxset1_BegDate1;
+    @Column(name = "FIN_TXSET1__BEG1_DATE1")
+    private LocalDate finTxset1_Beg1Date1;
 
-    @Column(name = "FIN_TXSET1__BEG_TIME1")
-    private LocalTime finTxset1_BegTime1;
+    @Column(name = "FIN_TXSET1__BEG1_TIME1")
+    private LocalTime finTxset1_Beg1Time1;
 
 
     @Column(name = "FIN_TXSET1__HOW1__ID2")
@@ -397,11 +427,11 @@ public class GenNode {
     @Column(name = "FIN_TXACT1__GEN_CHAN1__ID2")
     private String finTxact1_GenChan1_Id2;
 
-    @Column(name = "FIN_TXACT1__BEG_DATE1")
-    private LocalDate finTxact1_BegDate1;
+    @Column(name = "FIN_TXACT1__BEG1_DATE1")
+    private LocalDate finTxact1_Beg1Date1;
 
-    @Column(name = "FIN_TXACT1__BEG_TIME1")
-    private LocalTime finTxact1_BegTime1;
+    @Column(name = "FIN_TXACT1__BEG1_TIME1")
+    private LocalTime finTxact1_Beg1Time1;
 
     @Column(name = "FIN_TXACT1__HOW1__ID2")
     private String finTxact1_How1_Id2;
@@ -420,6 +450,43 @@ public class GenNode {
     @Column(name = "FIN_TXACT1__WHY1__ID2")
     private String finTxact1_Why1_Id2;
 
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "ts1", column = @Column(name = "ID_TS_TS1")),
+            @AttributeOverride(name = "date1", column = @Column(name = "ID_TS_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "ID_TS_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "ID_TS_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "ID_TS_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "ID_TS_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "ID_TS_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "ID_TS_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "ID_TS_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "ID_TS_TIME1_MIN"))
+    })
+    private HasTmst idTs;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "date1", column = @Column(name = "ID_DT_DATE1")),
+            @AttributeOverride(name = "date1Yr", column = @Column(name = "ID_DT_DATE1_YR")),
+            @AttributeOverride(name = "date1Qtr", column = @Column(name = "ID_DT_DATE1_QTR")),
+            @AttributeOverride(name = "date1Mon", column = @Column(name = "ID_DT_DATE1_MON")),
+            @AttributeOverride(name = "date1Mon2", column = @Column(name = "ID_DT_DATE1_MON2")),
+            @AttributeOverride(name = "date1Day", column = @Column(name = "ID_DT_DATE1_DAY"))
+    })
+    private HasDate idDt;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "time1", column = @Column(name = "ID_TM_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "ID_TM_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "ID_TM_TIME1_MIN"))
+    })
+    private HasTime idTm;
 
     @Column(name = "ID_X")
     private Integer idX;
@@ -629,6 +696,46 @@ public class GenNode {
     @Transient
     private Logger logger = LoggerFactory.getLogger(GenNode.class);
 
+    public HasTmst getIdTs() {
+        return idTs;
+    }
+
+    public void setIdTs(HasTmst idTs) {
+        this.idTs = idTs;
+    }
+
+    public HasTmst getEnd2() {
+        return end2;
+    }
+
+    public void setEnd2(HasTmst end2) {
+        this.end2 = end2;
+    }
+
+    public HasTmst getBeg2() {
+        return beg2;
+    }
+
+    public void setBeg2(HasTmst beg2) {
+        this.beg2 = beg2;
+    }
+
+    public HasTime getIdTm() {
+        return idTm;
+    }
+
+    public void setIdTm(HasTime idTm) {
+        this.idTm = idTm;
+    }
+
+    public HasDate getIdDt() {
+        return idDt;
+    }
+
+    public void setIdDt(HasDate idDt) {
+        this.idDt = idDt;
+    }
+
     public String getFinTxact1_GenDocVers1_Id2() {
         return finTxact1_GenDocVers1_Id2;
     }
@@ -834,10 +941,10 @@ public class GenNode {
 
 
 
-    public void setBeg(HasTmst beg) {
+    public void setBeg1(HasTmst beg1) {
         String logPrfx = "setBeg";
         logger.trace(logPrfx + " --> ");
-        this.beg = beg;
+        this.beg1 = beg1;
 
 /*
         logger.debug(logPrfx + " --- calling updateId2Calc()");
@@ -847,14 +954,14 @@ public class GenNode {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public HasTmst getBeg() {
-        return beg;
+    public HasTmst getBeg1() {
+        return beg1;
     }
 
-    public void setEnd(HasTmst end) {
+    public void setEnd1(HasTmst end1) {
         String logPrfx = "setEnd";
         logger.trace(logPrfx + " --> ");
-        this.end = end;
+        this.end1 = end1;
 
 /*
         logger.debug(logPrfx + " --- calling updateId2Calc()");
@@ -864,8 +971,8 @@ public class GenNode {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public HasTmst getEnd() {
-        return end;
+    public HasTmst getEnd1() {
+        return end1;
     }
 
 
@@ -1213,20 +1320,20 @@ public class GenNode {
     }
 
 
-    public void setFinTxset1_BegDate1(LocalDate finTxset1_BegDate1) {
-        this.finTxset1_BegDate1 = finTxset1_BegDate1;
+    public void setFinTxset1_Beg1Date1(LocalDate finTxset1_Beg1Date1) {
+        this.finTxset1_Beg1Date1 = finTxset1_Beg1Date1;
     }
 
-    public LocalDate getFinTxset1_BegDate1() {
-        return finTxset1_BegDate1;
+    public LocalDate getFinTxset1_Beg1Date1() {
+        return finTxset1_Beg1Date1;
     }
 
-    public void setFinTxset1_BegTime1(LocalTime finTxset1_BegTime1) {
-        this.finTxset1_BegTime1 = finTxset1_BegTime1;
+    public void setFinTxset1_Beg1Time1(LocalTime finTxset1_Beg1Time1) {
+        this.finTxset1_Beg1Time1 = finTxset1_Beg1Time1;
     }
 
-    public LocalTime getFinTxset1_BegTime1() {
-        return finTxset1_BegTime1;
+    public LocalTime getFinTxset1_Beg1Time1() {
+        return finTxset1_Beg1Time1;
     }
 
 
@@ -1382,20 +1489,20 @@ public class GenNode {
         this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2;
     }
 
-    public void setFinTxact1_BegTime1(LocalTime finTxact1_BegTime1) {
-        this.finTxact1_BegTime1 = finTxact1_BegTime1;
+    public void setFinTxact1_Beg1Time1(LocalTime finTxact1_Beg1Time1) {
+        this.finTxact1_Beg1Time1 = finTxact1_Beg1Time1;
     }
 
-    public LocalTime getFinTxact1_BegTime1() {
-        return finTxact1_BegTime1;
+    public LocalTime getFinTxact1_Beg1Time1() {
+        return finTxact1_Beg1Time1;
     }
 
-    public void setFinTxact1_BegDate1(LocalDate finTxact1_BegDate1) {
-        this.finTxact1_BegDate1 = finTxact1_BegDate1;
+    public void setFinTxact1_Beg1Date1(LocalDate finTxact1_Beg1Date1) {
+        this.finTxact1_Beg1Date1 = finTxact1_Beg1Date1;
     }
 
-    public LocalDate getFinTxact1_BegDate1() {
-        return finTxact1_BegDate1;
+    public LocalDate getFinTxact1_Beg1Date1() {
+        return finTxact1_Beg1Date1;
     }
 
 
@@ -1898,109 +2005,75 @@ public class GenNode {
         this.version = version;
     }
 
-    private void updateId2Calc(){
+
+    public void updateId2Calc(){
         String logPrfx = "updateId2Calc()";
         logger.trace(logPrfx + " --> ");
 
-
         String id2Calc = "";
 
-        switch (className) {
-            case "FinTxset":
-                logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
-                id2Calc = getId2CalcFrFields();
-                logger.debug(logPrfx + " --- calling setId2Calc("+ id2Calc +")");
-                setId2Calc(id2Calc);
-                break;
+        logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
+        id2Calc = getId2CalcFrFields();
+        logger.debug(logPrfx + " --- calling setId2Calc("+ id2Calc +")");
+        setId2Calc(id2Calc);
 
-            case "FinTxact":
-                logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
-                id2Calc = getId2CalcFrFields();
-                if (id2Calc != null
-                        && id2Calc != ""
-                        && id2Calc != this.id2Calc) {
-                    logger.debug(logPrfx + " --- calling setId2Calc("+ id2Calc +")");
-                    setId2Calc(id2Calc);
-                    logger.debug(logPrfx + " --- calling setFinTxact1_Id2Calc("+ id2Calc.substring(0,20) +")");
-                    setFinTxset1_Id2Calc(id2Calc.substring(0,20));
-                }
-                break;
-
-            case "FinTxfer":
-                logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
-                id2Calc = getId2CalcFrFields();
-                if (id2Calc != null
-                        && id2Calc != ""
-                        && id2Calc != this.id2Calc) {
-                    logger.debug(logPrfx + " --- calling setId2Calc("+ id2Calc +")");
-                    setId2Calc(id2Calc);
-                    logger.debug(logPrfx + " --- calling setFinTxact1_Id2Calc("+ id2Calc.substring(0,24) +")");
-                    setFinTxact1_Id2Calc(id2Calc.substring(0,24));
-                }
-                break;
-
-            default:
-                break;
-        }
         logger.trace(logPrfx + " <-- ");
     }
-
 
 
     public String getId2CalcFrFields(){
         String logPrfx = "getId2CalcFrFields";
         logger.trace(logPrfx + " --> ");
+
         final String SEP = "/";
         StringBuilder sb = new StringBuilder();
-/*
-        SimpleDateFormat frmtDt = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat frmtTm = new SimpleDateFormat("hhmm");
-*/
+
+        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd HHmm")
+                .toFormatter();
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
                 .appendPattern("yyyyMMdd")
                 .toFormatter();
-        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-                .appendPattern("hhmm")
+         DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+                .appendPattern("HHmm")
                 .toFormatter();
 
         switch (className) {
-            case "FinTxset", "FinTxact", "FinTxfer":
-                if (beg == null) {
-                    logger.debug(logPrfx + " --- beg: null");
+            case "FinTxset":
+            case "FinTxact":
+            case "FinTxfer":
+                if (idTs == null) {
+                    logger.debug(logPrfx + " --- idTs: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (beg.getDate1() == null) {
-                    logger.debug(logPrfx + " --- beg.date1: null");
+                if (idTs.getTs1() == null) {
+                    logger.debug(logPrfx + " --- idTs.getTs1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-//                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
-                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
-                }
-                if (beg.getTime1() == null) {
-                    logger.debug(logPrfx + " --- beg.time1: null");
-                } else{
-//                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
-                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
+                    logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
                 }
                 break;
             case "FinStmt":
-                if (beg == null) {
-                    logger.debug(logPrfx + " --- beg: null");
+                if (idDt == null) {
+                    logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (beg.getDate1() == null) {
-                    logger.debug(logPrfx + " --- beg.date1: null");
+                if (idDt.getDate1() == null) {
+                    logger.debug(logPrfx + " --- idDt.getDate1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-//                    logger.debug(logPrfx + " --- beg.date1: " + frmtDt.format(beg.getDate1()));
-                    logger.debug(logPrfx + " --- beg.date1: " + beg.getDate1().format(frmtDt));
+                    logger.debug(logPrfx + " --- idDt.getDate1(): " + idDt.getDate1().format(frmtDt));
                 }
-
-                if (getFinAcct1_Id() == null) {
+                break;
+        };
+        
+        switch (className) {
+            case "FinStmt":
+                if (finAcct1_Id == null) {
                     logger.debug(logPrfx + " --- finAcct1_Id: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
@@ -2014,83 +2087,23 @@ public class GenNode {
 
         switch (className){
             case "FinTxset":
-                //Date
-
-//                sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
-                sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
-
-                //Time
-//                sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
-                sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
-                break;
-
             case "FinTxact":
-                //Date
-                if (finTxset1_BegDate1 == null) {
-                    logger.debug(logPrfx + " --- finTxset1_BegDate1: null");
-//                    sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
-                    sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
-                }else{
-//                    logger.debug(logPrfx + " --- finTxset1_BegDate1: " + frmtDt.format(finTxset1_BegDate1));
-                    logger.debug(logPrfx + " --- finTxset1_BegDate1: " + finTxset1_BegDate1.format(frmtDt));
-//                    sb.append(SEP + "D" + frmtDt.format(finTxset1_BegDate1));
-                    sb.append(SEP + "D" + finTxset1_BegDate1.format(frmtDt));
-                }
-
-                //Time
-                if (finTxset1_BegTime1 == null) {
-                    logger.debug(logPrfx + " --- finTxset1_BegTime1: null");
-                    if (beg.getTime1() != null) {
-//                        sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));;
-                        sb.append(SEP + "T" + beg.getTime1().format(frmtTm));;
-                    }else{
-                        sb.append(SEP + "T0000");
-                    }
-                }else{
-//                    logger.debug(logPrfx + " --- finTxset1_BegTime1: " + frmtDt.format(finTxset1_BegTime1));
-//                    sb.append(SEP + "T" + frmtDt.format(finTxset1_BegTime1));;
-                    logger.debug(logPrfx + " --- finTxset1_BegTime1: " + finTxset1_BegTime1.format(frmtDt));
-                    sb.append(SEP + "T" + finTxset1_BegTime1.format(frmtDt));;
-                }
-                break;
-
             case "FinTxfer":
                 //Date
-                if (finTxact1_BegDate1 == null) {
-                    logger.debug(logPrfx + " --- finTxact1_BegDate1: null");
-//                    sb.append(SEP + "D" + frmtDt.format(beg.getDate1()));
-                    sb.append(SEP + "D" + beg.getDate1().format(frmtDt));
-                }else{
-//                    logger.debug(logPrfx + " --- finTxact1_BegDate1: " + frmtDt.format(finTxact1_BegDate1));
-//                    sb.append(SEP + "D" + frmtDt.format(finTxact1_BegDate1));
-                    logger.debug(logPrfx + " --- finTxact1_BegDate1: " + finTxact1_BegDate1.format(frmtDt));
-                    sb.append(SEP + "D" + finTxact1_BegDate1.format(frmtDt));
-                }
-
-                //Time
-                if (finTxact1_BegTime1 == null) {
-                    logger.debug(logPrfx + " --- finTxact1_BegTime1: null");
-                    if (beg.getTime1() != null) {
-//                        sb.append(SEP + "T" + frmtTm.format(beg.getTime1()));
-                        sb.append(SEP + "T" + beg.getTime1().format(frmtTm));
-                    }else{
-                        sb.append(SEP + "T0000");
-                    }
-                }else{
-//                    logger.debug(logPrfx + " --- finTxact1_BegTime1: " + frmtDt.format(finTxact1_BegTime1));
-//                    sb.append(SEP + "T" + frmtDt.format(finTxact1_BegTime1));
-                    logger.debug(logPrfx + " --- finTxact1_BegTime1: " + finTxact1_BegTime1.format(frmtDt));
-                    sb.append(SEP + "T" + finTxact1_BegTime1.format(frmtDt));
-                }
+                sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt))
+                    //Time
+                    .append(SEP + "T").append(idTs.getTs1().format(frmtTm));
                 break;
+
             case "FinStmt":
-//                sb.append(finAcct1_Id.getId2() + SEP + "D" + frmtDt.format(finTxact1_BegDate1));
-                sb.append(finAcct1_Id.getId2() + SEP + "D" + finTxact1_BegDate1.format(frmtDt));
+                //Account
+                sb.append(finAcct1_Id.getId2())
+                    //Date
+                    .append(SEP + "D").append(idDt.getDate1().format(frmtDt));
                 break;
 
             default:
         }
-
 
         switch (className){
             case "FinTxset":
@@ -2102,7 +2115,7 @@ public class GenNode {
                     sb.append(SEP + "X00");
                 }else{
                     logger.debug(logPrfx + " --- idX: " + idX.toString());
-                    sb.append(SEP + "X" + String.format("%02d", idX));
+                    sb.append(SEP + "X").append(String.format("%02d", idX));
                 }
                 break;
             default:
@@ -2117,7 +2130,7 @@ public class GenNode {
                     sb.append(SEP + "Y00");
                 }else{
                     logger.debug(logPrfx + " --- idY: " + idY.toString());
-                    sb.append(SEP + "Y" + String.format("%02d", idY));
+                    sb.append(SEP + "Y").append(String.format("%02d", idY));
                 }
                 break;
             default:
@@ -2131,7 +2144,7 @@ public class GenNode {
                     sb.append(SEP + "Z00");
                 }else {
                     logger.debug(logPrfx + " --- idZ: " + idZ.toString());
-                    sb.append(SEP + "Z" + String.format("%02d", idZ));
+                    sb.append(SEP + "Z").append(String.format("%02d", idZ));
                 }
                 break;
             default:
@@ -2141,6 +2154,92 @@ public class GenNode {
         logger.trace(logPrfx + " <--- ");
         return sb.toString();
 
+    }
+    public void updateIdTs() {
+        // Assume beg1, beg2, end1 is not null
+        String logPrfx = "updateIdTs()";
+        logger.trace(logPrfx + " --> ");
+
+        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd HHmm")
+                .toFormatter();
+
+        switch (className) {
+            case "FinTxset":
+                if (beg1.getTs1() != null){
+                    logger.debug(logPrfx + " --- calling idTs.setTs1(("+ beg1.getTs1().format(frmtTs) +")");
+                    idTs.setTs1(null);
+                }else{
+                    logger.debug(logPrfx + " --- calling idTs.setTs1((null)");
+                    idTs.setTs1(beg1.getTs1());
+                }
+                break;
+
+            case "FinTxact":
+            case "FinTxfer":
+                if (beg2.getTs1() != null){
+                    logger.debug(logPrfx + " --- calling idTs.setTs1(("+ beg2.getTs1().format(frmtTs) +")");
+                    idTs.setTs1(beg2.getTs1());
+                }else if (beg1.getTs1() != null){
+                    logger.debug(logPrfx + " --- calling idTs.setTs1(("+ beg1.getTs1().format(frmtTs) +")");
+                    idTs.setTs1(beg1.getTs1());
+                }else{
+                    logger.debug(logPrfx + " --- calling idTs.setTs1((null)");
+                    idTs.setTs1(beg1.getTs1());
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        logger.trace(logPrfx + " <--- ");
+    }
+
+
+    public void updateIdDt() {
+        // Assume beg1, beg2, end1 is not null
+        String logPrfx = "updateIdDt()";
+        logger.trace(logPrfx + " --> ");
+
+        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd")
+                .toFormatter();
+
+        switch (className) {
+
+            case "FinStmt":
+                if (end1.getDate1() != null){
+                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ end1.getDate1().format(frmtDt) +")");
+                    idDt.setDate1(end1.getDate1());
+                }else{
+                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
+                    idDt.setDate1(null);
+                }
+                break;
+            default:
+                break;
+        }
+
+        logger.trace(logPrfx + " <--- ");
+    }
+
+    public void updateIdTm() {
+        // Assume beg1, beg2 is not null
+        String logPrfx = "updateIdTm()";
+        logger.trace(logPrfx + " --> ");
+
+        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+                .appendPattern("HHmm")
+                .toFormatter();
+
+        switch (className) {
+
+            default:
+                break;
+        }
+
+        logger.trace(logPrfx + " <--- ");
     }
 
 }

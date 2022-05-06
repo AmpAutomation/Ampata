@@ -28,10 +28,11 @@
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="genNodeDc">
                 <column width="350px">
+                    <textField id="idField" property="id" editable="false"/>
                     <textField id="id2Field" property="id2"/>
-                    <textField id="id2CalcField" property="id2Calc"/>
-                    <checkBox id="id2CmpField" property="id2Cmp"/>
-                    <textField id="id2DupField" property="id2Dup"/>
+                    <textField id="id2CalcField" property="id2Calc" editable="false"/>
+                    <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
+                    <textField id="id2DupField" property="id2Dup" editable="false"/>
                     <textField id="classNameField" property="className" editable="false" required="true"
                     />
                     <entityPicker id="parent1_IdField" property="parent1_Id">

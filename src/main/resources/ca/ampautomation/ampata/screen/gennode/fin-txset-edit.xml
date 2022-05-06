@@ -89,26 +89,26 @@
                     <textField id="nameSufxField" property="nameSufx"/>
                     <textField id="genAgent1_Id2Field" property="genAgent1_Id2"/>
                     <textField id="genAgent2_Id2Field" property="genAgent2_Id2"/>
-                    <dateField id="begTs1Field" property="beg.ts1"/>
-                    <dateField id="begDate1Field" property="beg.date1"/>
-                    <textField id="begDate1YrField" property="beg.date1Yr"/>
-                    <textField id="begDate1QtrField" property="beg.date1Qtr"/>
-                    <textField id="begDate1MonField" property="beg.date1Mon"/>
-                    <textField id="begDate1Mon2Field" property="beg.date1Mon2"/>
-                    <textField id="begDate1DayField" property="beg.date1Day"/>
-                    <timeField id="begTime1Field" property="beg.time1"/>
-                    <textField id="begTime1HrField" property="beg.time1Hr"/>
-                    <textField id="begTime1MinField" property="beg.time1Min"/>
-                    <dateField id="endTs1Field" property="end.ts1"/>
-                    <dateField id="endDate1Field" property="end.date1"/>
-                    <textField id="endDate1YrField" property="end.date1Yr"/>
-                    <textField id="endDate1QtrField" property="end.date1Qtr"/>
-                    <textField id="endDate1MonField" property="end.date1Mon"/>
-                    <textField id="endDate1Mon2Field" property="end.date1Mon2"/>
-                    <textField id="endDate1DayField" property="end.date1Day"/>
-                    <timeField id="endTime1Field" property="end.time1"/>
-                    <textField id="endTime1HrField" property="end.time1Hr"/>
-                    <textField id="endTime1MinField" property="end.time1Min"/>
+                    <dateField id="begTs1Field" property="beg1.ts1"/>
+                    <dateField id="begDate1Field" property="beg1.date1"/>
+                    <textField id="begDate1YrField" property="beg1.date1Yr"/>
+                    <textField id="begDate1QtrField" property="beg1.date1Qtr"/>
+                    <textField id="begDate1MonField" property="beg1.date1Mon"/>
+                    <textField id="begDate1Mon2Field" property="beg1.date1Mon2"/>
+                    <textField id="begDate1DayField" property="beg1.date1Day"/>
+                    <timeField id="begTime1Field" property="beg1.time1"/>
+                    <textField id="begTime1HrField" property="beg1.time1Hr"/>
+                    <textField id="begTime1MinField" property="beg1.time1Min"/>
+                    <dateField id="endTs1Field" property="end1.ts1"/>
+                    <dateField id="endDate1Field" property="end1.date1"/>
+                    <textField id="endDate1YrField" property="end1.date1Yr"/>
+                    <textField id="endDate1QtrField" property="end1.date1Qtr"/>
+                    <textField id="endDate1MonField" property="end1.date1Mon"/>
+                    <textField id="endDate1Mon2Field" property="end1.date1Mon2"/>
+                    <textField id="endDate1DayField" property="end1.date1Day"/>
+                    <timeField id="endTime1Field" property="end1.time1"/>
+                    <textField id="endTime1HrField" property="end1.time1Hr"/>
+                    <textField id="endTime1MinField" property="end1.time1Min"/>
                     <entityPicker id="genChan1_IdField" property="genChan1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
