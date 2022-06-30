@@ -1293,11 +1293,13 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             }
         });
 
+        //call dataContext.commit to sync the UI with the changes to the database
         logger.debug(logPrfx + " --- executing dataContext.commit().");
         dataContext.commit();
         //logger.debug(logPrfx + " --- executing finTxfersDl.load().");
         //finTxfersDl.load();
 
+        //Loop throught the items again to update the id2Dup attribute
         thisFinTxfers.forEach(thisFinTxfer -> {
             GenNode thisTrackedFinTxfer = thisFinTxfer;
             //GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
