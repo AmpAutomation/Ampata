@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
@@ -49,11 +50,17 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
 
     @Autowired
-    protected DateField<LocalDate> tmplt_beg1Date1Field;
+    protected CheckBox tmplt_beg1Ts1FieldChk;
+
+    @Autowired
+    protected DateField<LocalDateTime> tmplt_beg1Ts1Field;
 
 
     @Autowired
-    protected DateField<LocalDate> tmplt_end1Date1Field;
+    protected CheckBox tmplt_end1Ts1FieldChk;
+
+    @Autowired
+    protected DateField<LocalDateTime> tmplt_end1Ts1Field;
 
 
     @Autowired
@@ -362,20 +369,25 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             GenNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            if (tmplt_beg1Date1Field.getValue() != null) {
-                HasTmst beg1 = dataManager.create(HasTmst.class);
-                beg1.setTs1(tmplt_beg1Date1Field.getValue().atTime(0,0));
-                copy.setBeg1(beg1);
+            LocalDateTime beg1;
+            if (tmplt_beg1Ts1FieldChk.isChecked()) {
+                beg1 = tmplt_beg1Ts1Field.getValue();
+                copy.getBeg1().setTs1(beg1);
             }
 
-            if (tmplt_end1Date1Field.getValue() != null) {
-                HasTmst end1 = dataManager.create(HasTmst.class);
-                end1.setTs1(tmplt_beg1Date1Field.getValue().atTime(0,0));
-                copy.setBeg1(end1);
+            LocalDateTime end1;
+            if (tmplt_end1Ts1FieldChk.isChecked()) {
+                end1 = tmplt_end1Ts1Field.getValue();
+                copy.getEnd1().setTs1(end1);
+                updateIdDt(copy);
             }
 
-            copy.setId2(copy.getId2() + " Copy");
-            copy.setId2Calc(copy.getId2() + " Copy");
+            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.setId2(copy.getId2Calc());
+            if (orig.getId2().equals(copy.getId2())){
+                copy.setId2(copy.getId2() + " Copy");
+                copy.setId2Calc(copy.getId2());
+            }
 
             GenNode savedCopy = dataManager.save(copy);
             finStmtsDc.getMutableItems().add(savedCopy);
@@ -400,16 +412,35 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
+        List<GenNode> sels = new ArrayList<>();
+
         thisFinStmts.forEach(orig -> {
 
             GenNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            if (orig.getBeg1().getDate1() != null) {
-                copy.getBeg1().setTs1(orig.getBeg1().getTs1().plusMonths(1));}
+            LocalDateTime beg1;
+            if (tmplt_beg1Ts1FieldChk.isChecked()) {
+                beg1 = tmplt_beg1Ts1Field.getValue();
+                copy.getBeg1().setTs1(beg1);
+            }else{
+                if (orig.getBeg1().getTs1() != null) {
+                    beg1 = orig.getEnd1().getTs1().plusDays(1);
+                    copy.getBeg1().setTs1(beg1);
+                }
+            }
 
-            if (orig.getEnd1().getDate1() != null) {
-                copy.getEnd1().setTs1(orig.getEnd1().getTs1().plusMonths(1));}
+            LocalDateTime end1;
+            if (tmplt_end1Ts1FieldChk.isChecked()) {
+                end1 = tmplt_end1Ts1Field.getValue();
+                copy.getEnd1().setTs1(end1);
+                updateIdDt(copy);
+            }else{
+                if (orig.getEnd1().getTs1() != null) {
+                    end1 = orig.getEnd1().getTs1().plusMonths(1);
+                    copy.getEnd1().setTs1(end1);
+                }
+            }
 
             if (orig.getEndBal() != null) {
                 copy.setBegBal(orig.getEndBal());}
@@ -418,7 +449,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");
-                copy.setId2Calc(copy.getId2() + " Copy");
+                copy.setId2Calc(copy.getId2());
             }
 
             GenNode savedCopy = dataManager.save(copy);
@@ -428,7 +459,11 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                     +" -> "
                     +"[" + copy.getId() + "]"
             );
+            sels.add(savedCopy);
+
         });
+        table.sort("id2", Table.SortDirection.ASCENDING);
+        table.setSelected(sels);
         
         logger.trace(logPrfx + " <-- ");
     }
@@ -934,6 +969,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.debug(logPrfx + " --- desc1: " + desc1);
         logger.trace(logPrfx + " <-- ");
     }
+
 
     private void updateIdDt(@NotNull GenNode thisFinStmt) {
         // Assume thisFinStmt is not null

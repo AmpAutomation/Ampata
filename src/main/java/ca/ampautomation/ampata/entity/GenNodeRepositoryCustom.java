@@ -5,5 +5,7 @@ public interface GenNodeRepositoryCustom {
 
     void execFinTxferPrUpdNative();
 
+    void execFinTxactPrUpdNative();
+
     void execFinStmtPrUpdNative();
 }

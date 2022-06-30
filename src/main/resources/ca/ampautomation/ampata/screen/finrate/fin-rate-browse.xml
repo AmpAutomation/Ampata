@@ -2,7 +2,7 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finRateBrowse.caption"
-        focusComponent="finRatesTable">
+        focusComponent="table">
     <data readOnly="true">
         <collection id="finRatesDc"
                     class="ca.ampautomation.ampata.entity.FinRate"
@@ -30,7 +30,7 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="finRatesTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
                 dataLoader="finRatesDl" collapsable="true" collapsed="true" columnsCount="4">
             <properties include=".*"/>
@@ -49,7 +49,7 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="finRatesTable"
+        <groupTable id="table"
                     width="100%"
                     dataContainer="finRatesDc">
             <actions>
@@ -78,16 +78,49 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <hbox spacing="true">
-                    <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
-                </hbox>
-                <hbox spacing="true">
-                    <button id="createBtn" action="finRatesTable.create"/>
-                    <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
-                    <button id="editBtn" action="finRatesTable.edit"/>
-                    <button id="refreshBtn" action="finRatesTable.refresh"/>
-                    <button id="removeBtn" action="finRatesTable.remove"/>
-                </hbox>
+                <tabSheet  width="100%">
+                    <tab id="tabCmd1" caption="Main" spacing="true">
+                        <hbox spacing="true">
+                            <button id="refreshBtn" action="table.refresh"/>
+                            <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
+                            <label value="|" align="MIDDLE_CENTER"/>
+                            <button id="removeBtn" action="table.remove"/>
+                        </hbox>
+                    </tab>
+
+                    <tab id="tabCmd2" caption="View">
+                        <hbox spacing="true">
+                            <button id="finStmtHideBtn" caption="Hide Stmt Details" icon="font-icon:EYE"/>
+                            <label value="|" align="MIDDLE_CENTER"/>
+                            <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
+                        </hbox>
+                    </tab>
+                    <tab id="tabCmd3" caption="Create, Edit" spacing="true">
+                        <hbox spacing="true">
+                            <button id="createBtn" action="table.create"/>
+                            <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                            <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
+                            <label value="|" align="MIDDLE_CENTER"/>
+                            <button id="editBtn" action="table.edit"/>
+                            <label value="|" align="MIDDLE_CENTER"/>
+                            <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
+                        </hbox>
+                        <hbox spacing="true">
+                            <hbox caption="beg1.date1">
+                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                    <checkBox id="tmplt_beg1Date1FieldChk" align="MIDDLE_RIGHT"/>
+                                </hbox>
+                                <dateField id="tmplt_beg1Date1Field" datatype="localDate" dateFormat="yyyy-MM-dd"/>
+                            </hbox>
+                        </hbox>
+                    </tab>
+                    <tab id="tabCmd4" caption="Filter" spacing="true">
+                        <hbox spacing="true">
+                            <button id="filterPrevBeg1Date1GEBtn" caption="Prev beg1.Date1" icon="ARROW_LEFT"/>
+                            <button id="filterNextBeg1Date1GEBtn" caption="Next beg1.Date1" icon="ARROW_RIGHT"/>
+                        </hbox>
+                    </tab>
+                </tabSheet>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

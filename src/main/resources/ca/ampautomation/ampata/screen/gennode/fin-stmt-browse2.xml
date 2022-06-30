@@ -108,23 +108,32 @@
                                     <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd3" caption="Create" spacing="true">
+                            <tab id="tabCmd3" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
                                     <button id="createBtn" action="table.create"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
                                     <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
-                                    <label value="Tmplt"/>
-                                    <dateField id="tmplt_beg1Date1Field" caption="beg1.date1" datatype="localDate" dateFormat="yyyy-MM-dd"/>
-                                    <dateField id="tmplt_end1Date1Field" caption="end1.date1" datatype="localDate" dateFormat="yyyy-MM-dd"/>
-                                </hbox>
-                            </tab>
-                            <tab id="tabCmd4" caption="Edit" spacing="true">
-                                <hbox spacing="true">
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
+                                <hbox spacing="true">
+                                    <hbox caption="beg1.ts1">
+                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <checkBox id="tmplt_beg1Ts1FieldChk" align="MIDDLE_RIGHT"/>
+                                        </hbox>
+                                        <dateField id="tmplt_beg1Ts1Field" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
+                                    </hbox>
+                                    <hbox caption="end1.ts1">
+                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <checkBox id="tmplt_end1Ts1FieldChk" align="MIDDLE_RIGHT"/>
+                                        </hbox>
+                                        <dateField id="tmplt_end1Ts1Field" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
+                                    </hbox>
+                                </hbox>
                             </tab>
-                            <tab id="tabCmd5" caption="Filter" spacing="true">
+                            <tab id="tabCmd4" caption="Filter" spacing="true">
                                 <hbox spacing="true">
                                     <button id="filterPrevEnd1Date1GEBtn" caption="Prev end1.Date1" icon="ARROW_LEFT"/>
                                     <button id="filterNextEnd1Date1GEBtn" caption="Next end1.Date1" icon="ARROW_RIGHT"/>

@@ -70,12 +70,12 @@
             <column name="FIN_CURCY2__ID" type="UUID"/>
             <column name="FIN_CURCY2__ID2" type="VARCHAR(255)"/>
             <column name="FMLA" type="VARCHAR(255)"/>
-            <column name="BEG_DATE1" type="DATE"/>
-            <column name="BEG_DATE1_YR" type="INT"/>
-            <column name="BEG_DATE1_QTR" type="INT"/>
-            <column name="BEG_DATE1_MON" type="INT"/>
-            <column name="BEG_DATE1_MON2" type="VARCHAR(255)"/>
-            <column name="BEG_DATE1_DAY" type="INT"/>
+            <column name="BEG1_DATE1" type="DATE"/>
+            <column name="BEG1_DATE1_YR" type="INT"/>
+            <column name="BEG1_DATE1_QTR" type="INT"/>
+            <column name="BEG1_DATE1_MON" type="INT"/>
+            <column name="BEG1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG1_DATE1_DAY" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet id="4" author="ampata">
@@ -166,8 +166,8 @@
             <column name="FIN_TXSET1__EI1__ROLE" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__TYPE1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXSET1__BEG_DATE1" type="DATE"/>
-            <column name="FIN_TXSET1__BEG_TIME1" type="TIME"/>
+            <column name="FIN_TXSET1__BEG1_DATE1" type="DATE"/>
+            <column name="FIN_TXSET1__BEG1_TIME1" type="TIME"/>
             <column name="FIN_TXSET1__HOW1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__WHAT_TEXT1" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__WHAT1__ID2" type="VARCHAR(255)"/>
@@ -181,8 +181,8 @@
             <column name="FIN_TXACT1__EI1__ROLE" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__TYPE1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXACT1__BEG_DATE1" type="DATE"/>
-            <column name="FIN_TXACT1__BEG_TIME1" type="TIME"/>
+            <column name="FIN_TXACT1__BEG1_DATE1" type="DATE"/>
+            <column name="FIN_TXACT1__BEG1_TIME1" type="TIME"/>
             <column name="FIN_TXACT1__HOW1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__WHAT_TEXT1" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__WHAT1__ID2" type="VARCHAR(255)"/>
@@ -248,26 +248,65 @@
             <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
             <column name="DELETED_BY" type="VARCHAR(255)"/>
             <column name="DELETED_DATE" type="DATETIME"/>
-            <column name="BEG_TS1" type="DATETIME"/>
-            <column name="BEG_DATE1" type="DATE"/>
-            <column name="BEG_DATE1_YR" type="INT"/>
-            <column name="BEG_DATE1_QTR" type="INT"/>
-            <column name="BEG_DATE1_MON" type="INT"/>
-            <column name="BEG_DATE1_MON2" type="VARCHAR(255)"/>
-            <column name="BEG_DATE1_DAY" type="INT"/>
-            <column name="BEG_TIME1" type="TIME"/>
-            <column name="BEG_TIME1_HR" type="INT"/>
-            <column name="BEG_TIME1_MIN" type="INT"/>
-            <column name="END_TS1" type="DATETIME"/>
-            <column name="END_DATE1" type="DATE"/>
-            <column name="END_DATE1_YR" type="INT"/>
-            <column name="END_DATE1_QTR" type="INT"/>
-            <column name="END_DATE1_MON" type="INT"/>
-            <column name="END_DATE1_MON2" type="VARCHAR(255)"/>
-            <column name="END_DATE1_DAY" type="INT"/>
-            <column name="END_TIME1" type="TIME"/>
-            <column name="END_TIME1_HR" type="INT"/>
-            <column name="END_TIME1_MIN" type="INT"/>
+            <column name="BEG1_TS1" type="DATETIME"/>
+            <column name="BEG1_DATE1" type="DATE"/>
+            <column name="BEG1_DATE1_YR" type="INT"/>
+            <column name="BEG1_DATE1_QTR" type="INT"/>
+            <column name="BEG1_DATE1_MON" type="INT"/>
+            <column name="BEG1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG1_DATE1_DAY" type="INT"/>
+            <column name="BEG1_TIME1" type="TIME"/>
+            <column name="BEG1_TIME1_HR" type="INT"/>
+            <column name="BEG1_TIME1_MIN" type="INT"/>
+            <column name="BEG2_TS1" type="DATETIME"/>
+            <column name="BEG2_DATE1" type="DATE"/>
+            <column name="BEG2_DATE1_YR" type="INT"/>
+            <column name="BEG2_DATE1_QTR" type="INT"/>
+            <column name="BEG2_DATE1_MON" type="INT"/>
+            <column name="BEG2_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG2_DATE1_DAY" type="INT"/>
+            <column name="BEG2_TIME1" type="TIME"/>
+            <column name="BEG2_TIME1_HR" type="INT"/>
+            <column name="BEG2_TIME1_MIN" type="INT"/>
+            <column name="END1_TS1" type="DATETIME"/>
+            <column name="END1_DATE1" type="DATE"/>
+            <column name="END1_DATE1_YR" type="INT"/>
+            <column name="END1_DATE1_QTR" type="INT"/>
+            <column name="END1_DATE1_MON" type="INT"/>
+            <column name="END1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="END1_DATE1_DAY" type="INT"/>
+            <column name="END1_TIME1" type="TIME"/>
+            <column name="END1_TIME1_HR" type="INT"/>
+            <column name="END1_TIME1_MIN" type="INT"/>
+            <column name="END2_TS1" type="DATETIME"/>
+            <column name="END2_DATE1" type="DATE"/>
+            <column name="END2_DATE1_YR" type="INT"/>
+            <column name="END2_DATE1_QTR" type="INT"/>
+            <column name="END2_DATE1_MON" type="INT"/>
+            <column name="END2_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="END2_DATE1_DAY" type="INT"/>
+            <column name="END2_TIME1" type="TIME"/>
+            <column name="END2_TIME1_HR" type="INT"/>
+            <column name="END2_TIME1_MIN" type="INT"/>
+            <column name="ID_TS_TS1" type="DATETIME"/>
+            <column name="ID_TS_DATE1" type="DATE"/>
+            <column name="ID_TS_DATE1_YR" type="INT"/>
+            <column name="ID_TS_DATE1_QTR" type="INT"/>
+            <column name="ID_TS_DATE1_MON" type="INT"/>
+            <column name="ID_TS_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="ID_TS_DATE1_DAY" type="INT"/>
+            <column name="ID_TS_TIME1" type="TIME"/>
+            <column name="ID_TS_TIME1_HR" type="INT"/>
+            <column name="ID_TS_TIME1_MIN" type="INT"/>
+            <column name="ID_DT_DATE1" type="DATE"/>
+            <column name="ID_DT_DATE1_YR" type="INT"/>
+            <column name="ID_DT_DATE1_QTR" type="INT"/>
+            <column name="ID_DT_DATE1_MON" type="INT"/>
+            <column name="ID_DT_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="ID_DT_DATE1_DAY" type="INT"/>
+            <column name="ID_TM_TIME1" type="TIME"/>
+            <column name="ID_TM_TIME1_HR" type="INT"/>
+            <column name="ID_TM_TIME1_MIN" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet id="6" author="ampata">

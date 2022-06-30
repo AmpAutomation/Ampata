@@ -27,7 +27,23 @@
     <layout spacing="true" expand="editActions">
         <form id="form" dataContainer="finRateDc">
             <column width="350px">
-                <textField id="id2Field" property="id2"/>
+                <textField id="id" property="id" width="100%" editable="false" tabIndex="10"/>
+                <hbox caption="id2" expand="id2Field" width="100%">
+                    <textField id="id2Field" dataContainer="finRateDc" property="id2" tabIndex="10"/>
+                    <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                    <textField id="id2CalcField" dataContainer="finRateDc" property="id2Calc" editable="false" tabIndex="10"/>
+                    <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
+                    <checkBox id="id2CmpField" dataContainer="finRateDc" property="id2Cmp" editable="false" tabIndex="10"/>
+                    <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Dup" expand="id2DupField" width="100%">
+                    <textField id="id2DupField" dataContainer="finRateDc" property="id2Dup" editable="false" tabIndex="10"/>
+                    <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
                 <textField id="name1Field" property="name1"/>
                 <dateField id="begDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
                 <textField id="rateField" property="rate">
@@ -46,14 +62,12 @@
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
-                <textField id="finCurcy1_Id2Field" property="finCurcy1_Id2"/>
                 <entityPicker id="finCurcy2_IdField" property="finCurcy2_Id">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
                         <action id="entityClear" type="entity_clear"/>
                     </actions>
                 </entityPicker>
-                <textField id="finCurcy2_Id2Field" property="finCurcy2_Id2"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

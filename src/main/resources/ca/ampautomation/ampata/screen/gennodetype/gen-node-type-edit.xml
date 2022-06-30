@@ -27,6 +27,7 @@
     <layout spacing="true" expand="editActions">
         <form id="form" dataContainer="genNodeTypeDc">
             <column width="350px">
+                <textField id="id" property="id" editable="false"/>
                 <textField id="id2Field" property="id2"/>
                 <textField id="id2CalcField" property="id2Calc"/>
                 <checkBox id="id2CmpField" property="id2Cmp"/>

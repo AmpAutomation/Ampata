@@ -2168,10 +2168,10 @@ public class GenNode {
             case "FinTxset":
                 if (beg1.getTs1() != null){
                     logger.debug(logPrfx + " --- calling idTs.setTs1(("+ beg1.getTs1().format(frmtTs) +")");
-                    idTs.setTs1(null);
+                    idTs.setTs1(beg1.getTs1());
                 }else{
                     logger.debug(logPrfx + " --- calling idTs.setTs1((null)");
-                    idTs.setTs1(beg1.getTs1());
+                    idTs.setTs1(null);
                 }
                 break;
 
@@ -2185,7 +2185,7 @@ public class GenNode {
                     idTs.setTs1(beg1.getTs1());
                 }else{
                     logger.debug(logPrfx + " --- calling idTs.setTs1((null)");
-                    idTs.setTs1(beg1.getTs1());
+                    idTs.setTs1(null);
                 }
                 break;
 
