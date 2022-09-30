@@ -7,6 +7,7 @@ import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
 import io.jmix.ui.component.*;
+import io.jmix.ui.component.data.options.ListOptions;
 import io.jmix.ui.component.propertyfilter.SingleFilterSupport;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
@@ -62,6 +63,12 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected DateField<LocalDateTime> tmplt_end1Ts1Field;
 
+    @Autowired
+    protected ComboBox<String> tmplt_StatusField;
+
+    @Autowired
+    protected CheckBox tmplt_StatusFieldChk;
+
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
@@ -92,10 +99,10 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private MetadataTools metadataTools;
 
     @Autowired
-    private GroupTable<GenNode> table;
+    private Table<GenNode> table;
 
     @Autowired
-    private GroupTable<GenNode> table2;
+    private Table<GenNode> table2;
 
     @Autowired
     private Form form;
@@ -113,10 +120,10 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private InstanceContainer<GenNode> finStmtDc;
 
     @Autowired
-    private CollectionContainer<GenNode> finTxfersDc;
+    private CollectionContainer<GenNode> finStmtItmsDc;
 
     @Autowired
-    private CollectionLoader<GenNode> finTxfersDl;
+    private CollectionLoader<GenNode> finStmtItmsDl;
 
 
     private CollectionContainer<GenNodeType> finStmtTypesDc;
@@ -198,13 +205,11 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Subscribe
     public void onInit(InitEvent event) {
-        String logPrfx = "onFinStmtHideBtnClick";
+        String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
-        List<String> list = new ArrayList<>();
-        list.add("Reconciled");
-        list.add("Non-Reconciled");
-        statusField.setOptionsList(list);
+        tmplt_StatusField.setNullOptionVisible(true);
+        tmplt_StatusField.setNullSelectionCaption("<null>");
 
 
         finStmtTypesDc = dataComponents.createCollectionContainer(GenNodeType.class);
@@ -312,10 +317,34 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         thisFinStmt.setClassName("FinStmt");
         logger.debug(logPrfx + " --- className: FinStmt");
 
-        finTxfersDl.setParameter("finStmt1_Id", event.getItem());
-        finTxfersDl.load();
+        finStmtItmsDl.setParameter("finStmt1_Id", event.getItem());
+        finStmtItmsDl.load();
 
         logger.trace(logPrfx + " <-- ");
+    }
+    
+    @Install(to = "table.[beg1.date1]", subject = "formatter")
+    private String tableBeg1Date1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table.[end1.date1]", subject = "formatter")
+    private String tableEnd1Date1Formatter(LocalDate date) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return date == null ? null: date.format(formatter);
+    }
+
+    @Install(to = "table2.[idTs.ts1]", subject = "formatter")
+    private String table2IdTsTs1Formatter(LocalDateTime ts) {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        return ts == null ? null : ts.format(formatter);
     }
 
     @Subscribe("reloadLists")
@@ -328,6 +357,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
         finAcctsDl.load();
         logger.debug(logPrfx + " --- called genChansDl.load() ");
+
+        reloadStatusList();
 
         logger.trace(logPrfx + " <-- ");
 
@@ -345,9 +376,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         repo.execFinStmtPrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Fin_Txfer_Pr_Upd()");
 
-        logger.debug(logPrfx + " --- loading finTxfersDl.load()");
-        finTxfersDl.load();
-        logger.debug(logPrfx + " --- finished finTxfersDl.load()");
+        logger.debug(logPrfx + " --- loading finStmtsDl.load()");
+        finStmtsDl.load();
+        logger.debug(logPrfx + " --- finished finStmtsDl.load()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -468,6 +499,111 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
+
+    @Subscribe("setBtn")
+    public void onSetBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onSetBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<GenNode> thisFinStmts = table.getSelected().stream().toList();
+        if (thisFinStmts == null || thisFinStmts.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        thisFinStmts.forEach(thisFinStmt -> {
+            GenNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
+            thisFinStmt = thisTrackedFinStmt;
+            if (thisFinStmt != null) {
+
+                Boolean thisFinStmtIsChanged = false;
+                
+                LocalDateTime beg1;
+                if (tmplt_beg1Ts1FieldChk.isChecked()) {
+                    thisFinStmtIsChanged = true;
+                    beg1 = tmplt_beg1Ts1Field.getValue();
+                    thisFinStmt.getBeg1().setTs1(beg1);
+                }
+
+                LocalDateTime end1;
+                if (tmplt_end1Ts1FieldChk.isChecked()) {
+                    thisFinStmtIsChanged = true;
+                    end1 = tmplt_end1Ts1Field.getValue();
+                    thisFinStmt.getEnd1().setTs1(end1);
+                    updateIdDt(thisFinStmt);
+                }
+
+
+                if (tmplt_StatusFieldChk.isChecked()
+                ) {
+                    thisFinStmtIsChanged = true;
+                    thisFinStmt.setStatus(tmplt_StatusField.getValue());
+                }
+
+                thisFinStmtIsChanged = updateId2Calc(thisFinStmt) || thisFinStmtIsChanged;
+                thisFinStmtIsChanged = updateId2(thisFinStmt) || thisFinStmtIsChanged;
+                thisFinStmtIsChanged = updateId2Cmp(thisFinStmt) || thisFinStmtIsChanged;
+
+                if (thisFinStmtIsChanged) {
+                    logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmt).");
+                    //dataManager.save(thisFinStmt);
+                }
+
+
+            }
+        });
+        updateFinStmtHelper();
+        logger.trace(logPrfx + " <-- ");
+    }
+    private void updateFinStmtHelper() {
+        String logPrfx = "updateFinStmtHelper";
+        logger.trace(logPrfx + " --> ");
+
+        if(dataContext.hasChanges()) {
+
+            //call dataContext.commit to sync the UI with the changes to the database
+            logger.debug(logPrfx + " --- executing dataContext.commit().");
+            dataContext.commit();
+
+            logger.debug(logPrfx + " --- executing finStmtsDl.load().");
+            finStmtsDl.load();
+
+            List<GenNode> thisFinStmts = table.getSelected().stream().toList();
+
+            //Loop throught the items again to update the id2Dup attribute
+            thisFinStmts.forEach(thisFinStmt -> {
+                //GenNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
+                if (thisFinStmt != null) {
+                    GenNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
+                    thisFinStmt = thisTrackedFinStmt;
+
+                    Boolean thisFinStmtIsChanged = false;
+
+                    thisFinStmtIsChanged = updateId2Dup(thisFinStmt) || thisFinStmtIsChanged;
+
+                    if (thisFinStmtIsChanged) {
+                        logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmt).");
+                        //dataManager.save(thisFinStmt);
+                    }
+                }
+            });
+
+            if (dataContext.hasChanges()) {
+                logger.debug(logPrfx + " --- executing dataContext.commit().");
+                dataContext.commit();
+
+                logger.debug(logPrfx + " --- executing finStmtsDl.load().");
+                finStmtsDl.load();
+
+                table.sort("id2", Table.SortDirection.ASCENDING);
+                table.setSelected(thisFinStmts);
+            }
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
     @Subscribe("finStmtHideBtn")
     public void onFinStmtHideBtnClick(Button.ClickEvent event) {
         String logPrfx = "onFinStmtHideBtnClick";
@@ -487,41 +623,50 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+        List<GenNode> thisFinStmts = table.getSelected().stream().toList();
+        if (thisFinStmts == null || thisFinStmts.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        GenNode thisFinStmtTracked = dataContext.find(thisFinStmt);
-        if (thisFinStmtTracked != null) {
-            updateCalcVals(thisFinStmtTracked);
+        thisFinStmts.forEach(thisFinStmt -> {
+            if (thisFinStmt != null) {
 
-            logger.debug(logPrfx + " --- executing metadataTools.copy(thisFinStmtTracked,thisFinStmt).");
-            metadataTools.copy(thisFinStmtTracked,thisFinStmt);
+                GenNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
+                thisFinStmt = thisTrackedFinStmt;
+
+                Boolean isChanged = false;
+
+                isChanged = updateCalcVals(thisFinStmt);
+
+            }
+        });
+
+        if (dataContext.hasChanges()){
             logger.debug(logPrfx + " --- executing dataContext.commit().");
             dataContext.commit();
+
+            logger.debug(logPrfx + " --- executing finStmtsDl.load().");
+            finStmtsDl.load();
+
+            table.sort("id2", Table.SortDirection.ASCENDING);
+            table.setSelected(thisFinStmts);
         }
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("finTxferHideBtn")
-    public void onFinTxferHideBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onFinTxferHideBtnClick";
+
+    @Install(to = "tmplt_StatusField", subject = "enterPressHandler")
+    private void tmplt_StatusFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "tmplt_StatusFieldEnterPressHandler";
         logger.trace(logPrfx + " --> ");
 
-        if (table2.isVisible()){
-            table2.setVisible(false);
-            finTxferHideBtn.setCaption("Show Txfers");
-        }else{
-            table2.setVisible(true);
-            finTxferHideBtn.setCaption("Hide Txfers");
-        }
+        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+
         logger.trace(logPrfx + " <-- ");
     }
-
 
     @Subscribe(id = "finStmtDc", target = Target.DATA_CONTAINER)
     public void onFinStmtDcItemChange(InstanceContainer.ItemChangeEvent<GenNode> event) {
@@ -589,11 +734,31 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisFinStmt.setId2(thisFinStmt.getId2Calc());
+        updateId2(thisFinStmt);
         updateId2Cmp(thisFinStmt);
         updateId2Dup(thisFinStmt);
 
         logger.debug(logPrfx + " --- id2: " + thisFinStmt.getId2());
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    @Subscribe("updateId2CalcFieldBtn")
+    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CalcFieldBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- finTxferDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateId2Calc(thisFinStmt);
+        updateId2Cmp(thisFinStmt);
+
+        logger.debug(logPrfx + " --- id2Calc: " + thisFinStmt.getId2Calc());
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -653,6 +818,23 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Subscribe("finAcct1_IdField")
+    public void onFinAcct1_IdFieldValueChange(HasValue.ValueChangeEvent<GenNode> event) {
+        String logPrfx = "onFinAcct1_IdFieldValueChange";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateFinAcct1_Type1_Id2(thisFinStmt);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
 
     @Subscribe("updateListGenDocVer1_IdFieldBtn")
     public void onUpdateListGenDocVer1_IdFieldBtn(Button.ClickEvent event) {
@@ -692,8 +874,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             }
             logger.debug(logPrfx + " --- calling updateIdDt(thisFinStmt)");
             updateIdDt(thisFinStmt);
+
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmt)");
-            String id2Calc = updateId2Calc(thisFinStmt);
+            updateId2Calc(thisFinStmt);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -718,6 +901,16 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
     }
 
+    @Install(to = "statusField", subject = "enterPressHandler")
+    private void statusFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "statusFieldEnterPressHandler";
+        logger.trace(logPrfx + " --> ");
+
+        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
 
     @Subscribe("credSumField")
     public void onCredSumFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
@@ -738,23 +931,6 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
     }
 
-    @Subscribe("finAcct1_IdField")
-    public void onFinAcct1_IdFieldValueChange(HasValue.ValueChangeEvent<GenNode> event) {
-        String logPrfx = "onFinAcct1_IdFieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateFinAcct1_Type1_Id2(thisFinStmt);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     @Subscribe("debtSumField")
     public void onDebtSumFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
         String logPrfx = "onDebtSumFieldValueChange";
@@ -772,29 +948,6 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.trace(logPrfx + " <-- ");
 
-    }
-    @Install(to = "table.[beg1.date1]", subject = "formatter")
-    private String tableBeg1Date1Formatter(LocalDate date) {
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-        return date == null ? null: date.format(formatter);
-    }
-
-    @Install(to = "table.[end1.date1]", subject = "formatter")
-    private String tableEnd1Date1Formatter(LocalDate date) {
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-        return date == null ? null: date.format(formatter);
-    }
-
-    @Install(to = "table2.[idDt.date1]", subject = "formatter")
-    private String table2IdDtDate1Formatter(LocalDate date) {
-        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-        return date == null ? null: date.format(formatter);
     }
 
     @Subscribe("updateInstItemCalcValsBtn")
@@ -814,66 +967,118 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void updateCalcVals(GenNode thisFinStmt){
+    public Boolean updateCalcVals(GenNode thisFinStmt){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        updateIdDt(thisFinStmt);
-        String id2Calc = updateId2Calc(thisFinStmt);
-        updateDesc1(thisFinStmt);
-        updateFinAcct1_Type1_Id2(thisFinStmt);
-        updateSumNet(thisFinStmt);
-        updateEndBal(thisFinStmt);
-        updateFieldSet1(thisFinStmt);
+        Boolean isChanged = false;
+
+        isChanged = updateFinStmtCalcVals(thisFinStmt) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    private String updateId2Calc(GenNode thisFinStmt){
+
+    private Boolean updateFinStmtCalcVals(@NotNull GenNode thisFinStmt) {
+        String logPrfx = "updateFinStmtCalcVals";
+        logger.trace(logPrfx + " --> ");
+
+        Boolean isChanged = false;
+
+        // Stored in FinStmt Object
+        isChanged = updateIdDt(thisFinStmt) || isChanged;
+        isChanged = updateId2Calc(thisFinStmt) || isChanged;
+        isChanged = updateId2Cmp(thisFinStmt) || isChanged;
+        isChanged = updateId2Dup(thisFinStmt) || isChanged;
+        isChanged = updateDesc1(thisFinStmt) || isChanged;
+
+        isChanged = updateFinAcct1_Type1_Id2(thisFinStmt) || isChanged;
+        isChanged = updateSumNet(thisFinStmt) || isChanged;
+        isChanged = updateEndBal(thisFinStmt) || isChanged;
+        isChanged = updateFieldSet1(thisFinStmt) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private Boolean updateIdParts(@NotNull GenNode thisFinStmt) {
+        String logPrfx = "updateIdParts";
+        logger.trace(logPrfx + " --> ");
+
+        Boolean isChanged = false;
+
+        isChanged = updateEnd1(thisFinStmt) || isChanged;
+        isChanged = updateIdDt(thisFinStmt)  || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private Boolean updateId2(@NotNull GenNode thisFinStmt) {
+        // Assume thisFinStmt is not null
+        String logPrfx = "updateId2";
+        logger.trace(logPrfx + " --> ");
+
+        Boolean isChanged = false;
+        String id2_ = thisFinStmt.getId2();
+        String id2 = thisFinStmt.getId2Calc();
+        if(!Objects.equals(id2_, id2)){
+            thisFinStmt.setId2(id2);
+            logger.debug(logPrfx + " --- id2: " + id2);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private Boolean updateId2Calc(GenNode thisFinStmt){
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
+        Boolean isChanged = false;
+        String id2Calc_ = thisFinStmt.getId2Calc();
         String id2Calc = thisFinStmt.getId2CalcFrFields();
-        thisFinStmt.setId2Calc(id2Calc);
-        logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-
-        updateId2Cmp(thisFinStmt);
-        updateId2Dup(thisFinStmt);
-
-        logger.trace(logPrfx + " <-- ");
-        return  id2Calc;
-    }
-
-    private String updateId2Calc(GenNode thisFinStmt, String id2Calc){
-        // Assume thisFinStmt is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        thisFinStmt.setId2Calc(id2Calc);
-        logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+        if(!Objects.equals(id2Calc_, id2Calc)){
+            thisFinStmt.setId2Calc(id2Calc);
+            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+            isChanged = true;
+        }
 
         logger.trace(logPrfx + " <-- ");
-        return  id2Calc;
+        return isChanged;
     }
 
-    private void updateId2Cmp(@NotNull GenNode thisFinStmt) {
+    private Boolean updateId2Cmp(@NotNull GenNode thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        thisFinStmt.setId2Cmp(!thisFinStmt.getId2().equals(thisFinStmt.getId2Calc()));
-        logger.debug(logPrfx + " --- id2Cmp: " + thisFinStmt.getId2Cmp());
+        Boolean isChanged = false;
+        Boolean id2Cmp_ = thisFinStmt.getId2Cmp();
+        Boolean id2Cmp = !Objects.equals(thisFinStmt.getId2(),thisFinStmt.getId2Calc());
+        if (!Objects.equals(id2Cmp_, id2Cmp)){
+            thisFinStmt.setId2Cmp(id2Cmp);
+            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
+            isChanged = true;
+        }
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
-    private void updateId2Dup(@NotNull GenNode thisFinStmt) {
+    
+    private Boolean updateId2Dup(@NotNull GenNode thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
+        Boolean isChanged = false;
+        Integer id2Dup_ = thisFinStmt.getId2Dup();
         if (thisFinStmt.getId2() != null){
-            String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinTxfer' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinStmt' and e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try{
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -885,20 +1090,26 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 id2Dup =0;
 
             }
+            id2Dup = id2Dup + 1;
             logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-
-            thisFinStmt.setId2Dup(id2Dup + 1);
-            logger.debug(logPrfx + " --- thisFinStmt.setId2Dup(" + (id2Dup + 1) + ")");
+            if (!Objects.equals(id2Dup_, id2Dup)){
+                thisFinStmt.setId2Dup(id2Dup);
+                logger.debug(logPrfx + " --- thisFinStmt.setId2Dup(" + (id2Dup) + ")");
+                isChanged = true;
+            }
 
         }
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    private void updateDesc1(@NotNull GenNode thisFinStmt){
+    private Boolean updateDesc1(@NotNull GenNode thisFinStmt){
         // Assume thisFinStmt is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
+        Boolean isChanged = false;
+        String desc1_ = thisFinStmt.getDesc1();
         String  thisStatus = Objects.toString(thisFinStmt.getStatus(),"");
         if (!thisStatus.equals("")){
             thisStatus = "" + thisStatus;
@@ -964,50 +1175,67 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 ,thisTag);
         String desc1 = list.stream().filter(StringUtils::isNotBlank)
                 .collect(Collectors.joining(" "));
-        thisFinStmt.setDesc1(desc1);
 
-        logger.debug(logPrfx + " --- desc1: " + desc1);
+        if (!Objects.equals(desc1_, desc1)){
+            thisFinStmt.setDesc1(desc1);
+            logger.debug(logPrfx + " --- desc1: " + desc1);
+            isChanged = true;
+        }
+
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
 
-    private void updateIdDt(@NotNull GenNode thisFinStmt) {
+    private Boolean updateIdDt(@NotNull GenNode thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateIdDt";
         logger.trace(logPrfx + " --> ");
 
-        thisFinStmt.updateIdDt();
+        Boolean isChanged = false;
+        isChanged = isChanged || thisFinStmt.updateIdDt();
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
 
-    public void updateEndBal(@NotNull GenNode thisFinStmt){
+    public Boolean updateEndBal(@NotNull GenNode thisFinStmt){
         String logPrfx = "updateEndBal";
         logger.trace(logPrfx + " --> ");
 
+        Boolean isChanged = false;
+        BigDecimal endBal_ = thisFinStmt.getEndBal();
         BigDecimal endBal = BigDecimal.valueOf(0);
         if (thisFinStmt.getBegBal() == null || thisFinStmt.getNetSum() == null){
             thisFinStmt.setEndBal(null);
             logger.debug(logPrfx + " --- endBal: null");
-            return;
+            return isChanged;
         }
         endBal = thisFinStmt.getBegBal().add(thisFinStmt.getNetSum());
-        thisFinStmt.setEndBal(endBal);
-        logger.debug(logPrfx + " --- endBal: " + endBal);
+
+        if (!Objects.equals(endBal_, endBal)){
+            thisFinStmt.setEndBal(endBal);
+            logger.debug(logPrfx + " --- endBal: " + endBal);
+            isChanged = true;
+        }
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    public void updateSumNet(@NotNull GenNode thisFinStmt){
+    public Boolean updateSumNet(@NotNull GenNode thisFinStmt){
         String logPrfx = "updateSumNet";
         logger.trace(logPrfx + " --> ");
 
+
+        Boolean isChanged = false;
+        BigDecimal netSum_ = thisFinStmt.getNetSum();
         BigDecimal netSum = BigDecimal.valueOf(0);
         if (thisFinStmt.getDebtSum() == null || thisFinStmt.getCredSum() == null){
             thisFinStmt.setNetSum(null);
             logger.debug(logPrfx + " --- netSum: null");
-            return;
+            return isChanged;
         }
 
         if (thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt() != null
@@ -1017,37 +1245,56 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         }else{
             netSum = thisFinStmt.getCredSum().subtract(thisFinStmt.getDebtSum());
         }
-        thisFinStmt.setNetSum(netSum);
-        logger.debug(logPrfx + " --- netSum: " + netSum);
-        logger.trace(logPrfx + " <-- ");
-    }
 
-    public void updateFinAcct1_Type1_Id2(@NotNull GenNode thisFinStmt){
-        String logPrfx = "updateFinAcct1_Type1_Id2";
-        logger.trace(logPrfx + " --> ");
-
-        String finAcct1_Type1_Id2;
-        if (thisFinStmt.getFinAcct1_Id() == null
-                || thisFinStmt.getFinAcct1_Id().getType1_Id() == null){
-            thisFinStmt.setFinAcct1_Type1_Id2(null);
-            logger.debug(logPrfx + " --- finAcct1_Type1_Id2: null");
-
-        }else{
-            finAcct1_Type1_Id2 = thisFinStmt.getFinAcct1_Id().getType1_Id().getId2();
-            thisFinStmt.setFinAcct1_Type1_Id2(finAcct1_Type1_Id2);
-            logger.debug(logPrfx + " --- finAcct1_Type1_Id2: " + finAcct1_Type1_Id2);
+        if (!Objects.equals(netSum_, netSum)){
+            thisFinStmt.setNetSum(netSum);
+            logger.debug(logPrfx + " --- netSum: " + netSum);
+            isChanged = true;
         }
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    public void updateFieldSet1(@NotNull GenNode thisFinStmt) {
+    public Boolean updateFinAcct1_Type1_Id2(@NotNull GenNode thisFinStmt){
+        String logPrfx = "updateFinAcct1_Type1_Id2";
+        logger.trace(logPrfx + " --> ");
+
+        Boolean isChanged = false;
+        String finAcct1_Type1_Id2_ = thisFinStmt.getFinAcct1_Type1_Id2();
+        String finAcct1_Type1_Id2 = null;
+        if (thisFinStmt.getFinAcct1_Id() != null
+                && thisFinStmt.getFinAcct1_Id().getType1_Id() != null){
+            finAcct1_Type1_Id2 = thisFinStmt.getFinAcct1_Id().getType1_Id().getId2();
+        }
+
+        if (!Objects.equals(finAcct1_Type1_Id2_, finAcct1_Type1_Id2)){
+            thisFinStmt.setFinAcct1_Type1_Id2(finAcct1_Type1_Id2);
+            logger.debug(logPrfx + " --- finAcct1_Type1_Id2: " + finAcct1_Type1_Id2);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateFieldSet1(@NotNull GenNode thisFinStmt) {
         String logPrfx = "updateFieldSet1";
         logger.trace(logPrfx + " --> ");
 
+        Boolean isChanged = false;
+        BigDecimal debtSumCalc_ = ((debtSumCalcField.getValue() == null
+                || debtSumCalcField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(debtSumCalcField.getValue()));
+        BigDecimal debtSumDiff_ = ((debtSumDiffField.getValue() == null
+                || debtSumDiffField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(debtSumDiffField.getValue()));
+
         BigDecimal debtSumCalc = null;
         BigDecimal debtSumDiff = null;
-        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
+        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
         try{
             debtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -1055,6 +1302,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                     .one();
             if (debtSumCalc == null) {
                 debtSumCalc = BigDecimal.valueOf(0);}
+            
+            
             debtSumCalcField.setValue(debtSumCalc.toString());
             logger.debug(logPrfx + " --- debtSumCalc: " + debtSumCalc);
 
@@ -1074,9 +1323,18 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.debug(logPrfx + " --- debtSumDiff: null");
         }
 
+
+        BigDecimal credSumCalc_ = ((credSumCalcField.getValue() == null
+                || credSumCalcField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(credSumCalcField.getValue()));
+        BigDecimal credSumDiff_ = ((credSumDiffField.getValue() == null
+                || credSumDiffField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(credSumDiffField.getValue()));
         BigDecimal credSumCalc = null;
         BigDecimal credSumDiff = null;
-        String qry2 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
+        String qry2 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
         try {
             credSumCalc = dataManager.loadValue(qry2, BigDecimal.class)
                     .store("main")
@@ -1103,6 +1361,15 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.debug(logPrfx + " --- credSumDiff: null");
         }
 
+
+        BigDecimal netSumCalc_ = ((netSumCalcField.getValue() == null
+                || netSumCalcField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(netSumCalcField.getValue()));
+        BigDecimal netSumDiff_ = ((netSumDiffField.getValue() == null
+                || netSumDiffField.getValue().isEmpty())
+                ? new BigDecimal(0)
+                : new BigDecimal(netSumDiffField.getValue()));
         BigDecimal netSumCalc = null;
         BigDecimal netSumDiff = null;
         if (debtSumCalc == null || credSumCalc == null){
@@ -1128,6 +1395,122 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
         logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private Boolean updateEnd1(@NotNull GenNode thisFinStmt) {
+        // Assume thisFinStmt is not null
+        String logPrfx = "updateEnd1";
+        logger.trace(logPrfx + " --> ");
+
+        Boolean isChanged = false;
+        isChanged = isChanged || thisFinStmt.updateEnd1();
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private GenNode findFinStmtById2(@NotNull String FinStmt_Id2) {
+        String logPrfx = "findFinStmtById2";
+        logger.trace(logPrfx + " --> ");
+
+        if (FinStmt_Id2 == null) {
+            logger.debug(logPrfx + " --- FinStmt_Id2 is null.");
+            notifications.create().withCaption("FinStmt_Id2 is empty. Please set it to correct value.").show();
+            logger.trace(logPrfx + " <-- ");
+            return null;
+        }
+
+        String qry = "select e from ampata_GenNode e where e.className = 'FinStmt' and e.id2 = :id2";
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:id2: " + FinStmt_Id2);
+
+        GenNode FinStmt1_Id = null;
+        try {
+            FinStmt1_Id = dataManager.load(GenNode.class)
+                    .query(qry)
+                    .parameter("id2", FinStmt_Id2)
+                    .one();
+            logger.debug(logPrfx + " --- query qry returned ONE result");
+
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+
+        }
+        logger.trace(logPrfx + " <-- ");
+        return FinStmt1_Id;
+
+    }
+
+
+    private void reloadStatusList(){
+        String logPrfx = "reloadStatusList";
+        logger.trace(logPrfx + " --> ");
+
+        String qry = "select distinct e.status"
+                + " from ampata_GenNode e"
+                + " where e.className = 'FinStmt'"
+                + " and e.status IS NOT NULL"
+                + " order by e.status"
+                ;
+        logger.debug(logPrfx + " --- qry: " + qry);
+
+
+        List<String> texts = null;
+        try {
+            texts = dataManager.loadValue(qry, String.class)
+                    .store("main")
+                    .list();
+            logger.debug(logPrfx + " --- query qry returned " + texts.size() + " rows");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned no rows");
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        tmplt_StatusField.setOptionsList(texts);
+        logger.debug(logPrfx + " --- called tmplt_StatusField.setOptionsList()");
+
+        statusField.setOptionsList(texts);
+        logger.debug(logPrfx + " --- called statusField.setOptionsList()");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    private void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "addEnteredTextToComboBoxOptionsList";
+        logger.trace(logPrfx + " --> ");
+
+        String text = enterPressEvent.getText();
+        if (!Objects.equals(text, "<null>")){
+            @SuppressWarnings("unchecked")
+            // enterPressEvent.getSource is directly connected to a ComboBox
+            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
+
+            List<String> list;
+            // this comboBox options list is created with a call to setOptionsList(List)
+            // see onUpdateFinStmtItm1_Desc1Field
+            // therefore cb.getOptions is type ListOptions
+            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
+            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
+                list = (List<String>) listOptions.getItemsCollection();
+            } else {
+                list = new ArrayList<String>();
+            }
+
+            list.add(text);
+            logger.trace(logPrfx + " --- called list.add( " + text + ")");
+
+            cb.setOptionsList(list);
+
+            notifications.create()
+                    .withCaption("Added " + text + " to list.")
+                    .show();
+        }
+
     }
 
 

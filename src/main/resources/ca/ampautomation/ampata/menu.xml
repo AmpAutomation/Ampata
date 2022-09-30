@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/ui/menu">
 
-    <menu id="general" caption="General">
+    <menu id="gen" caption="General">
         <item screen="ampata_GenAgent.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genAgentBrowse.menu"/>
         <item screen="ampata_GenChan.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genChanBrowse.menu"/>
         <item screen="ampata_GenDocVer.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genDocVerBrowse.menu"/>
@@ -13,18 +13,20 @@
         <item screen="ampata_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/UserBrowse.caption"/>
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
     </menu>
-    <menu id="finance" caption="Finance">
-        <menu id="financeAccount" caption="Accounts">
+    <menu id="fin" caption="Finance">
+        <menu id="finAcct" caption="Accounts">
             <item screen="ampata_FinAcct.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finAcctBrowse.menu"/>
+            <item screen="ampata_FinAcct.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finAcctBrowse2.menu"/>
             <item screen="ampata_FinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.gennodetype/finAcctTypeBrowse.menu"/>
         </menu>
         <item screen="ampata_FinCurcy.browse"
               caption="msg://ca.ampautomation.ampata.screen.gennode/finCurcyBrowse.menu"/>
         <item screen="ampata_FinDept.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finDeptBrowse.menu"/>
-        <menu id="finAcct" caption="Statements">
+        <menu id="finStmt" caption="Statements">
             <item screen="ampata_FinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse.menu"/>
-            <item screen="ampata_FinStmt.browse2"
-                  caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse2.menu"/>
+            <item screen="ampata_FinStmt.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse2.menu"/>
+            <item screen="ampata_FinStmtItm.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtItmBrowse.menu"/>
+            <item screen="ampata_FinStmtItm.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtItmBrowse2.menu"/>
         </menu>
         <separator> --- </separator>
         <menu id="finTxact" caption="Transactions">
@@ -37,7 +39,7 @@
             <item screen="ampata_FinTxfer.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxferBrowse.menu"/>
             <item screen="ampata_FinTxfer.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxferBrowse2.menu"/>
         </menu>
-        <menu id="financeEntity" caption="Entities">
+        <menu id="finEntity" caption="Entities">
             <item screen="ampata_FinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.finfmla/finFmlaBrowse.menu"/>
             <item screen="ampata_FinHow.browse" caption="msg://ca.ampautomation.ampata.screen.finhow/finHowBrowse.menu"/>
             <item screen="ampata_FinRate.browse" caption="msg://ca.ampautomation.ampata.screen.finrate/finRateBrowse.menu"/>
@@ -45,7 +47,7 @@
             <item screen="ampata_FinWhy.browse" caption="msg://ca.ampautomation.ampata.screen.finwhy/finWhyBrowse.menu"/>
         </menu>
     </menu>
-    <menu id="administration">
+    <menu id="admin" caption="Administration">
         <item screen="ui_JmxConsoleScreen"/>
         <item screen="sec_ResourceRoleModel.browse"
               caption="msg://io.jmix.securityui/menu.sec_ResourceRoleModel.browse"/>

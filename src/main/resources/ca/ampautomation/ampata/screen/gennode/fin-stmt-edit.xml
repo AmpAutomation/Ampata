@@ -3,7 +3,7 @@
         caption="msg://finStmtEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="genNodeDc"
+        <instance id="finStmtDc"
                   class="ca.ampautomation.ampata.entity.GenNode"
                   fetchPlan="finStmt-fetch-plan-base">
             <loader/>
@@ -13,7 +13,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="genDocsDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenDocVer' order by e.id2]]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenDoc' order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -56,13 +56,13 @@
                 width="800"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="genNodeDc">
+            <form id="form" dataContainer="finStmtDc">
                 <tabSheet width="1200px">
                 <tab id="tab_1"
                      caption="General"
                      margin="true"
                      spacing="true">
-                    <form id="tab1Form" dataContainer="genNodeDc">
+                    <form id="tab1Form" dataContainer="finStmtDc">
                         <column width="350px">
                             <textField id="id2Field" property="id2"/>
                             <button id="id2Button" caption="Set id2" align="TOP_RIGHT"/>
@@ -90,10 +90,10 @@
                      caption="Docs, Files"
                      margin="true"
                      spacing="true">
-                    <form id="tab2Form" dataContainer="genNodeDc">
+                    <form id="tab2Form" dataContainer="finStmtDc">
                         <column width="350px">
                             <textArea id="genDocs1_Id2Field" property="genDocVers1_Id2" rows="4"/>
-                            <entityComboBox id="genDocVer1_IdField" dataContainer="genNodeDc"
+                            <entityComboBox id="genDocVer1_IdField" dataContainer="finStmtDc"
                                             optionsContainer="genDocsDc"
                                             property="genDocVer1_Id">
                                 <actions>
@@ -120,9 +120,9 @@
                          caption="Chan, Tags"
                          margin="true"
                          spacing="true">
-                        <form id="tab3Form" dataContainer="genNodeDc">
+                        <form id="tab3Form" dataContainer="finStmtDc">
                             <column width="350px">
-                                <entityComboBox id="genChan1_IdField" dataContainer="genNodeDc"
+                                <entityComboBox id="genChan1_IdField" dataContainer="finStmtDc"
                                                 optionsContainer="genChansDc"
                                                 property="genChan1_Id">
                                     <actions>
@@ -133,7 +133,7 @@
                                 <textField id="genChan1_Id2Field" property="genChan1_Id2"/>
                             </column>
                             <column width="350px">
-                                <entityComboBox id="genTag1_IdField" dataContainer="genNodeDc"
+                                <entityComboBox id="genTag1_IdField" dataContainer="finStmtDc"
                                                 optionsContainer="genTagsDc"
                                                 property="genTag1_Id">
                                     <actions>
@@ -142,7 +142,7 @@
                                     </actions>
                                 </entityComboBox>
                                 <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
-                                <entityComboBox id="genTag2_IdField" dataContainer="genNodeDc"
+                                <entityComboBox id="genTag2_IdField" dataContainer="finStmtDc"
                                                 optionsContainer="genTagsDc"
                                                 property="genTag2_Id">
                                     <actions>
@@ -151,7 +151,7 @@
                                     </actions>
                                 </entityComboBox>
                                 <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
-                                <entityComboBox id="genTag3_IdField" dataContainer="genNodeDc"
+                                <entityComboBox id="genTag3_IdField" dataContainer="finStmtDc"
                                                 optionsContainer="genTagsDc"
                                                 property="genTag3_Id">
                                     <actions>
@@ -160,7 +160,7 @@
                                     </actions>
                                 </entityComboBox>
                                 <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
-                                <entityComboBox id="genTag4_IdField" dataContainer="genNodeDc"
+                                <entityComboBox id="genTag4_IdField" dataContainer="finStmtDc"
                                                 optionsContainer="genTagsDc"
                                                 property="genTag4_Id">
                                     <actions>
@@ -178,7 +178,7 @@
                      caption="Bal, Sum, Stat"
                      margin="true"
                      spacing="true">
-                    <form id="tab4Form" dataContainer="genNodeDc">
+                    <form id="tab4Form" dataContainer="finStmtDc">
                         <column width="350px">
                             <dateField id="begDate1Field" property="beg1.date1"
                                        caption="Beg.Date1" dateFormat="yyyy-MM-dd"/>

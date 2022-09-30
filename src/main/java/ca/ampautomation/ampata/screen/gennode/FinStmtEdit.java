@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("ampata_FinStmt.edit")
 @UiDescriptor("fin-stmt-edit.xml")
-@EditedEntityContainer("genNodeDc")
+@EditedEntityContainer("finStmtDc")
 public class FinStmtEdit extends StandardEditor<GenNode> {
 
     @Autowired

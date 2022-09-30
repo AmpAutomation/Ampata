@@ -6,10 +6,7 @@ import ca.ampautomation.ampata.entity.GenNode;
 
 @UiController("ampata_FinTxact.browse")
 @UiDescriptor("fin-txact-browse.xml")
-@LookupComponent("genNodesTable")
+@LookupComponent("table")
 public class FinTxactBrowse extends StandardLookup<GenNode> {
-    @Subscribe("genNodesTable")
-    public void onGenNodesTableEditorOpen(DataGrid.EditorOpenEvent<GenNode> event) {
-        
-    }
+
 }

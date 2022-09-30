@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://genDocEdit.caption"
+        caption="msg://genDocVerEdit.caption"
         focusComponent="form">
     <data>
         <instance id="genNodeDc"
@@ -41,7 +41,7 @@
                     </entityPicker>
                     <textField id="parent1_Id2Field" property="parent1_Id2"/>
                     <textArea id="ancestors1_Id2Field" property="ancestors1_Id2" rows="5"/>
-                    <textField id="sortOrderField" property="sortOrder"/>
+                    <textField id="sortIdxField" property="sortIdx"/>
                     <entityPicker id="type1_IdField" property="type1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
@@ -51,13 +51,13 @@
                     <textField id="type1_Id2Field" property="type1_Id2"/>
                     <textField id="instField" property="inst"/>
                     <textField id="name1Field" property="name1"/>
-                    <entityPicker id="name1Pat1_IdField" property="name1Pat1_Id">
+                    <entityPicker id="name1GenPat1_IdField" property="name1GenPat1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <textField id="name1Pat1_Id2Field" property="name1Pat1_Id2"/>
+                    <textField id="name1GenPat1_Id2Field" property="name1GenPat1_Id2"/>
                     <textField id="name2Field" property="name2"/>
                     <textField id="abrvField" property="abrv"/>
                     <textField id="codeField" property="code"/>

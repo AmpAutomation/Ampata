@@ -64,13 +64,13 @@
                 <column id="id2Cmp"/>
                 <column id="id2Dup"/>
                 <column id="className"/>
-                <column id="sortOrder"/>
+                <column id="sortIdx"/>
                 <column id="type1_Id"/>
                 <column id="type1_Id2"/>
                 <column id="inst"/>
                 <column id="name1"/>
-                <column id="name1Pat1_Id"/>
-                <column id="name1Pat1_Id2"/>
+                <column id="name1GenPat1_Id"/>
+                <column id="name1GenPat1_Id2"/>
                 <column id="abrv"/>
                 <column id="code"/>
                 <column id="desc1"/>

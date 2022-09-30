@@ -3,7 +3,7 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd"
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
         objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
     <changeSet id="1" author="ampata">
         <createTable tableName="AMPATA_GEN_EDGE">
@@ -51,6 +51,8 @@
             <column name="TYPE1__ID2" type="VARCHAR(255)"/>
             <column name="SORT_ORDER" type="INT"/>
             <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="NAME1_GEN_PAT1__ID" type="UUID"/>
+            <column name="NAME1_GEN_PAT1__ID2" type="VARCHAR(255)"/>
             <column name="DESC1" type="VARCHAR(255)"/>
             <column name="VERSION" type="INT">
                 <constraints nullable="false"/>
@@ -61,8 +63,6 @@
             <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
             <column name="DELETED_BY" type="VARCHAR(255)"/>
             <column name="DELETED_DATE" type="DATETIME"/>
-            <column name="NAME1_PAT1__ID" type="UUID"/>
-            <column name="NAME1_PAT1__ID2" type="VARCHAR(255)"/>
             <column name="RATE" type="DECIMAL(19, 9)"/>
             <column name="RATE_INV" type="DECIMAL(19, 9)"/>
             <column name="FIN_CURCY1__ID" type="UUID"/>
@@ -83,7 +83,6 @@
             <column name="ID" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_GEN_ENTITY_TYPE"/>
             </column>
-            <column name="DTYPE" type="VARCHAR(31)"/>
             <column name="ID2" type="VARCHAR(255)"/>
             <column name="NAME1" type="VARCHAR(255)"/>
             <column name="VERSION" type="INT">
@@ -110,17 +109,25 @@
             <column name="PARENT1__ID" type="UUID"/>
             <column name="PARENT1__ID2" type="VARCHAR(255)"/>
             <column name="ANCESTORS1__ID2" type="CLOB"/>
-            <column name="SORT_ORDER" type="INT"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="SORT_KEY" type="VARCHAR(255)"/>
             <column name="TYPE1__ID" type="UUID"/>
             <column name="TYPE1__ID2" type="VARCHAR(255)"/>
             <column name="INST" type="VARCHAR(255)"/>
             <column name="NAME1" type="VARCHAR(255)"/>
-            <column name="NAME1_PAT1__ID" type="UUID"/>
-            <column name="NAME1_PAT1__ID2" type="VARCHAR(255)"/>
+            <column name="NAME1_GEN_PAT1__ID" type="UUID"/>
+            <column name="NAME1_GEN_PAT1__ID2" type="VARCHAR(255)"/>
             <column name="NAME2" type="VARCHAR(255)"/>
             <column name="ABRV" type="VARCHAR(16)"/>
             <column name="CODE" type="VARCHAR(255)"/>
             <column name="DESC1" type="CLOB"/>
+            <column name="DESC1_GEN_PAT1__ID" type="UUID"/>
+            <column name="DESC1_GEN_PAT1__ID2" type="VARCHAR(255)"/>
+            <column name="DESC1_FIN_TXFER1__ID" type="UUID"/>
+            <column name="DESC1_FIN_TXFER1__ID2" type="VARCHAR(255)"/>
+            <column name="DESC2" type="CLOB"/>
+            <column name="DESC3" type="CLOB"/>
+            <column name="DESC4" type="CLOB"/>
             <column name="STATUS" type="VARCHAR(255)"/>
             <column name="NOTE" type="CLOB"/>
             <column name="GEN_DOC_VERS1__ID2" type="CLOB"/>
@@ -162,9 +169,10 @@
             <column name="FIN_TXSET1__FIN_ACCTS1__ID2" type="CLOB"/>
             <column name="FIN_TXSET1__ID" type="UUID"/>
             <column name="FIN_TXSET1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXSET1__ID2_CALC" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__ID2_TRGT" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__EI1__ROLE" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__DESC1" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXSET1__BEG1_DATE1" type="DATE"/>
             <column name="FIN_TXSET1__BEG1_TIME1" type="TIME"/>
@@ -177,7 +185,7 @@
             <column name="FIN_TXACT1__FIN_ACCTS1__ID2" type="CLOB"/>
             <column name="FIN_TXACT1__ID" type="UUID"/>
             <column name="FIN_TXACT1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXACT1__ID2_CALC" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__ID2_TRGT" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__EI1__ROLE" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__TYPE1__ID2" type="VARCHAR(255)"/>
             <column name="FIN_TXACT1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
@@ -193,10 +201,16 @@
             <column name="ID_Z" type="INT"/>
             <column name="FIN_STMT1__ID" type="UUID"/>
             <column name="FIN_STMT1__ID2" type="VARCHAR(255)"/>
+            <column name="EXCH_DESC" type="CLOB"/>
+            <column name="REF_ID" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__ID" type="UUID"/>
+            <column name="FIN_STMT_ITM1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__ID2_TRGT" type="VARCHAR(255)"/>
             <column name="FIN_STMT_ITM1__DESC1" type="VARCHAR(255)"/>
             <column name="FIN_STMT_ITM1__DESC2" type="VARCHAR(255)"/>
             <column name="FIN_STMT_ITM1__DESC3" type="VARCHAR(255)"/>
-            <column name="FIN_STMT_ITM1__DESC_AMT" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__DESC4" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__EXCH_DESC" type="VARCHAR(255)"/>
             <column name="FIN_STMT_ITM1__REF_ID" type="VARCHAR(255)"/>
             <column name="FIN_ACCT1__ID" type="UUID"/>
             <column name="FIN_ACCT1__ID2" type="VARCHAR(255)"/>
@@ -220,12 +234,14 @@
             <column name="AMT_NET" type="DECIMAL(19, 2)"/>
             <column name="FIN_CURCY1__ID" type="UUID"/>
             <column name="FIN_CURCY1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_FMLA1__ID" type="UUID"/>
-            <column name="FIN_FMLA1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXFER1__ID" type="UUID"/>
-            <column name="FIN_TXFER1__ID2" type="VARCHAR(255)"/>
-            <column name="FIN_TXFER1__EI1__RATE" type="DECIMAL(19, 9)"/>
-            <column name="CALC_RSLT" type="DECIMAL(19, 2)"/>
+            <column name="AMT_FIN_FMLA1__ID" type="UUID"/>
+            <column name="AMT_FIN_FMLA1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_FIN_TXFER1__ID" type="UUID"/>
+            <column name="AMT_FIN_TXFER1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_FIN_TXFER1__EI1__RATE" type="DECIMAL(19, 9)"/>
+            <column name="AMT_FIN_TXFER1__FIN_ACCT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_ACCT2__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_CALC" type="DECIMAL(19, 2)"/>
             <column name="FIN_TXSET1__GEN_DOC_VERS1__ID2" type="CLOB"/>
             <column name="FIN_TXACT1__GEN_DOC_VERS1__ID2" type="CLOB"/>
             <column name="FIN_TXSET1__GEN_TAGS1__ID2" type="CLOB"/>
@@ -233,12 +249,13 @@
             <column name="FIN_TXFERS1__ID2" type="CLOB"/>
             <column name="FIN_TXSET1__FIN_ACCTS__ID2" type="CLOB"/>
             <column name="FIN_TXFERS1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXFERS1__ID_CNT" type="INT"/>
             <column name="FIN_TXFERS1__DEBT_SUM" type="DECIMAL(19, 2)"/>
             <column name="FIN_TXFERS1__CRED_SUM" type="DECIMAL(19, 2)"/>
-            <column name="FIN_TXFERS1__ID_CNT" type="DECIMAL(19, 2)"/>
-            <column name="DEBT_EQ_CRED" type="BOOLEAN"/>
+            <column name="FIN_TXFERS1__DEBT_EQ_CRED" type="BOOLEAN"/>
             <column name="FIN_TXACTS1__ID2" type="CLOB"/>
             <column name="FIN_TXACTS1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACTS1__ID_CNT" type="INT"/>
             <column name="VERSION" type="INT">
                 <constraints nullable="false"/>
             </column>
@@ -321,7 +338,7 @@
             <column name="PARENT1__ID" type="UUID"/>
             <column name="PARENT1__ID2" type="VARCHAR(255)"/>
             <column name="ANCESTORS1__ID2" type="CLOB"/>
-            <column name="SORT_ORDER" type="INT"/>
+            <column name="SORT_IDX" type="INT"/>
             <column name="NAME1" type="VARCHAR(255)"/>
             <column name="ABRV" type="VARCHAR(16)"/>
             <column name="DESC1" type="CLOB"/>
@@ -339,6 +356,67 @@
         </createTable>
     </changeSet>
     <changeSet id="7" author="ampata">
+        <createTable tableName="AMPATA_GEN_PAT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_GEN_PAT"/>
+            </column>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="ID2_DUP" type="INT"/>
+            <column name="TYPE1__ID" type="UUID"/>
+            <column name="TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="DESC1" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="ampata">
+        <createTable tableName="AMPATA_GEN_PAT_TYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_GEN_PAT_TYPE"/>
+            </column>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="CLASS_NAME" type="VARCHAR(255)"/>
+            <column name="PARENT1__ID" type="UUID"/>
+            <column name="PARENT1__ID2" type="VARCHAR(255)"/>
+            <column name="ANCESTORS1__ID2" type="CLOB"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="ABRV" type="VARCHAR(16)"/>
+            <column name="DESC1" type="CLOB"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="ampata">
+        <createIndex indexName="IDX_GENENTITY_NAME1_GEN_PAT1__ID" tableName="AMPATA_GEN_ENTITY">
+            <column name="NAME1_GEN_PAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="NAME1_GEN_PAT1__ID" baseTableName="AMPATA_GEN_ENTITY"
+                                 constraintName="FK_AMPATA_GEN_ENTITY_ON_NAME1_GEN_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_PAT"/>
+    </changeSet>
+    <changeSet id="10" author="ampata">
         <createIndex indexName="IDX_GENENTITY_TYPE1__ID" tableName="AMPATA_GEN_ENTITY">
             <column name="TYPE1__ID"/>
         </createIndex>
@@ -347,7 +425,7 @@
                                  constraintName="FK_AMPATA_GEN_ENTITY_ON_TYPE1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_ENTITY_TYPE"/>
     </changeSet>
-    <changeSet id="8" author="ampata">
+    <changeSet id="11" author="ampata">
         <createIndex indexName="IDX_GENNODETYPE_PARENT1__ID" tableName="AMPATA_GEN_NODE_TYPE">
             <column name="PARENT1__ID"/>
         </createIndex>
@@ -356,7 +434,43 @@
                                  constraintName="FK_AMPATA_GEN_NODE_TYPE_ON_PARENT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE_TYPE"/>
     </changeSet>
-    <changeSet id="9" author="ampata">
+    <changeSet id="12" author="ampata">
+        <createIndex indexName="IDX_GENNODE_AMT_FIN_FMLA1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="AMT_FIN_FMLA1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="AMT_FIN_FMLA1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_AMT_FIN_FMLA1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_ENTITY"/>
+    </changeSet>
+    <changeSet id="13" author="ampata">
+        <createIndex indexName="IDX_GENNODE_AMT_FIN_TXFER1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="AMT_FIN_TXFER1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="AMT_FIN_TXFER1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_AMT_FIN_TXFER1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_NODE"/>
+    </changeSet>
+    <changeSet id="14" author="ampata">
+        <createIndex indexName="IDX_GENNODE_DESC1_FIN_TXFER1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="DESC1_FIN_TXFER1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESC1_FIN_TXFER1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_DESC1_FIN_TXFER1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_NODE"/>
+    </changeSet>
+    <changeSet id="15" author="ampata">
+        <createIndex indexName="IDX_GENNODE_DESC1_GEN_PAT1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="DESC1_GEN_PAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESC1_GEN_PAT1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_DESC1_GEN_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_PAT"/>
+    </changeSet>
+    <changeSet id="16" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_ACCT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_ACCT1__ID"/>
         </createIndex>
@@ -365,7 +479,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_ACCT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="10" author="ampata">
+    <changeSet id="17" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_CURCY1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_CURCY1__ID"/>
         </createIndex>
@@ -374,7 +488,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_CURCY1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="11" author="ampata">
+    <changeSet id="18" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_DEPT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_DEPT1__ID"/>
         </createIndex>
@@ -383,16 +497,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_DEPT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="12" author="ampata">
-        <createIndex indexName="IDX_GENNODE_FIN_FMLA1__ID" tableName="AMPATA_GEN_NODE">
-            <column name="FIN_FMLA1__ID"/>
-        </createIndex>
-
-        <addForeignKeyConstraint baseColumnNames="FIN_FMLA1__ID" baseTableName="AMPATA_GEN_NODE"
-                                 constraintName="FK_AMPATA_GEN_NODE_ON_FIN_FMLA1_" referencedColumnNames="ID"
-                                 referencedTableName="AMPATA_GEN_ENTITY"/>
-    </changeSet>
-    <changeSet id="13" author="ampata">
+    <changeSet id="19" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_HOW1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_HOW1__ID"/>
         </createIndex>
@@ -401,7 +506,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_HOW1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_ENTITY"/>
     </changeSet>
-    <changeSet id="14" author="ampata">
+    <changeSet id="20" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_STMT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_STMT1__ID"/>
         </createIndex>
@@ -410,7 +515,16 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_STMT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="15" author="ampata">
+    <changeSet id="21" author="ampata">
+        <createIndex indexName="IDX_GENNODE_FIN_STMT_ITM1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="FIN_STMT_ITM1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_STMT_ITM1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_FIN_STMT_ITM1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_NODE"/>
+    </changeSet>
+    <changeSet id="22" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_TAX1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_TAX_LNE1__ID"/>
         </createIndex>
@@ -419,7 +533,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_TAX_LNE1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="16" author="ampata">
+    <changeSet id="23" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_TXACT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_TXACT1__ID"/>
         </createIndex>
@@ -428,16 +542,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_TXACT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="17" author="ampata">
-        <createIndex indexName="IDX_GENNODE_FIN_TXFER1__ID" tableName="AMPATA_GEN_NODE">
-            <column name="FIN_TXFER1__ID"/>
-        </createIndex>
-
-        <addForeignKeyConstraint baseColumnNames="FIN_TXFER1__ID" baseTableName="AMPATA_GEN_NODE"
-                                 constraintName="FK_AMPATA_GEN_NODE_ON_FIN_TXFER1_" referencedColumnNames="ID"
-                                 referencedTableName="AMPATA_GEN_NODE"/>
-    </changeSet>
-    <changeSet id="18" author="ampata">
+    <changeSet id="24" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_TXSET1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_TXSET1__ID"/>
         </createIndex>
@@ -446,7 +551,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_TXSET1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="19" author="ampata">
+    <changeSet id="25" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_WHAT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_WHAT1__ID"/>
         </createIndex>
@@ -455,7 +560,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_WHAT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_ENTITY"/>
     </changeSet>
-    <changeSet id="20" author="ampata">
+    <changeSet id="26" author="ampata">
         <createIndex indexName="IDX_GENNODE_FIN_WHY1__ID" tableName="AMPATA_GEN_NODE">
             <column name="FIN_WHY1__ID"/>
         </createIndex>
@@ -464,7 +569,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_FIN_WHY1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_ENTITY"/>
     </changeSet>
-    <changeSet id="21" author="ampata">
+    <changeSet id="27" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_AGENT1__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_AGENT1__ID"/>
         </createIndex>
@@ -473,7 +578,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_AGENT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="22" author="ampata">
+    <changeSet id="28" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_AGENT2__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_AGENT2__ID"/>
         </createIndex>
@@ -482,7 +587,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_AGENT2_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="23" author="ampata">
+    <changeSet id="29" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_CHAN1__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_CHAN1__ID"/>
         </createIndex>
@@ -491,7 +596,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_CHAN1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="24" author="ampata">
+    <changeSet id="30" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_DOC1__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_DOC_VER1__ID"/>
         </createIndex>
@@ -500,7 +605,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_DOC_VER1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="25" author="ampata">
+    <changeSet id="31" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_FILE1__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_FILE1__ID"/>
         </createIndex>
@@ -509,7 +614,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_FILE1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="26" author="ampata">
+    <changeSet id="32" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_NODE1__ID" tableName="AMPATA_GEN_NODE">
             <column name="PARENT1__ID"/>
         </createIndex>
@@ -518,7 +623,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_PARENT1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="27" author="ampata">
+    <changeSet id="33" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_NODE_TYPE1__ID" tableName="AMPATA_GEN_NODE">
             <column name="TYPE1__ID"/>
         </createIndex>
@@ -527,16 +632,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_TYPE1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE_TYPE"/>
     </changeSet>
-    <changeSet id="28" author="ampata">
-        <createIndex indexName="IDX_GENNODE_GEN_PAT1__ID" tableName="AMPATA_GEN_NODE">
-            <column name="NAME1_PAT1__ID"/>
-        </createIndex>
-
-        <addForeignKeyConstraint baseColumnNames="NAME1_PAT1__ID" baseTableName="AMPATA_GEN_NODE"
-                                 constraintName="FK_AMPATA_GEN_NODE_ON_NAME1_PAT1_" referencedColumnNames="ID"
-                                 referencedTableName="AMPATA_GEN_ENTITY"/>
-    </changeSet>
-    <changeSet id="29" author="ampata">
+    <changeSet id="34" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_TAG1__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_TAG1__ID"/>
         </createIndex>
@@ -545,7 +641,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_TAG1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="30" author="ampata">
+    <changeSet id="35" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_TAG2__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_TAG2__ID"/>
         </createIndex>
@@ -554,7 +650,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_TAG2_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="31" author="ampata">
+    <changeSet id="36" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_TAG3__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_TAG3__ID"/>
         </createIndex>
@@ -563,7 +659,7 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_TAG3_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="32" author="ampata">
+    <changeSet id="37" author="ampata">
         <createIndex indexName="IDX_GENNODE_GEN_TAG4__ID" tableName="AMPATA_GEN_NODE">
             <column name="GEN_TAG4__ID"/>
         </createIndex>
@@ -572,21 +668,39 @@
                                  constraintName="FK_AMPATA_GEN_NODE_ON_GEN_TAG4_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="33" author="ampata">
-        <createIndex indexName="IDX_GENPAT_NAME1_PAT1__ID" tableName="AMPATA_GEN_ENTITY">
-            <column name="NAME1_PAT1__ID"/>
+    <changeSet id="38" author="ampata">
+        <createIndex indexName="IDX_GENNODE_NAME1_GEN_PAT1__ID" tableName="AMPATA_GEN_NODE">
+            <column name="NAME1_GEN_PAT1__ID"/>
         </createIndex>
 
-        <addForeignKeyConstraint baseColumnNames="NAME1_PAT1__ID" baseTableName="AMPATA_GEN_ENTITY"
-                                 constraintName="FK_AMPATA_GEN_ENTITY_ON_NAME1_PAT1_" referencedColumnNames="ID"
-                                 referencedTableName="AMPATA_GEN_ENTITY_TYPE"/>
+        <addForeignKeyConstraint baseColumnNames="NAME1_GEN_PAT1__ID" baseTableName="AMPATA_GEN_NODE"
+                                 constraintName="FK_AMPATA_GEN_NODE_ON_NAME1_GEN_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_PAT"/>
     </changeSet>
-    <changeSet id="34" author="ampata">
+    <changeSet id="39" author="ampata">
+        <createIndex indexName="IDX_GENPAT_PARENT1__ID" tableName="AMPATA_GEN_PAT_TYPE">
+            <column name="PARENT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PARENT1__ID" baseTableName="AMPATA_GEN_PAT_TYPE"
+                                 constraintName="FK_AMPATA_GEN_PAT_TYPE_ON_PARENT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_PAT_TYPE"/>
+    </changeSet>
+    <changeSet id="40" author="ampata">
+        <createIndex indexName="IDX_GENPAT_TYPE1__ID" tableName="AMPATA_GEN_PAT">
+            <column name="TYPE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE1__ID" baseTableName="AMPATA_GEN_PAT"
+                                 constraintName="FK_AMPATA_GEN_PAT_ON_TYPE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_GEN_PAT_TYPE"/>
+    </changeSet>
+    <changeSet id="41" author="ampata">
         <addForeignKeyConstraint baseColumnNames="FIN_CURCY1__ID" baseTableName="AMPATA_GEN_ENTITY"
                                  constraintName="FK_AMPATA_GEN_ENTITY_ON_FIN_CURCY1_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>
     </changeSet>
-    <changeSet id="35" author="ampata">
+    <changeSet id="42" author="ampata">
         <addForeignKeyConstraint baseColumnNames="FIN_CURCY2__ID" baseTableName="AMPATA_GEN_ENTITY"
                                  constraintName="FK_AMPATA_GEN_ENTITY_ON_FIN_CURCY2_" referencedColumnNames="ID"
                                  referencedTableName="AMPATA_GEN_NODE"/>

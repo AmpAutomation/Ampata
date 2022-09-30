@@ -82,14 +82,14 @@
                                 <textArea id="desc1Field" property="desc1" rows="8" rowspan="8"/>
                             </column>
                             <column width="350px">
-                                <textField id="sortOrderField" property="sortOrder"/>
-                                <entityPicker id="name1Pat1_IdField" property="name1Pat1_Id">
+                                <textField id="sortIdxField" property="sortIdx"/>
+                                <entityPicker id="name1GenPat1_IdField" property="name1GenPat1_Id">
                                     <actions>
                                         <action id="entityLookup" type="entity_lookup"/>
                                         <action id="entityClear" type="entity_clear"/>
                                     </actions>
                                 </entityPicker>
-                                <textField id="name1Pat1_Id2Field" property="name1Pat1_Id2"/>
+                                <textField id="name1GenPat1_Id2Field" property="name1GenPat1_Id2"/>
                             </column>
                         </form>
                     </tab>

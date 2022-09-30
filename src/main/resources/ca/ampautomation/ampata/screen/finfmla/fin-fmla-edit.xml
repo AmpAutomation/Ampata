@@ -38,7 +38,7 @@
                     </actions>
                 </entityPicker>
                 <textField id="type1_Id2Field" property="type1_Id2"/>
-                <textField id="sortOrderField" property="sortOrder"/>
+                <textField id="sortIdxField" property="sortIdx"/>
                 <textField id="name1Field" property="name1"/>
                 <textField id="desc1Field" property="desc1"/>
                 <textField id="fmlaField" property="fmla"/>

@@ -58,7 +58,7 @@
                 <column id="id2Dup"/>
                 <column id="type1_Id"/>
                 <column id="type1_Id2"/>
-                <column id="sortOrder"/>
+                <column id="sortIdx"/>
                 <column id="name1"/>
                 <column id="desc1"/>
                 <column id="fmla"/>

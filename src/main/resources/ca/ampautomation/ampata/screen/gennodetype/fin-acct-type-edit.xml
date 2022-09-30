@@ -40,7 +40,7 @@
                     </entityPicker>
                     <textField id="parent1_Id2Field" property="parent1_Id2"/>
                     <textArea id="ancestors1_Id2Field" property="ancestors1_Id2" rows="5"/>
-                    <textField id="sortOrderField" property="sortOrder"/>
+                    <textField id="sortIdxField" property="sortIdx"/>
                     <textField id="name1Field" property="name1"/>
                     <textField id="abrvField" property="abrv"/>
                     <textArea id="desc1Field" property="desc1" rows="5"/>

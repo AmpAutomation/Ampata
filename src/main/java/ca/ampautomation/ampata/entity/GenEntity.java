@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "AMPATA_GEN_ENTITY", indexes = {
-        @Index(name = "IDX_GENPAT_NAME1_PAT1__ID", columnList = "NAME1_PAT1__ID"),
+        @Index(name = "IDX_GENENTITY_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
         @Index(name = "IDX_GENENTITY_TYPE1__ID", columnList = "TYPE1__ID")
 })
 @Entity(name = "ampata_GenEntity")
@@ -49,10 +49,17 @@ public class GenEntity {
     private String type1_Id2;
 
     @Column(name = "SORT_ORDER")
-    private Integer sortOrder;
+    private Integer sortIdx;
 
     @Column(name = "NAME1")
     private String name1;
+
+    @JoinColumn(name = "NAME1_GEN_PAT1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GenPat name1GenPat1_Id;
+
+    @Column(name = "NAME1_GEN_PAT1__ID2")
+    private String name1GenPat1_Id2;
 
     @Column(name = "DESC1")
     private String desc1;
@@ -148,12 +155,28 @@ public class GenEntity {
         this.name1 = name1;
     }
 
-    public Integer getSortOrder() {
-        return sortOrder;
+    public GenPat getName1GenPat1_Id() {
+        return name1GenPat1_Id;
     }
 
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
+    public void setName1GenPat1_Id(GenPat name1GenPat1_Id) {
+        this.name1GenPat1_Id = name1GenPat1_Id;
+    }
+
+    public String getName1GenPat1_Id2() {
+        return name1GenPat1_Id2;
+    }
+
+    public void setName1GenPat1_Id2(String name1GenPat1_Id2) {
+        this.name1GenPat1_Id2 = name1GenPat1_Id2;
+    }
+
+    public Integer getSortIdx() {
+        return sortIdx;
+    }
+
+    public void setSortIdx(Integer sortIdx) {
+        this.sortIdx = sortIdx;
     }
 
     public String getId2() {

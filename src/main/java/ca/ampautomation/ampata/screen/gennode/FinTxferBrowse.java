@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @UiController("ampata_FinTxfer.browse")
 @UiDescriptor("fin-txfer-browse.xml")
-@LookupComponent("finTxfersTable")
+@LookupComponent("table")
 public class FinTxferBrowse extends StandardLookup<GenNode> {
 
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finAcctTypeBrowse.caption"
         focusComponent="genNodeTypesTable">
     <data readOnly="true">
@@ -60,7 +59,7 @@
                 <column id="parent1_Id"/>
                 <column id="parent1_Id2"/>
                 <column id="ancestors1_Id2"/>
-                <column id="sortOrder"/>
+                <column id="sortIdx"/>
                 <column id="name1"/>
                 <column id="abrv"/>
                 <column id="desc1"/>

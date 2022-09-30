@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finTxferBrowse.caption"
-        focusComponent="finTxfersTable">
+        focusComponent="table">
     <data readOnly="true">
         <collection id="finTxfersDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
@@ -30,7 +29,7 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="finTxfersTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
                 dataLoader="finTxfersDl">
             <properties include=".*"/>
@@ -41,7 +40,7 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="finTxfersTable"
+        <groupTable id="table"
                     width="100%"
                     dataContainer="finTxfersDc">
             <actions>
@@ -55,28 +54,72 @@
                         <property name="screenId" value="ampata_FinTxfer.edit"/>
                     </properties>
                 </action>
+                <action id="duplicate" type="remove"/>
                 <action id="refresh" type="refresh"/>
                 <action id="remove" type="remove"/>
-                <action id="duplicate" type="remove"/>
             </actions>
             <columns>
+                <column id="finTxact1_Id.finTxset1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.type1_Id" caption="Txs.type1"/>
+                <column id="finTxact1_Id.finTxset1_Id.desc1"  caption="Txs.desc1" width="320px"/>
+
+                <column id="finTxact1_Id"/>
+                <column id="finTxact1_Id.type1_Id" caption="Txa.type1"/>
+                <column id="finTxact1_Id.finTxset1_EI1_Role" caption="Txa Role"/>
+                <column id="finTxact1_Id.desc1" caption="Txa.desc1" width="320px"/>
+
                 <column id="id2"/>
-                <column id="id2Calc"/>
-                <column id="id2Cmp"/>
                 <column id="id2Dup"/>
-                <column id="parent1_Id"/>
-                <column id="parent1_Id2"/>
-                <column id="ancestors1_Id2"/>
-                <column id="sortOrder"/>
                 <column id="type1_Id"/>
-                <column id="type1_Id2"/>
-                <column id="inst"/>
-                <column id="name1"/>
-                <column id="name1Pat1_Id"/>
-                <column id="name1Pat1_Id2"/>
-                <column id="name2"/>
-                <column id="abrv"/>
-                <column id="desc1"/>
+                <column id="finTxact1_EI1_Role" caption="Txf Role"/>
+                <column id="desc1" width="320px"/>
+                <column id="finAcct1_Id"/>
+                <column id="finDept1_Id"/>
+                <column id="amtDebt"/>
+                <column id="amtCred"/>
+                <column id="amtNet"/>
+                <column id="finCurcy1_Id"/>
+
+                <column id="idTs.ts1" caption="idTs"/>
+                <column id="idX"/>
+                <column id="idY"/>
+                <column id="idZ"/>
+
+                <column id="genChan1_Id"/>
+                <column id="finHow1_Id"/>
+                <column id="whatText1"/>
+                <column id="finWhat1_Id"/>
+                <column id="whyText1"/>
+                <column id="finWhy1_Id"/>
+
+                <column id="finStmt1_Id"/>
+                <column id="finStmtItm1_Desc1"/>
+                <column id="finStmtItm1_Desc2"/>
+                <column id="finStmtItm1_Desc3"/>
+                <column id="finStmtItm1_ExchDesc"/>
+                <column id="finStmtItm1_RefId"/>
+                <column id="finTaxLne1_Id"/>
+                <column id="finTaxLne1_Code"/>
+
+                <column id="finFmla1_Id"/>
+                <column id="amtFinTxfer1_Id"/>
+                <column id="finTxfer1_EI1_Rate"/>
+                <column id="calcRslt"/>
+
+                <column id="finTxact1_Id.finTxset1_Id.genChan1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.finHow1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.whatText1"/>
+                <column id="finTxact1_Id.finTxset1_Id.finWhat1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.whyText1"/>
+                <column id="finTxact1_Id.finTxset1_Id.finWhy1_Id"/>
+
+                <column id="finTxact1_Id.genChan1_Id"/>
+                <column id="finTxact1_Id.finHow1_Id"/>
+                <column id="finTxact1_Id.whatText1"/>
+                <column id="finTxact1_Id.finWhat1_Id"/>
+                <column id="finTxact1_Id.whyText1"/>
+                <column id="finTxact1_Id.finWhy1_Id"/>
+
                 <column id="genDocVers1_Id2"/>
                 <column id="genDocVer1_Id"/>
                 <column id="genDocVer1_Id2"/>
@@ -91,57 +134,15 @@
                 <column id="genTag3_Id2"/>
                 <column id="genTag4_Id"/>
                 <column id="genTag4_Id2"/>
-                <column id="genChan1_Id"/>
-                <column id="genChan1_Id2"/>
-                <column id="finTxact1_Id"/>
-                <column id="finTxact1_Id2"/>
-                <column id="finTxact1_Id2Calc"/>
-                <column id="finTxact1_EI1_Role"/>
-                <column id="finTxact1_Type1_Id2"/>
-                <column id="idX"/>
-                <column id="idY"/>
-                <column id="idZ"/>
-                <column id="finStmt1_Id"/>
-                <column id="finStmt1_Id2"/>
-                <column id="finStmtItm1_Desc1"/>
-                <column id="finStmtItm1_Desc2"/>
-                <column id="finStmtItm1_Desc3"/>
-                <column id="finStmtItm1_DescAmt"/>
-                <column id="finStmtItm1_RefId"/>
-                <column id="finAcct1_Id"/>
-                <column id="finAcct1_Id2"/>
-                <column id="finDept1_Id"/>
-                <column id="finDept1_Id2"/>
-                <column id="finTaxLne1_Id"/>
-                <column id="finTaxLne1_Id2"/>
-                <column id="finTaxLne1_Code"/>
-                <column id="finHow1_Id"/>
-                <column id="finHow1_Id2"/>
-                <column id="whatText1"/>
-                <column id="finWhat1_Id"/>
-                <column id="finWhat1_Id2"/>
-                <column id="whyText1"/>
-                <column id="finWhy1_Id"/>
-                <column id="finWhy1_Id2"/>
-                <column id="amtDebt"/>
-                <column id="amtCred"/>
-                <column id="amtNet"/>
-                <column id="finCurcy1_Id"/>
-                <column id="finCurcy1_Id2"/>
-                <column id="finFmla1_Id"/>
-                <column id="finFmla1_Id2"/>
-                <column id="finTxfer1_Id"/>
-                <column id="finTxfer1_Id2"/>
-                <column id="finTxfer1_EI1_Rate"/>
-                <column id="calcRslt"/>
+                <column id="note"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="finTxfersTable.create"/>
-                <button id="editBtn" action="finTxfersTable.edit"/>
-                <button id="refreshBtn" action="finTxfersTable.refresh"/>
-                <button id="removeBtn" action="finTxfersTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://genChanBrowse.caption"
         focusComponent="genNodesTable">
     <data readOnly="true">
@@ -63,13 +62,13 @@
                 <column id="id2Calc"/>
                 <column id="id2Cmp"/>
                 <column id="id2Dup"/>
-                <column id="sortOrder"/>
+                <column id="sortIdx"/>
                 <column id="type1_Id"/>
                 <column id="type1_Id2"/>
                 <column id="inst"/>
                 <column id="name1"/>
-                <column id="name1Pat1_Id"/>
-                <column id="name1Pat1_Id2"/>
+                <column id="name1GenPat1_Id"/>
+                <column id="name1GenPat1_Id2"/>
                 <column id="name2"/>
                 <column id="abrv"/>
                 <column id="desc1"/>

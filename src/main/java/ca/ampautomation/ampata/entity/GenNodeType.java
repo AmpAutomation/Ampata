@@ -51,8 +51,8 @@ public class GenNodeType {
     @Lob
     private String ancestors1_Id2;
 
-    @Column(name = "SORT_ORDER")
-    private Integer sortOrder;
+    @Column(name = "SORT_IDX")
+    private Integer sortIdx;
 
     @Column(name = "NAME1")
     private String name1;
@@ -117,12 +117,12 @@ public class GenNodeType {
         return balIncOnCred;
     }
 
-    public Integer getSortOrder() {
-        return sortOrder;
+    public Integer getSortIdx() {
+        return sortIdx;
     }
 
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
+    public void setSortIdx(Integer sortIdx) {
+        this.sortIdx = sortIdx;
     }
 
     public Boolean getId2Cmp() {

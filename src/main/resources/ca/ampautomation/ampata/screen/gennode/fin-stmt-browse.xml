@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finStmtBrowse.caption"
-        focusComponent="genNodesTable">
+        focusComponent="table">
     <data readOnly="true">
-        <collection id="genNodesDc"
+        <collection id="finStmtsDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
                     fetchPlan="finStmt-fetch-plan-base">
-            <loader id="genNodesDl">
+            <loader id="finStmtsDl">
                 <query>
                     <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmt']]>
                 </query>
@@ -30,9 +29,9 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="genNodesTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
-                dataLoader="genNodesDl">
+                dataLoader="finStmtsDl">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -41,9 +40,9 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="genNodesTable"
+        <groupTable id="table"
                     width="100%"
-                    dataContainer="genNodesDc">
+                    dataContainer="finStmtsDc">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -62,62 +61,36 @@
 
                 <column id="id2"/>
                 <column id="id2Calc"/>
-                <column id="id2Cmp"/>
                 <column id="id2Dup"/>
                 <column id="type1_Id"/>
-                <column id="type1_Id2"/>
-                <column id="inst"/>
-                <column id="name1"/>
-                <column id="name1Pat1_Id"/>
-                <column id="name1Pat1_Id2"/>
-                <column id="name2"/>
-                <column id="abrv"/>
-                <column id="desc1"/>
                 <column id="finAcct1_Id"/>
-                <column id="finAcct1_Id2"/>
-                <column id="beg1.ts1"/>
+                <column id="idTs.ts1" caption="idTs"/>
+
                 <column id="beg1.date1">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="beg1.date1Yr" visible="false"/>
-                <column id="beg1.date1Qtr" visible="false"/>
-                <column id="beg1.date1Mon" visible="false"/>
-                <column id="beg1.date1Mon2" visible="false"/>
-                <column id="beg1.date1Day" visible="false"/>
                 <column id="end1.date1">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="end1.date1Yr" visible="false"/>
-                <column id="end1.date1Qtr" visible="false"/>
-                <column id="end1.date1Mon" visible="false"/>
-                <column id="end1.date1Mon2" visible="false"/>
-                <column id="end1.date1Day" visible="false"/>
                 <column id="begBal"/>
                 <column id="endBal"/>
                 <column id="debtSum"/>
                 <column id="credSum"/>
                 <column id="netSum"/>
                 <column id="status"/>
-                <column id="genDocVers1_Id2"/>
-                <column id="genDocVer1_Id"/>
-                <column id="genDocVer1_Id2"/>
-                <column id="genFile1_Id"/>
-                <column id="genFile1_Id2"/>
-                <column id="genTags1_Id2"/>
-                <column id="genTag1_Id"/>
-                <column id="genTag1_Id2"/>
+                <column id="note"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="genNodesTable.create"/>
-                <button id="editBtn" action="genNodesTable.edit"/>
-                <button id="refreshBtn" action="genNodesTable.refresh"/>
-                <button id="removeBtn" action="genNodesTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

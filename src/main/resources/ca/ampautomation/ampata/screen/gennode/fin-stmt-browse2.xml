@@ -1,7 +1,5 @@
 <window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finStmtBrowse2.caption"
-        xmlns:app="http://schemas.company.com/ui.ex1/0.1/app-ui-components.xsd"
         focusComponent="table">
     <data>
         <collection id="finStmtsDc"
@@ -19,12 +17,12 @@
             <loader/>
         </instance>
 
-        <collection id="finTxfersDc"
+        <collection id="finStmtItmsDc"
                     class="ca.ampautomation.ampata.entity.GenNode"
-                    fetchPlan="finTxfer-fetch-plan-base">
-            <loader id="finTxfersDl">
+                    fetchPlan="finStmtItm-fetch-plan-base">
+            <loader id="finStmtItmsDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.finStmt1_Id = :finStmt1_Id ORDER BY e.id2]]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id ORDER BY e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -56,12 +54,11 @@
                             <propertyFilter id="propFilter_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
                                 <entityComboBox metaClass="ampata_GenNode" width="200%"/>
                             </propertyFilter>
+                            <propertyFilter id="filterConfig1A_status" caption="status" operation="CONTAINS" property="status" operationEditable="true"/>
                         </configuration>
                     </configurations>
                 </filter>
-                <groupTable id="table"
-                            width="100%"
-                            dataContainer="finStmtsDc">
+                <table id="table" width="100%" dataContainer="finStmtsDc" multiselect="true">
                     <actions>
                         <action id="create" type="create"/>
                         <action id="edit" type="edit"/>
@@ -70,8 +67,6 @@
                     </actions>
                     <columns>
                         <column id="id2"/>
-                        <column id="id2Calc"/>
-                        <column id="id2Cmp"/>
                         <column id="id2Dup"/>
                         <column id="beg1.date1" caption="Beg-Date"/>
                         <column id="end1.date1" caption="End-Date"/>
@@ -87,7 +82,6 @@
                         <column id="genTags1_Id2" caption="Tags"/>
                         <column id="genTag1_Id" caption="Tag1"/>
                     </columns>
-                    <simplePagination/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
                         <tabSheet  width="100%">
@@ -116,6 +110,8 @@
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="setBtn" caption="Set" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <hbox spacing="true">
@@ -131,6 +127,13 @@
                                         </hbox>
                                         <dateField id="tmplt_end1Ts1Field" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
                                     </hbox>
+                                    <hbox caption="status" width="250px" expand="tmplt_StatusField">
+                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <checkBox id="tmplt_StatusFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                        </hbox>
+                                        <comboBox id="tmplt_StatusField"/>
+                                    </hbox>
+
                                 </hbox>
                             </tab>
                             <tab id="tabCmd4" caption="Filter" spacing="true">
@@ -141,7 +144,10 @@
                             </tab>
                         </tabSheet>
                     </buttonsPanel>
-                </groupTable>
+                </table>
+                <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
+                    <containerProvider dataContainer="finStmtsDc"/>
+                </pagination>
                 <hbox id="lookupActions" spacing="true" visible="false">
                     <button action="lookupSelectAction"/>
                     <button action="lookupCancelAction"/>
@@ -395,19 +401,19 @@
                     <label value="|" align="MIDDLE_CENTER"/>
                     <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
                 </hbox>
-                <groupTable id="table2"
+                <table id="table2"
                             width="100%"
-                            dataContainer="finTxfersDc">
+                            dataContainer="finStmtItmsDc">
                     <actions>
                         <action id="create2" type="create">
                             <properties>
-                                <property name="screenId" value="ampata_FinTxfer.edit"/>
+                                <property name="screenId" value="ampata_FinStmtItm.edit"/>
                             </properties>
                         </action>
                         <action id="duplicate2"/>
                         <action id="edit2" type="edit">
                             <properties>
-                                <property name="screenId" value="ampata_FinTxfer.edit"/>
+                                <property name="screenId" value="ampata_FinStmtItm.edit"/>
                             </properties>
                         </action>
                         <action id="refresh2" type="refresh"/>
@@ -415,46 +421,23 @@
                     </actions>
                     <columns>
                         <column id="id2"/>
+                        <column id="id2Dup"/>
                         <column id="type1_Id"/>
-                        <column id="desc1" width="180px"/>
-                        <column id="finTxact1_Id"/>
-                        <column id="finTxact1_EI1_Role" caption="Role"/>
-                        <column id="finTxact1_Id.type1_Id" caption="Txact-Type"/>
-                        <column id="genChan1_Id" caption="Chan"/>
-                        <column id="finAcct1_Id"/>
-                        <column id="finDept1_Id"/>
+
+                        <column id="finStmt1_Id"/>
+                        <column id="idTs.ts1" caption="idTs"/>
+                        <column id="idX"/>
+
+                        <column id="desc1" width="240px"/>
+                        <column id="desc2" width="120px"/>
+                        <column id="desc3" width="120px"/>
+                        <column id="desc4" width="120px"/>
+                        <column id="exchDesc" width="120px"/>
+                        <column id="refId" width="120px"/>
+
                         <column id="amtDebt"/>
                         <column id="amtCred"/>
                         <column id="amtNet"/>
-                        <column id="finCurcy1_Id"/>
-                        <column id="idDt.date1" caption="idDt"/>
-                        <column id="idX"/>
-                        <column id="idY"/>
-                        <column id="idZ"/>
-
-                        <column id="finStmtItm1_Desc1"/>
-                        <column id="finStmtItm1_Desc2"/>
-                        <column id="finStmtItm1_Desc3"/>
-                        <column id="finStmtItm1_DescAmt"/>
-                        <column id="finStmtItm1_RefId"/>
-
-                        <column id="finTaxLne1_Id"/>
-                        <column id="finTaxLne1_Code"/>
-
-                        <column id="finHow1_Id"/>
-                        <column id="whatText1"/>
-                        <column id="finWhat1_Id"/>
-                        <column id="whyText1"/>
-                        <column id="finWhy1_Id"/>
-
-                        <column id="genDocVers1_Id2"/>
-                        <column id="genDocVer1_Id"/>
-                        <column id="genDocVer1_Id2"/>
-                        <column id="genFile1_Id"/>
-                        <column id="genFile1_Id2"/>
-                        <column id="genTags1_Id2"/>
-                        <column id="genTag1_Id"/>
-                        <column id="genTag1_Id2"/>
                         <column id="note"/>
                     </columns>
                     <simplePagination/>
@@ -467,7 +450,7 @@
                         <button id="editBtn2" action="table2.edit2"/>
                         <button id="removeBtn2" action="table2.remove2"/>
                     </buttonsPanel>
-                </groupTable>
+                </table>
             </vbox>
         </split>
     </layout>
