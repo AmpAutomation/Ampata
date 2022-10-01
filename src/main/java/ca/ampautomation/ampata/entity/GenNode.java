@@ -773,7 +773,7 @@ public class GenNode {
 */
 
     @Transient
-    private Logger logger = LoggerFactory.getLogger(GenNode.class);
+    private final Logger logger = LoggerFactory.getLogger(GenNode.class);
 
     public HasTmst getIdTs() {
         return idTs;
@@ -1046,9 +1046,7 @@ public class GenNode {
         return desc3;
     }
 
-    public void setDesc3(String desc2) {
-        this.desc3 = desc3;
-    }
+    public void setDesc3(String desc3) {this.desc3 = desc3;}
 
 
     public String getDesc4() {
@@ -2224,7 +2222,7 @@ public class GenNode {
         String logPrfx = "updateId2Calc()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         String id2Calc_ = getId2Calc();
         logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
@@ -2260,10 +2258,7 @@ public class GenNode {
         DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
         switch (className) {
-            case "FinTxset":
-            case "FinTxact":
-            case "FinTxfer":
-            case "FinStmtItm":
+            case "FinTxset", "FinTxact", "FinTxfer", "FinStmtItm" -> {
                 if (idTs == null) {
                     logger.debug(logPrfx + " --- idTs: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2276,8 +2271,8 @@ public class GenNode {
                 } else {
                     logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
                 }
-                break;
-            case "FinStmt":
+            }
+            case "FinStmt" -> {
                 if (idDt == null) {
                     logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2290,9 +2285,9 @@ public class GenNode {
                 } else {
                     logger.debug(logPrfx + " --- idDt.getDate1(): " + idDt.getDate1().format(frmtDt));
                 }
-                break;
-        };
-        
+            }
+        }
+
         switch (className) {
             case "FinStmt":
                 if (finAcct1_Id == null) {
@@ -2329,7 +2324,7 @@ public class GenNode {
                 break;
             default:
 
-        };
+        }
 
         switch (className){
             case "FinTxset":
@@ -2342,7 +2337,7 @@ public class GenNode {
                     logger.debug(logPrfx + " --- parent1_Id: null");
                 } else {
                     logger.debug(logPrfx + " --- parent1_Id: " + parent1_Id.getId());
-                    sb.append(parent1_Id.getId2() + "/");
+                    sb.append(parent1_Id.getId2()).append("/");
                 }
                 break;
 
@@ -2350,85 +2345,72 @@ public class GenNode {
         }
 
 
-        switch (className){
-            case "FinTxset":
-            case "FinTxact":
-            case "FinTxfer":
+        switch (className) {
+            case "FinTxset", "FinTxact", "FinTxfer" ->
                 //Date
                 sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt))
-                    //Time
-                    .append(SEP + "T").append(idTs.getTs1().format(frmtTm));
-                break;
-
-            case "FinStmt":
+                //Time
+                .append(SEP + "T").append(idTs.getTs1().format(frmtTm));
+            case "FinStmt" ->
                 //Account
                 sb.append(finAcct1_Id.getId2())
-                    //Date
-                    .append(SEP + "D").append(idDt.getDate1().format(frmtDt));
-                break;
-
-            case "FinStmtItm":
+                //Date
+                .append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+            case "FinStmtItm" ->
                 //Account
                 sb.append(finStmt1_Id.getFinAcct1_Id().getId2())
-                        //Date
-                        .append(SEP + "D").append(idTs.getTs1().format(frmtDt))
-                        //amtNet
-                        .append(SEP + "A").append(frmtDec.format(amtNet));
-                break;
-
-            case "FinAcct":
+                //Date
+                .append(SEP + "D").append(idTs.getTs1().format(frmtDt));
+            case "FinAcct" ->
                 //name1
                 sb.append(name1);
-                break;
-
-            default:
         }
 
         switch (className){
-            case "FinTxset":
-            case "FinTxact":
-            case "FinTxfer":
-            case "FinStmtItm":
+            case "FinTxset", "FinTxact", "FinTxfer", "FinStmtItm" -> {
                 //IdX
                 if (idX == null) {
                     logger.debug(logPrfx + " --- idX: null");
                     sb.append(SEP + "X00");
                 }else{
-                    logger.debug(logPrfx + " --- idX: " + idX.toString());
+                    logger.debug(logPrfx + " --- idX: " + idX);
                     sb.append(SEP + "X").append(String.format("%02d", idX));
                 }
-                break;
-            default:
+            }
         }
 
         switch (className){
-            case "FinTxact":
-            case "FinTxfer":
+            case "FinTxact", "FinTxfer" -> {
                 //IdY
                 if (idY == null) {
                     logger.debug(logPrfx + " --- idY: null");
                     sb.append(SEP + "Y00");
-                }else{
-                    logger.debug(logPrfx + " --- idY: " + idY.toString());
+                } else {
+                    logger.debug(logPrfx + " --- idY: " + idY);
                     sb.append(SEP + "Y").append(String.format("%02d", idY));
                 }
-                break;
-            default:
+            }
         }
 
-        switch (className){
-            case "FinTxfer":
+        switch (className) {
+            case "FinTxfer" ->{
                 //IdZ
                 if (idZ == null) {
                     logger.debug(logPrfx + " --- idZ: null");
                     sb.append(SEP + "Z00");
-                }else {
-                    logger.debug(logPrfx + " --- idZ: " + idZ.toString());
+                } else {
+                    logger.debug(logPrfx + " --- idZ: " + idZ);
                     sb.append(SEP + "Z").append(String.format("%02d", idZ));
                 }
-                break;
-            default:
+            }
         }
+
+        switch (className) {
+            case "FinStmtItm" ->
+                //amtNet
+                sb.append(SEP + "A").append(frmtDec.format(amtNet));
+        }
+
 
         logger.debug(logPrfx + " --- sb: " + sb);
         logger.trace(logPrfx + " <--- ");
@@ -2440,7 +2422,7 @@ public class GenNode {
         String logPrfx = "updateIdTs()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         LocalDateTime ts1_ = idTs.getTs1();
         LocalDateTime ts1 = null;
@@ -2450,38 +2432,32 @@ public class GenNode {
                 .toFormatter();
 
         switch (className) {
-            case "FinTxset":
-            case "FinStmtItm":
-                if (beg1.getTs1() != null){
+            case "FinTxset", "FinStmtItm" -> {
+                if (beg1.getTs1() != null) {
                     ts1 = beg1.getTs1();
-                }else{
-                    ts1 = null;
                 }
-                if (!Objects.equals(ts1_, ts1)){
-                    logger.debug(logPrfx + " --- calling idTs.setTs1(("+ ts1.format(frmtTs) +")");
+                if (!Objects.equals(ts1_, ts1)) {
+                    logger.debug(logPrfx + " --- calling idTs.setTs1((" + ts1 == null ? "null" : ts1.format(frmtTs) + ")");
                     idTs.setTs1(ts1);
                     isChanged = true;
                 }
-                break;
-
-            case "FinTxact":
-            case "FinTxfer":
-                if (beg2.getTs1() != null){
+            }
+            case "FinTxact", "FinTxfer" -> {
+                if (beg2.getTs1() != null) {
                     ts1 = beg2.getTs1();
-                }else if (beg1.getTs1() != null){
+                } else if (beg1.getTs1() != null) {
                     ts1 = beg1.getTs1();
-                }else{
+                } else {
                     ts1 = null;
                 }
-                if (!Objects.equals(ts1_, ts1)){
-                    logger.debug(logPrfx + " --- calling idTs.setTs1(("+ ts1.format(frmtTs) +")");
+                if (!Objects.equals(ts1_, ts1)) {
+                    logger.debug(logPrfx + " --- calling idTs.setTs1((" + ts1 == null ? "null" : ts1.format(frmtTs) + ")");
                     idTs.setTs1(ts1);
                     isChanged = true;
                 }
-                break;
-
-            default:
-                break;
+            }
+            default -> {
+            }
         }
 
         logger.trace(logPrfx + " <--- ");
@@ -2743,7 +2719,7 @@ public class GenNode {
                     }
 
                     if (!Objects.equals(idX_, idX)){
-                        logger.debug(logPrfx + " --- calling setIdX("+ idX.toString() +")");
+                        logger.debug(logPrfx + " --- calling setIdX("+ idX +")");
                         setIdX(idX);
                         isChanged = true;
                     }
@@ -2791,7 +2767,7 @@ public class GenNode {
                     }
 
                     if (!Objects.equals(idY_, idY)){
-                        logger.debug(logPrfx + " --- calling setIdX("+ idY.toString() +")");
+                        logger.debug(logPrfx + " --- calling setIdX("+ idY +")");
                         setIdY(idY);
                         isChanged = true;
                     }
@@ -2818,7 +2794,7 @@ public class GenNode {
         Integer idZ = null;
 
         switch (className) {
-            case "FinTxfer":
+            case "FinTxfer" -> {
                 if (id2 != null
                         && id2.length() >= 28){
 
@@ -2834,16 +2810,17 @@ public class GenNode {
                     }
 
                     if (!Objects.equals(idZ_, idZ)){
-                        logger.debug(logPrfx + " --- calling setIdZ("+ idZ.toString() +")");
+                        logger.debug(logPrfx + " --- calling setIdZ("+ idZ +")");
                         setIdZ(idZ);
                         isChanged = true;
                     }
 
                 }
-                break;
+            }
 
-            default:
-                break;
+            default ->{
+
+            }
         }
 
         logger.trace(logPrfx + " <--- ");
@@ -2855,24 +2832,24 @@ public class GenNode {
         String logPrfx = "updateName1()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         String name1_ = getName1();
         String name1 = null;
 
 
         switch (className) {
-            case "FinAcct":
+            case "FinAcct" -> {
                 String delim = "/";
                 String id2 = getId2();
                 name1 = id2.substring(id2.lastIndexOf(delim) + 1);
-                if (!Objects.equals(name1_, name1)){
-                    logger.debug(logPrfx + " --- calling setId2Calc("+ name1 +")");
+                if (!Objects.equals(name1_, name1)) {
+                    logger.debug(logPrfx + " --- calling setId2Calc(" + name1 + ")");
                     setName1(name1);
                     isChanged = true;
                 }
-                break;
-        };
+            }
+        }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2883,30 +2860,29 @@ public class GenNode {
         String logPrfx = "updateGenAgent1()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         GenNode genAgent1_ = getGenAgent1_Id();
         GenNode genAgent1 = null;
 
 
         switch (className) {
-            case "FinAcct":
+            case "FinAcct" -> {
                 String delim = "/";
                 String id2 = getId2();
-                String genAgent1_Id2 = id2.substring(1,id2.indexOf(delim));
-                genAgent1 =  findGenNodeById2(genAgent1_Id2,"FinAcct");
-                if (genAgent1 == null){
+                String genAgent1_Id2 = id2.substring(1, id2.indexOf(delim));
+                genAgent1 = findGenNodeById2(genAgent1_Id2, "FinAcct");
+                if (genAgent1 == null) {
                     logger.trace(logPrfx + " <-- ");
                     return isChanged;
                 }
-
-                if (!Objects.equals(genAgent1_, genAgent1)){
-                    logger.debug(logPrfx + " --- calling setId2Calc("+ name1 +")");
+                if (!Objects.equals(genAgent1_, genAgent1)) {
+                    logger.debug(logPrfx + " --- calling setId2Calc(" + name1 + ")");
                     setName1(name1);
                     isChanged = true;
                 }
-                break;
-        };
+            }
+        }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2915,12 +2891,6 @@ public class GenNode {
     public GenNode findGenNodeById2(@NotNull String GenNode_Id2, @NotNull String className) {
         String logPrfx = "findGenNodeById2";
         logger.trace(logPrfx + " --> ");
-
-        if (GenNode_Id2 == null) {
-            logger.debug(logPrfx + " --- GenNode_Id2 is null, finTxact_Id2.");
-            logger.trace(logPrfx + " <-- ");
-            return null;
-        }
 
         String qry = "select e from ampata_GenNode e where e.className = :className and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
