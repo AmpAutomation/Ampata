@@ -1654,63 +1654,46 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
                 GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
                 if (thisFinTxact != null) {
-                    GenNode thisTrackedFinTxact = dataContext.merge(thisFinTxact);
-                    thisFinTxact = thisTrackedFinTxact;
+                    thisFinTxact = dataContext.merge(thisFinTxact);
 
-                    Boolean thisFinTxactIsChanged = false;
+                    boolean thisFinTxactIsChanged = false;
 
-                    if (tmplt_FinTxact1_Id_Type1_IdFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_Type1_IdFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setType1_Id(tmplt_FinTxact1_Id_Type1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_EI1_RoleFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_EI1_RoleFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setFinTxset1_EI1_Role(tmplt_FinTxact1_Id_FinTxset1_EI1_RoleField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_GenChan1_IdFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_GenChan1_IdFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setGenChan1_Id(tmplt_FinTxact1_Id_GenChan1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinHow1_IdFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinHow1_IdFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setFinHow1_Id(tmplt_FinTxact1_Id_FinHow1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_WhatText1FieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_WhatText1FieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setWhatText1(tmplt_FinTxact1_Id_WhatText1Field.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinWhat1_IdFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinWhat1_IdFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setFinWhat1_Id(tmplt_FinTxact1_Id_FinWhat1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_WhyText1FieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_WhyText1FieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setWhyText1(tmplt_FinTxact1_Id_WhyText1Field.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinWhy1_IdFieldChk.isChecked()
-                            && thisFinTxact != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinWhy1_IdFieldChk.isChecked()) {
                         thisFinTxactIsChanged = true;
                         thisFinTxact.setFinWhy1_Id(tmplt_FinTxact1_Id_FinWhy1_IdField.getValue());
                     }
@@ -1723,57 +1706,41 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
                 GenNode thisFinTxset = thisFinTxfer.getFinTxact1_Id() == null ? null : thisFinTxfer.getFinTxact1_Id().getFinTxset1_Id();
                 if (thisFinTxset != null) {
+                    thisFinTxset = dataContext.merge(thisFinTxset);
 
-                    GenNode thisTrackedFinTxset = dataContext.merge(thisFinTxset);
-                    thisFinTxset = thisTrackedFinTxset;
+                    boolean thisFinTxsetIsChanged = false;
 
-                    Boolean thisFinTxsetIsChanged = false;
-
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_Type1_IdFieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_Type1_IdFieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setType1_Id(tmplt_FinTxact1_Id_FinTxset1_Id_Type1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setGenChan1_Id(tmplt_FinTxact1_Id_FinTxset1_Id_GenChan1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinHow1_IdFieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinHow1_IdFieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setFinHow1_Id(tmplt_FinTxact1_Id_FinTxset1_Id_FinHow1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_WhatText1FieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_WhatText1FieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setWhatText1(tmplt_FinTxact1_Id_FinTxset1_Id_WhatText1Field.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinWhat1_IdFieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinWhat1_IdFieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setFinWhat1_Id(tmplt_FinTxact1_Id_FinTxset1_Id_FinWhat1_IdField.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_WhyText1FieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_WhyText1FieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setWhyText1(tmplt_FinTxact1_Id_FinTxset1_Id_WhyText1Field.getValue());
                     }
 
-                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinWhy1_IdFieldChk.isChecked()
-                            && thisFinTxset != null
-                    ) {
+                    if (tmplt_FinTxact1_Id_FinTxset1_Id_FinWhy1_IdFieldChk.isChecked()) {
                         thisFinTxsetIsChanged = true;
                         thisFinTxset.setFinWhy1_Id(tmplt_FinTxact1_Id_FinTxset1_Id_FinWhy1_IdField.getValue());
                     }
@@ -1815,9 +1782,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             thisFinTxfers.forEach(thisFinTxfer -> {
                 //GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
                 if (thisFinTxfer != null) {
-                    GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                    thisFinTxfer = thisTrackedFinTxfer;
-    
+                    thisFinTxfer = dataContext.merge(thisFinTxfer);
+
                     Boolean thisFinTxferIsChanged = false;
     
                     thisFinTxferIsChanged = updateId2Dup(thisFinTxfer) || thisFinTxferIsChanged;
@@ -1872,7 +1838,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                 propFilterCmpnt_idTsLE.setValue(idTsLE);
                 filter.apply();
             }
-        };
+        }
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -1980,12 +1946,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " --> ");
 
         Integer idTsGEOption = updateFilterConfig1B_IdTsGERdo.getValue();
-        switch (idTsGEOption){
-            case 0: // Clear
-                filterConfig1B_idTsGE.clear();
-                break;
-
-            case 1:  // Set to match current row
+        switch (idTsGEOption) {
+            case 0 -> // Clear
+                    filterConfig1B_idTsGE.clear();
+            case 1 -> {  // Set to match current row
                 List<GenNode> thisFinTxfers = table.getSelected().stream().toList();
                 if (thisFinTxfers == null || thisFinTxfers.isEmpty()) {
                     logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no records are selected.");
@@ -1994,13 +1958,13 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                     return;
                 }
                 GenNode thisFinTxfer = thisFinTxfers.get(0);
-                if (thisFinTxfer != null){
-                    if (thisFinTxfer.getIdTs() != null && thisFinTxfer.getIdTs().getTs1() != null){
+                if (thisFinTxfer != null) {
+                    if (thisFinTxfer.getIdTs() != null && thisFinTxfer.getIdTs().getTs1() != null) {
                         filterConfig1B_idTsGE.setValue(thisFinTxfer.getIdTs().getTs1());
                         filterConfig1B_idTsGE.apply();
                     }
                 }
-                break;
+            }
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -2013,12 +1977,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " --> ");
 
         Integer idXOption = updateFilterConfig1B_IdXRdo.getValue();
-        switch (idXOption){
-            case 0: // Clear
-                filterConfig1B_idX.clear();
-                break;
-
-            case 1:  // Set to match current row
+        switch (idXOption) {
+            case 0 -> // Clear
+                    filterConfig1B_idX.clear();
+            case 1 -> {  // Set to match current row
                 List<GenNode> thisFinTxfers = table.getSelected().stream().toList();
                 if (thisFinTxfers == null || thisFinTxfers.isEmpty()) {
                     logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no records are selected.");
@@ -2027,13 +1989,13 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                     return;
                 }
                 GenNode thisFinTxfer = thisFinTxfers.get(0);
-                if (thisFinTxfer != null){
-                    if (thisFinTxfer.getIdX() != null){
+                if (thisFinTxfer != null) {
+                    if (thisFinTxfer.getIdX() != null) {
                         filterConfig1B_idX.setValue(thisFinTxfer.getIdX());
                         filterConfig1B_idX.apply();
                     }
                 }
-                break;
+            }
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -2047,11 +2009,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         Integer idYOption = updateFilterConfig1B_IdYRdo.getValue();
         switch (idYOption) {
-            case 0: // Clear
-                filterConfig1B_idY.clear();
-                break;
-
-            case 1:  // Set to match current row
+            case 0 -> // Clear
+                    filterConfig1B_idY.clear();
+            case 1 -> {  // Set to match current row
                 List<GenNode> thisFinTxfers = table.getSelected().stream().toList();
                 if (thisFinTxfers == null || thisFinTxfers.isEmpty()) {
                     logger.debug(logPrfx + " --- thisFinTxfer is null, likely because no records are selected.");
@@ -2066,7 +2026,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                         filterConfig1B_idY.apply();
                     }
                 }
-                break;
+            }
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -2086,8 +2046,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2139,8 +2098,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2192,8 +2150,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2246,8 +2203,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2316,8 +2272,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2369,8 +2324,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2422,8 +2376,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2475,8 +2428,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2545,8 +2497,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2598,8 +2549,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2652,8 +2602,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2705,8 +2654,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2774,11 +2722,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
-
-                Boolean isChanged = false;
+                boolean isChanged = false;
 
                 isChanged = updateIdParts(thisFinTxfer);
 
@@ -2813,11 +2759,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         }
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
-
-                Boolean isChanged = false;
+                boolean isChanged = false;
 
                 Integer finTxactOption = Optional.ofNullable(updateColItemCalcValsTxactOption.getValue()).orElse(0);
                 Integer finTxsetOption = Optional.ofNullable(updateColItemCalcValsTxsetOption.getValue()).orElse(0);
@@ -2939,8 +2883,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -2979,7 +2922,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             return;
         }
 
-        Integer finTxactOption;
+        int finTxactOption;
         if (!linkTxactAutoCreateChk.isChecked()){
             finTxactOption = 1;
         }else{
@@ -2988,8 +2931,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         thisFinTxfers.forEach(thisFinTxfer -> {
             if (thisFinTxfer != null) {
-                GenNode thisTrackedFinTxfer = dataContext.merge(thisFinTxfer);
-                thisFinTxfer = thisTrackedFinTxfer;
+                thisFinTxfer = dataContext.merge(thisFinTxfer);
 
                 Boolean thisFinTxferIsChanged = false;
 
@@ -4329,7 +4271,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateFinTxferCalcVals(thisFinTxfer, finTxactOption) || isChanged;
         isChanged = updateFinTxactCalcVals(thisFinTxfer, finTxsetOption) || isChanged;
@@ -4343,7 +4285,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxferCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxfer Object
         isChanged = updateIdTs(thisFinTxfer) || isChanged;
@@ -4351,7 +4293,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         isChanged = updateId2Cmp(thisFinTxfer) || isChanged;
         isChanged = updateId2Dup(thisFinTxfer) || isChanged;
         isChanged = updateDesc1(thisFinTxfer) || isChanged;
-        isChanged = updateFinTaxLne1_Id(thisFinTxfer) || isChanged;
+//        isChanged = updateFinTaxLne1_Id(thisFinTxfer) || isChanged;
         isChanged = updateAmtNet(thisFinTxfer) || isChanged;
         isChanged = updateAmtFinTxfer1_EI1_Rate(thisFinTxfer) || isChanged;
         isChanged = updateAmtCalc(thisFinTxfer) || isChanged;
@@ -4366,7 +4308,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxactCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxact Object
         isChanged = updateFinTxact1_Id_Desc1(thisFinTxfer)  || isChanged;
@@ -4386,7 +4328,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxsetCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxset Object
         isChanged = updateFinTxact1_Id_FinTxset1_Id_Desc1(thisFinTxfer) || isChanged;
@@ -4399,7 +4341,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateBeg1(thisFinTxfer) || isChanged;
         isChanged = updateBeg2(thisFinTxfer) || isChanged;
@@ -4418,7 +4360,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinTxfer.getId2();
         String id2 = thisFinTxfer.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -4436,7 +4378,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinTxfer.getId2Calc();
         String id2Calc = thisFinTxfer.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -4454,7 +4396,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinTxfer.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinTxfer.getId2(),thisFinTxfer.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -4472,11 +4414,11 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinTxfer.getId2Dup();
         if (thisFinTxfer.getId2() != null) {
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinTxfer' and e.id2 = :id2 and e.id <> :id";
-            Integer id2Dup;
+            int id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
                         .store("main")
@@ -4505,7 +4447,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String desc1_ = thisFinTxfer.getDesc1();
         String thisAmt = "";
         if (thisFinTxfer.getAmtDebt() != null) {
@@ -4672,7 +4614,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
 
         if (thisFinTxact != null) {
@@ -4785,7 +4727,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_Id_FinTxset1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxset = thisFinTxfer.getFinTxact1_Id() == null ? null : thisFinTxfer.getFinTxact1_Id().getFinTxset1_Id();
 
         if (thisFinTxset != null) {
@@ -4806,10 +4748,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
                 String desc1FinTxfer1_Id2 = null;
                 switch (thisType) {
-                    case "/Txfer-Exch":
+                    case "/Txfer-Exch" ->
                         desc1FinTxfer1_Id2 = thisFinTxset.getId2()+ "/Y01/Z00";
-                        break;
-                    default:
+                    default ->
                         desc1FinTxfer1_Id2 = thisFinTxset.getId2()+ "/Y00/Z00";
                 }
                 GenNode desc1FinTxfer1 = thisFinTxset.getDesc1FinTxfer1_Id() == null
@@ -4940,7 +4881,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdTs();
 
         logger.trace(logPrfx + " <-- ");
@@ -4952,7 +4893,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateBeg1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateBeg1();
 
         logger.trace(logPrfx + " <-- ");
@@ -4964,7 +4905,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateBeg2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateBeg2();
 
         logger.trace(logPrfx + " <-- ");
@@ -4977,7 +4918,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdX";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdX();
 
         logger.trace(logPrfx + " <-- ");
@@ -4989,7 +4930,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdY";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdY();
 
         logger.trace(logPrfx + " <-- ");
@@ -5001,7 +4942,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdZ";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdZ();
 
         logger.trace(logPrfx + " <-- ");
@@ -5013,52 +4954,52 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode finTxact1_Id_ = thisFinTxfer.getFinTxact1_Id();
         GenNode finTxact1_Id;
         // Update finTxact
         switch (finTxactOption) {
-            case 1: // Link to Exist Txact
+            case 1 -> { // Link to Exist Txact
                 finTxact1_Id = findFinTxactById2(thisFinTxfer.getFinTxact1_Id2Trgt());
-                if (!Objects.equals(finTxact1_Id_, finTxact1_Id)){
+                if (!Objects.equals(finTxact1_Id_, finTxact1_Id)) {
                     thisFinTxfer.setFinTxact1_Id(finTxact1_Id);
                     isChanged = true;
                 }
-                break;
-            case 2: // Link to Exist/New Txact
+            }
+            case 2 -> { // Link to Exist/New Txact
                 finTxact1_Id = findFinTxactById2(thisFinTxfer.getFinTxact1_Id2Trgt());
                 if (finTxact1_Id == null) {
                     finTxact1_Id = createFinTxactFrFinTxfer(thisFinTxfer);
                 }
-                if (!Objects.equals(finTxact1_Id_, finTxact1_Id)){
+                if (!Objects.equals(finTxact1_Id_, finTxact1_Id)) {
                     thisFinTxfer.setFinTxact1_Id(finTxact1_Id);
                     isChanged = true;
                 }
-                break;
-            case 3: // Update Exist Txact
-                Boolean thisFinTxactIsChanged = false;
+            }
+            case 3 -> { // Update Exist Txact
+                boolean thisFinTxactIsChanged = false;
                 GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
-                if (thisFinTxact != null){
-                    if (!Objects.equals(thisFinTxact.getIdTs().getTs1(), thisFinTxfer.getIdTs().getTs1())){
+                if (thisFinTxact != null) {
+                    if (!Objects.equals(thisFinTxact.getIdTs().getTs1(), thisFinTxfer.getIdTs().getTs1())) {
                         thisFinTxact.getBeg1().setTs1(thisFinTxfer.getIdTs().getTs1());
                         thisFinTxactIsChanged = true;
                     }
-                    if (!Objects.equals(thisFinTxact.getIdX(), thisFinTxfer.getIdX())){
+                    if (!Objects.equals(thisFinTxact.getIdX(), thisFinTxfer.getIdX())) {
                         thisFinTxact.setIdX(thisFinTxfer.getIdX());
                         thisFinTxactIsChanged = true;
                     }
-                    if (!Objects.equals(thisFinTxact.getIdY(), thisFinTxfer.getIdY())){
+                    if (!Objects.equals(thisFinTxact.getIdY(), thisFinTxfer.getIdY())) {
                         thisFinTxact.setIdY(thisFinTxfer.getIdY());
                         thisFinTxactIsChanged = true;
                     }
-                    if (thisFinTxactIsChanged){
+                    if (thisFinTxactIsChanged) {
                         thisFinTxact.updateIdTs();
                         thisFinTxact.setId2Calc(thisFinTxact.getId2CalcFrFields());
                         thisFinTxact.setId2(thisFinTxact.getId2Calc());
                         dataManager.save(thisFinTxact);
                     }
                 }
-                break;
+            }
         }
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -5069,7 +5010,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String finTxact1_Id2Trgt_ = thisFinTxfer.getFinTxact1_Id2Trgt();
         String finTxact1_Id2Trgt = thisFinTxfer.getId2CalcFrFields().substring(0, 24);
         if(!Objects.equals(finTxact1_Id2Trgt_, finTxact1_Id2Trgt)){
@@ -5087,7 +5028,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFintxact1_Id_FinTxfers1_DebtSum";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
             BigDecimal finTxact1_DebtSum_ = thisFinTxact.getFinTxfers1_DebtSum();
@@ -5123,7 +5064,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFintxact1_Id_FinTxfers1_CredSum";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
             BigDecimal finTxact1_CredSum_ = thisFinTxact.getFinTxfers1_CredSum();
@@ -5160,7 +5101,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFintxact1_Id_FinTxfers1_IdCnt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
             Integer finTxact1_IdCnt_ = thisFinTxact.getFinTxfers1_IdCnt();
@@ -5197,7 +5138,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFintxact1_Id_FinTxfers1_DebtEqCred";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
             Boolean finTxact1_DebtEqCred_ = thisFinTxact.getFinTxfers1_DebtEqCred();
@@ -5338,32 +5279,32 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_FinTxset1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null){
             GenNode finTxset1_Id_ = thisFinTxact.getFinTxset1_Id();
             GenNode finTxset1_Id;
             // Update finTxact
             switch (finTxsetOption) {
-                case 1: // Link to Exist Txset
+                case 1 -> { // Link to Exist Txset
                     finTxset1_Id = findFinTxsetById2(thisFinTxact.getFinTxset1_Id2Trgt());
-                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)){
+                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)) {
                         isChanged = true;
                         thisFinTxact.setFinTxset1_Id(finTxset1_Id);
                     }
-                    break;
-                case 2: // Link to Exist/New Txset
+                }
+                case 2 -> { // Link to Exist/New Txset
                     finTxset1_Id = findFinTxsetById2(thisFinTxact.getFinTxset1_Id2Trgt());
                     if (finTxset1_Id == null) {
                         finTxset1_Id = createFinTxsetFrFinTxfer(thisFinTxfer);
                     }
-                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)){
+                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)) {
                         thisFinTxact.setFinTxset1_Id(finTxset1_Id);
                         isChanged = true;
                     }
-                    break;
-                case 3: // Update Exist Txact
-                    Boolean thisFinTxsetIsChanged = false;
+                }
+                case 3 -> { // Update Exist Txact
+                    boolean thisFinTxsetIsChanged = false;
                     GenNode thisFinTxset = thisFinTxact.getFinTxset1_Id();
                     if (thisFinTxset != null) {
                         if (!Objects.equals(thisFinTxset.getIdTs().getTs1(), thisFinTxfer.getIdTs().getTs1())) {
@@ -5381,7 +5322,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
                             dataManager.save(thisFinTxset);
                         }
                     }
-                    break;
+                }
             }
         }
 
@@ -5394,7 +5335,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxact1_FinTxset1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null){
             String id2Calc_ = thisFinTxfer.getId2Calc();
@@ -5505,7 +5446,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateAmtFinTxfer1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal rate_ = thisFinTxfer.getAmtFinTxfer1_EI1_Rate();
 
         FinFmla amtFinFmla1 = thisFinTxfer.getAmtFinFmla1_Id();
@@ -5640,7 +5581,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateAmtCalc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal amtCalc_ = thisFinTxfer.getAmtCalc();
         BigDecimal amtCalc = BigDecimal.valueOf(0);
         boolean amtCalcGood = false;
@@ -5746,7 +5687,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal amtNet_ = thisFinTxfer.getAmtNet();
 
         GenNode thisFinAcct = thisFinTxfer.getFinAcct1_Id();
@@ -5799,14 +5740,14 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTaxLne1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode finTaxLne_ = thisFinTxfer.getFinTaxLne1_Id();
         GenNode finTaxLne = thisFinTxfer.getFinAcct1_Id() == null ? null :
                 thisFinTxfer.getFinAcct1_Id().getFinTaxLne1_Id();
 
         if (!Objects.equals(finTaxLne_, finTaxLne)){
             thisFinTxfer.setFinTaxLne1_Id(finTaxLne);
-            logger.debug(logPrfx + " --- finTaxLne.id2: " + finTaxLne.getId2());
+            logger.debug(logPrfx + " --- finTaxLne.id2: " + finTaxLne == null ? "null" : finTaxLne.getId2());
             isChanged = true;
         }
 
