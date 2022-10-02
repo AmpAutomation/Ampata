@@ -261,7 +261,7 @@
                                     <column width="480px">
                                         <hbox caption="finStmt1_Id" expand="finStmt1_IdField" width="100%">
                                             <entityComboBox id="finStmt1_IdField" dataContainer="finStmtItmDc"
-                                                            property="finStmt1_Id" tabIndex="40">
+                                                            property="finStmt1_Id" tabIndex="20">
                                                 <actions>
                                                     <action id="entityClear" type="entity_clear"/>
                                                 </actions>
@@ -332,7 +332,7 @@
                                         <textField id="amtCredField" property="amtCred" tabIndex="40"/>
                                         <hbox caption="amtNet" expand="amtNetField" width="100%">
                                             <textField id="amtNetField" dataContainer="finStmtItmDc" property="amtNet" editable="false"
-                                                       tabIndex="20"/>
+                                                       tabIndex="40"/>
                                             <button id="updateAmtNetBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                     </column>
