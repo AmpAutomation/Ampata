@@ -142,6 +142,24 @@
                                                 </hbox>
                                                 <textField id="tmplt_IdXField" datatype="int" width="40px"/>
                                             </hbox>
+                                            <hbox caption="finStmt1_Id" width="250px" expand="tmplt_FinStmt1_IdField">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_FinStmt1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                                </hbox>
+                                                <entityComboBox id="tmplt_FinStmt1_IdField"/>
+                                            </hbox>
+                                            <hbox caption="amtDebt">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_amtDebtFieldChk" align="MIDDLE_RIGHT"/>
+                                                </hbox>
+                                                <textField id="tmplt_amtDebtField" datatype="decimal" width="100px"/>
+                                            </hbox>
+                                            <hbox caption="amtCred">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_amtCredFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                                </hbox>
+                                                <textField id="tmplt_amtCredField" datatype="decimal"  width="100px"/>
+                                            </hbox>
                                         </hbox>
                                         <hbox spacing="true">
                                             <hbox caption="desc1" width="300px" expand="tmplt_Desc1Field">
@@ -180,28 +198,6 @@
                                                 </hbox>
                                                 <textField id="tmplt_RefIdField"/>
                                             </hbox>
-                                        </hbox>
-                                        <hbox spacing="true">
-                                            <hbox caption="amtDebt">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_amtDebtFieldChk" align="MIDDLE_RIGHT"/>
-                                                </hbox>
-                                                <textField id="tmplt_amtDebtField" datatype="decimal" width="100px"/>
-                                            </hbox>
-                                            <hbox caption="amtCred">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_amtCredFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <textField id="tmplt_amtCredField" datatype="decimal"  width="100px"/>
-                                            </hbox>
-
-                                            <hbox caption="finStmt1_Id" width="250px" expand="tmplt_FinStmt1_IdField">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinStmt1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <entityComboBox id="tmplt_FinStmt1_IdField"/>
-                                            </hbox>
-
                                         </hbox>
                                     </tab>
                                 </tabSheet>
