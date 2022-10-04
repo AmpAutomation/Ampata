@@ -229,9 +229,6 @@
                                     </hbox>
                                     <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
-                                    <label value="Txact Option"/>
-                                    <comboBox id="updateColItemCalcValsTxactOption" width="100px"/>
-                                    <comboBox id="updateColItemCalcValsTxsetOption" width="100px"/>
                                 </hbox>
                                 <tabSheet  width="100%">
                                     <tab id="tabCmd2_Set1" caption="FinTxset" spacing="true">
@@ -540,6 +537,25 @@
                                             <hbox width="5px"/>
                                         </hbox>
                                         <button id="updateFilterConfig1B_IdYBtn" caption="Update" icon="font-icon:REFRESH"/>
+                                    </hbox>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd5" caption="Options" spacing="true">
+                                <hbox id="tabCmd5Row1" spacing="true">
+                                    <hbox>
+                                        <label value="Txset Option"/>
+                                        <hbox width="5px"/>
+                                        <comboBox id="updateColItemCalcValsTxsetOption" width="100px"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="Txact Option"/>
+                                        <hbox width="5px"/>
+                                        <comboBox id="updateColItemCalcValsTxactOption" width="100px"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="StmtItm Option"/>
+                                        <hbox width="5px"/>
+                                        <comboBox id="updateColItemCalcValsStmtItmOption" width="100px"/>
                                     </hbox>
                                 </hbox>
                             </tab>
@@ -1141,6 +1157,16 @@
                                             <button id="updateFinStmtItm1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
+                                        <hbox  caption="Candidates" expand="finStmtItmCandidsTable" width="100%">
+                                            <table id="finStmtItmCandidsTable" metaClass="ampata_GenNode" tabIndex="10"
+                                                   columnHeaderVisible="false">
+                                                <columns>
+                                                    <column id="id2"></column>
+                                                </columns>
+                                            </table>
+                                            <button id="updatefinStmtItmCandidsTableBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
                                         <hbox caption="finStmtItm1_Id2Trgt" expand="finStmtItm1_Id2TrgtField">
                                             <textField id="finStmtItm1_Id2TrgtField" dataContainer="finTxferDc" property="finStmtItm1_Id2Trgt"
                                                        tabIndex="10" editable="false"/>
@@ -1220,6 +1246,9 @@
                                             <button id="updateFinTaxLne1_Id_Type1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
+                                    </column>
+                                    <column width="540px">
+
                                     </column>
                                 </form>
                             </tab>
@@ -1342,10 +1371,12 @@
                     <label value="|" align="MIDDLE_CENTER"/>
                     <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
                     <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
-                    <label value="Txact Option" align="MIDDLE_RIGHT"/>
-                    <comboBox id="updateInstItemCalcValsTxactOption" width="160px"/>
                     <label value="Txset Option" align="MIDDLE_RIGHT"/>
                     <comboBox id="updateInstItemCalcValsTxsetOption" width="160px"/>
+                    <label value="Txact Option" align="MIDDLE_RIGHT"/>
+                    <comboBox id="updateInstItemCalcValsTxactOption" width="160px"/>
+                    <label value="StmtItm Option" align="MIDDLE_RIGHT"/>
+                    <comboBox id="updateInstItemCalcValsStmtItmOption" width="160px"/>
                 </hbox>
             </vbox>
         </split>
