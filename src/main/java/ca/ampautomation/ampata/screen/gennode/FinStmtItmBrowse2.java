@@ -66,10 +66,19 @@ public class FinStmtItmBrowse2 extends MasterDetailScreen<GenNode> {
     //Filter
 
     @Autowired
-    protected SingleFilterSupport singleFilterSupport;
+    protected Filter filter;
 
     @Autowired
-    protected Filter filter;
+    protected PropertyFilter<String> filterConfig1A_desc1;
+
+    @Autowired
+    protected PropertyFilter<String> filterConfig1A_desc2;
+
+    @Autowired
+    protected PropertyFilter<String> filterConfig1A_desc3;
+
+    @Autowired
+    protected PropertyFilter<String> filterConfig1A_desc4;
 
     @Autowired
     protected PropertyFilter<GenNode> filterConfig1A_finAcct1_Id;
@@ -241,8 +250,6 @@ public class FinStmtItmBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private EntityComboBox<GenNode> finStmt1_IdField;
 
-   
-    
 
     Logger logger = LoggerFactory.getLogger(FinStmtItmBrowse2.class);
 
@@ -257,6 +264,25 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
+
+        //filter
+        ComboBox<String> propFilterCmpnt_desc1 = (ComboBox<String>) filterConfig1A_desc1.getValueComponent();
+        propFilterCmpnt_desc1.setNullOptionVisible(true);
+        propFilterCmpnt_desc1.setNullSelectionCaption("<null>");
+
+        ComboBox<String> propFilterCmpnt_desc2 = (ComboBox<String>) filterConfig1A_desc2.getValueComponent();
+        propFilterCmpnt_desc2.setNullOptionVisible(true);
+        propFilterCmpnt_desc2.setNullSelectionCaption("<null>");
+
+        ComboBox<String> propFilterCmpnt_desc3 = (ComboBox<String>) filterConfig1A_desc3.getValueComponent();
+        propFilterCmpnt_desc3.setNullOptionVisible(true);
+        propFilterCmpnt_desc3.setNullSelectionCaption("<null>");
+
+        ComboBox<String> propFilterCmpnt_desc4 = (ComboBox<String>) filterConfig1A_desc4.getValueComponent();
+        propFilterCmpnt_desc4.setNullOptionVisible(true);
+        propFilterCmpnt_desc4.setNullSelectionCaption("<null>");
+
+        //template
         Map<String, Integer> map1 = new LinkedHashMap<>();
         map1.put("Skip", 0);
         map1.put("Max+1", 2);
@@ -798,7 +824,6 @@ are not fully initialized, for example, buttons are not linked with actions.
         }
         logger.trace(logPrfx + " <-- ");
     }
-
 
 
     @Install(to = "tmplt_Desc1Field", subject = "enterPressHandler")
@@ -2050,6 +2075,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             return;
         }
 
+        ComboBox<String> propFilterCmpnt_desc1 = (ComboBox<String>) filterConfig1A_desc1.getValueComponent();
+        propFilterCmpnt_desc1.setOptionsList(descs);
+        logger.debug(logPrfx + " --- called propFilterCmpnt_desc1.setOptionsList()");
+
         tmplt_Desc1Field.setOptionsList(descs);
         logger.debug(logPrfx + " --- called tmplt_Desc1Field.setOptionsList()");
 
@@ -2085,6 +2114,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             return;
         }
 
+        ComboBox<String> propFilterCmpnt_desc2 = (ComboBox<String>) filterConfig1A_desc2.getValueComponent();
+        propFilterCmpnt_desc2.setOptionsList(descs);
+        logger.debug(logPrfx + " --- called propFilterCmpnt_desc2.setOptionsList()");
+
         tmplt_Desc2Field.setOptionsList(descs);
         logger.debug(logPrfx + " --- called tmplt_Desc2Field.setOptionsList()");
 
@@ -2119,6 +2152,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             return;
         }
 
+        ComboBox<String> propFilterCmpnt_desc3 = (ComboBox<String>) filterConfig1A_desc3.getValueComponent();
+        propFilterCmpnt_desc3.setOptionsList(descs);
+        logger.debug(logPrfx + " --- called propFilterCmpnt_desc3.setOptionsList()");
+
         tmplt_Desc3Field.setOptionsList(descs);
         logger.debug(logPrfx + " --- called tmplt_Desc3Field.setOptionsList()");
 
@@ -2152,6 +2189,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
+
+        ComboBox<String> propFilterCmpnt_desc4 = (ComboBox<String>) filterConfig1A_desc4.getValueComponent();
+        propFilterCmpnt_desc4.setOptionsList(descs);
+        logger.debug(logPrfx + " --- called propFilterCmpnt_desc4.setOptionsList()");
 
         tmplt_Desc4Field.setOptionsList(descs);
         logger.debug(logPrfx + " --- called tmplt_Desc4Field.setOptionsList()");

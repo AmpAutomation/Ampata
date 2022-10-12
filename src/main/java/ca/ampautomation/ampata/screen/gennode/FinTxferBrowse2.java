@@ -73,10 +73,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
 
     @Autowired
-    protected SingleFilterSupport singleFilterSupport;
+    protected Filter filter;
 
     @Autowired
-    protected Filter filter;
+    protected PropertyFilter<GenNodeType> filterConfig1A_type1_Id;
 
     @Autowired
     protected PropertyFilter<LocalDateTime> filterConfig1A_idTsGE;
@@ -84,8 +84,8 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected PropertyFilter<LocalDateTime> filterConfig1A_idTsLE;
 
-//    @Autowired
-//    protected PropertyFilter<GenNode> filterConfig1A_genChan1_Id;
+    @Autowired
+    protected PropertyFilter<String> filterConfig1A_finTxact1_EI1_Role;
 
     @Autowired
     protected PropertyFilter<GenNode> filterConfig1A_finTxact1_Id_finTxset1_Id_genChan1_Id;
@@ -120,6 +120,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     protected PropertyFilter<Integer> filterConfig1B_idY;
+
     @Autowired
     protected PropertyFilter<Integer> filterConfig1B_idZ;
 
@@ -675,6 +676,12 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
+
+        //filter
+        ComboBox<String> propFilterCmpnt_finTxact1_EI1_Role = (ComboBox<String>) filterConfig1A_finTxact1_EI1_Role.getValueComponent();
+        propFilterCmpnt_finTxact1_EI1_Role.setNullOptionVisible(true);
+        propFilterCmpnt_finTxact1_EI1_Role.setNullSelectionCaption("<null>");
+
         Map<String, Integer> map1 = new LinkedHashMap<>();
         map1.put("Skip", 0);
         map1.put("Max+1", 2);
@@ -759,6 +766,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         type1_IdField.setOptionsContainer(finTxferTypesDc);
         //template
         tmplt_Type1_IdField.setOptionsContainer(finTxferTypesDc);
+        //filter
+        EntityComboBox<GenNodeType> propFilterCmpnt_type1_Id = (EntityComboBox<GenNodeType>) filterConfig1A_type1_Id.getValueComponent();
+        propFilterCmpnt_type1_Id.setOptionsContainer(finTxferTypesDc);
 
 
         genChansDc = dataComponents.createCollectionContainer(GenNode.class);
@@ -4876,8 +4886,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         if (thisFinTxset != null) {
             //finTxset is a 2nd ref (ref of a ref) of finTxfer and is not automatically loaded into the dataContext
-            GenNode thisTrackedTxset = dataContext.merge(thisFinTxset);
-            thisFinTxset = thisTrackedTxset;
+            thisFinTxset = dataContext.merge(thisFinTxset);
 
             String desc1_ = thisFinTxset.getDesc1();
 
@@ -6163,6 +6172,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
+
+        ComboBox<String> propFilterCmpnt_finTxact1_EI1_Role = (ComboBox<String>) filterConfig1A_finTxact1_EI1_Role.getValueComponent();
+        propFilterCmpnt_finTxact1_EI1_Role.setOptionsList(roles);
+        logger.debug(logPrfx + " --- called propFilterCmpnt_finTxact1_EI1_Role.setOptionsList()");
 
         tmplt_FinTxact1_EI1_RoleField.setOptionsList(roles);
         logger.debug(logPrfx + " --- called tmplt_FinTxact1_EI1_RoleField.setOptionsList()");

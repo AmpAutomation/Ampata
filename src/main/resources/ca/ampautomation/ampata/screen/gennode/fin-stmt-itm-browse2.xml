@@ -7,7 +7,7 @@
                     fetchPlan="finStmtItm-fetch-plan-base">
             <loader id="finStmtItmsDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmtItm']]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinStmtItm' ORDER BY e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -37,10 +37,18 @@
                             <groupFilter operation="AND" caption="GroupA">
                                 <propertyFilter id="filterConfig1A_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
-                                <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                <propertyFilter id="filterConfig1A_desc2" caption="desc2" operation="CONTAINS" property="desc2" operationEditable="true"/>
-                                <propertyFilter id="filterConfig1A_desc3" caption="desc3" operation="CONTAINS" property="desc3" operationEditable="true"/>
-                                <propertyFilter id="filterConfig1A_desc4" caption="desc4" operation="CONTAINS" property="desc4" operationEditable="true"/>
+                                <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true">
+                                    <comboBox/>
+                                </propertyFilter>
+                                <propertyFilter id="filterConfig1A_desc2" caption="desc2" operation="CONTAINS" property="desc2" operationEditable="true">
+                                    <comboBox/>
+                                </propertyFilter>
+                                <propertyFilter id="filterConfig1A_desc3" caption="desc3" operation="CONTAINS" property="desc3" operationEditable="true">
+                                    <comboBox/>
+                                </propertyFilter>
+                                <propertyFilter id="filterConfig1A_desc4" caption="desc4" operation="CONTAINS" property="desc4" operationEditable="true">
+                                    <comboBox/>
+                                </propertyFilter>
                                 <propertyFilter id="filterConfig1A_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_idTsLE" caption="idTs.ts1" operation="LESS" property="idTs.ts1" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>

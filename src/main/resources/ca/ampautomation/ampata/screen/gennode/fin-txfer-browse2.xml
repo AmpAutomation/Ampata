@@ -38,26 +38,34 @@
                             <groupFilter operation="OR">
                                 <groupFilter operation="AND" caption="GroupA">
                                     <propertyFilter id="filterConfig1A_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNodeType"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true">
+                                        <comboBox/>
+                                    </propertyFilter>
                                     <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idTsLE" caption="idTs.ts1" operation="LESS" property="idTs.ts1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idY" caption="idY" operation="EQUAL" property="idY" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idZ" caption="idZ" operation="EQUAL" property="idZ" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_Desc1" caption="Txs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.desc1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="fTxs.genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finHow1_Id" caption="finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finHow1_Id" operationEditable="true">
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finHow1_Id" caption="fTxs.finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finHow1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_FinHow"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhat1_Id" caption="finWhat1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhat1_Id" operationEditable="true">
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhat1_Id" caption="fTxs.finWhat1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhat1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_FinWhat"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhy1_Id" caption="finWhy1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhy1_Id" operationEditable="true">
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhy1_Id" caption="fTxs.finWhy1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhy1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_FinWhy"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_EI1_Role" caption="finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_EI1_Role" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_EI1_Role" caption="fTxa.finTxset1_EI1_Role" operation="EQUAL" property="finTxact1_Id.finTxset1_EI1_Role" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
@@ -71,14 +79,13 @@
                                     <propertyFilter id="filterConfig1A_finCurcy1_Id" caption="finCurcy1" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finStmt1_Id" caption="finStmt1" operation="EQUAL" property="finStmtItm1_Id.finStmt1_Id" operationEditable="true">
+                                    <propertyFilter id="filterConfig1A_finStmt1_Id" caption="fStI.finStmt1" operation="EQUAL" property="finStmtItm1_Id.finStmt1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc1" caption="finStmtItm1D1" operation="CONTAINS" property="finStmtItm1_Desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc2" caption="finStmtItm1D2" operation="CONTAINS" property="finStmtItm1_Desc2" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc3" caption="finStmtItm1D3" operation="CONTAINS" property="finStmtItm1_Desc3" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finStmtItm1_RefId" caption="finStmtItm1Ref" operation="CONTAINS" property="finStmtItm1_RefId" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id2" caption="finTxact1_Id2" operation="CONTAINS" property="finTxact1_Id.id2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc1" caption="fStI.Desc1" operation="CONTAINS" property="finStmtItm1_Desc1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc2" caption="fStI.Desc2" operation="CONTAINS" property="finStmtItm1_Desc2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_finStmtItm1_Desc3" caption="fStI.Desc3" operation="CONTAINS" property="finStmtItm1_Desc3" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_finStmtItm1_RefId" caption="fStI.RefId" operation="CONTAINS" property="finStmtItm1_RefId" operationEditable="true"/>
                                 </groupFilter>
                                 <groupFilter operation="AND" caption="GroupB">
                                     <propertyFilter id="filterConfig1B_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
