@@ -114,6 +114,7 @@
         <property name="desc1GenPat1_Id" fetchPlan="_base"/>
         <property name="desc1GenPat1_Id2"/>
         <property name="status"/>
+        <property name="statusCalc"/>
         <property name="note"/>
         <property name="genDocVers1_Id2"/>
         <property name="genDocVer1_Id2"/>
@@ -205,11 +206,37 @@
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
         <property name="finAcct1_Type1_Id2"/>
-        <property name="begBal"/>
-        <property name="endBal"/>
-        <property name="debtSum"/>
-        <property name="credSum"/>
-        <property name="netSum"/>
+
+        <property name="amtBegBal"/>
+        <property name="amtBegBalCalc"/>
+        <property name="amtEndBal"/>
+        <property name="amtEndBalCalc"/>
+        <property name="amtDebt"/>
+        <property name="amtCred"/>
+        <property name="amtNet"/>
+
+        <property name="finStmtItms1_IdCntCalc"/>
+        <property name="finStmtItms1_AmtDebtSumCalc"/>
+        <property name="finStmtItms1_AmtCredSumCalc"/>
+        <property name="finStmtItms1_AmtNetSumCalc"/>
+        <property name="finStmtItms1_AmtEqCalc"/>
+
+        <property name="finStmtItms1_AmtDebtSumDiff"/>
+        <property name="finStmtItms1_AmtCredSumDiff"/>
+        <property name="finStmtItms1_AmtNetSumDiff"/>
+
+
+        <property name="finTxfers1_IdCntCalc"/>
+        <property name="finTxfers1_AmtDebtSumCalc"/>
+        <property name="finTxfers1_AmtCredSumCalc"/>
+        <property name="finTxfers1_AmtNetSumCalc"/>
+        <property name="finTxfers1_AmtEqCalc"/>
+
+        <property name="finTxfers1_AmtDebtSumDiff"/>
+        <property name="finTxfers1_AmtCredSumDiff"/>
+        <property name="finTxfers1_AmtNetSumDiff"/>
+
+
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="finStmtItm-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="finStmt1_Id" fetchPlan="_base"/>
@@ -221,14 +248,21 @@
         <property name="exchDesc"/>
         <property name="refId"/>
         <property name="idX"/>
+        <property name="amtBegBalCalc"/>
+        <property name="amtEndBalCalc"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>
 
-        <property name="finTxfers1_DebtSum"/>
-        <property name="finTxfers1_CredSum"/>
-        <property name="finTxfers1_IdCnt"/>
-        <property name="finTxfers1_DebtEqCred"/>
+        <property name="finTxfers1_IdCntCalc"/>
+        <property name="finTxfers1_AmtDebtSumCalc"/>
+        <property name="finTxfers1_AmtCredSumCalc"/>
+        <property name="finTxfers1_AmtNetSumCalc"/>
+        <property name="finTxfers1_AmtEqCalc"/>
+
+        <property name="finTxfers1_AmtDebtSumDiff"/>
+        <property name="finTxfers1_AmtCredSumDiff"/>
+        <property name="finTxfers1_AmtNetSumDiff"/>
 
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="genDocVer-fetch-plan-base" extends="genNode-fetch-plan-base">
@@ -254,9 +288,13 @@
         <property name="whyText1"/>
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
+
         <property name="finTxfers1_Id2"/>
+
         <property name="finTxacts1_Id2"/>
         <property name="finTxacts1_FinAccts1_Id2"/>
+        <property name="finTxacts1_IdCntCalc"/>
+        <property name="finTxacts1_AmtEqCalc"/>
     </fetchPlan>
 
     <fetchPlan entity="ampata_GenNode" name="finTxact-fetch-plan-base" extends="genNode-fetch-plan-base">
@@ -292,10 +330,23 @@
         <property name="finTxfers1_Id2"/>
         <property name="finTxset1_FinAccts_Id2"/>
         <property name="finTxfers1_FinAccts1_Id2"/>
-        <property name="finTxfers1_DebtSum"/>
-        <property name="finTxfers1_CredSum"/>
-        <property name="finTxfers1_IdCnt"/>
-        <property name="finTxfers1_DebtEqCred"/>
+
+
+
+        <property name="amtDebt"/>
+        <property name="amtCred"/>
+        <property name="amtNet"/>
+
+        <property name="finTxfers1_IdCntCalc"/>
+        <property name="finTxfers1_AmtDebtSumCalc"/>
+        <property name="finTxfers1_AmtCredSumCalc"/>
+        <property name="finTxfers1_AmtNetSumCalc"/>
+        <property name="finTxfers1_AmtEqCalc"/>
+
+        <property name="finTxfers1_AmtDebtSumDiff"/>
+        <property name="finTxfers1_AmtCredSumDiff"/>
+        <property name="finTxfers1_AmtNetSumDiff"/>
+
         <property name="finTxact1_FinTxfers1_Id2"/>
 
     </fetchPlan>
@@ -347,6 +398,8 @@
         </property>
         <property name="finDept1_Id2"/>
 
+        <property name="amtBegBalCalc"/>
+        <property name="amtEndBalCalc"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>

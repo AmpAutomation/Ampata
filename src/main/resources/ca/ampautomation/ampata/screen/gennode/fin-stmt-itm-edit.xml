@@ -136,6 +136,19 @@
                                 </hbox>
                             </column>
                             <column width="360px">
+                                <hbox caption="amtDebt" expand="amtDebtField" width="100%">
+                                    <textField id="amtDebtField" dataContainer="finStmtItmDc" property="amtDebt" tabIndex="40"/>
+                                </hbox>
+
+                                <hbox caption="amtCred" expand="amtCredField" width="100%">
+                                    <textField id="amtCredField" dataContainer="finStmtItmDc" property="amtCred" tabIndex="40"/>
+                                </hbox>
+
+                                <hbox caption="amtNet" expand="amtNetField" width="100%">
+                                    <textField id="amtNetField" dataContainer="finStmtItmDc" property="amtNet" editable="false"
+                                               tabIndex="40"/>
+                                    <button id="updateAmtNetBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
                             </column>
                         </form>
                     </tab>
@@ -239,55 +252,52 @@
                         </form>
                     </tab>
                     <tab id="tab_6"
-                         caption="Stmt"
+                         caption="FinTxfer"
                          margin="true"
                          spacing="true">
                         <form id="tab6Form" dataContainer="finStmtItmDc">
-                            <column width="480px">
+                            <column width="360px">
+                                <hbox>
+                                </hbox>
+                                <hbox caption="amtDebt" expand="amtDebtField_tab_6" width="100%">
+                                    <textField id="amtDebtField_tab_6" dataContainer="finStmtItmDc" property="amtDebt" tabIndex="10"/>
+                                </hbox>
+                                <hbox caption="amtCred" expand="amtCredField_tab_6" width="100%">
+                                    <textField id="amtCredField_tab_6" dataContainer="finStmtItmDc" property="amtCred" tabIndex="10"/>
+                                </hbox>
+                                <hbox caption="amtNet" expand="amtNetField_tab_6" width="100%">
+                                    <textField id="amtNetField_tab_6" dataContainer="finStmtItmDc" property="amtNet" editable="false" tabIndex="10"/>
+                                </hbox>
+
                             </column>
-                            <column width="480px">
-                            </column>
-                        </form>
-                    </tab>
-                    <tab id="tab_7"
-                         caption="Txfer"
-                         margin="true"
-                         spacing="true">
-                        <form id="tab7Form" dataContainer="finStmtItmDc">
-                            <column width="480px">
-                                <textField id="amtDebtField" property="amtDebt" tabIndex="20"/>
-                                <textField id="amtCredField" property="amtCred" tabIndex="20"/>
-                                <hbox caption="amtNet" expand="amtNetField" width="100%">
-                                    <textField id="amtNetField" dataContainer="finStmtItmDc" property="amtNet" editable="false"
-                                               tabIndex="20"/>
-                                    <button id="updateAmtNetBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                            <column width="360px">
+                                <hbox caption="finTxfers1_IdCntCalc" expand="finTxfers1_IdCntCalcField" width="100%">
+                                    <textField id="finTxfers1_IdCntCalcField" dataContainer="finStmtItmDc" property="finTxfers1_IdCntCalc" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxfers1_AmtDebtSumField" expand="finTxfers1_AmtDebtSumCalcField" width="100%">
+                                    <textField id="finTxfers1_AmtDebtSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtDebtSumCalc" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxfers1_AmtCredSumCalc" expand="finTxfers1_AmtCredSumCalcField" width="100%">
+                                    <textField id="finTxfers1_AmtCredSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtCredSumCalc" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxfers1_AmtNetSumCalc" expand="finTxfers1_AmtNetSumCalcField" width="100%">
+                                    <textField id="finTxfers1_AmtNetSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtNetSumCalc" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxfers1_AmtEqCalc" expand="finTxfers1_AmtEqCalcBox" width="100%">
+                                    <checkBox id="finTxfers1_AmtEqCalcBox" dataContainer="finStmtItmDc" property="finTxfers1_AmtEqCalc" editable="false" tabIndex="20"/>
                                 </hbox>
                             </column>
-                            <column width="480px">
-                                <hbox caption="finTxfers1_DebtSum" expand="finTxfers1_DebtSum" width="100%">
-                                    <textField id="finTxfers1_DebtSum" dataContainer="finStmtItmDc" property="finTxfers1_DebtSum">
-                                        <formatter>
-                                            <number format="#,###.00"/>
-                                        </formatter>
-                                    </textField>
-                                    <button id="updateFinTxfers1_DebtSumFieldFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+
+                            <column width="360px">
+                                <hbox width="100%"/>
+                                <hbox caption="finTxfers1_AmtDebtSumField" expand="finTxfers1_AmtDebtSumDiffField" width="100%">
+                                    <textField id="finTxfers1_AmtDebtSumDiffField" dataContainer="finStmtItmDc" property="finTxfers1_AmtDebtSumDiff" editable="false" tabIndex="20"/>
                                 </hbox>
-                                <hbox caption="finTxfers1_CredSum" expand="finTxfers1_CredSumField" width="100%">
-                                    <textField id="finTxfers1_CredSumField" dataContainer="finStmtItmDc" property="finTxfers1_CredSum">
-                                        <formatter>
-                                            <number format="#,###.00"/>
-                                        </formatter>
-                                    </textField>
-                                    <button id="updateFinTxfers1_CredSumFieldFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                <hbox caption="finTxfers1_AmtCredSumDiff" expand="finTxfers1_AmtCredSumDiffField" width="100%">
+                                    <textField id="finTxfers1_AmtCredSumDiffField" dataContainer="finStmtItmDc" property="finTxfers1_AmtCredSumDiff" editable="false" tabIndex="20"/>
                                 </hbox>
-                                <hbox caption="finTxfers1_IdCnt" expand="finTxfers1_IdCntField" width="100%">
-                                    <textField id="finTxfers1_IdCntField" dataContainer="finStmtItmDc" property="finTxfers1_IdCnt" editable="false" tabIndex="10"/>
-                                    <button id="updateFinTxfers1_IdCntFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
-                                </hbox>
-                                <hbox caption="finTxfers1_DebtEqCred" expand="finTxfers1_DebtEqCredBox" width="100%">
-                                    <checkBox id="finTxfers1_DebtEqCredBox" dataContainer="finStmtItmDc" property="finTxfers1_DebtEqCred" editable="false"
-                                              tabIndex="10"/>
-                                    <button id="updateFinTxfers1_DebtEqCredBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                <hbox caption="finTxfers1_AmtNetSumDiff" expand="finTxfers1_AmtNetSumDiffField" width="100%">
+                                    <textField id="finTxfers1_AmtNetSumDiffField" dataContainer="finStmtItmDc" property="finTxfers1_AmtNetSumDiff" editable="false" tabIndex="20"/>
                                 </hbox>
                             </column>
                         </form>

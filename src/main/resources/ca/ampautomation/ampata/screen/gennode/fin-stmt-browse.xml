@@ -76,11 +76,11 @@
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="begBal"/>
-                <column id="endBal"/>
-                <column id="debtSum"/>
-                <column id="credSum"/>
-                <column id="netSum"/>
+                <column id="amtBegBal"/>
+                <column id="amtEndBal"/>
+                <column id="amtDebt"/>
+                <column id="amtCred"/>
+                <column id="amtNet"/>
                 <column id="status"/>
                 <column id="note"/>
             </columns>

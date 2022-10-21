@@ -200,6 +200,9 @@ public class GenNode {
     @Column(name = "STATUS")
     private String status;
 
+    @Column(name = "STATUS_CALC")
+    private String statusCalc;
+
     @Column(name = "NOTE")
     @Lob
     private String note;
@@ -360,21 +363,6 @@ public class GenNode {
     })
     private HasTmst end2;
 
-    @Column(name = "BEG_BAL", precision = 19, scale = 2)
-    private BigDecimal begBal;
-
-    @Column(name = "END_BAL", precision = 19, scale = 2)
-    private BigDecimal endBal;
-
-    @Column(name = "DEBT_SUM", precision = 19, scale = 2)
-    private BigDecimal debtSum;
-
-    @Column(name = "CRED_SUM", precision = 19, scale = 2)
-    private BigDecimal credSum;
-
-    @Column(name = "NET_SUM", precision = 19, scale = 2)
-    private BigDecimal netSum;
-
 
     @Column(name = "VER")
     private String ver;
@@ -443,15 +431,8 @@ public class GenNode {
     @Column(name = "FIN_TXSET1__WHY1__ID2")
     private String finTxset1_Why1_Id2;
 
-
-    @Lob
-    @Column(name = "FIN_TXACT1__FIN_TXFERS1__ID2")
-    private String finTxact1_FinTxfers1_Id2;
-
-    @Lob
-    @Column(name = "FIN_TXACT1__FIN_ACCTS1__ID2")
-    private String finTxact1_FinAccts1_Id2;
-
+    
+    
     @JoinColumn(name = "FIN_TXACT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private GenNode finTxact1_Id;
@@ -684,22 +665,35 @@ public class GenNode {
     @Column(name = "AMT_CALC", precision = 19, scale = 2)
     private BigDecimal amtCalc;
 
-    @Lob
-    @Column(name = "FIN_TXSET1__GEN_DOC_VERS1__ID2")
-    private String finTxset1_GenDocVers1_Id2;
 
-    @Lob
-    @Column(name = "FIN_TXACT1__GEN_DOC_VERS1__ID2")
-    private String finTxact1_GenDocVers1_Id2;
+    @Column(name = "AMT_BEG_BAL", precision = 19, scale = 2)
+    private BigDecimal amtBegBal;
 
-    @Lob
-    @Column(name = "FIN_TXSET1__GEN_TAGS1__ID2")
-    private String finTxset1_GenTags1_Id2;
+    @Column(name = "AMT_BEG_BAL_CALC", precision = 19, scale = 2)
+    private BigDecimal amtBegBalCalc;
 
-    @Lob
-    @Column(name = "FIN_TXACT1__GEN_TAGS1__ID2")
-    private String finTxact1_GenTags1_Id2;
+    @Column(name = "AMT_END_BAL", precision = 19, scale = 2)
+    private BigDecimal amtEndBal;
 
+    @Column(name = "AMT_END_BAL_CALC", precision = 19, scale = 2)
+    private BigDecimal amtEndBalCalc;
+
+
+
+
+
+    // Edge to FinTxact1->FinTxfers1
+    @Lob
+    @Column(name = "FIN_TXACT1__FIN_TXFERS1__ID2")
+    private String finTxact1_FinTxfers1_Id2;
+
+    // Edge to FinTxact1->FinAccts1
+    @Lob
+    @Column(name = "FIN_TXACT1__FIN_ACCTS1__ID2")
+    private String finTxact1_FinAccts1_Id2;
+
+
+    // Edge to FinTxfers
     @Column(name = "FIN_TXFERS1__ID2")
     @Lob
     private String finTxfers1_Id2;
@@ -712,18 +706,37 @@ public class GenNode {
     @Lob
     private String finTxfers1_FinAccts1_Id2;
 
-    @Column(name = "FIN_TXFERS1__ID_CNT")
-    private Integer finTxfers1_IdCnt;
 
-    @Column(name = "FIN_TXFERS1__DEBT_SUM", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_DebtSum;
+    @Column(name = "FIN_TXFERS1__ID_CNT_CALC")
+    private Integer finTxfers1_IdCntCalc;
 
-    @Column(name = "FIN_TXFERS1__CRED_SUM", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_CredSum;
+    @Column(name = "FIN_TXFERS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtDebtSumCalc;
 
-    @Column(name = "FIN_TXFERS1__DEBT_EQ_CRED")
-    private Boolean finTxfers1_DebtEqCred;
+    @Column(name = "FIN_TXFERS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtCredSumCalc;
 
+    @Column(name = "FIN_TXFERS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtNetSumCalc;
+
+    @Column(name = "FIN_TXFERS1__AMT_EQ_CALC")
+    private Boolean finTxfers1_AmtEqCalc;
+
+    
+    @Column(name = "FIN_TXFERS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtDebtSumDiff;
+
+    @Column(name = "FIN_TXFERS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtCredSumDiff;
+
+    @Column(name = "FIN_TXFERS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxfers1_AmtNetSumDiff;
+
+    @Column(name = "FIN_TXFERS1__AMT_EQ_DIFF")
+    private Boolean finTxfers1_AmtEqDiff;
+
+
+    // Edge to FinTxacts
     @Column(name = "FIN_TXACTS1__ID2")
     @Lob
     private String finTxacts1_Id2;
@@ -732,8 +745,65 @@ public class GenNode {
     @Lob
     private String finTxacts1_FinAccts1_Id2;
 
-    @Column(name = "FIN_TXACTS1__ID_CNT")
-    private Integer finTxacts1_IdCnt;
+    @Column(name = "FIN_TXACTS1__ID_CNT_CALC")
+    private Integer finTxacts1_IdCntCalc;
+
+    @Column(name = "FIN_TXACTS1__AMT_EQ_CALC")
+    private Boolean finTxacts1_AmtEqCalc;
+
+
+
+    // Edge to FinStmtItms
+
+    @Column(name = "FIN_STMT_ITMS1__ID_CNT_CALC")
+    private Integer finStmtItms1_IdCntCalc;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtDebtSumCalc;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtCredSumCalc;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtNetSumCalc;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_EQ_CALC")
+    private Boolean finStmtItms1_AmtEqCalc;
+
+    
+    @Column(name = "FIN_STMT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtDebtSumDiff;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtCredSumDiff;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finStmtItms1_AmtNetSumDiff;
+
+    @Column(name = "FIN_STMT_ITMS1__AMT_EQ_DIFF")
+    private Boolean finStmtItms1_AmtEqDiff;
+
+
+    // Edge to FinTxset1.GenDocVers1
+    @Lob
+    @Column(name = "FIN_TXSET1__GEN_DOC_VERS1__ID2")
+    private String finTxset1_GenDocVers1_Id2;
+
+    // Edge to FinTxact1.GenDocVers1
+    @Lob
+    @Column(name = "FIN_TXACT1__GEN_DOC_VERS1__ID2")
+    private String finTxact1_GenDocVers1_Id2;
+
+    // Edge to FinTxset1.GenTags1
+    @Lob
+    @Column(name = "FIN_TXSET1__GEN_TAGS1__ID2")
+    private String finTxset1_GenTags1_Id2;
+
+    // Edge to FinTxact1.GenTags1
+    @Lob
+    @Column(name = "FIN_TXACT1__GEN_TAGS1__ID2")
+    private String finTxact1_GenTags1_Id2;
+
 
     @Column(name = "VERSION", nullable = false)
     @Version
@@ -1564,32 +1634,6 @@ public class GenNode {
 
 
 
-    public String getFinTxacts1_Id2() {
-        return finTxacts1_Id2;
-    }
-
-    public void setFinTxacts1_Id2(String finTxacts1_Id2) {
-        this.finTxacts1_Id2 = finTxacts1_Id2;
-    }
-
-    public String getFinTxact1_FinTxfers1_Id2() {
-        return finTxact1_FinTxfers1_Id2;
-    }
-
-    public String getFinTxact1_FinAccts1_Id2() {
-        return finTxact1_FinAccts1_Id2;
-    }
-
-    public String getFinTxacts1_FinAccts1_Id2() {
-        return finTxacts1_FinAccts1_Id2;
-    }
-
-    public void setFinTxacts1_FinAccts1_Id2(String finTxacts1_FinAccts1_Id2) {
-        this.finTxacts1_FinAccts1_Id2 = finTxacts1_FinAccts1_Id2;
-    }
-
-
-
     public GenNode getFinTxact1_Id() {
         return finTxact1_Id;
     }
@@ -1842,29 +1886,6 @@ public class GenNode {
 
 
 
-    public BigDecimal getAmtNet() {
-        return amtNet;
-    }
-
-    public void setAmtNet(BigDecimal amtNet) {
-        this.amtNet = amtNet;
-    }
-
-    public BigDecimal getAmtCred() {
-        return amtCred;
-    }
-
-    public void setAmtCred(BigDecimal amtCred) {
-        this.amtCred = amtCred;
-    }
-
-    public BigDecimal getAmtDebt() {
-        return amtDebt;
-    }
-
-    public void setAmtDebt(BigDecimal amtDebt) {
-        this.amtDebt = amtDebt;
-    }
 
     public GenNode getFinCurcy1_Id() {
         return finCurcy1_Id;
@@ -1881,6 +1902,7 @@ public class GenNode {
     public void setFinCurcy1_Id2(String finCurcy1_Id2) {
         this.finCurcy1_Id2 = finCurcy1_Id2;
     }
+
 
 
 
@@ -1904,9 +1926,7 @@ public class GenNode {
         return finTaxLne1_Type1_Id2;
     }
 
-    public void setFinTaxLne1_Type1_Id2(String finTaxLne1_Type1_Id2) {
-        this.finTaxLne1_Type1_Id2 = finTaxLne1_Type1_Id2;
-    }
+    public void setFinTaxLne1_Type1_Id2(String finTaxLne1_Type1_Id2) { this.finTaxLne1_Type1_Id2 = finTaxLne1_Type1_Id2; }
 
     public String getFinTaxLne1_Code() {
         return finTaxLne1_Code;
@@ -1953,16 +1973,90 @@ public class GenNode {
         return amtFinTxfer1_EI1_Rate;
     }
 
-    public void setAmtFinTxfer1_EI1_Rate(BigDecimal amtFinTxfer1_EI1_Rate) {
-        this.amtFinTxfer1_EI1_Rate = amtFinTxfer1_EI1_Rate;
-    }
+    public void setAmtFinTxfer1_EI1_Rate(BigDecimal amtFinTxfer1_EI1_Rate) { this.amtFinTxfer1_EI1_Rate = amtFinTxfer1_EI1_Rate; }
 
     public String getAmtFinTxfer1_FinAcct1_Id2() {
         return amtFinTxfer1_FinAcct1_Id2;
     }
 
-    public void setAmtFinTxfer1_FinAcct1_Id2(String amtFinTxfer1_FinAcct1_Id2) {
-        this.amtFinTxfer1_FinAcct1_Id2 = amtFinTxfer1_FinAcct1_Id2;
+    public void setAmtFinTxfer1_FinAcct1_Id2(String amtFinTxfer1_FinAcct1_Id2) { this.amtFinTxfer1_FinAcct1_Id2 = amtFinTxfer1_FinAcct1_Id2; }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatusCalc() {
+        return statusCalc;
+    }
+
+    public void setStatusCalc(String statusCalc) {
+        this.status = statusCalc;
+    }
+
+
+    public BigDecimal getAmtBegBal() {
+        return amtBegBal;
+    }
+
+    public void setAmtBegBal(BigDecimal amtBegBal) {
+        this.amtBegBal = amtBegBal;
+    }
+
+    public BigDecimal getAmtBegBalCalc() {
+        return amtBegBalCalc;
+    }
+
+    public void setAmtBegBalCalc(BigDecimal amtBegBalCalc) {
+        this.amtBegBalCalc = amtBegBalCalc;
+    }
+
+
+    public BigDecimal getAmtEndBal() {
+        return amtEndBal;
+    }
+
+    public void setAmtEndBal(BigDecimal amtEndBal) {
+        this.amtEndBal = amtEndBal;
+    }
+
+    public BigDecimal getAmtEndBalCalc() {
+        return amtEndBalCalc;
+    }
+
+    public void setAmtEndBalCalc(BigDecimal amtEndBalCalc) {
+        this.amtEndBalCalc = amtEndBalCalc;
+    }
+
+
+
+
+    public BigDecimal getAmtDebt() {
+        return amtDebt;
+    }
+
+    public void setAmtDebt(BigDecimal amtDebt) {
+        this.amtDebt = amtDebt;
+    }
+
+    public BigDecimal getAmtCred() {
+        return amtCred;
+    }
+
+    public void setAmtCred(BigDecimal amtCred) {
+        this.amtCred = amtCred;
+    }
+
+    public BigDecimal getAmtNet() {
+        return amtNet;
+    }
+
+    public void setAmtNet(BigDecimal amtNet) {
+        this.amtNet = amtNet;
     }
 
 
@@ -1983,6 +2077,7 @@ public class GenNode {
     }
 
 
+    // Edge to FinTxfers
 
     public String getFinTxfers1_Id2() {
         return finTxfers1_Id2;
@@ -1996,100 +2091,134 @@ public class GenNode {
         return finTxfers1_FinAccts1_Id2;
     }
 
-    public void setFinTxfers1_FinAccts1_Id2(String finTxfers1_FinAccts1_Id2) {
-        this.finTxfers1_FinAccts1_Id2 = finTxfers1_FinAccts1_Id2;
+    public void setFinTxfers1_FinAccts1_Id2(String finTxfers1_FinAccts1_Id2) { this.finTxfers1_FinAccts1_Id2 = finTxfers1_FinAccts1_Id2; }
+
+
+    public Integer getFinTxfers1_IdCntCalc() { return finTxfers1_IdCntCalc; }
+
+    public void setFinTxfers1_IdCntCalc(Integer finTxfers1_IdCntCalc) { this.finTxfers1_IdCntCalc = finTxfers1_IdCntCalc; }
+
+    public BigDecimal getFinTxfers1_AmtDebtSumCalc() {
+        return finTxfers1_AmtDebtSumCalc;
+    }
+
+    public void setFinTxfers1_AmtDebtSumCalc(BigDecimal finTxfers1_AmtDebtSumCalc) { this.finTxfers1_AmtDebtSumCalc = finTxfers1_AmtDebtSumCalc; }
+
+    public BigDecimal getFinTxfers1_AmtCredSumCalc() {
+        return finTxfers1_AmtCredSumCalc;
+    }
+
+    public void setFinTxfers1_AmtCredSumCalc(BigDecimal finTxfers1_AmtCredSumCalc) { this.finTxfers1_AmtCredSumCalc = finTxfers1_AmtCredSumCalc; }
+
+    public BigDecimal getFinTxfers1_AmtNetSumCalc() { return finTxfers1_AmtNetSumCalc; }
+
+    public void setFinTxfers1_AmtNetSumCalc(BigDecimal finTxfers1_AmtNetSumCalc) { this.finTxfers1_AmtNetSumCalc = finTxfers1_AmtNetSumCalc; }
+
+    public Boolean getFinTxfers1_AmtEqCalc() { return finTxfers1_AmtEqCalc; }
+
+    public void setFinTxfers1_AmtEqCalc(Boolean finTxfers1_AmtEqCalc) {this.finTxfers1_AmtEqCalc = finTxfers1_AmtEqCalc; }
+
+
+    public BigDecimal getFinTxfers1_AmtDebtSumDiff() { return finTxfers1_AmtDebtSumDiff; }
+
+    public void setFinTxfers1_AmtDebtSumDiff(BigDecimal finTxfers1_AmtDebtSumDiff) { this.finTxfers1_AmtDebtSumDiff = finTxfers1_AmtDebtSumDiff; }
+
+    public BigDecimal getFinTxfers1_AmtCredSumDiff() { return finTxfers1_AmtCredSumDiff; }
+
+    public void setFinTxfers1_AmtCredSumDiff(BigDecimal finTxfers1_AmtCredSumDiff) { this.finTxfers1_AmtCredSumDiff = finTxfers1_AmtCredSumDiff; }
+
+    public BigDecimal getFinTxfers1_AmtNetSumDiff() { return finTxfers1_AmtNetSumDiff; }
+
+    public void setFinTxfers1_AmtNetSumDiff(BigDecimal finTxfers1_AmtNetSumDiff) { this.finTxfers1_AmtNetSumDiff = finTxfers1_AmtNetSumDiff; }
+
+    public Boolean getFinTxfers1_AmtEqDiff() { return finTxfers1_AmtEqDiff; }
+
+    public void setFinTxfers1_AmtEqDiff(Boolean finTxfers1_AmtEqDiff) {this.finTxfers1_AmtEqDiff = finTxfers1_AmtEqDiff; }
+
+
+
+    // Edge to FinTxacts
+
+    public String getFinTxacts1_Id2() {
+        return finTxacts1_Id2;
+    }
+
+    public void setFinTxacts1_Id2(String finTxacts1_Id2) {
+        this.finTxacts1_Id2 = finTxacts1_Id2;
+    }
+
+    public String getFinTxacts1_FinAccts1_Id2() {
+        return finTxacts1_FinAccts1_Id2;
+    }
+
+    public void setFinTxacts1_FinAccts1_Id2(String finTxacts1_FinAccts1_Id2) { this.finTxacts1_FinAccts1_Id2 = finTxacts1_FinAccts1_Id2; }
+
+
+    public Integer getFinTxacts1_IdCntCalc() { return finTxacts1_IdCntCalc; }
+
+    public void setFinTxacts1_IdCntCalc(Integer finTxacts1_IdCntCalc) {this.finTxacts1_IdCntCalc = finTxacts1_IdCntCalc; }
+
+    public Boolean getFinTxacts1_AmtEqCalc() { return finTxacts1_AmtEqCalc; }
+
+    public void setFinTxacts1_AmtEqCalc(Boolean finTxacts1_AmtEqCalc) {this.finTxacts1_AmtEqCalc = finTxacts1_AmtEqCalc; }
+
+
+    // Edge to FinTxact1.FinTxsets
+
+    public String getFinTxact1_FinTxfers1_Id2() {
+        return finTxact1_FinTxfers1_Id2;
+    }
+
+    public String getFinTxact1_FinAccts1_Id2() {
+        return finTxact1_FinAccts1_Id2;
     }
 
 
-    public Boolean getFinTxfers1_DebtEqCred() {
-        return finTxfers1_DebtEqCred;
+
+
+
+    // Edge to FinStmtItms
+
+    public Integer getFinStmtItms1_IdCntCalc() { return finStmtItms1_IdCntCalc; }
+
+    public void setFinStmtItms1_IdCntCalc(Integer finStmtItms1_IdCntCalc) {this.finStmtItms1_IdCntCalc = finStmtItms1_IdCntCalc;    }
+
+    public BigDecimal getFinStmtItms1_AmtDebtSumCalc() {
+        return finStmtItms1_AmtDebtSumCalc;
     }
 
-    public void setFinTxfers1_DebtEqCred(Boolean finTxfers1_DebtEqCred) {
-        this.finTxfers1_DebtEqCred = finTxfers1_DebtEqCred;
+    public void setFinStmtItms1_AmtDebtSumCalc(BigDecimal finStmtItms1_AmtDebtSumCalc) { this.finStmtItms1_AmtDebtSumCalc = finStmtItms1_AmtDebtSumCalc; }
+
+    public BigDecimal getFinStmtItms1_AmtCredSumCalc() { return finStmtItms1_AmtCredSumCalc; }
+
+    public void setFinStmtItms1_AmtCredSumCalc(BigDecimal finStmtItms1_AmtCredSumCalc) { this.finStmtItms1_AmtCredSumCalc = finStmtItms1_AmtCredSumCalc; }
+
+    public BigDecimal getFinStmtItms1_AmtNetSumCalc() { return finStmtItms1_AmtNetSumCalc; }
+
+    public void setFinStmtItms1_AmtNetSumCalc(BigDecimal finStmtItms1_AmtNetSumCalc) { this.finStmtItms1_AmtNetSumCalc = finStmtItms1_AmtNetSumCalc; }
+
+    public Boolean getFinStmtItms1_AmtEqCalc() {
+        return finStmtItms1_AmtEqCalc;
     }
 
-    public Integer getFinTxfers1_IdCnt() {
-        return finTxfers1_IdCnt;
-    }
-
-    public void setFinTxfers1_IdCnt(Integer finTxfers1_IdCnt) {
-        this.finTxfers1_IdCnt = finTxfers1_IdCnt;
-    }
-
-    public BigDecimal getFinTxfers1_CredSum() {
-        return finTxfers1_CredSum;
-    }
-
-    public void setFinTxfers1_CredSum(BigDecimal finTxfers1_CredSum) {
-        this.finTxfers1_CredSum = finTxfers1_CredSum;
-    }
-
-    public BigDecimal getFinTxfers1_DebtSum() {
-        return finTxfers1_DebtSum;
-    }
-
-    public void setFinTxfers1_DebtSum(BigDecimal finTxfers1_DebtSum) {
-        this.finTxfers1_DebtSum = finTxfers1_DebtSum;
-    }
+    public void setFinStmtItms1_AmtEqCalc(Boolean finStmtItms1_AmtEqCalc) {this.finStmtItms1_AmtEqCalc = finStmtItms1_AmtEqCalc; }
 
 
-    public Integer getFinTxacts1_IdCnt() {
-        return finTxacts1_IdCnt;
-    }
+    public BigDecimal getFinStmtItms1_AmtDebtSumDiff() { return finStmtItms1_AmtDebtSumDiff; }
 
-    public void setFinTxacts1_IdCnt(Integer finTxacts1_IdCnt) {
-        this.finTxacts1_IdCnt = finTxacts1_IdCnt;
-    }
+    public void setFinStmtItms1_AmtDebtSumDiff(BigDecimal finStmtItms1_AmtDebtSumDiff) { this.finStmtItms1_AmtDebtSumDiff = finStmtItms1_AmtDebtSumDiff; }
 
+    public BigDecimal getFinStmtItms1_AmtCredSumDiff() { return finStmtItms1_AmtCredSumDiff; }
 
-    public String getStatus() {
-        return status;
-    }
+    public void setFinStmtItms1_AmtCredSumDiff(BigDecimal finStmtItms1_AmtCredSumDiff) { this.finStmtItms1_AmtCredSumDiff = finStmtItms1_AmtCredSumDiff; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public BigDecimal getFinStmtItms1_AmtNetSumDiff() { return finStmtItms1_AmtNetSumDiff; }
 
-    public BigDecimal getNetSum() {
-        return netSum;
-    }
+    public void setFinStmtItms1_AmtNetSumDiff(BigDecimal finStmtItms1_AmtNetSumDiff) { this.finStmtItms1_AmtNetSumDiff = finStmtItms1_AmtNetSumDiff; }
 
-    public void setNetSum(BigDecimal netSum) {
-        this.netSum = netSum;
-    }
+    public Boolean getFinStmtItms1_AmtEqDiff() { return finStmtItms1_AmtEqDiff; }
 
-    public BigDecimal getDebtSum() {
-        return debtSum;
-    }
-
-    public void setDebtSum(BigDecimal debtSum) {
-        this.debtSum = debtSum;
-    }
-
-    public BigDecimal getCredSum() {
-        return credSum;
-    }
-
-    public void setCredSum(BigDecimal credSum) {
-        this.credSum = credSum;
-    }
-
-    public BigDecimal getEndBal() {
-        return endBal;
-    }
-
-    public void setEndBal(BigDecimal endBal) {
-        this.endBal = endBal;
-    }
-
-    public BigDecimal getBegBal() {
-        return begBal;
-    }
-
-    public void setBegBal(BigDecimal begBal) {
-        this.begBal = begBal;
-    }
+    public void setFinStmtItms1_AmtEqDiff(Boolean finStmtItms1_AmtEqDiff) {this.finStmtItms1_AmtEqDiff = finStmtItms1_AmtEqDiff; }
 
 
 
@@ -2470,7 +2599,7 @@ public class GenNode {
         String logPrfx = "updateIdDt()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
                 .appendPattern("yyyyMMdd")
@@ -2500,7 +2629,7 @@ public class GenNode {
         String logPrfx = "updateIdTm()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
                 .appendPattern("HHmm")
@@ -2521,7 +2650,7 @@ public class GenNode {
         String logPrfx = "updateBeg1()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         LocalDateTime beg1_ts1_ = beg1.getTs1();
         LocalDateTime beg1_ts1 = null;
@@ -2579,7 +2708,7 @@ public class GenNode {
         String logPrfx = "updateBeg2()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         LocalDateTime beg2_ts1_ = beg2.getTs1();
         LocalDateTime beg2_ts1 = null;
@@ -2638,7 +2767,7 @@ public class GenNode {
         String logPrfx = "updateEnd1()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         LocalDateTime end1_ts1_ = end1.getTs1();
         LocalDateTime end1_ts1 = null;
@@ -2695,7 +2824,7 @@ public class GenNode {
         String logPrfx = "updateIdX()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         Integer idX_ = idX;
         Integer idX = null;
@@ -2743,7 +2872,7 @@ public class GenNode {
         String logPrfx = "updateIdY()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         Integer idY_ = idY;
         Integer idY = null;
@@ -2788,7 +2917,7 @@ public class GenNode {
         String logPrfx = "updateIdZ()";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         Integer idZ_ = idZ;
         Integer idZ = null;

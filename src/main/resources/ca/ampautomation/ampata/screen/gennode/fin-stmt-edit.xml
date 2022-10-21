@@ -186,28 +186,28 @@
                                        caption="End.Date1" dateFormat="yyyy-MM-dd"/>
                         </column>
                         <column width="350px">
-                            <textField id="begBalField" property="begBal">
+                            <textField id="amtBegBalField" property="amtBegBal">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>
                             </textField>
 
-                            <textField id="endBalField" property="endBal" editable="false">
+                            <textField id="amtEndBalField" property="amtEndBal" editable="false">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>
                             </textField>
-                            <textField id="debtSumField" property="debtSum">
+                            <textField id="amtDebtField" property="amtDebt">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>
                             </textField>
-                            <textField id="credSumField" property="credSum">
+                            <textField id="amtCredField" property="amtCred">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>
                             </textField>
-                            <textField id="netSumField" property="netSum" editable="false">
+                            <textField id="amtNetField" property="amtNet" editable="false">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>
