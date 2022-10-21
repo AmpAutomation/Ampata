@@ -1460,6 +1460,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 isChanged = true;
             }
 
+            finStmtItms1_AmtNetSumDiff = finStmtItms1_AmtNetSumCalc.subtract(thisFinStmt.getAmtNet());
+
             if (!Objects.equals(finStmtItms1_AmtNetSumDiff_, finStmtItms1_AmtNetSumDiff)){
                 thisFinStmt.setFinStmtItms1_AmtNetSumDiff(finStmtItms1_AmtNetSumDiff);
                 logger.debug(logPrfx + " --- finStmtItms1_AmtNetSumDiff: " + finStmtItms1_AmtNetSumDiff);
@@ -1574,6 +1576,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 logger.debug(logPrfx + " --- finTxfers1_AmtNetSumCalc: " + finTxfers1_AmtNetSumCalc);
                 isChanged = true;
             }
+
+            finTxfers1_AmtNetSumDiff = finTxfers1_AmtNetSumCalc.subtract(thisFinStmt.getAmtNet());
 
             if (!Objects.equals(finTxfers1_AmtNetSumDiff_, finTxfers1_AmtNetSumDiff)){
                 thisFinStmt.setFinTxfers1_AmtNetSumDiff(finTxfers1_AmtNetSumDiff);
