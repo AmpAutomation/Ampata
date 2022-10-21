@@ -3789,9 +3789,9 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_DebtSumFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_DebtSumFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_DebtSumFieldBtnClick";
+    @Subscribe("updateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -3801,14 +3801,14 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFintxact1_Id_FinTxfers1_DebtSum(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_IdCntCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_CredSumFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_CredSumFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_CredSumFieldBtnClick";
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -3818,14 +3818,14 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFintxact1_Id_FinTxfers1_CredSum(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_IdCntFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_IdCntFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_IdCntFieldBtnClick";
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -3835,14 +3835,15 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFintxact1_Id_FinTxfers1_IdCnt(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtnClick";
+
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -3852,7 +3853,7 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFintxact1_Id_FinTxfers1_DebtEqCred(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtEqCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -4452,10 +4453,10 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
 
         // Stored in FinTxact Object
         isChanged = updateFinTxact1_Id_Desc1(thisFinTxfer)  || isChanged;
-        isChanged = updateFintxact1_Id_FinTxfers1_DebtSum(thisFinTxfer)  || isChanged;
-        isChanged = updateFintxact1_Id_FinTxfers1_CredSum(thisFinTxfer)  || isChanged;
-        isChanged = updateFintxact1_Id_FinTxfers1_IdCnt(thisFinTxfer)  || isChanged;
-        isChanged = updateFintxact1_Id_FinTxfers1_DebtEqCred(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_IdCntCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtEqCalc(thisFinTxfer)  || isChanged;
 
         isChanged = updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxfer) || isChanged;
         isChanged = updateFinTxact1_FinTxset1_Id(thisFinTxfer, finTxsetOption) || isChanged;
@@ -5199,7 +5200,43 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         return isChanged;
     }
 
-    private Boolean updateFintxact1_Id_FinTxfers1_DebtSum(@NotNull GenNode thisFinTxfer) {
+    private Boolean updateFintxact1_Id_FinTxfers1_IdCntCalc(@NotNull GenNode thisFinTxfer) {
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_IdCntCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
+        if (thisFinTxact != null) {
+            Integer idCntCalc_ = thisFinTxact.getFinTxfers1_IdCntCalc();
+            Integer idCntCalc = null ;
+            String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            try{
+                idCntCalc = dataManager.loadValue(qry1,Integer.class)
+                        .store("main")
+                        .parameter("finTxact1_Id",thisFinTxact)
+                        .one();
+                if (idCntCalc == null) {
+                    idCntCalc = 0;}
+                logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
+
+            } catch (IllegalStateException e){
+                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+                logger.debug(logPrfx + " --- idCntCalc: null");
+            }
+
+            if(!Objects.equals(idCntCalc_, idCntCalc)){
+                isChanged = true;
+                thisFinTxact.setFinTxfers1_IdCntCalc(idCntCalc);
+                logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
+            }
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(@NotNull GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
         String logPrfx = "updateFintxact1_Id_FinTxfers1_DebtSum";
         logger.trace(logPrfx + " --> ");
@@ -5207,27 +5244,27 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
-            BigDecimal finTxact1_DebtSum_ = thisFinTxact.getFinTxfers1_DebtSum();
-            BigDecimal finTxact1_DebtSum = null ;
+            BigDecimal amtDebtSumCalc_ = thisFinTxact.getFinTxfers1_AmtDebtSumCalc();
+            BigDecimal amtDebtSumCalc = null ;
             String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
-                finTxact1_DebtSum = dataManager.loadValue(qry1,BigDecimal.class)
+                amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
                         .parameter("finTxact1_Id",thisFinTxact)
                         .one();
-                if (finTxact1_DebtSum == null) {
-                    finTxact1_DebtSum = BigDecimal.valueOf(0);}
-                logger.debug(logPrfx + " --- finTxact1_DebtSum: " + finTxact1_DebtSum);
+                if (amtDebtSumCalc == null) {
+                    amtDebtSumCalc = BigDecimal.valueOf(0);}
+                logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
 
             } catch (IllegalStateException e){
                 logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
+                logger.debug(logPrfx + " --- amtDebtSumCalc: null");
             }
 
-            if(!Objects.equals(finTxact1_DebtSum_, finTxact1_DebtSum)){
+            if(!Objects.equals(amtDebtSumCalc_, amtDebtSumCalc)){
                 isChanged = true;
-                thisFinTxact.setFinTxfers1_DebtSum(finTxact1_DebtSum);
-                logger.debug(logPrfx + " --- finTxact1_DebtSum: " + finTxact1_DebtSum);
+                thisFinTxact.setFinTxfers1_AmtDebtSumCalc(amtDebtSumCalc);
+                logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
             }
         }
 
@@ -5235,35 +5272,35 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
         return isChanged;
     }
 
-    private Boolean updateFintxact1_Id_FinTxfers1_CredSum(@NotNull GenNode thisFinTxfer) {
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(@NotNull GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
-        String logPrfx = "updateFintxact1_Id_FinTxfers1_CredSum";
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
-            BigDecimal finTxact1_CredSum_ = thisFinTxact.getFinTxfers1_CredSum();
-            BigDecimal finTxact1_CredSum = null ;
+            BigDecimal amtCredSumCalc_ = thisFinTxact.getFinTxfers1_AmtCredSumCalc();
+            BigDecimal amtCredSumCalc = null ;
             String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
-                finTxact1_CredSum = dataManager.loadValue(qry1,BigDecimal.class)
+                amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
                         .parameter("finTxact1_Id",thisFinTxact)
                         .one();
-                if (finTxact1_CredSum == null) {
-                    finTxact1_CredSum = BigDecimal.valueOf(0);}
-                logger.debug(logPrfx + " --- finTxact1_CredSum: " + finTxact1_CredSum);
+                if (amtCredSumCalc == null) {
+                    amtCredSumCalc = BigDecimal.valueOf(0);}
+                logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
 
             } catch (IllegalStateException e){
                 logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
+                logger.debug(logPrfx + " --- amtCredSumCalc: null");
             }
 
-            if(!Objects.equals(finTxact1_CredSum_, finTxact1_CredSum)){
+            if(!Objects.equals(amtCredSumCalc_, amtCredSumCalc)){
                 isChanged = true;
-                thisFinTxact.setFinTxfers1_CredSum(finTxact1_CredSum);
-                logger.debug(logPrfx + " --- finTxact1_CredSum: " + finTxact1_CredSum);
+                thisFinTxact.setFinTxfers1_AmtCredSumCalc(amtCredSumCalc);
+                logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
             }
         }
 
@@ -5272,59 +5309,22 @@ public class FinTxferBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    private Boolean updateFintxact1_Id_FinTxfers1_IdCnt(@NotNull GenNode thisFinTxfer) {
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtEqCalc(@NotNull GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
-        String logPrfx = "updateFintxact1_Id_FinTxfers1_IdCnt";
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
-            Integer finTxact1_IdCnt_ = thisFinTxact.getFinTxfers1_IdCnt();
-            Integer finTxact1_IdCnt = null ;
-            String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
-            try{
-                finTxact1_IdCnt = dataManager.loadValue(qry1,Integer.class)
-                        .store("main")
-                        .parameter("finTxact1_Id",thisFinTxact)
-                        .one();
-                if (finTxact1_IdCnt == null) {
-                    finTxact1_IdCnt = 0;}
-                logger.debug(logPrfx + " --- finTxact1_IdCnt: " + finTxact1_IdCnt);
+            Boolean amtEqCalc_ = thisFinTxact.getFinTxfers1_AmtEqCalc();
+            Boolean amtEqCalc = Objects.equals(thisFinTxact.getFinTxfers1_AmtDebtSumCalc()
+                                                        , thisFinTxact.getFinTxfers1_AmtCredSumCalc());
 
-            } catch (IllegalStateException e){
-                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
-            }
-
-            if(!Objects.equals(finTxact1_IdCnt_, finTxact1_IdCnt)){
+            if(!Objects.equals(amtEqCalc_, amtEqCalc)){
                 isChanged = true;
-                thisFinTxact.setFinTxfers1_IdCnt(finTxact1_IdCnt);
-                logger.debug(logPrfx + " --- finTxact1_IdCnt: " + finTxact1_IdCnt);
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateFintxact1_Id_FinTxfers1_DebtEqCred(@NotNull GenNode thisFinTxfer) {
-        // Assume thisFinTxfer is not null
-        String logPrfx = "updateFintxact1_Id_FinTxfers1_DebtEqCred";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
-        if (thisFinTxact != null) {
-            Boolean finTxact1_DebtEqCred_ = thisFinTxact.getFinTxfers1_DebtEqCred();
-            Boolean finTxact1_DebtEqCred = Objects.equals(thisFinTxact.getFinTxfers1_DebtSum()
-                                                        , thisFinTxact.getFinTxfers1_CredSum());
-
-            if(!Objects.equals(finTxact1_DebtEqCred_, finTxact1_DebtEqCred)){
-                isChanged = true;
-                thisFinTxact.setFinTxfers1_DebtEqCred(finTxact1_DebtEqCred);
-                logger.debug(logPrfx + " --- finTxact1_DebtEqCred: " + finTxact1_DebtEqCred);
+                thisFinTxact.setFinTxfers1_AmtEqCalc(amtEqCalc);
+                logger.debug(logPrfx + " --- amtEqCalc: " + amtEqCalc);
             }
         }
 

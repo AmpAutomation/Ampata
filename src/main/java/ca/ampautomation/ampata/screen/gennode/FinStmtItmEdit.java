@@ -668,9 +668,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxfers1_DebtSumFieldFieldBtn")
-    public void onUpdateFinTxfers1_DebtSumFieldFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_DebtSumFieldFieldBtn";
+
+    @Subscribe("updateFinTxfers1_IdCntCalcFieldBtn")
+    public void onUpdateFinTxfers1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxfers1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -680,14 +681,14 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_DebtSum(thisFinStmtItm);
+        updateFinTxfers1_IdCntCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxfers1_CredSumFieldFieldBtn")
-    public void onUpdateFinTxfers1_CredSumFieldFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_CredSumFieldFieldBtn";
+    @Subscribe("updateFinTxfers1_AmtDebtSumCalcFieldBtn")
+    public void onUpdateFinTxfers1_AmtDebtSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxfers1_AmtDebtSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -697,15 +698,15 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_CredSum(thisFinStmtItm);
+        updateFinTxfers1_AmtDebtSumCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-    @Subscribe("updateFinTxfers1_IdCntFieldBtn")
-    public void onUpdateFinTxfers1_IdCntFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_IdCntFieldBtnClick";
+    @Subscribe("updateFinTxfers1_AmtCredSumCalcFieldBtn")
+    public void onUpdateFinTxfers1_AmtCredSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxfers1_AmtCredSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -715,14 +716,14 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_IdCnt(thisFinStmtItm);
+        updateFinTxfers1_AmtCredSumCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxfers1_DebtEqCredBoxBtn")
-    public void onUpdateFinTxfers1_DebtEqCredBoxBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_DebtEqCredBoxBtnClick";
+    @Subscribe("updateFinTxfers1_AmtNetSumCalcFieldBtn")
+    public void onUpdateFinTxfers1_AmtNetSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxfers1_AmtNetSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -732,10 +733,28 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_DebtEqCred(thisFinStmtItm);
+        updateFinTxfers1_AmtNetSumCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
+    }
 
+
+
+    @Subscribe("updateFinTxfers1_AmtEqCalcBoxBtn")
+    public void onUpdateFinTxfers1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxfers1_AmtEqCalcBoxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        if (thisFinStmtItm == null) {
+            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateFinTxfers1_AmtEqCalc(thisFinStmtItm);
+
+        logger.trace(logPrfx + " <-- ");
     }
 
 
@@ -743,7 +762,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateFinStmtItmCalcVals(thisFinStmtItm) || isChanged;
 
@@ -756,7 +775,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinStmtItmCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinStmtItm Object
         isChanged = updateIdTs(thisFinStmtItm) || isChanged;
@@ -765,10 +784,11 @@ are not fully initialized, for example, buttons are not linked with actions.
         isChanged = updateId2Dup(thisFinStmtItm) || isChanged;
         isChanged = updateAmtNet(thisFinStmtItm) || isChanged;
 
-        isChanged = updateFinTxfers1_DebtSum(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_CredSum(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_IdCnt(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_DebtEqCred(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxfers1_IdCntCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxfers1_AmtDebtSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxfers1_AmtCredSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxfers1_AmtNetSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxfers1_AmtEqCalc(thisFinStmtItm)  || isChanged;
 
 
         logger.trace(logPrfx + " <-- ");
@@ -780,7 +800,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateBeg1(thisFinStmtItm) || isChanged;
         isChanged = updateIdX(thisFinStmtItm)  || isChanged;
@@ -796,7 +816,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinStmtItm.getId2();
         String id2 = thisFinStmtItm.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -814,7 +834,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinStmtItm.getId2Calc();
         String id2Calc = thisFinStmtItm.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -832,7 +852,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinStmtItm.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinStmtItm.getId2(),thisFinStmtItm.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -850,7 +870,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinStmtItm.getId2Dup();
         if (thisFinStmtItm.getId2() != null) {
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinStmtItm' and e.id2 = :id2 and e.id <> :id";
@@ -884,7 +904,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmtItm.updateIdTs();
 
         logger.trace(logPrfx + " <-- ");
@@ -896,7 +916,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateBeg1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmtItm.updateBeg1();
 
         logger.trace(logPrfx + " <-- ");
@@ -908,7 +928,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateBeg2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmtItm.updateBeg2();
 
         logger.trace(logPrfx + " <-- ");
@@ -921,7 +941,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateIdX";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmtItm.updateIdX();
 
         logger.trace(logPrfx + " <-- ");
@@ -930,99 +950,247 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-    private Boolean updateFinTxfers1_DebtSum(@NotNull GenNode thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateDebtSum";
+
+    public Boolean updateAmtNet(@NotNull GenNode thisFinStmtItm) {
+        //Assume thisFinStmtItm is not null
+        String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
-        BigDecimal debtSum_ = thisFinStmtItm.getFinTxfers1_DebtSum();
-        BigDecimal debtSum = null ;
-        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
-        try{
-            debtSum = dataManager.loadValue(qry1,BigDecimal.class)
-                    .store("main")
-                    .parameter("finStmtItm1_Id",thisFinStmtItm)
-                    .one();
-            if (debtSum == null) {
-                debtSum = BigDecimal.valueOf(0);}
-            logger.debug(logPrfx + " --- debtSum: " + debtSum);
+        boolean isChanged = false;
+        BigDecimal amtNet_ = thisFinStmtItm.getAmtNet();
 
-        } catch (IllegalStateException e){
-            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-            logger.debug(logPrfx + " --- debtSum: null");
+        GenNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
+            notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
         }
 
-        if(!Objects.equals(debtSum_, debtSum)){
+        GenNode thisFinAcct = thisFinStmt.getFinAcct1_Id();
+        if (thisFinAcct == null) {
+            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
+            notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
+        }
+
+        GenNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        if (thisFinAcctType == null) {
+            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
+            notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
+        }
+
+        BigDecimal amtNet = BigDecimal.valueOf(0);
+        Boolean balIncOnDebt = thisFinAcctType.getBalIncOnDebt();
+        Boolean balIncOnCred = thisFinAcctType.getBalIncOnCred();
+
+        if (thisFinStmtItm.getAmtDebt() != null) {
+            if (balIncOnDebt == null || !balIncOnDebt) {
+                amtNet = amtNet.subtract(thisFinStmtItm.getAmtDebt());
+            } else {
+                amtNet = amtNet.add(thisFinStmtItm.getAmtDebt());
+            }
+        }
+
+        if (thisFinStmtItm.getAmtCred() != null) {
+            if (balIncOnCred == null || !balIncOnCred) {
+                amtNet = amtNet.subtract(thisFinStmtItm.getAmtCred());
+            } else {
+                amtNet = amtNet.add(thisFinStmtItm.getAmtCred());
+            }
+        }
+        if(!Objects.equals(amtNet_, amtNet)){
+            thisFinStmtItm.setAmtNet(amtNet);
+            logger.debug(logPrfx + " --- amtNet: " + amtNet);
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_DebtSum(debtSum);
-            logger.debug(logPrfx + " --- debtSum: " + debtSum);
         }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    private Boolean updateFinTxfers1_CredSum(@NotNull GenNode thisFinStmtItm) {
+
+
+    private Boolean updateFinTxfers1_IdCntCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateCredSum";
+        String logPrfx = "updateFinTxfers1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
-        BigDecimal credSum_ = thisFinStmtItm.getFinTxfers1_CredSum();
-        BigDecimal credSum = null ;
-        String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
-        try{
-            credSum = dataManager.loadValue(qry1,BigDecimal.class)
-                    .store("main")
-                    .parameter("finStmtItm1_Id",thisFinStmtItm)
-                    .one();
-            if (credSum == null) {
-                credSum = BigDecimal.valueOf(0);}
-            logger.debug(logPrfx + " --- credSum: " + credSum);
-
-        } catch (IllegalStateException e){
-            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-            logger.debug(logPrfx + " --- credSum: null");
-        }
-
-        if(!Objects.equals(credSum_, credSum)){
-            isChanged = true;
-            thisFinStmtItm.setFinTxfers1_CredSum(credSum);
-            logger.debug(logPrfx + " --- credSum: " + credSum);
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateFinTxfers1_IdCnt(@NotNull GenNode thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_IdCnt";
-        logger.trace(logPrfx + " --> ");
-
-        Boolean isChanged = false;
-        Integer idCnt_ = thisFinStmtItm.getFinTxfers1_IdCnt();
-        Integer idCnt = null ;
+        boolean isChanged = false;
+        Integer idCntCalc_ = thisFinStmtItm.getFinTxfers1_IdCntCalc();
+        Integer idCntCalc = null ;
         String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
-            idCnt = dataManager.loadValue(qry1,Integer.class)
+            idCntCalc = dataManager.loadValue(qry1,Integer.class)
                     .store("main")
                     .parameter("finStmtItm1_Id",thisFinStmtItm)
                     .one();
-            if (idCnt == null) {
-                idCnt = 0;}
-            logger.debug(logPrfx + " --- idCnt: " + idCnt);
+            if (idCntCalc == null) {
+                idCntCalc = 0;}
+            logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
 
         } catch (IllegalStateException e){
             logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-            logger.debug(logPrfx + " --- debtSum: null");
+            logger.debug(logPrfx + " --- idCntCalc: null");
         }
 
-        if(!Objects.equals(idCnt_, idCnt)){
+        if(!Objects.equals(idCntCalc_, idCntCalc)){
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_IdCnt(idCnt);
-            logger.debug(logPrfx + " --- idCnt: " + idCnt);
+            thisFinStmtItm.setFinTxfers1_IdCntCalc(idCntCalc);
+            logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private Boolean updateFinTxfers1_AmtDebtSumCalc(@NotNull GenNode thisFinStmtItm) {
+        // Assume thisFinStmtItm is not null
+        String logPrfx = "updateFinTxfers1_AmtDebtSumCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        BigDecimal amtDebtSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc();
+        BigDecimal amtDebtSumCalc = null ;
+        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        try{
+            amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
+                    .store("main")
+                    .parameter("finStmtItm1_Id",thisFinStmtItm)
+                    .one();
+            if (amtDebtSumCalc == null) {
+                amtDebtSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
+
+        } catch (IllegalStateException e){
+            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+            logger.debug(logPrfx + " --- amtDebtSumCalc: null");
+        }
+
+        if(!Objects.equals(amtDebtSumCalc_, amtDebtSumCalc)){
+            isChanged = true;
+            thisFinStmtItm.setFinTxfers1_AmtDebtSumCalc(amtDebtSumCalc);
+            logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private Boolean updateFinTxfers1_AmtCredSumCalc(@NotNull GenNode thisFinStmtItm) {
+        // Assume thisFinStmtItm is not null
+        String logPrfx = "updateFinTxfers1_AmtCredSumCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        BigDecimal amtCredSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtCredSumCalc();
+        BigDecimal amtCredSumCalc = null ;
+        String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        try{
+            amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
+                    .store("main")
+                    .parameter("finStmtItm1_Id",thisFinStmtItm)
+                    .one();
+            if (amtCredSumCalc == null) {
+                amtCredSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
+
+        } catch (IllegalStateException e){
+            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+            logger.debug(logPrfx + " --- amtCredSumCalc: null");
+        }
+
+        if(!Objects.equals(amtCredSumCalc_, amtCredSumCalc)){
+            isChanged = true;
+            thisFinStmtItm.setFinTxfers1_AmtCredSumCalc(amtCredSumCalc);
+            logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private Boolean updateFinTxfers1_AmtNetSumCalc(@NotNull GenNode thisFinStmtItm) {
+        // Assume thisFinStmtItm is not null
+        String logPrfx = "updateFinTxfers1_AmtNetSumCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        BigDecimal amtNetSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtNetSumCalc();
+
+        GenNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
+            notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
+        }
+
+        GenNode thisFinAcct = thisFinStmt.getFinAcct1_Id();
+        if (thisFinAcct == null) {
+            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
+            notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
+        }
+
+        GenNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        if (thisFinAcctType == null) {
+            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
+            notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
+            logger.trace(logPrfx + " <-- ");
+            return isChanged;
+        }
+
+        BigDecimal amtNetSumCalc = BigDecimal.valueOf(0);
+        Boolean balIncOnDebt = thisFinAcctType.getBalIncOnDebt();
+        Boolean balIncOnCred = thisFinAcctType.getBalIncOnCred();
+
+        if (thisFinStmtItm.getAmtDebt() != null) {
+            if (balIncOnDebt == null || !balIncOnDebt) {
+                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc());
+            } else {
+                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc());
+            }
+        }
+
+        if (thisFinStmtItm.getAmtCred() != null) {
+            if (balIncOnCred == null || !balIncOnCred) {
+                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+            } else {
+                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+            }
+        }
+        if(!Objects.equals(amtNetSumCalc_, amtNetSumCalc)){
+            thisFinStmtItm.setAmtNet(amtNetSumCalc);
+            logger.debug(logPrfx + " --- amtNetSumCalc: " + amtNetSumCalc);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private Boolean updateFinTxfers1_AmtEqCalc(@NotNull GenNode thisFinStmtItm) {
+        // Assume thisFinStmtItm is not null
+        String logPrfx = "updateFinTxfers1_AmtEqCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        boolean amtEqCalc_ = thisFinStmtItm.getFinTxfers1_AmtEqCalc();
+        boolean amtEqCalc = Objects.equals(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc()
+                , thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+
+        if(!Objects.equals(amtEqCalc_, amtEqCalc)){
+            isChanged = true;
+            thisFinStmtItm.setFinTxfers1_AmtEqCalc(amtEqCalc);
+            logger.debug(logPrfx + " --- amtEqCalc: " + amtEqCalc);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1057,88 +1225,6 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         logger.trace(logPrfx + " <-- ");
         return finStmtItm1_Id;
-    }
-
-    private Boolean updateFinTxfers1_DebtEqCred(@NotNull GenNode thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_DebtEqCred";
-        logger.trace(logPrfx + " --> ");
-
-        Boolean isChanged = false;
-        Boolean debtEqCred_ = thisFinStmtItm.getFinTxfers1_DebtEqCred();
-        Boolean debtEqCred = Objects.equals(thisFinStmtItm.getFinTxfers1_DebtSum()
-                , thisFinStmtItm.getFinTxfers1_CredSum());
-
-        if(!Objects.equals(debtEqCred_, debtEqCred)){
-            isChanged = true;
-            thisFinStmtItm.setFinTxfers1_DebtEqCred(debtEqCred);
-            logger.debug(logPrfx + " --- debtEqCred: " + debtEqCred);
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateAmtNet(@NotNull GenNode thisFinStmtItm) {
-        //Assume thisFinStmtItm is not null
-        String logPrfx = "updateAmtNet";
-        logger.trace(logPrfx + " --> ");
-
-        Boolean isChanged = false;
-        BigDecimal netAmt_ = thisFinStmtItm.getAmtNet();
-
-        GenNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
-            notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        GenNode thisFinAcct = thisFinStmt.getFinAcct1_Id();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
-            notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        GenNodeType thisFinAcctType = thisFinAcct.getType1_Id();
-        if (thisFinAcctType == null) {
-            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
-            notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        BigDecimal netAmt = BigDecimal.valueOf(0);
-        Boolean balIncOnDebt = thisFinAcctType.getBalIncOnDebt();
-        Boolean balIncOnCred = thisFinAcctType.getBalIncOnCred();
-
-        if (thisFinStmtItm.getAmtDebt() != null) {
-            if (balIncOnDebt == null || !balIncOnDebt) {
-                netAmt = netAmt.subtract(thisFinStmtItm.getAmtDebt());
-            } else {
-                netAmt = netAmt.add(thisFinStmtItm.getAmtDebt());
-            }
-        }
-
-        if (thisFinStmtItm.getAmtCred() != null) {
-            if (balIncOnCred == null || !balIncOnCred) {
-                netAmt = netAmt.subtract(thisFinStmtItm.getAmtCred());
-            } else {
-                netAmt = netAmt.add(thisFinStmtItm.getAmtCred());
-            }
-        }
-        if(!Objects.equals(netAmt_, netAmt)){
-            thisFinStmtItm.setAmtNet(netAmt);
-            logger.debug(logPrfx + " --- amtNet: " + netAmt);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
     }
 
 

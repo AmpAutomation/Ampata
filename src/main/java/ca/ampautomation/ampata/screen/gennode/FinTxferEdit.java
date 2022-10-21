@@ -1491,9 +1491,10 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_DebtSumFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_DebtSumFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_DebtSumFieldBtnClick";
+
+    @Subscribe("updateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -1503,14 +1504,14 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_DebtSum(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_IdCntCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_CredSumFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_CredSumFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_CredSumFieldBtnClick";
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -1520,14 +1521,14 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_CredSum(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_IdCntFieldBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_IdCntFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_IdCntFieldBtnClick";
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -1537,14 +1538,15 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_IdCnt(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtn")
-    public void onUpdateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtnClick";
+
+    @Subscribe("updateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtn")
+    public void onUpdateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinTxfer = finTxferDc.getItemOrNull();
@@ -1554,7 +1556,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_DebtEqCred(thisFinTxfer);
+        updateFintxact1_Id_FinTxfers1_AmtEqCalc(thisFinTxfer);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -1975,7 +1977,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateFinTxferCalcVals(thisFinTxfer, finTxactOption) || isChanged;
         isChanged = updateFinTxactCalcVals(thisFinTxfer, finTxsetOption) || isChanged;
@@ -1989,7 +1991,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxferCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxfer Object
         isChanged = updateIdTs(thisFinTxfer) || isChanged;
@@ -1997,10 +1999,11 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         isChanged = updateId2Cmp(thisFinTxfer) || isChanged;
         isChanged = updateId2Dup(thisFinTxfer) || isChanged;
         isChanged = updateDesc1(thisFinTxfer) || isChanged;
-        isChanged = updateFinTaxLne1_Id(thisFinTxfer) || isChanged;
+//        isChanged = updateFinTaxLne1_Id(thisFinTxfer) || isChanged;
         isChanged = updateAmtNet(thisFinTxfer) || isChanged;
         isChanged = updateAmtFinTxfer1_EI1_Rate(thisFinTxfer) || isChanged;
         isChanged = updateAmtCalc(thisFinTxfer) || isChanged;
+
         isChanged = updateFinTxact1_Id2Trgt(thisFinTxfer) || isChanged;
         isChanged = updateFinTxact1_Id(thisFinTxfer, finTxactOption) || isChanged;
 
@@ -2012,14 +2015,14 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxactCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxact Object
         isChanged = updateFinTxact1_Id_Desc1(thisFinTxfer)  || isChanged;
-        isChanged = updateFinTxact1_DebtSum(thisFinTxfer)  || isChanged;
-        isChanged = updateFinTxact1_CredSum(thisFinTxfer)  || isChanged;
-        isChanged = updateFinTxact1_IdCnt(thisFinTxfer)  || isChanged;
-        isChanged = updateFinTxact1_DebtEqCred(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_IdCntCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(thisFinTxfer)  || isChanged;
+        isChanged = updateFintxact1_Id_FinTxfers1_AmtEqCalc(thisFinTxfer)  || isChanged;
 
         isChanged = updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxfer) || isChanged;
         isChanged = updateFinTxact1_FinTxset1_Id(thisFinTxfer, finTxsetOption) || isChanged;
@@ -2032,7 +2035,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxsetCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxset Object
         isChanged = updateFinTxact1_Id_FinTxset1_Id_Desc1(thisFinTxfer) || isChanged;
@@ -2045,7 +2048,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateBeg1(thisFinTxfer) || isChanged;
         isChanged = updateBeg2(thisFinTxfer) || isChanged;
@@ -2064,7 +2067,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinTxfer.getId2();
         String id2 = thisFinTxfer.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -2082,7 +2085,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinTxfer.getId2Calc();
         String id2Calc = thisFinTxfer.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -2100,7 +2103,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinTxfer.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinTxfer.getId2(),thisFinTxfer.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -2118,7 +2121,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinTxfer.getId2Dup();
         if (thisFinTxfer.getId2() != null) {
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinTxfer' and e.id2 = :id2 and e.id <> :id";
@@ -2151,7 +2154,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String desc1_ = thisFinTxfer.getDesc1();
         String thisAmt = "";
         if (thisFinTxfer.getAmtDebt() != null) {
@@ -2313,7 +2316,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
 
         if (thisFinTxact != null) {
@@ -2426,7 +2429,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_Id_FinTxset1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxset = thisFinTxfer.getFinTxact1_Id() == null ? null : thisFinTxfer.getFinTxact1_Id().getFinTxset1_Id();
 
         if (thisFinTxset != null) {
@@ -2581,7 +2584,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdTs();
 
         logger.trace(logPrfx + " <-- ");
@@ -2593,7 +2596,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateBeg1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateBeg1();
 
         logger.trace(logPrfx + " <-- ");
@@ -2605,7 +2608,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateBeg2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateBeg2();
 
         logger.trace(logPrfx + " <-- ");
@@ -2618,7 +2621,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateIdX";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdX();
 
         logger.trace(logPrfx + " <-- ");
@@ -2630,7 +2633,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateIdY";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdY();
 
         logger.trace(logPrfx + " <-- ");
@@ -2642,7 +2645,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateIdZ";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxfer.updateIdZ();
 
         logger.trace(logPrfx + " <-- ");
@@ -2654,7 +2657,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode finTxact1_Id_ = thisFinTxfer.getFinTxact1_Id();
         GenNode finTxact1_Id;
         // Update finTxact
@@ -2710,7 +2713,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String finTxact1_Id2Trgt_ = thisFinTxfer.getFinTxact1_Id2Trgt();
         String finTxact1_Id2Trgt = thisFinTxfer.getId2CalcFrFields().substring(0, 24);
         if(!Objects.equals(finTxact1_Id2Trgt_, finTxact1_Id2Trgt)){
@@ -2723,108 +2726,35 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_DebtSum(@NotNull GenNode thisFinTxfer) {
+    private Boolean updateFintxact1_Id_FinTxfers1_IdCntCalc(@NotNull GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
-        String logPrfx = "updateFinTxact1_DebtSum";
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
-            BigDecimal finTxact1_DebtSum_ = thisFinTxact.getFinTxfers1_DebtSum();
-            BigDecimal finTxact1_DebtSum = null ;
-            String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
-            try{
-                finTxact1_DebtSum = dataManager.loadValue(qry1,BigDecimal.class)
-                        .store("main")
-                        .parameter("finTxact1_Id",thisFinTxact)
-                        .one();
-                if (finTxact1_DebtSum == null) {
-                    finTxact1_DebtSum = BigDecimal.valueOf(0);}
-                logger.debug(logPrfx + " --- finTxact1_DebtSum: " + finTxact1_DebtSum);
-
-            } catch (IllegalStateException e){
-                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
-            }
-
-            if(!Objects.equals(finTxact1_DebtSum_, finTxact1_DebtSum)){
-                isChanged = true;
-                thisFinTxact.setFinTxfers1_DebtSum(finTxact1_DebtSum);
-                logger.debug(logPrfx + " --- finTxact1_DebtSum: " + finTxact1_DebtSum);
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateFinTxact1_CredSum(@NotNull GenNode thisFinTxfer) {
-        // Assume thisFinTxfer is not null
-        String logPrfx = "updateFinTxact1_CredSum";
-        logger.trace(logPrfx + " --> ");
-
-        Boolean isChanged = false;
-        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
-        if (thisFinTxact != null) {
-            BigDecimal finTxact1_CredSum_ = thisFinTxact.getFinTxfers1_CredSum();
-            BigDecimal finTxact1_CredSum = null ;
-            String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
-            try{
-                finTxact1_CredSum = dataManager.loadValue(qry1,BigDecimal.class)
-                        .store("main")
-                        .parameter("finTxact1_Id",thisFinTxact)
-                        .one();
-                if (finTxact1_CredSum == null) {
-                    finTxact1_CredSum = BigDecimal.valueOf(0);}
-                logger.debug(logPrfx + " --- finTxact1_CredSum: " + finTxact1_CredSum);
-
-            } catch (IllegalStateException e){
-                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
-            }
-
-            if(!Objects.equals(finTxact1_CredSum_, finTxact1_CredSum)){
-                isChanged = true;
-                thisFinTxact.setFinTxfers1_CredSum(finTxact1_CredSum);
-                logger.debug(logPrfx + " --- finTxact1_CredSum: " + finTxact1_CredSum);
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateFinTxact1_IdCnt(@NotNull GenNode thisFinTxfer) {
-        // Assume thisFinTxfer is not null
-        String logPrfx = "updateFinTxact1_IdCnt";
-        logger.trace(logPrfx + " --> ");
-
-        Boolean isChanged = false;
-        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
-        if (thisFinTxact != null) {
-            Integer finTxact1_IdCnt_ = thisFinTxact.getFinTxfers1_IdCnt();
-            Integer finTxact1_IdCnt = null ;
+            Integer idCntCalc_ = thisFinTxact.getFinTxfers1_IdCntCalc();
+            Integer idCntCalc = null ;
             String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
-                finTxact1_IdCnt = dataManager.loadValue(qry1,Integer.class)
+                idCntCalc = dataManager.loadValue(qry1,Integer.class)
                         .store("main")
                         .parameter("finTxact1_Id",thisFinTxact)
                         .one();
-                if (finTxact1_IdCnt == null) {
-                    finTxact1_IdCnt = 0;}
-                logger.debug(logPrfx + " --- finTxact1_IdCnt: " + finTxact1_IdCnt);
+                if (idCntCalc == null) {
+                    idCntCalc = 0;}
+                logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
 
             } catch (IllegalStateException e){
                 logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-                logger.debug(logPrfx + " --- debtSum: null");
+                logger.debug(logPrfx + " --- idCntCalc: null");
             }
 
-            if(!Objects.equals(finTxact1_IdCnt_, finTxact1_IdCnt)){
+            if(!Objects.equals(idCntCalc_, idCntCalc)){
                 isChanged = true;
-                thisFinTxact.setFinTxfers1_IdCnt(finTxact1_IdCnt);
-                logger.debug(logPrfx + " --- finTxact1_IdCnt: " + finTxact1_IdCnt);
+                thisFinTxact.setFinTxfers1_IdCntCalc(idCntCalc);
+                logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
             }
         }
 
@@ -2833,22 +2763,100 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
     }
 
 
-    private Boolean updateFinTxact1_DebtEqCred(@NotNull GenNode thisFinTxfer) {
+
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtDebtSumCalc(@NotNull GenNode thisFinTxfer) {
         // Assume thisFinTxfer is not null
-        String logPrfx = "updateFinTxact1_DebtEqCred";
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_DebtSum";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null) {
-            Boolean finTxact1_DebtEqCred_ = thisFinTxact.getFinTxfers1_DebtEqCred();
-            Boolean finTxact1_DebtEqCred = Objects.equals(thisFinTxact.getFinTxfers1_DebtSum()
-                                                        , thisFinTxact.getFinTxfers1_CredSum());
+            BigDecimal amtDebtSumCalc_ = thisFinTxact.getFinTxfers1_AmtDebtSumCalc();
+            BigDecimal amtDebtSumCalc = null ;
+            String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id";
+            try{
+                amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
+                        .store("main")
+                        .parameter("finTxact1_Id",thisFinTxact)
+                        .one();
+                if (amtDebtSumCalc == null) {
+                    amtDebtSumCalc = BigDecimal.valueOf(0);}
+                logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
 
-            if(!Objects.equals(finTxact1_DebtEqCred_, finTxact1_DebtEqCred)){
+            } catch (IllegalStateException e){
+                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+                logger.debug(logPrfx + " --- amtDebtSumCalc: null");
+            }
+
+            if(!Objects.equals(amtDebtSumCalc_, amtDebtSumCalc)){
                 isChanged = true;
-                thisFinTxact.setFinTxfers1_DebtEqCred(finTxact1_DebtEqCred);
-                logger.debug(logPrfx + " --- finTxact1_DebtEqCred: " + finTxact1_DebtEqCred);
+                thisFinTxact.setFinTxfers1_AmtDebtSumCalc(amtDebtSumCalc);
+                logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
+            }
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtCredSumCalc(@NotNull GenNode thisFinTxfer) {
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_AmtCredSumCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
+        if (thisFinTxact != null) {
+            BigDecimal amtCredSumCalc_ = thisFinTxact.getFinTxfers1_AmtCredSumCalc();
+            BigDecimal amtCredSumCalc = null ;
+            String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            try{
+                amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
+                        .store("main")
+                        .parameter("finTxact1_Id",thisFinTxact)
+                        .one();
+                if (amtCredSumCalc == null) {
+                    amtCredSumCalc = BigDecimal.valueOf(0);}
+                logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
+
+            } catch (IllegalStateException e){
+                logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+                logger.debug(logPrfx + " --- amtCredSumCalc: null");
+            }
+
+            if(!Objects.equals(amtCredSumCalc_, amtCredSumCalc)){
+                isChanged = true;
+                thisFinTxact.setFinTxfers1_AmtCredSumCalc(amtCredSumCalc);
+                logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
+            }
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+
+
+    private Boolean updateFintxact1_Id_FinTxfers1_AmtEqCalc(@NotNull GenNode thisFinTxfer) {
+        // Assume thisFinTxfer is not null
+        String logPrfx = "updateFintxact1_Id_FinTxfers1_AmtEqCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
+        if (thisFinTxact != null) {
+            Boolean amtEqCalc_ = thisFinTxact.getFinTxfers1_AmtEqCalc();
+            Boolean amtEqCalc = Objects.equals(thisFinTxact.getFinTxfers1_AmtDebtSumCalc()
+                    , thisFinTxact.getFinTxfers1_AmtCredSumCalc());
+
+            if(!Objects.equals(amtEqCalc_, amtEqCalc)){
+                isChanged = true;
+                thisFinTxact.setFinTxfers1_AmtEqCalc(amtEqCalc);
+                logger.debug(logPrfx + " --- amtEqCalc: " + amtEqCalc);
             }
         }
 
@@ -2979,7 +2987,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_FinTxset1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null){
             GenNode finTxset1_Id_ = thisFinTxact.getFinTxset1_Id();
@@ -3035,7 +3043,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTxact1_FinTxset1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode thisFinTxact = thisFinTxfer.getFinTxact1_Id();
         if (thisFinTxact != null){
             String id2Calc_ = thisFinTxfer.getId2Calc();
@@ -3146,7 +3154,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateAmtFinTxfer1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal rate_ = thisFinTxfer.getAmtFinTxfer1_EI1_Rate();
 
         FinFmla amtFinFmla1 = thisFinTxfer.getAmtFinFmla1_Id();
@@ -3281,7 +3289,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateAmtCalc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal amtCalc_ = thisFinTxfer.getAmtCalc();
         BigDecimal amtCalc = BigDecimal.valueOf(0);
         boolean amtCalcGood = false;
@@ -3387,7 +3395,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         BigDecimal netAmt_ = thisFinTxfer.getAmtNet();
 
         GenNode thisFinAcct = thisFinTxfer.getFinAcct1_Id();
@@ -3440,7 +3448,7 @@ public class FinTxferEdit extends StandardEditor<GenNode> {
         String logPrfx = "updateFinTaxLne1_Id";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         GenNode finTaxLne_ = thisFinTxfer.getFinTaxLne1_Id();
         GenNode finTaxLne = thisFinTxfer.getFinAcct1_Id() == null ? null :
                 thisFinTxfer.getFinAcct1_Id().getFinTaxLne1_Id();

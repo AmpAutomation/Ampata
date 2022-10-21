@@ -686,7 +686,7 @@
                                                     tabIndex="-1"/>
                                         </hbox>
                                     </column>
-                                    <column width="360px">
+                                    <column width="480px">
                                         <hbox caption="finTxact1_Id.finTxset1_Id.desc1GenPat1_Id" expand="finTxact1_Id_FinTxset1_Id_Desc1GenPat1_IdField" width="100%">
                                             <entityComboBox id="finTxact1_Id_FinTxset1_Id_Desc1GenPat1_IdField" dataContainer="finTxferDc"
                                                             property="finTxact1_Id.finTxset1_Id.desc1GenPat1_Id" tabIndex="10">
@@ -709,6 +709,7 @@
                                             <button id="updateFinTxact1_Id_FinTxset1_Id_Desc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
+                                        <textArea id="finTxact1_Id.finTxset1_Id.note" property="finTxact1_Id.finTxset1_Id.note" tabIndex="30" rowspan="5"/>
                                     </column>
                                 </form>
                             </tab>
@@ -846,25 +847,25 @@
                                             <button id="updateFinTxact1_Id_Desc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxact1_Id.finTxfers1_DebtSum" expand="fintxact1_Id_FinTxfers1_DebtSumField" width="100%">
-                                            <textField id="fintxact1_Id_FinTxfers1_DebtSumField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_DebtSum" editable="false"
+                                        <hbox caption="finTxact1_Id.finTxfers1_IdCntCalc" expand="fintxact1_Id_FinTxfers1_IdCntCalcField" width="100%">
+                                            <textField id="fintxact1_Id_FinTxfers1_IdCntCalcField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_IdCntCalc" editable="false"
                                                        tabIndex="30"/>
-                                            <button id="updateFintxact1_Id_FinTxfers1_DebtSumFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFintxact1_Id_FinTxfers1_IdCntCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxact1_Id.finTxfers1_CredSum" expand="fintxact1_Id_FinTxfers1_CredSumField" width="100%">
-                                            <textField id="fintxact1_Id_FinTxfers1_CredSumField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_CredSum" editable="false"
+                                        <hbox caption="finTxact1_Id.finTxfers1_AmtDebtSumCalc" expand="fintxact1_Id_FinTxfers1_AmtDebtSumCalcField" width="100%">
+                                            <textField id="fintxact1_Id_FinTxfers1_AmtDebtSumCalcField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_AmtDebtSumCalc" editable="false"
                                                        tabIndex="30"/>
-                                            <button id="updateFintxact1_Id_FinTxfers1_CredSumFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFintxact1_Id_FinTxfers1_AmtDebtSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxact1_Id.finTxfers1_IdCnt" expand="fintxact1_Id_FinTxfers1_IdCntField" width="100%">
-                                            <textField id="fintxact1_Id_FinTxfers1_IdCntField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_IdCnt" editable="false"
+                                        <hbox caption="finTxact1_Id.finTxfers1_AmtCredSumCalc" expand="fintxact1_Id_FinTxfers1_AmtCredSumCalcField" width="100%">
+                                            <textField id="fintxact1_Id_FinTxfers1_AmtCredSumCalcField" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_AmtCredSumCalc" editable="false"
                                                        tabIndex="30"/>
-                                            <button id="updateFintxact1_Id_FinTxfers1_IdCntFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFintxact1_Id_FinTxfers1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxact1_Id.finTxfers1_DebtEqCred" expand="fintxact1_Id_FinTxfers1_DebtEqCredBox" width="100%">
-                                            <checkBox id="fintxact1_Id_FinTxfers1_DebtEqCredBox" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_DebtEqCred" editable="false"
-                                                       tabIndex="30"/>
-                                            <button id="updateFintxact1_Id_FinTxfers1_DebtEqCredBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        <hbox caption="finTxact1_Id.finTxfers1_AmtEqCalc" expand="fintxact1_Id_FinTxfers1_AmtEqCalcBox" width="100%">
+                                            <checkBox id="fintxact1_Id_FinTxfers1_AmtEqCalcBox" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_AmtEqCalc" editable="false"
+                                                      tabIndex="30"/>
+                                            <button id="updateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                     </column>
                                 </form>

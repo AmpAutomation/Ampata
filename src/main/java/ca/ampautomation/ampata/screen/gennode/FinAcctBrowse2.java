@@ -1056,7 +1056,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                 GenNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
                 thisFinAcct = thisTrackedFinAcct;
 
-                Boolean isChanged = false;
+                boolean isChanged = false;
 
                 isChanged = updateIdParts(thisFinAcct);
 
@@ -1094,7 +1094,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                 GenNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
                 thisFinAcct = thisTrackedFinAcct;
 
-                Boolean isChanged = false;
+                boolean isChanged = false;
 
                 Integer option = Optional.ofNullable(updateColItemCalcValsOption.getValue()).orElse(0);
 
@@ -1371,7 +1371,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateId2Calc(thisFinAcct) || isChanged;
         switch (option) {
@@ -1392,7 +1392,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updatetName1(thisFinAcct)  || isChanged;
         isChanged = updatetAgent1(thisFinAcct)  || isChanged;
@@ -1407,7 +1407,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinAcct.getId2();
         String id2 = thisFinAcct.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -1425,7 +1425,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinAcct.getId2Calc();
         String id2Calc = thisFinAcct.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -1443,7 +1443,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinAcct.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinAcct.getId2(),thisFinAcct.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -1461,7 +1461,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinAcct.getId2Dup();
         if (thisFinAcct.getId2() != null) {
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinAcct' and e.id2 = :id2 and e.id <> :id";
@@ -1495,7 +1495,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updatetName1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinAcct.updateName1();
 
         logger.trace(logPrfx + " <-- ");
@@ -1508,7 +1508,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updatetAgent1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinAcct.updateGenAgent1();
 
         logger.trace(logPrfx + " <-- ");

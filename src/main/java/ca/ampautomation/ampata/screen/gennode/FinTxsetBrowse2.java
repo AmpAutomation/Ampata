@@ -1583,7 +1583,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateFinTxsetCalcVals(thisFinTxset) || isChanged;
 
@@ -1597,7 +1597,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinTxsetCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinTxset Object
         isChanged = updateIdTs(thisFinTxset) || isChanged;
@@ -1617,7 +1617,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinTxset.getId2();
         String id2 = thisFinTxset.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -1636,7 +1636,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinTxset.getId2Calc();
         String id2Calc = thisFinTxset.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -1655,7 +1655,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinTxset.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinTxset.getId2(),thisFinTxset.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -1673,7 +1673,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinTxset.getId2Dup();
         if (thisFinTxset.getId2() != null) {
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinTxset' and e.id2 = :id2 and e.id <> :id";
@@ -1706,7 +1706,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         if (thisFinTxset != null) {
             //finTxset is a 2nd ref (ref of a ref) of finTxfer and is not automatically loaded into the dataContext
@@ -1816,7 +1816,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinTxset.updateIdTs();
 
         logger.trace(logPrfx + " <-- ");

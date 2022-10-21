@@ -72,11 +72,11 @@
                         <column id="end1.date1" caption="End-Date"/>
                         <column id="genChan1_Id" caption="genChan1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
-                        <column id="begBal"/>
-                        <column id="endBal"/>
-                        <column id="debtSum"/>
-                        <column id="credSum"/>
-                        <column id="netSum"/>
+                        <column id="amtBegBal"/>
+                        <column id="amtEndBal"/>
+                        <column id="amtDebt"/>
+                        <column id="amtCred"/>
+                        <column id="amtNet"/>
                         <column id="status"/>
                         <column id="note"/>
                         <column id="genTags1_Id2" caption="Tags"/>
@@ -199,6 +199,7 @@
                                     </hbox>
                                     <textField id="name1Field" property="name1" width="100%" tabIndex="10"/>
                                 </column>
+
                                 <column width="360px">
                                     <hbox caption="genChan1_Id" expand="genChan1_IdField" width="100%">
                                         <entityComboBox id="genChan1_IdField" dataContainer="finStmtDc" tabIndex="20"
@@ -210,12 +211,56 @@
                                         </entityComboBox>
                                         <button id="updateListGenChan1_IdFieldBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                     </hbox>
+                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField">
+                                        <entityComboBox id="finAcct1_IdField" dataContainer="finStmtDc"
+                                                        property="finAcct1_Id" tabIndex="20">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateListFinAcct1_IdFieldBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtBegBal" expand="amtBegBalField" width="100%">
+                                        <textField id="amtBegBalField" dataContainer="finStmtDc" property="amtBegBal" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="amtBegBalCalc" expand="amtBegBalCalcField" width="100%">
+                                        <textField id="amtBegBalCalcField" dataContainer="finStmtDc" property="amtBegBalCalc" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="amtDebt" expand="amtDebtField" width="100%">
+                                        <textField id="amtDebtField" dataContainer="finStmtDc" property="amtDebt" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="amtCred" expand="amtCredField" width="100%">
+                                        <textField id="amtCredField" dataContainer="finStmtDc" property="amtCred" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="amtNet" expand="amtNetField" width="100%">
+                                        <textField id="amtNetField" dataContainer="finStmtDc" property="amtNet" tabIndex="20" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="amtEndBal" expand="amtEndBalField" width="100%">
+                                        <textField id="amtEndBalField" dataContainer="finStmtDc" property="amtEndBal" tabIndex="20" editable="false" />
+                                    </hbox>
+                                    <hbox caption="amtEndBalCalc" expand="amtEndBalCalcField" width="100%">
+                                        <textField id="amtEndBalCalcField" dataContainer="finStmtDc" property="amtEndBalCalc" tabIndex="20" editable="false"/>
+                                    </hbox>
                                 </column>
+
                                 <column width="240px">
                                     <dateField id="beg1Date1Field" property="beg1.ts1" dateFormat="yyyy-MM-dd" caption="Beg Date"
                                                tabIndex="30"/>
                                     <dateField id="end1Date1Field" property="end1.ts1" dateFormat="yyyy-MM-dd" caption="End Date"
                                                tabIndex="30"/>
+                                </column>
+
+                                <column width="240px">
+                                    <hbox caption="statusField" expand="statusField" width="100%">
+                                        <comboBox id="statusField" dataContainer="finStmtDc" property="status" tabIndex="40">
+                                        </comboBox>
+                                    </hbox>
+                                    <hbox caption="statusCalcField" expand="statusCalcField" width="100%">
+                                        <comboBox id="statusCalcField" dataContainer="finStmtDc" property="statusCalc" tabIndex="40">
+                                        </comboBox>
+                                    </hbox>
                                 </column>
                             </form>
                         </tab>
@@ -319,75 +364,112 @@
                             </form>
                         </tab>
                         <tab id="tab_5"
-                             caption="Acct, Sum, Status"
+                             caption="FinStmtItm"
                              margin="true"
                              spacing="true">
                             <form id="tab5Form" dataContainer="finStmtDc">
                                 <column width="360px">
-                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField">
-                                        <entityComboBox id="finAcct1_IdField" dataContainer="finStmtDc"
-                                                        property="finAcct1_Id" tabIndex="10">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateListFinAcct1_IdFieldBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
+                                    <hbox>
                                     </hbox>
-                                    <hbox caption="FinAcct1_Id.type1_Id" expand="FinAcct1_Id_Type1_IdField">
-                                        <entityComboBox id="FinAcct1_Id_Type1_IdField" dataContainer="finStmtDc"
-                                                        property="finAcct1_Id.type1_Id" tabIndex="10">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateListFinAcct1_Id_Type1_IdFieldBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
+                                    <hbox caption="amtDebtField" expand="amtDebtField_tab_5" width="100%">
+                                        <textField id="amtDebtField_tab_5" dataContainer="finStmtDc" property="amtDebt" tabIndex="10"/>
                                     </hbox>
-                                    <comboBox id="statusField"
-                                              dataContainer="finStmtDc"
-                                              property="status" tabIndex="10">
-                                    </comboBox>
+                                    <hbox caption="amtCredField" expand="amtCredField_tab_5" width="100%">
+                                        <textField id="amtCredField_tab_5" dataContainer="finStmtDc" property="amtCred" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="amtNetField" expand="amtNetField_tab_5" width="100%">
+                                        <textField id="amtNetField_tab_5" dataContainer="finStmtDc" property="amtNet" editable="false" tabIndex="10"/>
+                                    </hbox>
 
                                 </column>
-                                <column width="240px">
-                                    <textField id="begBalField" property="begBal" width="100%" tabIndex="20"/>
-                                    <textField id="debtSumField" property="debtSum" width="100%" tabIndex="20"/>
-                                    <textField id="credSumField" property="credSum" width="100%" tabIndex="20"/>
-                                    <textField id="netSumField" property="netSum" width="100%" editable="false" tabIndex="20"/>
-                                    <textField id="endBalField" property="endBal" width="100%" editable="false" tabIndex="20"/>
+                                <column width="360px">
+                                    <hbox caption="finStmtItms1_IdCntCalc" expand="finStmtItms1_IdCntCalcField" width="100%">
+                                        <textField id="finStmtItms1_IdCntCalcField" dataContainer="finStmtDc" property="finStmtItms1_IdCntCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finStmtItms1_AmtDebtSumField" expand="finStmtItms1_AmtDebtSumCalcField" width="100%">
+                                        <textField id="finStmtItms1_AmtDebtSumCalcField" dataContainer="finStmtDc" property="finStmtItms1_AmtDebtSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finStmtItms1_AmtCredSumCalc" expand="finStmtItms1_AmtCredSumCalcField" width="100%">
+                                        <textField id="finStmtItms1_AmtCredSumCalcField" dataContainer="finStmtDc" property="finStmtItms1_AmtCredSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finStmtItms1_AmtNetSumCalc" expand="finStmtItms1_AmtNetSumCalcField" width="100%">
+                                        <textField id="finStmtItms1_AmtNetSumCalcField" dataContainer="finStmtDc" property="finStmtItms1_AmtNetSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finStmtItms1_AmtEqCalc" expand="finStmtItms1_AmtEqCalcBox" width="100%">
+                                        <checkBox id="finStmtItms1_AmtEqCalcBox" dataContainer="finStmtDc" property="finStmtItms1_AmtEqCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
                                 </column>
+
                                 <column width="360px">
                                     <hbox width="100%"/>
-                                    <hbox spacing="true" width="100%">
-                                        <label value="Calc"/>
-                                        <textField id="debtSumCalcField" editable="false" width="100%" tabIndex="30"/>
-                                        <label value="Diff"/>
-                                        <textField id="debtSumDiffField" editable="false" width="100%" tabIndex="30"/>
+                                    <hbox caption="finStmtItms1_AmtDebtSumField" expand="finStmtItms1_AmtDebtSumDiffField" width="100%">
+                                        <textField id="finStmtItms1_AmtDebtSumDiffField" dataContainer="finStmtDc" property="finStmtItms1_AmtDebtSumDiff" editable="false" tabIndex="20"/>
                                     </hbox>
-                                    <hbox spacing="true" width="100%">
-                                        <label value="Calc"/>
-                                        <textField id="credSumCalcField" editable="false" width="100%" tabIndex="30"/>
-                                        <label value="Diff"/>
-                                        <textField id="credSumDiffField" editable="false" width="100%" tabIndex="30"/>
+                                    <hbox caption="finStmtItms1_AmtCredSumDiff" expand="finStmtItms1_AmtCredSumDiffField" width="100%">
+                                        <textField id="finStmtItms1_AmtCredSumDiffField" dataContainer="finStmtDc" property="finStmtItms1_AmtCredSumDiff" editable="false" tabIndex="20"/>
                                     </hbox>
-                                    <hbox spacing="true" width="100%">
-                                        <label value="Calc"/>
-                                        <textField id="netSumCalcField" editable="false" width="100%" tabIndex="30"/>
-                                        <label value="Diff"/>
-                                        <textField id="netSumDiffField" editable="false" width="100%" tabIndex="30"/>
+                                    <hbox caption="finStmtItms1_AmtNetSumDiff" expand="finStmtItms1_AmtNetSumDiffField" width="100%">
+                                        <textField id="finStmtItms1_AmtNetSumDiffField" dataContainer="finStmtDc" property="finStmtItms1_AmtNetSumDiff" editable="false" tabIndex="20"/>
                                     </hbox>
-                                    <hbox width="100%"/>
                                 </column>
                             </form>
                         </tab>
-                        <tab id="tab_7"
+                        <tab id="tab_6"
+                             caption="FinTxfer"
+                             margin="true"
+                             spacing="true">
+                            <form id="tab6Form" dataContainer="finStmtDc">
+                                <column width="360px">
+                                    <hbox>
+                                    </hbox>
+                                    <hbox caption="amtDebtField" expand="amtDebtField_tab_6" width="100%">
+                                        <textField id="amtDebtField_tab_6" dataContainer="finStmtDc" property="amtDebt" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="amtCredField" expand="amtCredField_tab_6" width="100%">
+                                        <textField id="amtCredField_tab_6" dataContainer="finStmtDc" property="amtCred" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="amtNetField" expand="amtNetField_tab_6" width="100%">
+                                        <textField id="amtNetField_tab_6" dataContainer="finStmtDc" property="amtNet" editable="false" tabIndex="10"/>
+                                    </hbox>
+
+                                </column>
+                                <column width="360px">
+                                    <hbox caption="finTxfers1_IdCntCalc" expand="finTxfers1_IdCntCalcField" width="100%">
+                                        <textField id="finTxfers1_IdCntCalcField" dataContainer="finStmtDc" property="finTxfers1_IdCntCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtDebtSumField" expand="finTxfers1_AmtDebtSumCalcField" width="100%">
+                                        <textField id="finTxfers1_AmtDebtSumCalcField" dataContainer="finStmtDc" property="finTxfers1_AmtDebtSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtCredSumCalc" expand="finTxfers1_AmtCredSumCalcField" width="100%">
+                                        <textField id="finTxfers1_AmtCredSumCalcField" dataContainer="finStmtDc" property="finTxfers1_AmtCredSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtNetSumCalc" expand="finTxfers1_AmtNetSumCalcField" width="100%">
+                                        <textField id="finTxfers1_AmtNetSumCalcField" dataContainer="finStmtDc" property="finTxfers1_AmtNetSumCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtEqCalc" expand="finTxfers1_AmtEqCalcBox" width="100%">
+                                        <checkBox id="finTxfers1_AmtEqCalcBox" dataContainer="finStmtDc" property="finTxfers1_AmtEqCalc" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                </column>
+
+                                <column width="360px">
+                                    <hbox width="100%"/>
+                                    <hbox caption="finTxfers1_AmtDebtSumField" expand="finTxfers1_AmtDebtSumDiffField" width="100%">
+                                        <textField id="finTxfers1_AmtDebtSumDiffField" dataContainer="finStmtDc" property="finTxfers1_AmtDebtSumDiff" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtCredSumDiff" expand="finTxfers1_AmtCredSumDiffField" width="100%">
+                                        <textField id="finTxfers1_AmtCredSumDiffField" dataContainer="finStmtDc" property="finTxfers1_AmtCredSumDiff" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="finTxfers1_AmtNetSumDiff" expand="finTxfers1_AmtNetSumDiffField" width="100%">
+                                        <textField id="finTxfers1_AmtNetSumDiffField" dataContainer="finStmtDc" property="finTxfers1_AmtNetSumDiff" editable="false" tabIndex="20"/>
+                                    </hbox>
+                                </column>
+                            </form>
+                        </tab>
+                        <tab id="tab_9"
                              caption="Note"
                              margin="true"
                              spacing="true">
-                            <form id="tab7Form" dataContainer="finStmtDc" width="100%">
+                            <form id="tab9Form" dataContainer="finStmtDc" width="100%">
                                 <column width="840px">
                                     <textArea id="noteField" property="note" tabIndex="10"/>
                                 </column>

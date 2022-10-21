@@ -38,9 +38,6 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     protected UiComponents uiComponents;
 
     @Autowired
-    protected SingleFilterSupport singleFilterSupport;
-
-    @Autowired
     protected Filter filter;
 
     @Autowired
@@ -173,27 +170,6 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genTag1_IdField;
 
 
-
-    Logger logger = LoggerFactory.getLogger(FinStmtBrowse2.class);
-
-    @Autowired
-    private TextField<String> debtSumCalcField;
-
-    @Autowired
-    private TextField<String> debtSumDiffField;
-
-    @Autowired
-    private TextField<String> credSumCalcField;
-
-    @Autowired
-    private TextField<String> credSumDiffField;
-
-    @Autowired
-    private TextField<String> netSumCalcField;
-
-    @Autowired
-    private TextField<String> netSumDiffField;
-
     @Autowired
     private Button finStmtHideBtn;
 
@@ -202,6 +178,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     private ComboBox<String> statusField;
+
+    Logger logger = LoggerFactory.getLogger(FinStmtBrowse2.class);
+
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -473,8 +452,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 }
             }
 
-            if (orig.getEndBal() != null) {
-                copy.setBegBal(orig.getEndBal());}
+            if (orig.getAmtEndBal() != null) {
+                copy.setAmtBegBal(orig.getAmtEndBal());}
 
             copy.setId2Calc(copy.getId2CalcFrFields());
             copy.setId2(copy.getId2Calc());
@@ -636,7 +615,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 GenNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
                 thisFinStmt = thisTrackedFinStmt;
 
-                Boolean isChanged = false;
+                boolean isChanged = false;
 
                 isChanged = updateCalcVals(thisFinStmt);
 
@@ -883,9 +862,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    @Subscribe("begBalField")
-    public void onBegBalFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
-        String logPrfx = "begBalField";
+    @Subscribe("amtBegBalField")
+    public void onAmtBegBalFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
+        String logPrfx = "amtBegBalField";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
@@ -895,11 +874,30 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateEndBal(thisFinStmt);
+        updateAmtEndBal(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
     }
+
+    @Subscribe("amtBegBalCalcField")
+    public void onAmtBegBalCalcFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
+        String logPrfx = "amtBegBalCalcField";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateAmtEndBalCalc(thisFinStmt);
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
 
     @Install(to = "statusField", subject = "enterPressHandler")
     private void statusFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
@@ -912,9 +910,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    @Subscribe("credSumField")
-    public void onCredSumFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
-        String logPrfx = "onCredSumFieldValueChange";
+    @Subscribe("amtDebtField")
+    public void onAmtDebtFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
+        String logPrfx = "onAmtDebtFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
@@ -924,16 +922,16 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateSumNet(thisFinStmt);
-        updateEndBal(thisFinStmt);
+        updateAmtNet(thisFinStmt);
+        updateAmtEndBalCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
     }
 
-    @Subscribe("debtSumField")
-    public void onDebtSumFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
-        String logPrfx = "onDebtSumFieldValueChange";
+    @Subscribe("amtCredField")
+    public void onAmtCredFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
+        String logPrfx = "onAmtCredFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
@@ -943,12 +941,13 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateSumNet(thisFinStmt);
-        updateEndBal(thisFinStmt);
+        updateAmtNet(thisFinStmt);
+        updateAmtEndBalCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
     }
+
 
     @Subscribe("updateInstItemCalcValsBtn")
     public void onUpdateInstItemValsBtnClick(Button.ClickEvent event) {
@@ -971,7 +970,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateFinStmtCalcVals(thisFinStmt) || isChanged;
 
@@ -984,7 +983,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinStmtCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         // Stored in FinStmt Object
         isChanged = updateIdDt(thisFinStmt) || isChanged;
@@ -994,8 +993,10 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         isChanged = updateDesc1(thisFinStmt) || isChanged;
 
         isChanged = updateFinAcct1_Type1_Id2(thisFinStmt) || isChanged;
-        isChanged = updateSumNet(thisFinStmt) || isChanged;
-        isChanged = updateEndBal(thisFinStmt) || isChanged;
+        isChanged = updateAmtNet(thisFinStmt) || isChanged;
+        isChanged = updateAmtBegBalCalc(thisFinStmt) || isChanged;
+        isChanged = updateAmtEndBal(thisFinStmt) || isChanged;
+        isChanged = updateAmtEndBalCalc(thisFinStmt) || isChanged;
         isChanged = updateFieldSet1(thisFinStmt) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
@@ -1007,7 +1008,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
 
         isChanged = updateEnd1(thisFinStmt) || isChanged;
         isChanged = updateIdDt(thisFinStmt)  || isChanged;
@@ -1021,7 +1022,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2_ = thisFinStmt.getId2();
         String id2 = thisFinStmt.getId2Calc();
         if(!Objects.equals(id2_, id2)){
@@ -1039,7 +1040,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String id2Calc_ = thisFinStmt.getId2Calc();
         String id2Calc = thisFinStmt.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
@@ -1057,7 +1058,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Boolean id2Cmp_ = thisFinStmt.getId2Cmp();
         Boolean id2Cmp = !Objects.equals(thisFinStmt.getId2(),thisFinStmt.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
@@ -1075,7 +1076,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         Integer id2Dup_ = thisFinStmt.getId2Dup();
         if (thisFinStmt.getId2() != null){
             String id2Qry = "select count(e) from ampata_GenNode e where e.className = 'FinStmt' and e.id2 = :id2 and e.id <> :id";
@@ -1108,7 +1109,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String desc1_ = thisFinStmt.getDesc1();
         String  thisStatus = Objects.toString(thisFinStmt.getStatus(),"");
         if (!thisStatus.equals("")){
@@ -1123,7 +1124,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             thisBegDate = "BegDate " + thisBegDate ;}
         logger.debug(logPrfx + " --- thisBegDate: " + thisBegDate);
 
-        String  thisBegBal = Objects.toString(thisFinStmt.getBegBal(),"");
+        String  thisBegBal = Objects.toString(thisFinStmt.getAmtBegBal(),"");
         if (!thisBegBal.equals("")){
             thisBegBal = "BegBal " + thisBegBal;
         }
@@ -1136,7 +1137,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             thisEndDate = "EndDate " + thisEndDate ;}
         logger.debug(logPrfx + " --- thisEndDate: " + thisEndDate);
 
-        String  thisEndBal = Objects.toString(thisFinStmt.getEndBal(),"");
+        String  thisEndBal = Objects.toString(thisFinStmt.getAmtEndBal(),"");
         if (!thisEndBal.equals("")){
             thisEndBal = "EndBal " + thisEndBal;
         }
@@ -1192,31 +1193,34 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateIdDt";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmt.updateIdDt();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-
-    public Boolean updateEndBal(@NotNull GenNode thisFinStmt){
-        String logPrfx = "updateEndBal";
+    public Boolean updateAmtNet(@NotNull GenNode thisFinStmt){
+        String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
-        BigDecimal endBal_ = thisFinStmt.getEndBal();
-        BigDecimal endBal = BigDecimal.valueOf(0);
-        if (thisFinStmt.getBegBal() == null || thisFinStmt.getNetSum() == null){
-            thisFinStmt.setEndBal(null);
-            logger.debug(logPrfx + " --- endBal: null");
-            return isChanged;
-        }
-        endBal = thisFinStmt.getBegBal().add(thisFinStmt.getNetSum());
 
-        if (!Objects.equals(endBal_, endBal)){
-            thisFinStmt.setEndBal(endBal);
-            logger.debug(logPrfx + " --- endBal: " + endBal);
+        boolean isChanged = false;
+        BigDecimal amtNet_ = thisFinStmt.getAmtNet();
+        BigDecimal amtNet = null;
+        if (thisFinStmt.getAmtDebt() != null && thisFinStmt.getAmtCred() != null){
+            if (thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt() != null
+                    && thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt()){
+                amtNet = thisFinStmt.getAmtDebt().subtract(thisFinStmt.getAmtCred());
+
+            }else{
+                amtNet = thisFinStmt.getAmtCred().subtract(thisFinStmt.getAmtDebt());
+            }
+        }
+
+        if (!Objects.equals(amtNet_, amtNet)){
+            thisFinStmt.setAmtNet(amtNet);
+            logger.debug(logPrfx + " --- amtNet: " + amtNet);
             isChanged = true;
         }
 
@@ -1224,31 +1228,89 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         return isChanged;
     }
 
-    public Boolean updateSumNet(@NotNull GenNode thisFinStmt){
-        String logPrfx = "updateSumNet";
+
+    public Boolean updateAmtEndBal(@NotNull GenNode thisFinStmt){
+        String logPrfx = "updateAmtEndBal";
         logger.trace(logPrfx + " --> ");
 
+        boolean isChanged = false;
+        BigDecimal amtEndBal_ = thisFinStmt.getAmtEndBal();
+        BigDecimal amtEndBal = null;
+        if (thisFinStmt.getAmtBegBal() != null && thisFinStmt.getAmtNet() != null){
+            amtEndBal = thisFinStmt.getAmtBegBal().add(thisFinStmt.getAmtNet());
+        }
 
-        Boolean isChanged = false;
-        BigDecimal netSum_ = thisFinStmt.getNetSum();
-        BigDecimal netSum = BigDecimal.valueOf(0);
-        if (thisFinStmt.getDebtSum() == null || thisFinStmt.getCredSum() == null){
-            thisFinStmt.setNetSum(null);
-            logger.debug(logPrfx + " --- netSum: null");
+        if (!Objects.equals(amtEndBal_, amtEndBal)){
+            thisFinStmt.setAmtEndBal(amtEndBal);
+            logger.debug(logPrfx + " --- amtEndBal: " + amtEndBal);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateAmtBegBalCalc(@NotNull GenNode thisFinStmt){
+        String logPrfx = "updateAmtBegBalCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        BigDecimal amtBegBalCalc_ = thisFinStmt.getAmtEndBal();
+        BigDecimal amtBegBalCalc = null;
+
+        final String SEP = "/";
+        StringBuilder sb = new StringBuilder();
+
+        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd")
+                .toFormatter();
+
+        if (thisFinStmt.getBeg1() == null
+                || thisFinStmt.getBeg1().getDate1() == null
+                || thisFinStmt.getFinAcct1_Id() == null
+                || thisFinStmt.getFinAcct1_Id().getId2() == null
+                ) {
+            logger.trace(logPrfx + " <-- ");
             return isChanged;
         }
 
-        if (thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt() != null
-                && thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt()){
-            netSum = thisFinStmt.getDebtSum().subtract(thisFinStmt.getCredSum());
+        //Account
+        sb.append(thisFinStmt.getFinAcct1_Id().getId2())
+        //Date
+        .append(SEP + "D").append(thisFinStmt.getBeg1().getDate1().minusDays(1).format(frmtDt));
 
-        }else{
-            netSum = thisFinStmt.getCredSum().subtract(thisFinStmt.getDebtSum());
+        GenNode prevFinStmt = findFinStmtById2(sb.toString());
+        if (prevFinStmt == null  ){
+            amtBegBalCalc = BigDecimal.valueOf(0);
+        } else {
+            amtBegBalCalc = prevFinStmt.getAmtEndBalCalc();
         }
 
-        if (!Objects.equals(netSum_, netSum)){
-            thisFinStmt.setNetSum(netSum);
-            logger.debug(logPrfx + " --- netSum: " + netSum);
+        if (!Objects.equals(amtBegBalCalc_, amtBegBalCalc)){
+            thisFinStmt.setAmtEndBal(amtBegBalCalc);
+            logger.debug(logPrfx + " --- amtBegBalCalc: " + amtBegBalCalc);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+        public Boolean updateAmtEndBalCalc(@NotNull GenNode thisFinStmt){
+        String logPrfx = "updateAmtEndBalCalc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        BigDecimal amtEndBalCalc_ = thisFinStmt.getAmtEndBalCalc();
+        BigDecimal amtEndBalCalc = null;
+        if (thisFinStmt.getAmtBegBalCalc() != null || thisFinStmt.getAmtNet() != null){
+            amtEndBalCalc = thisFinStmt.getAmtBegBalCalc().add(thisFinStmt.getAmtNet());
+        }
+
+        if (!Objects.equals(amtEndBalCalc_, amtEndBalCalc)){
+            thisFinStmt.setAmtEndBal(amtEndBalCalc);
+            logger.debug(logPrfx + " --- amtEndBalCalc: " + amtEndBalCalc);
             isChanged = true;
         }
 
@@ -1260,7 +1322,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateFinAcct1_Type1_Id2";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         String finAcct1_Type1_Id2_ = thisFinStmt.getFinAcct1_Type1_Id2();
         String finAcct1_Type1_Id2 = null;
         if (thisFinStmt.getFinAcct1_Id() != null
@@ -1278,121 +1340,244 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         return isChanged;
     }
 
+
     public Boolean updateFieldSet1(@NotNull GenNode thisFinStmt) {
         String logPrfx = "updateFieldSet1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
-        BigDecimal debtSumCalc_ = ((debtSumCalcField.getValue() == null
-                || debtSumCalcField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(debtSumCalcField.getValue()));
-        BigDecimal debtSumDiff_ = ((debtSumDiffField.getValue() == null
-                || debtSumDiffField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(debtSumDiffField.getValue()));
+        boolean isChanged = false;
 
-        BigDecimal debtSumCalc = null;
-        BigDecimal debtSumDiff = null;
-        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
+        BigDecimal finStmtItms1_AmtDebtSumCalc_ = thisFinStmt.getFinStmtItms1_AmtDebtSumCalc();
+        BigDecimal finStmtItms1_AmtDebtSumDiff_ = thisFinStmt.getFinStmtItms1_AmtDebtSumDiff();
+
+        BigDecimal finStmtItms1_AmtDebtSumCalc = null;
+        BigDecimal finStmtItms1_AmtDebtSumDiff = null;
+        String finStmtItms1_QryDebt = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id";
         try{
-            debtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
+            finStmtItms1_AmtDebtSumCalc = dataManager.loadValue(finStmtItms1_QryDebt,BigDecimal.class)
                     .store("main")
                     .parameter("finStmt1_Id",thisFinStmt)
                     .one();
-            if (debtSumCalc == null) {
-                debtSumCalc = BigDecimal.valueOf(0);}
-            
-            
-            debtSumCalcField.setValue(debtSumCalc.toString());
-            logger.debug(logPrfx + " --- debtSumCalc: " + debtSumCalc);
+            if (finStmtItms1_AmtDebtSumCalc == null) {
+                finStmtItms1_AmtDebtSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumCalc: " + finStmtItms1_AmtDebtSumCalc);
 
-            if (thisFinStmt.getDebtSum() == null){
-                debtSumDiffField.setValue(null);
+            if (thisFinStmt.getAmtDebt() == null){
+                finStmtItms1_AmtDebtSumDiff = BigDecimal.valueOf(0);
             }else{
-                debtSumDiff = thisFinStmt.getDebtSum().subtract(debtSumCalc);
-                debtSumDiffField.setValue(debtSumDiff.toString());
+                finStmtItms1_AmtDebtSumDiff = thisFinStmt.getAmtDebt().subtract(finStmtItms1_AmtDebtSumCalc);
             }
-            logger.debug(logPrfx + " --- debtSumDiff: " + debtSumDiff);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumDiff: " + finStmtItms1_AmtDebtSumDiff);
 
         } catch (IllegalStateException e){
             logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-            debtSumCalcField.setValue(null);
-            logger.debug(logPrfx + " --- debtSumCalc: null");
-            debtSumDiffField.setValue(null);
-            logger.debug(logPrfx + " --- debtSumDiff: null");
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumCalc: null");
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumDiff: null");
+        }
+
+        if (!Objects.equals(finStmtItms1_AmtDebtSumCalc_, finStmtItms1_AmtDebtSumCalc)){
+            thisFinStmt.setFinStmtItms1_AmtDebtSumCalc(finStmtItms1_AmtDebtSumCalc);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumCalc: " + finStmtItms1_AmtDebtSumCalc);
+            isChanged = true;
+        }
+
+        if (!Objects.equals(finStmtItms1_AmtDebtSumDiff_, finStmtItms1_AmtDebtSumDiff)){
+            thisFinStmt.setFinStmtItms1_AmtDebtSumDiff(finStmtItms1_AmtDebtSumDiff);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumDiff: " + finStmtItms1_AmtDebtSumDiff);
+            isChanged = true;
         }
 
 
-        BigDecimal credSumCalc_ = ((credSumCalcField.getValue() == null
-                || credSumCalcField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(credSumCalcField.getValue()));
-        BigDecimal credSumDiff_ = ((credSumDiffField.getValue() == null
-                || credSumDiffField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(credSumDiffField.getValue()));
-        BigDecimal credSumCalc = null;
-        BigDecimal credSumDiff = null;
-        String qry2 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id group by e.finStmt1_Id";
+        BigDecimal finStmtItms1_AmtCredSumCalc_ = thisFinStmt.getFinStmtItms1_AmtCredSumCalc();
+        BigDecimal finStmtItms1_AmtCredSumDiff_ = thisFinStmt.getFinStmtItms1_AmtCredSumDiff();
+
+        BigDecimal finStmtItms1_AmtCredSumCalc = null;
+        BigDecimal finStmtItms1_AmtCredSumDiff = null;
+
+        String finStmtItms1_QryCred = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinStmtItm' and e.finStmt1_Id = :finStmt1_Id";
         try {
-            credSumCalc = dataManager.loadValue(qry2, BigDecimal.class)
+            finStmtItms1_AmtCredSumCalc = dataManager.loadValue(finStmtItms1_QryCred, BigDecimal.class)
                     .store("main")
                     .parameter("finStmt1_Id", thisFinStmt)
                     .one();
-            if (credSumCalc == null) {
-                credSumCalc = BigDecimal.valueOf(0);}
-            credSumCalcField.setValue(credSumCalc.toString());
-            logger.debug(logPrfx + " --- credSumCalc: " + credSumCalc);
+            if (finStmtItms1_AmtCredSumCalc == null) {
+                finStmtItms1_AmtCredSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumCalc: " + finStmtItms1_AmtCredSumCalc);
 
-            if (thisFinStmt.getDebtSum() == null){
-                credSumDiffField.setValue(null);
+            if (thisFinStmt.getAmtDebt() == null){
+                finStmtItms1_AmtCredSumDiff = BigDecimal.valueOf(0);
             }else{
-                credSumDiff = thisFinStmt.getCredSum().subtract(credSumCalc);
-                credSumDiffField.setValue(credSumDiff.toString());
+                finStmtItms1_AmtCredSumDiff = thisFinStmt.getAmtCred().subtract(finStmtItms1_AmtCredSumCalc);
             }
-            logger.debug(logPrfx + " --- credSumDiff: " + credSumDiff);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumDiff: " + finStmtItms1_AmtCredSumDiff);
 
         } catch (IllegalStateException e ){
             logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
-            credSumCalcField.setValue(null);
-            logger.debug(logPrfx + " --- credSumCalc: null");
-            credSumDiffField.setValue(null);
-            logger.debug(logPrfx + " --- credSumDiff: null");
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumCalc: null");
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumDiff: null");
         }
 
 
-        BigDecimal netSumCalc_ = ((netSumCalcField.getValue() == null
-                || netSumCalcField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(netSumCalcField.getValue()));
-        BigDecimal netSumDiff_ = ((netSumDiffField.getValue() == null
-                || netSumDiffField.getValue().isEmpty())
-                ? new BigDecimal(0)
-                : new BigDecimal(netSumDiffField.getValue()));
-        BigDecimal netSumCalc = null;
-        BigDecimal netSumDiff = null;
-        if (debtSumCalc == null || credSumCalc == null){
-            netSumCalcField.setValue(null);
-            logger.debug(logPrfx + " --- netSumCalc: null");
-            netSumDiffField.setValue(null);
-            logger.debug(logPrfx + " --- netSumDiff: null");
+        if (!Objects.equals(finStmtItms1_AmtCredSumCalc_, finStmtItms1_AmtCredSumCalc)){
+            thisFinStmt.setFinStmtItms1_AmtCredSumCalc(finStmtItms1_AmtCredSumCalc);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumCalc: " + finStmtItms1_AmtCredSumCalc);
+            isChanged = true;
+        }
+
+        if (!Objects.equals(finStmtItms1_AmtCredSumDiff_, finStmtItms1_AmtCredSumDiff)){
+            thisFinStmt.setFinStmtItms1_AmtCredSumDiff(finStmtItms1_AmtCredSumDiff);
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumDiff: " + finStmtItms1_AmtCredSumDiff);
+            isChanged = true;
+        }
+
+        BigDecimal finStmtItms1_AmtNetSumCalc_ = thisFinStmt.getFinStmtItms1_AmtNetSumCalc();
+        BigDecimal finStmtItms1_AmtNetSumDiff_ = thisFinStmt.getFinStmtItms1_AmtNetSumDiff();
+
+        BigDecimal finStmtItms1_AmtNetSumCalc = null;
+        BigDecimal finStmtItms1_AmtNetSumDiff = null;
+
+        if (finStmtItms1_AmtDebtSumCalc == null || finStmtItms1_AmtCredSumCalc == null){
+            logger.debug(logPrfx + " --- finStmtItms1_AmtDebtSumCalc: null");
+            logger.debug(logPrfx + " --- finStmtItms1_AmtCredSumCalc: null");
         }else{
 
             if (thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt() != null
                     && thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt()){
-                netSumCalc = debtSumCalc.subtract(credSumCalc);
+                finStmtItms1_AmtNetSumCalc = finStmtItms1_AmtDebtSumCalc.subtract(finStmtItms1_AmtCredSumCalc);
             }else{
-                netSumCalc = credSumCalc.subtract(debtSumCalc);
+                finStmtItms1_AmtNetSumCalc = finStmtItms1_AmtCredSumCalc.subtract(finStmtItms1_AmtDebtSumCalc);
             }
-            netSumCalcField.setValue(netSumCalc.toString());
-            logger.debug(logPrfx + " --- netSumCalc: " + netSumCalc);
 
-            netSumDiff = thisFinStmt.getNetSum().subtract(netSumCalc);
-            netSumDiffField.setValue(netSumDiff.toString());
-            logger.debug(logPrfx + " --- netSumDiff: " + netSumDiff);
+            if (!Objects.equals(finStmtItms1_AmtNetSumCalc_, finStmtItms1_AmtNetSumCalc)){
+                thisFinStmt.setFinStmtItms1_AmtNetSumCalc(finStmtItms1_AmtNetSumCalc);
+                logger.debug(logPrfx + " --- finStmtItms1_AmtNetSumCalc: " + finStmtItms1_AmtNetSumCalc);
+                isChanged = true;
+            }
+
+            if (!Objects.equals(finStmtItms1_AmtNetSumDiff_, finStmtItms1_AmtNetSumDiff)){
+                thisFinStmt.setFinStmtItms1_AmtNetSumDiff(finStmtItms1_AmtNetSumDiff);
+                logger.debug(logPrfx + " --- finStmtItms1_AmtNetSumDiff: " + finStmtItms1_AmtNetSumDiff);
+                isChanged = true;
+            }
 
         }
+
+        BigDecimal finTxfers1_AmtDebtSumCalc_ = thisFinStmt.getFinTxfers1_AmtDebtSumCalc();
+        BigDecimal finTxfers1_AmtDebtSumDiff_ = thisFinStmt.getFinTxfers1_AmtDebtSumDiff();
+
+        BigDecimal finTxfers1_AmtDebtSumCalc = null;
+        BigDecimal finTxfers1_AmtDebtSumDiff = null;
+        String finTxfers1_QryDebt = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id";
+        try{
+            finTxfers1_AmtDebtSumCalc = dataManager.loadValue(finTxfers1_QryDebt,BigDecimal.class)
+                    .store("main")
+                    .parameter("finStmt1_Id",thisFinStmt)
+                    .one();
+            if (finTxfers1_AmtDebtSumCalc == null) {
+                finTxfers1_AmtDebtSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumCalc: " + finTxfers1_AmtDebtSumCalc);
+
+            if (thisFinStmt.getAmtDebt() == null){
+                finTxfers1_AmtDebtSumDiff = BigDecimal.valueOf(0);
+            }else{
+                finTxfers1_AmtDebtSumDiff = thisFinStmt.getAmtDebt().subtract(finTxfers1_AmtDebtSumCalc);
+            }
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumDiff: " + finTxfers1_AmtDebtSumDiff);
+
+        } catch (IllegalStateException e){
+            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumCalc: null");
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumDiff: null");
+        }
+
+        if (!Objects.equals(finTxfers1_AmtDebtSumCalc_, finTxfers1_AmtDebtSumCalc)){
+            thisFinStmt.setFinTxfers1_AmtDebtSumCalc(finTxfers1_AmtDebtSumCalc);
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumCalc: " + finTxfers1_AmtDebtSumCalc);
+            isChanged = true;
+        }
+
+        if (!Objects.equals(finTxfers1_AmtDebtSumDiff_, finTxfers1_AmtDebtSumDiff)){
+            thisFinStmt.setFinTxfers1_AmtDebtSumDiff(finTxfers1_AmtDebtSumDiff);
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumDiff: " + finTxfers1_AmtDebtSumDiff);
+            isChanged = true;
+        }
+
+
+        BigDecimal finTxfers1_AmtCredSumCalc_ = thisFinStmt.getFinTxfers1_AmtCredSumCalc();
+        BigDecimal finTxfers1_AmtCredSumDiff_ = thisFinStmt.getFinTxfers1_AmtCredSumDiff();
+
+        BigDecimal finTxfers1_AmtCredSumCalc = null;
+        BigDecimal finTxfers1_AmtCredSumDiff = null;
+
+        String finTxfers1_QryCred = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id";
+        try {
+            finTxfers1_AmtCredSumCalc = dataManager.loadValue(finTxfers1_QryCred, BigDecimal.class)
+                    .store("main")
+                    .parameter("finStmt1_Id", thisFinStmt)
+                    .one();
+            if (finTxfers1_AmtCredSumCalc == null) {
+                finTxfers1_AmtCredSumCalc = BigDecimal.valueOf(0);}
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumCalc: " + finTxfers1_AmtCredSumCalc);
+
+            if (thisFinStmt.getAmtDebt() == null){
+                finTxfers1_AmtCredSumDiff = BigDecimal.valueOf(0);
+            }else{
+                finTxfers1_AmtCredSumDiff = thisFinStmt.getAmtCred().subtract(finTxfers1_AmtCredSumCalc);
+            }
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumDiff: " + finTxfers1_AmtCredSumDiff);
+
+        } catch (IllegalStateException e ){
+            logger.debug(logPrfx + " --- IllegalStateException message: " + e.getMessage());
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumCalc: null");
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumDiff: null");
+        }
+
+
+        if (!Objects.equals(finTxfers1_AmtCredSumCalc_, finTxfers1_AmtCredSumCalc)){
+            thisFinStmt.setFinTxfers1_AmtCredSumCalc(finTxfers1_AmtCredSumCalc);
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumCalc: " + finTxfers1_AmtCredSumCalc);
+            isChanged = true;
+        }
+
+        if (!Objects.equals(finTxfers1_AmtCredSumDiff_, finTxfers1_AmtCredSumDiff)){
+            thisFinStmt.setFinTxfers1_AmtCredSumDiff(finTxfers1_AmtCredSumDiff);
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumDiff: " + finTxfers1_AmtCredSumDiff);
+            isChanged = true;
+        }
+
+        BigDecimal finTxfers1_AmtNetSumCalc_ = thisFinStmt.getFinTxfers1_AmtNetSumCalc();
+        BigDecimal finTxfers1_AmtNetSumDiff_ = thisFinStmt.getFinTxfers1_AmtNetSumDiff();
+
+        BigDecimal finTxfers1_AmtNetSumCalc = null;
+        BigDecimal finTxfers1_AmtNetSumDiff = null;
+
+        if (finTxfers1_AmtDebtSumCalc == null || finTxfers1_AmtCredSumCalc == null){
+            logger.debug(logPrfx + " --- finTxfers1_AmtDebtSumCalc: null");
+            logger.debug(logPrfx + " --- finTxfers1_AmtCredSumCalc: null");
+        }else{
+
+            if (thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt() != null
+                    && thisFinStmt.getFinAcct1_Id().getType1_Id().getBalIncOnDebt()){
+                finTxfers1_AmtNetSumCalc = finTxfers1_AmtDebtSumCalc.subtract(finTxfers1_AmtCredSumCalc);
+            }else{
+                finTxfers1_AmtNetSumCalc = finTxfers1_AmtCredSumCalc.subtract(finTxfers1_AmtDebtSumCalc);
+            }
+
+            if (!Objects.equals(finTxfers1_AmtNetSumCalc_, finTxfers1_AmtNetSumCalc)){
+                thisFinStmt.setFinTxfers1_AmtNetSumCalc(finTxfers1_AmtNetSumCalc);
+                logger.debug(logPrfx + " --- finTxfers1_AmtNetSumCalc: " + finTxfers1_AmtNetSumCalc);
+                isChanged = true;
+            }
+
+            if (!Objects.equals(finTxfers1_AmtNetSumDiff_, finTxfers1_AmtNetSumDiff)){
+                thisFinStmt.setFinTxfers1_AmtNetSumDiff(finTxfers1_AmtNetSumDiff);
+                logger.debug(logPrfx + " --- finTxfers1_AmtNetSumDiff: " + finTxfers1_AmtNetSumDiff);
+                isChanged = true;
+            }
+
+        }
+
+
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1404,7 +1589,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "updateEnd1";
         logger.trace(logPrfx + " --> ");
 
-        Boolean isChanged = false;
+        boolean isChanged = false;
         isChanged = isChanged || thisFinStmt.updateEnd1();
 
         logger.trace(logPrfx + " <-- ");
