@@ -273,18 +273,23 @@
                             <column width="360px">
                                 <hbox caption="finTxfers1_IdCntCalc" expand="finTxfers1_IdCntCalcField" width="100%">
                                     <textField id="finTxfers1_IdCntCalcField" dataContainer="finStmtItmDc" property="finTxfers1_IdCntCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxfers1_IdCntCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxfers1_AmtDebtSumField" expand="finTxfers1_AmtDebtSumCalcField" width="100%">
                                     <textField id="finTxfers1_AmtDebtSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtDebtSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxfers1_AmtDebtSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxfers1_AmtCredSumCalc" expand="finTxfers1_AmtCredSumCalcField" width="100%">
                                     <textField id="finTxfers1_AmtCredSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtCredSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxfers1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxfers1_AmtNetSumCalc" expand="finTxfers1_AmtNetSumCalcField" width="100%">
                                     <textField id="finTxfers1_AmtNetSumCalcField" dataContainer="finStmtItmDc" property="finTxfers1_AmtNetSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxfers1_AmtNetSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxfers1_AmtEqCalc" expand="finTxfers1_AmtEqCalcBox" width="100%">
                                     <checkBox id="finTxfers1_AmtEqCalcBox" dataContainer="finStmtItmDc" property="finTxfers1_AmtEqCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxfers1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
                             </column>
 

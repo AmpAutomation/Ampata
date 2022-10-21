@@ -288,7 +288,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = event.getItem();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -655,7 +656,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = event.getSource().getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -805,7 +807,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when when a new item is selected
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -870,7 +873,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -918,7 +922,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -937,7 +942,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1304,7 +1310,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         boolean isChanged = false;
         BigDecimal amtEndBalCalc_ = thisFinStmt.getAmtEndBalCalc();
         BigDecimal amtEndBalCalc = null;
-        if (thisFinStmt.getAmtBegBalCalc() != null || thisFinStmt.getAmtNet() != null){
+        if (thisFinStmt.getAmtBegBalCalc() != null && thisFinStmt.getAmtNet() != null){
             amtEndBalCalc = thisFinStmt.getAmtBegBalCalc().add(thisFinStmt.getAmtNet());
         }
 

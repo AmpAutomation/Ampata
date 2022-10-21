@@ -154,7 +154,7 @@
                 </hbox>
             </vbox>
             <vbox id="editBox" expand="table2" height="100%">
-                <form id="form" dataContainer="finStmtDc" width="100%" height="400px">
+                <form id="form" dataContainer="finStmtDc" width="100%" height="440px">
                     <tabSheet width="100%">
                         <tab id="tab_1"
                              caption="General"

@@ -8,7 +8,7 @@
                     fetchPlan="genChan-fetch-plan-base">
             <loader id="genNodesDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenChan']]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'GenChan' order by e.id2]]>
                 </query>
             </loader>
         </collection>
