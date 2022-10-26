@@ -672,11 +672,19 @@ public class GenNode {
     @Column(name = "AMT_BEG_BAL_CALC", precision = 19, scale = 2)
     private BigDecimal amtBegBalCalc;
 
+    @Column(name = "AMT_BEG_BAL_MERG", precision = 19, scale = 2)
+    private BigDecimal amtBegBalMerg;
+
+
     @Column(name = "AMT_END_BAL", precision = 19, scale = 2)
     private BigDecimal amtEndBal;
 
     @Column(name = "AMT_END_BAL_CALC", precision = 19, scale = 2)
     private BigDecimal amtEndBalCalc;
+
+    @Column(name = "AMT_END_BAL_MERG", precision = 19, scale = 2)
+    private BigDecimal amtEndBalMerg;
+
 
 
 
@@ -2003,9 +2011,7 @@ public class GenNode {
         return amtBegBal;
     }
 
-    public void setAmtBegBal(BigDecimal amtBegBal) {
-        this.amtBegBal = amtBegBal;
-    }
+    public void setAmtBegBal(BigDecimal amtBegBal) { this.amtBegBal = amtBegBal; }
 
     public BigDecimal getAmtBegBalCalc() {
         return amtBegBalCalc;
@@ -2014,6 +2020,11 @@ public class GenNode {
     public void setAmtBegBalCalc(BigDecimal amtBegBalCalc) {
         this.amtBegBalCalc = amtBegBalCalc;
     }
+
+    public BigDecimal getAmtBegBalMerg() { return amtBegBalMerg; }
+
+    public void setAmtBegBalMerg(BigDecimal amtBegBalMerg) { this.amtBegBalMerg = amtBegBalMerg; }
+
 
 
     public BigDecimal getAmtEndBal() {
@@ -2030,6 +2041,14 @@ public class GenNode {
 
     public void setAmtEndBalCalc(BigDecimal amtEndBalCalc) {
         this.amtEndBalCalc = amtEndBalCalc;
+    }
+
+    public BigDecimal getAmtEndBalMerg() {
+        return amtEndBalMerg;
+    }
+
+    public void setAmtEndBalMerg(BigDecimal amtEndBalMerg) {
+        this.amtEndBalMerg = amtEndBalMerg;
     }
 
 

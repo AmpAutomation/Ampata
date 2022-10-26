@@ -2087,8 +2087,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        boolean amtEqCalc_ = thisFinStmtItm.getFinTxfers1_AmtEqCalc();
-        boolean amtEqCalc = Objects.equals(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc()
+        Boolean amtEqCalc_ = thisFinStmtItm.getFinTxfers1_AmtEqCalc();
+        Boolean amtEqCalc = Objects.equals(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc()
                 , thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
 
         if(!Objects.equals(amtEqCalc_, amtEqCalc)){

@@ -209,11 +209,13 @@
 
         <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
-        <property name="amtEndBal"/>
-        <property name="amtEndBalCalc"/>
+        <property name="amtBegBalMerg"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>
+        <property name="amtEndBal"/>
+        <property name="amtEndBalCalc"/>
+        <property name="amtEndBalMerg"/>
 
         <property name="finStmtItms1_IdCntCalc"/>
         <property name="finStmtItms1_AmtDebtSumCalc"/>
@@ -248,11 +250,16 @@
         <property name="exchDesc"/>
         <property name="refId"/>
         <property name="idX"/>
+
+        <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
-        <property name="amtEndBalCalc"/>
+        <property name="amtBegBalMerg"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>
+        <property name="amtEndBal"/>
+        <property name="amtEndBalCalc"/>
+        <property name="amtEndBalMerg"/>
 
         <property name="finTxfers1_IdCntCalc"/>
         <property name="finTxfers1_AmtDebtSumCalc"/>
@@ -398,11 +405,17 @@
         </property>
         <property name="finDept1_Id2"/>
 
+        <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
-        <property name="amtEndBalCalc"/>
+        <property name="amtBegBalMerg"/>
         <property name="amtDebt"/>
         <property name="amtCred"/>
         <property name="amtNet"/>
+        <property name="amtEndBal"/>
+        <property name="amtEndBalCalc"/>
+        <property name="amtEndBalMerg"/>
+
+
         <property name="finCurcy1_Id" fetchPlan="_base">
             <property name="type1_Id" fetchPlan="_base"/>
         </property>

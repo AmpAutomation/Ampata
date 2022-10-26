@@ -352,9 +352,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         repo.execGenNodePrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Gen_Node_Pr_Upd()");
 
-        logger.debug(logPrfx + " --- executing Db-Proc.Fin_Txfer_Pr_Upd()");
+        logger.debug(logPrfx + " --- executing Db-Proc.Fin_Stmt_Pr_Upd()");
         repo.execFinStmtPrUpdNative();
-        logger.debug(logPrfx + " --- finished Db-Proc.Fin_Txfer_Pr_Upd()");
+        logger.debug(logPrfx + " --- finished Db-Proc.Fin_Stmt_Pr_Upd()");
 
         logger.debug(logPrfx + " --- loading finStmtsDl.load()");
         finStmtsDl.load();
@@ -453,8 +453,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
                 }
             }
 
-            if (orig.getAmtEndBal() != null) {
-                copy.setAmtBegBal(orig.getAmtEndBal());}
+            if (orig.getAmtEndBalCalc() != null) {
+                copy.setAmtBegBal(orig.getAmtEndBalCalc());}
 
             copy.setId2Calc(copy.getId2CalcFrFields());
             copy.setId2(copy.getId2Calc());
@@ -799,25 +799,112 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("finAcct1_IdField")
-    public void onFinAcct1_IdFieldValueChange(HasValue.ValueChangeEvent<GenNode> event) {
-        String logPrfx = "onFinAcct1_IdFieldValueChange";
+    @Subscribe("updateListFinAcct1_IdFieldBtn")
+    public void onUpdateListFinAcct1_IdFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateListFinAcct1_IdFieldBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        finAcctsDl.load();
+        logger.debug(logPrfx + " --- called finAcctsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    @Subscribe("setNullAmtBegBalBtn")
+    public void onSetNullAmtBegBalBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onSetNullAmtBegBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            //todo I observed thisFinStmt is null when when a new item is selected
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinAcct1_Type1_Id2(thisFinStmt);
+
+        BigDecimal amtBegBal_ = thisFinStmt.getAmtBegBal();
+        BigDecimal amtBegBal = null;
+        if(!Objects.equals(amtBegBal_, amtBegBal)){
+            thisFinStmt.setAmtBegBal(amtBegBal);
+            logger.debug(logPrfx + " --- amtBegBal: " + amtBegBal);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    @Subscribe("updateAmtBegBalBtn")
+    public void onUpdateAmtBegBalBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAmtBegBalBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        BigDecimal amtBegBal_ = thisFinStmt.getAmtBegBal();
+        BigDecimal amtBegBal = thisFinStmt.getAmtBegBalCalc();
+        if(!Objects.equals(amtBegBal_, amtBegBal)){
+            thisFinStmt.setAmtBegBal(amtBegBal);
+            logger.debug(logPrfx + " --- amtBegBal: " + amtBegBal);
+        }
 
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Subscribe("setNullAmtEndBalBtn")
+    public void onSetNullAmtEndBalBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onSetNullAmtEndBalBtnClick";
+        logger.trace(logPrfx + " --> ");
 
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        BigDecimal amtEndBal_ = thisFinStmt.getAmtEndBal();
+        BigDecimal amtEndBal = null;
+        if(!Objects.equals(amtEndBal_, amtEndBal)){
+            thisFinStmt.setAmtEndBal(amtEndBal);
+            logger.debug(logPrfx + " --- amtEndBal: " + amtEndBal);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    @Subscribe("updateAmtEndBalBtn")
+    public void onUpdateAmtEndBalBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAmtEndBalBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmt = finStmtDc.getItemOrNull();
+        if (thisFinStmt == null) {
+            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        BigDecimal amtEndBal_ = thisFinStmt.getAmtEndBal();
+        BigDecimal amtEndBal = thisFinStmt.getAmtEndBalCalc();
+        if(!Objects.equals(amtEndBal_, amtEndBal)){
+            thisFinStmt.setAmtEndBal(amtEndBal);
+            logger.debug(logPrfx + " --- amtEndBal: " + amtEndBal);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+    }
     @Subscribe("updateListGenDocVer1_IdFieldBtn")
     public void onUpdateListGenDocVer1_IdFieldBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateListGenDocVer1_IdFieldBtn";
@@ -878,11 +965,11 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateAmtEndBal(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
     }
+
 
     @Subscribe("amtBegBalCalcField")
     public void onAmtBegBalCalcFieldValueChange(HasValue.ValueChangeEvent<BigDecimal> event) {
@@ -892,7 +979,8 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         GenNode thisFinStmt = finStmtDc.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            //todo I observed thisFinStmt is null when selecting a new item
+            //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -998,12 +1086,11 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         isChanged = updateId2Dup(thisFinStmt) || isChanged;
         isChanged = updateDesc1(thisFinStmt) || isChanged;
 
-        isChanged = updateFinAcct1_Type1_Id2(thisFinStmt) || isChanged;
         isChanged = updateAmtNet(thisFinStmt) || isChanged;
         isChanged = updateAmtBegBalCalc(thisFinStmt) || isChanged;
-        isChanged = updateAmtEndBal(thisFinStmt) || isChanged;
         isChanged = updateAmtEndBalCalc(thisFinStmt) || isChanged;
-        isChanged = updateFieldSet1(thisFinStmt) || isChanged;
+        isChanged = updateFinStmtItms1_FieldSet(thisFinStmt) || isChanged;
+        isChanged = updateFinTxfers1_FieldSet(thisFinStmt) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1117,69 +1204,69 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
         boolean isChanged = false;
         String desc1_ = thisFinStmt.getDesc1();
-        String  thisStatus = Objects.toString(thisFinStmt.getStatus(),"");
-        if (!thisStatus.equals("")){
-            thisStatus = "" + thisStatus;
+        String  status = Objects.toString(thisFinStmt.getStatus(),"");
+        if (!status.equals("")){
+            status = "" + status;
         }
-        logger.debug(logPrfx + " --- thisStatus: " + thisStatus);
+        logger.debug(logPrfx + " --- status: " + status);
 
-        String thisBegDate = "";
+        String begDate = "";
         if (thisFinStmt.getBeg1() != null) {
-            thisBegDate = Objects.toString(thisFinStmt.getBeg1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!thisBegDate.equals("")) {
-            thisBegDate = "BegDate " + thisBegDate ;}
-        logger.debug(logPrfx + " --- thisBegDate: " + thisBegDate);
+            begDate = Objects.toString(thisFinStmt.getBeg1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (!begDate.equals("")) {
+            begDate = "begDate " + begDate ;}
+        logger.debug(logPrfx + " --- begDate: " + begDate);
 
-        String  thisBegBal = Objects.toString(thisFinStmt.getAmtBegBal(),"");
-        if (!thisBegBal.equals("")){
-            thisBegBal = "BegBal " + thisBegBal;
+        String  begBal = Objects.toString(thisFinStmt.getAmtBegBal(),"");
+        if (!begBal.equals("")){
+            begBal = "begBal " + begBal;
         }
-        logger.debug(logPrfx + " --- thisBegBal: " + thisBegBal);
+        logger.debug(logPrfx + " --- begBal: " + begBal);
 
-        String thisEndDate = "";
+        String endDate = "";
         if (thisFinStmt.getEnd1() != null) {
-            thisEndDate = Objects.toString(thisFinStmt.getEnd1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!thisEndDate.equals("")) {
-            thisEndDate = "EndDate " + thisEndDate ;}
-        logger.debug(logPrfx + " --- thisEndDate: " + thisEndDate);
+            endDate = Objects.toString(thisFinStmt.getEnd1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (!endDate.equals("")) {
+            endDate = "endDate " + endDate ;}
+        logger.debug(logPrfx + " --- endDate: " + endDate);
 
-        String  thisEndBal = Objects.toString(thisFinStmt.getAmtEndBal(),"");
-        if (!thisEndBal.equals("")){
-            thisEndBal = "EndBal " + thisEndBal;
+        String  endBalCalc = Objects.toString(thisFinStmt.getAmtEndBalCalc(),"");
+        if (!endBalCalc.equals("")){
+            endBalCalc = "endBalCalc " + endBalCalc;
         }
-        logger.debug(logPrfx + " --- thisEndBal: " + thisEndBal);
+        logger.debug(logPrfx + " --- endBalCalc: " + endBalCalc);
 
-        String thisAcct = "";
+        String acct = "";
         if (thisFinStmt.getFinAcct1_Id() != null) {
-            thisAcct = Objects.toString(thisFinStmt.getFinAcct1_Id().getId2(),"");}
-        if (!thisAcct.equals("")) {
-            thisAcct = "on acct [" + thisAcct + "]";}
-        logger.debug(logPrfx + " --- thisAcct: " + thisAcct);
+            acct = Objects.toString(thisFinStmt.getFinAcct1_Id().getId2(),"");}
+        if (!acct.equals("")) {
+            acct = "on acct [" + acct + "]";}
+        logger.debug(logPrfx + " --- acct: " + acct);
 
 
-        String thisTag = "";
-        String thisTag1 = "";
+        String tag = "";
+        String tag1 = "";
         if (thisFinStmt.getGenTag1_Id() != null) {
-            thisTag1 = Objects.toString(thisFinStmt.getGenTag1_Id().getId2());}
-        String thisTag2 = "";
+            tag1 = Objects.toString(thisFinStmt.getGenTag1_Id().getId2());}
+        String tag2 = "";
         if (thisFinStmt.getGenTag1_Id() != null) {
-            thisTag2 = Objects.toString(thisFinStmt.getGenTag2_Id().getId2());}
-        String thisTag3 = "";
+            tag2 = Objects.toString(thisFinStmt.getGenTag2_Id().getId2());}
+        String tag3 = "";
         if (thisFinStmt.getGenTag1_Id() != null) {
-            thisTag3 = Objects.toString(thisFinStmt.getGenTag3_Id().getId2());}
-        String thisTag4 = "";
+            tag3 = Objects.toString(thisFinStmt.getGenTag3_Id().getId2());}
+        String tag4 = "";
         if (thisFinStmt.getGenTag1_Id() != null) {
-            thisTag4 = Objects.toString(thisFinStmt.getGenTag4_Id().getId2());}
-        if (!(thisTag1 + thisTag2 + thisTag3 + thisTag4).equals("")) {
-            thisTag = "tag [" + String.join(",",thisTag1, thisTag2, thisTag3, thisTag4) + "]";}
-        logger.debug(logPrfx + " --- thisTag: " + thisTag);
+            tag4 = Objects.toString(thisFinStmt.getGenTag4_Id().getId2());}
+        if (!(tag1 + tag2 + tag3 + tag4).equals("")) {
+            tag = "tag [" + String.join(",",tag1, tag2, tag3, tag4) + "]";}
+        logger.debug(logPrfx + " --- tag: " + tag);
 
         List<String> list = Arrays.asList(
-                thisStatus
-                ,thisAcct
-                ,thisEndDate
-                ,thisEndBal
-                ,thisTag);
+                status
+                ,acct
+                ,endDate
+                ,endBalCalc
+                ,tag);
         String desc1 = list.stream().filter(StringUtils::isNotBlank)
                 .collect(Collectors.joining(" "));
 
@@ -1235,33 +1322,12 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    public Boolean updateAmtEndBal(@NotNull GenNode thisFinStmt){
-        String logPrfx = "updateAmtEndBal";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        BigDecimal amtEndBal_ = thisFinStmt.getAmtEndBal();
-        BigDecimal amtEndBal = null;
-        if (thisFinStmt.getAmtBegBal() != null && thisFinStmt.getAmtNet() != null){
-            amtEndBal = thisFinStmt.getAmtBegBal().add(thisFinStmt.getAmtNet());
-        }
-
-        if (!Objects.equals(amtEndBal_, amtEndBal)){
-            thisFinStmt.setAmtEndBal(amtEndBal);
-            logger.debug(logPrfx + " --- amtEndBal: " + amtEndBal);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
     public Boolean updateAmtBegBalCalc(@NotNull GenNode thisFinStmt){
         String logPrfx = "updateAmtBegBalCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        BigDecimal amtBegBalCalc_ = thisFinStmt.getAmtEndBal();
+        BigDecimal amtBegBalCalc_ = thisFinStmt.getAmtEndBalCalc();
         BigDecimal amtBegBalCalc = null;
 
         final String SEP = "/";
@@ -1280,10 +1346,11 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
             return isChanged;
         }
 
+        //todo replace with SQL window query
         //Account
         sb.append(thisFinStmt.getFinAcct1_Id().getId2())
-        //Date
-        .append(SEP + "D").append(thisFinStmt.getBeg1().getDate1().minusDays(1).format(frmtDt));
+            //Date
+            .append(SEP + "D").append(thisFinStmt.getBeg1().getDate1().minusDays(1).format(frmtDt));
 
         GenNode prevFinStmt = findFinStmtById2(sb.toString());
         if (prevFinStmt == null  ){
@@ -1293,7 +1360,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
         if (!Objects.equals(amtBegBalCalc_, amtBegBalCalc)){
-            thisFinStmt.setAmtEndBal(amtBegBalCalc);
+            thisFinStmt.setAmtBegBalCalc(amtBegBalCalc);
             logger.debug(logPrfx + " --- amtBegBalCalc: " + amtBegBalCalc);
             isChanged = true;
         }
@@ -1310,12 +1377,18 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         boolean isChanged = false;
         BigDecimal amtEndBalCalc_ = thisFinStmt.getAmtEndBalCalc();
         BigDecimal amtEndBalCalc = null;
-        if (thisFinStmt.getAmtBegBalCalc() != null && thisFinStmt.getAmtNet() != null){
-            amtEndBalCalc = thisFinStmt.getAmtBegBalCalc().add(thisFinStmt.getAmtNet());
-        }
+            if (thisFinStmt.getAmtNet() != null){
+                if (thisFinStmt.getAmtBegBalCalc() != null ){
+                    amtEndBalCalc = thisFinStmt.getAmtBegBalCalc().add(thisFinStmt.getAmtNet());
+                }else {
+                    if (thisFinStmt.getAmtBegBal() != null) {
+                        amtEndBalCalc = thisFinStmt.getAmtBegBal().add(thisFinStmt.getAmtNet());
+                    }
+                }
+            }
 
-        if (!Objects.equals(amtEndBalCalc_, amtEndBalCalc)){
-            thisFinStmt.setAmtEndBal(amtEndBalCalc);
+            if (!Objects.equals(amtEndBalCalc_, amtEndBalCalc)){
+            thisFinStmt.setAmtEndBalCalc(amtEndBalCalc);
             logger.debug(logPrfx + " --- amtEndBalCalc: " + amtEndBalCalc);
             isChanged = true;
         }
@@ -1324,34 +1397,13 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         return isChanged;
     }
 
-    public Boolean updateFinAcct1_Type1_Id2(@NotNull GenNode thisFinStmt){
-        String logPrfx = "updateFinAcct1_Type1_Id2";
+
+    public Boolean updateFinStmtItms1_FieldSet(@NotNull GenNode thisFinStmt) {
+        String logPrfx = "updateFinStmtItms1_FieldSet";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String finAcct1_Type1_Id2_ = thisFinStmt.getFinAcct1_Type1_Id2();
-        String finAcct1_Type1_Id2 = null;
-        if (thisFinStmt.getFinAcct1_Id() != null
-                && thisFinStmt.getFinAcct1_Id().getType1_Id() != null){
-            finAcct1_Type1_Id2 = thisFinStmt.getFinAcct1_Id().getType1_Id().getId2();
-        }
 
-        if (!Objects.equals(finAcct1_Type1_Id2_, finAcct1_Type1_Id2)){
-            thisFinStmt.setFinAcct1_Type1_Id2(finAcct1_Type1_Id2);
-            logger.debug(logPrfx + " --- finAcct1_Type1_Id2: " + finAcct1_Type1_Id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateFieldSet1(@NotNull GenNode thisFinStmt) {
-        String logPrfx = "updateFieldSet1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
 
         BigDecimal finStmtItms1_AmtDebtSumCalc_ = thisFinStmt.getFinStmtItms1_AmtDebtSumCalc();
         BigDecimal finStmtItms1_AmtDebtSumDiff_ = thisFinStmt.getFinStmtItms1_AmtDebtSumDiff();
@@ -1470,12 +1522,23 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
         }
 
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateFinTxfers1_FieldSet(@NotNull GenNode thisFinStmt) {
+        String logPrfx = "updateFinTxfers1_FieldSet";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
         BigDecimal finTxfers1_AmtDebtSumCalc_ = thisFinStmt.getFinTxfers1_AmtDebtSumCalc();
         BigDecimal finTxfers1_AmtDebtSumDiff_ = thisFinStmt.getFinTxfers1_AmtDebtSumDiff();
 
         BigDecimal finTxfers1_AmtDebtSumCalc = null;
         BigDecimal finTxfers1_AmtDebtSumDiff = null;
-        String finTxfers1_QryDebt = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id";
+        String finTxfers1_QryDebt = "select sum(e.amtDebt) from ampata_GenNode e join e.finStmtItm1_Id e2 where e.className = 'FinTxfer' and e2.finStmt1_Id = :finStmt1_Id";
         try{
             finTxfers1_AmtDebtSumCalc = dataManager.loadValue(finTxfers1_QryDebt,BigDecimal.class)
                     .store("main")
@@ -1517,7 +1580,7 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         BigDecimal finTxfers1_AmtCredSumCalc = null;
         BigDecimal finTxfers1_AmtCredSumDiff = null;
 
-        String finTxfers1_QryCred = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmt1_Id = :finStmt1_Id";
+        String finTxfers1_QryCred = "select sum(e.amtCred) from ampata_GenNode e join e.finStmtItm1_Id e2 where e.className = 'FinTxfer' and e2.finStmt1_Id = :finStmt1_Id";
         try {
             finTxfers1_AmtCredSumCalc = dataManager.loadValue(finTxfers1_QryCred, BigDecimal.class)
                     .store("main")
@@ -1707,6 +1770,12 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
     }
+
+
+
+
+
+
 
 
 }

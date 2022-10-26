@@ -191,12 +191,6 @@
                                     <number format="#,###.00"/>
                                 </formatter>
                             </textField>
-
-                            <textField id="amtEndBalField" property="amtEndBal" editable="false">
-                                <formatter>
-                                    <number format="#,###.00"/>
-                                </formatter>
-                            </textField>
                             <textField id="amtDebtField" property="amtDebt">
                                 <formatter>
                                     <number format="#,###.00"/>
@@ -208,6 +202,12 @@
                                 </formatter>
                             </textField>
                             <textField id="amtNetField" property="amtNet" editable="false">
+                                <formatter>
+                                    <number format="#,###.00"/>
+                                </formatter>
+                            </textField>
+
+                            <textField id="amtEndBalCalcField" property="amtEndBalCalc" editable="false">
                                 <formatter>
                                     <number format="#,###.00"/>
                                 </formatter>

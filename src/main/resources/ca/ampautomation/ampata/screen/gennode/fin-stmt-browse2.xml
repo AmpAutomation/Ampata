@@ -72,11 +72,15 @@
                         <column id="end1.date1" caption="End-Date"/>
                         <column id="genChan1_Id" caption="genChan1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
-                        <column id="amtBegBal"/>
-                        <column id="amtEndBal"/>
-                        <column id="amtDebt"/>
-                        <column id="amtCred"/>
-                        <column id="amtNet"/>
+                        <column id="amtBegBal"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtBegBalCalc"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtDebt"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtCred"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtNet"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtEndBal"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtEndBalCalc"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="finStmtItms1_AmtNetSumDiff"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="finTxfers1_AmtNetSumDiff"><formatter><number format="#,##0.00"/></formatter></column>
                         <column id="status"/>
                         <column id="note"/>
                         <column id="genTags1_Id2" caption="Tags"/>
@@ -211,7 +215,7 @@
                                         </entityComboBox>
                                         <button id="updateListGenChan1_IdFieldBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                     </hbox>
-                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField">
+                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField" width="100%">
                                         <entityComboBox id="finAcct1_IdField" dataContainer="finStmtDc"
                                                         property="finAcct1_Id" tabIndex="20">
                                             <actions>
@@ -223,25 +227,49 @@
                                                 tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtBegBal" expand="amtBegBalField" width="100%">
-                                        <textField id="amtBegBalField" dataContainer="finStmtDc" property="amtBegBal" tabIndex="20"/>
+                                        <textField id="amtBegBalField" dataContainer="finStmtDc" property="amtBegBal" tabIndex="20">
+                                                <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtBegBalBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        <button id="setNullAmtBegBalBtn" icon="font-icon:BOMB" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtBegBalCalc" expand="amtBegBalCalcField" width="100%">
-                                        <textField id="amtBegBalCalcField" dataContainer="finStmtDc" property="amtBegBalCalc" tabIndex="20"/>
+                                        <textField id="amtBegBalCalcField" dataContainer="finStmtDc" property="amtBegBalCalc" tabIndex="20"
+                                            editable="false">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtBegBalCalcBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtDebt" expand="amtDebtField" width="100%">
-                                        <textField id="amtDebtField" dataContainer="finStmtDc" property="amtDebt" tabIndex="20"/>
+                                        <textField id="amtDebtField" dataContainer="finStmtDc" property="amtDebt" tabIndex="20">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
                                     </hbox>
                                     <hbox caption="amtCred" expand="amtCredField" width="100%">
-                                        <textField id="amtCredField" dataContainer="finStmtDc" property="amtCred" tabIndex="20"/>
+                                        <textField id="amtCredField" dataContainer="finStmtDc" property="amtCred" tabIndex="20">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
                                     </hbox>
                                     <hbox caption="amtNet" expand="amtNetField" width="100%">
-                                        <textField id="amtNetField" dataContainer="finStmtDc" property="amtNet" tabIndex="20" editable="false"/>
+                                        <textField id="amtNetField" dataContainer="finStmtDc" property="amtNet" tabIndex="20"
+                                                   editable="false">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtNetBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtEndBal" expand="amtEndBalField" width="100%">
-                                        <textField id="amtEndBalField" dataContainer="finStmtDc" property="amtEndBal" tabIndex="20" editable="false" />
+                                        <textField id="amtEndBalField" dataContainer="finStmtDc" property="amtEndBal" tabIndex="20">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtEndBalBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        <button id="setNullAmtEndBalBtn" icon="font-icon:BOMB" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtEndBalCalc" expand="amtEndBalCalcField" width="100%">
-                                        <textField id="amtEndBalCalcField" dataContainer="finStmtDc" property="amtEndBalCalc" tabIndex="20" editable="false"/>
+                                        <textField id="amtEndBalCalcField" dataContainer="finStmtDc" property="amtEndBalCalc" tabIndex="20"
+                                                   editable="false">
+                                        <formatter><number format="#,##0.00"/></formatter>
+                                    </textField>
+                                        <button id="updateAmtEndBalCalcBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </column>
 
@@ -517,9 +545,10 @@
                         <column id="exchDesc" width="120px"/>
                         <column id="refId" width="120px"/>
 
-                        <column id="amtDebt"/>
-                        <column id="amtCred"/>
-                        <column id="amtNet"/>
+                        <column id="amtDebt"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtCred"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtNet"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column id="amtEndBalSel"><formatter><number format="#,##0.00"/></formatter></column>
                         <column id="note"/>
                     </columns>
                     <simplePagination/>

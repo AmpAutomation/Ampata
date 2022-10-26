@@ -77,10 +77,11 @@
                     </formatter>
                 </column>
                 <column id="amtBegBal"/>
-                <column id="amtEndBal"/>
+                <column id="amtBegBalCalc"/>
                 <column id="amtDebt"/>
                 <column id="amtCred"/>
                 <column id="amtNet"/>
+                <column id="amtEndBalCalc"/>
                 <column id="status"/>
                 <column id="note"/>
             </columns>
