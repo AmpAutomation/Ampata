@@ -36,9 +36,14 @@
                             <groupFilter operation="OR">
                                 <groupFilter operation="AND" caption="GroupA">
                                     <propertyFilter id="filterConfig1A_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNodeType"/>
+                                    </propertyFilter>
                                     <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_idTsLE" caption="idTs.ts1" operation="LESS" property="idTs.ts1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_idDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_idDtLE" caption="idDt.date1" operation="LESS" property="idDt.date1" operationEditable="true"/>
+
                                     <propertyFilter id="filterConfig1A_finTxact1_EI1_Role" caption="finTxset1_EI1_Role" operation="EQUAL" property="finTxset1_EI1_Role" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idY" caption="idY" operation="EQUAL" property="idY" operationEditable="true"/>
@@ -48,6 +53,7 @@
                                     <propertyFilter id="filterConfig1A_finTxset1_Id_finHow1_Id" caption="finHow1_Id" operation="EQUAL" property="finTxset1_Id.finHow1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_FinHow"/>
                                     </propertyFilter>
+
                                     <propertyFilter id="filterConfig1A_finTxset1_Id_finWhat1_Id" caption="finWhat1_Id" operation="EQUAL" property="finTxset1_Id.finWhat1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_FinWhat"/>
                                     </propertyFilter>
@@ -58,8 +64,8 @@
                                 <groupFilter operation="AND" caption="GroupB">
                                     <propertyFilter id="filterConfig1B_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_idTsLE" caption="idTs.ts1" operation="LESS_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_idDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_idDtLE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_idY" caption="idY" operation="EQUAL" property="idY" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_finTxset1_Id_genChan1_Id" caption="genChan1" operation="EQUAL" property="finTxset1_Id.genChan1_Id" operationEditable="true">
@@ -70,7 +76,7 @@
                         </configuration>
                     </configurations>
                 </filter>
-                <groupTable id="table"
+                <table id="table"
                             width="100%"
                             dataContainer="finTxactsDc"
                             multiselect="true">
@@ -91,7 +97,7 @@
                         <column id="finTxset1_EI1_Role" caption="Txa Role"/>
                         <column id="desc1" width="320px"/>
 
-                        <column id="idTs.ts1" caption="idTs"/>
+                        <column id="idDt.date1" caption="idDt"/>
                         <column id="idX"/>
                         <column id="idY"/>
 
@@ -106,10 +112,11 @@
 
                         <column id="finTxfers1_Id2"/>
                         <column id="finTxfers1_FinAccts1_Id2"/>
-                        <column id="finTxfers1_DebtSum"/>
-                        <column id="finTxfers1_CredSum"/>
-                        <column id="finTxfers1_IdCnt"/>
-                        <column id="finTxfers1_DebtEqCred"/>
+                        <column id="finTxfers1_IdCntCalc"/>
+                        <column id="finTxfers1_AmtDebtSumCalc"/>
+                        <column id="finTxfers1_AmtCredSumCalc"/>
+                        <column id="finTxfers1_AmtNetSumCalc"/>
+                        <column id="finTxfers1_AmtEqCalc"/>
 
                         <column id="finTxset1_Id.genChan1_Id"/>
                         <column id="finTxset1_Id.finHow1_Id"/>
@@ -134,23 +141,26 @@
                         <column id="genTag4_Id2"/>
                         <column id="note"/>
                     </columns>
-                    <simplePagination/>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="table.refresh"/>
                                     <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="table.remove"/>
+                                    <button id="purgeColBtn" caption="Purge All Deleted" icon="font-icon:ERASER"/>
+                                    <button id="deleteColOrphansBtn" caption="Delete All Orphans" icon="font-icon:ERASER"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="createBtn" action="table.create"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -169,10 +179,10 @@
                                         <button id="incIdYBtn"  icon="ARROW_RIGHT"/>
                                         <button id="maxIdYBtn"  caption="Max"/>
                                     </hbox>
-                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
-                                    <label value="Txset Option"/>
-                                    <comboBox id="updateColItemCalcValsTxsetOption" width="200px"/>
+                                    <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <tabSheet width="100%">
                                     <tab id="tabCmd2_Set1" caption="FinTxset" spacing="true">
@@ -311,18 +321,18 @@
                                     <label value="A" align="MIDDLE_LEFT"/>
                                     <hbox width="5px"/>
                                     <hbox>
-                                        <label value="idTs GE" align="MIDDLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_DecMonBtn" caption="Dec Mon" icon="ANGLE_DOUBLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_DecDayBtn" caption="Dec Day" icon="ANGLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_IncDayBtn" caption="Inc Day" icon="ANGLE_RIGHT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_IncMonBtn" caption="Inc Mon" icon="ANGLE_DOUBLE_RIGHT"/>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecMonBtn" caption="Dec Mon" icon="ANGLE_DOUBLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecDayBtn" caption="Dec Day" icon="ANGLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncDayBtn" caption="Inc Day" icon="ANGLE_RIGHT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncMonBtn" caption="Inc Mon" icon="ANGLE_DOUBLE_RIGHT"/>
                                     </hbox>
                                     <hbox height="100%">
-                                        <label value="idTs LE" align="MIDDLE_LEFT"/>
+                                        <label value="idDt LE" align="MIDDLE_LEFT"/>
                                         <hbox width="5px"/>
                                         <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <hbox width="5px"/>
-                                            <checkBox id="updateFilterConfig1A_IdTsLE_SyncChk" caption="Sync" align="MIDDLE_LEFT"/>
+                                            <checkBox id="updateFilterConfig1A_IdDtLE_SyncChk" caption="Sync" align="MIDDLE_LEFT"/>
                                             <hbox width="5px"/>
                                         </hbox>
                                     </hbox>
@@ -331,14 +341,14 @@
                                     <label value="B" align="MIDDLE_LEFT"/>
                                     <hbox width="5px"/>
                                     <hbox>
-                                        <label value="idTs GE" align="MIDDLE_LEFT"/>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
                                         <hbox width="5px"/>
                                         <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <hbox width="5px"/>
-                                            <radioButtonGroup id="updateFilterConfig1B_IdTsGERdo" orientation="horizontal" align="MIDDLE_LEFT"/>
+                                            <radioButtonGroup id="updateFilterConfig1B_IdDtGERdo" orientation="horizontal" align="MIDDLE_LEFT"/>
                                             <hbox width="5px"/>
                                         </hbox>
-                                        <button id="updateFilterConfig1B_IdTsGEBtn" caption="Update" icon="font-icon:REFRESH"/>
+                                        <button id="updateFilterConfig1B_IdDtGEBtn" caption="Update" icon="font-icon:REFRESH"/>
                                     </hbox>
                                     <hbox>
                                         <label value="idX" align="MIDDLE_LEFT"/>
@@ -352,9 +362,21 @@
                                     </hbox>
                                 </hbox>
                             </tab>
+                            <tab id="tabCmd5" caption="Options" spacing="true">
+                                <hbox id="tabCmd5Row1" spacing="true">
+                                    <hbox>
+                                        <label value="Txset Option"/>
+                                        <hbox width="5px"/>
+                                        <comboBox id="updateColItemCalcValsTxsetOption" width="100px"/>
+                                    </hbox>
+                                </hbox>
+                            </tab>
                         </tabSheet>
                     </buttonsPanel>
-                </groupTable>
+                </table>
+                <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
+                    <containerProvider dataContainer="finTxactsDc"/>
+                </pagination>
                 <hbox id="lookupActions" spacing="true" visible="false">
                     <button action="lookupSelectAction"/>
                     <button action="lookupCancelAction"/>
@@ -625,18 +647,13 @@
                                             <button id="updateDesc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="IdTs" width="100%">
-                                            <dateField id="idTsTs1Field" property="idTs.ts1" dataContainer="finTxactDc" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                        <hbox caption="IdDt" width="100%">
+                                            <dateField id="idDtDateField" property="idDt.date1" dataContainer="finTxactDc" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
                                         <hbox width="20px"/>
                                         </hbox>
                                         <hbox caption="Beg1" width="100%">
-                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="finTxactDc" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="finTxactDc" tabIndex="30" datatype="localDateTime" width="220px"/>
                                             <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="Beg2" width="100%">
-                                            <dateField id="beg2Ts1Field" property="beg2.ts1" dataContainer="finTxactDc" datatype="localDateTime" width="220px" tabIndex="30"/>
-                                            <button id="updateBeg2Ts1FieldBtn" icon="font-icon:REFRESH"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox width="100%">
@@ -768,17 +785,6 @@
                                  spacing="true">
                                 <form id="tab6Form" dataContainer="finTxactDc" width="100%">
                                     <column width="360px">
-                                        <hbox caption="finCurcy1_Id" expand="finCurcy1_IdField" width="100%">
-                                            <entityComboBox id="finCurcy1_IdField" dataContainer="finTxactDc"
-                                                            property="finCurcy1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateFinCurcy1_IdFieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
                                         <hbox caption="finTxfers1_IdCntCalc" expand="finTxfers1_IdCntCalcField" width="100%">
                                             <textField id="finTxfers1_IdCntCalcField" dataContainer="finTxactDc" property="finTxfers1_IdCntCalc" editable="false"
                                                        tabIndex="20"/>
@@ -798,17 +804,15 @@
                                             </textField>
                                             <button id="updateFinTxfers1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxfers1_AmtNetSumCalc" expand="finTxfers1_AmtNetSumCalcField" width="100%">
-                                            <textField id="finTxfers1_AmtNetSumCalcField" dataContainer="finTxactDc" property="finTxfers1_AmtNetSumCalc"
-                                                       tabIndex="10">
-                                                <formatter><number format="#,###.00"/></formatter>
-                                            </textField>
-                                            <button id="updateFinTxfers1_AmtNetSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
-                                        </hbox>
                                         <hbox caption="finTxfers1_AmtEqCalc" expand="finTxfers1_AmtEqCalcBox" width="100%">
                                             <checkBox id="finTxfers1_AmtEqCalcBox" dataContainer="finTxactDc" property="finTxfers1_AmtEqCalc" editable="false"
                                                       tabIndex="10"/>
                                             <button id="updateFinTxfers1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="finTxfers1_FinCurcyEqCalc" expand="finTxfers1_FinCurcyEqCalcBox" width="100%">
+                                            <checkBox id="finTxfers1_FinCurcyEqCalcBox" dataContainer="finTxactDc" property="finTxfers1_FinCurcyEqCalc" editable="false"
+                                                      tabIndex="10"/>
+                                            <button id="updateFinTxfers1_FinCurcyEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
 
                                     </column>

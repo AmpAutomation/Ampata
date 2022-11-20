@@ -42,36 +42,17 @@
                                     <propertyFilter id="filterConfig1A_type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNodeType"/>
                                     </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_finTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true">
                                         <comboBox/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_idTsLE" caption="idTs.ts1" operation="LESS" property="idTs.ts1" operationEditable="true"/>
+
+                                    <propertyFilter id="filterConfig1A_idDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_idDtLE" caption="idDt.date1" operation="LESS" property="idDt.date1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idY" caption="idY" operation="EQUAL" property="idY" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_idZ" caption="idZ" operation="EQUAL" property="idZ" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_Desc1" caption="Txs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.desc1" operationEditable="true">
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="fTxs.genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_GenNode"/>
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finHow1_Id" caption="fTxs.finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finHow1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_FinHow"/>
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhat1_Id" caption="fTxs.finWhat1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhat1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_FinWhat"/>
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhy1_Id" caption="fTxs.finWhy1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhy1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_FinWhy"/>
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_EI1_Role" caption="fTxa.finTxset1_EI1_Role" operation="EQUAL" property="finTxact1_Id.finTxset1_EI1_Role" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_GenNode"/>
-                                    </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finDept1_Id" caption="finDept1" operation="EQUAL" property="finDept1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="ampata_GenNode"/>
-                                    </propertyFilter>
+
                                     <propertyFilter id="filterConfig1A_amtDebtGE" caption="amtDebt" operation="GREATER_OR_EQUAL" property="amtDebt" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_amtDebtLE" caption="amtDebt" operation="LESS" property="amtDebt" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_amtCredGE" caption="amtCred" operation="GREATER_OR_EQUAL" property="amtCred" operationEditable="true"/>
@@ -79,7 +60,50 @@
                                     <propertyFilter id="filterConfig1A_finCurcy1_Id" caption="finCurcy1" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
-                                    <propertyFilter id="filterConfig1A_finStmt1_Id" caption="fStI.finStmt1" operation="EQUAL" property="finStmtItm1_Id.finStmt1_Id" operationEditable="true">
+
+                                    <propertyFilter id="filterConfig1A_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finDept1_Id" caption="finDept1" operation="EQUAL" property="finDept1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_genDocVer1_Id" caption="genDocVer1_Id" operation="EQUAL" property="genDocVer1_Id" >
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_genTag1_Id" caption="genTag1_Id" operation="EQUAL" property="genTag1_Id">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_EI1_Role" caption="fTxa.finTxset1_EI1_Role" operation="EQUAL" property="finTxact1_Id.finTxset1_EI1_Role" operationEditable="true"/>
+
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id2" caption="fTxs.id2" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.id2" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_type1_Id" caption="fTxs.type1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.type1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNodeType"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_desc1" caption="fTxs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.desc1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="fTxs.genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finHow1_Id" caption="fTxs.finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finHow1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinHow"/>
+                                    </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_whatText1" caption="fTxs.whatText1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.whatText1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhat1_Id" caption="fTxs.finWhat1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhat1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinWhat"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_whyText1" caption="fTxs.whyText1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.whyText1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_finWhy1_Id" caption="fTxs.finWhy1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhy1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinWhy"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1A_finTxact1_Id_finTxset1_Id_genTag1_Id" caption="fTxs.genTag1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genTag1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1A_finStmtItm1_Id_FinStmt1_Id" caption="fStI.finStmt1" operation="EQUAL" property="finStmtItm1_Id.finStmt1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_finStmtItm1_Desc1" caption="fStI.Desc1" operation="CONTAINS" property="finStmtItm1_Desc1" operationEditable="true"/>
@@ -89,15 +113,78 @@
                                 </groupFilter>
                                 <groupFilter operation="AND" caption="GroupB">
                                     <propertyFilter id="filterConfig1B_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNodeType"/>
+                                    </propertyFilter>
                                     <propertyFilter id="filterConfig1B_desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_idTsLE" caption="idTs.ts1" operation="LESS_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_finTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true">
+                                        <comboBox/>
+                                    </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1B_idDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_idDtLE" caption="idDt.date1" operation="LESS" property="idDt.date1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_idY" caption="idY" operation="EQUAL" property="idY" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_idZ" caption="idZ" operation="EQUAL" property="idZ" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
+
+                                    <propertyFilter id="filterConfig1B_amtDebtGE" caption="amtDebt" operation="GREATER_OR_EQUAL" property="amtDebt" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_amtDebtLE" caption="amtDebt" operation="LESS" property="amtDebt" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_amtCredGE" caption="amtCred" operation="GREATER_OR_EQUAL" property="amtCred" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_amtCredLE" caption="amtCred" operation="LESS" property="amtCred" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_finCurcy1_Id" caption="finCurcy1" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
                                         <entityComboBox metaClass="ampata_GenNode"/>
                                     </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1B_finAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finDept1_Id" caption="finDept1" operation="EQUAL" property="finDept1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_genDocVer1_Id" caption="genDocVer1_Id" operation="EQUAL" property="genDocVer1_Id" >
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_genTag1_Id" caption="genTag1_Id" operation="EQUAL" property="genTag1_Id">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_EI1_Role" caption="fTxa.finTxset1_EI1_Role" operation="EQUAL" property="finTxact1_Id.finTxset1_EI1_Role" operationEditable="true"/>
+
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id2" caption="fTxs.id2" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.id2" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_type1_Id" caption="fTxs.type1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.type1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNodeType"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_desc1" caption="fTxs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.desc1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_genChan1_Id" caption="fTxs.genChan1" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genChan1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_finHow1_Id" caption="fTxs.finHow1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finHow1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinHow"/>
+                                    </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_whatText1" caption="fTxs.whatText1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.whatText1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_finWhat1_Id" caption="fTxs.finWhat1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhat1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinWhat"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_whyText1" caption="fTxs.whyText1" operation="CONTAINS" property="finTxact1_Id.finTxset1_Id.whyText1" operationEditable="true">
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_finWhy1_Id" caption="fTxs.finWhy1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.finWhy1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_FinWhy"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finTxact1_Id_finTxset1_Id_genTag1_Id" caption="fTxs.genTag1_Id" operation="EQUAL" property="finTxact1_Id.finTxset1_Id.genTag1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+
+                                    <propertyFilter id="filterConfig1B_finStmtItm1_Id_FinStmt1_Id" caption="fStI.finStmt1" operation="EQUAL" property="finStmtItm1_Id.finStmt1_Id" operationEditable="true">
+                                        <entityComboBox metaClass="ampata_GenNode"/>
+                                    </propertyFilter>
+                                    <propertyFilter id="filterConfig1B_finStmtItm1_Desc1" caption="fStI.Desc1" operation="CONTAINS" property="finStmtItm1_Desc1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_finStmtItm1_Desc2" caption="fStI.Desc2" operation="CONTAINS" property="finStmtItm1_Desc2" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_finStmtItm1_Desc3" caption="fStI.Desc3" operation="CONTAINS" property="finStmtItm1_Desc3" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_finStmtItm1_RefId" caption="fStI.RefId" operation="CONTAINS" property="finStmtItm1_RefId" operationEditable="true"/>
                                 </groupFilter>
                             </groupFilter>
                         </configuration>
@@ -134,7 +221,7 @@
                         <column id="finCurcy1_Id"/>
 
 
-                        <column id="idTs.ts1" caption="idTs"/>
+                        <column id="idDt.date1" caption="idDt"/>
                         <column id="idX"/>
                         <column id="idY"/>
                         <column id="idZ"/>
@@ -164,6 +251,7 @@
                         <column id="amtCalc"/>
 
                         <column id="finTxact1_Id.finTxset1_Id.genChan1_Id"/>
+                        <column id="finTxact1_Id.finTxset1_Id.genChan2_Id"/>
                         <column id="finTxact1_Id.finTxset1_Id.finHow1_Id"/>
                         <column id="finTxact1_Id.finTxset1_Id.whatText1"/>
                         <column id="finTxact1_Id.finTxset1_Id.finWhat1_Id"/>
@@ -198,18 +286,22 @@
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="table.refresh"/>
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="table.remove"/>
+                                    <button id="purgeColBtn" caption="Purge All Deleted" icon="font-icon:ERASER"/>
+                                    <button id="deleteColOrphansBtn" caption="Delete All Orphans" icon="font-icon:ERASER"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="createBtn" action="table.create"/>
                                     <button id="splitBtn" caption="Split" icon="font-icon:COPY"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -235,8 +327,10 @@
                                         <button id="incIdZBtn"  icon="ARROW_RIGHT"/>
                                         <button id="maxIdZBtn"  caption="Max"/>
                                     </hbox>
-                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
+                                    <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <tabSheet  width="100%">
                                     <tab id="tabCmd2_Set1" caption="FinTxset" spacing="true">
@@ -360,6 +454,12 @@
                                                     <checkBox id="tmplt_Beg1Ts1FieldChk" align="MIDDLE_RIGHT"/>
                                                 </hbox>
                                                 <dateField id="tmplt_Beg1Ts1Field" datatype="localDateTime"/>
+                                            </hbox>
+                                            <hbox caption="beg2.ts1">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_Beg2Ts1FieldChk" align="MIDDLE_RIGHT"/>
+                                                </hbox>
+                                                <dateField id="tmplt_Beg2Ts1Field" datatype="localDateTime"/>
                                             </hbox>
                                             <hbox caption="IdX">
                                                 <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
@@ -497,18 +597,18 @@
                                     <label value="A" align="MIDDLE_LEFT"/>
                                     <hbox width="5px"/>
                                     <hbox>
-                                        <label value="idTs GE" align="MIDDLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_DecMonBtn" caption="Dec Mon" icon="ANGLE_DOUBLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_DecDayBtn" caption="Dec Day" icon="ANGLE_LEFT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_IncDayBtn" caption="Inc Day" icon="ANGLE_RIGHT"/>
-                                        <button id="updateFilterConfig1A_IdTsGE_IncMonBtn" caption="Inc Mon" icon="ANGLE_DOUBLE_RIGHT"/>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecMonBtn" caption="Dec Mon" icon="ANGLE_DOUBLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecDayBtn" caption="Dec Day" icon="ANGLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncDayBtn" caption="Inc Day" icon="ANGLE_RIGHT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncMonBtn" caption="Inc Mon" icon="ANGLE_DOUBLE_RIGHT"/>
                                     </hbox>
                                     <hbox height="100%">
-                                        <label value="idTs LE" align="MIDDLE_LEFT"/>
+                                        <label value="idDt LE" align="MIDDLE_LEFT"/>
                                         <hbox width="5px"/>
                                         <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <hbox width="5px"/>
-                                            <checkBox id="updateFilterConfig1A_IdTsLE_SyncChk" caption="Sync" align="MIDDLE_LEFT"/>
+                                            <checkBox id="updateFilterConfig1A_IdDtLE_SyncChk" caption="Sync" align="MIDDLE_LEFT"/>
                                             <hbox width="5px"/>
                                         </hbox>
                                     </hbox>
@@ -517,14 +617,14 @@
                                     <label value="B" align="MIDDLE_LEFT"/>
                                     <hbox width="5px"/>
                                     <hbox>
-                                        <label value="idTs GE" align="MIDDLE_LEFT"/>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
                                         <hbox width="5px"/>
                                         <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <hbox width="5px"/>
-                                            <radioButtonGroup id="updateFilterConfig1B_IdTsGERdo" orientation="horizontal" align="MIDDLE_LEFT"/>
+                                            <radioButtonGroup id="updateFilterConfig1B_IdDtGERdo" orientation="horizontal" align="MIDDLE_LEFT"/>
                                             <hbox width="5px"/>
                                         </hbox>
-                                        <button id="updateFilterConfig1B_IdTsGEBtn" caption="Update" icon="font-icon:REFRESH"/>
+                                        <button id="updateFilterConfig1B_IdDtGEBtn" caption="Update" icon="font-icon:REFRESH"/>
                                     </hbox>
                                     <hbox>
                                         <label value="idX" align="MIDDLE_LEFT"/>
@@ -592,6 +692,19 @@
                                             <textArea id="finTxact1_Id_FinTxset1_Id_Desc1Field" dataContainer="finTxferDc" property="finTxact1_Id.finTxset1_Id.desc1" rows="1" tabIndex="10"/>
                                             <button id="updateFinTxact1_Id_FinTxset1_Id_Desc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
+                                        <hbox  caption="finTxact1_Id_FinTxset1_IdCandids" expand="finTxact1_Id_FinTxset1_IdCandidsTable" width="100%" colspan="3">
+                                            <table id="finTxact1_Id_FinTxset1_IdCandidsTable" metaClass="ampata_GenNode" tabIndex="10"
+                                                   columnHeaderVisible="false">
+                                                <columns>
+                                                    <column id="id"/>
+                                                    <column id="id2"/>
+                                                    <column id="idDt.date1"/>
+                                                    <column id="idX"/>
+                                                </columns>
+                                            </table>
+                                            <button id="updateFinTxact1_Id_FinTxset1_IdCandidsTableBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                        </hbox>
+
                                         <textField caption="finTxact1_Id.finTxset1_Id.id" id="finTxact1_Id_finTxset1_Id" property="finTxact1_Id.finTxset1_Id.id" width="100%" editable="false" tabIndex="10"/>
                                         <hbox caption="finTxact1_Id.finTxset1_Id" expand="finTxact1_Id_FinTxset1_IdField" width="100%">
                                             <entityComboBox id="finTxact1_Id_FinTxset1_IdField" dataContainer="finTxferDc"
@@ -635,6 +748,17 @@
                                                 </actions>
                                             </entityComboBox>
                                             <button id="updateFinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="finTxact1_Id.finTxset1_Id.genChan2_Id" expand="finTxact1_Id_FinTxset1_Id_GenChan2_IdField">
+                                            <entityComboBox id="finTxact1_Id_FinTxset1_Id_GenChan2_IdField" dataContainer="finTxferDc"
+                                                            property="finTxact1_Id.finTxset1_Id.genChan2_Id" tabIndex="20">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinTxact1_Id_FinTxset1_Id_GenChan2_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finTxact1_Id.finTxset1_Id.finHow1_Id" expand="finTxact1_Id_FinTxset1_Id_FinHow1_IdField">
@@ -710,7 +834,20 @@
                                             <button id="updateFinTxact1_Id_FinTxset1_Id_Desc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <textArea id="finTxact1_Id.finTxset1_Id.note" property="finTxact1_Id.finTxset1_Id.note" tabIndex="30" rowspan="5"/>
+                                        <textArea id="finTxact1_Id_FinTxset1_Id_Note" property="finTxact1_Id.finTxset1_Id.note" tabIndex="30" rowspan="5"/>
+                                        <hbox caption="genTag1_Id" expand="finTxact1_Id_FinTxset1_Id_GenTag1_IdField" width="100%">
+                                            <entityComboBox id="finTxact1_Id_FinTxset1_Id_GenTag1_IdField" dataContainer="finTxferDc"
+                                                            property="finTxact1_Id.finTxset1_Id.genTag1_Id" tabIndex="30">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinTxact1_Id_FinTxset1_Id_GenTag1_IdFieldBtn" icon="font-icon:REFRESH"
+                                                    tabIndex="-1"/>
+                                            <button id="updateFinTxact1_Id_FinTxset1_Id_GenTag1_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
                                     </column>
                                 </form>
                             </tab>
@@ -723,6 +860,19 @@
                                         <hbox caption="finTxact1_Id.desc1" expand="finTxact1_Id_Desc1Field" width="100%" colspan="3" >
                                             <textArea id="finTxact1_Id_Desc1Field" dataContainer="finTxferDc" property="finTxact1_Id.desc1" rows="1" tabIndex="10"/>
                                             <button id="updateFinTxact1_Id_Desc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox  caption="finTxact1_IdCandids" expand="finTxact1_IdCandidsTable" width="100%" colspan="3">
+                                            <table id="finTxact1_IdCandidsTable" metaClass="ampata_GenNode" tabIndex="10"
+                                                   columnHeaderVisible="false">
+                                                <columns>
+                                                    <column id="id"/>
+                                                    <column id="id2"/>
+                                                    <column id="idDt.date1"/>
+                                                    <column id="idX"/>
+                                                    <column id="idY"/>
+                                                </columns>
+                                            </table>
+                                            <button id="updateFinTxact1_IdCandidsTableBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
                                         <textField caption="finTxact1_Id.id" id="finTxact1_Id_Id" property="finTxact1_Id.id" width="100%" editable="false" tabIndex="10"/>
                                         <hbox caption="finTxact1_Id" expand="finTxact1_IdField" width="100%">
@@ -868,6 +1018,11 @@
                                                       tabIndex="30"/>
                                             <button id="updateFintxact1_Id_FinTxfers1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
+                                        <hbox caption="finTxact1_Id.finTxfers1_FinCurcyEqCalc" expand="fintxact1_Id_FinTxfers1_FinCurcyEqCalcBox" width="100%">
+                                            <checkBox id="fintxact1_Id_FinTxfers1_FinCurcyEqCalcBox" dataContainer="finTxferDc" property="finTxact1_Id.finTxfers1_FinCurcyEqCalc" editable="false"
+                                                      tabIndex="30"/>
+                                            <button id="updateFintxact1_Id_FinTxfers1_FinCurcyEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        </hbox>
                                     </column>
                                 </form>
                             </tab>
@@ -979,8 +1134,8 @@
                                             </entityComboBox>
                                             <button id="updateDesc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="IdTs" width="100%">
-                                            <dateField id="idTsTs1Field" property="idTs.ts1" dataContainer="finTxferDc" tabIndex="30" datatype="localDateTime" editable="false" width="220px"/>
+                                        <hbox caption="IdDt" width="100%">
+                                            <dateField id="idDtDate1Field" property="idDt.date1" dataContainer="finTxferDc" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
                                             <hbox width="20px"/>
                                         </hbox>
                                         <hbox caption="Beg1" width="100%">
@@ -1110,6 +1265,20 @@
                                  spacing="true">
                                 <form id="tab6Form" dataContainer="finTxferDc">
                                     <column width="480px">
+                                        <hbox  caption="finStmtItm1_IdCandids" expand="finStmtItm1_IdCandidsTable" width="100%" colspan="3">
+                                            <table id="finStmtItm1_IdCandidsTable" metaClass="ampata_GenNode" tabIndex="10"
+                                                   columnHeaderVisible="false">
+                                                <columns>
+                                                    <column id="id"/>
+                                                    <column id="id2"/>
+                                                    <column id="idDt.date1"/>
+                                                    <column id="amtDebt"/>
+                                                    <column id="amtCred"/>
+                                                    <column id="amtNet"/>
+                                                </columns>
+                                            </table>
+                                            <button id="updateFinStmtItm1_IdCandidsTableBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                        </hbox>
                                         <hbox caption="finStmtItm1_Id" expand="finStmtItm1_IdField" width="100%">
                                             <entityComboBox id="finStmtItm1_IdField" dataContainer="finTxferDc" property="finStmtItm1_Id" tabIndex="10">
                                                 <actions>
@@ -1119,15 +1288,6 @@
                                             </entityComboBox>
                                             <button id="updateFinStmtItm1_IdFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                             <button id="updateFinStmtItm1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox  caption="Candidates" expand="finStmtItmCandidsTable" width="100%">
-                                            <table id="finStmtItmCandidsTable" metaClass="ampata_GenNode" tabIndex="10"
-                                                   columnHeaderVisible="false">
-                                                <columns>
-                                                    <column id="id2"></column>
-                                                </columns>
-                                            </table>
-                                            <button id="updatefinStmtItmCandidsTableBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="finStmtItm1_Id2Trgt" expand="finStmtItm1_Id2TrgtField">
                                             <textField id="finStmtItm1_Id2TrgtField" dataContainer="finTxferDc" property="finStmtItm1_Id2Trgt" tabIndex="10"

@@ -164,6 +164,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     private EntityComboBox<GenNode> genChan1_IdField;
 
     @Autowired
+    private EntityComboBox<GenNode> finAcct1_IdField;
+
+    @Autowired
     private EntityComboBox<GenNode> genDocVer1_IdField;
 
     @Autowired
@@ -253,6 +256,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         finAcctsDl.setFetchPlan(finAcctsFp);
         finAcctsDl.setContainer(finAcctsDc);
         finAcctsDl.setDataContext(getScreenData().getDataContext());
+
+        finAcct1_IdField.setOptionsContainer(finAcctsDc);
+        //filter
         EntityComboBox<GenNode> propFilterCmpnt_finAcct1_Id = (EntityComboBox<GenNode>) propFilter_finAcct1_Id.getValueComponent();
         propFilterCmpnt_finAcct1_Id.setOptionsContainer(finAcctsDc);
 
@@ -302,29 +308,29 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
 
         logger.trace(logPrfx + " <-- ");
     }
-    
-    @Install(to = "table.[beg1.date1]", subject = "formatter")
-    private String tableBeg1Date1Formatter(LocalDate date) {
+
+    @Install(to = "table.[beg1.ts1]", subject = "formatter")
+    private String tableBeg1Ts1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
-        return date == null ? null: date.format(formatter);
+        return ts == null ? null: ts.format(formatter);
     }
 
-    @Install(to = "table.[end1.date1]", subject = "formatter")
-    private String tableEnd1Date1Formatter(LocalDate date) {
+    @Install(to = "table.[end1.ts1]", subject = "formatter")
+    private String tableEnd1Ts1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
-        return date == null ? null: date.format(formatter);
+        return ts == null ? null: ts.format(formatter);
     }
 
-    @Install(to = "table2.[idTs.ts1]", subject = "formatter")
-    private String table2IdTsTs1Formatter(LocalDateTime ts) {
+    @Install(to = "table2.[idDt.date1]", subject = "formatter")
+    private String table2IdDtDate1Formatter(LocalDate dt) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
-        return ts == null ? null : ts.format(formatter);
+        return dt == null ? null : dt.format(formatter);
     }
 
     @Subscribe("reloadLists")
@@ -928,9 +934,9 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    @Subscribe("end1Date1Field")
-    public void onEnd1Date1FieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
-        String logPrfx = "onEnd1Date1FieldValueChange";
+    @Subscribe("end1Ts1Field")
+    public void onEd1Ts1FieldValueChange(HasValue.ValueChangeEvent<LocalDate> event) {
+        String logPrfx = "onEd1Ts1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
@@ -957,13 +963,14 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "amtBegBalField";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            //todo I observed thisFinStmt is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+        if (event.isUserOriginated()) {
+            GenNode thisFinStmt = finStmtDc.getItemOrNull();
+            if (thisFinStmt == null) {
+                logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+                notifications.create().withCaption("No record selected. Please select a record.").show();
+                logger.trace(logPrfx + " <-- ");
+                return;
+            }
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -976,15 +983,16 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "amtBegBalCalcField";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            //todo I observed thisFinStmt is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+        if (event.isUserOriginated()) {
+            GenNode thisFinStmt = finStmtDc.getItemOrNull();
+            if (thisFinStmt == null) {
+                logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+                notifications.create().withCaption("No record selected. Please select a record.").show();
+                logger.trace(logPrfx + " <-- ");
+                return;
+            }
+            updateAmtEndBalCalc(thisFinStmt);
         }
-        updateAmtEndBalCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -1007,16 +1015,17 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onAmtDebtFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            //todo I observed thisFinStmt is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+        if (event.isUserOriginated()) {
+            GenNode thisFinStmt = finStmtDc.getItemOrNull();
+            if (thisFinStmt == null) {
+                logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+                notifications.create().withCaption("No record selected. Please select a record.").show();
+                logger.trace(logPrfx + " <-- ");
+                return;
+            }
+            updateAmtNet(thisFinStmt);
+            updateAmtEndBalCalc(thisFinStmt);
         }
-        updateAmtNet(thisFinStmt);
-        updateAmtEndBalCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -1027,16 +1036,17 @@ public class FinStmtBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onAmtCredFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        GenNode thisFinStmt = finStmtDc.getItemOrNull();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
-            //todo I observed thisFinStmt is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+        if (event.isUserOriginated()) {
+            GenNode thisFinStmt = finStmtDc.getItemOrNull();
+            if (thisFinStmt == null) {
+                logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
+                notifications.create().withCaption("No record selected. Please select a record.").show();
+                logger.trace(logPrfx + " <-- ");
+                return;
+            }
+            updateAmtNet(thisFinStmt);
+            updateAmtEndBalCalc(thisFinStmt);
         }
-        updateAmtNet(thisFinStmt);
-        updateAmtEndBalCalc(thisFinStmt);
 
         logger.trace(logPrfx + " <-- ");
 

@@ -68,8 +68,8 @@
                     <columns>
                         <column id="id2"/>
                         <column id="id2Dup"/>
-                        <column id="beg1.date1" caption="Beg-Date"/>
-                        <column id="end1.date1" caption="End-Date"/>
+                        <column id="beg1.ts1" caption="beg1"/>
+                        <column id="end1.ts1" caption="end1"/>
                         <column id="genChan1_Id" caption="genChan1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
                         <column id="amtBegBal"><formatter><number format="#,##0.00"/></formatter></column>
@@ -91,11 +91,8 @@
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="table.refresh"/>
                                     <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
-                                    <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="table.remove"/>
                                 </hbox>
                             </tab>
 
@@ -108,15 +105,20 @@
                             </tab>
                             <tab id="tabCmd3" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="createBtn" action="table.create"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
                                     <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="setBtn" caption="Set" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
+                                    <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <hbox spacing="true">
                                     <hbox caption="beg1.ts1">
@@ -274,10 +276,20 @@
                                 </column>
 
                                 <column width="240px">
-                                    <dateField id="beg1Date1Field" property="beg1.ts1" dateFormat="yyyy-MM-dd" caption="Beg Date"
-                                               tabIndex="30"/>
-                                    <dateField id="end1Date1Field" property="end1.ts1" dateFormat="yyyy-MM-dd" caption="End Date"
-                                               tabIndex="30"/>
+                                    <hbox caption="IdDt" width="100%">
+                                        <dateField id="idDtDate1Field" property="idDt.date1" dataContainer="finStmtDc" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
+                                        <hbox width="20px"/>
+                                    </hbox>
+                                    <hbox caption="Beg1" width="100%">
+                                        <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="finStmtDc" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                        <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="End1" width="100%">
+                                        <dateField id="end1Ts1Field" property="end1.ts1" dataContainer="finStmtDc" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                        <button id="updateEnd1Ts1FieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                    </hbox>
                                 </column>
 
                                 <column width="240px">
@@ -535,7 +547,7 @@
                         <column id="type1_Id"/>
 
                         <column id="finStmt1_Id"/>
-                        <column id="idTs.ts1" caption="idTs"/>
+                        <column id="idDt.date1" caption="idDt"/>
                         <column id="idX"/>
 
                         <column id="desc1" width="240px"/>
@@ -548,7 +560,6 @@
                         <column id="amtDebt"><formatter><number format="#,##0.00"/></formatter></column>
                         <column id="amtCred"><formatter><number format="#,##0.00"/></formatter></column>
                         <column id="amtNet"><formatter><number format="#,##0.00"/></formatter></column>
-                        <column id="amtEndBalSel"><formatter><number format="#,##0.00"/></formatter></column>
                         <column id="note"/>
                     </columns>
                     <simplePagination/>

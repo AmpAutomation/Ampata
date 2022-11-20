@@ -116,40 +116,39 @@
         <property name="status"/>
         <property name="statusCalc"/>
         <property name="note"/>
+
+        <property name="genChan1_Id" fetchPlan="_base"/>
+        <property name="genChan2_Id" fetchPlan="_base"/>
+
+        <property name="idTs" fetchPlan="_base"/>
+        <property name="idDt" fetchPlan="_base"/>
+        <property name="idTm" fetchPlan="_base"/>
+        <property name="beg1" fetchPlan="_base"/>
+        <property name="end1" fetchPlan="_base"/>
+        <property name="beg2" fetchPlan="_base"/>
+        <property name="end2" fetchPlan="_base"/>
+
         <property name="genDocVers1_Id2"/>
+        <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genDocVer1_Id2"/>
         <property name="genDocVer1_Code"/>
         <property name="genDocVer1_Ver"/>
         <property name="genDocVer1_Name1"/>
-        <property name="genFile1_Id2"/>
+
         <property name="genTags1_Id2"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id2"/>
-        <property name="genTag3_Id2"/>
-        <property name="genTag4_Id2"/>
-        <property name="namePrfx"/>
-        <property name="nameFrst"/>
-        <property name="nameMidl"/>
-        <property name="nameLast"/>
-        <property name="nameSufx"/>
-        <property name="genAgent1_Id2"/>
-        <property name="genAgent2_Id2"/>
-        <property name="genChan1_Id2"/>
-        <property name="genFile1_URI"/>
-        <property name="idTs" fetchPlan="_base"/>
-        <property name="idDt" fetchPlan="_base"/>
-        <property name="idTm" fetchPlan="_base"/>
-        <property name="end1" fetchPlan="_base"/>
-        <property name="beg1" fetchPlan="_base"/>
-        <property name="beg2" fetchPlan="_base"/>
-        <property name="end2" fetchPlan="_base"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genChan1_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag1_Id2"/>
         <property name="genTag2_Id" fetchPlan="_base"/>
+        <property name="genTag2_Id2"/>
+        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag3_Id2"/>
+        <property name="genTag4_Id" fetchPlan="_base"/>
+        <property name="genTag4_Id2"/>
+
+        <property name="genFile1_Id" fetchPlan="_base"/>
+        <property name="genFile1_Id2"/>
+        <property name="genFile1_URI"/>
+
     </fetchPlan>
     <fetchPlan entity="ampata_GenNode" name="finAcct-fetch-plan-base" extends="genNode-fetch-plan-base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
@@ -335,9 +334,8 @@
         <property name="finTxset1_GenTags1_Id2"/>
 
         <property name="finTxfers1_Id2"/>
-        <property name="finTxset1_FinAccts_Id2"/>
+        <property name="finTxset1_FinAccts1_Id2"/>
         <property name="finTxfers1_FinAccts1_Id2"/>
-
 
 
         <property name="amtDebt"/>
@@ -349,6 +347,7 @@
         <property name="finTxfers1_AmtCredSumCalc"/>
         <property name="finTxfers1_AmtNetSumCalc"/>
         <property name="finTxfers1_AmtEqCalc"/>
+        <property name="finTxfers1_FinCurcyEqCalc"/>
 
         <property name="finTxfers1_AmtDebtSumDiff"/>
         <property name="finTxfers1_AmtCredSumDiff"/>
@@ -365,12 +364,18 @@
             <property name ="genChan1_Id" fetchPlan="_base">
                 <property name ="type1_Id" fetchPlan="_base"/>
             </property>
+            <property name ="genChan2_Id" fetchPlan="_base">
+                <property name ="type1_Id" fetchPlan="_base"/>
+            </property>
             <property name ="type1_Id" fetchPlan="_base"/>
             <property name ="finHow1_Id" fetchPlan="_base"/>
             <property name ="finWhat1_Id" fetchPlan="_base"/>
             <property name ="finWhy1_Id" fetchPlan="_base"/>
             <property name="finTxset1_Id" fetchPlan="_base">
                 <property name ="genChan1_Id" fetchPlan="_base">
+                    <property name ="type1_Id" fetchPlan="_base"/>
+                </property>
+                <property name ="genChan2_Id" fetchPlan="_base">
                     <property name ="type1_Id" fetchPlan="_base"/>
                 </property>
                 <property name ="type1_Id" fetchPlan="_base"/>
@@ -387,7 +392,6 @@
         <property name="finStmtItm1_Id" fetchPlan="finStmtItm-fetch-plan-base">
         </property>
         <property name="finStmtItm1_Id2Trgt"/>
-
 
         <property name="finTaxLne1_Id" fetchPlan="_base">
             <property name="type1_Id" fetchPlan="_base"/>

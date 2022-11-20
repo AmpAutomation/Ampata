@@ -49,8 +49,8 @@
                                 <propertyFilter id="filterConfig1A_desc4" caption="desc4" operation="CONTAINS" property="desc4" operationEditable="true">
                                     <comboBox/>
                                 </propertyFilter>
-                                <propertyFilter id="filterConfig1A_idTsGE" caption="idTs.ts1" operation="GREATER_OR_EQUAL" property="idTs.ts1" operationEditable="true"/>
-                                <propertyFilter id="filterConfig1A_idTsLE" caption="idTs.ts1" operation="LESS" property="idTs.ts1" operationEditable="true"/>
+                                <propertyFilter id="filterConfig1A_idDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                                <propertyFilter id="filterConfig1A_idDtLE" caption="idDt.date1" operation="LESS" property="idDt.date1" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_idX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_finAcct1_Id" caption="finAcct1_Id" operation="EQUAL" property="finStmt1_Id.finAcct1_Id" operationEditable="true">
                                     <entityComboBox metaClass="ampata_GenNode"/>
@@ -82,7 +82,7 @@
                         <column id="type1_Id"/>
 
                         <column id="finStmt1_Id"/>
-                        <column id="idTs.ts1" caption="idTs"/>
+                        <column id="idDt.date1" caption="idDt"/>
                         <column id="idX"/>
 
                         <column id="desc1" width="240px"/>
@@ -104,17 +104,18 @@
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="table.refresh"/>
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
-                                    <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="table.remove"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="createBtn" action="table.create"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -126,9 +127,10 @@
                                         <button id="incIdXBtn"  icon="ARROW_RIGHT"/>
                                         <button id="maxIdXBtn"  caption="Max"/>
                                     </hbox>
-                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
-                                    <comboBox id="updateColItemCalcValsOption" width="100px"/>
+                                    <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <tabSheet  width="100%">
                                     <tab id="tabCmd2_Set1" caption="FinAcct" spacing="true">
@@ -144,6 +146,12 @@
                                                     <checkBox id="tmplt_Beg1Ts1FieldChk" align="MIDDLE_RIGHT"/>
                                                 </hbox>
                                                 <dateField id="tmplt_Beg1Ts1Field" datatype="localDateTime"/>
+                                            </hbox>
+                                            <hbox caption="beg2.ts1">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_Beg2Ts1FieldChk" align="MIDDLE_RIGHT"/>
+                                                </hbox>
+                                                <dateField id="tmplt_Beg2Ts1Field" datatype="localDateTime"/>
                                             </hbox>
                                             <hbox caption="IdX">
                                                 <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
@@ -212,6 +220,62 @@
                                     </tab>
                                 </tabSheet>
                             </tab>
+                            <tab id="tabCmd4" caption="Filter" spacing="true">
+                                <hbox id="tabCmd4Grp1" spacing="true">
+                                    <label value="A" align="MIDDLE_LEFT"/>
+                                    <hbox width="5px"/>
+                                    <hbox>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecMonBtn" caption="Dec Mon" icon="ANGLE_DOUBLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_DecDayBtn" caption="Dec Day" icon="ANGLE_LEFT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncDayBtn" caption="Inc Day" icon="ANGLE_RIGHT"/>
+                                        <button id="updateFilterConfig1A_IdDtGE_IncMonBtn" caption="Inc Mon" icon="ANGLE_DOUBLE_RIGHT"/>
+                                    </hbox>
+                                    <hbox height="100%">
+                                        <label value="idDt LE" align="MIDDLE_LEFT"/>
+                                        <hbox width="5px"/>
+                                        <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <hbox width="5px"/>
+                                            <checkBox id="updateFilterConfig1A_IdDtLE_SyncChk" caption="Sync" align="MIDDLE_LEFT"/>
+                                            <hbox width="5px"/>
+                                        </hbox>
+                                    </hbox>
+                                </hbox>
+                                <hbox id="tabCmd4Row2" spacing="true">
+                                    <label value="B" align="MIDDLE_LEFT"/>
+                                    <hbox width="5px"/>
+                                    <hbox>
+                                        <label value="idDt GE" align="MIDDLE_LEFT"/>
+                                        <hbox width="5px"/>
+                                        <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <hbox width="5px"/>
+                                            <radioButtonGroup id="updateFilterConfig1B_IdDtGERdo" orientation="horizontal" align="MIDDLE_LEFT"/>
+                                            <hbox width="5px"/>
+                                        </hbox>
+                                        <button id="updateFilterConfig1B_IdDtGEBtn" caption="Update" icon="font-icon:REFRESH"/>
+                                    </hbox>
+                                    <hbox>
+                                        <label value="idX" align="MIDDLE_LEFT"/>
+                                        <hbox width="5px"/>
+                                        <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <hbox width="5px"/>
+                                            <radioButtonGroup id="updateFilterConfig1B_IdXRdo" orientation="horizontal" align="MIDDLE_LEFT"/>
+                                            <hbox width="5px"/>
+                                        </hbox>
+                                        <button id="updateFilterConfig1B_IdXBtn" caption="Update" icon="font-icon:REFRESH"/>
+                                    </hbox>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd5" caption="Options" spacing="true">
+                                <hbox id="tabCmd5Row1" spacing="true">
+                                    <hbox>
+                                        <label value="CalcVals Option"/>
+                                        <hbox width="5px"/>
+                                        <comboBox id="updateColItemCalcValsOption" width="100px"/>
+                                    </hbox>
+                                </hbox>
+                            </tab>
+
                         </tabSheet>
                     </buttonsPanel>
                 </table>
@@ -313,13 +377,18 @@
                                     </column>
 
                                     <column width="240px">
-                                        <hbox caption="IdTs" width="100%">
-                                            <dateField id="idTsTs1Field" property="idTs.ts1" dataContainer="finStmtItmDc" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                        <hbox caption="IdDt" width="100%">
+                                            <dateField id="idDtDate1Field" property="idDt.date1" dataContainer="finStmtItmDc" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
                                             <hbox width="20px"/>
                                         </hbox>
                                         <hbox caption="Beg1" width="100%">
-                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="finStmtItmDc" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="finStmtItmDc" tabIndex="30" datatype="localDateTime" width="220px"/>
                                             <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
+                                                    tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="Beg2" width="100%">
+                                            <dateField id="beg2Ts1Field" property="beg2.ts1" dataContainer="finStmtItmDc" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                            <button id="updateBeg2Ts1FieldBtn" icon="font-icon:REFRESH"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox width="100%">
@@ -356,7 +425,7 @@
                                                 <formatter><number format="#,##0.00"/></formatter>
                                             </textField>
                                         </hbox>
-                                        <hbox caption="amtNet" expand="amtCredField" width="100%">
+                                        <hbox caption="amtCred" expand="amtCredField" width="100%">
                                             <textField id="amtCredField" dataContainer="finStmtItmDc" property="amtCred" tabIndex="40">
                                                 <formatter><number format="#,##0.00"/></formatter>
                                             </textField>

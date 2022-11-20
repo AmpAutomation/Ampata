@@ -11,21 +11,26 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
 
     @Override
     @Transactional
-    public void execGenNodePrUpdNative(){
-        this.em.createNativeQuery("call Gen_Node_Pr_Upd()").executeUpdate();
+    public void execGenNodePrUpdNative(){this.em.createNativeQuery("call Gen_Node_Pr_Upd()").executeUpdate();
     }
 
     @Override
     @Transactional
-    public void execFinAcctPrUpdNative(){
-        this.em.createNativeQuery("call Fin_Acct_Pr_Upd()").executeUpdate();
+    public void execFinAcctPrUpdNative(){this.em.createNativeQuery("call Fin_Acct_Pr_Upd()").executeUpdate();
     }
 
     @Override
     @Transactional
-    public void execFinTxferPrUpdNative(){
-        this.em.createNativeQuery("call Fin_Txfer_Pr_Upd()").executeUpdate();
-    }
+    public void execFinTxferPrUpdNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Upd()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxferPrPurgeNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Purge()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxferPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Del_Orph()").executeUpdate();}
+
 
     @Override
     @Transactional
@@ -35,9 +40,27 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
 
     @Override
     @Transactional
+    public void execFinTxactPrPurgeNative(){this.em.createNativeQuery("call Fin_Txact_Pr_Purge()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxactPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txact_Pr_Del_Orph()").executeUpdate();}
+
+
+    @Override
+    @Transactional
     public void execFinTxsetPrUpdNative(){
         this.em.createNativeQuery("call Fin_Txset_Pr_Upd()").executeUpdate();
     }
+
+    @Override
+    @Transactional
+    public void execFinTxsetPrPurgeNative(){this.em.createNativeQuery("call Fin_Txset_Pr_Purge()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxsetPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txset_Pr_Del_Orph()").executeUpdate();}
+
 
     @Override
     @Transactional

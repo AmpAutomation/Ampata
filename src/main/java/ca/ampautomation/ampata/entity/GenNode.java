@@ -1,17 +1,14 @@
 package ca.ampautomation.ampata.entity;
 
-import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.core.metamodel.annotation.JmixProperty;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,7 +18,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -29,9 +25,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @JmixEntity
 @Table(name = "AMPATA_GEN_NODE", indexes = {
@@ -41,6 +41,7 @@ import java.util.UUID;
         @Index(name = "IDX_GENNODE_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
         @Index(name = "IDX_GENNODE_DESC1_FIN_TXFER1__ID", columnList = "DESC1_FIN_TXFER1__ID"),
         @Index(name = "IDX_GENNODE_GEN_CHAN1__ID", columnList = "GEN_CHAN1__ID"),
+        @Index(name = "IDX_GENNODE_GEN_CHAN2__ID", columnList = "GEN_CHAN2__ID"),
         @Index(name = "IDX_GENNODE_FIN_HOW1__ID", columnList = "FIN_HOW1__ID"),
         @Index(name = "IDX_GENNODE_FIN_WHAT1__ID", columnList = "FIN_WHAT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_WHY1__ID", columnList = "FIN_WHY1__ID"),
@@ -375,6 +376,14 @@ public class GenNode {
     @Column(name = "GEN_CHAN1__ID2")
     private String genChan1_Id2;
 
+    @JoinColumn(name = "GEN_CHAN2__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GenNode genChan2_Id;
+
+    @Column(name = "GEN_CHAN2__ID2")
+    private String genChan2_Id2;
+
+
 
     @Lob
     @Column(name = "FIN_TXSET1__FIN_TXACTS1__ID2")
@@ -401,7 +410,9 @@ public class GenNode {
     private String finTxset1_Type1_Id2;
 
     @Column(name = "FIN_TXSET1__DESC1")
+    @Lob
     private String finTxset1_Desc1;
+
 
 
     @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
@@ -549,15 +560,19 @@ public class GenNode {
     private String finStmtItm1_Id2Trgt;
 
     @Column(name = "FIN_STMT_ITM1__DESC1")
+    @Lob
     private String finStmtItm1_Desc1;
 
     @Column(name = "FIN_STMT_ITM1__DESC2")
+    @Lob
     private String finStmtItm1_Desc2;
 
     @Column(name = "FIN_STMT_ITM1__DESC3")
+    @Lob
     private String finStmtItm1_Desc3;
 
     @Column(name = "FIN_STMT_ITM1__DESC4")
+    @Lob
     private String finStmtItm1_Desc4;
 
     @Column(name = "FIN_STMT_ITM1__EXCH_DESC")
@@ -706,10 +721,6 @@ public class GenNode {
     @Lob
     private String finTxfers1_Id2;
 
-    @Column(name = "FIN_TXSET1__FIN_ACCTS__ID2")
-    @Lob
-    private String finTxset1_FinAccts_Id2;
-
     @Column(name = "FIN_TXFERS1__FIN_ACCTS1__ID2")
     @Lob
     private String finTxfers1_FinAccts1_Id2;
@@ -729,6 +740,9 @@ public class GenNode {
 
     @Column(name = "FIN_TXFERS1__AMT_EQ_CALC")
     private Boolean finTxfers1_AmtEqCalc;
+
+    @Column(name = "FIN_TXFERS1__FIN_CURCY_CALC")
+    private Boolean finTxfers1_FinCurcyEqCalc;
 
     
     @Column(name = "FIN_TXFERS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
@@ -1163,6 +1177,13 @@ public class GenNode {
         this.genChan1_Id = genChan1_Id;
     }
 
+    public String getGenChan2_Id2() { return genChan2_Id2;}
+
+    public void setGenChan2_Id2(String genChan2_Id2) {this.genChan2_Id2 = genChan2_Id2;}
+
+    public GenNode getGenChan2_Id() {return genChan2_Id;}
+
+    public void setGenChan2_Id(GenNode genChan2_Id) {this.genChan2_Id = genChan2_Id;}
 
 
 
@@ -1480,8 +1501,6 @@ public class GenNode {
 
 
 
-
-
     public String getFinTxset1_FinAccts1_Id2() {
         return finTxset1_FinAccts1_Id2;
     }
@@ -1490,17 +1509,7 @@ public class GenNode {
         return finTxset1_FinTxacts1_Id2;
     }
 
-    public void setFinTxset1_FinTxacts1_Id2(String finTxset1_FinTxacts1_Id2) {
-        this.finTxset1_FinTxacts1_Id2 = finTxset1_FinTxacts1_Id2;
-    }
-
-    public String getFinTxset1_FinAccts_Id2() {
-        return finTxset1_FinAccts_Id2;
-    }
-
-    public void setFinTxset1_FinAccts_Id2(String finTxset1_FinAccts_Id2) {
-        this.finTxset1_FinAccts_Id2 = finTxset1_FinAccts_Id2;
-    }
+    public void setFinTxset1_FinTxacts1_Id2(String finTxset1_FinTxacts1_Id2) {this.finTxset1_FinTxacts1_Id2 = finTxset1_FinTxacts1_Id2;}
 
 
     public GenNode getFinTxset1_Id() {
@@ -2137,6 +2146,10 @@ public class GenNode {
 
     public void setFinTxfers1_AmtEqCalc(Boolean finTxfers1_AmtEqCalc) {this.finTxfers1_AmtEqCalc = finTxfers1_AmtEqCalc; }
 
+    public Boolean getFinTxfers1_FinCurcyEqCalc() { return finTxfers1_FinCurcyEqCalc; }
+
+    public void setFinTxfers1_FinCurcyEqCalc(Boolean finTxfers1_FinCurcyEqCalc) {this.finTxfers1_FinCurcyEqCalc = finTxfers1_FinCurcyEqCalc; }
+
 
     public BigDecimal getFinTxfers1_AmtDebtSumDiff() { return finTxfers1_AmtDebtSumDiff; }
 
@@ -2398,15 +2411,15 @@ public class GenNode {
                 .appendPattern("yyyyMMdd HHmm")
                 .toFormatter();
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd")
+                .appendPattern("yyyy-MM-dd")
                 .toFormatter();
          DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-                .appendPattern("HHmm")
+                .appendPattern("HH:mm")
                 .toFormatter();
         DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
         switch (className) {
-            case "FinTxset", "FinTxact", "FinTxfer", "FinStmtItm" -> {
+            case "timestamp based type placeholder" -> {
                 if (idTs == null) {
                     logger.debug(logPrfx + " --- idTs: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2420,7 +2433,7 @@ public class GenNode {
                     logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
                 }
             }
-            case "FinStmt" -> {
+            case "FinTxset", "FinTxact", "FinTxfer","FinStmt" , "FinStmtItm" -> {
                 if (idDt == null) {
                     logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2475,10 +2488,6 @@ public class GenNode {
         }
 
         switch (className){
-            case "FinTxset":
-            case "FinTxact":
-            case "FinTxfer":
-            case "FinStmt":
             case "FinAcct":
                 //Parent
                 if (parent1_Id == null) {
@@ -2488,17 +2497,13 @@ public class GenNode {
                     sb.append(parent1_Id.getId2()).append("/");
                 }
                 break;
-
-            default:
         }
 
 
         switch (className) {
             case "FinTxset", "FinTxact", "FinTxfer" ->
                 //Date
-                sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt))
-                //Time
-                .append(SEP + "T").append(idTs.getTs1().format(frmtTm));
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
             case "FinStmt" ->
                 //Account
                 sb.append(finAcct1_Id.getId2())
@@ -2580,7 +2585,8 @@ public class GenNode {
                 .toFormatter();
 
         switch (className) {
-            case "FinTxset", "FinStmtItm" -> {
+            // beg1 only
+            case "FinTxset", "FinTxact" -> {
                 if (beg1.getTs1() != null) {
                     ts1 = beg1.getTs1();
                 }
@@ -2590,7 +2596,8 @@ public class GenNode {
                     isChanged = true;
                 }
             }
-            case "FinTxact", "FinTxfer" -> {
+            // beg2 otherwise beg1
+            case "FinTxfer", "FinStmtItm" -> {
                 if (beg2.getTs1() != null) {
                     ts1 = beg2.getTs1();
                 } else if (beg1.getTs1() != null) {
@@ -2621,11 +2628,33 @@ public class GenNode {
         boolean isChanged = false;
 
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd")
+                .appendPattern("yyyy-MM-dd")
                 .toFormatter();
 
         switch (className) {
 
+            case "FinTxset", "FinTxact":
+                if (beg1.getDate1() != null){
+                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ beg1.getDate1().format(frmtDt) +")");
+                    idDt.setDate1(beg1.getDate1());
+                }else{
+                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
+                    idDt.setDate1(null);
+                }
+                break;
+
+            case  "FinTxfer", "FinStmtItm" :
+                if (beg2.getDate1() != null) {
+                    logger.debug(logPrfx + " --- calling idDt.setDate1((" + beg2.getDate1().format(frmtDt) + ")");
+                    idDt.setDate1(beg2.getDate1());
+                }else if (beg1.getDate1() != null){
+                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ beg1.getDate1().format(frmtDt) +")");
+                    idDt.setDate1(beg1.getDate1());
+                }else{
+                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
+                    idDt.setDate1(null);
+                }
+                break;
             case "FinStmt":
                 if (end1.getDate1() != null){
                     logger.debug(logPrfx + " --- calling idDt.setDate1(("+ end1.getDate1().format(frmtDt) +")");
@@ -2675,9 +2704,9 @@ public class GenNode {
         LocalDateTime beg1_ts1 = null;
 
         switch (className) {
+            case "FinTxset":
             case "FinTxact":
             case "FinTxfer":
-            case "FinTxset":
                 if (beg2 != null
                         && beg2.getTs1() != null) {
                     logger.trace(logPrfx + " ---- beg2 != null");
@@ -2689,7 +2718,7 @@ public class GenNode {
                         && id2.length() >= 10){
 
                     DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyyMMdd[HHmmss]")
+                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
                             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
@@ -2733,13 +2762,13 @@ public class GenNode {
         LocalDateTime beg2_ts1 = null;
 
         switch (className) {
-            case "FinTxact":
             case "FinTxfer":
-            case "FinTxset":
+            case "FinStmtItm":
                 if (beg1 == null
                         || beg1.getTs1() == null
-                        || beg2 == null
-                        || beg2.getTs1() == null) {
+//                        || beg2 == null
+//                        || beg2.getTs1() == null
+                ) {
                     logger.trace(logPrfx + " ---- beg1 != null");
                     logger.trace(logPrfx + " <--- ");
                     return isChanged;
@@ -2749,12 +2778,22 @@ public class GenNode {
                         && id2.length() >= 10){
 
                     DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyyMMdd[HHmmss]")
+                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
                             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                             .toFormatter();
-                    String id2_part = id2.substring(2,10);
+
+                    String id2_part;
+                    Pattern pattern = Pattern.compile("/D[0-9]{4}-[0-9]{2}-[0-9]{2}");
+                    Matcher matcher = pattern.matcher(id2);
+                    if (matcher.find()) {
+                        id2_part = matcher.group(0).substring(2,12);
+                    } else {
+                        logger.trace(logPrfx + " <--- ");
+                        return isChanged;
+                    }
+
                     try{
                         beg2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
 
@@ -2764,6 +2803,7 @@ public class GenNode {
                         logger.trace(logPrfx + " <--- ");
                         return isChanged;
                     }
+
 
                     if (!Objects.equals(beg2_ts1_, beg2_ts1)){
                         logger.debug(logPrfx + " --- calling beg2.setTs1(("+ beg2_ts1.format(frmtTs) +")");
@@ -2797,7 +2837,7 @@ public class GenNode {
                         && id2.length() >= 10){
 
                     DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyyMMdd[HHmmss]")
+                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
                             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
                             .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
                             .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)

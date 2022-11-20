@@ -1,5 +1,6 @@
 package ca.ampautomation.ampata.entity;
 
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import java.util.Objects;
 @JmixEntity(name = "ampata_HasTmst")
 @Embeddable
 public class HasTmst {
+
+    @InstanceName
     @Column(name = "TS1")
     private LocalDateTime ts1;
 
@@ -120,11 +123,14 @@ public class HasTmst {
     }
     public void updateAllFields(){
         if (ts1 == null) {
+            date1 = null;
             date1Yr = null;
             date1Qtr = null;
             date1Mon = null;
             date1Mon2 = null;
             date1Day =  null;
+
+            time1 = null;
             time1Hr = null;
             time1Min = null;
         }else{

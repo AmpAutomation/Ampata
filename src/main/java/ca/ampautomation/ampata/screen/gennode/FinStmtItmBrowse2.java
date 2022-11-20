@@ -19,6 +19,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
@@ -101,6 +102,13 @@ public class FinStmtItmBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     protected CheckBox tmplt_Beg1Ts1FieldChk;
+
+    @Autowired
+    protected DateField<LocalDateTime> tmplt_Beg2Ts1Field;
+
+    @Autowired
+    protected CheckBox tmplt_Beg2Ts1FieldChk;
+
 
     @Autowired
     protected TextField<Integer> tmplt_IdXField;
@@ -487,8 +495,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
     }
 
-    @Install(to = "table.[idTs.ts1]", subject = "formatter")
-    private String tableIdDtDate1Formatter(LocalDateTime ts) {
+    @Install(to = "table.[idDt.date1]", subject = "formatter")
+    private String tableIdDtDate1Formatter(LocalDate ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
@@ -567,12 +575,15 @@ are not fully initialized, for example, buttons are not linked with actions.
             GenNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            LocalDateTime idTs1 = copy.getIdTs() != null ? copy.getIdTs().getTs1() : null;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                idTs1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(idTs1);
-                updateIdTs(copy);
+                copy.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                updateIdDt(copy);
             }
+            if (tmplt_Beg2Ts1FieldChk.isChecked()) {
+                copy.getBeg2().setTs1(tmplt_Beg2Ts1Field.getValue());
+                updateIdDt(copy);
+            }
+            LocalDate idDt1 = copy.getIdDt() != null ? copy.getIdDt().getDate1() : null;
 
             Integer idX = copy.getIdX();
             if (tmplt_IdXFieldRdo.getValue() != null) {
@@ -583,9 +594,9 @@ are not fully initialized, for example, buttons are not linked with actions.
                 }
                 // Max
                 else if (tmplt_IdXFieldRdo.getValue() == 2
-                        && idTs1 != null) {
+                        && idDt1 != null) {
 
-                    idX = getIdXMax(idTs1);
+                    idX = getIdXMax(idDt1);
                     if (idX == null) return;
                     copy.setIdX(idX);
                 }
@@ -690,13 +701,17 @@ are not fully initialized, for example, buttons are not linked with actions.
                     thisFinStmtItm.setType1_Id(tmplt_Type1_IdField.getValue());
                 }
 
-                LocalDateTime idTs1 = thisFinStmtItm.getIdTs() != null ? thisFinStmtItm.getIdTs().getTs1() : null;
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinStmtItmIsChanged = true;
-                    idTs1 = tmplt_Beg1Ts1Field.getValue();
-                    thisFinStmtItm.getBeg1().setTs1(idTs1);
-                    updateIdTs(thisFinStmtItm);
+                    thisFinStmtItm.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                    updateIdDt(thisFinStmtItm);
                 }
+                if (tmplt_Beg2Ts1FieldChk.isChecked()) {
+                    thisFinStmtItmIsChanged = true;
+                    thisFinStmtItm.getBeg2().setTs1(tmplt_Beg2Ts1Field.getValue());
+                    updateIdDt(thisFinStmtItm);
+                }
+                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
 
                 Integer idX = thisFinStmtItm.getIdX();
                 if (tmplt_IdXFieldRdo.getValue() != null) {
@@ -708,9 +723,9 @@ are not fully initialized, for example, buttons are not linked with actions.
                     }
                     // Max
                     else if (tmplt_IdXFieldRdo.getValue() == 2
-                            && idTs1 != null) {
+                            && idDt1 != null) {
                         thisFinStmtItmIsChanged = true;
-                        idX = getIdXMax(idTs1);
+                        idX = getIdXMax(idDt1);
                         if (idX == null) return;
                         thisFinStmtItm.setIdX(idX);
                     }
@@ -886,8 +901,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinTxferIsChanged = false;
 
-                LocalDateTime idTs1 = thisFinTxfer.getIdTs() != null ? thisFinTxfer.getIdTs().getTs1() : null;
-                if (idTs1 != null){
+                LocalDate idDt1 = thisFinTxfer.getIdDt() != null ? thisFinTxfer.getIdDt().getDate1() : null;
+                if (idDt1 != null){
 
                     Integer idX_ = thisFinTxfer.getIdX();
                     Integer idX = 0;
@@ -939,8 +954,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDateTime idTs1 = thisFinStmtItm.getIdTs() != null ? thisFinStmtItm.getIdTs().getTs1() : null;
-                if (idTs1 != null){
+                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                if (idDt1 != null){
 
                     Integer idX_ = thisFinStmtItm.getIdX();
                     Integer idX = thisFinStmtItm.getIdX() == null || thisFinStmtItm.getIdX() == 0 || thisFinStmtItm.getIdX() == 1 ? 0 : thisFinStmtItm.getIdX() - 1;
@@ -992,8 +1007,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDateTime idTs1 = thisFinStmtItm.getIdTs() != null ? thisFinStmtItm.getIdTs().getTs1() : null;
-                if (idTs1 != null){
+                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                if (idDt1 != null){
 
                     Integer idX_ = thisFinStmtItm.getIdX();
                     Integer idX = (thisFinStmtItm.getIdX() == null ? 0 : thisFinStmtItm.getIdX()) + 1;
@@ -1046,17 +1061,17 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDateTime idTs1 = thisFinStmtItm.getIdTs() != null ? thisFinStmtItm.getIdTs().getTs1() : null;
-                if (idTs1 != null){
+                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                if (idDt1 != null){
 
                     Integer idXMax = 0;
                     String idXMaxQry = "select max(e.idX) from ampata_GenNode e"
                             + " where e.className = 'FinStmtItm'"
-                            + " and e.idTs.ts1 = :idTs1";
+                            + " and e.idDt.date1 = :idDt1";
                     try {
                         idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                                 .store("main")
-                                .parameter("idTs1", idTs1)
+                                .parameter("idDt1", idDt1)
                                 .one();
                         // max returns null if no rows or if all rows have a null value
                     } catch (IllegalStateException e) {
@@ -1334,9 +1349,8 @@ are not fully initialized, for example, buttons are not linked with actions.
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-
-            logger.debug(logPrfx + " --- calling updateIdTs(thisFinStmtItm)");
-            updateIdTs(thisFinStmtItm);
+            logger.debug(logPrfx + " --- calling updateIdDt(thisFinStmtItm)");
+            updateIdDt(thisFinStmtItm);
 
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
             updateId2Calc(thisFinStmtItm);
@@ -1362,6 +1376,46 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Subscribe("beg2Ts1Field")
+    public void onBeg2Ts1FieldValueChange(HasValue.ValueChangeEvent<LocalDateTime> event) {
+        String logPrfx = "onBeg2Ts1FieldValueChange";
+        logger.trace(logPrfx + " --> ");
+
+        if (event.isUserOriginated()) {
+            GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+            if (thisFinStmtItm == null) {
+                logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
+                notifications.create().withCaption("No record selected. Please select a record.").show();
+                logger.trace(logPrfx + " <-- ");
+                return;
+            }
+            logger.debug(logPrfx + " --- calling updateIdDt(thisFinStmtItm)");
+            updateIdDt(thisFinStmtItm);
+
+            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
+            updateId2Calc(thisFinStmtItm);
+        }
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    @Subscribe("updateBeg2Ts1FieldBtn")
+    public void onUpdateBeg2Ts1FieldBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateBeg2Ts1FieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        if (thisFinStmtItm == null) {
+            logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateBeg2(thisFinStmtItm);
+
+        logger.trace(logPrfx + " <-- ");
+    }
 
     @Subscribe("idXField")
     public void onIdXFieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
@@ -1684,7 +1738,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
 
         // Stored in FinStmtItm Object
-        isChanged = updateIdTs(thisFinStmtItm) || isChanged;
+        isChanged = updateIdDt(thisFinStmtItm) || isChanged;
         isChanged = updateId2Calc(thisFinStmtItm) || isChanged;
         isChanged = updateId2Cmp(thisFinStmtItm) || isChanged;
         isChanged = updateId2Dup(thisFinStmtItm) || isChanged;
@@ -1710,7 +1764,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         isChanged = updateBeg1(thisFinStmtItm) || isChanged;
         isChanged = updateIdX(thisFinStmtItm)  || isChanged;
-        isChanged = updateIdTs(thisFinStmtItm)  || isChanged;
+        isChanged = updateIdDt(thisFinStmtItm)  || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1805,13 +1859,13 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateIdTs(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateIdDt(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateIdTs";
+        String logPrfx = "updateIdDt";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateIdTs();
+        isChanged = isChanged || thisFinStmtItm.updateIdDt();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2319,18 +2373,18 @@ are not fully initialized, for example, buttons are not linked with actions.
 
     }
 
-    private Integer getIdXMax(LocalDateTime idTs1){
+    private Integer getIdXMax(LocalDate idDt1){
         String logPrfx = "getIdXMax";
         logger.trace(logPrfx + " --> ");
 
         Integer idX, idXMax;
         String idXMaxQry = "select max(e.idX) from ampata_GenNode e"
                 + " where e.className = 'FinStmtItm'"
-                + " and e.idTs.ts1 = :idTs1";
+                + " and e.idDt.date1 = :idDt1";
         try {
             idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                     .store("main")
-                    .parameter("idTs1", idTs1)
+                    .parameter("idDt1", idDt1)
                     .one();
             // max returns null if no rows or if all rows have a null value
         } catch (IllegalStateException e) {
@@ -2344,12 +2398,12 @@ are not fully initialized, for example, buttons are not linked with actions.
         Integer idXCntIsNull = null;
         String idXCntIsNullQry = "select count(e) from ampata_GenNode e"
                 + " where e.className = 'FinStmtItm'"
-                + " and e.idTs.ts1 = :idTs1"
+                + " and e.idDt.date1 = :idDt1"
                 + " and e.idX is null";
         try {
             idXCntIsNull = dataManager.loadValue(idXCntIsNullQry, Integer.class)
                     .store("main")
-                    .parameter("idTs1", idTs1)
+                    .parameter("idDt1", idDt1)
                     .one();
         } catch (IllegalStateException e) {
             logger.debug(logPrfx + " --- idXCntIsNullQry error: " + e.getMessage());
