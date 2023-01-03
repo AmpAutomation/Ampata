@@ -3,14 +3,20 @@ package ca.ampautomation.ampata.entity;
 public interface GenNodeRepositoryCustom {
     void execGenNodePrUpdNative();
 
+    void execGenChanPrUpdNative();
+
     void execFinAcctPrUpdNative();
 
+    void execFinDeptPrUpdNative();
 
-    void execFinTxferPrUpdNative();
+    void execFinCurcyPrUpdNative();
 
-    void execFinTxferPrPurgeNative();
 
-    void execFinTxferPrDelOrphNative();
+    void execFinTxactItmPrUpdNative();
+
+    void execFinTxactItmPrPurgeNative();
+
+    void execFinTxactItmPrDelOrphNative();
 
 
     void execFinTxactPrUpdNative();
@@ -25,6 +31,10 @@ public interface GenNodeRepositoryCustom {
     void execFinTxsetPrPurgeNative();
 
     void execFinTxsetPrDelOrphNative();
+
+    void execFinBalSetPrUpdNative();
+
+    void execFinBalPrUpdNative();
 
 
     void execFinStmtPrUpdNative();

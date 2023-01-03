@@ -5,7 +5,7 @@
     <data>
         <instance id="genNodeDc"
                   class="ca.ampautomation.ampata.entity.GenNode"
-                  fetchPlan="genCurcy-fetch-plan-base">
+                  fetchPlan="finCurcy-fetch-plan-base">
             <loader/>
         </instance>
     </data>

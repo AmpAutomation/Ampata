@@ -80,6 +80,10 @@ public class FinAcctBrowse2 extends MasterDetailScreen<GenNode> {
 
 
     @Autowired
+    protected PropertyFilter<GenNode> filterConfig1A_finCurcy1_Id;
+
+
+    @Autowired
     protected PropertyFilter<GenNode> filterConfig1A_finTaxLne1_Id;
 
 
@@ -103,6 +107,13 @@ public class FinAcctBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     protected CheckBox tmplt_GenAgent1_IdFieldChk;
+
+
+    @Autowired
+    protected EntityComboBox<GenNode> tmplt_FinCurcy1_IdField;
+
+    @Autowired
+    protected CheckBox tmplt_FinCurcy1_IdFieldChk;
 
 
     @Autowired
@@ -134,6 +145,11 @@ public class FinAcctBrowse2 extends MasterDetailScreen<GenNode> {
     private CollectionContainer<GenNode> genAgentsDc;
 
     private CollectionLoader<GenNode> genAgentsDl;
+
+
+    private CollectionContainer<GenNode> finCurcysDc;
+
+    private CollectionLoader<GenNode> finCurcysDl;
 
 
     @Autowired
@@ -181,6 +197,9 @@ public class FinAcctBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     private EntityComboBox<GenNode> genAgent1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> finCurcy1_IdField;
 
 
     @Autowired
@@ -264,6 +283,24 @@ are not fully initialized, for example, buttons are not linked with actions.
         //filter
         EntityComboBox<GenNode> propFilterCmpnt_genAgent1_Id = (EntityComboBox<GenNode>) filterConfig1A_genAgent1_Id.getValueComponent();
         propFilterCmpnt_genAgent1_Id.setOptionsContainer(genAgentsDc);
+
+
+        finCurcysDc = dataComponents.createCollectionContainer(GenNode.class);
+        finCurcysDl = dataComponents.createCollectionLoader();
+        finCurcysDl.setQuery("select e from ampata_GenNode e where e.className = 'FinCurcy' order by e.id2");
+        FetchPlan finCurcysFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finCurcysDl.setFetchPlan(finCurcysFp);
+        finCurcysDl.setContainer(finCurcysDc);
+        finCurcysDl.setDataContext(getScreenData().getDataContext());
+
+        finCurcy1_IdField.setOptionsContainer(finCurcysDc);
+        //template
+        tmplt_FinCurcy1_IdField.setOptionsContainer(finCurcysDc);
+        //filter
+        EntityComboBox<GenNode> propFilterCmpnt_finCurcy1_Id = (EntityComboBox<GenNode>) filterConfig1A_finCurcy1_Id.getValueComponent();
+        propFilterCmpnt_finCurcy1_Id.setOptionsContainer(finCurcysDc);
 
 
 
@@ -450,6 +487,9 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         genAgentsDl.load();
         logger.debug(logPrfx + " --- called genAgentsDl.load() ");
+
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
         
         genPatsDl.load();
         logger.debug(logPrfx + " --- called getPat.load() ");
@@ -502,8 +542,6 @@ are not fully initialized, for example, buttons are not linked with actions.
         thisFinAccts.forEach(orig -> {
             GenNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
-
-
 
             if (tmplt_Type1_IdFieldChk.isChecked()) {
                 copy.setType1_Id(tmplt_Type1_IdField.getValue());
@@ -558,8 +596,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         List<GenNode> finalChngFinAccts = chngFinAccts;
 
         thisFinAccts.forEach(thisFinAcct -> {
-            GenNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-            thisFinAcct = thisTrackedFinAcct;
+            thisFinAcct = dataContext.merge(thisFinAcct);
             if (thisFinAcct != null) {
 
                 Boolean thisFinAcctIsChanged = false;
@@ -623,9 +660,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         AtomicInteger sortIdx = new AtomicInteger(0);
         thisFinAccts.forEach(thisFinAcct -> {
             if (thisFinAcct != null) {
-                GenNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-                thisFinAcct = thisTrackedFinAcct;
-
+                thisFinAcct = dataContext.merge(thisFinAcct);
                 Boolean thisFinAcctIsChanged = false;
 
                 Integer sortIdx_ = thisFinAcct.getSortIdx();
@@ -673,9 +708,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         thisFinAccts.forEach(thisFinAcct -> {
             if (thisFinAcct != null) {
-                GenNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-                thisFinAcct = thisTrackedFinAcct;
-
+                thisFinAcct = dataContext.merge(thisFinAcct);
                 Boolean thisFinAcctIsChanged = false;
 
                 Integer sortIdx_ = thisFinAcct.getSortIdx();
@@ -1315,6 +1348,18 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
+
+    @Subscribe("updateFinCurcy1_IdFieldListBtn")
+    public void onUpdateFinCurcy1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinCurcy1_IdFieldListBtn";
+        logger.trace(logPrfx + " --> ");
+
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
     @Install(to = "statusField", subject = "enterPressHandler")
     private void statusFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
         String logPrfx = "statusFieldEnterPressHandler";
@@ -1333,6 +1378,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         logger.trace(logPrfx + " <-- ");
     }
+
     @Subscribe("updateGenDocVer1_IdFieldListBtn")
     public void onUpdateGenDocVer1_IdFieldListBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
@@ -1600,6 +1646,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
         return finAccts;
     }
+
     private void reloadStatusList(){
         String logPrfx = "reloadStatusList";
         logger.trace(logPrfx + " --> ");

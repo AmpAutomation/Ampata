@@ -140,7 +140,7 @@
                         </actions>
                     </entityPicker>
                     <textField id="finWhy1_Id2Field" property="finWhy1_Id2"/>
-                    <textArea id="finTxfers1_Id2Field" property="finTxfers1_Id2" rows="5"/>
+                    <textArea id="finTxactItms1_Id2Field" property="finTxactItms1_Id2" rows="5"/>
                     <textArea id="finTxacts1_Id2Field" property="finTxacts1_Id2" rows="5"/>
                     <textArea id="finTxacts1_FinAccts1_Id2Field" property="finTxacts1_FinAccts1_Id2" rows="5"/>
                 </column>

@@ -2,11 +2,13 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
+import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.multitenancy.core.AcceptsTenant;
 import io.jmix.security.authentication.JmixUserDetails;
 import org.springframework.security.core.GrantedAuthority;
 import javax.persistence.*;
@@ -20,12 +22,16 @@ import java.util.UUID;
 @Table(name = "AMPATA_USER", indexes = {
         @Index(name = "IDX_AMPATA_USER_ON_USERNAME", columnList = "USERNAME", unique = true)
 })
-public class User implements JmixUserDetails, HasTimeZone {
+public class User implements JmixUserDetails, HasTimeZone, AcceptsTenant {
 
     @Id
     @Column(name = "ID")
     @JmixGeneratedValue
     private UUID id;
+
+    @TenantId
+    @Column(name = "TENANT")
+    private String tenant;
 
     @Version
     @Column(name = "VERSION", nullable = false)
@@ -65,6 +71,11 @@ public class User implements JmixUserDetails, HasTimeZone {
     public void setId(UUID id) {
         this.id = id;
     }
+
+
+    public String getTenant() { return tenant; }
+
+    public void setTenant(String tenant) { this.tenant = tenant; }
 
     public Integer getVersion() {
         return version;
@@ -167,5 +178,10 @@ public class User implements JmixUserDetails, HasTimeZone {
 
     public void setTimeZoneId(String timeZoneId) {
         this.timeZoneId = timeZoneId;
+    }
+
+    @Override
+    public String getTenantId() {
+        return tenant;
     }
 }

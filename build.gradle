@@ -48,6 +48,8 @@ dependencies {
     implementation("org.postgresql:postgresql:42.3.4")
     implementation("org.postgresql:postgresql")
     implementation("org.hsqldb:hsqldb")
+    implementation 'io.jmix.multitenancy:jmix-multitenancy-starter'
+    implementation 'io.jmix.multitenancy:jmix-multitenancy-ui-starter'
 }
 
 test {

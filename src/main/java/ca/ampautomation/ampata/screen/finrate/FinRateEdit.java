@@ -120,7 +120,7 @@ public class FinRateEdit extends StandardEditor<FinRate> {
     }
 
     private String updateId2Calc(@NotNull FinRate thisFinRate) {
-        // Assume thisFinTxfer is not null
+        // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
@@ -136,7 +136,7 @@ public class FinRateEdit extends StandardEditor<FinRate> {
     }
 
     private String updateId2Calc(@NotNull FinRate thisFinRate, String id2Calc) {
-        // Assume thisFinTxfer is not null
+        // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
@@ -148,7 +148,7 @@ public class FinRateEdit extends StandardEditor<FinRate> {
     }
 
     private void updateId2Cmp(@NotNull FinRate thisFinRate) {
-        // Assume thisFinTxfer is not null
+        // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
@@ -159,7 +159,7 @@ public class FinRateEdit extends StandardEditor<FinRate> {
     }
 
     private void updateId2Dup(@NotNull FinRate thisFinRate) {
-        // Assume thisFinTxfer is not null
+        // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
@@ -179,7 +179,7 @@ public class FinRateEdit extends StandardEditor<FinRate> {
             logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
 
             thisFinRate.setId2Dup(id2Dup + 1);
-            logger.debug(logPrfx + " --- thisFinTxfer.setId2Dup(" + (id2Dup + 1) + ")");
+            logger.debug(logPrfx + " --- thisFinTxactItm.setId2Dup(" + (id2Dup + 1) + ")");
 
         }
         logger.trace(logPrfx + " <-- ");

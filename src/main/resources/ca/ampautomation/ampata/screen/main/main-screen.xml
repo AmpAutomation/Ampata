@@ -22,6 +22,9 @@
                 <sideMenu id="sideMenu"
                           width="100%"
                           stylename="jmix-drawer-content"/>
+                <hbox>
+                    <button id="ShowTenantBtn" caption="Show Tenant"/>
+                </hbox>
                 <timeZoneIndicator id="timeZoneIndicator"
                                    align="MIDDLE_CENTER"/>
                 <cssLayout id="controlBox"

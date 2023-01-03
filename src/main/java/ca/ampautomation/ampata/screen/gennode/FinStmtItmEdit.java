@@ -669,9 +669,9 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    @Subscribe("updateFinTxfers1_IdCntCalcFieldBtn")
-    public void onUpdateFinTxfers1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_IdCntCalcFieldBtnClick";
+    @Subscribe("updateFinTxactItms1_IdCntCalcFieldBtn")
+    public void onUpdateFinTxactItms1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -681,14 +681,14 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_IdCntCalc(thisFinStmtItm);
+        updateFinTxactItms1_IdCntCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxfers1_AmtDebtSumCalcFieldBtn")
-    public void onUpdateFinTxfers1_AmtDebtSumCalcFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "updateFinTxfers1_AmtDebtSumCalcFieldBtn";
+    @Subscribe("updateFinTxactItms1_AmtDebtSumCalcFieldBtn")
+    public void onUpdateFinTxactItms1_AmtDebtSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxactItms1_AmtDebtSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -698,51 +698,15 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_AmtDebtSumCalc(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateFinTxfers1_AmtCredSumCalcFieldBtn")
-    public void onUpdateFinTxfers1_AmtCredSumCalcFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "updateFinTxfers1_AmtCredSumCalcFieldBtn";
-        logger.trace(logPrfx + " --> ");
-
-        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateFinTxfers1_AmtCredSumCalc(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateFinTxfers1_AmtNetSumCalcFieldBtn")
-    public void onUpdateFinTxfers1_AmtNetSumCalcFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "updateFinTxfers1_AmtNetSumCalcFieldBtn";
-        logger.trace(logPrfx + " --> ");
-
-        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateFinTxfers1_AmtNetSumCalc(thisFinStmtItm);
+        updateFinTxactItms1_AmtDebtSumCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-
-    @Subscribe("updateFinTxfers1_AmtEqCalcBoxBtn")
-    public void onUpdateFinTxfers1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxfers1_AmtEqCalcBoxBtnClick";
+    @Subscribe("updateFinTxactItms1_AmtCredSumCalcFieldBtn")
+    public void onUpdateFinTxactItms1_AmtCredSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxactItms1_AmtCredSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
         GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
@@ -752,7 +716,43 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxfers1_AmtEqCalc(thisFinStmtItm);
+        updateFinTxactItms1_AmtCredSumCalc(thisFinStmtItm);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateFinTxactItms1_AmtNetSumCalcFieldBtn")
+    public void onUpdateFinTxactItms1_AmtNetSumCalcFieldBtn(Button.ClickEvent event) {
+        String logPrfx = "updateFinTxactItms1_AmtNetSumCalcFieldBtn";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        if (thisFinStmtItm == null) {
+            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateFinTxactItms1_AmtNetSumCalc(thisFinStmtItm);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+
+    @Subscribe("updateFinTxactItms1_AmtEqCalcBoxBtn")
+    public void onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        GenNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        if (thisFinStmtItm == null) {
+            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateFinTxactItms1_AmtEqCalc(thisFinStmtItm);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -784,11 +784,11 @@ are not fully initialized, for example, buttons are not linked with actions.
         isChanged = updateId2Dup(thisFinStmtItm) || isChanged;
         isChanged = updateAmtNet(thisFinStmtItm) || isChanged;
 
-        isChanged = updateFinTxfers1_IdCntCalc(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_AmtDebtSumCalc(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_AmtCredSumCalc(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_AmtNetSumCalc(thisFinStmtItm)  || isChanged;
-        isChanged = updateFinTxfers1_AmtEqCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxactItms1_IdCntCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxactItms1_AmtDebtSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxactItms1_AmtCredSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxactItms1_AmtNetSumCalc(thisFinStmtItm)  || isChanged;
+        isChanged = updateFinTxactItms1_AmtEqCalc(thisFinStmtItm)  || isChanged;
 
 
         logger.trace(logPrfx + " <-- ");
@@ -1014,15 +1014,15 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-    private Boolean updateFinTxfers1_IdCntCalc(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_IdCntCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_IdCntCalc";
+        String logPrfx = "updateFinTxactItms1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        Integer idCntCalc_ = thisFinStmtItm.getFinTxfers1_IdCntCalc();
+        Integer idCntCalc_ = thisFinStmtItm.getFinTxactItms1_IdCntCalc();
         Integer idCntCalc = null ;
-        String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select count(e.amtNet) from ampata_GenNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             idCntCalc = dataManager.loadValue(qry1,Integer.class)
                     .store("main")
@@ -1039,7 +1039,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         if(!Objects.equals(idCntCalc_, idCntCalc)){
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_IdCntCalc(idCntCalc);
+            thisFinStmtItm.setFinTxactItms1_IdCntCalc(idCntCalc);
             logger.debug(logPrfx + " --- idCntCalc: " + idCntCalc);
         }
 
@@ -1048,15 +1048,15 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateFinTxfers1_AmtDebtSumCalc(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtDebtSumCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_AmtDebtSumCalc";
+        String logPrfx = "updateFinTxactItms1_AmtDebtSumCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        BigDecimal amtDebtSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc();
+        BigDecimal amtDebtSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc();
         BigDecimal amtDebtSumCalc = null ;
-        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtDebt) from ampata_GenNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -1073,7 +1073,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         if(!Objects.equals(amtDebtSumCalc_, amtDebtSumCalc)){
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_AmtDebtSumCalc(amtDebtSumCalc);
+            thisFinStmtItm.setFinTxactItms1_AmtDebtSumCalc(amtDebtSumCalc);
             logger.debug(logPrfx + " --- amtDebtSumCalc: " + amtDebtSumCalc);
         }
 
@@ -1081,15 +1081,15 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateFinTxfers1_AmtCredSumCalc(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtCredSumCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_AmtCredSumCalc";
+        String logPrfx = "updateFinTxactItms1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        BigDecimal amtCredSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtCredSumCalc();
+        BigDecimal amtCredSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc();
         BigDecimal amtCredSumCalc = null ;
-        String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxfer' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtCred) from ampata_GenNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -1106,7 +1106,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         if(!Objects.equals(amtCredSumCalc_, amtCredSumCalc)){
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_AmtCredSumCalc(amtCredSumCalc);
+            thisFinStmtItm.setFinTxactItms1_AmtCredSumCalc(amtCredSumCalc);
             logger.debug(logPrfx + " --- amtCredSumCalc: " + amtCredSumCalc);
         }
 
@@ -1115,14 +1115,14 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateFinTxfers1_AmtNetSumCalc(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtNetSumCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_AmtNetSumCalc";
+        String logPrfx = "updateFinTxactItms1_AmtNetSumCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        BigDecimal amtNetSumCalc_ = thisFinStmtItm.getFinTxfers1_AmtNetSumCalc();
+        BigDecimal amtNetSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtNetSumCalc();
 
         GenNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
         if (thisFinStmt == null) {
@@ -1154,17 +1154,17 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         if (thisFinStmtItm.getAmtDebt() != null) {
             if (balIncOnDebt == null || !balIncOnDebt) {
-                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc());
+                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc());
             } else {
-                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc());
+                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc());
             }
         }
 
         if (thisFinStmtItm.getAmtCred() != null) {
             if (balIncOnCred == null || !balIncOnCred) {
-                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+                amtNetSumCalc = amtNetSumCalc.subtract(thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc());
             } else {
-                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+                amtNetSumCalc = amtNetSumCalc.add(thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc());
             }
         }
         if(!Objects.equals(amtNetSumCalc_, amtNetSumCalc)){
@@ -1177,19 +1177,19 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateFinTxfers1_AmtEqCalc(@NotNull GenNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtEqCalc(@NotNull GenNode thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
-        String logPrfx = "updateFinTxfers1_AmtEqCalc";
+        String logPrfx = "updateFinTxactItms1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        boolean amtEqCalc_ = thisFinStmtItm.getFinTxfers1_AmtEqCalc();
-        boolean amtEqCalc = Objects.equals(thisFinStmtItm.getFinTxfers1_AmtDebtSumCalc()
-                , thisFinStmtItm.getFinTxfers1_AmtCredSumCalc());
+        boolean amtEqCalc_ = thisFinStmtItm.getFinTxactItms1_AmtEqCalc();
+        boolean amtEqCalc = Objects.equals(thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc()
+                , thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc());
 
         if(!Objects.equals(amtEqCalc_, amtEqCalc)){
             isChanged = true;
-            thisFinStmtItm.setFinTxfers1_AmtEqCalc(amtEqCalc);
+            thisFinStmtItm.setFinTxactItms1_AmtEqCalc(amtEqCalc);
             logger.debug(logPrfx + " --- amtEqCalc: " + amtEqCalc);
         }
 

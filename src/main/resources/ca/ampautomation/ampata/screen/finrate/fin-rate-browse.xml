@@ -92,7 +92,7 @@
                         <hbox spacing="true">
                             <button id="finStmtHideBtn" caption="Hide Stmt Details" icon="font-icon:EYE"/>
                             <label value="|" align="MIDDLE_CENTER"/>
-                            <button id="finTxferHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
+                            <button id="finTxactItmHideBtn" caption="Hide Txfers" icon="font-icon:EYE"/>
                         </hbox>
                     </tab>
                     <tab id="tabCmd3" caption="Create, Edit" spacing="true">

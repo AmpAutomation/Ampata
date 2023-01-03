@@ -82,12 +82,12 @@
                 <column id="finTxset1_GenTags1_Id2"/>
                 <column id="finTxset1_FinAccts_Id2"/>
 
-                <column id="finTxfers1_Id2"/>
-                <column id="finTxfers1_FinAccts1_Id2"/>
-                <column id="finTxfers1_DebtSum"/>
-                <column id="finTxfers1_CredSum"/>
-                <column id="finTxfers1_IdCnt"/>
-                <column id="finTxfers1_DebtEqCred"/>
+                <column id="finTxactItms1_Id2"/>
+                <column id="finTxactItms1_FinAccts1_Id2"/>
+                <column id="finTxactItms1_DebtSum"/>
+                <column id="finTxactItms1_CredSum"/>
+                <column id="finTxactItms1_IdCnt"/>
+                <column id="finTxactItms1_DebtEqCred"/>
 
                 <column id="finTxset1_Id.genChan1_Id"/>
                 <column id="finTxset1_Id.finHow1_Id"/>

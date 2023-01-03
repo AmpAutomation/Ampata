@@ -54,11 +54,11 @@
             </loader>
         </collection>
 
-        <collection id="finTxfersDc" class="ca.ampautomation.ampata.entity.GenNode">
+        <collection id="finTxactItmsDc" class="ca.ampautomation.ampata.entity.GenNode">
             <fetchPlan extends="_instance_name"/>
-            <loader id="finTxfersDl">
+            <loader id="finTxactItmsDl">
                 <query>
-                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxfer' order by e.id2]]>
+                    <![CDATA[select e from ampata_GenNode e where e.className = 'FinTxactItm' order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -467,10 +467,10 @@
                                     <button id="updateFinCurcy1_IdFieldListBtn" icon="font-icon:LIST"
                                             tabIndex="-1"/>
                                 </hbox>
-                                <textField id="finTxfers1_DebtSumField" property="finTxfers1_DebtSum" editable="false" width="100%" tabIndex="10"/>
-                                <textField id="finTxfers1_CredSumField" property="finTxfers1_CredSum" editable="false" width="100%" tabIndex="10"/>
-                                <textField id="finTxfers1_IdCntField" property="finTxfers1_IdCnt" editable="false" width="100%" tabIndex="10"/>
-                                <checkBox id="finTxfers1_DebtEqCredBox" property="finTxfers1_DebtEqCred" editable="false" width="100%" tabIndex="10"/>
+                                <textField id="finTxactItms1_DebtSumField" property="finTxactItms1_DebtSum" editable="false" width="100%" tabIndex="10"/>
+                                <textField id="finTxactItms1_CredSumField" property="finTxactItms1_CredSum" editable="false" width="100%" tabIndex="10"/>
+                                <textField id="finTxactItms1_IdCntField" property="finTxactItms1_IdCnt" editable="false" width="100%" tabIndex="10"/>
+                                <checkBox id="finTxactItms1_DebtEqCredBox" property="finTxactItms1_DebtEqCred" editable="false" width="100%" tabIndex="10"/>
                             </column>
                             <column width="360px">
                                 <hbox width="100%"/>

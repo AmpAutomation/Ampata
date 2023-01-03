@@ -322,6 +322,9 @@
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <textField id="classNameField" property="className" editable="false"/>
+                                        <hbox caption="tenant" expand="tenantField" width="100%">
+                                            <comboBox id="tenantField" dataContainer="finTxsetDc" property="tenant"/>
+                                        </hbox>
                                         <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                             <entityComboBox id="type1_IdField" dataContainer="finTxsetDc"
                                                             property="type1_Id" tabIndex="10">

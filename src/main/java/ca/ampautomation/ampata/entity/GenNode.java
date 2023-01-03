@@ -2,10 +2,12 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
+import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.multitenancy.core.AcceptsTenant;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,22 +41,24 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_GENNODE_GEN_NODE1__ID", columnList = "PARENT1__ID"),
         @Index(name = "IDX_GENNODE_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
         @Index(name = "IDX_GENNODE_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
-        @Index(name = "IDX_GENNODE_DESC1_FIN_TXFER1__ID", columnList = "DESC1_FIN_TXFER1__ID"),
+        @Index(name = "IDX_GENNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_GENNODE_GEN_CHAN1__ID", columnList = "GEN_CHAN1__ID"),
         @Index(name = "IDX_GENNODE_GEN_CHAN2__ID", columnList = "GEN_CHAN2__ID"),
         @Index(name = "IDX_GENNODE_FIN_HOW1__ID", columnList = "FIN_HOW1__ID"),
         @Index(name = "IDX_GENNODE_FIN_WHAT1__ID", columnList = "FIN_WHAT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_WHY1__ID", columnList = "FIN_WHY1__ID"),
-        @Index(name = "IDX_GENNODE_FIN_TXACT1__ID", columnList = "FIN_TXACT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_TXSET1__ID", columnList = "FIN_TXSET1__ID"),
+        @Index(name = "IDX_GENNODE_FIN_TXACT1__ID", columnList = "FIN_TXACT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_ACCT1__ID", columnList = "FIN_ACCT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_DEPT1__ID", columnList = "FIN_DEPT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_STMT1__ID", columnList = "FIN_STMT1__ID"),
         @Index(name = "IDX_GENNODE_FIN_STMT_ITM1__ID", columnList = "FIN_STMT_ITM1__ID"),
+        @Index(name = "IDX_GENNODE_FIN_BAL1__ID", columnList = "FIN_BAL1__ID"),
+        @Index(name = "IDX_GENNODE_FIN_BAL_SET1__ID", columnList = "FIN_BAL_SET1__ID"),
         @Index(name = "IDX_GENNODE_FIN_TAX1__ID", columnList = "FIN_TAX_LNE1__ID"),
         @Index(name = "IDX_GENNODE_FIN_CURCY1__ID", columnList = "FIN_CURCY1__ID"),
         @Index(name = "IDX_GENNODE_AMT_FIN_FMLA1__ID", columnList = "AMT_FIN_FMLA1__ID"),
-        @Index(name = "IDX_GENNODE_AMT_FIN_TXFER1__ID", columnList = "AMT_FIN_TXFER1__ID"),
+        @Index(name = "IDX_GENNODE_AMT_FIN_TXACT_ITM1__ID", columnList = "AMT_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_GENNODE_GEN_DOC1__ID", columnList = "GEN_DOC_VER1__ID"),
         @Index(name = "IDX_GENNODE_GEN_FILE1__ID", columnList = "GEN_FILE1__ID"),
         @Index(name = "IDX_GENNODE_GEN_TAG1__ID", columnList = "GEN_TAG1__ID"),
@@ -87,24 +91,28 @@ import java.util.regex.Pattern;
                 , @StoredProcedureParameter(mode = ParameterMode.OUT, name = "outParam1", type = String.class)
         }),
 
-        @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd",
-                procedureName = "Fin_Txfer_Pr_Upd", parameters = {
+        @NamedStoredProcedureQuery(name = "GenNode.execFinTxactItmPrUpd",
+                procedureName = "Fin_Txact_Itm_Pr_Upd", parameters = {
 
         }),
 
-        @NamedStoredProcedureQuery(name = "GenNode.execFinTxferPrUpd2",
-                procedureName = "Fin_Txfer_Pr_Upd2"
+        @NamedStoredProcedureQuery(name = "GenNode.execFinTxactItmPrUpd2",
+                procedureName = "Fin_Txact_Itm_Pr_Upd2"
                 , parameters = {
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)
         }),
 
 })
 
-public class GenNode {
+public class GenNode implements AcceptsTenant {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @TenantId
+    @Column(name = "TENANT")
+    private String tenant;
 
     @InstanceName
     @Column(name = "ID2")
@@ -179,12 +187,12 @@ public class GenNode {
     @Column(name = "DESC1_GEN_PAT1__ID2")
     private String desc1GenPat1_Id2;
 
-    @JoinColumn(name = "DESC1_FIN_TXFER1__ID")
+    @JoinColumn(name = "DESC1_FIN_TXACT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private GenNode desc1FinTxfer1_Id;
+    private GenNode desc1FinTxactItm1_Id;
 
-    @Column(name = "DESC1_FIN_TXFER1__ID2")
-    private String desc1FinTxfer1_Id2;
+    @Column(name = "DESC1_FIN_TXACT_ITM1__ID2")
+    private String desc1FinTxactItm1_Id2;
 
     @Column(name = "DESC2")
     @Lob
@@ -367,7 +375,6 @@ public class GenNode {
 
     @Column(name = "VER")
     private String ver;
-
 
     @JoinColumn(name = "GEN_CHAN1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -661,18 +668,18 @@ public class GenNode {
     @Column(name = "AMT_FIN_FMLA1__ID2")
     private String amtFinFmla1_Id2;
 
-    @JoinColumn(name = "AMT_FIN_TXFER1__ID")
+    @JoinColumn(name = "AMT_FIN_TXACT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private GenNode amtFinTxfer1_Id;
+    private GenNode amtFinTxactItm1_Id;
 
-    @Column(name = "AMT_FIN_TXFER1__ID2")
-    private String amtFinTxfer1_Id2;
+    @Column(name = "AMT_FIN_TXACT_ITM1__ID2")
+    private String amtFinTxactItm1_Id2;
 
-    @Column(name = "AMT_FIN_TXFER1__EI1__RATE", precision = 19, scale = 9)
-    private BigDecimal amtFinTxfer1_EI1_Rate;
+    @Column(name = "AMT_FIN_TXACT_ITM1__EI1__RATE", precision = 19, scale = 9)
+    private BigDecimal amtFinTxactItm1_EI1_Rate;
 
-    @Column(name = "AMT_FIN_TXFER1__FIN_ACCT1__ID2")
-    private String amtFinTxfer1_FinAcct1_Id2;
+    @Column(name = "AMT_FIN_TXACT_ITM1__FIN_ACCT1__ID2")
+    private String amtFinTxactItm1_FinAcct1_Id2;
 
     @Column(name = "FIN_ACCT2__ID2")
     private String finAcct2_Id2;
@@ -687,9 +694,6 @@ public class GenNode {
     @Column(name = "AMT_BEG_BAL_CALC", precision = 19, scale = 2)
     private BigDecimal amtBegBalCalc;
 
-    @Column(name = "AMT_BEG_BAL_MERG", precision = 19, scale = 2)
-    private BigDecimal amtBegBalMerg;
-
 
     @Column(name = "AMT_END_BAL", precision = 19, scale = 2)
     private BigDecimal amtEndBal;
@@ -697,18 +701,29 @@ public class GenNode {
     @Column(name = "AMT_END_BAL_CALC", precision = 19, scale = 2)
     private BigDecimal amtEndBalCalc;
 
-    @Column(name = "AMT_END_BAL_MERG", precision = 19, scale = 2)
-    private BigDecimal amtEndBalMerg;
+
+    @JoinColumn(name = "FIN_BAL1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GenNode finBal1_Id;
+
+    @Column(name = "FIN_BAL1__ID2")
+    private String finBal1_Id2;
+
+
+    @JoinColumn(name = "FIN_BAL_SET1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GenNode finBalSet1_Id;
+
+    @Column(name = "FIN_BAL_SET1__ID2")
+    private String finBalSet1_Id2;
 
 
 
 
-
-
-    // Edge to FinTxact1->FinTxfers1
+    // Edge to FinTxact1->FinTxactItms1
     @Lob
-    @Column(name = "FIN_TXACT1__FIN_TXFERS1__ID2")
-    private String finTxact1_FinTxfers1_Id2;
+    @Column(name = "FIN_TXACT1__FIN_TXACT_ITMS1__ID2")
+    private String finTxact1_FinTxactItms1_Id2;
 
     // Edge to FinTxact1->FinAccts1
     @Lob
@@ -716,46 +731,60 @@ public class GenNode {
     private String finTxact1_FinAccts1_Id2;
 
 
-    // Edge to FinTxfers
-    @Column(name = "FIN_TXFERS1__ID2")
+    // Edge to FinBals
+    @Column(name = "FIN_BALS1__ID2")
     @Lob
-    private String finTxfers1_Id2;
+    private String finBals1_Id2;
 
-    @Column(name = "FIN_TXFERS1__FIN_ACCTS1__ID2")
+
+    @Column(name = "FIN_BALS1__ID_CNT_CALC")
+    private Integer finBals1_IdCntCalc;
+    
+    @Column(name = "FIN_BALS1__AMT_EQ_CALC")
+    private Boolean finBals1_AmtEqCalc;
+
+
+
+    // Edge to FinTxactItms
+    @Column(name = "FIN_TXACT_ITMS1__ID2")
     @Lob
-    private String finTxfers1_FinAccts1_Id2;
+    private String finTxactItms1_Id2;
+
+    @Column(name = "FIN_TXACT_ITMS1__FIN_ACCTS1__ID2")
+    @Lob
+    private String finTxactItms1_FinAccts1_Id2;
 
 
-    @Column(name = "FIN_TXFERS1__ID_CNT_CALC")
-    private Integer finTxfers1_IdCntCalc;
+    @Column(name = "FIN_TXACT_ITMS1__ID_CNT_CALC")
+    private Integer finTxactItms1_IdCntCalc;
 
-    @Column(name = "FIN_TXFERS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtDebtSumCalc;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtDebtSumCalc;
 
-    @Column(name = "FIN_TXFERS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtCredSumCalc;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtCredSumCalc;
 
-    @Column(name = "FIN_TXFERS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtNetSumCalc;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtNetSumCalc;
 
-    @Column(name = "FIN_TXFERS1__AMT_EQ_CALC")
-    private Boolean finTxfers1_AmtEqCalc;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_CALC")
+    private Boolean finTxactItms1_AmtEqCalc;
 
-    @Column(name = "FIN_TXFERS1__FIN_CURCY_CALC")
-    private Boolean finTxfers1_FinCurcyEqCalc;
+    @Column(name = "FIN_TXACT_ITMS1__FIN_CURCY_CALC")
+    private Boolean finTxactItms1_FinCurcyEqCalc;
 
     
-    @Column(name = "FIN_TXFERS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtDebtSumDiff;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtDebtSumDiff;
 
-    @Column(name = "FIN_TXFERS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtCredSumDiff;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtCredSumDiff;
 
-    @Column(name = "FIN_TXFERS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxfers1_AmtNetSumDiff;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
+    private BigDecimal finTxactItms1_AmtNetSumDiff;
 
-    @Column(name = "FIN_TXFERS1__AMT_EQ_DIFF")
-    private Boolean finTxfers1_AmtEqDiff;
+    @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_DIFF")
+    private Boolean finTxactItms1_AmtEqDiff;
 
 
     // Edge to FinTxacts
@@ -864,6 +893,13 @@ public class GenNode {
     private DataManager dataManager;
 */
 
+
+
+    public String getTenant() { return tenant; }
+
+    public void setTenant(String tenant) { this.tenant = tenant; }
+
+
     @Transient
     private final Logger logger = LoggerFactory.getLogger(GenNode.class);
 
@@ -931,9 +967,7 @@ public class GenNode {
         this.id2 = id2;
     }
 
-    public String getId2Calc() {
-        return id2Calc;
-    }
+    public String getId2Calc() { return id2Calc; }
 
     public void setId2Calc(String id2Calc) {
         this.id2Calc = id2Calc;
@@ -1108,20 +1142,20 @@ public class GenNode {
     }
 
 
-    public GenNode getDesc1FinTxfer1_Id() {
-        return desc1FinTxfer1_Id;
+    public GenNode getDesc1FinTxactItm1_Id() {
+        return desc1FinTxactItm1_Id;
     }
 
-    public void setDesc1FinTxfer1_Id(GenNode desc1FinTxfer1_Id) {
-        this.desc1FinTxfer1_Id = desc1FinTxfer1_Id;
+    public void setDesc1FinTxactItm1_Id(GenNode desc1FinTxactItm1_Id) {
+        this.desc1FinTxactItm1_Id = desc1FinTxactItm1_Id;
     }
 
-    public String getDesc1FinTxfer1_Id2() {
-        return desc1FinTxfer1_Id2;
+    public String getDesc1FinTxactItm1_Id2() {
+        return desc1FinTxactItm1_Id2;
     }
 
-    public void setDesc1FinTxfer1_Id2(String desc1FinTxfer1_Id2) {
-        this.desc1FinTxfer1_Id2 = desc1FinTxfer1_Id2;
+    public void setDesc1FinTxactItm1_Id2(String desc1FinTxactItm1_Id2) {
+        this.desc1FinTxactItm1_Id2 = desc1FinTxactItm1_Id2;
     }
 
 
@@ -1425,6 +1459,7 @@ public class GenNode {
 
     public void setVer(String ver) { this.ver = ver;}
 
+    
     public GenNode getGenAgent1_Id() {
         return genAgent1_Id;
     }
@@ -1868,9 +1903,7 @@ public class GenNode {
     }
 
 
-    public GenNode getFinAcct1_Id() {
-        return finAcct1_Id;
-    }
+    public GenNode getFinAcct1_Id() { return finAcct1_Id; }
 
     public void setFinAcct1_Id(GenNode finAcct1_Id) {
         this.finAcct1_Id = finAcct1_Id;
@@ -1927,8 +1960,8 @@ public class GenNode {
         return finTaxLne1_Id;
     }
 
-    public void setFinTaxLne1_Id(GenNode finTax_1_Id) {
-        this.finTaxLne1_Id = finTax_1_Id;
+    public void setFinTaxLne1_Id(GenNode finTaxLne1_Id) {
+        this.finTaxLne1_Id = finTaxLne1_Id;
     }
 
     public String getFinTaxLne1_Id2() {
@@ -1970,33 +2003,33 @@ public class GenNode {
         this.amtFinFmla1_Id2 = amtFinFmla1_Id2;
     }
 
-    public GenNode getAmtFinTxfer1_Id() {
-        return amtFinTxfer1_Id;
+    public GenNode getAmtFinTxactItm1_Id() {
+        return amtFinTxactItm1_Id;
     }
 
-    public void setAmtFinTxfer1_Id(GenNode amtFinTxfer1_Id) {
-        this.amtFinTxfer1_Id = amtFinTxfer1_Id;
+    public void setAmtFinTxactItm1_Id(GenNode amtFinTxactItm1_Id) {
+        this.amtFinTxactItm1_Id = amtFinTxactItm1_Id;
     }
 
-    public String getAmtFinTxfer1_Id2() {
-        return amtFinTxfer1_Id2;
+    public String getAmtFinTxactItm1_Id2() {
+        return amtFinTxactItm1_Id2;
     }
 
-    public void setAmtFinTxfer1_Id2(String amtFinTxfer1_Id2) {
-        this.amtFinTxfer1_Id2 = amtFinTxfer1_Id2;
+    public void setAmtFinTxactItm1_Id2(String amtFinTxactItm1_Id2) {
+        this.amtFinTxactItm1_Id2 = amtFinTxactItm1_Id2;
     }
 
-    public BigDecimal getAmtFinTxfer1_EI1_Rate() {
-        return amtFinTxfer1_EI1_Rate;
+    public BigDecimal getAmtFinTxactItm1_EI1_Rate() {
+        return amtFinTxactItm1_EI1_Rate;
     }
 
-    public void setAmtFinTxfer1_EI1_Rate(BigDecimal amtFinTxfer1_EI1_Rate) { this.amtFinTxfer1_EI1_Rate = amtFinTxfer1_EI1_Rate; }
+    public void setAmtFinTxactItm1_EI1_Rate(BigDecimal amtFinTxactItm1_EI1_Rate) { this.amtFinTxactItm1_EI1_Rate = amtFinTxactItm1_EI1_Rate; }
 
-    public String getAmtFinTxfer1_FinAcct1_Id2() {
-        return amtFinTxfer1_FinAcct1_Id2;
+    public String getAmtFinTxactItm1_FinAcct1_Id2() {
+        return amtFinTxactItm1_FinAcct1_Id2;
     }
 
-    public void setAmtFinTxfer1_FinAcct1_Id2(String amtFinTxfer1_FinAcct1_Id2) { this.amtFinTxfer1_FinAcct1_Id2 = amtFinTxfer1_FinAcct1_Id2; }
+    public void setAmtFinTxactItm1_FinAcct1_Id2(String amtFinTxactItm1_FinAcct1_Id2) { this.amtFinTxactItm1_FinAcct1_Id2 = amtFinTxactItm1_FinAcct1_Id2; }
 
 
     public String getStatus() {
@@ -2030,10 +2063,6 @@ public class GenNode {
         this.amtBegBalCalc = amtBegBalCalc;
     }
 
-    public BigDecimal getAmtBegBalMerg() { return amtBegBalMerg; }
-
-    public void setAmtBegBalMerg(BigDecimal amtBegBalMerg) { this.amtBegBalMerg = amtBegBalMerg; }
-
 
 
     public BigDecimal getAmtEndBal() {
@@ -2050,14 +2079,6 @@ public class GenNode {
 
     public void setAmtEndBalCalc(BigDecimal amtEndBalCalc) {
         this.amtEndBalCalc = amtEndBalCalc;
-    }
-
-    public BigDecimal getAmtEndBalMerg() {
-        return amtEndBalMerg;
-    }
-
-    public void setAmtEndBalMerg(BigDecimal amtEndBalMerg) {
-        this.amtEndBalMerg = amtEndBalMerg;
     }
 
 
@@ -2105,67 +2126,114 @@ public class GenNode {
     }
 
 
-    // Edge to FinTxfers
 
-    public String getFinTxfers1_Id2() {
-        return finTxfers1_Id2;
+    public GenNode getFinBal1_Id() { return finBal1_Id; }
+
+    public void setFinBal1_Id(GenNode finTax_1_Id) { this.finBal1_Id = finTax_1_Id; }
+
+    public String getFinBal1_Id2() { return finBal1_Id2; }
+
+    public void setFinBal1_Id2(String finBal1_Id2) { this.finBal1_Id2 = finBal1_Id2; }
+
+
+    public GenNode getFinBalSet1_Id() { return finBalSet1_Id; }
+
+    public void setFinBalSet1_Id(GenNode finTax_1_Id) { this.finBalSet1_Id = finTax_1_Id; }
+
+    public String getFinBalSet1_Id2() { return finBalSet1_Id2; }
+
+    public void setFinBalSet1_Id2(String finBalSet1_Id2) { this.finBalSet1_Id2 = finBalSet1_Id2; }
+
+    // Edge to FinBals
+
+
+    public String getFinBals1_Id2() {
+        return finBals1_Id2;
     }
 
-    public void setFinTxfers1_Id2(String finTxfers1_Id2) {
-        this.finTxfers1_Id2 = finTxfers1_Id2;
+    public void setFinBals1_Id2(String finBals1_Id2) {
+        this.finBals1_Id2 = finBals1_Id2;
     }
 
-    public String getFinTxfers1_FinAccts1_Id2() {
-        return finTxfers1_FinAccts1_Id2;
+
+    public Integer getFinBals1_IdCntCalc() {
+        return finBals1_IdCntCalc;
     }
 
-    public void setFinTxfers1_FinAccts1_Id2(String finTxfers1_FinAccts1_Id2) { this.finTxfers1_FinAccts1_Id2 = finTxfers1_FinAccts1_Id2; }
-
-
-    public Integer getFinTxfers1_IdCntCalc() { return finTxfers1_IdCntCalc; }
-
-    public void setFinTxfers1_IdCntCalc(Integer finTxfers1_IdCntCalc) { this.finTxfers1_IdCntCalc = finTxfers1_IdCntCalc; }
-
-    public BigDecimal getFinTxfers1_AmtDebtSumCalc() {
-        return finTxfers1_AmtDebtSumCalc;
+    public void setFinBals1_IdCntCalc(Integer finBals1_IdCntCalc) {
+        this.finBals1_IdCntCalc = finBals1_IdCntCalc;
     }
 
-    public void setFinTxfers1_AmtDebtSumCalc(BigDecimal finTxfers1_AmtDebtSumCalc) { this.finTxfers1_AmtDebtSumCalc = finTxfers1_AmtDebtSumCalc; }
-
-    public BigDecimal getFinTxfers1_AmtCredSumCalc() {
-        return finTxfers1_AmtCredSumCalc;
+    public Boolean getFinBals1_AmtEqCalc() {
+        return finBals1_AmtEqCalc;
     }
 
-    public void setFinTxfers1_AmtCredSumCalc(BigDecimal finTxfers1_AmtCredSumCalc) { this.finTxfers1_AmtCredSumCalc = finTxfers1_AmtCredSumCalc; }
-
-    public BigDecimal getFinTxfers1_AmtNetSumCalc() { return finTxfers1_AmtNetSumCalc; }
-
-    public void setFinTxfers1_AmtNetSumCalc(BigDecimal finTxfers1_AmtNetSumCalc) { this.finTxfers1_AmtNetSumCalc = finTxfers1_AmtNetSumCalc; }
-
-    public Boolean getFinTxfers1_AmtEqCalc() { return finTxfers1_AmtEqCalc; }
-
-    public void setFinTxfers1_AmtEqCalc(Boolean finTxfers1_AmtEqCalc) {this.finTxfers1_AmtEqCalc = finTxfers1_AmtEqCalc; }
-
-    public Boolean getFinTxfers1_FinCurcyEqCalc() { return finTxfers1_FinCurcyEqCalc; }
-
-    public void setFinTxfers1_FinCurcyEqCalc(Boolean finTxfers1_FinCurcyEqCalc) {this.finTxfers1_FinCurcyEqCalc = finTxfers1_FinCurcyEqCalc; }
+    public void setFinBals1_IdCntCalc(Boolean finBals1_AmtEqCalc) {
+        this.finBals1_AmtEqCalc = finBals1_AmtEqCalc;
+    }
 
 
-    public BigDecimal getFinTxfers1_AmtDebtSumDiff() { return finTxfers1_AmtDebtSumDiff; }
+    // Edge to FinTxactItms
 
-    public void setFinTxfers1_AmtDebtSumDiff(BigDecimal finTxfers1_AmtDebtSumDiff) { this.finTxfers1_AmtDebtSumDiff = finTxfers1_AmtDebtSumDiff; }
+    public String getFinTxactItms1_Id2() {
+        return finTxactItms1_Id2;
+    }
 
-    public BigDecimal getFinTxfers1_AmtCredSumDiff() { return finTxfers1_AmtCredSumDiff; }
+    public void setFinTxactItms1_Id2(String finTxactItms1_Id2) {
+        this.finTxactItms1_Id2 = finTxactItms1_Id2;
+    }
 
-    public void setFinTxfers1_AmtCredSumDiff(BigDecimal finTxfers1_AmtCredSumDiff) { this.finTxfers1_AmtCredSumDiff = finTxfers1_AmtCredSumDiff; }
+    public String getFinTxactItms1_FinAccts1_Id2() {
+        return finTxactItms1_FinAccts1_Id2;
+    }
 
-    public BigDecimal getFinTxfers1_AmtNetSumDiff() { return finTxfers1_AmtNetSumDiff; }
+    public void setFinTxactItms1_FinAccts1_Id2(String finTxactItms1_FinAccts1_Id2) { this.finTxactItms1_FinAccts1_Id2 = finTxactItms1_FinAccts1_Id2; }
 
-    public void setFinTxfers1_AmtNetSumDiff(BigDecimal finTxfers1_AmtNetSumDiff) { this.finTxfers1_AmtNetSumDiff = finTxfers1_AmtNetSumDiff; }
 
-    public Boolean getFinTxfers1_AmtEqDiff() { return finTxfers1_AmtEqDiff; }
+    public Integer getFinTxactItms1_IdCntCalc() { return finTxactItms1_IdCntCalc; }
 
-    public void setFinTxfers1_AmtEqDiff(Boolean finTxfers1_AmtEqDiff) {this.finTxfers1_AmtEqDiff = finTxfers1_AmtEqDiff; }
+    public void setFinTxactItms1_IdCntCalc(Integer finTxactItms1_IdCntCalc) { this.finTxactItms1_IdCntCalc = finTxactItms1_IdCntCalc; }
+
+    public BigDecimal getFinTxactItms1_AmtDebtSumCalc() {
+        return finTxactItms1_AmtDebtSumCalc;
+    }
+
+    public void setFinTxactItms1_AmtDebtSumCalc(BigDecimal finTxactItms1_AmtDebtSumCalc) { this.finTxactItms1_AmtDebtSumCalc = finTxactItms1_AmtDebtSumCalc; }
+
+    public BigDecimal getFinTxactItms1_AmtCredSumCalc() {
+        return finTxactItms1_AmtCredSumCalc;
+    }
+
+    public void setFinTxactItms1_AmtCredSumCalc(BigDecimal finTxactItms1_AmtCredSumCalc) { this.finTxactItms1_AmtCredSumCalc = finTxactItms1_AmtCredSumCalc; }
+
+    public BigDecimal getFinTxactItms1_AmtNetSumCalc() { return finTxactItms1_AmtNetSumCalc; }
+
+    public void setFinTxactItms1_AmtNetSumCalc(BigDecimal finTxactItms1_AmtNetSumCalc) { this.finTxactItms1_AmtNetSumCalc = finTxactItms1_AmtNetSumCalc; }
+
+    public Boolean getFinTxactItms1_AmtEqCalc() { return finTxactItms1_AmtEqCalc; }
+
+    public void setFinTxactItms1_AmtEqCalc(Boolean finTxactItms1_AmtEqCalc) {this.finTxactItms1_AmtEqCalc = finTxactItms1_AmtEqCalc; }
+
+    public Boolean getFinTxactItms1_FinCurcyEqCalc() { return finTxactItms1_FinCurcyEqCalc; }
+
+    public void setFinTxactItms1_FinCurcyEqCalc(Boolean finTxactItms1_FinCurcyEqCalc) {this.finTxactItms1_FinCurcyEqCalc = finTxactItms1_FinCurcyEqCalc; }
+
+
+    public BigDecimal getFinTxactItms1_AmtDebtSumDiff() { return finTxactItms1_AmtDebtSumDiff; }
+
+    public void setFinTxactItms1_AmtDebtSumDiff(BigDecimal finTxactItms1_AmtDebtSumDiff) { this.finTxactItms1_AmtDebtSumDiff = finTxactItms1_AmtDebtSumDiff; }
+
+    public BigDecimal getFinTxactItms1_AmtCredSumDiff() { return finTxactItms1_AmtCredSumDiff; }
+
+    public void setFinTxactItms1_AmtCredSumDiff(BigDecimal finTxactItms1_AmtCredSumDiff) { this.finTxactItms1_AmtCredSumDiff = finTxactItms1_AmtCredSumDiff; }
+
+    public BigDecimal getFinTxactItms1_AmtNetSumDiff() { return finTxactItms1_AmtNetSumDiff; }
+
+    public void setFinTxactItms1_AmtNetSumDiff(BigDecimal finTxactItms1_AmtNetSumDiff) { this.finTxactItms1_AmtNetSumDiff = finTxactItms1_AmtNetSumDiff; }
+
+    public Boolean getFinTxactItms1_AmtEqDiff() { return finTxactItms1_AmtEqDiff; }
+
+    public void setFinTxactItms1_AmtEqDiff(Boolean finTxactItms1_AmtEqDiff) {this.finTxactItms1_AmtEqDiff = finTxactItms1_AmtEqDiff; }
 
 
 
@@ -2197,8 +2265,8 @@ public class GenNode {
 
     // Edge to FinTxact1.FinTxsets
 
-    public String getFinTxact1_FinTxfers1_Id2() {
-        return finTxact1_FinTxfers1_Id2;
+    public String getFinTxact1_FinTxactItms1_Id2() {
+        return finTxact1_FinTxactItms1_Id2;
     }
 
     public String getFinTxact1_FinAccts1_Id2() {
@@ -2405,6 +2473,7 @@ public class GenNode {
         logger.trace(logPrfx + " --> ");
 
         final String SEP = "/";
+        final String SEP2 = ";";
         StringBuilder sb = new StringBuilder();
 
         DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
@@ -2433,7 +2502,7 @@ public class GenNode {
                     logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
                 }
             }
-            case "FinTxset", "FinTxact", "FinTxfer","FinStmt" , "FinStmtItm" -> {
+            case "FinTxset", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
                 if (idDt == null) {
                     logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2474,7 +2543,7 @@ public class GenNode {
                     }
                 }
                 break;
-            case "FinAcct":
+            case "FinAcct", "FinCurcy":
                 if (name1 == null) {
                     logger.debug(logPrfx + " --- name1: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2501,26 +2570,62 @@ public class GenNode {
 
 
         switch (className) {
-            case "FinTxset", "FinTxact", "FinTxfer" ->
-                //Date
+            case "FinTxset", "FinTxact", "FinTxactItm" ->
+                //idDt
                 sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
             case "FinStmt" ->
-                //Account
+                //finAcct1
                 sb.append(finAcct1_Id.getId2())
-                //Date
+                //idDt
                 .append(SEP + "D").append(idDt.getDate1().format(frmtDt));
             case "FinStmtItm" ->
-                //Account
+                //finAcct1
                 sb.append(finStmt1_Id.getFinAcct1_Id().getId2())
-                //Date
+                //idDt
                 .append(SEP + "D").append(idTs.getTs1().format(frmtDt));
-            case "FinAcct" ->
+            case "FinAcct", "FinCurcy" ->
                 //name1
                 sb.append(name1);
+            case "FinBalSet" ->
+                //name1
+                sb.append(name1)
+                //finDept1
+                .append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2()).append("");
+            case "FinBal" -> {
+                    if (finBalSet1_Id != null) {
+                        //finBalSet1
+                        sb.append(finBalSet1_Id.getId2());
+                        //finAcct1
+                        sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
+
+                    } else {
+                        //beg1Dt
+                        if (beg1.getTs1() == null || beg1.getTs1() == null) {
+                            logger.debug(logPrfx + " --- beg1: null");
+                            logger.trace(logPrfx + " <--- ");
+                            return "";
+                        } else {
+                            sb.append("B=").append(beg1.getTs1().format(frmtDt));
+                        }
+
+                        //end1Dt
+                        if (end1.getTs1() == null || end1.getTs1() == null) {
+                            logger.debug(logPrfx + " --- end1: null");
+                            logger.trace(logPrfx + " <--- ");
+                            return "";
+                        } else {
+                            sb.append(SEP2 + "E=").append(end1.getTs1().format(frmtDt));
+                        }
+                        //finDept1
+                        sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2());
+                        //finAcct1
+                        sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
+                    }
+            }
         }
 
         switch (className){
-            case "FinTxset", "FinTxact", "FinTxfer", "FinStmtItm" -> {
+            case "FinTxset", "FinTxact", "FinTxactItm", "FinStmtItm" -> {
                 //IdX
                 if (idX == null) {
                     logger.debug(logPrfx + " --- idX: null");
@@ -2533,7 +2638,7 @@ public class GenNode {
         }
 
         switch (className){
-            case "FinTxact", "FinTxfer" -> {
+            case "FinTxact", "FinTxactItm" -> {
                 //IdY
                 if (idY == null) {
                     logger.debug(logPrfx + " --- idY: null");
@@ -2546,7 +2651,7 @@ public class GenNode {
         }
 
         switch (className) {
-            case "FinTxfer" ->{
+            case "FinTxactItm" ->{
                 //IdZ
                 if (idZ == null) {
                     logger.debug(logPrfx + " --- idZ: null");
@@ -2597,7 +2702,7 @@ public class GenNode {
                 }
             }
             // beg2 otherwise beg1
-            case "FinTxfer", "FinStmtItm" -> {
+            case "FinTxactItm", "FinStmtItm" -> {
                 if (beg2.getTs1() != null) {
                     ts1 = beg2.getTs1();
                 } else if (beg1.getTs1() != null) {
@@ -2643,7 +2748,7 @@ public class GenNode {
                 }
                 break;
 
-            case  "FinTxfer", "FinStmtItm" :
+            case  "FinTxactItm", "FinStmtItm" :
                 if (beg2.getDate1() != null) {
                     logger.debug(logPrfx + " --- calling idDt.setDate1((" + beg2.getDate1().format(frmtDt) + ")");
                     idDt.setDate1(beg2.getDate1());
@@ -2706,7 +2811,7 @@ public class GenNode {
         switch (className) {
             case "FinTxset":
             case "FinTxact":
-            case "FinTxfer":
+            case "FinTxactItm":
                 if (beg2 != null
                         && beg2.getTs1() != null) {
                     logger.trace(logPrfx + " ---- beg2 != null");
@@ -2762,7 +2867,7 @@ public class GenNode {
         LocalDateTime beg2_ts1 = null;
 
         switch (className) {
-            case "FinTxfer":
+            case "FinTxactItm":
             case "FinStmtItm":
                 if (beg1 == null
                         || beg1.getTs1() == null
@@ -2890,7 +2995,7 @@ public class GenNode {
 
         switch (className) {
             case "FinTxact":
-            case "FinTxfer":
+            case "FinTxactItm":
             case "FinTxset":
                 if (id2 != null
                         && id2.length() >= 20){
@@ -2938,7 +3043,7 @@ public class GenNode {
 
         switch (className) {
             case "FinTxact":
-            case "FinTxfer":
+            case "FinTxactItm":
                 if (id2 != null
                         && id2.length() >= 24){
 
@@ -2982,7 +3087,7 @@ public class GenNode {
         Integer idZ = null;
 
         switch (className) {
-            case "FinTxfer" -> {
+            case "FinTxactItm" -> {
                 if (id2 != null
                         && id2.length() >= 28){
 
@@ -3102,4 +3207,8 @@ public class GenNode {
         return GenNode1_Id;
     }
 
+    @Override
+    public String getTenantId() {
+        return tenant;
+    }
 }

@@ -553,9 +553,9 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         repo.execFinTxsetPrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Fin_Txset_Pr_Upd()");
 
-        logger.debug(logPrfx + " --- loading finTxfersDl.load()");
+        logger.debug(logPrfx + " --- loading finTxactItmsDl.load()");
         finTxsetsDl.load();
-        logger.debug(logPrfx + " --- finished finTxfersDl.load()");
+        logger.debug(logPrfx + " --- finished finTxactItmsDl.load()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -569,9 +569,9 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         repo.execFinTxsetPrPurgeNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Fin_Txset_Pr_Purge()");
 
-        logger.debug(logPrfx + " --- loading finTxfersDl.load()");
+        logger.debug(logPrfx + " --- loading finTxactItmsDl.load()");
         finTxsetsDl.load();
-        logger.debug(logPrfx + " --- finished finTxfersDl.load()");
+        logger.debug(logPrfx + " --- finished finTxactItmsDl.load()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -585,9 +585,9 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         repo.execFinTxsetPrDelOrphNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Fin_Txset_Pr_Del_Orph()");
 
-        logger.debug(logPrfx + " --- loading finTxfersDl.load()");
+        logger.debug(logPrfx + " --- loading finTxactItmsDl.load()");
         finTxsetsDl.load();
-        logger.debug(logPrfx + " --- finished finTxfersDl.load()");
+        logger.debug(logPrfx + " --- finished finTxactItmsDl.load()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1444,7 +1444,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
 
         GenNode thisFinTxset = finTxsetDc.getItemOrNull();
         if (thisFinTxset == null) {
-            logger.debug(logPrfx + " --- finTxferDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1797,7 +1797,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         boolean isChanged = false;
 
         if (thisFinTxset != null) {
-            //finTxset is a 2nd ref (ref of a ref) of finTxfer and is not automatically loaded into the dataContext
+            //finTxset is a 2nd ref (ref of a ref) of finTxactItm and is not automatically loaded into the dataContext
             thisFinTxset = dataContext.merge(thisFinTxset);
 
             String desc1_ = thisFinTxset.getDesc1();
@@ -1811,34 +1811,34 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
                 }
                 logger.debug(logPrfx + " --- thisType: " + thisType);
 
-                GenNode desc1FinTxfer1 = thisFinTxset.getDesc1FinTxfer1_Id() == null
-                        ? findFirstFinTxferLikeId2(thisFinTxset.getId2() + "/%")
-                        : thisFinTxset.getDesc1FinTxfer1_Id();
+                GenNode desc1FinTxactItm1 = thisFinTxset.getDesc1FinTxactItm1_Id() == null
+                        ? findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/%")
+                        : thisFinTxset.getDesc1FinTxactItm1_Id();
 
 
                 //thisAmt
                 String thisAmt = "";
-                if (desc1FinTxfer1 != null) {
-                    if (desc1FinTxfer1.getAmtDebt() != null) {
-                        thisAmt = thisAmt + "" + desc1FinTxfer1.getAmtDebt();
-                    } else if (desc1FinTxfer1.getAmtCred() != null) {
-                        thisAmt = thisAmt + "" + desc1FinTxfer1.getAmtCred();
+                if (desc1FinTxactItm1 != null) {
+                    if (desc1FinTxactItm1.getAmtDebt() != null) {
+                        thisAmt = thisAmt + "" + desc1FinTxactItm1.getAmtDebt();
+                    } else if (desc1FinTxactItm1.getAmtCred() != null) {
+                        thisAmt = thisAmt + "" + desc1FinTxactItm1.getAmtCred();
                     }
-                    if (desc1FinTxfer1.getFinCurcy1_Id() != null) {
-                        thisAmt = thisAmt + " " + Objects.toString(desc1FinTxfer1.getFinCurcy1_Id().getId2(), "");
+                    if (desc1FinTxactItm1.getFinCurcy1_Id() != null) {
+                        thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getFinCurcy1_Id().getId2(), "");
                         thisAmt = thisAmt.trim();
                     }
                     if (thisType.equals("/Txfer-Exch")) {
-                        GenNode desc1FinTxfer2 = findFirstFinTxferLikeId2(thisFinTxset.getId2() + "/Y01/%");
-                        if (desc1FinTxfer2 != null) {
+                        GenNode desc1FinTxactItm2 = findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/Y01/%");
+                        if (desc1FinTxactItm2 != null) {
                             thisAmt = thisAmt + " -> ";
-                            if (desc1FinTxfer2.getAmtDebt() != null) {
-                                thisAmt = thisAmt + "" + desc1FinTxfer2.getAmtDebt();
-                            } else if (desc1FinTxfer2.getAmtCred() != null) {
-                                thisAmt = thisAmt + "" + desc1FinTxfer2.getAmtCred();
+                            if (desc1FinTxactItm2.getAmtDebt() != null) {
+                                thisAmt = thisAmt + "" + desc1FinTxactItm2.getAmtDebt();
+                            } else if (desc1FinTxactItm2.getAmtCred() != null) {
+                                thisAmt = thisAmt + "" + desc1FinTxactItm2.getAmtCred();
                             }
-                            if (desc1FinTxfer2.getFinCurcy1_Id() != null) {
-                                thisAmt = thisAmt + " " + Objects.toString(desc1FinTxfer2.getFinCurcy1_Id().getId2(), "");
+                            if (desc1FinTxactItm2.getFinCurcy1_Id() != null) {
+                                thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm2.getFinCurcy1_Id().getId2(), "");
                                 thisAmt = thisAmt.trim();
                             }
                         }
@@ -2167,26 +2167,26 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    private GenNode findFirstFinTxferLikeId2(@NotNull String finTxfer_Id2) {
-        String logPrfx = "findFirstFinTxferLikeId2";
+    private GenNode findFirstFinTxactItmLikeId2(@NotNull String finTxactItm_Id2) {
+        String logPrfx = "findFirstFinTxactItmLikeId2";
         logger.trace(logPrfx + " --> ");
 
-        if (finTxfer_Id2 == null) {
-            logger.debug(logPrfx + " --- finTxfer_Id2 is null.");
-            notifications.create().withCaption("finTxfer_Id2 is empty. Please set it to correct value.").show();
+        if (finTxactItm_Id2 == null) {
+            logger.debug(logPrfx + " --- finTxactItm_Id2 is null.");
+            notifications.create().withCaption("finTxactItm_Id2 is empty. Please set it to correct value.").show();
             logger.trace(logPrfx + " <-- ");
             return null;
         }
 
-        String qry = "select e from ampata_GenNode e where e.className = 'FinTxfer' and e.id2 like :id2 order by e.id2";
+        String qry = "select e from ampata_GenNode e where e.className = 'FinTxactItm' and e.id2 like :id2 order by e.id2";
         logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + finTxfer_Id2);
+        logger.debug(logPrfx + " --- qry:id2: " + finTxactItm_Id2);
 
-        GenNode finTxfer1_Id = null;
+        GenNode finTxactItm1_Id = null;
         try {
-            finTxfer1_Id = dataManager.load(GenNode.class)
+            finTxactItm1_Id = dataManager.load(GenNode.class)
                     .query(qry)
-                    .parameter("id2", finTxfer_Id2)
+                    .parameter("id2", finTxactItm_Id2)
                     .firstResult(0).one();
             logger.debug(logPrfx + " --- query qry returned ONE result");
         } catch (IllegalStateException e) {
@@ -2194,7 +2194,7 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         }
 
         logger.trace(logPrfx + " <-- ");
-        return finTxfer1_Id;
+        return finTxactItm1_Id;
     }
 
 }

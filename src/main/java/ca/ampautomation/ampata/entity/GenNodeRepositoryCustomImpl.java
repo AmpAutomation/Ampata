@@ -16,20 +16,35 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
 
     @Override
     @Transactional
+    public void execGenChanPrUpdNative(){this.em.createNativeQuery("call Gen_Chan_Pr_Upd()").executeUpdate();
+    }
+
+    @Override
+    @Transactional
     public void execFinAcctPrUpdNative(){this.em.createNativeQuery("call Fin_Acct_Pr_Upd()").executeUpdate();
     }
 
     @Override
     @Transactional
-    public void execFinTxferPrUpdNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Upd()").executeUpdate();}
+    public void execFinDeptPrUpdNative(){this.em.createNativeQuery("call Fin_Dept_Pr_Upd()").executeUpdate();
+    }
 
     @Override
     @Transactional
-    public void execFinTxferPrPurgeNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Purge()").executeUpdate();}
+    public void execFinCurcyPrUpdNative(){this.em.createNativeQuery("call Fin_Curcy_Pr_Upd()").executeUpdate();
+    }
 
     @Override
     @Transactional
-    public void execFinTxferPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txfer_Pr_Del_Orph()").executeUpdate();}
+    public void execFinTxactItmPrUpdNative(){this.em.createNativeQuery("call Fin_Txact_Itm_Pr_Upd()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxactItmPrPurgeNative(){this.em.createNativeQuery("call Fin_Txact_Itm_Pr_Purge()").executeUpdate();}
+
+    @Override
+    @Transactional
+    public void execFinTxactItmPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txact_Itm_Pr_Del_Orph()").executeUpdate();}
 
 
     @Override
@@ -60,6 +75,19 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
     @Override
     @Transactional
     public void execFinTxsetPrDelOrphNative(){this.em.createNativeQuery("call Fin_Txset_Pr_Del_Orph()").executeUpdate();}
+
+
+    @Override
+    @Transactional
+    public void execFinBalSetPrUpdNative(){
+        this.em.createNativeQuery("call Fin_Bal_Set_Pr_Upd()").executeUpdate();
+    }
+
+    @Override
+    @Transactional
+    public void execFinBalPrUpdNative(){
+        this.em.createNativeQuery("call Fin_Bal_Pr_Upd()").executeUpdate();
+    }
 
 
     @Override

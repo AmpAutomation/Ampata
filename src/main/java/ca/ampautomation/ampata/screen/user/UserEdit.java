@@ -1,7 +1,10 @@
 package ca.ampautomation.ampata.screen.user;
 
 import ca.ampautomation.ampata.entity.User;
+import com.google.common.base.Strings;
 import io.jmix.core.EntityStates;
+import io.jmix.multitenancy.core.TenantProvider;
+import io.jmix.multitenancyui.MultitenancyUiSupport;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.ComboBox;
 import io.jmix.ui.component.PasswordField;
@@ -23,6 +26,16 @@ public class UserEdit extends StandardEditor<User> {
 
     @Autowired
     private EntityStates entityStates;
+
+    @Autowired
+    private ComboBox<String> tenantField;
+
+    @Autowired
+    private TenantProvider tenantProvider;
+
+    @Autowired
+    private MultitenancyUiSupport multitenancyUiSupport;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -47,9 +60,26 @@ public class UserEdit extends StandardEditor<User> {
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<User> event) {
+        tenantField.setEditable(true);
         usernameField.setEditable(true);
         passwordField.setVisible(true);
         confirmPasswordField.setVisible(true);
+    }
+
+    @Subscribe
+    public void onInit(InitEvent event) {
+        tenantField.setOptionsList(multitenancyUiSupport.getTenantOptions());
+        timeZoneField.setOptionsList(Arrays.asList(TimeZone.getAvailableIDs()));
+    }
+
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        String currentTenantId = tenantProvider.getCurrentUserTenantId();
+        if (!currentTenantId.equals(TenantProvider.NO_TENANT)
+                && Strings.isNullOrEmpty(tenantField.getValue())) {
+            tenantField.setEditable(false);
+            tenantField.setValue(currentTenantId);
+        }
     }
 
     @Subscribe
@@ -72,8 +102,4 @@ public class UserEdit extends StandardEditor<User> {
         }
     }
 
-    @Subscribe
-    public void onInit(InitEvent event) {
-        timeZoneField.setOptionsList(Arrays.asList(TimeZone.getAvailableIDs()));
-    }
 }

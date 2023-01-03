@@ -52,10 +52,10 @@
                     </formatter>
                 </textField>
                 <textField id="rateInvField" property="rateInv">
-                <formatter>
-                    <number format="#0.000000###"/>
-                </formatter>
-            </textField>
+                    <formatter>
+                        <number format="#0.000000###"/>
+                    </formatter>
+                </textField>
                 <entityPicker id="finCurcy1_IdField" property="finCurcy1_Id">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>

@@ -43,6 +43,9 @@
                                 <propertyFilter id="filterConfig1A_genAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
                                     <entityComboBox metaClass="ampata_GenNode"/>
                                 </propertyFilter>
+                                <propertyFilter id="filterConfig1A_finCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
+                                    <entityComboBox metaClass="ampata_GenNode"/>
+                                </propertyFilter>
                                 <propertyFilter id="filterConfig1A_finTaxLne1_Id" caption="finTaxLne1_Id" operation="EQUAL" property="finTaxLne1_Id" operationEditable="true">
                                     <entityComboBox metaClass="ampata_GenNode"/>
                                 </propertyFilter>
@@ -73,6 +76,7 @@
                         <column id="name2"/>
                         <column id="desc1"/>
                         <column id="genAgent1_Id"/>
+                        <column id="finCurcy1_Id"/>
                         <column id="finTaxLne1_Id"/>
                         <column id="note"/>
                     </columns>
@@ -81,17 +85,19 @@
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="table.refresh"/>
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="table.remove"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="Create, Edit" spacing="true">
                                 <hbox spacing="true">
+                                    <button id="refreshBtn" action="table.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="createBtn" action="table.create"/>
                                     <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="table.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="table.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -104,6 +110,7 @@
                                         <button id="moveNextSortIdxBtn"  icon="ARROW_RIGHT"/>
                                         <button id="moveLastSortIdxBtn"  caption="Last"/>
                                     </hbox>
+                                    <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemIdPartsBtn" caption="Update Id Parts" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                     <comboBox id="updateColItemCalcValsOption" width="100px"/>
@@ -124,6 +131,12 @@
                                                     <checkBox id="tmplt_GenAgent1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
                                                 </hbox>
                                                 <entityComboBox id="tmplt_GenAgent1_IdField"/>
+                                            </hbox>
+                                            <hbox caption="finCurcy1_Id" width="250px" expand="tmplt_FinCurcy1_IdField">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_FinCurcy1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                                </hbox>
+                                                <entityComboBox id="tmplt_FinCurcy1_IdField"/>
                                             </hbox>
                                             <hbox caption="finTaxLne1_Id" width="250px" expand="tmplt_FinTaxLne1_IdField">
                                                 <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
@@ -175,6 +188,9 @@
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <textField id="classNameField" property="className" editable="false"/>
+                                        <hbox caption="tenant" expand="tenantField" width="100%">
+                                            <comboBox id="tenantField" dataContainer="finAcctDc" property="tenant"/>
+                                        </hbox>
                                         <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                             <entityComboBox id="type1_IdField" dataContainer="finAcctDc"
                                                             property="type1_Id" tabIndex="10">
@@ -215,6 +231,16 @@
                                                 </actions>
                                             </entityComboBox>
                                             <button id="updateGenAgent1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="finCurcy1_Id" expand="finCurcy1_IdField" width="100%">
+                                            <entityComboBox id="finCurcy1_IdField" dataContainer="finAcctDc" tabIndex="20"
+                                                            property="finCurcy1_Id">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinCurcy1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="status" expand="statusField" width="100%">
                                             <comboBox id="statusField" dataContainer="finAcctDc"

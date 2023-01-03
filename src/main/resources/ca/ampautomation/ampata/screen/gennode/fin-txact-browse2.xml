@@ -110,13 +110,13 @@
                         <column id="finTxset1_GenTags1_Id2"/>
                         <column id="finTxset1_FinAccts_Id2"/>
 
-                        <column id="finTxfers1_Id2"/>
-                        <column id="finTxfers1_FinAccts1_Id2"/>
-                        <column id="finTxfers1_IdCntCalc"/>
-                        <column id="finTxfers1_AmtDebtSumCalc"/>
-                        <column id="finTxfers1_AmtCredSumCalc"/>
-                        <column id="finTxfers1_AmtNetSumCalc"/>
-                        <column id="finTxfers1_AmtEqCalc"/>
+                        <column id="finTxactItms1_Id2"/>
+                        <column id="finTxactItms1_FinAccts1_Id2"/>
+                        <column id="finTxactItms1_IdCntCalc"/>
+                        <column id="finTxactItms1_AmtDebtSumCalc"/>
+                        <column id="finTxactItms1_AmtCredSumCalc"/>
+                        <column id="finTxactItms1_AmtNetSumCalc"/>
+                        <column id="finTxactItms1_AmtEqCalc"/>
 
                         <column id="finTxset1_Id.genChan1_Id"/>
                         <column id="finTxset1_Id.finHow1_Id"/>
@@ -503,15 +503,15 @@
                                             <button id="updateFinTxset1_Id_DescPat1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxset1_Id.desc1FinTxfer1_Id" expand="finTxset1_Id_Desc1FinTxfer1_IdField" width="100%">
-                                            <entityComboBox id="finTxset1_Id_Desc1FinTxfer1_IdField" dataContainer="finTxactDc"
-                                                            property="finTxset1_Id.desc1FinTxfer1_Id" tabIndex="30">
+                                        <hbox caption="finTxset1_Id.desc1FinTxactItm1_Id" expand="finTxset1_Id_Desc1FinTxactItm1_IdField" width="100%">
+                                            <entityComboBox id="finTxset1_Id_Desc1FinTxactItm1_IdField" dataContainer="finTxactDc"
+                                                            property="finTxset1_Id.desc1FinTxactItm1_Id" tabIndex="30">
                                                 <actions>
                                                     <action id="entityOpen" type="entity_open"/>
                                                     <action id="entityClear" type="entity_clear"/>
                                                 </actions>
                                             </entityComboBox>
-                                            <button id="updateFinTxset1_Id_Desc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
+                                            <button id="updateFinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                     </column>
@@ -546,6 +546,9 @@
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <textField id="classNameField" property="className" editable="false"/>
+                                        <hbox caption="tenant" expand="tenantField" width="100%">
+                                            <comboBox id="tenantField" dataContainer="finTxactDc" property="tenant"/>
+                                        </hbox>
                                         <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                             <entityComboBox id="type1_IdField" dataContainer="finTxactDc"
                                                             property="type1_Id" tabIndex="10">
@@ -636,15 +639,15 @@
                                             <button id="updateDescPat1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="desc1FinTxfer1_Id" expand="desc1FinTxfer1_IdField" width="100%">
-                                            <entityComboBox id="desc1FinTxfer1_IdField" dataContainer="finTxactDc"
-                                                            property="desc1FinTxfer1_Id" tabIndex="30">
+                                        <hbox caption="desc1FinTxactItm1_Id" expand="desc1FinTxactItm1_IdField" width="100%">
+                                            <entityComboBox id="desc1FinTxactItm1_IdField" dataContainer="finTxactDc"
+                                                            property="desc1FinTxactItm1_Id" tabIndex="30">
                                                 <actions>
                                                     <action id="entityOpen" type="entity_open"/>
                                                     <action id="entityClear" type="entity_clear"/>
                                                 </actions>
                                             </entityComboBox>
-                                            <button id="updateDesc1FinTxfer1_IdFieldListBtn" icon="font-icon:LIST"
+                                            <button id="updateDesc1FinTxactItm1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="IdDt" width="100%">
@@ -780,39 +783,39 @@
                                 </form>
                             </tab>
                             <tab id="tab_6"
-                                 caption="FinTxfers"
+                                 caption="FinTxactItms"
                                  margin="true"
                                  spacing="true">
                                 <form id="tab6Form" dataContainer="finTxactDc" width="100%">
                                     <column width="360px">
-                                        <hbox caption="finTxfers1_IdCntCalc" expand="finTxfers1_IdCntCalcField" width="100%">
-                                            <textField id="finTxfers1_IdCntCalcField" dataContainer="finTxactDc" property="finTxfers1_IdCntCalc" editable="false"
+                                        <hbox caption="finTxactItms1_IdCntCalc" expand="finTxactItms1_IdCntCalcField" width="100%">
+                                            <textField id="finTxactItms1_IdCntCalcField" dataContainer="finTxactDc" property="finTxactItms1_IdCntCalc" editable="false"
                                                        tabIndex="20"/>
-                                            <button id="updateFinTxfers1_IdCntCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxfers1_AmtDebtSumCalc" expand="finTxfers1_AmtDebtSumCalc" width="100%">
-                                            <textField id="finTxfers1_AmtDebtSumCalc" dataContainer="finTxactDc" property="finTxfers1_AmtDebtSumCalc"
+                                        <hbox caption="finTxactItms1_AmtDebtSumCalc" expand="finTxactItms1_AmtDebtSumCalc" width="100%">
+                                            <textField id="finTxactItms1_AmtDebtSumCalc" dataContainer="finTxactDc" property="finTxactItms1_AmtDebtSumCalc"
                                                        tabIndex="20">
                                                 <formatter><number format="#,###.00"/></formatter>
                                             </textField>
-                                            <button id="updateFinTxfers1_AmtDebtSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxfers1_AmtCredSumCalc" expand="finTxfers1_AmtCredSumCalcField" width="100%">
-                                            <textField id="finTxfers1_AmtCredSumCalcField" dataContainer="finTxactDc" property="finTxfers1_AmtCredSumCalc"
+                                        <hbox caption="finTxactItms1_AmtCredSumCalc" expand="finTxactItms1_AmtCredSumCalcField" width="100%">
+                                            <textField id="finTxactItms1_AmtCredSumCalcField" dataContainer="finTxactDc" property="finTxactItms1_AmtCredSumCalc"
                                                        tabIndex="10">
                                                 <formatter><number format="#,###.00"/></formatter>
                                             </textField>
-                                            <button id="updateFinTxfers1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxfers1_AmtEqCalc" expand="finTxfers1_AmtEqCalcBox" width="100%">
-                                            <checkBox id="finTxfers1_AmtEqCalcBox" dataContainer="finTxactDc" property="finTxfers1_AmtEqCalc" editable="false"
+                                        <hbox caption="finTxactItms1_AmtEqCalc" expand="finTxactItms1_AmtEqCalcBox" width="100%">
+                                            <checkBox id="finTxactItms1_AmtEqCalcBox" dataContainer="finTxactDc" property="finTxactItms1_AmtEqCalc" editable="false"
                                                       tabIndex="10"/>
-                                            <button id="updateFinTxfers1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finTxfers1_FinCurcyEqCalc" expand="finTxfers1_FinCurcyEqCalcBox" width="100%">
-                                            <checkBox id="finTxfers1_FinCurcyEqCalcBox" dataContainer="finTxactDc" property="finTxfers1_FinCurcyEqCalc" editable="false"
+                                        <hbox caption="finTxactItms1_FinCurcyEqCalc" expand="finTxactItms1_FinCurcyEqCalcBox" width="100%">
+                                            <checkBox id="finTxactItms1_FinCurcyEqCalcBox" dataContainer="finTxactDc" property="finTxactItms1_FinCurcyEqCalc" editable="false"
                                                       tabIndex="10"/>
-                                            <button id="updateFinTxfers1_FinCurcyEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            <button id="updateFinTxactItms1_FinCurcyEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
 
                                     </column>

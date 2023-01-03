@@ -108,7 +108,7 @@ public class FinRate extends GenEntity {
         StringBuilder sb = new StringBuilder();
 
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd")
+                .appendPattern("yyyy-MM-dd")
                 .toFormatter();
 
         if (beg1 == null) {

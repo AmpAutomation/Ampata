@@ -2,9 +2,11 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
+import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import io.jmix.multitenancy.core.AcceptsTenant;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -21,11 +23,15 @@ import java.util.UUID;
 @Entity(name = "ampata_GenNodeType")
 //@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 //@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
-public class GenNodeType {
+public class GenNodeType implements AcceptsTenant {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @TenantId
+    @Column(name = "TENANT")
+    private String tenant;
 
     @InstanceName
     @Column(name = "ID2")
@@ -100,6 +106,11 @@ public class GenNodeType {
     @Column(name = "DELETED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
+
+    public String getTenant() { return tenant; }
+
+    public void setTenant(String tenant) { this.tenant = tenant; }
+
 
     public void setBalIncOnDebt(Boolean balIncOnDebt) {
         this.balIncOnDebt = balIncOnDebt;
@@ -268,4 +279,7 @@ public class GenNodeType {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    @Override
+    public String getTenantId() { return tenant;}
 }
