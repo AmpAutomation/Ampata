@@ -62,12 +62,12 @@
                 <column id="id2" caption="id2"/>
                 <column id="name1" caption="name"/>
                 <column id="beg1.date1" caption="beg1.date1"/>
-                <column id="rate" >
+                <column id="amt1" caption="amt1">
                     <formatter>
                         <number format="#0.000000"/>
                     </formatter>
                 </column>
-                <column id="rateInv">
+                <column id="amt2" caption="amt2">
                     <formatter>
                         <number format="#0.000000"/>
                     </formatter>

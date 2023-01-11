@@ -24,11 +24,11 @@ public class FinRate extends GenEntity {
     @Embedded
     private HasDate beg1;
 
-    @Column(name = "RATE", precision = 19, scale = 9)
-    private BigDecimal rate;
+    @Column(name = "AMT!", precision = 19, scale = 9)
+    private BigDecimal amt1;
 
-    @Column(name = "RATE_INV", precision = 19, scale = 9)
-    private BigDecimal rateInv;
+    @Column(name = "AMT2", precision = 19, scale = 9)
+    private BigDecimal amt2;
 
     @JoinColumn(name = "FIN_CURCY1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -50,14 +50,6 @@ public class FinRate extends GenEntity {
 
     public void setBeg1(HasDate beg1) {
         this.beg1 = beg1;
-    }
-
-    public BigDecimal getRateInv() {
-        return rateInv;
-    }
-
-    public void setRateInv(BigDecimal rateInv) {
-        this.rateInv = rateInv;
     }
 
     public String getFinCurcy2_Id2() {
@@ -92,12 +84,20 @@ public class FinRate extends GenEntity {
         this.finCurcy1_Id = finCurcy1_Id;
     }
 
-    public BigDecimal getRate() {
-        return rate;
+    public BigDecimal getAmt1() {
+        return amt1;
     }
 
-    public void setRate(BigDecimal rate) {
-        this.rate = rate;
+    public void setAmt1(BigDecimal amt1) {
+        this.amt1 = amt1;
+    }
+
+    public BigDecimal getAmt2() {
+        return amt2;
+    }
+
+    public void setAmt2(BigDecimal amt2) {
+        this.amt2 = amt2;
     }
 
     @Override

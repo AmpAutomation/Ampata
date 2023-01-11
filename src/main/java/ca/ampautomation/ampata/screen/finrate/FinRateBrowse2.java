@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.finrate;
 
 import ca.ampautomation.ampata.entity.GenNode;
-import ca.ampautomation.ampata.entity.GenNodeRepository;
+import ca.ampautomation.ampata.entity.FinRateRepository;
 import ca.ampautomation.ampata.entity.GenNodeType;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
@@ -63,7 +63,7 @@ public class FinRateBrowse2 extends MasterDetailScreen<FinRate> {
     private EntityManager entityManager;
 
     @Autowired
-    private GenNodeRepository repo;
+    private FinRateRepository repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -205,6 +205,23 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         finCurcysDl.load();
         logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+    @Subscribe("updateColCalcValsBtn")
+    public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateColCalcValsBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        logger.debug(logPrfx + " --- executing Db-Proc.Fin_Rate_Pr_Upd()");
+        repo.execFinRatePrUpdNative();
+        logger.debug(logPrfx + " --- finished Db-Proc.Fin_Rate_Pr_Upd()");
+
+        logger.debug(logPrfx + " --- loading finRatesDl.load()");
+        finRatesDl.load();
+        logger.debug(logPrfx + " --- finished finRatesDl.load()");
+
 
         logger.trace(logPrfx + " <-- ");
 
@@ -550,6 +567,23 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
+    @Subscribe("updateFinRateInvFieldBtn")
+    public void onUpdateFinRateInvFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinRateInvFieldBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        FinRate thisFinRate = finRateDc.getItemOrNull();
+        if (thisFinRate == null) {
+            logger.debug(logPrfx + " --- thisFinRate is null, likely because no record is selected.");
+            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+        updateFinRateInv(thisFinRate);
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
 
     private Boolean updateCalcVals(@NotNull FinRate thisFinRate) {
         String logPrfx = "updateCalcVals";
@@ -713,8 +747,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
         String thisRate = "";
-        if (thisFinRate.getRate() != null) {
-            thisRate = Objects.toString(thisFinRate.getRate().setScale(9, RoundingMode.HALF_UP), "");
+        if (thisFinRate.getAmt1() != null) {
+            thisRate = Objects.toString(thisFinRate.getAmt1().setScale(9, RoundingMode.HALF_UP), "");
         }
         if (!thisRate.equals("")) {
             thisRate = "at rate " + thisRate + "";
@@ -734,6 +768,29 @@ are not fully initialized, for example, buttons are not linked with actions.
         if (!Objects.equals(desc1_, desc1)){
             thisFinRate.setDesc1(desc1);
             logger.debug(logPrfx + " --- desc1: " + desc1);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    private Boolean updateFinRateInv(@NotNull FinRate thisFinRate) {
+        String logPrfx = "updateFinRateInv";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        BigDecimal finRate = thisFinRate.getAmt1();
+        BigDecimal finRateInv_ = thisFinRate.getAmt2();
+        BigDecimal finRateInv = null;
+        if (!finRate.equals(BigDecimal.ZERO)){
+            finRateInv = new BigDecimal(1 / finRate.doubleValue()).setScale(9, RoundingMode.HALF_UP);;
+        }
+
+        if (!Objects.equals(finRateInv_, finRateInv)){
+            thisFinRate.setAmt2(finRateInv);
+            logger.debug(logPrfx + " --- finRateInv: " + finRateInv.setScale(9, RoundingMode.HALF_UP));
             isChanged = true;
         }
 

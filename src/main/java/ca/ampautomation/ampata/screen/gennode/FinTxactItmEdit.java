@@ -3233,7 +3233,7 @@ public class FinTxactItmEdit extends StandardEditor<GenNode> {
 
 
         if (finRate != null) {
-            rate = finRate.getRate();
+            rate = finRate.getAmt1();
             qryRsltGood = true;
             logger.debug(logPrfx + " --- qry1 result is Id: " + finRate.getId());
 
@@ -3258,7 +3258,7 @@ public class FinTxactItmEdit extends StandardEditor<GenNode> {
             }
 
             if (finRate != null) {
-                rate = finRate.getRate();
+                rate = finRate.getAmt1();
                 qryRsltGood = true;
                 logger.debug(logPrfx + " --- qry2 result is Id: " + finRate.getId());
             } else {

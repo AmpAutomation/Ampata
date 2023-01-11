@@ -9,6 +9,7 @@ public class GenNodeRepositoryCustomImpl implements GenNodeRepositoryCustom {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     @Transactional
     public void execGenNodePrUpdNative(){this.em.createNativeQuery("call Gen_Node_Pr_Upd()").executeUpdate();

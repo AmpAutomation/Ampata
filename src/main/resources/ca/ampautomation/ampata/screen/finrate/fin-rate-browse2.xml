@@ -65,12 +65,12 @@
                         <column id="name1" caption="name1"/>
                         <column id="desc1" caption="desc1" width="360px"/>
                         <column id="beg1.date1" caption="beg1.date1"/>
-                        <column id="rate" caption="rate">
+                        <column id="amt1" caption="amt1">
                             <formatter>
                                 <number format="#0.000000"/>
                             </formatter>
                         </column>
-                        <column id="rateInv" caption="rateInv">
+                        <column id="amt2" caption="amt2">
                             <formatter>
                                 <number format="#0.000000"/>
                             </formatter>
@@ -84,6 +84,7 @@
                             <tab id="tabCmd1" caption="Main" spacing="true">
                                 <hbox spacing="true">
                                     <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
+                                    <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                 </hbox>
                             </tab>
@@ -197,21 +198,23 @@
                                         </hbox>
                                     </column>
                                     <column width="360px">
-                                        <hbox caption="rate" expand="rateField" width="100%">
-                                            <textField id="rateField" dataContainer="finRateDc"
-                                                       property="rate" tabIndex="30">
+                                        <hbox caption="amt1" expand="amt1Field" width="100%">
+                                            <textField id="amt1Field" dataContainer="finRateDc"
+                                                       property="amt1" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>
                                                 </formatter>
                                             </textField>
                                         </hbox>
-                                        <hbox caption="rateInv" expand="rateInvField" width="100%">>
-                                            <textField id="rateInvField" dataContainer="finRateDc"
-                                                       property="rateInv" tabIndex="30">
+                                        <hbox caption="amt2" expand="amt2Field" width="100%">>
+                                            <textField id="amt2Field" dataContainer="finRateDc"
+                                                       property="amt2" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>
                                                 </formatter>
                                             </textField>
+                                            <button id="updateFinRateInvFieldBtn" icon="font-icon:REFRESH"
+                                                    tabIndex="-1"/>
                                         </hbox>
                                     </column>
                                 </form>

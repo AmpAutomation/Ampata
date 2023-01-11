@@ -6347,7 +6347,7 @@ public class FinTxactItmBrowse2 extends MasterDetailScreen<GenNode> {
 
 
         if (finRate != null) {
-            rate = finRate.getRate();
+            rate = finRate.getAmt1();
             qryRsltGood = true;
             logger.debug(logPrfx + " --- qry1 result is Id: " + finRate.getId());
 
@@ -6372,7 +6372,7 @@ public class FinTxactItmBrowse2 extends MasterDetailScreen<GenNode> {
             }
 
             if (finRate != null) {
-                rate = finRate.getRateInv();
+                rate = finRate.getAmt2();
                 qryRsltGood = true;
                 logger.debug(logPrfx + " --- qry2 result is Id: " + finRate.getId());
             } else {

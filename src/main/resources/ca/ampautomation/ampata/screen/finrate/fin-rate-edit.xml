@@ -46,12 +46,12 @@
                 </hbox>
                 <textField id="name1Field" property="name1"/>
                 <dateField id="begDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
-                <textField id="rateField" property="rate">
+                <textField id="amt1Field" property="amt1">
                     <formatter>
                         <number format="#0.000000###"/>
                     </formatter>
                 </textField>
-                <textField id="rateInvField" property="rateInv">
+                <textField id="amt2Field" property="amt2">
                     <formatter>
                         <number format="#0.000000###"/>
                     </formatter>

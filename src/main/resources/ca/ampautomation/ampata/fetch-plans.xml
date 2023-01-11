@@ -44,8 +44,8 @@
         <property name="name1"/>
         <property name="desc1"/>
         <property name="beg1" fetchPlan="_base"/>
-        <property name="rate"/>
-        <property name="rateInv"/>
+        <property name="amt1"/>
+        <property name="amt2"/>
         <property name="finCurcy1_Id" fetchPlan="_instance_name"/>
         <property name="finCurcy1_Id2"/>
         <property name="finCurcy2_Id" fetchPlan="_instance_name"/>
