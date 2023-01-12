@@ -24,7 +24,7 @@ public class FinRate extends GenEntity {
     @Embedded
     private HasDate beg1;
 
-    @Column(name = "AMT!", precision = 19, scale = 9)
+    @Column(name = "AMT1", precision = 19, scale = 9)
     private BigDecimal amt1;
 
     @Column(name = "AMT2", precision = 19, scale = 9)
