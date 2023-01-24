@@ -42,6 +42,7 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_GENNODE_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
         @Index(name = "IDX_GENNODE_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
         @Index(name = "IDX_GENNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
+        @Index(name = "IDX_GENNODE_DESC1_FIN_TXACT_ITM2__ID", columnList = "DESC1_FIN_TXACT_ITM2__ID"),
         @Index(name = "IDX_GENNODE_GEN_CHAN1__ID", columnList = "GEN_CHAN1__ID"),
         @Index(name = "IDX_GENNODE_GEN_CHAN2__ID", columnList = "GEN_CHAN2__ID"),
         @Index(name = "IDX_GENNODE_FIN_HOW1__ID", columnList = "FIN_HOW1__ID"),
@@ -193,6 +194,13 @@ public class GenNode implements AcceptsTenant {
 
     @Column(name = "DESC1_FIN_TXACT_ITM1__ID2")
     private String desc1FinTxactItm1_Id2;
+
+    @JoinColumn(name = "DESC1_FIN_TXACT_ITM2__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private GenNode desc1FinTxactItm2_Id;
+
+    @Column(name = "DESC1_FIN_TXACT_ITM2__ID2")
+    private String desc1FinTxactItm2_Id2;
 
     @Column(name = "DESC2")
     @Lob
@@ -1146,17 +1154,22 @@ public class GenNode implements AcceptsTenant {
         return desc1FinTxactItm1_Id;
     }
 
-    public void setDesc1FinTxactItm1_Id(GenNode desc1FinTxactItm1_Id) {
-        this.desc1FinTxactItm1_Id = desc1FinTxactItm1_Id;
-    }
+    public void setDesc1FinTxactItm1_Id(GenNode desc1FinTxactItm1_Id) { this.desc1FinTxactItm1_Id = desc1FinTxactItm1_Id; }
 
     public String getDesc1FinTxactItm1_Id2() {
         return desc1FinTxactItm1_Id2;
     }
 
-    public void setDesc1FinTxactItm1_Id2(String desc1FinTxactItm1_Id2) {
-        this.desc1FinTxactItm1_Id2 = desc1FinTxactItm1_Id2;
-    }
+    public void setDesc1FinTxactItm1_Id2(String desc1FinTxactItm1_Id2) { this.desc1FinTxactItm1_Id2 = desc1FinTxactItm1_Id2; }
+
+
+    public GenNode getDesc1FinTxactItm2_Id() { return desc1FinTxactItm2_Id; }
+
+    public void setDesc1FinTxactItm2_Id(GenNode desc1FinTxactItm2_Id) { this.desc1FinTxactItm2_Id = desc1FinTxactItm2_Id; }
+
+    public String getDesc1FinTxactItm2_Id2() { return desc1FinTxactItm2_Id2; }
+
+    public void setDesc1FinTxactItm2_Id2(String desc1FinTxactItm2_Id2) { this.desc1FinTxactItm2_Id2 = desc1FinTxactItm2_Id2; }
 
 
     public String getDesc2() {

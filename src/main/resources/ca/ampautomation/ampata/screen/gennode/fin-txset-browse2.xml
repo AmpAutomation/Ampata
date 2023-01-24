@@ -428,6 +428,39 @@
                                                 <hbox width="6px"/>
                                             </hbox>
                                         </hbox>
+                                        <hbox caption="desc1GenPat1_Id" expand="desc1GenPat1_IdField" width="100%">
+                                            <entityComboBox id="desc1GenPat1_IdField" dataContainer="finTxsetDc"
+                                                            property="desc1GenPat1_Id" tabIndex="30">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateDescPat1_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="desc1FinTxactItm1_Id" expand="desc1FinTxactItm1_IdField" width="100%">
+                                            <entityComboBox id="desc1FinTxactItm1_IdField" dataContainer="finTxsetDc"
+                                                            property="desc1FinTxactItm1_Id" tabIndex="30">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateDesc1FinTxactItm1_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="desc1FinTxactItm2_Id" expand="desc1FinTxactItm2_IdField" width="100%">
+                                            <entityComboBox id="desc1FinTxactItm2_IdField" dataContainer="finTxsetDc"
+                                                            property="desc1FinTxactItm2_Id" tabIndex="30">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateDesc1FinTxactItm2_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
                                     </column>
                                     <column width="360px">
                                     </column>

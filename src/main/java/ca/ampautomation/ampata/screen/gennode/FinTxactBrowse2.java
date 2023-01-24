@@ -41,6 +41,7 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected Filter filter;
 
+    // filterConfig1A
     @Autowired
     protected PropertyFilter<GenNodeType> filterConfig1A_type1_Id;
 
@@ -50,8 +51,13 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected PropertyFilter<LocalDate> filterConfig1A_idDtLE;
 
-//    @Autowired
-//    protected PropertyFilter<GenNode> filterConfig1A_genChan1_Id;
+
+    // filterConfig1A
+    @Autowired
+    protected PropertyFilter<GenNodeType> filterConfig1B_type1_Id;
+
+    @Autowired
+    protected PropertyFilter<GenNodeType> filterConfig1A_finTxset1_Id_type1_Id;
 
     @Autowired
     protected PropertyFilter<GenNode> filterConfig1A_finTxset1_Id_genChan1_Id;
@@ -65,18 +71,39 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected PropertyFilter<FinWhy> filterConfig1A_finTxset1_Id_finWhy1_Id;
 
+    @Autowired
+    protected PropertyFilter<GenNode> filterConfig1A_finTxset1_Id_genTag1_Id;
 
+    // filterConfig1B
     @Autowired
     protected PropertyFilter<LocalDate> filterConfig1B_idDtGE;
 
     @Autowired
     protected PropertyFilter<LocalDate> filterConfig1B_idDtLE;
-    
+
     @Autowired
     protected PropertyFilter<Integer> filterConfig1B_idX;
 
     @Autowired
     protected PropertyFilter<Integer> filterConfig1B_idY;
+
+    @Autowired
+    protected PropertyFilter<GenNodeType> filterConfig1B_finTxset1_Id_type1_Id;
+
+    @Autowired
+    protected PropertyFilter<GenNode> filterConfig1B_finTxset1_Id_genChan1_Id;
+
+    @Autowired
+    protected PropertyFilter<FinHow> filterConfig1B_finTxset1_Id_finHow1_Id;
+
+    @Autowired
+    protected PropertyFilter<FinWhat> filterConfig1B_finTxset1_Id_finWhat1_Id;
+
+    @Autowired
+    protected PropertyFilter<FinWhy> filterConfig1B_finTxset1_Id_finWhy1_Id;
+
+    @Autowired
+    protected PropertyFilter<GenNode> filterConfig1B_finTxset1_Id_genTag1_Id;
 
 
     @Autowired
@@ -165,42 +192,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     protected RadioButtonGroup<Integer> tmplt_IdYFieldRdo;
 
-    @Autowired
-    protected EntityComboBox<GenNode> tmplt_GenChan1_IdField;
-
-    @Autowired
-    protected CheckBox tmplt_GenChan1_IdFieldChk;
-
-    @Autowired
-    protected EntityComboBox<FinHow> tmplt_FinHow1_IdField;
-
-    @Autowired
-    protected CheckBox tmplt_FinHow1_IdFieldChk;
-
-    @Autowired
-    protected ComboBox<String> tmplt_WhatText1Field;
-
-    @Autowired
-    protected CheckBox tmplt_WhatText1FieldChk;
-
-    @Autowired
-    protected EntityComboBox<FinWhat> tmplt_FinWhat1_IdField;
-
-    @Autowired
-    protected CheckBox tmplt_FinWhat1_IdFieldChk;
-
-    @Autowired
-    protected ComboBox<String> tmplt_WhyText1Field;
-
-    @Autowired
-    protected CheckBox tmplt_WhyText1FieldChk;
-
-    @Autowired
-    protected EntityComboBox<FinWhy> tmplt_FinWhy1_IdField;
-
-    @Autowired
-    protected CheckBox tmplt_FinWhy1_IdFieldChk;
-
 
 
 
@@ -288,9 +279,9 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
 
 
 
-    private CollectionContainer<GenNode> finTxactItm1sDc;
+    private CollectionContainer<GenNode> finTxactItmsDc;
 
-    private CollectionLoader<GenNode> finTxactItm1sDl;
+    private CollectionLoader<GenNode> finTxactItmsDl;
 
 
     private CollectionContainer<FinHow> finHowsDc;
@@ -324,24 +315,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
 
     @Autowired
     private EntityComboBox<GenNodeType> type1_IdField;
-
-    @Autowired
-    private EntityComboBox<GenNode> genChan1_IdField;
-
-    @Autowired
-    private EntityComboBox<FinHow>  finHow1_IdField;
-
-    @Autowired
-    private ComboBox<String> whatText1Field;
-
-    @Autowired
-    private EntityComboBox<FinWhat>  finWhat1_IdField;
-
-    @Autowired
-    private ComboBox<String> whyText1Field;
-
-    @Autowired
-    private EntityComboBox<FinWhy>  finWhy1_IdField;
 
     @Autowired
     private EntityComboBox<GenPat> desc1GenPat1_IdField;
@@ -437,7 +410,9 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         tmplt_Type1_IdField.setOptionsContainer(finTxactTypesDc);
         //filter
         EntityComboBox<GenNodeType> propFilterCmpnt_type1_Id;
-        propFilterCmpnt_type1_Id= (EntityComboBox<GenNodeType>) filterConfig1A_type1_Id.getValueComponent();
+        propFilterCmpnt_type1_Id = (EntityComboBox<GenNodeType>) filterConfig1A_type1_Id.getValueComponent();
+        propFilterCmpnt_type1_Id.setOptionsContainer(finTxactTypesDc);
+        propFilterCmpnt_type1_Id = (EntityComboBox<GenNodeType>) filterConfig1B_type1_Id.getValueComponent();
         propFilterCmpnt_type1_Id.setOptionsContainer(finTxactTypesDc);
 
 
@@ -450,13 +425,14 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         genChansDl.setFetchPlan(genChansFp);
         genChansDl.setContainer(genChansDc);
         genChansDl.setDataContext(getScreenData().getDataContext());
-        genChan1_IdField.setOptionsContainer(genChansDc);
         finTxset1_Id_GenChan1_IdField.setOptionsContainer(genChansDc);
         //template
         tmplt_FinTxset1_Id_GenChan1_IdField.setOptionsContainer(genChansDc);
-        tmplt_GenChan1_IdField.setOptionsContainer(genChansDc);
         //filter
-        EntityComboBox<GenNode> propFilterCmpnt_genChan1_Id = (EntityComboBox<GenNode>) filterConfig1A_finTxset1_Id_genChan1_Id.getValueComponent();
+        EntityComboBox<GenNode> propFilterCmpnt_genChan1_Id;
+        propFilterCmpnt_genChan1_Id = (EntityComboBox<GenNode>) filterConfig1A_finTxset1_Id_genChan1_Id.getValueComponent();
+        propFilterCmpnt_genChan1_Id.setOptionsContainer(genChansDc);
+        propFilterCmpnt_genChan1_Id = (EntityComboBox<GenNode>) filterConfig1B_finTxset1_Id_genChan1_Id.getValueComponent();
         propFilterCmpnt_genChan1_Id.setOptionsContainer(genChansDc);
 
 
@@ -470,13 +446,14 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         finHowsDl.setContainer(finHowsDc);
         finHowsDl.setDataContext(getScreenData().getDataContext());
 
-        finHow1_IdField.setOptionsContainer(finHowsDc);
         finTxset1_Id_FinHow1_IdField.setOptionsContainer(finHowsDc);
         //template
         tmplt_FinTxset1_Id_FinHow1_IdField.setOptionsContainer(finHowsDc);
-        tmplt_FinHow1_IdField.setOptionsContainer(finHowsDc);
         //filter
-        EntityComboBox<FinHow> propFilterCmpnt_finHow1_Id = (EntityComboBox<FinHow>) filterConfig1A_finTxset1_Id_finHow1_Id.getValueComponent();
+        EntityComboBox<FinHow> propFilterCmpnt_finHow1_Id;
+        propFilterCmpnt_finHow1_Id = (EntityComboBox<FinHow>) filterConfig1A_finTxset1_Id_finHow1_Id.getValueComponent();
+        propFilterCmpnt_finHow1_Id.setOptionsContainer(finHowsDc);
+        propFilterCmpnt_finHow1_Id = (EntityComboBox<FinHow>) filterConfig1B_finTxset1_Id_finHow1_Id.getValueComponent();
         propFilterCmpnt_finHow1_Id.setOptionsContainer(finHowsDc);
 
 
@@ -490,13 +467,14 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         finWhatsDl.setContainer(finWhatsDc);
         finWhatsDl.setDataContext(getScreenData().getDataContext());
 
-        finWhat1_IdField.setOptionsContainer(finWhatsDc);
         finTxset1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
         //template
         tmplt_FinTxset1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
-        tmplt_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
         //filter
-        EntityComboBox<FinWhat> propFilterCmpnt_finWhat1_Id = (EntityComboBox<FinWhat>) filterConfig1A_finTxset1_Id_finWhat1_Id.getValueComponent();
+        EntityComboBox<FinWhat> propFilterCmpnt_finWhat1_Id;
+        propFilterCmpnt_finWhat1_Id = (EntityComboBox<FinWhat>) filterConfig1A_finTxset1_Id_finWhat1_Id.getValueComponent();
+        propFilterCmpnt_finWhat1_Id.setOptionsContainer(finWhatsDc);
+        propFilterCmpnt_finWhat1_Id = (EntityComboBox<FinWhat>) filterConfig1B_finTxset1_Id_finWhat1_Id.getValueComponent();
         propFilterCmpnt_finWhat1_Id.setOptionsContainer(finWhatsDc);
 
 
@@ -510,13 +488,14 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         finWhysDl.setContainer(finWhysDc);
         finWhysDl.setDataContext(getScreenData().getDataContext());
 
-        finWhy1_IdField.setOptionsContainer(finWhysDc);
         finTxset1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
         //template
         tmplt_FinTxset1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
-        tmplt_FinWhy1_IdField.setOptionsContainer(finWhysDc);
         //filter
-        EntityComboBox<FinWhy> propFilterCmpnt_finWhy1_Id = (EntityComboBox<FinWhy>) filterConfig1A_finTxset1_Id_finWhy1_Id.getValueComponent();
+        EntityComboBox<FinWhy> propFilterCmpnt_finWhy1_Id;
+        propFilterCmpnt_finWhy1_Id = (EntityComboBox<FinWhy>) filterConfig1A_finTxset1_Id_finWhy1_Id.getValueComponent();
+        propFilterCmpnt_finWhy1_Id.setOptionsContainer(finWhysDc);
+        propFilterCmpnt_finWhy1_Id = (EntityComboBox<FinWhy>) filterConfig1B_finTxset1_Id_finWhy1_Id.getValueComponent();
         propFilterCmpnt_finWhy1_Id.setOptionsContainer(finWhysDc);
 
         genPatsDc = dataComponents.createCollectionContainer(GenPat.class);
@@ -571,6 +550,7 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
 
         finTxset1_IdField.setOptionsContainer(finTxsetsDc);
 
+
         finTxsetTypesDc = dataComponents.createCollectionContainer(GenNodeType.class);
         finTxsetTypesDl = dataComponents.createCollectionLoader();
         finTxsetTypesDl.setQuery("select e from ampata_GenNodeType e where e.className = 'FinTxset' order by e.id2");
@@ -582,20 +562,26 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         finTxsetTypesDl.setDataContext(getScreenData().getDataContext());
 
         finTxset1_Id_Type1_IdField.setOptionsContainer(finTxsetTypesDc);
+        //filter
+        EntityComboBox<GenNodeType> propFilterCmpnt_finTxsetType1_Id;
+        propFilterCmpnt_finTxsetType1_Id = (EntityComboBox<GenNodeType>) filterConfig1A_finTxset1_Id_type1_Id.getValueComponent();
+        propFilterCmpnt_finTxsetType1_Id.setOptionsContainer(finTxsetTypesDc);
+        propFilterCmpnt_finTxsetType1_Id = (EntityComboBox<GenNodeType>) filterConfig1B_finTxset1_Id_type1_Id.getValueComponent();
+        propFilterCmpnt_finTxsetType1_Id.setOptionsContainer(finTxsetTypesDc);
 
 
-        finTxactItm1sDc = dataComponents.createCollectionContainer(GenNode.class);
-        finTxactItm1sDl = dataComponents.createCollectionLoader();
-        finTxactItm1sDl.setQuery("select e from ampata_GenNode e where e.className = 'FinTxactItm' order by e.id2");
-        FetchPlan finTxactItm1sFp = fetchPlans.builder(GenNode.class)
+        finTxactItmsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finTxactItmsDl = dataComponents.createCollectionLoader();
+        finTxactItmsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinTxactItm' order by e.id2");
+        FetchPlan finTxactItmsFp = fetchPlans.builder(GenNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxactItm1sDl.setFetchPlan(finTxactItm1sFp);
-        finTxactItm1sDl.setContainer(finTxactItm1sDc);
-        finTxactItm1sDl.setDataContext(getScreenData().getDataContext());
+        finTxactItmsDl.setFetchPlan(finTxactItmsFp);
+        finTxactItmsDl.setContainer(finTxactItmsDc);
+        finTxactItmsDl.setDataContext(getScreenData().getDataContext());
 
-        desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
-        finTxset1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
+        desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItmsDc);
+        finTxset1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItmsDc);
 
 
         logger.trace(logPrfx + " <--- ");
@@ -954,43 +940,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
                         if (idY == null) return;
                         thisFinTxact.setIdY(idY);
                     }
-                }
-
-
-                if (tmplt_GenChan1_IdFieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setGenChan1_Id(tmplt_GenChan1_IdField.getValue());
-                }
-
-                if (tmplt_FinHow1_IdFieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setFinHow1_Id(tmplt_FinHow1_IdField.getValue());
-                }
-
-                if (tmplt_WhatText1FieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setWhatText1(tmplt_WhatText1Field.getValue());
-                }
-
-                if (tmplt_FinWhat1_IdFieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setFinWhat1_Id(tmplt_FinWhat1_IdField.getValue());
-                }
-
-                if (tmplt_WhyText1FieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setWhyText1(tmplt_WhyText1Field.getValue());
-                }
-
-                if (tmplt_FinWhy1_IdFieldChk.isChecked()
-                ) {
-                    thisFinTxactIsChanged = true;
-                    thisFinTxact.setFinWhy1_Id(tmplt_FinWhy1_IdField.getValue());
                 }
 
 
@@ -1905,27 +1854,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-    @Install(to = "tmplt_WhatText1Field", subject = "enterPressHandler")
-    private void tmplt_WhatText1FieldFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "tmplt_WhatText1FieldFieldEnterPressHandler";
-        logger.trace(logPrfx + " --> ");
-
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Install(to = "tmplt_WhyText1Field", subject = "enterPressHandler")
-    private void tmplt_WhyText1FieldFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "tmplt_WhyText1FieldFieldEnterPressHandler";
-        logger.trace(logPrfx + " --> ");
-
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
     @Install(to = "tmplt_FinTxset1_Id_WhatText1Field", subject = "enterPressHandler")
     private void tmplt_FinTxset1_Id_WhatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
         String logPrfx = "tmplt_FinTxset1_Id_WhatText1FieldEnterPressHandler";
@@ -2236,93 +2164,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
-
-    @Subscribe("updateGenChan1_IdFieldListBtn")
-    public void onUpdateGenChan1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateGenChan1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        genChansDl.load();
-        logger.debug(logPrfx + " --- called genChansDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateFinHow1_IdFieldListBtn")
-    public void onUpdateFinHow1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinHow1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        finHowsDl.load();
-        logger.debug(logPrfx + " --- called finHowsDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Install(to = "whatText1Field", subject = "enterPressHandler")
-    private void whatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "whatText1FieldEnterPressHandler";
-        logger.trace(logPrfx + " --> ");
-
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateWhatText1FieldListBtn")
-    public void onUpdateWhatText1FieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateWhatText1FieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        reloadWhatText1List();
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateFinWhat1_IdFieldListBtn")
-    public void onUpdateFinWhat1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinWhat1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Install(to = "whyText1Field", subject = "enterPressHandler")
-    private void whyText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "whyText1FieldEnterPressHandler";
-        logger.trace(logPrfx + " --> ");
-
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateWhyText1FieldListBtn")
-    public void onUpdateWhyText1FieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateWhyText1FieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        reloadWhyText1List();
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateFinWhy1_IdFieldListBtn")
-    public void onUpdateFinWhy1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinWhy1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     @Subscribe("updateDescPat1_IdFieldListBtn")
     public void onUpdateDescPat1_IdFieldListBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateDescPat1_IdFieldListBtnClick";
@@ -2339,8 +2180,8 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onUpdateDesc1FinTxactItm1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        finTxactItmsDl.load();
+        logger.debug(logPrfx + " --- called finTxactItmsDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -2658,8 +2499,19 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
         String logPrfx = "onUpdateFinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        finTxactItmsDl.load();
+        logger.debug(logPrfx + " --- called finTxactItmsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateFinTxset1_Id_Desc1FinTxactItm2_IdFieldListBtn")
+    public void onUpdateFinTxset1_Id_Desc1FinTxactItm2_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxset1_Id_Desc1FinTxactItm2_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        finTxactItmsDl.load();
+        logger.debug(logPrfx + " --- called finTxactItmsDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -2859,43 +2711,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
             logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
 
 
-            String thisChan = "";
-            if (thisFinTxact.getGenChan1_Id() != null) {
-                thisChan = Objects.toString(thisFinTxact.getGenChan1_Id().getId2(), "");
-            }
-            if (!thisChan.equals("")) {
-                thisChan = "in chan [" + thisChan + "]";
-            }
-            logger.debug(logPrfx + " --- thisChan: " + thisChan);
-
-
-            String thisHow = "";
-            if (thisFinTxact.getFinHow1_Id() != null) {
-                thisHow = Objects.toString(thisFinTxact.getFinHow1_Id().getId2(), "");
-            }
-            if (!thisHow.equals("")) {
-                thisHow = "via [" + thisHow + "]";
-            }
-            logger.debug(logPrfx + " --- thisHow: " + thisHow);
-
-            String thisWhat = Objects.toString(thisFinTxact.getWhatText1(), "");
-            if (thisFinTxact.getFinWhat1_Id() != null) {
-                thisWhat = thisWhat + " " + Objects.toString(thisFinTxact.getFinWhat1_Id().getId2());
-            }
-            if (!thisWhat.equals("")) {
-                thisWhat = "for " + thisWhat;
-            }
-            logger.debug(logPrfx + " --- thisWhat: " + thisWhat);
-
-            String thisWhy = Objects.toString(thisFinTxact.getWhyText1(), "");
-            if (thisFinTxact.getFinWhy1_Id() != null) {
-                thisWhy = thisWhy + " " + Objects.toString(thisFinTxact.getFinWhy1_Id().getId2());
-            }
-            if (!thisWhy.equals("")) {
-                thisWhy = "for " + thisWhy;
-            }
-            logger.debug(logPrfx + " --- thisWhy: " + thisWhy);
-
             String thisDocVer = "";
             if (thisFinTxact.getGenDocVer1_Id() != null) {
                 thisDocVer = Objects.toString(thisFinTxact.getGenDocVer1_Id().getId2());
@@ -2929,10 +2744,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
 
             List<String> list = Arrays.asList(
                     thisType
-                    , thisChan
-                    , thisWhat
-                    , thisWhy
-                    , thisHow
                     , thisDocVer
                     , thisTag);
 
@@ -2990,8 +2801,11 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
                         thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getFinCurcy1_Id().getId2(), "");
                         thisAmt = thisAmt.trim();
                     }
-                    if (thisType.equals("/Txfer-Exch")) {
-                        GenNode desc1FinTxactItm2 = findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/Y01/%");
+                    if (thisType.contains("Exch")) {
+                        GenNode desc1FinTxactItm2 = thisFinTxset.getDesc1FinTxactItm2_Id() == null
+                                ? findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/Y01/%")
+                                : thisFinTxset.getDesc1FinTxactItm2_Id();
+
                         if (desc1FinTxactItm2 != null) {
                             thisAmt = thisAmt + " -> ";
                             if (desc1FinTxactItm2.getAmtDebt() != null) {
@@ -3381,12 +3195,6 @@ public class FinTxactBrowse2 extends MasterDetailScreen<GenNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-
-        tmplt_WhatText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called tmplt_WhatText1Field.setOptionsList()");
-
-        whatText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called whatText1Field.setOptionsList()");
 
 
         tmplt_FinTxset1_Id_WhatText1Field.setOptionsList(texts);

@@ -372,6 +372,10 @@
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
 
+        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
+
         <property name="finTxactItms1_Id2"/>
 
         <property name="finTxacts1_Id2"/>
@@ -390,22 +394,19 @@
             <property name ="finHow1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhat1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhy1_Id" fetchPlan="_instance_name"/>
+
+            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
         </property>
         <property name="finTxset1_Id2"/>
         <property name="finTxset1_Id2Trgt"/>
-        <property name="finTxset1_EI1_Role"/>
         <property name="finTxset1_Type1_Id2"/>
 
-        <property name="finHow1_Id" fetchPlan="_instance_name"/>
-        <property name="finHow1_Id2"/>
+        <property name="finTxset1_EI1_Role"/>
 
-        <property name="whatText1"/>
-        <property name="finWhat1_Id" fetchPlan="_instance_name"/>
-        <property name="finWhat1_Id2"/>
-
-        <property name="whyText1"/>
-        <property name="finWhy1_Id" fetchPlan="_instance_name"/>
-        <property name="finWhy1_Id2"/>
+        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
         <property name="finTxset1_GenDocVers1_Id2"/>
         <property name="finTxset1_GenTags1_Id2"/>
@@ -438,16 +439,12 @@
         <property name="idY"/>
         <property name="idZ"/>
         <property name="finTxact1_Id" fetchPlan="_base">
-            <property name ="genChan1_Id" fetchPlan="_base">
-                <property name ="type1_Id" fetchPlan="_base"/>
-            </property>
-            <property name ="genChan2_Id" fetchPlan="_base">
-                <property name ="type1_Id" fetchPlan="_base"/>
-            </property>
             <property name ="type1_Id" fetchPlan="_base"/>
-            <property name ="finHow1_Id" fetchPlan="_base"/>
-            <property name ="finWhat1_Id" fetchPlan="_base"/>
-            <property name ="finWhy1_Id" fetchPlan="_base"/>
+
+            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
+
+
             <property name="finTxset1_Id" fetchPlan="_base">
                 <property name ="genChan1_Id" fetchPlan="_base">
                     <property name ="type1_Id" fetchPlan="_base"/>
@@ -459,6 +456,11 @@
                 <property name ="finHow1_Id" fetchPlan="_base"/>
                 <property name ="finWhat1_Id" fetchPlan="_base"/>
                 <property name ="finWhy1_Id" fetchPlan="_base"/>
+
+                <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+                <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
+                <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
+
             </property>
         </property>
         <property name="finTxact1_Id2"/>

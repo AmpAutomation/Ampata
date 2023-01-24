@@ -236,6 +236,15 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
     private CollectionLoader<FinWhy> finWhysDl;
 
 
+    private CollectionContainer<GenPat> genPatsDc;
+
+    private CollectionLoader<GenPat> genPatsDl;
+
+
+    private CollectionContainer<GenNode> finTxactItmsDc;
+
+    private CollectionLoader<GenNode> finTxactItmsDl;
+
 
 
     @Autowired
@@ -271,6 +280,16 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
     @Autowired
     private EntityComboBox<FinWhy>  finWhy1_IdField;
 
+    @Autowired
+    private EntityComboBox<GenPat> desc1GenPat1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> desc1FinTxactItm1_IdField;
+
+    @Autowired
+    private EntityComboBox<GenNode> desc1FinTxactItm2_IdField;
+
+    
     @Autowired
     private EntityComboBox<GenNode> genDocVer1_IdField;
 
@@ -372,6 +391,32 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
         finWhysDl.setDataContext(getScreenData().getDataContext());
 
         finWhy1_IdField.setOptionsContainer(finWhysDc);
+
+
+        genPatsDc = dataComponents.createCollectionContainer(GenPat.class);
+        genPatsDl = dataComponents.createCollectionLoader();
+        genPatsDl.setQuery("select e from ampata_GenPat e order by e.id2");
+        FetchPlan genPatsFp = fetchPlans.builder(GenPat.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        genPatsDl.setFetchPlan(genPatsFp);
+        genPatsDl.setContainer(genPatsDc);
+        genPatsDl.setDataContext(getScreenData().getDataContext());
+
+        desc1GenPat1_IdField.setOptionsContainer(genPatsDc);
+
+        finTxactItmsDc = dataComponents.createCollectionContainer(GenNode.class);
+        finTxactItmsDl = dataComponents.createCollectionLoader();
+        finTxactItmsDl.setQuery("select e from ampata_GenNode e where e.className = 'FinTxactItm' order by e.id2");
+        FetchPlan finTxactItmsFp = fetchPlans.builder(GenNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finTxactItmsDl.setFetchPlan(finTxactItmsFp);
+        finTxactItmsDl.setContainer(finTxactItmsDc);
+        finTxactItmsDl.setDataContext(getScreenData().getDataContext());
+
+        desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItmsDc);
+        desc1FinTxactItm2_IdField.setOptionsContainer(finTxactItmsDc);
 
 
         genDocVersDc = dataComponents.createCollectionContainer(GenNode.class);
@@ -1642,6 +1687,39 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
     }
 
 
+    @Subscribe("updateDescPat1_IdFieldListBtn")
+    public void onUpdateDescPat1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDescPat1_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        genPatsDl.load();
+        logger.debug(logPrfx + " --- called genPatDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateDesc1FinTxactItm1_IdFieldListBtn")
+    public void onUpdateDesc1FinTxactItm1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FinTxactItm1_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        finTxactItmsDl.load();
+        logger.debug(logPrfx + " --- called finTxactItmsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("updateDesc1FinTxactItm2_IdFieldListBtn")
+    public void onUpdateDesc1FinTxactItm2_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FinTxactItm2_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        finTxactItmsDl.load();
+        logger.debug(logPrfx + " --- called finTxactItmsDl.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+    }
+    
     @Subscribe("updateGenDocVer1_IdFieldListBtn")
     public void onUpdateGenDocVer1_IdFieldListBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
@@ -1828,8 +1906,11 @@ public class FinTxsetBrowse2 extends MasterDetailScreen<GenNode> {
                         thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getFinCurcy1_Id().getId2(), "");
                         thisAmt = thisAmt.trim();
                     }
-                    if (thisType.equals("/Txfer-Exch")) {
-                        GenNode desc1FinTxactItm2 = findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/Y01/%");
+                    if (thisType.contains("Exch")) {
+                        GenNode desc1FinTxactItm2 = thisFinTxset.getDesc1FinTxactItm2_Id() == null
+                                ? findFirstFinTxactItmLikeId2(thisFinTxset.getId2() + "/Y01/%")
+                                : thisFinTxset.getDesc1FinTxactItm2_Id();
+
                         if (desc1FinTxactItm2 != null) {
                             thisAmt = thisAmt + " -> ";
                             if (desc1FinTxactItm2.getAmtDebt() != null) {

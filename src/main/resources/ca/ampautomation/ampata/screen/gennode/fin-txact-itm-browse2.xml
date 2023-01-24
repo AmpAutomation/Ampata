@@ -258,13 +258,6 @@
                         <column id="finTxact1_Id.finTxset1_Id.whyText1"/>
                         <column id="finTxact1_Id.finTxset1_Id.finWhy1_Id"/>
 
-                        <column id="finTxact1_Id.genChan1_Id"/>
-                        <column id="finTxact1_Id.finHow1_Id"/>
-                        <column id="finTxact1_Id.whatText1"/>
-                        <column id="finTxact1_Id.finWhat1_Id"/>
-                        <column id="finTxact1_Id.whyText1"/>
-                        <column id="finTxact1_Id.finWhy1_Id"/>
-
                         <column id="genDocVers1_Id2"/>
                         <column id="genDocVer1_Id"/>
                         <column id="genDocVer1_Id2"/>
@@ -394,44 +387,6 @@
                                                     <checkBox id="tmplt_FinTxact1_Id_FinTxset1_EI1_RoleFieldChk" align="MIDDLE_RIGHT"  width="10px"/>
                                                 </hbox>
                                                 <entityComboBox id="tmplt_FinTxact1_Id_FinTxset1_EI1_RoleField"/>
-                                            </hbox>
-                                        </hbox>
-                                        <hbox spacing="true">
-                                            <hbox caption="genChan1_Id" width="250px" expand="tmplt_FinTxact1_Id_GenChan1_IdField">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_GenChan1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <entityComboBox id="tmplt_FinTxact1_Id_GenChan1_IdField"/>
-                                            </hbox>
-                                            <hbox caption="finHow1_Id" width="250px" expand="tmplt_FinTxact1_Id_FinHow1_IdField">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_FinHow1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <entityComboBox id="tmplt_FinTxact1_Id_FinHow1_IdField"/>
-                                            </hbox>
-                                            <hbox caption="whatText1" width="250px" expand="tmplt_FinTxact1_Id_WhatText1Field">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_WhatText1FieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <comboBox id="tmplt_FinTxact1_Id_WhatText1Field"/>
-                                            </hbox>
-                                            <hbox caption="finWhat1_Id" width="250px" expand="tmplt_FinTxact1_Id_FinWhat1_IdField">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_FinWhat1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <entityComboBox id="tmplt_FinTxact1_Id_FinWhat1_IdField"/>
-                                            </hbox>
-                                            <hbox caption="whyText1" width="250px" expand="tmplt_FinTxact1_Id_WhyText1Field">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_WhyText1FieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <comboBox id="tmplt_FinTxact1_Id_WhyText1Field"/>
-                                            </hbox>
-                                            <hbox caption="finWhy1_Id" width="250px" expand="tmplt_FinTxact1_Id_FinWhy1_IdField">
-                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                                    <checkBox id="tmplt_FinTxact1_Id_FinWhy1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                                </hbox>
-                                                <entityComboBox id="tmplt_FinTxact1_Id_FinWhy1_IdField"/>
                                             </hbox>
                                         </hbox>
                                     </tab>
@@ -840,6 +795,17 @@
                                             <button id="updateFinTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
+                                        <hbox caption="finTxact1_Id.finTxset1_Id.desc1FinTxactItm2_Id" expand="finTxact1_Id_FinTxset1_Id_Desc1FinTxactItm2_IdField" width="100%">
+                                            <entityComboBox id="finTxact1_Id_FinTxset1_Id_Desc1FinTxactItm2_IdField" dataContainer="finTxactItmDc"
+                                                            property="finTxact1_Id.finTxset1_Id.desc1FinTxactItm2_Id" tabIndex="30">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinTxact1_Id_FinTxset1_Id_Desc1FinTxactItm2_IdFieldListBtn" icon="font-icon:LIST"
+                                                    tabIndex="-1"/>
+                                        </hbox>
                                         <textArea id="finTxact1_Id_FinTxset1_Id_Note" property="finTxact1_Id.finTxset1_Id.note" tabIndex="30" rowspan="5"/>
                                         <hbox caption="genTag1_Id" expand="finTxact1_Id_FinTxset1_Id_GenTag1_IdField" width="100%">
                                             <entityComboBox id="finTxact1_Id_FinTxset1_Id_GenTag1_IdField" dataContainer="finTxactItmDc"
@@ -918,66 +884,6 @@
                                                       property="finTxact1_Id.finTxset1_EI1_Role" tabIndex="20">
                                             </comboBox>
                                             <button id="updateFinTxact1_Id_FinTxset1_EI1_RoleFieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.genChan1_Id" expand="finTxact1_Id_GenChan1_IdField">
-                                            <entityComboBox id="finTxact1_Id_GenChan1_IdField" dataContainer="finTxactItmDc"
-                                                            property="finTxact1_Id.genChan1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateFinTxact1_Id_GenChan1_IdFieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.finHow1_Id" expand="finTxact1_Id_FinHow1_IdField">
-                                            <entityComboBox id="finTxact1_Id_FinHow1_IdField" dataContainer="finTxactItmDc"
-                                                            property="finTxact1_Id.finHow1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateFinTxact1_Id_How1_IdFieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.whatText1" expand="finTxact1_Id_WhatText1Field" width="100%">
-                                            <comboBox id="finTxact1_Id_WhatText1Field" dataContainer="finTxactItmDc"
-                                                      property="finTxact1_Id.whatText1" tabIndex="20">
-
-                                            </comboBox>
-                                            <button id="updateFinTxact1_Id_WhatText1FieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.finWhat1_Id" expand="finTxact1_Id_FinWhat1_IdField">
-                                            <entityComboBox id="finTxact1_Id_FinWhat1_IdField" dataContainer="finTxactItmDc"
-                                                            property="finTxact1_Id.finWhat1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateFinTxact1_Id_What1_IdFieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.whyText1" expand="finTxact1_Id_WhyText1Field" width="100%">
-                                            <comboBox id="finTxact1_Id_WhyText1Field" dataContainer="finTxactItmDc"
-                                                      property="finTxact1_Id.whyText1" tabIndex="20">
-
-                                            </comboBox>
-                                            <button id="updateFinTxact1_Id_WhyText1FieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
-                                        </hbox>
-                                        <hbox caption="finTxact1_Id.finWhy1_Id" expand="finTxact1_Id_FinWhy1_IdField">
-                                            <entityComboBox id="finTxact1_Id_FinWhy1_IdField" dataContainer="finTxactItmDc"
-                                                            property="finTxact1_Id.finWhy1_Id" tabIndex="20">
-                                                <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
-                                                </actions>
-                                            </entityComboBox>
-                                            <button id="updateFinTxact1_Id_Why1_IdFieldListBtn" icon="font-icon:LIST"
                                                     tabIndex="-1"/>
                                         </hbox>
                                     </column>
