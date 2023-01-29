@@ -60,7 +60,7 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_GENNODE_FIN_CURCY1__ID", columnList = "FIN_CURCY1__ID"),
         @Index(name = "IDX_GENNODE_AMT_FIN_FMLA1__ID", columnList = "AMT_FIN_FMLA1__ID"),
         @Index(name = "IDX_GENNODE_AMT_FIN_TXACT_ITM1__ID", columnList = "AMT_FIN_TXACT_ITM1__ID"),
-        @Index(name = "IDX_GENNODE_GEN_DOC1__ID", columnList = "GEN_DOC_VER1__ID"),
+        @Index(name = "IDX_GENNODE_GEN_DOC_VER1__ID", columnList = "GEN_DOC_VER1__ID"),
         @Index(name = "IDX_GENNODE_GEN_FILE1__ID", columnList = "GEN_FILE1__ID"),
         @Index(name = "IDX_GENNODE_GEN_TAG1__ID", columnList = "GEN_TAG1__ID"),
         @Index(name = "IDX_GENNODE_GEN_TAG2__ID", columnList = "GEN_TAG2__ID"),

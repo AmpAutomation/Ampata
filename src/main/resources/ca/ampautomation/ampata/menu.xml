@@ -2,57 +2,58 @@
 <menu-config xmlns="http://jmix.io/schema/ui/menu">
 
     <menu id="gen" caption="General">
-        <item screen="ampata_GenAgent.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genAgentBrowse.menu"/>
-        <menu id="genChan" caption="Channels">
-            <item screen="ampata_GenChan.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genChanBrowse.menu"/>
-            <item screen="ampata_GenChan.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/genChanBrowse2.menu"/>
+        <menu id="genAgent" caption="Agent">
+            <item screen="ampata_GenAgent.browse" caption="msg://ca.ampautomation.ampata.screen.node.gen/genAgentBrowse.menu"/>
         </menu>
-        <item screen="ampata_GenDocVer.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genDocVerBrowse.menu"/>
-        <item screen="ampata_GenDocFrg.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genDocFrgBrowse.menu"/>
-        <item screen="ampata_GenTag.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genTagBrowse.menu"/>
-        <item screen="ampata_GenNode.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/genNodeBrowse.menu"/>
-        <item screen="ampata_GenNodeType.browse" caption="msg://ca.ampautomation.ampata.screen.gennodetype/genNodeTypeBrowse.menu"/>
-        <separator> --- </separator>
-        <item screen="ampata_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/UserBrowse.caption"/>
-        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+        <menu id="genChan" caption="Channel">
+            <item screen="ampata_GenChan.browse" caption="msg://ca.ampautomation.ampata.screen.node.gen/genChanBrowse.menu"/>
+            <item screen="ampata_GenChan.browse2" caption="msg://ca.ampautomation.ampata.screen.node.gen/genChanBrowse2.menu"/>
+        </menu>
+        <menu id="genDoc" caption="Document">
+            <item screen="ampata_GenDocVer.browse" caption="msg://ca.ampautomation.ampata.screen.node.gen/genDocVerBrowse.menu"/>
+            <item screen="ampata_GenDocVer.browse2" caption="msg://ca.ampautomation.ampata.screen.node.gen/genDocVerBrowse2.menu"/>
+        </menu>
+        <menu id="genTag" caption="Tag">
+            <item screen="ampata_GenTag.browse" caption="msg://ca.ampautomation.ampata.screen.node.gen/genTagBrowse.menu"/>
+        </menu>
     </menu>
     <menu id="fin" caption="Finance">
         <menu id="finAcct" caption="Accounts">
-            <item screen="ampata_FinAcct.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finAcctBrowse.menu"/>
-            <item screen="ampata_FinAcct.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finAcctBrowse2.menu"/>
-            <item screen="ampata_FinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.gennodetype/finAcctTypeBrowse.menu"/>
+            <item screen="ampata_FinAcct.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finAcctBrowse.menu"/>
+            <item screen="ampata_FinAcct.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finAcctBrowse2.menu"/>
+            <item screen="ampata_FinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.nodetype.fin/finAcctTypeBrowse.menu"/>
         </menu>
         <menu id="finDept" caption="Departments">
-            <item screen="ampata_FinDept.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finDeptBrowse.menu"/>
+            <item screen="ampata_FinDept.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finDeptBrowse.menu"/>
             <item screen="ampata_FinDept.browse2"
-                  caption="msg://ca.ampautomation.ampata.screen.gennode/finDeptBrowse2.menu"/>
+                  caption="msg://ca.ampautomation.ampata.screen.node.fin/finDeptBrowse2.menu"/>
         </menu>
         <menu id="finCurcy" caption="Currencies">
             <item screen="ampata_FinCurcy.browse"
-                  caption="msg://ca.ampautomation.ampata.screen.gennode/finCurcyBrowse.menu"/>
+                  caption="msg://ca.ampautomation.ampata.screen.node.fin/finCurcyBrowse.menu"/>
             <item screen="ampata_FinCurcy.browse2"
-                  caption="msg://ca.ampautomation.ampata.screen.gennode/finCurcyBrowse2.menu"/>
+                  caption="msg://ca.ampautomation.ampata.screen.node.fin/finCurcyBrowse2.menu"/>
         </menu>
         <menu id="finBal" caption="Balances">
-            <item screen="ampata_FinBalSet.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finBalSetBrowse2.menu"/>
-            <item screen="ampata_FinBal.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finBalBrowse2.menu"/>
+            <item screen="ampata_FinBalSet.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finBalSetBrowse2.menu"/>
+            <item screen="ampata_FinBal.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finBalBrowse2.menu"/>
         </menu>
         <menu id="finStmt" caption="Statements">
-            <item screen="ampata_FinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse.menu"/>
-            <item screen="ampata_FinStmt.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtBrowse2.menu"/>
-            <item screen="ampata_FinStmtItm.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtItmBrowse.menu"/>
-            <item screen="ampata_FinStmtItm.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finStmtItmBrowse2.menu"/>
+            <item screen="ampata_FinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finStmtBrowse.menu"/>
+            <item screen="ampata_FinStmt.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finStmtBrowse2.menu"/>
+            <item screen="ampata_FinStmtItm.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finStmtItmBrowse.menu"/>
+            <item screen="ampata_FinStmtItm.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finStmtItmBrowse2.menu"/>
         </menu>
         <separator> --- </separator>
         <menu id="finTxact" caption="Transactions">
-            <item screen="ampata_FinTxset.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxsetBrowse.menu"/>
-            <item screen="ampata_FinTxset.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxsetBrowse2.menu"/>
+            <item screen="ampata_FinTxset.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxsetBrowse.menu"/>
+            <item screen="ampata_FinTxset.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxsetBrowse2.menu"/>
             <separator> --- </separator>
-            <item screen="ampata_FinTxact.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxactBrowse.menu"/>
-            <item screen="ampata_FinTxact.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxactBrowse2.menu"/>
+            <item screen="ampata_FinTxact.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxactBrowse.menu"/>
+            <item screen="ampata_FinTxact.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxactBrowse2.menu"/>
             <separator> --- </separator>
-            <item screen="ampata_FinTxactItm.browse" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxactItmBrowse.menu"/>
-            <item screen="ampata_FinTxactItm.browse2" caption="msg://ca.ampautomation.ampata.screen.gennode/finTxactItmBrowse2.menu"/>
+            <item screen="ampata_FinTxactItm.browse" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxactItmBrowse.menu"/>
+            <item screen="ampata_FinTxactItm.browse2" caption="msg://ca.ampautomation.ampata.screen.node.fin/finTxactItmBrowse2.menu"/>
         </menu>
         <menu id="finEntity" caption="Entities">
             <item screen="ampata_FinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.finfmla/finFmlaBrowse.menu"/>
@@ -63,7 +64,20 @@
             <item screen="ampata_FinWhy.browse" caption="msg://ca.ampautomation.ampata.screen.finwhy/finWhyBrowse.menu"/>
         </menu>
     </menu>
+    <menu id="tngy" caption="Tangible Asset">
+        <menu id="tngyEquip" caption="Equipment">
+            <item screen="ampata_TngyEquip.browse2"
+                  caption="msg://ca.ampautomation.ampata.screen.node.tngy/tngyEquipBrowse2.menu"/>
+        </menu>
+    </menu>
     <menu id="admin" caption="Administration">
+        <menu id="genNode" caption="System">
+            <item screen="ampata_GenNode.browse" caption="msg://ca.ampautomation.ampata.screen.node/genNodeBrowse.menu"/>
+            <item screen="ampata_GenNodeType.browse" caption="msg://ca.ampautomation.ampata.screen.nodetype/genNodeTypeBrowse.menu"/>
+        </menu>
+        <item screen="ampata_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/UserBrowse.caption"/>
+        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+        <separator> --- </separator>
         <item screen="mten_Tenant.browse"/>
         <item screen="ui_JmxConsoleScreen"/>
         <item screen="sec_ResourceRoleModel.browse"

@@ -1,7 +1,5 @@
 package ca.ampautomation.ampata.screen.main;
 
-import ca.ampautomation.ampata.entity.GenNode;
-import ca.ampautomation.ampata.screen.gennode.FinTxactItmBrowse2;
 import com.google.common.base.Strings;
 import io.jmix.multitenancy.core.TenantProvider;
 import io.jmix.multitenancyui.MultitenancyUiSupport;
@@ -9,7 +7,6 @@ import io.jmix.ui.Notifications;
 import io.jmix.ui.ScreenTools;
 import io.jmix.ui.component.AppWorkArea;
 import io.jmix.ui.component.Button;
-import io.jmix.ui.component.ComboBox;
 import io.jmix.ui.component.Window;
 import io.jmix.ui.component.mainwindow.Drawer;
 import io.jmix.ui.icon.JmixIcon;
@@ -22,9 +19,6 @@ import io.jmix.ui.screen.UiDescriptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Arrays;
-import java.util.TimeZone;
 
 @UiController("ampata_MainScreen")
 @UiDescriptor("main-screen.xml")

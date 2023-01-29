@@ -1,7 +1,5 @@
 package ca.ampautomation.ampata.screen.finrate;
 
-import ca.ampautomation.ampata.entity.GenNode;
-import ca.ampautomation.ampata.screen.gennode.FinStmtBrowse2;
 import io.jmix.core.DataManager;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.Button;

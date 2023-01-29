@@ -444,6 +444,9 @@
             <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
+            <property name="finTxactItms1_AmtDebtSumCalc" />
+            <property name="finTxactItms1_AmtCredSumCalc" />
+            <property name="finTxactItms1_IdCntCalc" />
 
             <property name="finTxset1_Id" fetchPlan="_base">
                 <property name ="genChan1_Id" fetchPlan="_base">
@@ -522,6 +525,8 @@
         <property name="whyText1"/>
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
+    </fetchPlan>
+    <fetchPlan entity="ampata_GenNode" name="tngyEquip-fetch-plan-base" extends="genNode-fetch-plan-base">
     </fetchPlan>
 
 
