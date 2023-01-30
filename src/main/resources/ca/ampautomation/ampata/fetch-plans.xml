@@ -1,5 +1,5 @@
 <fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
-    <fetchPlan entity="ampata_GenEntity" name="genEntity-fetch-plan-lean" extends="_instance_name">
+    <fetchPlan entity="ampata_SysEntity" name="genEntity-fetch-plan-lean" extends="_instance_name">
         <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
@@ -73,7 +73,7 @@
         <property name="name1"/>
         <property name="desc1"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="genNode-fetch-plan-lean" extends="_instance_name">
+    <fetchPlan entity="ampata_SysNode" name="sysNode-fetch-plan-lean" extends="_instance_name">
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -85,8 +85,8 @@
         <property name="type1_Id2"/>
         <property name="inst"/>
         <property name="name1"/>
-        <property name="name1GenPat1_Id" fetchPlan="_base"/>
-        <property name="name1GenPat1_Id2"/>
+        <property name="name1SysPat1_Id" fetchPlan="_base"/>
+        <property name="name1SysPat1_Id2"/>
         <property name="name2"/>
         <property name="abrv"/>
         <property name="code"/>
@@ -117,7 +117,7 @@
         <property name="genFile1_URI"/>
 
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="genNode-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="ampata_SysNode" name="sysNode-fetch-plan-base" extends="_instance_name">
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -132,14 +132,14 @@
         <property name="type1_Id2"/>
         <property name="inst"/>
         <property name="name1"/>
-        <property name="name1GenPat1_Id" fetchPlan="_base"/>
-        <property name="name1GenPat1_Id2"/>
+        <property name="name1SysPat1_Id" fetchPlan="_base"/>
+        <property name="name1SysPat1_Id2"/>
         <property name="name2"/>
         <property name="abrv"/>
         <property name="code"/>
         <property name="desc1"/>
-        <property name="desc1GenPat1_Id" fetchPlan="_base"/>
-        <property name="desc1GenPat1_Id2"/>
+        <property name="desc1SysPat1_Id" fetchPlan="_base"/>
+        <property name="desc1SysPat1_Id2"/>
         <property name="status"/>
         <property name="statusCalc"/>
         <property name="note"/>
@@ -177,7 +177,7 @@
         <property name="genFile1_URI"/>
 
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="finAcct-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finAcct-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id2"/>
         <property name="finCurcy1_Id" fetchPlan="_base"/>
@@ -187,7 +187,7 @@
         <property name="sortKey"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="genAgent-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="genAgent-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="namePrfx"/>
         <property name="nameFrst"/>
         <property name="nameMidl"/>
@@ -199,7 +199,7 @@
         <property name="genAgent2_Id2"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="genTag-fetch-plan-base" extends="genNode-fetch-plan-lean">
+    <fetchPlan entity="ampata_SysNode" name="genTag-fetch-plan-base" extends="sysNode-fetch-plan-lean">
         <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
         <property name="genFile1_Id" fetchPlan="_base"/>
@@ -223,15 +223,15 @@
         <property name="finHow1_Id" fetchPlan="_base"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finCurcy-fetch-plan-base" extends="genNode-fetch-plan-lean"/>
+    <fetchPlan entity="ampata_SysNode" name="finCurcy-fetch-plan-base" extends="sysNode-fetch-plan-lean"/>
 
-    <fetchPlan entity="ampata_GenNode" name="genChan-fetch-plan-base" extends="genNode-fetch-plan-lean">
+    <fetchPlan entity="ampata_SysNode" name="genChan-fetch-plan-base" extends="sysNode-fetch-plan-lean">
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finDept-fetch-plan-base" extends="genNode-fetch-plan-lean">
+    <fetchPlan entity="ampata_SysNode" name="finDept-fetch-plan-base" extends="sysNode-fetch-plan-lean">
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finBalSet-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finBalSet-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="finDept1_Id" fetchPlan="_base"/>
         <property name="finDept1_Id2"/>
 
@@ -245,7 +245,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finBal-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finBal-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
         <property name="finAcct1_Type1_Id2"/>
@@ -282,7 +282,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finStmt-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finStmt-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
         <property name="finAcct1_Type1_Id2"/>
@@ -318,7 +318,7 @@
 
 
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="finStmtItm-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finStmtItm-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="finStmt1_Id" fetchPlan="_base"/>
         <property name="finStmt1_Id2"/>
         <property name="desc1"/>
@@ -348,18 +348,18 @@
         <property name="finTxactItms1_AmtNetSumDiff"/>
 
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="genDocVer-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="genDocVer-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id2"/>
         <property name="ver"/>
         <property name="note"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="genDocFrg-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="genDocFrg-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="genDocVer1_Id" fetchPlan="_base">
             <property name="genDocVer1_Id" fetchPlan="_base"/>
         </property>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="finTxset-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finTxset-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genChan1_Id" fetchPlan="_base"/>
         <property name="idX"/>
@@ -372,7 +372,7 @@
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
 
-        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1SysPat1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
 
@@ -384,7 +384,7 @@
         <property name="finTxacts1_AmtEqCalc"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_GenNode" name="finTxact-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finTxact-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="idX"/>
         <property name="idY"/>
         <property name="finTxset1_FinTxacts1_Id2"/>
@@ -395,7 +395,7 @@
             <property name ="finWhat1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhy1_Id" fetchPlan="_instance_name"/>
 
-            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1SysPat1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
         </property>
@@ -405,7 +405,7 @@
 
         <property name="finTxset1_EI1_Role"/>
 
-        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1SysPat1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
         <property name="finTxset1_GenDocVers1_Id2"/>
@@ -434,14 +434,14 @@
         <property name="finTxact1_FinTxactItms1_Id2"/>
 
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="finTxactItm-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="finTxactItm-fetch-plan-base" extends="sysNode-fetch-plan-base">
         <property name="idX"/>
         <property name="idY"/>
         <property name="idZ"/>
         <property name="finTxact1_Id" fetchPlan="_base">
             <property name ="type1_Id" fetchPlan="_base"/>
 
-            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1SysPat1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
             <property name="finTxactItms1_AmtDebtSumCalc" />
@@ -460,7 +460,7 @@
                 <property name ="finWhat1_Id" fetchPlan="_base"/>
                 <property name ="finWhy1_Id" fetchPlan="_base"/>
 
-                <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+                <property name="desc1SysPat1_Id" fetchPlan="_instance_name"/>
                 <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
                 <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
 
@@ -526,11 +526,11 @@
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNode" name="tngyEquip-fetch-plan-base" extends="genNode-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNode" name="tngyEquip-fetch-plan-base" extends="sysNode-fetch-plan-base">
     </fetchPlan>
 
 
-    <fetchPlan entity="ampata_GenNodeType" name="genNodeType-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="ampata_SysNodeType" name="sysNodeType-fetch-plan-base" extends="_instance_name">
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="className"/>
@@ -543,7 +543,7 @@
         <property name="desc1"/>
         <property name="sortIdx"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_GenNodeType" name="finAcctType-fetch-plan-base" extends="genNodeType-fetch-plan-base">
+    <fetchPlan entity="ampata_SysNodeType" name="finAcctType-fetch-plan-base" extends="sysNodeType-fetch-plan-base">
         <property name="balIncOnDebt"/>
         <property name="balIncOnCred"/>
     </fetchPlan>

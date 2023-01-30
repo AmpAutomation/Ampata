@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "ampata_FinWhy")
-public class FinWhy extends GenEntity {
+public class FinWhy extends SysEntity {
 }

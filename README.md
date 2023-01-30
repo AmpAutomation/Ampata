@@ -1,2 +1,2 @@
 # Ampata
-A personal information manager built using JMix
+An information manager built using JMix

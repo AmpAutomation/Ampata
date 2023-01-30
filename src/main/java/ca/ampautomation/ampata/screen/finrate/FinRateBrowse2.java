@@ -1,8 +1,7 @@
 package ca.ampautomation.ampata.screen.finrate;
 
-import ca.ampautomation.ampata.entity.GenNode;
+import ca.ampautomation.ampata.entity.SysNode;
 import ca.ampautomation.ampata.entity.FinRateRepository;
-import ca.ampautomation.ampata.entity.GenNodeType;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -45,10 +44,10 @@ public class FinRateBrowse2 extends MasterDetailScreen<FinRate> {
     protected PropertyFilter<LocalDate> propFilter_beg1Date1LE;
 
     @Autowired
-    protected PropertyFilter<GenNode> propFilter_finCurcy1_Id;
+    protected PropertyFilter<SysNode> propFilter_finCurcy1_Id;
 
     @Autowired
-    protected PropertyFilter<GenNode> propFilter_finCurcy2_Id;
+    protected PropertyFilter<SysNode> propFilter_finCurcy2_Id;
 
     @Autowired
     private CheckBox tmplt_beg1Date1FieldChk;
@@ -100,15 +99,15 @@ public class FinRateBrowse2 extends MasterDetailScreen<FinRate> {
     private DataLoader finRatesDl;
 
 
-    private CollectionContainer<GenNode> finCurcysDc;
+    private CollectionContainer<SysNode> finCurcysDc;
 
-    private CollectionLoader<GenNode> finCurcysDl;
-
-    @Autowired
-    private EntityComboBox<GenNode> finCurcy1_IdField;
+    private CollectionLoader<SysNode> finCurcysDl;
 
     @Autowired
-    private EntityComboBox<GenNode> finCurcy2_IdField;
+    private EntityComboBox<SysNode> finCurcy1_IdField;
+
+    @Autowired
+    private EntityComboBox<SysNode> finCurcy2_IdField;
 
 
 
@@ -125,10 +124,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
 
-        finCurcysDc = dataComponents.createCollectionContainer(GenNode.class);
+        finCurcysDc = dataComponents.createCollectionContainer(SysNode.class);
         finCurcysDl = dataComponents.createCollectionLoader();
-        finCurcysDl.setQuery("select e from ampata_GenNode e where e.className = 'FinCurcy' order by e.id2");
-        FetchPlan finCurcysFp = fetchPlans.builder(GenNode.class)
+        finCurcysDl.setQuery("select e from ampata_SysNode e where e.className = 'FinCurcy' order by e.id2");
+        FetchPlan finCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         finCurcysDl.setFetchPlan(finCurcysFp);
@@ -138,10 +137,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         finCurcy1_IdField.setOptionsContainer(finCurcysDc);
         finCurcy2_IdField.setOptionsContainer(finCurcysDc);
         //filter
-        EntityComboBox<GenNode> propFilterCmpnt_finCurcy1_Id = (EntityComboBox<GenNode>) propFilter_finCurcy1_Id.getValueComponent();
+        EntityComboBox<SysNode> propFilterCmpnt_finCurcy1_Id = (EntityComboBox<SysNode>) propFilter_finCurcy1_Id.getValueComponent();
         propFilterCmpnt_finCurcy1_Id.setOptionsContainer(finCurcysDc);
 
-        EntityComboBox<GenNode> propFilterCmpnt_finCurcy2_Id = (EntityComboBox<GenNode>) propFilter_finCurcy2_Id.getValueComponent();
+        EntityComboBox<SysNode> propFilterCmpnt_finCurcy2_Id = (EntityComboBox<SysNode>) propFilter_finCurcy2_Id.getValueComponent();
         propFilterCmpnt_finCurcy2_Id.setOptionsContainer(finCurcysDc);
 
     }
@@ -504,7 +503,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("finCurcy1_IdField")
-    public void onFinCurcy1_IdFieldValueChange(HasValue.ValueChangeEvent<GenNode> event) {
+    public void onFinCurcy1_IdFieldValueChange(HasValue.ValueChangeEvent<SysNode> event) {
         String logPrfx = "onFinCurcy1_IdFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
@@ -535,7 +534,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("finCurcy2_IdField")
-    public void onFinCurcy2_IdFieldValueChange(HasValue.ValueChangeEvent<GenNode> event) {
+    public void onFinCurcy2_IdFieldValueChange(HasValue.ValueChangeEvent<SysNode> event) {
         String logPrfx = "onFinCurcy2_IdFieldValueChange";
         logger.trace(logPrfx + " --> ");
 

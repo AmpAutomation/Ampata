@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.finfmla;
 
-import ca.ampautomation.ampata.screen.node.gen.GenAgentBrowse;
+import ca.ampautomation.ampata.screen.sysnode.gen.GenAgentBrowse;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;

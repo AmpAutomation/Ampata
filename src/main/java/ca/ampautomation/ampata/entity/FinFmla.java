@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "ampata_FinFmla")
-public class FinFmla extends GenEntity {
+public class FinFmla extends SysEntity {
 
     @Column(name = "FMLA")
     private String fmla;

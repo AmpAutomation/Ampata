@@ -13,8 +13,8 @@ import java.util.List;
 @Transactional
 public interface FinRateRepository extends CrudRepository<FinRate, Long>, FinRateRepositoryCustom  {
 
-    @Procedure(name = "GenNode.execGenNodePrUpd")
-    void execGenNodePrUpd();
+    @Procedure(name = "SysNode.execSysNodePrUpd")
+    void execSysNodePrUpd();
 
 
 }

@@ -41,10 +41,10 @@
                     <propertyFilter id="propFilter_beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
                     <propertyFilter id="propFilter_beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
                     <propertyFilter id="propFilter_finCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_GenNode"/>
+                        <entityComboBox metaClass="ampata_SysNode"/>
                     </propertyFilter>
                     <propertyFilter id="propFilter_finCurcy2_Id" caption="finCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_GenNode"/>
+                        <entityComboBox metaClass="ampata_SysNode"/>
                     </propertyFilter>
                 </configuration>
             </configurations>
