@@ -397,7 +397,6 @@ public class SysNode implements AcceptsTenant {
     private String genChan2_Id2;
 
 
-
     @Lob
     @Column(name = "FIN_TXSET1__FIN_TXACTS1__ID2")
     private String finTxset1_FinTxacts1_Id2;
@@ -427,7 +426,6 @@ public class SysNode implements AcceptsTenant {
     private String finTxset1_Desc1;
 
 
-
     @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
     private String finTxset1_GenChan1_Id2;
 
@@ -455,8 +453,7 @@ public class SysNode implements AcceptsTenant {
     @Column(name = "FIN_TXSET1__WHY1__ID2")
     private String finTxset1_Why1_Id2;
 
-    
-    
+
     @JoinColumn(name = "FIN_TXACT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private SysNode finTxact1_Id;
@@ -724,8 +721,6 @@ public class SysNode implements AcceptsTenant {
     private String finBalSet1_Id2;
 
 
-
-
     // Edge to FinTxact1->FinTxactItms1
     @Lob
     @Column(name = "FIN_TXACT1__FIN_TXACT_ITMS1__ID2")
@@ -745,10 +740,9 @@ public class SysNode implements AcceptsTenant {
 
     @Column(name = "FIN_BALS1__ID_CNT_CALC")
     private Integer finBals1_IdCntCalc;
-    
+
     @Column(name = "FIN_BALS1__AMT_EQ_CALC")
     private Boolean finBals1_AmtEqCalc;
-
 
 
     // Edge to FinTxactItms
@@ -779,7 +773,7 @@ public class SysNode implements AcceptsTenant {
     @Column(name = "FIN_TXACT_ITMS1__FIN_CURCY_CALC")
     private Boolean finTxactItms1_FinCurcyEqCalc;
 
-    
+
     @Column(name = "FIN_TXACT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
     private BigDecimal finTxactItms1_AmtDebtSumDiff;
 
@@ -809,7 +803,6 @@ public class SysNode implements AcceptsTenant {
     private Boolean finTxacts1_AmtEqCalc;
 
 
-
     // Edge to FinStmtItms
 
     @Column(name = "FIN_STMT_ITMS1__ID_CNT_CALC")
@@ -827,7 +820,7 @@ public class SysNode implements AcceptsTenant {
     @Column(name = "FIN_STMT_ITMS1__AMT_EQ_CALC")
     private Boolean finStmtItms1_AmtEqCalc;
 
-    
+
     @Column(name = "FIN_STMT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
     private BigDecimal finStmtItms1_AmtDebtSumDiff;
 
@@ -900,10 +893,13 @@ public class SysNode implements AcceptsTenant {
 */
 
 
+    public String getTenant() {
+        return tenant;
+    }
 
-    public String getTenant() { return tenant; }
-
-    public void setTenant(String tenant) { this.tenant = tenant; }
+    public void setTenant(String tenant) {
+        this.tenant = tenant;
+    }
 
 
     @Transient

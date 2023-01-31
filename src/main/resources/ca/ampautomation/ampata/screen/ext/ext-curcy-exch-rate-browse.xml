@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://finRateBrowse.caption"
+        caption="msg://extCurcyExchRateBrowse.caption"
         focusComponent="table">
     <data readOnly="true">
-        <collection id="finRatesDc"
-                    class="ca.ampautomation.ampata.entity.FinRate"
-                    fetchPlan="finRate-fetch-plan-base">
-            <loader id="finRatesDl">
+        <collection id="extCurcyExchRatesDc"
+                    class="ca.ampautomation.ampata.entity.ExtCurcyExchRate"
+                    fetchPlan="extCurcyExchRate-fetch-plan-base">
+            <loader id="extCurcyExchRatesDl">
                 <query>
-                    <![CDATA[select e from ampata_FinRate e]]>
+                    <![CDATA[select e from ampata_ExtCurcyExchRate e]]>
                 </query>
             </loader>
         </collection>
@@ -32,7 +32,7 @@
                 width="800"/>
     <layout expand="table" spacing="true">
         <filter id="filter"
-                dataLoader="finRatesDl" collapsable="true" collapsed="true" columnsCount="4">
+                dataLoader="extCurcyExchRatesDl" collapsable="true" collapsed="true" columnsCount="4">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -40,18 +40,14 @@
                     <propertyFilter id="propFilter_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
                     <propertyFilter id="propFilter_beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
                     <propertyFilter id="propFilter_beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                    <propertyFilter id="propFilter_finCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_SysNode"/>
-                    </propertyFilter>
-                    <propertyFilter id="propFilter_finCurcy2_Id" caption="finCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_SysNode"/>
-                    </propertyFilter>
+                    <propertyFilter id="propFilter_finCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id2" operationEditable="true"/>
+                    <propertyFilter id="propFilter_finCurcy2_Id" caption="finCurcy2_Id" operation="EQUAL" property="finCurcy2_Id2" operationEditable="true"/>
                 </configuration>
             </configurations>
         </filter>
         <groupTable id="table"
                     width="100%"
-                    dataContainer="finRatesDc">
+                    dataContainer="extCurcyExchRatesDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -72,8 +68,8 @@
                         <number format="#0.000000"/>
                     </formatter>
                 </column>
-                <column id="finCurcy1_Id"/>
-                <column id="finCurcy2_Id"/>
+                <column id="finCurcy1_Id2"/>
+                <column id="finCurcy2_Id2"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"

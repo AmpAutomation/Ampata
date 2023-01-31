@@ -1,0 +1,775 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <createTable tableName="AMPATA_SYS_EDGE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_EDGE"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="ampata">
+        <createTable tableName="AMPATA_SYS_EDGE_TYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_EDGE_TYPE"/>
+            </column>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="ampata">
+        <createTable tableName="AMPATA_SYS_ENTITY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_ENTITY"/>
+            </column>
+            <column name="DTYPE" type="VARCHAR(31)"/>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="ID2_DUP" type="INT"/>
+            <column name="TYPE1__ID" type="UUID"/>
+            <column name="TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="SORT_ORDER" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="NAME1_SYS_PAT1__ID" type="UUID"/>
+            <column name="NAME1_SYS_PAT1__ID2" type="VARCHAR(255)"/>
+            <column name="DESC1" type="VARCHAR(255)"/>
+            <column name="AMT1" type="DECIMAL(19, 9)"/>
+            <column name="AMT2" type="DECIMAL(19, 9)"/>
+            <column name="FIN_CURCY1__ID" type="UUID"/>
+            <column name="FIN_CURCY1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_CURCY2__ID" type="UUID"/>
+            <column name="FIN_CURCY2__ID2" type="VARCHAR(255)"/>
+            <column name="FMLA" type="VARCHAR(255)"/>
+            <column name="BEG1_DATE1" type="DATE"/>
+            <column name="BEG1_DATE1_YR" type="INT"/>
+            <column name="BEG1_DATE1_QTR" type="INT"/>
+            <column name="BEG1_DATE1_MON" type="INT"/>
+            <column name="BEG1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG1_DATE1_DAY" type="INT"/>
+
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="ampata">
+        <createTable tableName="AMPATA_SYS_ENTITY_TYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_ENTITY_TYPE"/>
+            </column>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="ampata">
+        <createTable tableName="AMPATA_SYS_NODE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_NODE"/>
+            </column>
+            <column name="TENANT" type="VARCHAR(255)"/>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="ID2_DUP" type="INT"/>
+            <column name="CLASS_NAME" type="VARCHAR(255)"/>
+            <column name="PARENT1__ID" type="UUID"/>
+            <column name="PARENT1__ID2" type="VARCHAR(255)"/>
+            <column name="ANCESTORS1__ID2" type="CLOB"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="SORT_KEY" type="VARCHAR(255)"/>
+            <column name="TYPE1__ID" type="UUID"/>
+            <column name="TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="INST" type="VARCHAR(255)"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="NAME1_SYS_PAT1__ID" type="UUID"/>
+            <column name="NAME1_SYS_PAT1__ID2" type="VARCHAR(255)"/>
+            <column name="NAME2" type="VARCHAR(255)"/>
+            <column name="ABRV" type="VARCHAR(16)"/>
+            <column name="CODE" type="VARCHAR(255)"/>
+            <column name="DESC1" type="CLOB"/>
+            <column name="DESC1_SYS_PAT1__ID" type="UUID"/>
+            <column name="DESC1_SYS_PAT1__ID2" type="VARCHAR(255)"/>
+            <column name="DESC1_FIN_TXACT_ITM1__ID" type="UUID"/>
+            <column name="DESC1_FIN_TXACT_ITM1__ID2" type="VARCHAR(255)"/>
+            <column name="DESC1_FIN_TXACT_ITM2__ID" type="UUID"/>
+            <column name="DESC1_FIN_TXACT_ITM2__ID2" type="VARCHAR(255)"/>
+            <column name="DESC2" type="CLOB"/>
+            <column name="DESC3" type="CLOB"/>
+            <column name="DESC4" type="CLOB"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+            <column name="STATUS_CALC" type="VARCHAR(255)"/>
+            <column name="NOTE" type="CLOB"/>
+            <column name="GEN_DOC_VERS1__ID2" type="CLOB"/>
+            <column name="GEN_DOC_VER1__ID" type="UUID"/>
+            <column name="GEN_DOC_VER1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_DOC_VER1__CODE" type="VARCHAR(255)"/>
+            <column name="GEN_DOC_VER1__VER" type="VARCHAR(255)"/>
+            <column name="GEN_DOC_VER1__NAME1" type="VARCHAR(255)"/>
+            <column name="GEN_FILE1__ID" type="UUID"/>
+            <column name="GEN_FILE1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_FILE1__URI" type="CLOB"/>
+            <column name="GEN_TAGS1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_TAG1__ID" type="UUID"/>
+            <column name="GEN_TAG1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_TAG2__ID" type="UUID"/>
+            <column name="GEN_TAG2__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_TAG3__ID" type="UUID"/>
+            <column name="GEN_TAG3__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_TAG4__ID" type="UUID"/>
+            <column name="GEN_TAG4__ID2" type="VARCHAR(255)"/>
+            <column name="NAME_PRFX" type="VARCHAR(255)"/>
+            <column name="NAME_FRST" type="VARCHAR(255)"/>
+            <column name="NAME_MIDL" type="VARCHAR(255)"/>
+            <column name="NAME_LAST" type="VARCHAR(255)"/>
+            <column name="NAME_SUFX" type="VARCHAR(255)"/>
+            <column name="GEN_AGENT1__ID" type="UUID"/>
+            <column name="GEN_AGENT1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_AGENT2__ID" type="UUID"/>
+            <column name="GEN_AGENT2__ID2" type="VARCHAR(255)"/>
+            <column name="VER" type="VARCHAR(255)"/>
+            <column name="GEN_CHAN1__ID" type="UUID"/>
+            <column name="GEN_CHAN1__ID2" type="VARCHAR(255)"/>
+            <column name="GEN_CHAN2__ID" type="UUID"/>
+            <column name="GEN_CHAN2__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__FIN_TXACTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXSET1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXSET1__ID" type="UUID"/>
+            <column name="FIN_TXSET1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__ID2_TRGT" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__EI1__ROLE" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__DESC1" type="CLOB"/>
+            <column name="FIN_TXSET1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__BEG1_DATE1" type="DATE"/>
+            <column name="FIN_TXSET1__BEG1_TIME1" type="TIME"/>
+            <column name="FIN_TXSET1__HOW1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__WHAT_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__WHAT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__WHY_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_TXSET1__WHY1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__ID" type="UUID"/>
+            <column name="FIN_TXACT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__ID2_TRGT" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__EI1__ROLE" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__GEN_CHAN1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__BEG1_DATE1" type="DATE"/>
+            <column name="FIN_TXACT1__BEG1_TIME1" type="TIME"/>
+            <column name="FIN_TXACT1__HOW1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__WHAT_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__WHAT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__WHY_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__WHY1__ID2" type="VARCHAR(255)"/>
+            <column name="ID_X" type="INT"/>
+            <column name="ID_Y" type="INT"/>
+            <column name="ID_Z" type="INT"/>
+            <column name="FIN_STMT1__ID" type="UUID"/>
+            <column name="FIN_STMT1__ID2" type="VARCHAR(255)"/>
+            <column name="EXCH_DESC" type="CLOB"/>
+            <column name="REF_ID" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__ID" type="UUID"/>
+            <column name="FIN_STMT_ITM1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__ID2_TRGT" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__DESC1" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__DESC2" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__DESC3" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__DESC4" type="CLOB"/>
+            <column name="FIN_STMT_ITM1__EXCH_DESC" type="VARCHAR(255)"/>
+            <column name="FIN_STMT_ITM1__REF_ID" type="VARCHAR(255)"/>
+            <column name="FIN_ACCT1__ID" type="UUID"/>
+            <column name="FIN_ACCT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_ACCT1__TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_DEPT1__ID" type="UUID"/>
+            <column name="FIN_DEPT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TAX_LNE1__ID" type="UUID"/>
+            <column name="FIN_TAX_LNE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TAX_LNE1__CODE" type="VARCHAR(255)"/>
+            <column name="FIN_TAX_LNE1__TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_HOW1__ID" type="UUID"/>
+            <column name="FIN_HOW1__ID2" type="VARCHAR(255)"/>
+            <column name="WHAT_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_WHAT1__ID" type="UUID"/>
+            <column name="FIN_WHAT1__ID2" type="VARCHAR(255)"/>
+            <column name="WHY_TEXT1" type="VARCHAR(255)"/>
+            <column name="FIN_WHY1__ID" type="UUID"/>
+            <column name="FIN_WHY1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_DEBT" type="DECIMAL(19, 2)"/>
+            <column name="AMT_CRED" type="DECIMAL(19, 2)"/>
+            <column name="AMT_NET" type="DECIMAL(19, 2)"/>
+            <column name="FIN_CURCY1__ID" type="UUID"/>
+            <column name="FIN_CURCY1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_FIN_FMLA1__ID" type="UUID"/>
+            <column name="AMT_FIN_FMLA1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_FIN_TXACT_ITM1__ID" type="UUID"/>
+            <column name="AMT_FIN_TXACT_ITM1__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_FIN_TXACT_ITM1__EI1__RATE" type="DECIMAL(19, 9)"/>
+            <column name="AMT_FIN_TXACT_ITM1__FIN_ACCT1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_ACCT2__ID2" type="VARCHAR(255)"/>
+            <column name="AMT_CALC" type="DECIMAL(19, 2)"/>
+            <column name="AMT_BEG_BAL" type="DECIMAL(19, 2)"/>
+            <column name="AMT_BEG_BAL_CALC" type="DECIMAL(19, 2)"/>
+            <column name="AMT_END_BAL" type="DECIMAL(19, 2)"/>
+            <column name="AMT_END_BAL_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_BAL1__ID" type="UUID"/>
+            <column name="FIN_BAL1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_BAL_SET1__ID" type="UUID"/>
+            <column name="FIN_BAL_SET1__ID2" type="VARCHAR(255)"/>
+            <column name="FIN_TXACT1__FIN_TXACT_ITMS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACT1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_BALS1__ID2" type="CLOB"/>
+            <column name="FIN_BALS1__ID_CNT_CALC" type="INT"/>
+            <column name="FIN_BALS1__AMT_EQ_CALC" type="BOOLEAN"/>
+            <column name="FIN_TXACT_ITMS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACT_ITMS1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACT_ITMS1__ID_CNT_CALC" type="INT"/>
+            <column name="FIN_TXACT_ITMS1__AMT_DEBT_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_CRED_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_EQ_CALC" type="BOOLEAN"/>
+            <column name="FIN_TXACT_ITMS1__FIN_CURCY_CALC" type="BOOLEAN"/>
+            <column name="FIN_TXACT_ITMS1__AMT_DEBT_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_CRED_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_EQ_DIFF" type="BOOLEAN"/>
+            <column name="FIN_TXACTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACTS1__FIN_ACCTS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACTS1__ID_CNT_CALC" type="INT"/>
+            <column name="FIN_TXACTS1__AMT_EQ_CALC" type="BOOLEAN"/>
+            <column name="FIN_STMT_ITMS1__ID_CNT_CALC" type="INT"/>
+            <column name="FIN_STMT_ITMS1__AMT_DEBT_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_CRED_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_NET_SUM_CALC" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_EQ_CALC" type="BOOLEAN"/>
+            <column name="FIN_STMT_ITMS1__AMT_DEBT_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_CRED_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_NET_SUM_DIFF" type="DECIMAL(19, 2)"/>
+            <column name="FIN_STMT_ITMS1__AMT_EQ_DIFF" type="BOOLEAN"/>
+            <column name="FIN_TXSET1__GEN_DOC_VERS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACT1__GEN_DOC_VERS1__ID2" type="CLOB"/>
+            <column name="FIN_TXSET1__GEN_TAGS1__ID2" type="CLOB"/>
+            <column name="FIN_TXACT1__GEN_TAGS1__ID2" type="CLOB"/>
+            <column name="BEG1_TS1" type="DATETIME"/>
+            <column name="BEG1_DATE1" type="DATE"/>
+            <column name="BEG1_DATE1_YR" type="INT"/>
+            <column name="BEG1_DATE1_QTR" type="INT"/>
+            <column name="BEG1_DATE1_MON" type="INT"/>
+            <column name="BEG1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG1_DATE1_DAY" type="INT"/>
+            <column name="BEG1_TIME1" type="TIME"/>
+            <column name="BEG1_TIME1_HR" type="INT"/>
+            <column name="BEG1_TIME1_MIN" type="INT"/>
+            <column name="BEG2_TS1" type="DATETIME"/>
+            <column name="BEG2_DATE1" type="DATE"/>
+            <column name="BEG2_DATE1_YR" type="INT"/>
+            <column name="BEG2_DATE1_QTR" type="INT"/>
+            <column name="BEG2_DATE1_MON" type="INT"/>
+            <column name="BEG2_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="BEG2_DATE1_DAY" type="INT"/>
+            <column name="BEG2_TIME1" type="TIME"/>
+            <column name="BEG2_TIME1_HR" type="INT"/>
+            <column name="BEG2_TIME1_MIN" type="INT"/>
+            <column name="END1_TS1" type="DATETIME"/>
+            <column name="END1_DATE1" type="DATE"/>
+            <column name="END1_DATE1_YR" type="INT"/>
+            <column name="END1_DATE1_QTR" type="INT"/>
+            <column name="END1_DATE1_MON" type="INT"/>
+            <column name="END1_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="END1_DATE1_DAY" type="INT"/>
+            <column name="END1_TIME1" type="TIME"/>
+            <column name="END1_TIME1_HR" type="INT"/>
+            <column name="END1_TIME1_MIN" type="INT"/>
+            <column name="END2_TS1" type="DATETIME"/>
+            <column name="END2_DATE1" type="DATE"/>
+            <column name="END2_DATE1_YR" type="INT"/>
+            <column name="END2_DATE1_QTR" type="INT"/>
+            <column name="END2_DATE1_MON" type="INT"/>
+            <column name="END2_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="END2_DATE1_DAY" type="INT"/>
+            <column name="END2_TIME1" type="TIME"/>
+            <column name="END2_TIME1_HR" type="INT"/>
+            <column name="END2_TIME1_MIN" type="INT"/>
+            <column name="ID_TS_TS1" type="DATETIME"/>
+            <column name="ID_TS_DATE1" type="DATE"/>
+            <column name="ID_TS_DATE1_YR" type="INT"/>
+            <column name="ID_TS_DATE1_QTR" type="INT"/>
+            <column name="ID_TS_DATE1_MON" type="INT"/>
+            <column name="ID_TS_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="ID_TS_DATE1_DAY" type="INT"/>
+            <column name="ID_TS_TIME1" type="TIME"/>
+            <column name="ID_TS_TIME1_HR" type="INT"/>
+            <column name="ID_TS_TIME1_MIN" type="INT"/>
+            <column name="ID_DT_DATE1" type="DATE"/>
+            <column name="ID_DT_DATE1_YR" type="INT"/>
+            <column name="ID_DT_DATE1_QTR" type="INT"/>
+            <column name="ID_DT_DATE1_MON" type="INT"/>
+            <column name="ID_DT_DATE1_MON2" type="VARCHAR(255)"/>
+            <column name="ID_DT_DATE1_DAY" type="INT"/>
+            <column name="ID_TM_TIME1" type="TIME"/>
+            <column name="ID_TM_TIME1_HR" type="INT"/>
+            <column name="ID_TM_TIME1_MIN" type="INT"/>
+
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="ampata">
+        <createTable tableName="AMPATA_SYS_NODE_TYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_NODE_TYPE"/>
+            </column>
+            <column name="TENANT" type="VARCHAR(255)"/>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="CLASS_NAME" type="VARCHAR(255)"/>
+            <column name="PARENT1__ID" type="UUID"/>
+            <column name="PARENT1__ID2" type="VARCHAR(255)"/>
+            <column name="ANCESTORS1__ID2" type="CLOB"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="ABRV" type="VARCHAR(16)"/>
+            <column name="DESC1" type="CLOB"/>
+            <column name="BAL_INC_ON_DEBT" type="BOOLEAN"/>
+            <column name="BAL_INC_ON_CRED" type="BOOLEAN"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="7" author="ampata">
+        <createTable tableName="AMPATA_SYS_PAT">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_PAT"/>
+            </column>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="ID2_DUP" type="INT"/>
+            <column name="TYPE1__ID" type="UUID"/>
+            <column name="TYPE1__ID2" type="VARCHAR(255)"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="DESC1" type="VARCHAR(255)"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="ampata">
+        <createTable tableName="AMPATA_SYS_PAT_TYPE">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_SYS_PAT_TYPE"/>
+            </column>
+            <column name="ID2" type="VARCHAR(255)"/>
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="CLASS_NAME" type="VARCHAR(255)"/>
+            <column name="SORT_IDX" type="INT"/>
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="ABRV" type="VARCHAR(16)"/>
+            <column name="DESC1" type="CLOB"/>
+            <column name="VERSION" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="DATETIME"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="DATETIME"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="DATETIME"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="9" author="ampata">
+        <addColumn tableName="AMPATA_USER">
+            <column name="TENANT" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="10" author="ampata">
+        <createIndex indexName="IDX_SYSENTITY_FIN_CURCY1__ID" tableName="AMPATA_SYS_ENTITY">
+            <column name="FIN_CURCY1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_CURCY1__ID" baseTableName="AMPATA_SYS_ENTITY"
+                                 constraintName="FK_AMPATA_SYS_ENTITY_ON_FIN_CURCY1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="11" author="ampata">
+        <createIndex indexName="IDX_SYSENTITY_FIN_CURCY2__ID" tableName="AMPATA_SYS_ENTITY">
+            <column name="FIN_CURCY2__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_CURCY2__ID" baseTableName="AMPATA_SYS_ENTITY"
+                                 constraintName="FK_AMPATA_SYS_ENTITY_ON_FIN_CURCY2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="12" author="ampata">
+        <createIndex indexName="IDX_SYSENTITY_NAME1_SYS_PAT1__ID" tableName="AMPATA_SYS_ENTITY">
+            <column name="NAME1_SYS_PAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="NAME1_SYS_PAT1__ID" baseTableName="AMPATA_SYS_ENTITY"
+                                 constraintName="FK_AMPATA_SYS_ENTITY_ON_NAME1_SYS_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_PAT"/>
+    </changeSet>
+    <changeSet id="13" author="ampata">
+        <createIndex indexName="IDX_SYSENTITY_TYPE1__ID" tableName="AMPATA_SYS_ENTITY">
+            <column name="TYPE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE1__ID" baseTableName="AMPATA_SYS_ENTITY"
+                                 constraintName="FK_AMPATA_SYS_ENTITY_ON_TYPE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_ENTITY_TYPE"/>
+    </changeSet>
+    <changeSet id="14" author="ampata">
+        <createIndex indexName="IDX_SYSNODETYPE_PARENT1__ID" tableName="AMPATA_SYS_NODE_TYPE">
+            <column name="PARENT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PARENT1__ID" baseTableName="AMPATA_SYS_NODE_TYPE"
+                                 constraintName="FK_AMPATA_SYS_NODE_TYPE_ON_PARENT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="15" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_AMT_FIN_FMLA1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="AMT_FIN_FMLA1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="AMT_FIN_FMLA1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_AMT_FIN_FMLA1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_ENTITY"/>
+    </changeSet>
+    <changeSet id="16" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_AMT_FIN_TXACT_ITM1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="AMT_FIN_TXACT_ITM1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="AMT_FIN_TXACT_ITM1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_AMT_FIN_TXACT_ITM1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="17" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_DESC1_FIN_TXACT_ITM1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="DESC1_FIN_TXACT_ITM1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESC1_FIN_TXACT_ITM1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_DESC1_FIN_TXACT_ITM1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="18" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_DESC1_FIN_TXACT_ITM2__ID" tableName="AMPATA_SYS_NODE">
+            <column name="DESC1_FIN_TXACT_ITM2__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESC1_FIN_TXACT_ITM2__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_DESC1_FIN_TXACT_ITM2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="19" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_DESC1_SYS_PAT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="DESC1_SYS_PAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DESC1_SYS_PAT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_DESC1_SYS_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_PAT"/>
+    </changeSet>
+    <changeSet id="20" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_ACCT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_ACCT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_ACCT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_ACCT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="21" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_BAL1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_BAL1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_BAL1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_BAL1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="22" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_BAL_SET1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_BAL_SET1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_BAL_SET1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_BAL_SET1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="23" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_CURCY1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_CURCY1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_CURCY1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_CURCY1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="24" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_DEPT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_DEPT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_DEPT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_DEPT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="25" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_HOW1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_HOW1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_HOW1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_HOW1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_ENTITY"/>
+    </changeSet>
+    <changeSet id="26" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_STMT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_STMT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_STMT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_STMT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="27" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_STMT_ITM1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_STMT_ITM1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_STMT_ITM1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_STMT_ITM1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="28" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_TAX_LNE1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_TAX_LNE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_TAX_LNE1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_TAX_LNE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="29" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_TXACT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_TXACT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_TXACT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_TXACT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="30" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_TXSET1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_TXSET1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_TXSET1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_TXSET1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="31" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_WHAT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_WHAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_WHAT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_WHAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_ENTITY"/>
+    </changeSet>
+    <changeSet id="32" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_FIN_WHY1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="FIN_WHY1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="FIN_WHY1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_FIN_WHY1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_ENTITY"/>
+    </changeSet>
+    <changeSet id="33" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_AGENT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_AGENT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_AGENT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_AGENT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="34" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_AGENT2__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_AGENT2__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_AGENT2__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_AGENT2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="35" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_CHAN1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_CHAN1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_CHAN1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_CHAN1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="36" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_CHAN2__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_CHAN2__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_CHAN2__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_CHAN2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="37" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_DOC_VER1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_DOC_VER1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_DOC_VER1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_DOC_VER1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="38" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_FILE1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_FILE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_FILE1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_FILE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="39" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_TAG1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_TAG1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_TAG1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="40" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_TAG2__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_TAG2__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG2__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_TAG2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="41" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_TAG3__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_TAG3__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG3__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_TAG3_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="42" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_GEN_TAG4__ID" tableName="AMPATA_SYS_NODE">
+            <column name="GEN_TAG4__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG4__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_GEN_TAG4_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="43" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_NAME1_SYS_PAT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="NAME1_SYS_PAT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="NAME1_SYS_PAT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_NAME1_SYS_PAT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_PAT"/>
+    </changeSet>
+    <changeSet id="44" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_PARENT1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="PARENT1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PARENT1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_PARENT1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE"/>
+    </changeSet>
+    <changeSet id="45" author="ampata">
+        <createIndex indexName="IDX_SYSNODE_TYPE1__ID" tableName="AMPATA_SYS_NODE">
+            <column name="TYPE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE1__ID" baseTableName="AMPATA_SYS_NODE"
+                                 constraintName="FK_AMPATA_SYS_NODE_ON_TYPE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="46" author="ampata">
+        <createIndex indexName="IDX_SYSPAT_TYPE1__ID" tableName="AMPATA_SYS_PAT">
+            <column name="TYPE1__ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TYPE1__ID" baseTableName="AMPATA_SYS_PAT"
+                                 constraintName="FK_AMPATA_SYS_PAT_ON_TYPE1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_SYS_PAT_TYPE"/>
+    </changeSet>
+</databaseChangeLog>

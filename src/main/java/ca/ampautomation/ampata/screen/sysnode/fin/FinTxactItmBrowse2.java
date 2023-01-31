@@ -1990,6 +1990,7 @@ public class FinTxactItmBrowse2 extends MasterDetailScreen<SysNode> {
         updateFinTxactItmHelper();
         logger.trace(logPrfx + " <-- ");
     }
+
     private void updateFinTxactItmHelper() {
         String logPrfx = "updateFinTxactItmHelper";
         logger.trace(logPrfx + " --> ");

@@ -33,22 +33,19 @@
         <property name="name1"/>
         <property name="desc1"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_FinRate" name="finRate-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="ampata_ExtCurcyExchRate" name="extCurcyExchRate-fetch-plan-base" extends="_instance_name">
         <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
+        <property name="sortKey"/>
         <property name="name1"/>
         <property name="desc1"/>
         <property name="beg1" fetchPlan="_base"/>
         <property name="amt1"/>
         <property name="amt2"/>
-        <property name="finCurcy1_Id" fetchPlan="_instance_name"/>
         <property name="finCurcy1_Id2"/>
-        <property name="finCurcy2_Id" fetchPlan="_instance_name"/>
         <property name="finCurcy2_Id2"/>
     </fetchPlan>
     <fetchPlan entity="ampata_FinWhat" name="finWhat-fetch-plan-base" extends="_instance_name">

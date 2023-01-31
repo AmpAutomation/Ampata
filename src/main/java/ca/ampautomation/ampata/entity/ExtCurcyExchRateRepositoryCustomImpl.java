@@ -5,13 +5,13 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class FinRateRepositoryCustomImpl implements FinRateRepositoryCustom {
+public class ExtCurcyExchRateRepositoryCustomImpl implements ExtCurcyExchRateRepositoryCustom {
     @PersistenceContext
     private EntityManager em;
 
     @Override
     @Transactional
-    public void execFinRatePrUpdNative(){this.em.createNativeQuery("call Fin_Rate_Pr_Upd()").executeUpdate();
+    public void execExtCurcyExchRatePrUpdNative(){this.em.createNativeQuery("call Ext_Curcy_Exch_Rate_Pr_Upd()").executeUpdate();
     }
 
 }

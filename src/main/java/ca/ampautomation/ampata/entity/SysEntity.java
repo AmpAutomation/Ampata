@@ -21,7 +21,7 @@ import java.util.UUID;
         @Index(name = "IDX_SYSENTITY_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_SYSENTITY_NAME1_SYS_PAT1__ID", columnList = "NAME1_SYS_PAT1__ID"),
         @Index(name = "IDX_SYSENTITY_FIN_CURCY1__ID", columnList = "FIN_CURCY1__ID"),
-        @Index(name = "IDX_SYSENTITY_FIN_CURCY2__ID", columnList = "FIN_CURCY2__ID"),
+        @Index(name = "IDX_SYSENTITY_FIN_CURCY2__ID", columnList = "FIN_CURCY2__ID")
 })
 @Entity(name = "ampata_SysEntity")
 public class SysEntity {
@@ -50,7 +50,7 @@ public class SysEntity {
     @Column(name = "TYPE1__ID2")
     private String type1_Id2;
 
-    @Column(name = "SORT_ORDER")
+    @Column(name = "SORT_IDX")
     private Integer sortIdx;
 
     @Column(name = "NAME1")
