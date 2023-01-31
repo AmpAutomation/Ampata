@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://finRateBrowse2.caption"
+        caption="msg://extCurcyExchRateBrowse2.caption"
         focusComponent="table">
     <data>
         <collection id="extCurcyExchRatesDc"
@@ -152,8 +152,8 @@
                                  spacing="true">
                                 <form id="tab1Form" dataContainer="extCurcyExchRateDc">
                                     <column width="480px">
-                                        <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
-                                            <textArea id="desc1Field" dataContainer="extCurcyExchRateDc" property="desc1" rows="1" tabIndex="10"/>
+                                        <hbox caption="desc1" expand="desc1Field" width="1200px" colspan="3" >
+                                            <textArea id="desc1Field" dataContainer="extCurcyExchRateDc" property="desc1" tabIndex="10" rows="1"/>
                                             <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id" expand="idField" width="100%">
@@ -202,14 +202,14 @@
                                                     tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="beg1.date1" expand="begDate1Field" width="100%">
-                                            <dateField id="begDate1Field" dataContainer="finRateDc"
+                                            <dateField id="begDate1Field" dataContainer="extCurcyExchRateDc"
                                                        property="beg1.date1" dateFormat="yyyy-MM-dd"
                                                        tabIndex="20"/>
                                         </hbox>
                                     </column>
                                     <column width="360px">
                                         <hbox caption="amt1" expand="amt1Field" width="100%">
-                                            <textField id="amt1Field" dataContainer="finRateDc"
+                                            <textField id="amt1Field" dataContainer="extCurcyExchRateDc"
                                                        property="amt1" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>
@@ -217,13 +217,13 @@
                                             </textField>
                                         </hbox>
                                         <hbox caption="amt2" expand="amt2Field" width="100%">>
-                                            <textField id="amt2Field" dataContainer="finRateDc"
+                                            <textField id="amt2Field" dataContainer="extCurcyExchRateDc"
                                                        property="amt2" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>
                                                 </formatter>
                                             </textField>
-                                            <button id="updateFinRateInvFieldBtn" icon="font-icon:REFRESH"
+                                            <button id="updateAmt2FieldBtn" icon="font-icon:REFRESH"
                                                     tabIndex="-1"/>
                                         </hbox>
                                     </column>

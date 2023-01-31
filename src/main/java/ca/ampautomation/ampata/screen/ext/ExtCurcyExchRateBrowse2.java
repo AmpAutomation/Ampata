@@ -105,14 +105,14 @@ public class ExtCurcyExchRateBrowse2 extends MasterDetailScreen<ExtCurcyExchRate
     private Table<ExtCurcyExchRate> table;
 
     @Autowired
-    private InstanceContainer<ExtCurcyExchRate> ExtCurcyExchRateDc;
+    private InstanceContainer<ExtCurcyExchRate> extCurcyExchRateDc;
 
 
     @Autowired
-    private CollectionContainer<ExtCurcyExchRate> ExtCurcyExchRatesDc;
+    private CollectionContainer<ExtCurcyExchRate> extCurcyExchRatesDc;
 
     @Autowired
-    private DataLoader ExtCurcyExchRatesDl;
+    private DataLoader extCurcyExchRatesDl;
 
 
     @Autowired
@@ -228,9 +228,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         repo.execExtCurcyExchRatePrUpdNative();
         logger.debug(logPrfx + " --- finished Db-Proc.Ext_Curcy_Exch_Rate_Pr_Upd()");
 
-        logger.debug(logPrfx + " --- loading ExtCurcyExchRatesDl.load()");
-        ExtCurcyExchRatesDl.load();
-        logger.debug(logPrfx + " --- finished ExtCurcyExchRatesDl.load()");
+        logger.debug(logPrfx + " --- loading extCurcyExchRatesDl.load()");
+        extCurcyExchRatesDl.load();
+        logger.debug(logPrfx + " --- finished extCurcyExchRatesDl.load()");
 
 
         logger.trace(logPrfx + " <-- ");
@@ -270,7 +270,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             ExtCurcyExchRate savedCopy = dataManager.save(copy);
-            ExtCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            extCurcyExchRatesDc.getMutableItems().add(savedCopy);
             logger.debug("Duplicated ExtCurcyExchRate " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
@@ -323,7 +323,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             ExtCurcyExchRate savedCopy = dataManager.save(copy);
-            ExtCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            extCurcyExchRatesDc.getMutableItems().add(savedCopy);
             logger.debug("Derived ExtCurcyExchRate " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
@@ -401,8 +401,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.debug(logPrfx + " --- executing dataContext.commit().");
             dataContext.commit();
 
-            logger.debug(logPrfx + " --- executing ExtCurcyExchRatesDl.load().");
-            ExtCurcyExchRatesDl.load();
+            logger.debug(logPrfx + " --- executing extCurcyExchRatesDl.load().");
+            extCurcyExchRatesDl.load();
 
             List<ExtCurcyExchRate> thisExtCurcyExchRates = table.getSelected().stream().toList();
 
@@ -427,8 +427,8 @@ are not fully initialized, for example, buttons are not linked with actions.
                 logger.debug(logPrfx + " --- executing dataContext.commit().");
                 dataContext.commit();
 
-                logger.debug(logPrfx + " --- executing ExtCurcyExchRatesDl.load().");
-                ExtCurcyExchRatesDl.load();
+                logger.debug(logPrfx + " --- executing extCurcyExchRatesDl.load().");
+                extCurcyExchRatesDl.load();
 
                 table.sort("id2", Table.SortDirection.ASCENDING);
                 table.setSelected(thisExtCurcyExchRates);
@@ -465,8 +465,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.debug(logPrfx + " --- executing dataContext.commit().");
             dataContext.commit();
 
-            logger.debug(logPrfx + " --- executing ExtCurcyExchRatesDl.load().");
-            ExtCurcyExchRatesDl.load();
+            logger.debug(logPrfx + " --- executing extCurcyExchRatesDl.load().");
+            extCurcyExchRatesDl.load();
 
             table.sort("id2", Table.SortDirection.ASCENDING);
             try{table.setSelected(thisExtCurcyExchRates);
@@ -486,7 +486,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -504,7 +504,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+            ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
             if (thisExtCurcyExchRate == null) {
                 logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -522,7 +522,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -541,7 +541,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -559,7 +559,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -577,7 +577,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -595,7 +595,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+            ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
             if (thisExtCurcyExchRate == null) {
                 logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -616,7 +616,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+            ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
             if (thisExtCurcyExchRate == null) {
                 logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -657,7 +657,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+            ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
             if (thisExtCurcyExchRate == null) {
                 logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -672,19 +672,19 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    @Subscribe("updateExtCurcyExchRateInvFieldBtn")
-    public void onUpdateExtCurcyExchRateInvFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateExtCurcyExchRateInvFieldBtnClick";
+    @Subscribe("updateAmt2FieldBtn")
+    public void onUpdateAmt2FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateAmt2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        ExtCurcyExchRate thisExtCurcyExchRate = ExtCurcyExchRateDc.getItemOrNull();
+        ExtCurcyExchRate thisExtCurcyExchRate = extCurcyExchRateDc.getItemOrNull();
         if (thisExtCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisExtCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateExtCurcyExchRateInv(thisExtCurcyExchRate);
+        updateExtCurcyExchAmt2(thisExtCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -881,21 +881,21 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateExtCurcyExchRateInv(@NotNull ExtCurcyExchRate thisExtCurcyExchRate) {
-        String logPrfx = "updateExtCurcyExchRateInv";
+    private Boolean updateExtCurcyExchAmt2(@NotNull ExtCurcyExchRate thisExtCurcyExchRate) {
+        String logPrfx = "updateExtCurcyExchAmt2";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        BigDecimal ExtCurcyExchRate = thisExtCurcyExchRate.getAmt1();
-        BigDecimal ExtCurcyExchRateInv_ = thisExtCurcyExchRate.getAmt2();
-        BigDecimal ExtCurcyExchRateInv = null;
-        if (!ExtCurcyExchRate.equals(BigDecimal.ZERO)){
-            ExtCurcyExchRateInv = new BigDecimal(1 / ExtCurcyExchRate.doubleValue()).setScale(9, RoundingMode.HALF_UP);;
+        BigDecimal amt1 = thisExtCurcyExchRate.getAmt1();
+        BigDecimal amt2_ = thisExtCurcyExchRate.getAmt2();
+        BigDecimal amt2 = null;
+        if (!amt1.equals(BigDecimal.ZERO)){
+            amt2 = new BigDecimal(1 / amt1.doubleValue()).setScale(9, RoundingMode.HALF_UP);;
         }
 
-        if (!Objects.equals(ExtCurcyExchRateInv_, ExtCurcyExchRateInv)){
-            thisExtCurcyExchRate.setAmt2(ExtCurcyExchRateInv);
-            logger.debug(logPrfx + " --- ExtCurcyExchRateInv: " + ExtCurcyExchRateInv.setScale(9, RoundingMode.HALF_UP));
+        if (!Objects.equals(amt2_, amt2)){
+            thisExtCurcyExchRate.setAmt2(amt2);
+            logger.debug(logPrfx + " --- amt2: " + amt2.setScale(9, RoundingMode.HALF_UP));
             isChanged = true;
         }
 

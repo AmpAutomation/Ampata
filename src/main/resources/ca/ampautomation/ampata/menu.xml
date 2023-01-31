@@ -58,8 +58,6 @@
         <menu id="finEntity" caption="Entities">
             <item screen="ampata_FinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.finfmla/finFmlaBrowse.menu"/>
             <item screen="ampata_FinHow.browse" caption="msg://ca.ampautomation.ampata.screen.finhow/finHowBrowse.menu"/>
-            <item screen="ExtCurcyExchRateBrowse" caption="msg://ca.ampautomation.ampata.screen.finrate/finRateBrowse.menu"/>
-            <item screen="ExtCurcyExchRateBrowse2" caption="msg://ca.ampautomation.ampata.screen.finrate/finRateBrowse2.menu"/>
             <item screen="ampata_FinWhat.browse" caption="msg://ca.ampautomation.ampata.screen.finwhat/finWhatBrowse.menu"/>
             <item screen="ampata_FinWhy.browse" caption="msg://ca.ampautomation.ampata.screen.finwhy/finWhyBrowse.menu"/>
         </menu>
@@ -68,6 +66,11 @@
         <menu id="tngyEquip" caption="Equipment">
             <item screen="ampata_TngyEquip.browse2"
                   caption="msg://ca.ampautomation.ampata.screen.sysnode.tngy/tngyEquipBrowse2.menu"/>
+        </menu>
+    </menu>
+    <menu id="ext" caption="External Systems">
+        <menu id="extCurcyExchRate" caption="Curency Exch Rate">
+            <item screen="ampata_ExtCurcyExchRate.browse2" caption="msg://ca.ampautomation.ampata.screen.ext/extCurcyExchRateBrowse2.menu"/>
         </menu>
     </menu>
     <menu id="admin" caption="Administration">
