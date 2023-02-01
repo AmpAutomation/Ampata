@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://finTxactItmBrowse.caption"
+        focusComponent="table">
+    <data readOnly="true">
+        <collection id="finTxactItmsDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    fetchPlan="finTxactItm-fetch-plan-base">
+            <loader id="finTxactItmsDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNode e where e.className = 'FinTxactItm']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="table" spacing="true">
+        <filter id="filter"
+                dataLoader="finTxactItmsDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="table"
+                    width="100%"
+                    dataContainer="finTxactItmsDc">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxactItm.edit"/>
+                    </properties>
+                </action>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxactItm.edit"/>
+                    </properties>
+                </action>
+                <action id="duplicate" type="remove"/>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="finTxact1_Id.finTxset1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.type1_Id" caption="Txs.type1"/>
+                <column id="finTxact1_Id.finTxset1_Id.desc1"  caption="Txs.desc1" width="320px"/>
+
+                <column id="finTxact1_Id"/>
+                <column id="finTxact1_Id.type1_Id" caption="Txa.type1"/>
+                <column id="finTxact1_Id.finTxset1_EI1_Role" caption="Txa Role"/>
+                <column id="finTxact1_Id.desc1" caption="Txa.desc1" width="320px"/>
+
+                <column id="id2"/>
+                <column id="id2Dup"/>
+                <column id="type1_Id"/>
+                <column id="finTxact1_EI1_Role" caption="Txf Role"/>
+                <column id="desc1" width="320px"/>
+                <column id="finAcct1_Id"/>
+                <column id="finDept1_Id"/>
+                <column id="amtDebt"/>
+                <column id="amtCred"/>
+                <column id="amtNet"/>
+                <column id="sysFinCurcy1_Id"/>
+
+                <column id="idTs.ts1" caption="idTs"/>
+                <column id="idX"/>
+                <column id="idY"/>
+                <column id="idZ"/>
+
+                <column id="genChan1_Id"/>
+                <column id="finHow1_Id"/>
+                <column id="whatText1"/>
+                <column id="finWhat1_Id"/>
+                <column id="whyText1"/>
+                <column id="finWhy1_Id"/>
+
+                <column id="finStmt1_Id"/>
+                <column id="finStmtItm1_Desc1"/>
+                <column id="finStmtItm1_Desc2"/>
+                <column id="finStmtItm1_Desc3"/>
+                <column id="finStmtItm1_ExchDesc"/>
+                <column id="finStmtItm1_RefId"/>
+                <column id="finTaxLne1_Id"/>
+                <column id="finTaxLne1_Code"/>
+
+                <column id="finFmla1_Id"/>
+                <column id="amtFinTxactItm1_Id"/>
+                <column id="finTxactItm1_EI1_Rate"/>
+                <column id="calcRslt"/>
+
+                <column id="finTxact1_Id.finTxset1_Id.genChan1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.finHow1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.whatText1"/>
+                <column id="finTxact1_Id.finTxset1_Id.finWhat1_Id"/>
+                <column id="finTxact1_Id.finTxset1_Id.whyText1"/>
+                <column id="finTxact1_Id.finTxset1_Id.finWhy1_Id"/>
+
+                <column id="finTxact1_Id.genChan1_Id"/>
+                <column id="finTxact1_Id.finHow1_Id"/>
+                <column id="finTxact1_Id.whatText1"/>
+                <column id="finTxact1_Id.finWhat1_Id"/>
+                <column id="finTxact1_Id.whyText1"/>
+                <column id="finTxact1_Id.finWhy1_Id"/>
+
+                <column id="genDocVers1_Id2"/>
+                <column id="genDocVer1_Id"/>
+                <column id="genDocVer1_Id2"/>
+                <column id="genFile1_Id"/>
+                <column id="genFile1_Id2"/>
+                <column id="genTags1_Id2"/>
+                <column id="genTag1_Id"/>
+                <column id="genTag1_Id2"/>
+                <column id="genTag2_Id"/>
+                <column id="genTag2_Id2"/>
+                <column id="genTag3_Id"/>
+                <column id="genTag3_Id2"/>
+                <column id="genTag4_Id"/>
+                <column id="genTag4_Id2"/>
+                <column id="note"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="table.create"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

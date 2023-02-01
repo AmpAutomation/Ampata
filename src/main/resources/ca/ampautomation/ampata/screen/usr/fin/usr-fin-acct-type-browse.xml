@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://finAcctTypeBrowse.caption"
+        focusComponent="usrNodeTypesTable">
+    <data readOnly="true">
+        <collection id="usrNodeTypesDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
+                    fetchPlan="finAcctType-fetch-plan-base">
+            <loader id="usrNodeTypesDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNodeType e where e.className = 'FinAcct' ]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="usrNodeTypesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="usrNodeTypesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="usrNodeTypesTable"
+                    width="100%"
+                    dataContainer="usrNodeTypesDc">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinAcctType.edit"/>
+                    </properties>
+                </action>
+                <action id="duplicate"/>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinAcctType.edit"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="parent1_Id"/>
+                <column id="parent1_Id2"/>
+                <column id="ancestors1_Id2"/>
+                <column id="sortIdx"/>
+                <column id="name1"/>
+                <column id="abrv"/>
+                <column id="desc1"/>
+                <column id="balIncOnDebt"/>
+                <column id="balIncOnCred"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="usrNodeTypesTable.create"/>
+                <button id="duplicateBtn" action="usrNodeTypesTable.duplicate" caption="Duplicate"/>
+                <button id="editBtn" action="usrNodeTypesTable.edit"/>
+                <button id="refreshBtn" action="usrNodeTypesTable.refresh"/>
+                <button id="removeBtn" action="usrNodeTypesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

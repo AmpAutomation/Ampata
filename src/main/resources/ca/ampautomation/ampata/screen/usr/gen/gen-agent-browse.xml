@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://genAgentBrowse.caption"
+        focusComponent="usrNodesTable">
+    <data readOnly="true">
+        <collection id="usrNodesDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    fetchPlan="genAgent-fetch-plan-base">
+            <loader id="usrNodesDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNode e where e.className = 'GenAgent']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="usrNodesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="usrNodesDl">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <groupTable id="usrNodesTable"
+                    width="100%"
+                    dataContainer="usrNodesDc">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_GenAgent.edit"/>
+                    </properties>
+                </action>
+                <action id="duplicate" />
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_GenAgent.edit"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="className"/>
+                <column id="parent1_Id"/>
+                <column id="parent1_Id2"/>
+                <column id="ancestors1_Id2"/>
+                <column id="sortIdx"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="inst"/>
+                <column id="name1"/>
+                <column id="name1GenPat1_Id"/>
+                <column id="name1GenPat1_Id2"/>
+                <column id="name2"/>
+                <column id="abrv"/>
+                <column id="desc1"/>
+                <column id="genDocVers1_Id2"/>
+                <column id="genDocVer1_Id"/>
+                <column id="genDocVer1_Id2"/>
+                <column id="genFile1_Id"/>
+                <column id="genFile1_Id2"/>
+                <column id="genTags1_Id2"/>
+                <column id="genTag1_Id"/>
+                <column id="genTag1_Id2"/>
+                <column id="namePrfx"/>
+                <column id="nameFrst"/>
+                <column id="nameMidl"/>
+                <column id="nameLast"/>
+                <column id="nameSufx"/>
+                <column id="genAgent1_Id"/>
+                <column id="genAgent1_Id2"/>
+                <column id="genAgent2_Id"/>
+                <column id="genAgent2_Id2"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="usrNodesTable.create"/>
+                <button id="duplicateBtn" action="usrNodesTable.duplicate" caption="Duplicate" icon="font-icon:COPY"/>
+                <button id="editBtn" action="usrNodesTable.edit"/>
+                <button id="refreshBtn" action="usrNodesTable.refresh"/>
+                <button id="removeBtn" action="usrNodesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
