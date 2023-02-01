@@ -36,12 +36,16 @@
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
-                    <propertyFilter id="propFilter_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
-                    <propertyFilter id="propFilter_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
-                    <propertyFilter id="propFilter_beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                    <propertyFilter id="propFilter_beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                    <propertyFilter id="propFilter_sysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="sysFinCurcy1_Id2" operationEditable="true"/>
-                    <propertyFilter id="propFilter_sysFinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="sysFinCurcy2_Id2" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
+                    <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
+                    <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_SysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
+                        <entityComboBox metaClass="ampata_SysNode"/>
+                    </propertyFilter>
+                    <propertyFilter id="filterConfig1A_SysFinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
+                        <entityComboBox metaClass="ampata_SysNode"/>
+                    </propertyFilter>
                 </configuration>
             </configurations>
         </filter>
@@ -68,8 +72,8 @@
                         <number format="#0.000000"/>
                     </formatter>
                 </column>
-                <column id="sysFinCurcy1_Id2"/>
-                <column id="sysFinCurcy2_Id2"/>
+                <column id="finCurcy1_Id"/>
+                <column id="finCurcy2_Id"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
@@ -104,9 +108,9 @@
                         <hbox spacing="true">
                             <hbox caption="beg1.date1">
                                 <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                    <checkBox id="tmplt_beg1Date1FieldChk" align="MIDDLE_RIGHT"/>
+                                    <checkBox id="tmplt_Beg1Date1FieldChk" align="MIDDLE_RIGHT"/>
                                 </hbox>
-                                <dateField id="tmplt_beg1Date1Field" datatype="localDate" dateFormat="yyyy-MM-dd"/>
+                                <dateField id="tmplt_Beg1Date1Field" datatype="localDate" dateFormat="yyyy-MM-dd"/>
                             </hbox>
                         </hbox>
                     </tab>

@@ -15,9 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_FinAcctType.browse")
+@UiController("ampata_UsrFinAcctType.browse")
 @UiDescriptor("usr-fin-acct-type-browse.xml")
-@LookupComponent("usrNodeTypesTable")
+@LookupComponent("table")
 public class UsrFinAcctTypeBrowse extends StandardLookup<UsrNodeType> {
 
     @Autowired
@@ -52,7 +52,7 @@ public class UsrFinAcctTypeBrowse extends StandardLookup<UsrNodeType> {
                     UsrNodeType copy = makeCopy(orig);
                     UsrNodeType savedCopy = dataManager.save(copy);
                     usrNodeTypesDc.getMutableItems().add(savedCopy);
-                    logger.debug("Duplicated FinAcctType " + copy.getId2() + " "
+                    logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                             + "[" + orig.getId() + "]"
                             +" -> "
                             +"[" + copy.getId() + "]"

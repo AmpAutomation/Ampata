@@ -1,6 +1,9 @@
 package ca.ampautomation.ampata.screen.sys.fin;
 
 import ca.ampautomation.ampata.entity.*;
+import ca.ampautomation.ampata.entity.sys.SysNode;
+import ca.ampautomation.ampata.entity.sys.SysNodeRepository;
+import ca.ampautomation.ampata.entity.sys.SysNodeType;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeRepository;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
@@ -22,10 +25,13 @@ import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@UiController("ampata_FinCurcy.browse2")
+@UiController("ampata_SysFinCurcy.browse2")
 @UiDescriptor("sys-fin-curcy-browse2.xml")
 @LookupComponent("table")
-public class SysFinCurcyBrowse2 extends MasterDetailScreen<UsrNode> {
+public class SysFinCurcyBrowse2 extends MasterDetailScreen<SysNode> {
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected UiComponents uiComponents;
@@ -37,7 +43,7 @@ public class SysFinCurcyBrowse2 extends MasterDetailScreen<UsrNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private UsrNodeRepository repo;
+    private SysNodeRepository repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -61,54 +67,44 @@ public class SysFinCurcyBrowse2 extends MasterDetailScreen<UsrNode> {
     private Notifications notifications;
 
 
-    @Autowired
-    protected SingleFilterSupport singleFilterSupport;
-
+    //Filter
     @Autowired
     protected Filter filter;
 
-
     @Autowired
-    protected PropertyFilter<UsrNode> filterConfig1A_type1_Id;
+    protected PropertyFilter<SysNodeType> filterConfig1A_Type1_Id;
 
+    //Toolbar
 
+    //Template
     @Autowired
-    protected EntityComboBox<UsrNodeType> tmplt_Type1_IdField;
+    protected EntityComboBox<SysNodeType> tmplt_Type1_IdField;
 
     @Autowired
     protected CheckBox tmplt_Type1_IdFieldChk;
 
-    
-    @Autowired
-    private Table<UsrNode> table;
-
-    @Autowired
-    private CollectionContainer<UsrNode> finCurcysDc;
-
+    //Main data loader
     @Autowired
     private DataLoader finCurcysDl;
 
+    //Main data loaders and containers
     @Autowired
-    private InstanceContainer<UsrNode> finCurcyDc;
+    private CollectionContainer<SysNode> finCurcysDc;
+    @Autowired
+    private InstanceContainer<SysNode> finCurcyDc;
+
+    //Main table
+    @Autowired
+    private Table<SysNode> table;
+
+
+    //Other data loaders and containers
+    private CollectionLoader<SysNodeType> finCurcyTypesDl;
+    private CollectionContainer<SysNodeType> finCurcyTypesDc;
 
 
 
-    private CollectionContainer<UsrNodeType> finCurcyTypesDc;
-
-    private CollectionLoader<UsrNodeType> finCurcyTypesDl;
-
-
-
-    private CollectionContainer<UsrNode> genDocVersDc;
-
-    private CollectionLoader<UsrNode> genDocVersDl;
-
-
-    private CollectionContainer<UsrNode> genTagsDc;
-
-    private CollectionLoader<UsrNode> genTagsDl;
-
-
+    //Field
     @Autowired
     private TextField<String> classNameField;
 
@@ -119,27 +115,8 @@ public class SysFinCurcyBrowse2 extends MasterDetailScreen<UsrNode> {
     private TextField<String> id2CalcField;
 
     @Autowired
-    private EntityComboBox<UsrNodeType> type1_IdField;
+    private EntityComboBox<SysNodeType> type1_IdField;
 
-
-    @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genTag2_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genTag3_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genTag4_IdField;
-
-    
-
-    Logger logger = LoggerFactory.getLogger(SysFinCurcyBrowse2.class);
 
     /*
 InitEvent is sent when the screen controller and all its declaratively defined components are created,
@@ -153,10 +130,10 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-        finCurcyTypesDc = dataComponents.createCollectionContainer(UsrNodeType.class);
+        finCurcyTypesDc = dataComponents.createCollectionContainer(SysNodeType.class);
         finCurcyTypesDl = dataComponents.createCollectionLoader();
         finCurcyTypesDl.setQuery("select e from ampata_SysNodeType e where e.className = 'SysFinCurcy' order by e.id2");
-        FetchPlan finCurcyTypesFp = fetchPlans.builder(UsrNodeType.class)
+        FetchPlan finCurcyTypesFp = fetchPlans.builder(SysNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         finCurcyTypesDl.setFetchPlan(finCurcyTypesFp);
@@ -166,35 +143,6 @@ are not fully initialized, for example, buttons are not linked with actions.
         type1_IdField.setOptionsContainer(finCurcyTypesDc);
         //template
         tmplt_Type1_IdField.setOptionsContainer(finCurcyTypesDc);
-
-
-        genDocVersDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genDocVersDl = dataComponents.createCollectionLoader();
-        genDocVersDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        genDocVersDl.setFetchPlan(genDocVersFp);
-        genDocVersDl.setContainer(genDocVersDc);
-        genDocVersDl.setDataContext(getScreenData().getDataContext());
-
-        genDocVer1_IdField.setOptionsContainer(genDocVersDc);
-
-
-        genTagsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genTagsDl = dataComponents.createCollectionLoader();
-        genTagsDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        genTagsDl.setFetchPlan(genTagsFp);
-        genTagsDl.setContainer(genTagsDc);
-        genTagsDl.setDataContext(getScreenData().getDataContext());
-
-        genTag1_IdField.setOptionsContainer(genTagsDc);
-        genTag2_IdField.setOptionsContainer(genTagsDc);
-        genTag3_IdField.setOptionsContainer(genTagsDc);
-        genTag4_IdField.setOptionsContainer(genTagsDc);
 
 
         logger.trace(logPrfx + " <-- ");
@@ -317,15 +265,15 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing Db-Proc.Usr_Node_Pr_Upd()");
-        repo.execUsrNodePrUpdNative();
-        logger.debug(logPrfx + " --- finished Db-Proc.Usr_Node_Pr_Upd()");
+        logger.debug(logPrfx + " --- executing repo.execNodePrUpdNative()");
+        repo.execNodePrUpdNative();
+        logger.debug(logPrfx + " --- finished repo.execNodePrUpdNative()");
 
-        logger.debug(logPrfx + " --- executing Db-Proc.Fin_Curcy_Pr_Upd()");
+        logger.debug(logPrfx + " --- executing repo.execFinCurcyPrUpdNative()");
         repo.execFinCurcyPrUpdNative();
-        logger.debug(logPrfx + " --- finished Db-Proc.Fin_Curcy_Pr_Upd()");
+        logger.debug(logPrfx + " --- finished repo.execFinCurcyPrUpdNative()");
 
-        logger.debug(logPrfx + " --- loading finCurcysDl.load()");
+        logger.debug(logPrfx + " --- executing finCurcysDl.load()");
         finCurcysDl.load();
         logger.debug(logPrfx + " --- finished finCurcysDl.load()");
 
@@ -338,17 +286,17 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinCurcys = table.getSelected().stream().toList();
+        List<SysNode> thisFinCurcys = table.getSelected().stream().toList();
         if (thisFinCurcys == null || thisFinCurcys.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinCurcy is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        List<UsrNode> sels = new ArrayList<>();
+        List<SysNode> sels = new ArrayList<>();
 
         thisFinCurcys.forEach(orig -> {
-            UsrNode copy = metadataTools.copy(orig);
+            SysNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
             if (tmplt_Type1_IdFieldChk.isChecked()) {
@@ -356,19 +304,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             if (copy.getBeg1() == null) {
-                copy.setBeg1(new HasTmst());}
-            if (copy.getBeg2() == null) {
-                copy.setBeg2(new HasTmst());}
-            if (copy.getEnd1() == null) {
-                copy.setEnd1(new HasTmst());}
-            if (copy.getEnd2() == null) {
-                copy.setEnd2(new HasTmst());}
-            if (copy.getIdTs() == null) {
-                copy.setIdTs(new HasTmst());}
-            if (copy.getIdDt() == null) {
-                copy.setIdDt(new HasDate());}
-            if (copy.getIdTm() == null) {
-                copy.setIdTm(new HasTime());}
+                copy.setBeg1(dataManager.create(HasDate.class));}
 
             updateCalcVals(copy);
 
@@ -381,9 +317,9 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
 
-            UsrNode savedCopy = dataManager.save(copy);
+            SysNode savedCopy = dataManager.save(copy);
             finCurcysDc.getMutableItems().add(savedCopy);
-            logger.debug("Duplicated FinCurcy " + copy.getId2() + " "
+            logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
                     + "[" + copy.getId() + "]"
@@ -403,7 +339,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinCurcys = table.getSelected().stream().toList();
+        List<SysNode> thisFinCurcys = table.getSelected().stream().toList();
         if (thisFinCurcys == null || thisFinCurcys.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinCurcy is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -411,14 +347,14 @@ are not fully initialized, for example, buttons are not linked with actions.
             return;
         }
 
-        List<UsrNode> chngFinCurcys = new ArrayList<>();
-        List<UsrNode> finalChngFinCurcys = chngFinCurcys;
+        List<SysNode> chngFinCurcys = new ArrayList<>();
+        List<SysNode> finalChngFinCurcys = chngFinCurcys;
 
         thisFinCurcys.forEach(thisFinCurcy -> {
             thisFinCurcy = dataContext.merge(thisFinCurcy);
             if (thisFinCurcy != null) {
 
-                Boolean thisFinCurcyIsChanged = false;
+                boolean thisFinCurcyIsChanged = false;
 
                 if (tmplt_Type1_IdFieldChk.isChecked()
                 ) {
@@ -441,7 +377,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
     
-    private void updateFinCurcyHelper(List<UsrNode> chngFinCurcys) {
+    private void updateFinCurcyHelper(List<SysNode> chngFinCurcys) {
         String logPrfx = "updateFinCurcyHelper";
         logger.trace(logPrfx + " --> ");
 
@@ -451,11 +387,11 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.debug(logPrfx + " --- executing finCurcysDl.load().");
             finCurcysDl.load();
 
-            List<UsrNode> thisFinCurcys = table.getSelected().stream().toList();
+            List<SysNode> thisFinCurcys = table.getSelected().stream().toList();
 
             //Loop throught the items again to update the id2Dup attribute
             chngFinCurcys.forEach(thisFinCurcy -> {
-                //UsrNode thisTrackedFinCurcy = dataContext.merge(thisFinCurcy);
+                //SysNode thisTrackedFinCurcy = dataContext.merge(thisFinCurcy);
                 if (thisFinCurcy != null) {
                     thisFinCurcy = dataContext.merge(thisFinCurcy);
                     Boolean thisFinCurcyIsChanged = false;
@@ -483,7 +419,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinCurcys = table.getSelected().stream().toList();
+        List<SysNode> thisFinCurcys = table.getSelected().stream().toList();
         if (thisFinCurcys == null || thisFinCurcys.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinCurcy is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -520,7 +456,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+        SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
         if (thisFinCurcy == null) {
             logger.debug(logPrfx + " --- thisFinCurcy is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -540,7 +476,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+            SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
             if (thisFinCurcy == null) {
                 logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -558,7 +494,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+        SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
         if (thisFinCurcy == null) {
             logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -579,7 +515,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+        SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
         if (thisFinCurcy == null) {
             logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -598,7 +534,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CmpFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+        SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
         if (thisFinCurcy == null) {
             logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -615,7 +551,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2DupFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+        SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
         if (thisFinCurcy == null) {
             logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -646,45 +582,21 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinCurcy = finCurcyDc.getItemOrNull();
+            SysNode thisFinCurcy = finCurcyDc.getItemOrNull();
             if (thisFinCurcy == null) {
                 logger.debug(logPrfx + " --- finCurcyDc is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinCurcy)");
+            logger.debug(logPrfx + " --- executing updateId2Calc(thisFinCurcy)");
             updateId2Calc(thisFinCurcy);
         }
         logger.trace(logPrfx + " <-- ");
     }
 
 
-
-    @Subscribe("updateGenDocVer1_IdFieldListBtn")
-    public void onUpdateGenDocVer1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
-        logger.trace(logPrfx + " --> ");
-
-        genDocVersDl.load();
-        logger.debug(logPrfx + " --- called genDocVersDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateGenTag1_IdFieldListBtn")
-    public void onUpdateGenTag1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateGenTag1_IdFieldListBtn";
-        logger.trace(logPrfx + " --> ");
-
-        genTagsDl.load();
-        logger.debug(logPrfx + " --- called genTagsDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    private Boolean updateCalcVals(@NotNull UsrNode thisFinCurcy) {
+    private Boolean updateCalcVals(@NotNull SysNode thisFinCurcy) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -700,7 +612,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateId2(@NotNull UsrNode thisFinCurcy) {
+    private Boolean updateId2(@NotNull SysNode thisFinCurcy) {
         // Assume thisFinCurcy is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -718,7 +630,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Calc(@NotNull UsrNode thisFinCurcy) {
+    private Boolean updateId2Calc(@NotNull SysNode thisFinCurcy) {
         // Assume thisFinCurcy is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -736,7 +648,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull UsrNode thisFinCurcy) {
+    private Boolean updateId2Cmp(@NotNull SysNode thisFinCurcy) {
         // Assume thisFinCurcy is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -754,7 +666,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Dup(@NotNull UsrNode thisFinCurcy) {
+    private Boolean updateId2Dup(@NotNull SysNode thisFinCurcy) {
         // Assume thisFinCurcy is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -762,7 +674,11 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         Integer id2Dup_ = thisFinCurcy.getId2Dup();
         if (thisFinCurcy.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_UsrNode e where e.className = 'FinCurcy' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from ampata_SysNode e"
+                        + " where e.className = 'SysFinCurcy'"
+                        + " and e.id2 = :id2"
+                        + " and e.id <> :id"
+                    ;
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)

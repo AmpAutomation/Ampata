@@ -94,12 +94,12 @@ import java.util.regex.Pattern;
                 , @StoredProcedureParameter(mode = ParameterMode.OUT, name = "outParam1", type = String.class)
         }),
 
-        @NamedStoredProcedureQuery(name = "UsrNode.execFinTxactItmPrUpd",
+        @NamedStoredProcedureQuery(name = "UsrNode.execUsrFinTxactItmPrUpd",
                 procedureName = "Fin_Txact_Itm_Pr_Upd", parameters = {
 
         }),
 
-        @NamedStoredProcedureQuery(name = "UsrNode.execFinTxactItmPrUpd2",
+        @NamedStoredProcedureQuery(name = "UsrNode.execUsrFinTxactItmPrUpd2",
                 procedureName = "Fin_Txact_Itm_Pr_Upd2"
                 , parameters = {
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "inParam1", type = String.class)

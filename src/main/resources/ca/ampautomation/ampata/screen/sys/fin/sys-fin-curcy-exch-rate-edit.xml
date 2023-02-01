@@ -3,7 +3,7 @@
         caption="msg://sysFinCurcyExchRateEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="sysFinCurcyExchRateDc"
+        <instance id="finCurcyExchRateDc"
                   class="ca.ampautomation.ampata.entity.sys.SysNode"
                   fetchPlan="sysFinCurcyExchRate-fetch-plan-base">
             <loader/>
@@ -25,23 +25,23 @@
     <dialogMode height="600"
                 width="800"/>
     <layout spacing="true" expand="editActions">
-        <form id="form" dataContainer="sysFinCurcyExchRateDc">
+        <form id="form" dataContainer="finCurcyExchRateDc">
             <column width="350px">
                 <textField id="id" property="id" width="100%" editable="false" tabIndex="10"/>
                 <hbox caption="id2" expand="id2Field" width="100%">
-                    <textField id="id2Field" dataContainer="sysFinCurcyExchRateDc" property="id2" tabIndex="10"/>
+                    <textField id="id2Field" dataContainer="finCurcyExchRateDc" property="id2" tabIndex="10"/>
                     <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
-                    <textField id="id2CalcField" dataContainer="sysFinCurcyExchRateDc" property="id2Calc" editable="false" tabIndex="10"/>
+                    <textField id="id2CalcField" dataContainer="finCurcyExchRateDc" property="id2Calc" editable="false" tabIndex="10"/>
                     <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
-                    <checkBox id="id2CmpField" dataContainer="sysFinCurcyExchRateDc" property="id2Cmp" editable="false" tabIndex="10"/>
+                    <checkBox id="id2CmpField" dataContainer="finCurcyExchRateDc" property="id2Cmp" editable="false" tabIndex="10"/>
                     <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Dup" expand="id2DupField" width="100%">
-                    <textField id="id2DupField" dataContainer="sysFinCurcyExchRateDc" property="id2Dup" editable="false" tabIndex="10"/>
+                    <textField id="id2DupField" dataContainer="finCurcyExchRateDc" property="id2Dup" editable="false" tabIndex="10"/>
                     <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                 </hbox>
                 <textField id="name1Field" property="name1"/>
@@ -56,8 +56,8 @@
                         <number format="#0.000000###"/>
                     </formatter>
                 </textField>
-                <textField id="sysFinCurcy1_IdField" property="sysFinCurcy1_Id2"/>
-                <textField id="sysFinCurcy2_IdField" property="sysFinCurcy2_Id2"/>
+                <textField id="finCurcy1_IdField" property="finCurcy1_Id"/>
+                <textField id="finCurcy2_IdField" property="finCurcy2_Id"/>
             </column>
         </form>
         <hbox id="editActions" spacing="true">

@@ -3,15 +3,13 @@ package ca.ampautomation.ampata.entity.usr;
 public interface UsrNodeRepositoryCustom {
 
 
-    void execUsrNodePrUpdNative();
+    void execNodePrUpdNative();
 
     void execGenChanPrUpdNative();
 
     void execFinAcctPrUpdNative();
 
     void execFinDeptPrUpdNative();
-
-    void execFinCurcyPrUpdNative();
 
 
     void execFinTxactItmPrUpdNative();

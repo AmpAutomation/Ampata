@@ -5,15 +5,16 @@ import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_FinCurcy.edit")
+@UiController("ampata_SysFinCurcy.edit")
 @UiDescriptor("sys-fin-curcy-edit.xml")
-@EditedEntityContainer("usrNodeDc")
+@EditedEntityContainer("SysFinCurcyDc")
 public class SysFinCurcyEdit extends StandardEditor<UsrNode> {
     @Autowired
     private TextField<String> classNameField;
 
     @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
+    public void onBeforeShow(BeforeShowEvent event)
+    {
         classNameField.setValue("FinCurcy");
     }
 

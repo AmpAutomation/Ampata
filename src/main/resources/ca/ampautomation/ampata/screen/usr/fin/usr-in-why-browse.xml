@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://finWhyBrowse.caption"
-        focusComponent="finWhiesTable">
+        focusComponent="table">
     <data readOnly="true">
-        <collection id="finWhiesDc"
+        <collection id="finWhysDc"
                     class="ca.ampautomation.ampata.entity.usr.UsrFinWhy">
-            <fetchPlan extends="finWhy-fetch-plan-base"/>
-            <loader id="finWhiesDl">
+            <fetchPlan extends="usrFinWhy-fetch-plan-base"/>
+            <loader id="finWhysDl">
                 <query>
                     <![CDATA[select e from ampata_FinWhy e]]>
                 </query>
@@ -29,9 +29,9 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="finWhiesTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
-                dataLoader="finWhiesDl">
+                dataLoader="finWhysDl">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -40,9 +40,9 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="finWhiesTable"
+        <groupTable id="table"
                     width="100%"
-                    dataContainer="finWhiesDc">
+                    dataContainer="finWhysDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -63,10 +63,10 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="finWhiesTable.create"/>
-                <button id="editBtn" action="finWhiesTable.edit"/>
-                <button id="refreshBtn" action="finWhiesTable.refresh"/>
-                <button id="removeBtn" action="finWhiesTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

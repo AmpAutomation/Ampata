@@ -2,6 +2,10 @@ package ca.ampautomation.ampata.entity.sys;
 
 public interface SysNodeRepositoryCustom {
 
-    void execSysFinCurcyExchRatePrUpdNative();
+    void execNodePrUpdNative();
+
+    void execFinCurcyPrUpdNative();
+
+    void execFinCurcyExchRatePrUpdNative();
 
 }

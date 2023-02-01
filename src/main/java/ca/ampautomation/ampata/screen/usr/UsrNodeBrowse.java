@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr;
 
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.screen.usr.gen.GenAgentBrowse;
+import ca.ampautomation.ampata.screen.usr.gen.UsrGenAgentBrowse;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;
@@ -41,7 +41,7 @@ public class UsrNodeBrowse extends StandardLookup<UsrNode> {
     @Autowired
     private CollectionContainer<UsrNode> usrNodesDc;
 
-    Logger logger = LoggerFactory.getLogger(GenAgentBrowse.class);
+    Logger logger = LoggerFactory.getLogger(UsrGenAgentBrowse.class);
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
@@ -50,7 +50,7 @@ public class UsrNodeBrowse extends StandardLookup<UsrNode> {
                     UsrNode copy = makeCopy(orig);
                     UsrNode savedCopy = dataManager.save(copy);
                     usrNodesDc.getMutableItems().add(savedCopy);
-                    logger.debug("Duplicated GenAgent " + copy.getId2()
+                    logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                             + " [" + orig.getId() + "]"
                             + " -> "
                             + "[" + copy.getId() + "]"

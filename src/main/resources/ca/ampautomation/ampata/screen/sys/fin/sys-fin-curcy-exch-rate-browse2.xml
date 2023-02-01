@@ -3,16 +3,16 @@
         caption="msg://sysFinCurcyExchRateBrowse2.caption"
         focusComponent="table">
     <data>
-        <collection id="sysFinCurcyExchRatesDc"
+        <collection id="finCurcyExchRatesDc"
                     class="ca.ampautomation.ampata.entity.sys.SysNode"
                     fetchPlan="sysFinCurcyExchRate-fetch-plan-base">
-            <loader id="sysFinCurcyExchRatesDl">
+            <loader id="finCurcyExchRatesDl">
                 <query>
                     <![CDATA[select e from ampata_SysNode e where e.className = 'SysFinCurcyExchRate' order by e.id2]]>
                 </query>
             </loader>
         </collection>
-        <instance id="sysFinCurcyExchRateDc"
+        <instance id="finCurcyExchRateDc"
                   class="ca.ampautomation.ampata.entity.sys.SysNode"
                   fetchPlan="sysFinCurcyExchRate-fetch-plan-base">
             <loader/>
@@ -31,19 +31,19 @@
         <split id="split" height="100%" orientation="vertical" reversePosition="true" width="100%">
             <vbox id="lookupBox" expand="table" height="100%" margin="false,true,false,false" spacing="true">
                 <filter id="filter"
-                        dataLoader="sysFinCurcyExchRatesDl" collapsable="true" collapsed="true" columnsCount="4">
+                        dataLoader="finCurcyExchRatesDl" collapsable="true" collapsed="true" columnsCount="4">
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
-                            <propertyFilter id="filterConfig1A_id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
+                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
                             <propertyFilter id="filterConfig1A_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
-                            <propertyFilter id="filterConfig1A_beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_finCurcy1_Id2" caption="finCurcy1_Id2" operation="EQUAL" property="finCurcy1_Id2" operationEditable="true">
-                                <comboBox/>
+                            <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_FinCurcy1_Id2" caption="finCurcy1_Id2" operation="EQUAL" property="finCurcy1_Id2" operationEditable="true">
+                                <entityComboBox metaClass="ampata_SysNode"/>
                             </propertyFilter>
-                            <propertyFilter id="filterConfig1A_finCurcy2_Id2" caption="finCurcy2_Id2" operation="EQUAL" property="finCurcy2_Id2" operationEditable="true">
-                                <comboBox/>
+                            <propertyFilter id="filterConfig1A_FinCurcy2_Id2" caption="finCurcy2_Id2" operation="EQUAL" property="finCurcy2_Id2" operationEditable="true">
+                                <entityComboBox metaClass="ampata_SysNode"/>
                             </propertyFilter>
                         </configuration>
                     </configurations>
@@ -51,7 +51,7 @@
                 <table id="table"
                             width="100%"
                             multiselect="true"
-                            dataContainer="sysFinCurcyExchRatesDc">
+                            dataContainer="finCurcyExchRatesDc">
                     <actions>
                         <action id="create" type="create"/>
                         <action id="edit" type="edit"/>
@@ -75,8 +75,8 @@
                                 <number format="#0.000000"/>
                             </formatter>
                         </column>
-                        <column id="finCurcy1_Id2" caption="finCurcy1_Id2"/>
-                        <column id="finCurcy2_Id2" caption="finCurcy2_Id2"/>
+                        <column id="finCurcy1_Id" caption="finCurcy1_Id"/>
+                        <column id="finCurcy2_Id" caption="finCurcy2_Id"/>
                     </columns>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
@@ -106,17 +106,17 @@
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <hbox spacing="true">
-                                    <hbox caption="finCurcy1_Id2" width="250px" expand="tmplt_FinCurcy1_Id2Field">
+                                    <hbox caption="finCurcy1_Id2" width="250px" expand="tmplt_SysFinCurcy1_IdField">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <checkBox id="tmplt_FinCurcy1_Id2FieldChk" align="MIDDLE_RIGHT" width="10px"/>
                                         </hbox>
-                                        <comboBox id="tmplt_FinCurcy1_Id2Field"/>
+                                        <entityComboBox id="tmplt_SysFinCurcy1_IdField"/>
                                     </hbox>
-                                    <hbox caption="finCurcy2_Id2" width="250px" expand="tmplt_FinCurcy2_Id2Field">
+                                    <hbox caption="finCurcy2_Id2" width="250px" expand="tmplt_SysFinCurcy2_IdField">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <checkBox id="tmplt_FinCurcy2_Id2FieldChk" align="MIDDLE_RIGHT" width="10px"/>
                                         </hbox>
-                                        <comboBox id="tmplt_FinCurcy2_Id2Field"/>
+                                        <entityComboBox id="tmplt_SysFinCurcy2_IdField"/>
                                     </hbox>
                                     <hbox caption="beg1.date1">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
@@ -136,7 +136,7 @@
                     </buttonsPanel>
                 </table>
                 <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
-                    <containerProvider dataContainer="sysFinCurcyExchRatesDc"/>
+                    <containerProvider dataContainer="finCurcyExchRatesDc"/>
                 </pagination>                <hbox id="lookupActions" spacing="true" visible="false">
                     <button action="lookupSelectAction"/>
                     <button action="lookupCancelAction"/>
@@ -144,72 +144,79 @@
             </vbox>
             <vbox id="editBox" expand="fieldGroupBox" height="100%" margin="true,false,false,false" spacing="true">
                 <scrollBox id="fieldGroupBox" width="100%" contentMinHeight="400px" contentMinWidth="1200px">
-                    <form id="form" dataContainer="sysFinCurcyExchRateDc" width="100%">
+                    <form id="form" dataContainer="finCurcyExchRateDc" width="100%">
                         <tabSheet id="tabsheet1" width="100%">
                             <tab id="tab_1"
                                  caption="General"
                                  margin="true"
                                  spacing="true">
-                                <form id="tab1Form" dataContainer="sysFinCurcyExchRateDc">
+                                <form id="tab1Form" dataContainer="finCurcyExchRateDc">
                                     <column width="480px">
                                         <hbox caption="desc1" expand="desc1Field" width="1200px" colspan="3" >
-                                            <textArea id="desc1Field" dataContainer="sysFinCurcyExchRateDc" property="desc1" tabIndex="10" rows="1"/>
+                                            <textArea id="desc1Field" dataContainer="finCurcyExchRateDc" property="desc1" tabIndex="10" rows="1"/>
                                             <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id" expand="idField" width="100%">
-                                            <textField id="idField" dataContainer="sysFinCurcyExchRateDc" property="id" editable="false" tabIndex="10"/>
+                                            <textField id="idField" dataContainer="finCurcyExchRateDc" property="id" editable="false" tabIndex="10"/>
                                         </hbox>
                                         <hbox caption="id2" expand="id2Field" width="100%">
-                                            <textField id="id2Field" dataContainer="sysFinCurcyExchRateDc" property="id2" tabIndex="10"/>
+                                            <textField id="id2Field" dataContainer="finCurcyExchRateDc" property="id2" tabIndex="10"/>
                                             <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Calc" expand="id2CalcField" width="100%">
-                                            <textField id="id2CalcField" dataContainer="sysFinCurcyExchRateDc" property="id2Calc" editable="false" tabIndex="10"/>
+                                            <textField id="id2CalcField" dataContainer="finCurcyExchRateDc" property="id2Calc" editable="false" tabIndex="10"/>
                                             <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
-                                            <checkBox id="id2CmpField" dataContainer="sysFinCurcyExchRateDc" property="id2Cmp" editable="false" tabIndex="10"/>
+                                            <checkBox id="id2CmpField" dataContainer="finCurcyExchRateDc" property="id2Cmp" editable="false" tabIndex="10"/>
                                             <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Dup" expand="id2DupField" width="100%">
-                                            <textField id="id2DupField" dataContainer="sysFinCurcyExchRateDc" property="id2Dup" editable="false" tabIndex="10"/>
+                                            <textField id="id2DupField" dataContainer="finCurcyExchRateDc" property="id2Dup" editable="false" tabIndex="10"/>
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="name1" expand="name1Field" width="100%">
-                                            <textField id="name1Field" dataContainer="sysFinCurcyExchRateDc"
+                                            <textField id="name1Field" dataContainer="finCurcyExchRateDc"
                                                        property="name1" tabIndex="10"/>
                                         </hbox>
                                         <hbox caption="sortIdx" expand="sortIdxField" width="100%">
-                                            <textField id="sortIdxField" dataContainer="sysFinCurcyExchRateDc"
+                                            <textField id="sortIdxField" dataContainer="finCurcyExchRateDc"
                                                        property="sortIdx" tabIndex="10"/>
                                         </hbox>
                                         <hbox caption="sortKey" expand="sortKeyField" width="100%">
-                                            <textField id="sortKeyField" dataContainer="sysFinCurcyExchRateDc"
+                                            <textField id="sortKeyField" dataContainer="finCurcyExchRateDc"
                                                        property="sortKey" tabIndex="10"/>
                                         </hbox>
                                     </column>
                                     <column width="360px">
-                                        <hbox caption="finCurcy1_Id2" expand="finCurcy1_Id2Field" width="100%">
-                                            <comboBox id="finCurcy1_Id2Field" dataContainer="sysFinCurcyExchRateDc"
-                                                       property="finCurcy1_Id2" tabIndex="20"/>
-                                            <button id="updateFinCurcy1_Id2FieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
+                                        <hbox caption="finCurcy1_Id" expand="finCurcy1_IdField" width="100%">
+                                            <entityComboBox id="finCurcy1_IdField" dataContainer="finCurcyExchRateDc" property="finCurcy1_Id" tabIndex="20">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinCurcy1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="finCurcy2_Id2" expand="finCurcy2_Id2Field" width="100%">
-                                            <comboBox id="finCurcy2_Id2Field" dataContainer="sysFinCurcyExchRateDc"
-                                                       property="finCurcy2_Id2" tabIndex="20"/>
-                                            <button id="updateFinCurcy2_Id2FieldListBtn" icon="font-icon:LIST"
-                                                    tabIndex="-1"/>
+                                        <hbox caption="finCurcy2_Id" expand="finCurcy2_IdField" width="100%">
+                                            <entityComboBox id="finCurcy2_IdField" dataContainer="finCurcyExchRateDc" property="finCurcy2_Id" tabIndex="20">
+                                                <actions>
+                                                    <action id="entityOpen" type="entity_open"/>
+                                                    <action id="entityClear" type="entity_clear"/>
+                                                </actions>
+                                            </entityComboBox>
+                                            <button id="updateFinCurcy2_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
+
                                         <hbox caption="beg1.date1" expand="begDate1Field" width="100%">
-                                            <dateField id="begDate1Field" dataContainer="sysFinCurcyExchRateDc"
+                                            <dateField id="begDate1Field" dataContainer="finCurcyExchRateDc"
                                                        property="beg1.date1" dateFormat="yyyy-MM-dd"
                                                        tabIndex="20"/>
                                         </hbox>
                                     </column>
                                     <column width="360px">
                                         <hbox caption="amt1" expand="amt1Field" width="100%">
-                                            <textField id="amt1Field" dataContainer="sysFinCurcyExchRateDc"
+                                            <textField id="amt1Field" dataContainer="finCurcyExchRateDc"
                                                        property="amt1" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>
@@ -217,7 +224,7 @@
                                             </textField>
                                         </hbox>
                                         <hbox caption="amt2" expand="amt2Field" width="100%">>
-                                            <textField id="amt2Field" dataContainer="sysFinCurcyExchRateDc"
+                                            <textField id="amt2Field" dataContainer="finCurcyExchRateDc"
                                                        property="amt2" tabIndex="30">
                                                 <formatter>
                                                     <number format="#0.000000###"/>

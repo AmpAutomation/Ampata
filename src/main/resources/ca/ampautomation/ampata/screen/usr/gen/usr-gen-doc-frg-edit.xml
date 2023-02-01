@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://genDocFrgEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="usrNodeDc"
+                  class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                  fetchPlan="usrGenDocFrg-fetch-plan-base">
+            <loader/>
+        </instance>
+        <collection id="genDocVersDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    fetchPlan="usrGenDocVer-fetch-plan-base">
+            <loader id="genDocVersDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNode e where e.className ='GenDocVer']]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="genTagsDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    fetchPlan="usrGenTag-fetch-plan-base">
+            <loader id="genTagsDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNode e where e.className ='GenTag']]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="genChansDc"
+                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    fetchPlan="usrGenChan-fetch-plan-base">
+            <loader id="genChansDl">
+                <query>
+                    <![CDATA[select e from ampata_UsrNode e where e.className ='GenChan']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="usrNodeDc">
+                <tabSheet width="1200px">
+                    <tab id="tab_1"
+                         caption="General"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab1Form" dataContainer="usrNodeDc">
+                            <column width="350px">
+                                <textField id="id2Field" property="id2"/>
+                                <button id="id2Button" caption="Set id2" align="TOP_RIGHT"/>
+                                <textField id="id2CalcField" property="id2Calc" editable="false"/>
+                                <button id="id2CalcButton" caption="Refresh id2-Calc" align="TOP_RIGHT" colspan="2"/>
+                                <checkBox id="id2CmpField" property="id2Cmp" editable="false"/>
+                                <textField id="id2DupField" property="id2Dup" editable="false"/>
+                                <textField id="classNameField" property="className" enable="false"/>
+                                <entityPicker id="type1_IdField" property="type1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="type1_Id2Field" property="type1_Id2"/>
+                                <textField id="instField" property="inst"/>
+                                <textField id="abrvField" property="abrv"/>
+                                <textField id="codeField" property="code"/>
+                                <textField id="name1Field" property="name1"/>
+                                <textArea id="desc1Field" property="desc1" rows="8" rowspan="8"/>
+                            </column>
+                            <column width="350px">
+                                <textField id="sortIdxField" property="sortIdx"/>
+                                <entityPicker id="name1UsrNode1_IdField" property="name1GenPat1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="name1GenPat1_Id2Field" property="name1GenPat1_Id2"/>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_2"
+                         caption="Docs, Files"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab2Form" dataContainer="usrNodeDc">
+                            <column width="350px">
+                                <textArea id="genDocs1_Id2Field" property="genDocVers1_Id2" rows="4"/>
+                                <entityComboBox id="genDocVer1_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genDocVersDc"
+                                                property="genDocVer1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genDocVer1_Id2Field" property="genDocVer1_Id2"/>
+                                <textField id="genDocVer1_CodeField" property="genDocVer1_Code"/>
+                                <textField id="genDocVer1_VerField" property="genDocVer1_Ver"/>
+                                <textField id="genDocVer1_Name1Field" property="genDocVer1_Name1"/>
+                            </column>
+                            <column width="350px">
+                                <entityPicker id="genFile1_IdField" property="genFile1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityPicker>
+                                <textField id="genFile1_Id2Field" property="genFile1_Id2"/>
+                                <textArea id="genFile1_URIField" property="genFile1_URI" rows="4">
+                                </textArea>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_3"
+                         caption="Chan, Tags"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab3Form" dataContainer="usrNodeDc">
+                            <column width="350px">
+                                <entityComboBox id="genChan1_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genChansDc"
+                                                property="genChan1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genChan1_Id2Field" property="genChan1_Id2"/>
+                            </column>
+                            <column width="350px">
+                                <entityComboBox id="genTag1_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag1_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
+                                <entityComboBox id="genTag2_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag2_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
+                                <entityComboBox id="genTag3_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag3_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
+                                <entityComboBox id="genTag4_IdField" dataContainer="usrNodeDc"
+                                                optionsContainer="genTagsDc"
+                                                property="genTag4_Id">
+                                    <actions>
+                                        <action id="entityLookup" type="entity_lookup"/>
+                                        <action id="entityClear" type="entity_clear"/>
+                                    </actions>
+                                </entityComboBox>
+                                <textField id="genTag4_Id2Field" property="genTag4_Id2"/>
+                            </column>
+
+                        </form>
+                    </tab>
+                    <tab id="tab_4"
+                         caption="Note"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab4Form" dataContainer="usrNodeDc">
+                            <column width="350px">
+                                <textArea id="noteField" property="note" rows="8" rowspan="8"/>
+                            </column>
+                            <column width="350px">
+                            </column>
+                        </form>
+                    </tab>
+                </tabSheet>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

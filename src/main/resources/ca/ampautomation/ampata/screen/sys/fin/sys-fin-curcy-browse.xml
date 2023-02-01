@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://sysFinCurcyBrowse.caption"
-        focusComponent="sysFinCurcysTable">
+        focusComponent="table">
     <data readOnly="true">
         <collection id="sysFinCurcysDc"
                     class="ca.ampautomation.ampata.entity.sys.SysNode"
@@ -29,7 +29,7 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="sysFinCurcysTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
                 dataLoader="sysFinCurcysDl">
             <properties include=".*"/>
@@ -40,7 +40,7 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="sysFinCurcysTable"
+        <groupTable id="table"
                     width="100%"
                     dataContainer="sysFinCurcysDc">
             <actions>
@@ -64,22 +64,18 @@
                 <column id="id2Dup"/>
                 <column id="sortIdx"/>
                 <column id="type1_Id"/>
-                <column id="type1_Id2"/>
                 <column id="inst"/>
                 <column id="name1"/>
-                <column id="name1GenPat1_Id"/>
-                <column id="name1GenPat1_Id2"/>
-                <column id="name2"/>
                 <column id="abrv"/>
                 <column id="desc1"/>
             </columns>
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="sysFinCurcysTable.create"/>
-                <button id="editBtn" action="sysFinCurcysTable.edit"/>
-                <button id="refreshBtn" action="sysFinCurcysTable.refresh"/>
-                <button id="removeBtn" action="sysFinCurcysTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

@@ -5,7 +5,7 @@
     <data>
         <instance id="finHowDc"
                   class="ca.ampautomation.ampata.entity.usr.UsrFinHow"
-                  fetchPlan="finHow-fetch-plan-base">
+                  fetchPlan="usrFinHow-fetch-plan-base">
             <loader/>
         </instance>
     </data>

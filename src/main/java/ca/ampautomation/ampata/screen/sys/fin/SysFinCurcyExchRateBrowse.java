@@ -24,33 +24,12 @@ import java.util.List;
 
 @UiController("ampata_SysFinCurcyExchRate.browse")
 @UiDescriptor("sys-fin-curcy-exch-rate-browse.xml")
-@LookupComponent("sysFinCurcyExchRateTable")
+@LookupComponent("table")
 public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
 
 
     @Autowired
     protected UiComponents uiComponents;
-
-    @Autowired
-    protected Filter filter;
-
-    @Autowired
-    protected PropertyFilter<LocalDate> propFilter_beg1Date1GE;
-
-    @Autowired
-    protected PropertyFilter<LocalDate> propFilter_beg1Date1LE;
-
-    @Autowired
-    protected PropertyFilter<UsrNode> propFilter_sysFinCurcy1_Id;
-
-    @Autowired
-    protected PropertyFilter<UsrNode> propFilter_sysFinCurcy2_Id;
-
-    @Autowired
-    private CheckBox tmplt_beg1Date1FieldChk;
-
-    @Autowired
-    private DateField<LocalDate> tmplt_beg1Date1Field;
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
@@ -80,24 +59,52 @@ public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
     private MetadataTools metadataTools;
 
     @Autowired
-    private GroupTable<SysNode> table;
-
-    @Autowired
     private Notifications notifications;
 
+
+    //Filter
+    @Autowired
+    protected Filter filter;
+
+    @Autowired
+    protected PropertyFilter<LocalDate> filterConfig1A_Beg1Date1GE;
+
+    @Autowired
+    protected PropertyFilter<LocalDate> filterConfig1A_Beg1Date1LE;
+
+    @Autowired
+    protected PropertyFilter<SysNode> filterConfig1A_SysFinCurcy1_Id;
+
+    @Autowired
+    protected PropertyFilter<SysNode> filterConfig1A_SysFinCurcy2_Id;
+
+    //Toolbar
+
+    //Template
+    @Autowired
+    private CheckBox tmplt_Beg1Date1FieldChk;
+
+    @Autowired
+    private DateField<LocalDate> tmplt_Beg1Date1Field;
+
+
+    //Main data loaders and containers
+    @Autowired
+    private DataLoader sysFinCurcyExchRatesDl;
     @Autowired
     private CollectionContainer<SysNode> sysFinCurcyExchRatesDc;
 
+
+    //Main table
     @Autowired
-    private DataLoader sysFinCurcyExchRatesDl;
+    private GroupTable<SysNode> table;
+
+    //Other data loaders and containers
+    private CollectionLoader<SysNode> finCurcysDl;
+    private CollectionContainer<SysNode> finCurcysDc;
 
 
-    private CollectionContainer<UsrNode> sysFinCurcysDc;
-
-    private CollectionLoader<UsrNode> sysFinCurcysDl;
-
-
-
+    //Field
 
     Logger logger = LoggerFactory.getLogger(SysFinCurcyExchRateBrowse.class);
 
@@ -112,21 +119,21 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
 
-        sysFinCurcysDc = dataComponents.createCollectionContainer(UsrNode.class);
-        sysFinCurcysDl = dataComponents.createCollectionLoader();
-        sysFinCurcysDl.setQuery("select e from ampata_UsrNode e where e.className = 'SysFinCurcy' order by e.id2");
-        FetchPlan sysFinCurcysFp = fetchPlans.builder(UsrNode.class)
+        finCurcysDc = dataComponents.createCollectionContainer(SysNode.class);
+        finCurcysDl = dataComponents.createCollectionLoader();
+        finCurcysDl.setQuery("select e from ampata_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
+        FetchPlan finCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        sysFinCurcysDl.setFetchPlan(sysFinCurcysFp);
-        sysFinCurcysDl.setContainer(sysFinCurcysDc);
-        sysFinCurcysDl.setDataContext(getScreenData().getDataContext());
+        finCurcysDl.setFetchPlan(finCurcysFp);
+        finCurcysDl.setContainer(finCurcysDc);
+        finCurcysDl.setDataContext(getScreenData().getDataContext());
 
-        EntityComboBox<UsrNode> propFilterCmpnt_sysFinCurcy1_Id = (EntityComboBox<UsrNode>) propFilter_sysFinCurcy1_Id.getValueComponent();
-        propFilterCmpnt_sysFinCurcy1_Id.setOptionsContainer(sysFinCurcysDc);
+        EntityComboBox<SysNode> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysNode>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
+        propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(finCurcysDc);
 
-        EntityComboBox<UsrNode> propFilterCmpnt_sysFinCurcy2_Id = (EntityComboBox<UsrNode>) propFilter_sysFinCurcy2_Id.getValueComponent();
-        propFilterCmpnt_sysFinCurcy2_Id.setOptionsContainer(sysFinCurcysDc);
+        EntityComboBox<SysNode> propFilterCmpnt_SysFinCurcy2_Id = (EntityComboBox<SysNode>) filterConfig1A_SysFinCurcy2_Id.getValueComponent();
+        propFilterCmpnt_SysFinCurcy2_Id.setOptionsContainer(finCurcysDc);
 
     }
 
@@ -187,8 +194,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onReloadListsClick";
         logger.trace(logPrfx + " --> ");
 
-        sysFinCurcysDl.load();
-        logger.debug(logPrfx + " --- called sysFinCurcysDl.load() ");
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
 
@@ -214,8 +221,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             copy.setId(UuidProvider.createUuid());
 
             LocalDate beg1;
-            if (tmplt_beg1Date1FieldChk.isChecked()) {
-                beg1 = tmplt_beg1Date1Field.getValue();
+            if (tmplt_Beg1Date1FieldChk.isChecked()) {
+                beg1 = tmplt_Beg1Date1Field.getValue();
                 copy.getBeg1().setDate1(beg1);
             }
 
@@ -228,7 +235,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
             SysNode savedCopy = dataManager.save(copy);
             sysFinCurcyExchRatesDc.getMutableItems().add(savedCopy);
-            logger.debug("Duplicated SysFinCurcyExchRate " + copy.getId2() + " "
+            logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
                     + "[" + copy.getId() + "]"
@@ -263,8 +270,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             copy.setId(UuidProvider.createUuid());
 
             LocalDate beg1;
-            if (tmplt_beg1Date1FieldChk.isChecked()) {
-                beg1 = tmplt_beg1Date1Field.getValue();
+            if (tmplt_Beg1Date1FieldChk.isChecked()) {
+                beg1 = tmplt_Beg1Date1Field.getValue();
                 copy.getBeg1().setDate1(beg1);
             }else{
                 if (orig.getBeg1().getDate1() != null) {

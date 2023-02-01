@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("ampata_SysFinCurcyExchRate.edit")
 @UiDescriptor("sys-fin-curcy-exch-rate-edit.xml")
-@EditedEntityContainer("sysFinCurcyExchRateDc")
+@EditedEntityContainer("finCurcyExchRateDc")
 public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
 
     @Autowired
@@ -162,7 +162,11 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         logger.trace(logPrfx + " --> ");
 
         if (thisSysFinCurcyExchRate.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_SysFinCurcyExchRate e where e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from ampata_SysNode e"
+                    +" where e.className = 'SysFinCurcyExchRate'"
+                    +" where e.id2 = :id2"
+                    +" and e.id <> :id"
+                    ;
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)

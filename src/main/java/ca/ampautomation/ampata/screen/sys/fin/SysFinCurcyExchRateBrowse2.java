@@ -32,44 +32,12 @@ import java.util.stream.Collectors;
 @LookupComponent("table")
 public class SysFinCurcyExchRateBrowse2 extends MasterDetailScreen<SysNode> {
 
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(SysFinCurcyExchRateBrowse.class);
+
     @Autowired
     protected UiComponents uiComponents;
-
-    //filter
-    @Autowired
-    protected Filter filter;
-
-    @Autowired
-    protected PropertyFilter<LocalDate> filterConfig1A_beg1Date1GE;
-
-    @Autowired
-    protected PropertyFilter<LocalDate> filterConfig1A_beg1Date1LE;
-
-    @Autowired
-    protected PropertyFilter<String> filterConfig1A_finCurcy1_Id2;
-
-    @Autowired
-    protected PropertyFilter<String> filterConfig1A_finCurcy2_Id2;
-
-    @Autowired
-    private CheckBox tmplt_Beg1Date1FieldChk;
-
-    //tmplt
-    @Autowired
-    private DateField<LocalDate> tmplt_Beg1Date1Field;
-
-    @Autowired
-    protected ComboBox<String> tmplt_FinCurcy1_Id2Field;
-
-    @Autowired
-    protected CheckBox tmplt_FinCurcy1_Id2FieldChk;
-
-    @Autowired
-    protected ComboBox<String> tmplt_FinCurcy2_Id2Field;
-
-    @Autowired
-    protected CheckBox tmplt_FinCurcy2_Id2FieldChk;
-
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
@@ -101,29 +69,70 @@ public class SysFinCurcyExchRateBrowse2 extends MasterDetailScreen<SysNode> {
     @Autowired
     private Notifications notifications;
 
+
+    //Filter
+    @Autowired
+    protected Filter filter;
+
+    @Autowired
+    protected PropertyFilter<LocalDate> filterConfig1A_Beg1Date1GE;
+
+    @Autowired
+    protected PropertyFilter<LocalDate> filterConfig1A_Beg1Date1LE;
+
+    @Autowired
+    protected PropertyFilter<SysNode> filterConfig1A_FinCurcy1_Id;
+
+    @Autowired
+    protected PropertyFilter<SysNode> filterConfig1A_FinCurcy2_Id;
+
+    @Autowired
+    private CheckBox tmplt_Beg1Date1FieldChk;
+
+
+    //Toolbar
+
+    //Template
+    @Autowired
+    private DateField<LocalDate> tmplt_Beg1Date1Field;
+
+    @Autowired
+    protected EntityComboBox<SysNode> tmplt_FinCurcy1_IdField;
+    @Autowired
+    protected CheckBox tmplt_FinCurcy1_IdFieldChk;
+
+    @Autowired
+    protected EntityComboBox<SysNode> tmplt_FinCurcy2_IdField;
+    @Autowired
+    protected CheckBox tmplt_FinCurcy2_IdFieldChk;
+
+
+    //Main data loaders and containers
+    @Autowired
+    private DataLoader finCurcyExchRatesDl;
+    @Autowired
+    private CollectionContainer<SysNode> finCurcyExchRatesDc;
+    @Autowired
+    private InstanceContainer<SysNode> finCurcyExchRateDc;
+
+    
+    //Main table
     @Autowired
     private Table<SysNode> table;
 
+
+    //Other data loaders and containers
+    private CollectionLoader<SysNode> finCurcysDl;
+    private CollectionContainer<SysNode> finCurcysDc;
+
+    //Field
     @Autowired
-    private InstanceContainer<SysNode> sysFinCurcyExchRateDc;
-
-
-    @Autowired
-    private CollectionContainer<SysNode> sysFinCurcyExchRatesDc;
-
-    @Autowired
-    private DataLoader sysFinCurcyExchRatesDl;
-
+    private EntityComboBox<SysNode> finCurcy1_IdField;
 
     @Autowired
-    private ComboBox<String> finCurcy1_Id2Field;
-
-    @Autowired
-    private ComboBox<String> finCurcy2_Id2Field;
+    private EntityComboBox<SysNode> finCurcy2_IdField;
 
 
-
-    Logger logger = LoggerFactory.getLogger(SysFinCurcyExchRateBrowse.class);
 
     /*
 InitEvent is sent when the screen controller and all its declaratively defined components are created,
@@ -135,6 +144,27 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
+        finCurcysDc = dataComponents.createCollectionContainer(SysNode.class);
+        finCurcysDl = dataComponents.createCollectionLoader();
+        finCurcysDl.setQuery("select e from ampata_SysNode e where e.className = 'FinCurcy' order by e.id2");
+        FetchPlan finCurcysFp = fetchPlans.builder(SysNode.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        finCurcysDl.setFetchPlan(finCurcysFp);
+        finCurcysDl.setContainer(finCurcysDc);
+        finCurcysDl.setDataContext(getScreenData().getDataContext());
+
+        finCurcy1_IdField.setOptionsContainer(finCurcysDc);
+        finCurcy2_IdField.setOptionsContainer(finCurcysDc);
+        //template
+        tmplt_FinCurcy1_IdField.setOptionsContainer(finCurcysDc);
+        tmplt_FinCurcy2_IdField.setOptionsContainer(finCurcysDc);
+        //filter
+        EntityComboBox<SysNode> propFilterCmpnt_FinCurcy1_Id;
+        propFilterCmpnt_FinCurcy1_Id = (EntityComboBox<SysNode>) filterConfig1A_FinCurcy1_Id.getValueComponent();
+        propFilterCmpnt_FinCurcy1_Id.setOptionsContainer(finCurcysDc);
+
+        logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe(target = Target.DATA_CONTEXT)
@@ -194,8 +224,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        reloadFinCurcy1List();
-        reloadFinCurcy2List();
+        logger.debug(logPrfx + " --- calling finCurcysDl.load()");
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- finished finCurcysDl.load()");
 
         logger.trace(logPrfx + " <-- ");
 
@@ -207,13 +238,17 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing Db-Proc.Ext_Curcy_Exch_Rate_Pr_Upd()");
-        repo.execSysFinCurcyExchRatePrUpdNative();
-        logger.debug(logPrfx + " --- finished Db-Proc.Ext_Curcy_Exch_Rate_Pr_Upd()");
+        logger.debug(logPrfx + " --- executing repo.execNodePrUpdNative()");
+        repo.execNodePrUpdNative();
+        logger.debug(logPrfx + " --- finished repo.execNodePrUpdNative()");
 
-        logger.debug(logPrfx + " --- loading sysFinCurcyExchRatesDl.load()");
-        sysFinCurcyExchRatesDl.load();
-        logger.debug(logPrfx + " --- finished sysFinCurcyExchRatesDl.load()");
+        logger.debug(logPrfx + " --- executing repo.execFinCurcyExchRatePrUpdNative()");
+        repo.execFinCurcyExchRatePrUpdNative();
+        logger.debug(logPrfx + " --- finished repo.execFinCurcyExchRatePrUpdNative()");
+
+        logger.debug(logPrfx + " --- executing finCurcyExchRatesDl.load()");
+        finCurcyExchRatesDl.load();
+        logger.debug(logPrfx + " --- finished finCurcyExchRatesDl.load()");
 
 
         logger.trace(logPrfx + " <-- ");
@@ -225,16 +260,16 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRate = table.getSelected().stream().toList();
-        if (thisSysFinCurcyExchRate == null || thisSysFinCurcyExchRate.isEmpty()) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no records are selected.");
+        List<SysNode> thisFinCurcyExchRate = table.getSelected().stream().toList();
+        if (thisFinCurcyExchRate == null || thisFinCurcyExchRate.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
         List<SysNode> sels = new ArrayList<>();
 
-        thisSysFinCurcyExchRate.forEach(orig -> {
+        thisFinCurcyExchRate.forEach(orig -> {
 
             SysNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
@@ -253,8 +288,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             SysNode savedCopy = dataManager.save(copy);
-            sysFinCurcyExchRatesDc.getMutableItems().add(savedCopy);
-            logger.debug("Duplicated SysFinCurcyExchRate " + copy.getId2() + " "
+            finCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
                     + "[" + copy.getId() + "]"
@@ -264,7 +299,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         });
 
-        updateSysFinCurcyExchRateHelper();
+        updateFinCurcyExchRateHelper();
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -273,16 +308,16 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onDeriveBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRate = table.getSelected().stream().toList();
-        if (thisSysFinCurcyExchRate == null || thisSysFinCurcyExchRate.isEmpty()) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no records are selected.");
+        List<SysNode> thisFinCurcyExchRate = table.getSelected().stream().toList();
+        if (thisFinCurcyExchRate == null || thisFinCurcyExchRate.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
         List<SysNode> sels = new ArrayList<>();
 
-        thisSysFinCurcyExchRate.forEach(orig -> {
+        thisFinCurcyExchRate.forEach(orig -> {
 
             SysNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
@@ -306,8 +341,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             SysNode savedCopy = dataManager.save(copy);
-            sysFinCurcyExchRatesDc.getMutableItems().add(savedCopy);
-            logger.debug("Derived SysFinCurcyExchRate " + copy.getId2() + " "
+            finCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            logger.debug("Derived " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
                     + "[" + copy.getId() + "]"
@@ -317,7 +352,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         });
 
-        updateSysFinCurcyExchRateHelper();
+        updateFinCurcyExchRateHelper();
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -327,55 +362,54 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRates = table.getSelected().stream().toList();
-        if (thisSysFinCurcyExchRates == null || thisSysFinCurcyExchRates.isEmpty()) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no records are selected.");
+        List<SysNode> thisFinCurcyExchRates = table.getSelected().stream().toList();
+        if (thisFinCurcyExchRates == null || thisFinCurcyExchRates.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
 
-        thisSysFinCurcyExchRates.forEach(thisSysFinCurcyExchRate -> {
-            SysNode thisTrackedSysFinCurcyExchRate = dataContext.merge(thisSysFinCurcyExchRate);
-            thisSysFinCurcyExchRate = thisTrackedSysFinCurcyExchRate;
-            if (thisSysFinCurcyExchRate != null) {
+        thisFinCurcyExchRates.forEach(thisFinCurcyExchRate -> {
+            thisFinCurcyExchRate = dataContext.merge(thisFinCurcyExchRate);
+            if (thisFinCurcyExchRate != null) {
 
-                Boolean thisSysFinCurcyExchRateIsChanged = false;
+                Boolean thisFinCurcyExchRateIsChanged = false;
 
                 LocalDate beg1;
                 if (tmplt_Beg1Date1FieldChk.isChecked()) {
-                    thisSysFinCurcyExchRateIsChanged = true;
+                    thisFinCurcyExchRateIsChanged = true;
                     beg1 = tmplt_Beg1Date1Field.getValue();
-                    thisSysFinCurcyExchRate.getBeg1().setDate1(beg1);
+                    thisFinCurcyExchRate.getBeg1().setDate1(beg1);
                 }
 
-                if (tmplt_FinCurcy1_Id2FieldChk.isChecked()) {
-                    thisSysFinCurcyExchRateIsChanged = true;
-                    thisSysFinCurcyExchRate.setFinCurcy1_Id2(tmplt_FinCurcy1_Id2Field.getValue());
+                if (tmplt_FinCurcy1_IdFieldChk.isChecked()) {
+                    thisFinCurcyExchRateIsChanged = true;
+                    thisFinCurcyExchRate.setFinCurcy1_Id(tmplt_FinCurcy1_IdField.getValue());
                 }
 
-                if (tmplt_FinCurcy2_Id2FieldChk.isChecked()) {
-                    thisSysFinCurcyExchRateIsChanged = true;
-                    thisSysFinCurcyExchRate.setFinCurcy2_Id2(tmplt_FinCurcy2_Id2Field.getValue());
+                if (tmplt_FinCurcy2_IdFieldChk.isChecked()) {
+                    thisFinCurcyExchRateIsChanged = true;
+                    thisFinCurcyExchRate.setFinCurcy2_Id(tmplt_FinCurcy2_IdField.getValue());
                 }
 
-                thisSysFinCurcyExchRateIsChanged = updateId2Calc(thisSysFinCurcyExchRate) || thisSysFinCurcyExchRateIsChanged;
-                thisSysFinCurcyExchRateIsChanged = updateId2(thisSysFinCurcyExchRate) || thisSysFinCurcyExchRateIsChanged;
-                thisSysFinCurcyExchRateIsChanged = updateId2Cmp(thisSysFinCurcyExchRate) || thisSysFinCurcyExchRateIsChanged;
+                thisFinCurcyExchRateIsChanged = updateId2Calc(thisFinCurcyExchRate) || thisFinCurcyExchRateIsChanged;
+                thisFinCurcyExchRateIsChanged = updateId2(thisFinCurcyExchRate) || thisFinCurcyExchRateIsChanged;
+                thisFinCurcyExchRateIsChanged = updateId2Cmp(thisFinCurcyExchRate) || thisFinCurcyExchRateIsChanged;
 
-                if (thisSysFinCurcyExchRateIsChanged) {
-                    logger.debug(logPrfx + " --- executing dataManager.save(thisSysFinCurcyExchRate).");
-                    //dataManager.save(thisSysFinCurcyExchRate);
+                if (thisFinCurcyExchRateIsChanged) {
+                    logger.debug(logPrfx + " --- executing dataManager.save(thisFinCurcyExchRate).");
+                    //dataManager.save(thisFinCurcyExchRate);
                 }
 
             }
         });
-        updateSysFinCurcyExchRateHelper();
+        updateFinCurcyExchRateHelper();
         logger.trace(logPrfx + " <-- ");
     }
 
-    private void updateSysFinCurcyExchRateHelper() {
-        String logPrfx = "updateSysFinCurcyExchRateHelper";
+    private void updateFinCurcyExchRateHelper() {
+        String logPrfx = "updateFinCurcyExchRateHelper";
         logger.trace(logPrfx + " --> ");
 
         if(dataContext.hasChanges()) {
@@ -384,24 +418,24 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.debug(logPrfx + " --- executing dataContext.commit().");
             dataContext.commit();
 
-            logger.debug(logPrfx + " --- executing sysFinCurcyExchRatesDl.load().");
-            sysFinCurcyExchRatesDl.load();
+            logger.debug(logPrfx + " --- executing finCurcyExchRatesDl.load().");
+            finCurcyExchRatesDl.load();
 
-            List<SysNode> thisSysFinCurcyExchRates = table.getSelected().stream().toList();
+            List<SysNode> thisFinCurcyExchRates = table.getSelected().stream().toList();
 
             //Loop throught the items again to update the id2Dup attribute
-            thisSysFinCurcyExchRates.forEach(thisSysFinCurcyExchRate -> {
-                //UsrNode thisTrackedSysFinCurcyExchRate = dataContext.merge(thisSysFinCurcyExchRate);
-                if (thisSysFinCurcyExchRate != null) {
-                    thisSysFinCurcyExchRate = dataContext.merge(thisSysFinCurcyExchRate);
+            thisFinCurcyExchRates.forEach(thisFinCurcyExchRate -> {
+                //UsrNode thisTrackedFinCurcyExchRate = dataContext.merge(thisFinCurcyExchRate);
+                if (thisFinCurcyExchRate != null) {
+                    thisFinCurcyExchRate = dataContext.merge(thisFinCurcyExchRate);
 
-                    Boolean thisSysFinCurcyExchRateIsChanged = false;
+                    Boolean thisFinCurcyExchRateIsChanged = false;
 
-                    thisSysFinCurcyExchRateIsChanged = updateId2Dup(thisSysFinCurcyExchRate) || thisSysFinCurcyExchRateIsChanged;
+                    thisFinCurcyExchRateIsChanged = updateId2Dup(thisFinCurcyExchRate) || thisFinCurcyExchRateIsChanged;
 
-                    if (thisSysFinCurcyExchRateIsChanged) {
-                        logger.debug(logPrfx + " --- executing dataManager.save(thisSysFinCurcyExchRate).");
-                        //dataManager.save(thisSysFinCurcyExchRate);
+                    if (thisFinCurcyExchRateIsChanged) {
+                        logger.debug(logPrfx + " --- executing dataManager.save(thisFinCurcyExchRate).");
+                        //dataManager.save(thisFinCurcyExchRate);
                     }
                 }
             });
@@ -410,11 +444,11 @@ are not fully initialized, for example, buttons are not linked with actions.
                 logger.debug(logPrfx + " --- executing dataContext.commit().");
                 dataContext.commit();
 
-                logger.debug(logPrfx + " --- executing sysFinCurcyExchRatesDl.load().");
-                sysFinCurcyExchRatesDl.load();
+                logger.debug(logPrfx + " --- executing finCurcyExchRatesDl.load().");
+                finCurcyExchRatesDl.load();
 
                 table.sort("id2", Table.SortDirection.ASCENDING);
-                table.setSelected(thisSysFinCurcyExchRates);
+                table.setSelected(thisFinCurcyExchRates);
             }
         }
         logger.trace(logPrfx + " <-- ");
@@ -426,20 +460,20 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRates = table.getSelected().stream().toList();
-        if (thisSysFinCurcyExchRates == null || thisSysFinCurcyExchRates.isEmpty()) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRates is null, likely because no records are selected.");
+        List<SysNode> thisFinCurcyExchRates = table.getSelected().stream().toList();
+        if (thisFinCurcyExchRates == null || thisFinCurcyExchRates.isEmpty()) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRates is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisSysFinCurcyExchRates.forEach(thisSysFinCurcyExchRate -> {
-            if (thisSysFinCurcyExchRate != null) {
-                thisSysFinCurcyExchRate = dataContext.merge(thisSysFinCurcyExchRate);
+        thisFinCurcyExchRates.forEach(thisFinCurcyExchRate -> {
+            if (thisFinCurcyExchRate != null) {
+                thisFinCurcyExchRate = dataContext.merge(thisFinCurcyExchRate);
 
                 boolean isChanged = false;
 
-                isChanged = updateCalcVals(thisSysFinCurcyExchRate);
+                isChanged = updateCalcVals(thisFinCurcyExchRate);
 
             }
         });
@@ -448,11 +482,11 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.debug(logPrfx + " --- executing dataContext.commit().");
             dataContext.commit();
 
-            logger.debug(logPrfx + " --- executing sysFinCurcyExchRatesDl.load().");
-            sysFinCurcyExchRatesDl.load();
+            logger.debug(logPrfx + " --- executing finCurcyExchRatesDl.load().");
+            finCurcyExchRatesDl.load();
 
             table.sort("id2", Table.SortDirection.ASCENDING);
-            try{table.setSelected(thisSysFinCurcyExchRates);
+            try{table.setSelected(thisFinCurcyExchRates);
             }
             catch(IllegalArgumentException e){
                 logger.debug(logPrfx + " --- caught IllegalArgumentException: " + e.getMessage());
@@ -469,14 +503,14 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateDesc1(thisSysFinCurcyExchRate);
+        updateDesc1(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -487,15 +521,15 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-            if (thisSysFinCurcyExchRate == null) {
-                logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+            SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+            if (thisFinCurcyExchRate == null) {
+                logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            updateId2Cmp(thisSysFinCurcyExchRate);
-            updateId2Dup(thisSysFinCurcyExchRate);
+            updateId2Cmp(thisFinCurcyExchRate);
+            updateId2Dup(thisFinCurcyExchRate);
         }
         logger.trace(logPrfx + " <-- ");
     }
@@ -505,16 +539,16 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2(thisSysFinCurcyExchRate);
-        updateId2Cmp(thisSysFinCurcyExchRate);
-        updateId2Dup(thisSysFinCurcyExchRate);
+        updateId2(thisFinCurcyExchRate);
+        updateId2Cmp(thisFinCurcyExchRate);
+        updateId2Dup(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -524,15 +558,15 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Calc(thisSysFinCurcyExchRate);
-        updateId2Cmp(thisSysFinCurcyExchRate);
+        updateId2Calc(thisFinCurcyExchRate);
+        updateId2Cmp(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -542,14 +576,14 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Cmp(thisSysFinCurcyExchRate);
+        updateId2Cmp(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
 
@@ -560,14 +594,14 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateId2Dup(thisSysFinCurcyExchRate);
+        updateId2Dup(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -578,139 +612,142 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-            if (thisSysFinCurcyExchRate == null) {
-                logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+            SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+            if (thisFinCurcyExchRate == null) {
+                logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            updateId2Calc(thisSysFinCurcyExchRate);
-            updateId2Cmp(thisSysFinCurcyExchRate);
-            updateId2Dup(thisSysFinCurcyExchRate);
+            updateId2Calc(thisFinCurcyExchRate);
+            updateId2Cmp(thisFinCurcyExchRate);
+            updateId2Dup(thisFinCurcyExchRate);
         }
         logger.trace(logPrfx + " <-- ");
 
     }
 
-    @Subscribe("sysFinCurcy1_Id2Field")
-    public void onFinCurcy1_Id2FieldValueChange(HasValue.ValueChangeEvent<UsrNode> event) {
-        String logPrfx = "onFinCurcy1_Id2FieldValueChange";
+    @Subscribe("finCurcy1_IdField")
+    public void onFinCurcy1_IdFieldValueChange(HasValue.ValueChangeEvent<UsrNode> event) {
+        String logPrfx = "onFinCurcy1_IdFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-            if (thisSysFinCurcyExchRate == null) {
-                logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+            SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+            if (thisFinCurcyExchRate == null) {
+                logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            updateId2Calc(thisSysFinCurcyExchRate);
-            updateId2Cmp(thisSysFinCurcyExchRate);
-            updateId2Dup(thisSysFinCurcyExchRate);
+            updateId2Calc(thisFinCurcyExchRate);
+            updateId2Cmp(thisFinCurcyExchRate);
+            updateId2Dup(thisFinCurcyExchRate);
         }
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    @Install(to = "sysFinCurcy1_Id2Field", subject = "enterPressHandler")
-    private void sysFinCurcy1_Id2FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "sysFinCurcy1_Id2FieldEnterPressHandler";
+    @Subscribe("updateFinCurcy1_IdFieldListBtn")
+    public void onUpdateFinCurcy1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinCurcy1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        logger.debug(logPrfx + " --- calling finCurcysDl.load()");
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- finished finCurcysDl.load()");
+
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinCurcy1_Id2FieldListBtn")
-    public void onUpdateFinCurcy1_Id2FieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinCurcy1_Id2FieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        reloadFinCurcy1List();
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("sysFinCurcy2_Id2Field")
-    public void onFinCurcy2_Id2FieldValueChange(HasValue.ValueChangeEvent<UsrNode> event) {
-        String logPrfx = "onFinCurcy2_Id2FieldValueChange";
+    @Subscribe("finCurcy2_IdField")
+    public void onFinCurcy2_IdFieldValueChange(HasValue.ValueChangeEvent<UsrNode> event) {
+        String logPrfx = "onFinCurcy2_IdFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-            if (thisSysFinCurcyExchRate == null) {
-                logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+            SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+            if (thisFinCurcyExchRate == null) {
+                logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            updateId2Calc(thisSysFinCurcyExchRate);
-            updateId2Cmp(thisSysFinCurcyExchRate);
-            updateId2Dup(thisSysFinCurcyExchRate);
+            updateId2Calc(thisFinCurcyExchRate);
+            updateId2Cmp(thisFinCurcyExchRate);
+            updateId2Dup(thisFinCurcyExchRate);
         }
         logger.trace(logPrfx + " <-- ");
     }
 
+    @Subscribe("updateFinCurcy2_IdFieldListBtn")
+    public void onUpdateFinCurcy2_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinCurcy2_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        logger.debug(logPrfx + " --- calling finCurcysDl.load()");
+        finCurcysDl.load();
+        logger.debug(logPrfx + " --- finished finCurcysDl.load()");
+
+        logger.trace(logPrfx + " <-- ");
+    }
 
     @Subscribe("updateAmt2FieldBtn")
     public void onUpdateAmt2FieldBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateAmt2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
-        if (thisSysFinCurcyExchRate == null) {
-            logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
+        SysNode thisFinCurcyExchRate = finCurcyExchRateDc.getItemOrNull();
+        if (thisFinCurcyExchRate == null) {
+            logger.debug(logPrfx + " --- thisFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateExtCurcyExchAmt2(thisSysFinCurcyExchRate);
+        updateExtCurcyExchAmt2(thisFinCurcyExchRate);
 
         logger.trace(logPrfx + " <-- ");
 
     }
 
-    private Boolean updateCalcVals(@NotNull SysNode thisSysFinCurcyExchRate) {
+    private Boolean updateCalcVals(@NotNull SysNode thisFinCurcyExchRate) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateSysFinCurcyExchRateCalcVals(thisSysFinCurcyExchRate) || isChanged;
+        isChanged = updateFinCurcyExchRateCalcVals(thisFinCurcyExchRate) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    private Boolean updateSysFinCurcyExchRateCalcVals(@NotNull SysNode thisSysFinCurcyExchRate) {
-        String logPrfx = "updateSysFinCurcyExchRateCalcVals";
+    private Boolean updateFinCurcyExchRateCalcVals(@NotNull SysNode thisFinCurcyExchRate) {
+        String logPrfx = "updateFinCurcyExchRateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        // Stored in SysFinCurcyExchRate Object
-        isChanged = updateId2Calc(thisSysFinCurcyExchRate) || isChanged;
-        isChanged = updateId2Cmp(thisSysFinCurcyExchRate) || isChanged;
-        isChanged = updateId2Dup(thisSysFinCurcyExchRate) || isChanged;
-        isChanged = updateDesc1(thisSysFinCurcyExchRate) || isChanged;
+        // Stored in FinCurcyExchRate Object
+        isChanged = updateId2Calc(thisFinCurcyExchRate) || isChanged;
+        isChanged = updateId2Cmp(thisFinCurcyExchRate) || isChanged;
+        isChanged = updateId2Dup(thisFinCurcyExchRate) || isChanged;
+        isChanged = updateDesc1(thisFinCurcyExchRate) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    private Boolean updateId2(@NotNull SysNode thisSysFinCurcyExchRate) {
-        // Assume thisSysFinCurcyExchRate is not null
+    private Boolean updateId2(@NotNull SysNode thisFinCurcyExchRate) {
+        // Assume thisFinCurcyExchRate is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String id2_ = thisSysFinCurcyExchRate.getId2();
-        String id2 = thisSysFinCurcyExchRate.getId2Calc();
+        String id2_ = thisFinCurcyExchRate.getId2();
+        String id2 = thisFinCurcyExchRate.getId2Calc();
         if(!Objects.equals(id2_, id2)){
-            thisSysFinCurcyExchRate.setId2(id2);
+            thisFinCurcyExchRate.setId2(id2);
             logger.debug(logPrfx + " --- id2: " + id2);
             isChanged = true;
         }
@@ -719,16 +756,16 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Calc(@NotNull SysNode thisSysFinCurcyExchRate) {
-        // Assume thisSysFinCurcyExchRate is not null
+    private Boolean updateId2Calc(@NotNull SysNode thisFinCurcyExchRate) {
+        // Assume thisFinCurcyExchRate is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String id2Calc_ = thisSysFinCurcyExchRate.getId2Calc();
-        String id2Calc = thisSysFinCurcyExchRate.getId2CalcFrFields();
+        String id2Calc_ = thisFinCurcyExchRate.getId2Calc();
+        String id2Calc = thisFinCurcyExchRate.getId2CalcFrFields();
         if(!Objects.equals(id2Calc_, id2Calc)){
-            thisSysFinCurcyExchRate.setId2Calc(id2Calc);
+            thisFinCurcyExchRate.setId2Calc(id2Calc);
             logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
             isChanged = true;
         }
@@ -737,16 +774,16 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull SysNode thisSysFinCurcyExchRate) {
-        // Assume thisSysFinCurcyExchRate is not null
+    private Boolean updateId2Cmp(@NotNull SysNode thisFinCurcyExchRate) {
+        // Assume thisFinCurcyExchRate is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        Boolean id2Cmp_ = thisSysFinCurcyExchRate.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisSysFinCurcyExchRate.getId2(),thisSysFinCurcyExchRate.getId2Calc());
+        Boolean id2Cmp_ = thisFinCurcyExchRate.getId2Cmp();
+        Boolean id2Cmp = !Objects.equals(thisFinCurcyExchRate.getId2(),thisFinCurcyExchRate.getId2Calc());
         if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisSysFinCurcyExchRate.setId2Cmp(id2Cmp);
+            thisFinCurcyExchRate.setId2Cmp(id2Cmp);
             logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
             isChanged = true;
         }
@@ -755,21 +792,21 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Dup(@NotNull SysNode thisSysFinCurcyExchRate) {
-        // Assume thisSysFinCurcyExchRate is not null
+    private Boolean updateId2Dup(@NotNull SysNode thisFinCurcyExchRate) {
+        // Assume thisFinCurcyExchRate is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        Integer id2Dup_ = thisSysFinCurcyExchRate.getId2Dup();
-        if (thisSysFinCurcyExchRate.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_SysFinCurcyExchRate e where e.id2 = :id2 and e.id <> :id";
+        Integer id2Dup_ = thisFinCurcyExchRate.getId2Dup();
+        if (thisFinCurcyExchRate.getId2() != null) {
+            String id2Qry = "select count(e) from ampata_FinCurcyExchRate e where e.id2 = :id2 and e.id <> :id";
             int id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
                         .store("main")
-                        .parameter("id", thisSysFinCurcyExchRate.getId())
-                        .parameter("id2", thisSysFinCurcyExchRate.getId2())
+                        .parameter("id", thisFinCurcyExchRate.getId())
+                        .parameter("id2", thisFinCurcyExchRate.getId2())
                         .one();
             } catch (IllegalStateException e) {
                 id2Dup = 0;
@@ -778,8 +815,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             id2Dup = id2Dup + 1;
             logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
             if (!Objects.equals(id2Dup_, id2Dup)){
-                thisSysFinCurcyExchRate.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisSysFinCurcyExchRate.setId2Dup(" + (id2Dup) + ")");
+                thisFinCurcyExchRate.setId2Dup(id2Dup);
+                logger.debug(logPrfx + " --- thisFinCurcyExchRate.setId2Dup(" + (id2Dup) + ")");
                 isChanged = true;
             }
 
@@ -788,8 +825,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateDesc1(@NotNull SysNode thisSysFinCurcyExchRate) {
-        // Assume thisSysFinCurcyExchRate is not null
+    private Boolean updateDesc1(@NotNull SysNode thisFinCurcyExchRate) {
+        // Assume thisFinCurcyExchRate is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -798,10 +835,10 @@ are not fully initialized, for example, buttons are not linked with actions.
                 .toFormatter();
 
         boolean isChanged = false;
-        String desc1_ = thisSysFinCurcyExchRate.getDesc1();
+        String desc1_ = thisFinCurcyExchRate.getDesc1();
         String thisCurcyPair = "";
-        if (thisSysFinCurcyExchRate.getFinCurcy1_Id2() != null) {
-            thisCurcyPair = thisCurcyPair + thisSysFinCurcyExchRate.getFinCurcy1_Id2();
+        if (thisFinCurcyExchRate.getFinCurcy1_Id2() != null) {
+            thisCurcyPair = thisCurcyPair + thisFinCurcyExchRate.getFinCurcy1_Id2();
         }else{
             thisCurcyPair = thisCurcyPair + "???";
         }
@@ -810,8 +847,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             thisCurcyPair = thisCurcyPair + "->";
         }
 
-        if (thisSysFinCurcyExchRate.getFinCurcy2_Id2() != null) {
-            thisCurcyPair = thisCurcyPair + thisSysFinCurcyExchRate.getFinCurcy2_Id2();
+        if (thisFinCurcyExchRate.getFinCurcy2_Id2() != null) {
+            thisCurcyPair = thisCurcyPair + thisFinCurcyExchRate.getFinCurcy2_Id2();
         }else{
             thisCurcyPair = thisCurcyPair + "???";
         }
@@ -823,8 +860,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
         String thisDate = "";
-        if (thisSysFinCurcyExchRate.getBeg1() != null && thisSysFinCurcyExchRate.getBeg1().getDate1() != null) {
-            thisDate = thisSysFinCurcyExchRate.getBeg1().getDate1().format(frmtDt);
+        if (thisFinCurcyExchRate.getBeg1() != null && thisFinCurcyExchRate.getBeg1().getDate1() != null) {
+            thisDate = thisFinCurcyExchRate.getBeg1().getDate1().format(frmtDt);
         }else {
             thisDate = "????-??-??";
         }
@@ -835,8 +872,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
         String thisRate = "";
-        if (thisSysFinCurcyExchRate.getAmt1() != null) {
-            thisRate = Objects.toString(thisSysFinCurcyExchRate.getAmt1().setScale(9, RoundingMode.HALF_UP), "");
+        if (thisFinCurcyExchRate.getAmt1() != null) {
+            thisRate = Objects.toString(thisFinCurcyExchRate.getAmt1().setScale(9, RoundingMode.HALF_UP), "");
         }
         if (!thisRate.equals("")) {
             thisRate = "at rate " + thisRate + "";
@@ -854,7 +891,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                 .collect(Collectors.joining(" "));
 
         if (!Objects.equals(desc1_, desc1)){
-            thisSysFinCurcyExchRate.setDesc1(desc1);
+            thisFinCurcyExchRate.setDesc1(desc1);
             logger.debug(logPrfx + " --- desc1: " + desc1);
             isChanged = true;
         }
@@ -864,20 +901,20 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateExtCurcyExchAmt2(@NotNull SysNode thisSysFinCurcyExchRate) {
+    private Boolean updateExtCurcyExchAmt2(@NotNull SysNode thisFinCurcyExchRate) {
         String logPrfx = "updateExtCurcyExchAmt2";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        BigDecimal amt1 = thisSysFinCurcyExchRate.getAmt1();
-        BigDecimal amt2_ = thisSysFinCurcyExchRate.getAmt2();
+        BigDecimal amt1 = thisFinCurcyExchRate.getAmt1();
+        BigDecimal amt2_ = thisFinCurcyExchRate.getAmt2();
         BigDecimal amt2 = null;
         if (!amt1.equals(BigDecimal.ZERO)){
             amt2 = new BigDecimal(1 / amt1.doubleValue()).setScale(9, RoundingMode.HALF_UP);;
         }
 
         if (!Objects.equals(amt2_, amt2)){
-            thisSysFinCurcyExchRate.setAmt2(amt2);
+            thisFinCurcyExchRate.setAmt2(amt2);
             logger.debug(logPrfx + " --- amt2: " + amt2.setScale(9, RoundingMode.HALF_UP));
             isChanged = true;
         }
@@ -886,115 +923,5 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-
-    private void reloadFinCurcy1List(){
-        String logPrfx = "reloadFinCurcy1List";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select distinct e.finCurcy1_Id2"
-                + " from ampata_SysNode e"
-                + " where e.className = 'SysFinCurcyExchRate'"
-                + " and e.finCurcy1_Id2 IS NOT NULL"
-                + " order by e.finCurcy1_Id2"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-
-
-        List<String> items = null;
-        try {
-            items = dataManager.loadValue(qry, String.class)
-                    .store("main")
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned " + items.size() + " rows");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned no rows");
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        ComboBox<String> propFilterCmpnt_finCurcy1_Id2 = (ComboBox<String>) filterConfig1A_finCurcy1_Id2.getValueComponent();
-        propFilterCmpnt_finCurcy1_Id2.setOptionsList(items);
-        logger.debug(logPrfx + " --- called propFilterCmpnt_finCurcy1_Id2.setOptionsList()");
-
-        tmplt_FinCurcy1_Id2Field.setOptionsList(items);
-        logger.debug(logPrfx + " --- called tmplt_FinCurcy1_Id2Field.setOptionsList()");
-
-        finCurcy1_Id2Field.setOptionsList(items);
-        logger.debug(logPrfx + " --- called finCurcy1_Id2Field.setOptionsList()");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    private void reloadFinCurcy2List(){
-        String logPrfx = "reloadFinCurcy2List";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select distinct e.finCurcy2_Id2"
-                + " from ampata_SysNode e"
-                + " where e.className = 'SysFinCurcyExchRate'"
-                + " and e.finCurcy2_Id2 IS NOT NULL"
-                + " order by e.finCurcy2_Id2"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-
-
-        List<String> items = null;
-        try {
-            items = dataManager.loadValue(qry, String.class)
-                    .store("main")
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned " + items.size() + " rows");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned no rows");
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        ComboBox<String> propFilterCmpnt_finCurcy2_Id2 = (ComboBox<String>) filterConfig1A_finCurcy2_Id2.getValueComponent();
-        propFilterCmpnt_finCurcy2_Id2.setOptionsList(items);
-        logger.debug(logPrfx + " --- called propFilterCmpnt_finCurcy2_Id2.setOptionsList()");
-
-        tmplt_FinCurcy2_Id2Field.setOptionsList(items);
-        logger.debug(logPrfx + " --- called tmplt_FinCurcy2_Id2Field.setOptionsList()");
-
-        finCurcy2_Id2Field.setOptionsList(items);
-        logger.debug(logPrfx + " --- called finCurcy2_Id2Field.setOptionsList()");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    private void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "addEnteredTextToComboBoxOptionsList";
-        logger.trace(logPrfx + " --> ");
-
-        String text = enterPressEvent.getText();
-        if (!Objects.equals(text, "<null>")){
-            @SuppressWarnings("unchecked")
-            // enterPressEvent.getSource is directly connected to a ComboBox
-            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
-
-            List<String> list;
-            // this comboBox options list is created with a call to setOptionsList(List)
-            // see onUpdateFinStmtItm1_Desc1Field
-            // therefore cb.getOptions is type ListOptions
-            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
-            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
-                list = (List<String>) listOptions.getItemsCollection();
-            } else {
-                list = new ArrayList<String>();
-            }
-
-            list.add(text);
-            logger.trace(logPrfx + " --- called list.add( " + text + ")");
-
-            cb.setOptionsList(list);
-
-            notifications.create()
-                    .withCaption("Added " + text + " to list.")
-                    .show();
-        }
-
-    }
 
 }

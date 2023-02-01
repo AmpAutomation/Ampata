@@ -5,7 +5,7 @@
     <data>
         <collection id="tngyEquipsDc"
                     class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                    fetchPlan="tngyEquip-fetch-plan-base">
+                    fetchPlan="usrTngyEquip-fetch-plan-base">
             <loader id="tngyEquipsDl">
                 <query>
                     <![CDATA[select e from ampata_UsrNode e where e.className = 'TngyEquip' ORDER BY e.id2]]>
@@ -14,7 +14,7 @@
         </collection>
         <instance id="tngyEquipDc"
                   class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                  fetchPlan="tngyEquip-fetch-plan-base">
+                  fetchPlan="usrTngyEquip-fetch-plan-base">
             <loader/>
         </instance>
     </data>

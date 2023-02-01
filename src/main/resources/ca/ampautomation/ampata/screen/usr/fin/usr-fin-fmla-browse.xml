@@ -2,11 +2,11 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://finFmlaBrowse.caption"
-        focusComponent="finFmlasTable">
+        focusComponent="table">
     <data readOnly="true">
         <collection id="finFmlasDc"
                     class="ca.ampautomation.ampata.entity.usr.UsrFinFmla"
-                    fetchPlan="finFmla-fetch-plan-base">
+                    fetchPlan="usrFinFmla-fetch-plan-base">
             <loader id="finFmlasDl">
                 <query>
                     <![CDATA[select e from ampata_FinFmla e]]>
@@ -30,7 +30,7 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="finFmlasTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
                 dataLoader="finFmlasDl">
             <properties include=".*"/>
@@ -41,7 +41,7 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="finFmlasTable"
+        <groupTable id="table"
                     width="100%"
                     dataContainer="finFmlasDc">
             <actions>
@@ -66,11 +66,11 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="finFmlasTable.create"/>
-                <button id="duplicateBtn" action="finFmlasTable.duplicate"/>
-                <button id="editBtn" action="finFmlasTable.edit"/>
-                <button id="refreshBtn" action="finFmlasTable.refresh"/>
-                <button id="removeBtn" action="finFmlasTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="duplicateBtn" action="table.duplicate"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

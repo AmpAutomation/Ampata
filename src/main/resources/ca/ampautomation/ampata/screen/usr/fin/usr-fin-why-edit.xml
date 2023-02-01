@@ -5,7 +5,7 @@
     <data>
         <instance id="finWhyDc"
                   class="ca.ampautomation.ampata.entity.usr.UsrFinWhy">
-            <fetchPlan extends="finWhy-fetch-plan-base"/>
+            <fetchPlan extends="usrFinWhy-fetch-plan-base"/>
             <loader/>
         </instance>
     </data>

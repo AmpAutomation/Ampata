@@ -199,6 +199,14 @@ public class SysNode {
         this.className = className;
     }
 
+    public SysNodeType getType1_Id() {
+        return type1_Id;
+    }
+
+    public void setType1_Id(SysNodeType type1_Id) {
+        this.type1_Id = type1_Id;
+    }
+
     public Integer getSortIdx() { return sortIdx; }
 
     public void setSortIdx(Integer sortIdx) {this.sortIdx = sortIdx; }

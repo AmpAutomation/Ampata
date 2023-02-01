@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.screen.usr.gen.GenAgentBrowse;
+import ca.ampautomation.ampata.screen.usr.gen.UsrGenAgentBrowse;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;
@@ -16,9 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_FinFmla.browse")
+@UiController("ampata_UsrFinFmla.browse")
 @UiDescriptor("usr-fin-fmla-browse.xml")
-@LookupComponent("finFmlasTable")
+@LookupComponent("table")
 public class UsrFinFmlaBrowse extends StandardLookup<UsrFinFmla> {
     @Autowired
     private DataContext dataContext;
@@ -33,7 +33,7 @@ public class UsrFinFmlaBrowse extends StandardLookup<UsrFinFmla> {
     private MetadataTools metadataTools;
 
     @Autowired
-    private GroupTable<UsrFinFmla> finFmlasTable;
+    private GroupTable<UsrFinFmla> table;
 
     @Autowired
     private Notifications notifications;
@@ -41,16 +41,16 @@ public class UsrFinFmlaBrowse extends StandardLookup<UsrFinFmla> {
     @Autowired
     private CollectionContainer<UsrFinFmla> finFmlasDc;
 
-    Logger logger = LoggerFactory.getLogger(GenAgentBrowse.class);
+    Logger logger = LoggerFactory.getLogger(UsrGenAgentBrowse.class);
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
-        finFmlasTable.getSelected().stream()
+        table.getSelected().stream()
                 .forEach(orig -> {
                     UsrFinFmla copy = makeCopy(orig);
                     UsrFinFmla savedCopy = dataManager.save(copy);
                     finFmlasDc.getMutableItems().add(savedCopy);
-                    logger.debug("Duplicated FinFmla " + copy.getId2()
+                    logger.debug("Duplicated " + copy.getClass().getName() + " " + copy.getId2() + " "
                             + " [" + orig.getId() + "]"
                             + " ->"
                             + " [" + copy.getId() + "]"

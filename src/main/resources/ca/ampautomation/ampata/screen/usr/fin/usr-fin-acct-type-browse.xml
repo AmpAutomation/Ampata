@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://finAcctTypeBrowse.caption"
-        focusComponent="usrNodeTypesTable">
+        focusComponent="table">
     <data readOnly="true">
-        <collection id="usrNodeTypesDc"
+        <collection id="finAcctTypesDc"
                     class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                    fetchPlan="finAcctType-fetch-plan-base">
-            <loader id="usrNodeTypesDl">
+                    fetchPlan="usrFinAcctType-fetch-plan-base">
+            <loader id="finAcctTypesDl">
                 <query>
                     <![CDATA[select e from ampata_UsrNodeType e where e.className = 'FinAcct' ]]>
                 </query>
@@ -29,14 +29,14 @@
     </actions>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="usrNodeTypesTable" spacing="true">
+    <layout expand="table" spacing="true">
         <filter id="filter"
-                dataLoader="usrNodeTypesDl">
+                dataLoader="finAcctTypesDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="usrNodeTypesTable"
+        <groupTable id="table"
                     width="100%"
-                    dataContainer="usrNodeTypesDc">
+                    dataContainer="finAcctTypesDc">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -69,11 +69,11 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="usrNodeTypesTable.create"/>
-                <button id="duplicateBtn" action="usrNodeTypesTable.duplicate" caption="Duplicate"/>
-                <button id="editBtn" action="usrNodeTypesTable.edit"/>
-                <button id="refreshBtn" action="usrNodeTypesTable.refresh"/>
-                <button id="removeBtn" action="usrNodeTypesTable.remove"/>
+                <button id="createBtn" action="table.create"/>
+                <button id="duplicateBtn" action="table.duplicate" caption="Duplicate"/>
+                <button id="editBtn" action="table.edit"/>
+                <button id="refreshBtn" action="table.refresh"/>
+                <button id="removeBtn" action="table.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
