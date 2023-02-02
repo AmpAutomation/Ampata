@@ -1,10 +1,6 @@
 package ca.ampautomation.ampata;
 
-import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButton;
-import ca.ampautomation.ampata.components.textfieldwithbutton.TextFieldWithButtonLoader;
 import com.google.common.base.Strings;
-import io.jmix.ui.sys.registration.ComponentRegistration;
-import io.jmix.ui.sys.registration.ComponentRegistrationBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,11 +62,5 @@ public class AmpataApplication {
                 + environment.getProperty("local.server.port")
                 + Strings.nullToEmpty(environment.getProperty("server.servlet.context-path")));
     }
-    @Bean
-    public ComponentRegistration stepperField() {
-        return ComponentRegistrationBuilder.create(TextFieldWithButton.NAME)
-                .withComponentClass(TextFieldWithButton.class)
-                .withComponentLoaderClass(TextFieldWithButtonLoader.class)
-                .build();
-    }
+
 }

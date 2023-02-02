@@ -21,9 +21,11 @@ import java.util.UUID;
 @Table(name = "AMPATA_USR_ITEM", indexes = {
         @Index(name = "IDX_USRITEM_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_USRITEM_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
-        @Index(name = "IDX_USRITEM_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
+        @Index(name = "IDX_USRITEM_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID")
 })
 @Entity(name = "ampata_UsrItem")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class UsrItem {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)

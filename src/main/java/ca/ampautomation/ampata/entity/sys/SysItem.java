@@ -18,14 +18,17 @@ import java.util.UUID;
 @Table(name = "AMPATA_SYS_ITEM", indexes = {
         @Index(name = "IDX_SYSITEM_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_SYSITEM_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
-        @Index(name = "IDX_SYSITEM_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
+        @Index(name = "IDX_SYSITEM_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID")
 })
 @Entity(name = "ampata_SysItem")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class SysItem {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
 
     @InstanceName
     @Column(name = "ID2")
@@ -166,11 +169,17 @@ public class SysItem {
 
     public void setDesc1(String desc1) { this.desc1 = desc1; }
 
+
     public SysItem getDesc1GenPat1_Id() { return desc1GenPat1_Id; }
 
     public void setDesc1GenPat1_Id(SysItem desc1GenPat1_Id) { this.desc1GenPat1_Id = desc1GenPat1_Id; }
 
-    
+    public String getDesc1GenPat1_Id2() {
+        return desc1GenPat1_Id2;
+    }
+
+    public void setDesc1GenPat1_Id2(String desc1GenPat1_Id2) { this.desc1GenPat1_Id2 = desc1GenPat1_Id2; }
+
     public Date getDeletedDate() {
         return deletedDate;
     }
