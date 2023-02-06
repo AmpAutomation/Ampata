@@ -3,8 +3,8 @@ package ca.ampautomation.ampata.screen.sys.fin;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import io.jmix.ui.screen.*;
 
-@UiController("ampata_SysFinCurcy.browse")
+@UiController("enty_SysFinCurcy.browse")
 @UiDescriptor("sys-fin-curcy-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class SysFinCurcyBrowse extends StandardLookup<UsrNode> {
 }

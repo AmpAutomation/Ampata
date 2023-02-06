@@ -1,10 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 
-@UiController("ampata_UsrFinWhat.browse")
+@UiController("enty_UsrFinWhat.browse")
 @UiDescriptor("usr-fin-what-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrFinWhatBrowse extends StandardLookup<UsrFinWhat> {
 }

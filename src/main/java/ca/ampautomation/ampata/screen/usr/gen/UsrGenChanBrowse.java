@@ -3,8 +3,8 @@ package ca.ampautomation.ampata.screen.usr.gen;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import io.jmix.ui.screen.*;
 
-@UiController("ampata_UsrGenChan.browse")
+@UiController("enty_UsrGenChan.browse")
 @UiDescriptor("usr-gen-chan-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrGenChanBrowse extends StandardLookup<UsrNode> {
 }

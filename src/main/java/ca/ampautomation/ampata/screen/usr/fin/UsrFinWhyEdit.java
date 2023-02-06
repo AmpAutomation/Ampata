@@ -1,10 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
 
-@UiController("ampata_UsrFinWhy.edit")
+@UiController("enty_UsrFinWhy.edit")
 @UiDescriptor("usr-fin-why-edit.xml")
-@EditedEntityContainer("finWhyDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinWhyEdit extends StandardEditor<UsrFinWhy> {
 }

@@ -37,7 +37,7 @@ begin
 raise notice 'Updating amt_debt';
 update ampata_usr_node t
 set amt_debt = 0
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.amt_debt is null
 ;	
@@ -46,7 +46,7 @@ and t.amt_debt is null
 raise notice 'Updating amt_cred';
 update ampata_usr_node t
 set amt_cred = 0
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.amt_cred is null
 ;	
@@ -56,7 +56,7 @@ and t.amt_cred is null
 raise notice 'Updating amt_net';
 update ampata_usr_node t
 set amt_net = 0
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.amt_net is null
 ;	
@@ -66,7 +66,7 @@ and t.amt_net is null
 raise notice 'Updating amt_beg_bal';
 update ampata_usr_node t
 set amt_beg_bal = 0
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.amt_beg_bal is null
 ;	
@@ -77,7 +77,7 @@ and t.amt_beg_bal is null
 raise notice 'Updating amt_end_bal';
 update ampata_usr_node t
 set amt_end_bal = 0
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.amt_end_bal is null
 ;	
@@ -91,9 +91,9 @@ set
 
 from ampata_usr_node_type t2
 where t.type1__id = t2.id
-and	t.class_name = 'FinBal'
+and	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
-and t2.class_name = 'FinBal'
+and t2.class_name = 'UsrFinBal'
 ;	
 
 
@@ -112,7 +112,7 @@ set
 FROM ampata_usr_node t1
 WHERE
 	t.fin_bal_set1__id = t1.id
-and	t.class_name = 'FinBal'
+and	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 ;	
 
@@ -140,14 +140,14 @@ set
 	,end1_time1  = t.end1_ts1::time
 	,end1_time1_hr  = date_part('hour',t.end1_ts1)
 	,end1_time1_min  = date_part('minute',t.end1_ts1)
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 ;
 	
 --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
 set id_dt_date1 = end1_date1
-where class_name = 'FinBal'
+where class_name = 'UsrFinBal'
 ;	
 
 
@@ -157,7 +157,7 @@ update ampata_usr_node t
 set fin_acct1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_acct1__id = t1.id
-and	t.class_name = 'FinBal'
+and	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 ;	
 
@@ -168,7 +168,7 @@ update ampata_usr_node t
 set fin_dept1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_dept1__id = t1.id
-and	t.class_name = 'FinBal'
+and	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 ;	
 
@@ -178,7 +178,7 @@ update ampata_usr_node t
 set sys_fin_curcy1__id2 = t1.id2
 from ampata_sys_node t1
 where t.sys_fin_curcy1__id = t1.id
-and	t.class_name = 'FinBal'
+and	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 ;	
 
@@ -194,7 +194,7 @@ set id2_calc = Usr_Fin_Bal_Fn_get_Id2_Calc(
 		,t.end1_date1
 		)
 
-where	t.class_name = 'FinBal'
+where	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.fin_bal_set1__id is null
 ;
@@ -210,7 +210,7 @@ set id2_calc = Usr_Fin_Bal_Fn_get_Id2_Calc(
 		,null
 		)
 
-where	t.class_name = 'FinBal'
+where	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.fin_bal_set1__id is not null
 ;
@@ -221,7 +221,7 @@ and t.fin_bal_set1__id is not null
 raise notice 'Updating sort_key';
 update ampata_usr_node t
 set sort_key = '_' || right('00' || t.sort_idx,2)
-where	t.class_name = 'FinBal'
+where	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.fin_bal_set1__id is null
 ;
@@ -232,7 +232,7 @@ update ampata_usr_node t
 set sort_key = '_AA' || t2.sort_key || t3.sort_key
 from ampata_usr_node t2
 , ampata_usr_node t3
-where	t.class_name = 'FinBal'
+where	t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.fin_bal_set1__id = t2.id
 and t.fin_acct1__id = t3.id
@@ -245,7 +245,7 @@ update ampata_usr_node t
 set	id2_cmp = 	case when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 ;
 
 
@@ -272,13 +272,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinBal'
+			where t.class_name = 'UsrFinBal'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinBal'
+		and	t.class_name = 'UsrFinBal'
 	    returning 1
 	)
 	select count(*) from rows into i_rows_updated_in_fin_bal
@@ -342,7 +342,7 @@ loop
 		,t.amt_cred
 		,t.amt_net
 		from ampata_usr_node t
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.deleted_by is null
 		and t.tenant = rec_tenant.tenant_id
 		order by t.fin_acct1__id2, t.fin_dept1__id2, t.sys_fin_curcy1__id2, t.end1_ts1
@@ -369,7 +369,7 @@ loop
 			if rec_fin_bal.fin_dept1__id  is null then
 				select t.id
 				from ampata_usr_node t
-				where t.class_name = 'FinBal'
+				where t.class_name = 'UsrFinBal'
 				and t.deleted_by is null
 				and t.tenant = rec_tenant.tenant_id
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -383,7 +383,7 @@ loop
 			else
 				select t.id
 				from ampata_usr_node t
-				where t.class_name = 'FinBal'
+				where t.class_name = 'UsrFinBal'
 				and t.deleted_by is null
 				and t.tenant = rec_tenant.tenant_id
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -404,7 +404,7 @@ loop
 		if vc_fin_bal1__id is not null then
 			update ampata_usr_node t 
 			set fin_bal1__id = vc_fin_bal1__id::uuid
-			where t.class_name = 'FinBal'
+			where t.class_name = 'UsrFinBal'
 			and t.id = rec_fin_bal.id
 			;
 
@@ -416,11 +416,11 @@ loop
 		from ampata_usr_node t
 		inner join ampata_usr_node t2
 			on t2.id  = t.fin_bal1__id
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.deleted_by is null
 		and t.tenant = rec_tenant.tenant_id
 		and t.id = rec_fin_bal.id
-		and t2.class_name = 'FinBal'
+		and t2.class_name = 'UsrFinBal'
 		into num_amt_beg_bal_calc
 		;
 
@@ -455,7 +455,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select count(t.id)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -466,7 +466,7 @@ loop
 		else
 			select count(t.id)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -488,7 +488,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select sum(t.amt_debt)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -499,7 +499,7 @@ loop
 		else
 			select sum(t.amt_debt)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -520,7 +520,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select sum(t.amt_cred)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -531,7 +531,7 @@ loop
 		else
 			select sum(t.amt_cred)
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -553,7 +553,7 @@ loop
 		from ampata_usr_node t
 		inner join ampata_usr_node_type t2
 			on t.type1__id = t2.id
-		where t.class_name = 'FinAcct'
+		where t.class_name = 'UsrFinAcct'
 		and t.deleted_by is null
 		and t.id = rec_fin_bal.fin_acct1__id
 		into b_bal_inc_on_debt, b_bal_inc_on_cred
@@ -633,7 +633,7 @@ loop
 			,fin_txact_itms1__amt_net_sum_diff = num_fin_txact_itms1__amt_net_sum_diff
 			,fin_txact_itms1__amt_eq_calc = b_fin_txact_itms1__amt_eq_calc
 			,amt_end_bal_calc = num_amt_end_bal_calc
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.id = rec_fin_bal.id
 		;
 	
@@ -658,7 +658,7 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinBal'
+			where t.class_name = 'UsrFinBal'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 

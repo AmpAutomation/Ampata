@@ -1,0 +1,198 @@
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://usrGenTagMain.caption"
+        focusComponent="tableMain">
+    <data>
+        <collection id="colCntnrMain"
+                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenTag"
+                    fetchPlan="fetchPlan_UsrGenTag_Base">
+            <loader id="colLoadrMain">
+                <query>
+                    <![CDATA[select e from enty_UsrGenTag e order by e.id2]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.gen.UsrGenTag"
+                  fetchPlan="fetchPlan_UsrGenTag_Base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="save" icon="OK" caption="msg:///actions.Ok" shortcut="CTRL-ENTER"/>
+        <action id="cancel" icon="CANCEL" caption="msg:///actions.Cancel" description="Esc"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout>
+        <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
+            <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
+                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                    <properties include=".*"/>
+                    <configurations>
+                        <configuration id="filterConfig1" default="true">
+                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                <entityComboBox metaClass="enty_UsrNodeType"/>
+                            </propertyFilter>
+                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                        </configuration>
+                    </configurations>
+                </filter>
+                <table id="tableMain"
+                       width="100%"
+                       multiselect="true"
+                       dataContainer="colCntnrMain">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="refresh" type="refresh"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <columns>
+                        <column id="id2"/>
+                        <column id="id2Dup"/>
+                        <column id="sortIdx"/>
+                        <column id="sortKey"/>
+                        <column id="type1_Id"/>
+                        <column id="name1"/>
+                        <column id="name2"/>
+                        <column id="desc1"/>
+                    </columns>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <tabSheet  width="100%">
+                            <tab id="tabCmd1" caption="Main" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
+                                    <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd2" caption="View">
+                            </tab>
+                            <tab id="tabCmd3" caption="Create, Edit" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="refreshBtn" action="tableMain.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="createBtn" action="tableMain.create"/>
+                                    <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="tableMain.remove"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="editBtn" action="tableMain.edit"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="setBtn" caption="Set" icon="font-icon:REFRESH"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
+                                    <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
+                                </hbox>
+                                <hbox spacing="true">
+                                    <hbox caption="Type1_Id" width="150px" expand="tmplt_Type1_IdField">
+                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <checkBox id="tmplt_Type1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                        </hbox>
+                                        <entityComboBox id="tmplt_Type1_IdField"/>
+                                    </hbox>
+                                </hbox>
+                            </tab>
+                        </tabSheet>
+                    </buttonsPanel>
+                </table>
+                <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
+                    <containerProvider dataContainer="colCntnrMain"/>
+                </pagination>
+                <hbox id="lookupActions" spacing="true" visible="false">
+                    <button action="lookupSelectAction"/>
+                    <button action="lookupCancelAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="editBox" expand="form" height="100%" margin="true,false,false,false" spacing="true">
+                <form id="form" dataContainer="instCntnrMain" width="100%">
+                    <tabSheet id="tabsheet1" height="100%" width="100%">
+                        <tab id="tab_1"
+                             caption="General"
+                             margin="true"
+                             spacing="true">
+                            <form id="tab1Form" dataContainer="instCntnrMain">
+                                <column width="360px">
+                                    <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
+                                        <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1" tabIndex="10"/>
+                                        <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <textField caption="id" id="id" property="id" width="100%" tabIndex="10" editable="false"/>
+                                    <textField caption="tenant" id="tenantField" property="tenant" width="100%" tabIndex="10" editable="false"/>
+                                    <textField caption="dtype" id="dtypeField" property="dtype" width="100%" tabIndex="10" editable="false"/>
+                                    <textField caption="className" id="classNameField" property="className" width="100%" tabIndex="10" editable="false"/>
+
+                                    <hbox caption="id2" expand="id2Field" width="100%">
+                                        <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
+                                        <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                                        <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false" tabIndex="10"/>
+                                        <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
+                                        <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false" tabIndex="10"/>
+                                        <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Dup" expand="id2DupField" width="100%">
+                                        <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false" tabIndex="10"/>
+                                        <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                        <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
+                                                        property="type1_Id" tabIndex="10">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateType1_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="sortIdx" expand="sortIdxField" width="100%">
+                                        <textField id="sortIdxField" dataContainer="instCntnrMain" property="sortIdx" width="100%" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="sortKey" expand="sortKeyField" width="100%">
+                                        <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey" width="100%" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="name1" expand="name1Field" width="100%">
+                                        <textField id="name1Field" dataContainer="instCntnrMain" property="name1" width="100%" tabIndex="10"/>
+                                    </hbox>
+                                </column>
+                                <column>
+                                </column>
+                                <column>
+                                </column>
+                            </form>
+                        </tab>
+                        <tab id="tab_9"
+                             caption="Note"
+                             margin="true"
+                             spacing="true">
+                            <form id="tab9Form" dataContainer="instCntnrMain" width="100%">
+                                <column width="840px">
+                                    <textArea id="noteField" property="note" tabIndex="10"/>
+                                </column>
+                            </form>
+                        </tab>
+                    </tabSheet>
+                </form>
+                <hbox id="actionsPane" spacing="true" visible="false">
+                    <button id="saveBtn" action="save"/>
+                    <button id="cancelBtn" action="cancel"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemManValsBtn" caption="Update Man Vals"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

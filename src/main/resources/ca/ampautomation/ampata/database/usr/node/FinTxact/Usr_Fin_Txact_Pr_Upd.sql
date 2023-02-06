@@ -25,14 +25,14 @@ set  beg1_date1 = beg1_ts1::date
 	,beg1_time1_hr  = date_part('hour',beg1_ts1)
 	,beg1_time1_min  = date_part('minute',beg1_ts1)
 where
-	t.class_name = 'FinTxact'
+	t.class_name = 'UsrFinTxact'
 ;
 	
 --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
 set id_dt_date1  = beg1_date1
-where class_name = 'FinTxact'
+where class_name = 'UsrFinTxact'
 ;	
 
 		
@@ -60,7 +60,7 @@ set  id2_calc = Usr_Fin_Txact_Fn_get_Id2_Calc(
 --	,id_ts_time1_hr  = date_part('hour',id_ts_ts1)
 --	,id_ts_time1_min  = date_part('minute',id_ts_ts1)
 
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 ;
 
 
@@ -70,7 +70,7 @@ update ampata_usr_node t
 set	id2_cmp = 	case when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 ;
 
 
@@ -97,13 +97,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinTxact'
+			where t.class_name = 'UsrFinTxact'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinTxact'
+		and	t.class_name = 'UsrFinTxact'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -130,13 +130,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node_type t2b
 	on t2a.type1__id = t2b.id
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinTxact'
+	and t2b.class_name = 'UsrFinTxact'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -144,7 +144,7 @@ and t.deleted_by is null
 raise notice 'Updating gen_chan1__id2';
 update ampata_usr_node t
 set  gen_chan1__id2 = null
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -157,13 +157,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.gen_chan1__id = t2b.id
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'GenChan'
+	and t2b.class_name = 'UsrGenChan'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -172,7 +172,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_how1__id2';
 update ampata_usr_node t
 set  fin_how1__id2 = null
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -185,13 +185,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_how1__id = t2b.id
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinHow'
+	and t2b.dtype = 'enty_UsrFinHow'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -201,7 +201,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_what1__id2';
 update ampata_usr_node t
 set  fin_what1__id2 = null
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -214,13 +214,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_what1__id = t2b.id
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinWhat'
+	and t2b.dtype = 'enty_UsrFinWhat'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -230,7 +230,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_why1__id2';
 update ampata_usr_node t
 set  fin_why1__id2 = null
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -243,13 +243,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_why1__id = t2b.id
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinWhy'
+	and t2b.dtype = 'enty_UsrFinWhy'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -258,7 +258,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_txset1__id2_trgt';
 update ampata_usr_node t
 set	fin_txset1__id2_trgt = substring(id2_calc,1,16)
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and deleted_by is null
 ;
 
@@ -269,7 +269,7 @@ with cte1 as(
 select t.fin_txact1__id id
 ,count(t.fin_txact1__id) id_cnt
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 group by fin_txact1__id 
 )
@@ -278,7 +278,7 @@ update ampata_usr_node t
 set fin_txact_itms1__id_cnt_calc = ct.id_cnt
 from cte1 ct
 where t.id = ct.id
-and t.class_name = 'FinTxact'
+and t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -293,7 +293,7 @@ select t.fin_txact1__id id
 ,sum(t.amt_cred) amt_cred_sum_calc
 ,case when sum(t.amt_debt) = sum(t.amt_cred) then true else false end amt_eq_calc
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 group by fin_txact1__id 
 )
@@ -304,7 +304,7 @@ set  fin_txact_itms1__amt_debt_sum_calc = ct.amt_debt_sum_calc
 , fin_txact_itms1__amt_eq_calc = ct.amt_eq_calc
 from cte1 ct
 where t.id = ct.id
-and t.class_name = 'FinTxact'
+and t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 
@@ -331,12 +331,12 @@ from (
 	,t2a.fin_why1__id2
 	,case when coalesce(t2a.why_text1,'') = '' and coalesce(t2a.fin_why1__id2,'') = '' then null else 'for ' || trim(coalesce(t2a.why_text1,'') || coalesce(t2a.fin_why1__id2,'')) || ''  end desc1_fin_why1
 	from ampata_usr_node t2a
-	where t2a.class_name = 'FinTxact'
+	where t2a.class_name = 'UsrFinTxact'
 	and t2a.deleted_by is null
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxact'
+and	t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 ;
 

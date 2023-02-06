@@ -11,15 +11,19 @@ import io.jmix.ui.component.GroupTable;
 import io.jmix.ui.model.CollectionContainer;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrFinFmla.browse")
+@UiController("enty_UsrFinFmla.browse")
 @UiDescriptor("usr-fin-fmla-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrFinFmlaBrowse extends StandardLookup<UsrFinFmla> {
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private DataContext dataContext;
 
@@ -33,23 +37,23 @@ public class UsrFinFmlaBrowse extends StandardLookup<UsrFinFmla> {
     private MetadataTools metadataTools;
 
     @Autowired
-    private GroupTable<UsrFinFmla> table;
-
-    @Autowired
     private Notifications notifications;
 
     @Autowired
-    private CollectionContainer<UsrFinFmla> finFmlasDc;
+    private GroupTable<UsrFinFmla> tableMain;
 
-    Logger logger = LoggerFactory.getLogger(UsrGenAgentBrowse.class);
+
+    @Autowired
+    private CollectionContainer<UsrFinFmla> colCntnrFinFmla;
+
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
-        table.getSelected().stream()
+        tableMain.getSelected().stream()
                 .forEach(orig -> {
                     UsrFinFmla copy = makeCopy(orig);
                     UsrFinFmla savedCopy = dataManager.save(copy);
-                    finFmlasDc.getMutableItems().add(savedCopy);
+                    colCntnrFinFmla.getMutableItems().add(savedCopy);
                     logger.debug("Duplicated " + copy.getClass().getName() + " " + copy.getId2() + " "
                             + " [" + orig.getId() + "]"
                             + " ->"

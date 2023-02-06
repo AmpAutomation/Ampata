@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-@JmixEntity(name = "ampata_HasTmst")
+@JmixEntity(name = "enty_HasTmst")
 @Embeddable
 public class HasTmst {
 

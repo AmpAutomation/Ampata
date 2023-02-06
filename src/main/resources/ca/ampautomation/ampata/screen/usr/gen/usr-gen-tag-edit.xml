@@ -5,7 +5,7 @@
     <data>
         <instance id="genTagDc"
                   class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                  fetchPlan="usrGenTag-fetch-plan-base">
+                  fetchPlan="fetchPlan_UsrGenTag_Base">
             <loader/>
         </instance>
     </data>
@@ -22,8 +22,7 @@
                 caption="msg:///actions.Close"
                 icon="EDITOR_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="genTagDc">
@@ -41,15 +40,15 @@
                         </actions>
                     </entityPicker>
                     <textField id="type1_Id2Field" property="type1_Id2"/>
-                    <textField id="instField" property="inst"/>
+                    <textField id="instField" property="inst1"/>
                     <textField id="name1Field" property="name1"/>
-                    <entityPicker id="name1GenPat1_IdField" property="name1GenPat1_Id">
+                    <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <textField id="name1GenPat1_Id2Field" property="name1GenPat1_Id2"/>
+                    <textField id="name1GenFmla1_Id2Field" property="name1GenFmla1_Id2"/>
                     <textField id="name2Field" property="name2"/>
                     <textField id="abrvField" property="abrv"/>
                     <textArea id="desc1Field" property="desc1" rows="5"/>

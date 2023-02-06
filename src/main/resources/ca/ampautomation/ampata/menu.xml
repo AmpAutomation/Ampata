@@ -1,84 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <menu-config xmlns="http://jmix.io/schema/ui/menu">
-
-    <menu id="gen" caption="General">
-        <menu id="genAgent" caption="Agent">
-            <item screen="ampata_UsrGenAgent.browse" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genAgentBrowse.menu"/>
-        </menu>
-        <menu id="genChan" caption="Channel">
-            <item screen="ampata_UsrGenChan.browse" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genChanBrowse.menu"/>
-            <item screen="ampata_UsrGenChan.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genChanBrowse2.menu"/>
-        </menu>
-        <menu id="genDoc" caption="Document">
-            <item screen="ampata_UsrGenDocVer.browse" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genDocVerBrowse.menu"/>
-            <item screen="ampata_UsrGenDocVer.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genDocVerBrowse2.menu"/>
-        </menu>
-        <menu id="genTag" caption="Tag">
-            <item screen="ampata_UsrGenTag.browse" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genTagBrowse.menu"/>
-        </menu>
-    </menu>
-    <menu id="fin" caption="Finance">
-        <menu id="finAcct" caption="Accounts">
-            <item screen="ampata_UsrFinAcct.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctBrowse.menu"/>
-            <item screen="ampata_UsrFinAcct.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctBrowse2.menu"/>
-            <item screen="ampata_UsrFinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctTypeBrowse.menu"/>
-        </menu>
-        <menu id="finDept" caption="Departments">
-            <item screen="ampata_UsrFinDept.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finDeptBrowse.menu"/>
-            <item screen="ampata_UsrFinDept.browse2"
-                  caption="msg://ca.ampautomation.ampata.screen.usr.fin/finDeptBrowse2.menu"/>
-        </menu>
-        <menu id="finBal" caption="Balances">
-            <item screen="ampata_UsrFinBalSet.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finBalSetBrowse2.menu"/>
-            <item screen="ampata_UsrFinBal.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finBalBrowse2.menu"/>
-        </menu>
-        <menu id="finStmt" caption="Statements">
-            <item screen="ampata_UsrFinStmt.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtBrowse.menu"/>
-            <item screen="ampata_UsrFinStmt.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtBrowse2.menu"/>
-            <item screen="ampata_UsrFinStmtItm.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtItmBrowse.menu"/>
-            <item screen="ampata_UsrFinStmtItm.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtItmBrowse2.menu"/>
-        </menu>
-        <separator> --- </separator>
-        <menu id="finTxact" caption="Transactions">
-            <item screen="ampata_UsrFinTxset.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxsetBrowse.menu"/>
-            <item screen="ampata_UsrFinTxset.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxsetBrowse2.menu"/>
-            <separator> --- </separator>
-            <item screen="ampata_UsrFinTxact.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactBrowse.menu"/>
-            <item screen="ampata_UsrFinTxact.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactBrowse2.menu"/>
-            <separator> --- </separator>
-            <item screen="ampata_UsrFinTxactItm.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactItmBrowse.menu"/>
-            <item screen="ampata_UsrFinTxactItm.browse2" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactItmBrowse2.menu"/>
-        </menu>
-        <menu id="finItem" caption="Items">
-            <item screen="ampata_UsrFinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finFmlaBrowse.menu"/>
-            <item screen="ampata_UsrFinHow.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finHowBrowse.menu"/>
-            <item screen="ampata_UsrFinWhat.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finWhatBrowse.menu"/>
-            <item screen="ampata_UsrFinWhy.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finWhyBrowse.menu"/>
-        </menu>
-    </menu>
-    <menu id="tngy" caption="Tangible Asset">
-        <menu id="tngyEquip" caption="Equipment">
-            <item screen="ampata_UsrTngyEquip.browse2"
-                  caption="msg://ca.ampautomation.ampata.screen.usr.tngy/tngyEquipBrowse2.menu"/>
-        </menu>
-    </menu>
-    <menu id="sys" caption="System Data">
-        <menu id="sysFin" caption="Finance">
-            <menu id="sysFinCurcyExchRate" caption="Curency Exch Rate">
-                <item screen="ampata_SysFinCurcyExchRate.browse2" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateBrowse2.menu"/>
+    <menu id="usr" caption="msg://ca.ampautomation.ampata.menu/usr">
+        <menu id="usrGen" caption="msg://ca.ampautomation.ampata.menu/usrGen">
+            <menu id="usrGenTag" caption="msg://ca.ampautomation.ampata.menu/usrGenTag">
+                <item screen="enty_UsrGenTag.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenTagMain.menu"/>
             </menu>
-            <menu id="sysFinCurcy" caption="Currencies">
-                <item screen="ampata_SysFinCurcy.browse2"
-                      caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyBrowse2.menu"/>
+            <menu id="usrGenAgent" caption="msg://ca.ampautomation.ampata.menu/usrGenAgent">
+                <item screen="enty_UsrGenAgent.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenAgentMain.menu"/>
+            </menu>
+            <menu id="usrGenChan" caption="msg://ca.ampautomation.ampata.menu/usrGenChan">
+                <item screen="enty_UsrGenChan.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genChanMain.menu"/>
+            </menu>
+            <menu id="usrGenDoc" caption="msg://ca.ampautomation.ampata.menu/usrGenDoc">
+                <item screen="enty_UsrGenDocVer.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genDocVerMain.menu"/>
+            </menu>
+            <menu id="usrGenFile" caption="msg://ca.ampautomation.ampata.menu/usrGenFile">
+                <item screen="enty_UsrGenFile.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenFileMain.menu"/>
+            </menu>
+        </menu>
+        <menu id="usrFin" caption="msg://ca.ampautomation.ampata.menu/usrFin">
+            <menu id="usrFinAcct" caption="msg://ca.ampautomation.ampata.menu/usrFinAcct">
+                <item screen="enty_UsrFinAcct.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctMain.menu"/>
+                <item screen="enty_UsrFinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctTypeBrowse.menu"/>
+            </menu>
+            <menu id="usrFinDept" caption="msg://ca.ampautomation.ampata.menu/usrFinDept">
+                <item screen="enty_UsrFinDept.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finDeptMain.menu"/>
+            </menu>
+            <menu id="usrFinBal" caption="msg://ca.ampautomation.ampata.menu/usrFinBal">
+                <item screen="enty_UsrFinBalSet.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finBalSetMain.menu"/>
+                <item screen="enty_UsrFinBal.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finBalMain.menu"/>
+            </menu>
+            <menu id="usrFinStmt" caption="msg://ca.ampautomation.ampata.menu/usrFinStmt">
+                <item screen="enty_UsrFinStmt.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtMain.menu"/>
+                <item screen="enty_UsrFinStmtItm.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finStmtItmMain.menu"/>
+            </menu>
+            <separator> --- </separator>
+            <menu id="usrFinTxact" caption="msg://ca.ampautomation.ampata.menu/usrFinTxact">
+                <item screen="enty_UsrFinTxactSet.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactSetMain.menu"/>
+                <item screen="enty_UsrFinTxact.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactMain.menu"/>
+                <item screen="enty_UsrFinTxactItm.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finTxactItmMain.menu"/>
+            </menu>
+            <menu id="usrFinItem" caption="msg://ca.ampautomation.ampata.menu/usrFinItem">
+                <item screen="enty_UsrFinFmla.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finFmlaBrowse.menu"/>
+                <item screen="enty_UsrFinHow.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finHowBrowse.menu"/>
+                <item screen="enty_UsrFinWhat.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finWhatBrowse.menu"/>
+                <item screen="enty_UsrFinWhy.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finWhyBrowse.menu"/>
+            </menu>
+        </menu>
+        <menu id="usrTngy" caption="msg://ca.ampautomation.ampata.menu/usrTngy">
+            <menu id="usrTngyEquip" caption="Equipment">
+                <item screen="enty_UsrTngyEquip.main" caption="msg://ca.ampautomation.ampata.screen.usr.tngy/tngyEquipMain.menu"/>
+            </menu>
+        </menu>
+        <menu id="usrComn" caption="msg://ca.ampautomation.ampata.menu/usrCmn">
+            <menu id="usrCmnNode" caption="msg://ca.ampautomation.ampata.menu/usrCmnNode">
+                <item screen="enty_UsrNode.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeMain.menu"/>
+                <item screen="enty_UsrNodeType.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeTypeMain.menu"/>
+            </menu>
+            <menu id="usrCmnItem" caption="msg://ca.ampautomation.ampata.menu/usrCmnItem">
+                <item screen="enty_UsrItem.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemMain.menu"/>
+                <item screen="enty_UsrItemType.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemTypeMain.menu"/>
             </menu>
         </menu>
     </menu>
-    <menu id="admin" caption="Administration">
-        <menu id="usrNode" caption="User Node">
-            <item screen="ampata_UsrNode.browse" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeBrowse.menu"/>
-            <item screen="ampata_UsrNodeType.browse" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeTypeBrowse.menu"/>
+    <menu id="sys" caption="msg://ca.ampautomation.ampata.menu/sys">
+        <menu id="sysFin" caption="msg://ca.ampautomation.ampata.menu/sysFin">
+            <menu id="sysFinCurcy" caption="msg://ca.ampautomation.ampata.menu/sysFinCurcy">
+                <item screen="enty_SysFinCurcy.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyMain.menu"/>
+                <item screen="enty_SysFinCurcyExchRate.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateMain.menu"/>
+            </menu>
         </menu>
-        <item screen="ampata_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/UserBrowse.caption"/>
+    </menu>
+    <menu id="admin" caption="msg://ca.ampautomation.ampata.menu/admin">
+        <item screen="enty_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/UserBrowse.caption"/>
         <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
         <separator> --- </separator>
         <item screen="mten_Tenant.browse"/>

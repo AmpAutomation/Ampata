@@ -4,6 +4,14 @@ import ca.ampautomation.ampata.entity.HasDate;
 import ca.ampautomation.ampata.entity.HasTime;
 import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.sys.SysNode;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFile;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.annotation.TenantId;
@@ -31,9 +39,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.Date;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,8 +47,8 @@ import java.util.regex.Pattern;
 @Table(name = "AMPATA_USR_NODE", indexes = {
         @Index(name = "IDX_USRNODE_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_USRNODE_PARENT1__ID", columnList = "PARENT1__ID"),
-        @Index(name = "IDX_USRNODE_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
-        @Index(name = "IDX_USRNODE_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
+        @Index(name = "IDX_USRNODE_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_USRNODE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM2__ID", columnList = "DESC1_FIN_TXACT_ITM2__ID"),
         @Index(name = "IDX_USRNODE_GEN_CHAN1__ID", columnList = "GEN_CHAN1__ID"),
@@ -50,7 +56,7 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_USRNODE_FIN_HOW1__ID", columnList = "FIN_HOW1__ID"),
         @Index(name = "IDX_USRNODE_FIN_WHAT1__ID", columnList = "FIN_WHAT1__ID"),
         @Index(name = "IDX_USRNODE_FIN_WHY1__ID", columnList = "FIN_WHY1__ID"),
-        @Index(name = "IDX_USRNODE_FIN_TXSET1__ID", columnList = "FIN_TXSET1__ID"),
+        @Index(name = "IDX_USRNODE_FIN_TXACT_SET1__ID", columnList = "FIN_TXACT_SET1__ID"),
         @Index(name = "IDX_USRNODE_FIN_TXACT1__ID", columnList = "FIN_TXACT1__ID"),
         @Index(name = "IDX_USRNODE_FIN_ACCT1__ID", columnList = "FIN_ACCT1__ID"),
         @Index(name = "IDX_USRNODE_FIN_DEPT1__ID", columnList = "FIN_DEPT1__ID"),
@@ -71,9 +77,9 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_USRNODE_GEN_AGENT1__ID", columnList = "GEN_AGENT1__ID"),
         @Index(name = "IDX_USRNODE_GEN_AGENT2__ID", columnList = "GEN_AGENT2__ID")
 })
-@Entity(name = "ampata_UsrNode")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
+@Entity(name = "enty_UsrNode")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 @NamedStoredProcedureQueries({
 
         @NamedStoredProcedureQuery(name = "UsrNode.execUsrNodePrUpd",
@@ -108,6 +114,10 @@ import java.util.regex.Pattern;
 })
 
 public class UsrNode implements AcceptsTenant {
+
+    @Transient
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -116,6 +126,12 @@ public class UsrNode implements AcceptsTenant {
     @TenantId
     @Column(name = "TENANT")
     private String tenant;
+
+    @Column(name="DTYPE", insertable = false, updatable = false)
+    protected String dtype;
+
+    @Column(name = "CLASS_NAME")
+    protected String className;
 
     @InstanceName
     @Column(name = "ID2")
@@ -130,8 +146,6 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "ID2_DUP")
     private Integer id2Dup;
 
-    @Column(name = "CLASS_NAME")
-    private String className;
 
     @JoinColumn(name = "PARENT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -157,18 +171,18 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "TYPE1__ID2")
     private String type1_Id2;
 
-    @Column(name = "INST")
-    private String inst;
+    @Column(name = "INST1")
+    private String inst1;
 
     @Column(name = "NAME1")
     private String name1;
 
-    @JoinColumn(name = "NAME1_GEN_PAT1__ID")
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenPat name1GenPat1_Id;
+    private UsrGenFmla name1GenFmla1_Id;
 
-    @Column(name = "NAME1_GEN_PAT1__ID2")
-    private String name1GenPat1_Id2;
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
 
     @Column(name = "NAME2")
     private String name2;
@@ -183,12 +197,12 @@ public class UsrNode implements AcceptsTenant {
     @Lob
     private String desc1;
 
-    @JoinColumn(name = "DESC1_GEN_PAT1__ID")
+    @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenPat desc1GenPat1_Id;
+    private UsrGenFmla desc1GenFmla1_Id;
 
-    @Column(name = "DESC1_GEN_PAT1__ID2")
-    private String desc1GenPat1_Id2;
+    @Column(name = "DESC1_GEN_FMLA1__ID2")
+    private String desc1GenFmla1_Id2;
 
     @JoinColumn(name = "DESC1_FIN_TXACT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -248,7 +262,7 @@ public class UsrNode implements AcceptsTenant {
 
     @JoinColumn(name = "GEN_FILE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genFile1_Id;
+    private UsrGenFile genFile1_Id;
 
     @Column(name = "GEN_FILE1__ID2")
     private String genFile1_Id2;
@@ -262,28 +276,28 @@ public class UsrNode implements AcceptsTenant {
 
     @JoinColumn(name = "GEN_TAG1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genTag1_Id;
+    private UsrGenTag genTag1_Id;
 
     @Column(name = "GEN_TAG1__ID2")
     private String genTag1_Id2;
 
     @JoinColumn(name = "GEN_TAG2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genTag2_Id;
+    private UsrGenTag genTag2_Id;
 
     @Column(name = "GEN_TAG2__ID2")
     private String genTag2_Id2;
 
     @JoinColumn(name = "GEN_TAG3__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genTag3_Id;
+    private UsrGenTag genTag3_Id;
 
     @Column(name = "GEN_TAG3__ID2")
     private String genTag3_Id2;
 
     @JoinColumn(name = "GEN_TAG4__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genTag4_Id;
+    private UsrGenTag genTag4_Id;
 
     @Column(name = "GEN_TAG4__ID2")
     private String genTag4_Id2;
@@ -402,60 +416,60 @@ public class UsrNode implements AcceptsTenant {
 
 
     @Lob
-    @Column(name = "FIN_TXSET1__FIN_TXACTS1__ID2")
-    private String finTxset1_FinTxacts1_Id2;
+    @Column(name = "FIN_TXACT_SET1__FIN_TXACTS1__ID2")
+    private String finTxactSet1_FinTxacts1_Id2;
 
     @Lob
-    @Column(name = "FIN_TXSET1__FIN_ACCTS1__ID2")
-    private String finTxset1_FinAccts1_Id2;
+    @Column(name = "FIN_TXACT_SET1__FIN_ACCTS1__ID2")
+    private String finTxactSet1_FinAccts1_Id2;
 
-    @JoinColumn(name = "FIN_TXSET1__ID")
+    @JoinColumn(name = "FIN_TXACT_SET1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finTxset1_Id;
+    private UsrNode finTxactSet1_Id;
 
-    @Column(name = "FIN_TXSET1__ID2")
-    private String finTxset1_Id2;
+    @Column(name = "FIN_TXACT_SET1__ID2")
+    private String finTxactSet1_Id2;
 
-    @Column(name = "FIN_TXSET1__ID2_TRGT")
-    private String finTxset1_Id2Trgt;
+    @Column(name = "FIN_TXACT_SET1__ID2_TRGT")
+    private String finTxactSet1_Id2Trgt;
 
-    @Column(name = "FIN_TXSET1__EI1__ROLE")
-    private String finTxset1_EI1_Role;
+    @Column(name = "FIN_TXACT_SET1__EI1__ROLE")
+    private String finTxactSet1_EI1_Role;
 
-    @Column(name = "FIN_TXSET1__TYPE1__ID2")
-    private String finTxset1_Type1_Id2;
+    @Column(name = "FIN_TXACT_SET1__TYPE1__ID2")
+    private String finTxactSet1_Type1_Id2;
 
-    @Column(name = "FIN_TXSET1__DESC1")
+    @Column(name = "FIN_TXACT_SET1__DESC1")
     @Lob
-    private String finTxset1_Desc1;
+    private String finTxactSet1_Desc1;
 
 
-    @Column(name = "FIN_TXSET1__GEN_CHAN1__ID2")
-    private String finTxset1_GenChan1_Id2;
+    @Column(name = "FIN_TXACT_SET1__GEN_CHAN1__ID2")
+    private String finTxactSet1_GenChan1_Id2;
 
-    @Column(name = "FIN_TXSET1__BEG1_DATE1")
-    private LocalDate finTxset1_Beg1Date1;
+    @Column(name = "FIN_TXACT_SET1__BEG1_DATE1")
+    private LocalDate finTxactSet1_Beg1Date1;
 
-    @Column(name = "FIN_TXSET1__BEG1_TIME1")
-    private LocalTime finTxset1_Beg1Time1;
-
-
-    @Column(name = "FIN_TXSET1__HOW1__ID2")
-    private String finTxset1_How1_Id2;
+    @Column(name = "FIN_TXACT_SET1__BEG1_TIME1")
+    private LocalTime finTxactSet1_Beg1Time1;
 
 
-    @Column(name = "FIN_TXSET1__WHAT_TEXT1")
-    private String finTxset1_WhatText1;
-
-    @Column(name = "FIN_TXSET1__WHAT1__ID2")
-    private String finTxset1_What1_Id2;
+    @Column(name = "FIN_TXACT_SET1__HOW1__ID2")
+    private String finTxactSet1_How1_Id2;
 
 
-    @Column(name = "FIN_TXSET1__WHY_TEXT1")
-    private String finTxset1_WhyText1;
+    @Column(name = "FIN_TXACT_SET1__WHAT_TEXT1")
+    private String finTxactSet1_WhatText1;
 
-    @Column(name = "FIN_TXSET1__WHY1__ID2")
-    private String finTxset1_Why1_Id2;
+    @Column(name = "FIN_TXACT_SET1__WHAT1__ID2")
+    private String finTxactSet1_What1_Id2;
+
+
+    @Column(name = "FIN_TXACT_SET1__WHY_TEXT1")
+    private String finTxactSet1_WhyText1;
+
+    @Column(name = "FIN_TXACT_SET1__WHY1__ID2")
+    private String finTxactSet1_Why1_Id2;
 
 
     @JoinColumn(name = "FIN_TXACT1__ID")
@@ -838,20 +852,20 @@ public class UsrNode implements AcceptsTenant {
     private Boolean finStmtItms1_AmtEqDiff;
 
 
-    // Edge to FinTxset1.GenDocVers1
+    // Edge to FinTxactSet1.GenDocVers1
     @Lob
-    @Column(name = "FIN_TXSET1__GEN_DOC_VERS1__ID2")
-    private String finTxset1_GenDocVers1_Id2;
+    @Column(name = "FIN_TXACT_SET1__GEN_DOC_VERS1__ID2")
+    private String finTxactSet1_GenDocVers1_Id2;
 
     // Edge to FinTxact1.GenDocVers1
     @Lob
     @Column(name = "FIN_TXACT1__GEN_DOC_VERS1__ID2")
     private String finTxact1_GenDocVers1_Id2;
 
-    // Edge to FinTxset1.GenTags1
+    // Edge to FinTxactSet1.GenTags1
     @Lob
-    @Column(name = "FIN_TXSET1__GEN_TAGS1__ID2")
-    private String finTxset1_GenTags1_Id2;
+    @Column(name = "FIN_TXACT_SET1__GEN_TAGS1__ID2")
+    private String finTxactSet1_GenTags1_Id2;
 
     // Edge to FinTxact1.GenTags1
     @Lob
@@ -891,9 +905,6 @@ public class UsrNode implements AcceptsTenant {
     private Date deletedDate;
 
 
-    @Transient
-    private final Logger logger = LoggerFactory.getLogger(UsrNode.class);
-
 
     public UUID getId() {
         return id;
@@ -903,10 +914,17 @@ public class UsrNode implements AcceptsTenant {
         this.id = id;
     }
 
+    @Override
+    public String getTenantId() {
+        return tenant;
+    }
+
     public String getTenant() { return tenant; }
 
     public void setTenant(String tenant) { this.tenant = tenant; }
 
+
+    public String getDtype() {return dtype; }
 
     public String getClassName() {
         return className;
@@ -915,6 +933,7 @@ public class UsrNode implements AcceptsTenant {
     public void setClassName(String className) {
         this.className = className;
     }
+
 
     public String getId2() {
         return id2;
@@ -951,9 +970,7 @@ public class UsrNode implements AcceptsTenant {
         return parent1_Id;
     }
 
-    public void setParent1_Id(UsrNode parent1_Id) {
-        this.parent1_Id = parent1_Id;
-    }
+    public void setParent1_Id(UsrNode parent1_Id) { this.parent1_Id = parent1_Id; }
 
     public String getParent1_Id2() {
         return parent1_Id2;
@@ -967,9 +984,7 @@ public class UsrNode implements AcceptsTenant {
         return ancestors1_Id2;
     }
 
-    public void setAncestors1_Id2(String ancestors1_Id2) {
-        this.ancestors1_Id2 = ancestors1_Id2;
-    }
+    public void setAncestors1_Id2(String ancestors1_Id2) { this.ancestors1_Id2 = ancestors1_Id2; }
 
 
     public Integer getSortIdx() {
@@ -1005,12 +1020,12 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public String getInst() {
-        return inst;
+    public String getInst1() {
+        return inst1;
     }
 
-    public void setInst(String inst) {
-        this.inst = inst;
+    public void setInst1(String inst1) {
+        this.inst1 = inst1;
     }
 
     public String getName1() {
@@ -1022,18 +1037,18 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public UsrGenPat getName1GenPat1_Id() { return name1GenPat1_Id; }
+    public UsrGenFmla getName1GenFmla1_Id() { return name1GenFmla1_Id; }
 
-    public void setName1GenPat1_Id(UsrGenPat name1GenPat1_Id) {
-        this.name1GenPat1_Id = name1GenPat1_Id;
+    public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) {
+        this.name1GenFmla1_Id = name1GenFmla1_Id;
     }
 
-    public String getName1GenPat1_Id2() {
-        return name1GenPat1_Id2;
+    public String getName1GenFmla1_Id2() {
+        return name1GenFmla1_Id2;
     }
 
-    public void setName1GenPat1_Id2(String name1GenPat1_Id2) {
-        this.name1GenPat1_Id2 = name1GenPat1_Id2;
+    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) {
+        this.name1GenFmla1_Id2 = name1GenFmla1_Id2;
     }
 
 
@@ -1071,18 +1086,18 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public UsrGenPat getDesc1GenPat1_Id() { return desc1GenPat1_Id; }
+    public UsrGenFmla getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
 
-    public void setDesc1GenPat1_Id(UsrGenPat desc1GenPat1_Id) {
-        this.desc1GenPat1_Id = desc1GenPat1_Id;
+    public void setDesc1GenFmla1_Id(UsrGenFmla desc1GenFmla1_Id) {
+        this.desc1GenFmla1_Id = desc1GenFmla1_Id;
     }
 
-    public String getDesc1GenPat1_Id2() {
-        return desc1GenPat1_Id2;
+    public String getDesc1GenFmla1_Id2() {
+        return desc1GenFmla1_Id2;
     }
 
-    public void setDesc1GenPat1_Id2(String desc1GenPat1_Id2) {
-        this.desc1GenPat1_Id2 = desc1GenPat1_Id2;
+    public void setDesc1GenFmla1_Id2(String desc1GenFmla1_Id2) {
+        this.desc1GenFmla1_Id2 = desc1GenFmla1_Id2;
     }
 
 
@@ -1321,11 +1336,11 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public UsrNode getGenFile1_Id() {
+    public UsrGenFile getGenFile1_Id() {
         return genFile1_Id;
     }
 
-    public void setGenFile1_Id(UsrNode genFile1_Id) {
+    public void setGenFile1_Id(UsrGenFile genFile1_Id) {
         this.genFile1_Id = genFile1_Id;
     }
 
@@ -1360,7 +1375,7 @@ public class UsrNode implements AcceptsTenant {
         return genTag1_Id;
     }
 
-    public void setGenTag1_Id(UsrNode genTag1_Id) {
+    public void setGenTag1_Id(UsrGenTag genTag1_Id) {
         this.genTag1_Id = genTag1_Id;
     }
 
@@ -1377,7 +1392,7 @@ public class UsrNode implements AcceptsTenant {
         return genTag2_Id;
     }
 
-    public void setGenTag2_Id(UsrNode genTag2_Id) {
+    public void setGenTag2_Id(UsrGenTag genTag2_Id) {
         this.genTag2_Id = genTag2_Id;
     }
 
@@ -1394,7 +1409,7 @@ public class UsrNode implements AcceptsTenant {
         return genTag3_Id;
     }
 
-    public void setGenTag3_Id(UsrNode genTag3_Id) {
+    public void setGenTag3_Id(UsrGenTag genTag3_Id) {
         this.genTag3_Id = genTag3_Id;
     }
 
@@ -1411,7 +1426,7 @@ public class UsrNode implements AcceptsTenant {
         return genTag4_Id;
     }
 
-    public void setGenTag4_Id(UsrNode genTag4_Id) {
+    public void setGenTag4_Id(UsrGenTag genTag4_Id) {
         this.genTag4_Id = genTag4_Id;
     }
 
@@ -1509,159 +1524,157 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public String getFinTxset1_FinAccts1_Id2() {
-        return finTxset1_FinAccts1_Id2;
+    public String getFinTxactSet1_FinAccts1_Id2() {
+        return finTxactSet1_FinAccts1_Id2;
     }
 
-    public String getFinTxset1_FinTxacts1_Id2() {
-        return finTxset1_FinTxacts1_Id2;
+    public String getFinTxactSet1_FinTxacts1_Id2() {
+        return finTxactSet1_FinTxacts1_Id2;
     }
 
-    public void setFinTxset1_FinTxacts1_Id2(String finTxset1_FinTxacts1_Id2) {this.finTxset1_FinTxacts1_Id2 = finTxset1_FinTxacts1_Id2;}
+    public void setFinTxactSet1_FinTxacts1_Id2(String finTxactSet1_FinTxacts1_Id2) {this.finTxactSet1_FinTxacts1_Id2 = finTxactSet1_FinTxacts1_Id2;}
 
 
-    public UsrNode getFinTxset1_Id() {
-        return finTxset1_Id;
+    public UsrNode getFinTxactSet1_Id() {
+        return finTxactSet1_Id;
     }
 
-    public void setFinTxset1_Id(UsrNode finTxset1_Id) {
-        this.finTxset1_Id = finTxset1_Id;
+    public void setFinTxactSet1_Id(UsrNode finTxactSet1_Id) {
+        this.finTxactSet1_Id = finTxactSet1_Id;
     }
 
-    public String getFinTxset1_Id2() {
-        return finTxset1_Id2;
+    public String getFinTxactSet1_Id2() {
+        return finTxactSet1_Id2;
     }
 
-    public void setFinTxset1_Id2(String finTxset1_Id2) {
-        this.finTxset1_Id2 = finTxset1_Id2;
+    public void setFinTxactSet1_Id2(String finTxactSet1_Id2) {
+        this.finTxactSet1_Id2 = finTxactSet1_Id2;
     }
 
-    public String getFinTxset1_Id2Trgt() {
-        return finTxset1_Id2Trgt;
+    public String getFinTxactSet1_Id2Trgt() {
+        return finTxactSet1_Id2Trgt;
     }
 
-    public void setFinTxset1_Id2Trgt(String finTxset1_Id2Trgt) {this.finTxset1_Id2Trgt = finTxset1_Id2Trgt;}
+    public void setFinTxactSet1_Id2Trgt(String finTxactSet1_Id2Trgt) {this.finTxactSet1_Id2Trgt = finTxactSet1_Id2Trgt;}
 
-    public String getFinTxset1_Type1_Id2() {
-        return finTxset1_Type1_Id2;
+    public String getFinTxactSet1_Type1_Id2() {
+        return finTxactSet1_Type1_Id2;
     }
 
-    public void setFinTxset1_Type1_Id2(String finTxset1_Type1_Id2) {
-        this.finTxset1_Type1_Id2 = finTxset1_Type1_Id2;
-    }
-
-
-    public String getFinTxset1_Desc1() {
-        return finTxset1_Desc1;
-    }
-
-    public void setFinTxset1_Desc1(String finTxset1_Desc1) {
-        this.finTxset1_Desc1 = finTxset1_Desc1;
-    }
-
-    public String getFinTxset1_EI1_Role() {
-        return finTxset1_EI1_Role;
-    }
-
-    public void setFinTxset1_EI1_Role(String finTxset1_EI1_Role) {
-        this.finTxset1_EI1_Role = finTxset1_EI1_Role;
+    public void setFinTxactSet1_Type1_Id2(String finTxactSet1_Type1_Id2) {
+        this.finTxactSet1_Type1_Id2 = finTxactSet1_Type1_Id2;
     }
 
 
-    public void setFinTxset1_Beg1Date1(LocalDate finTxset1_Beg1Date1) {
-        this.finTxset1_Beg1Date1 = finTxset1_Beg1Date1;
+    public String getFinTxactSet1_Desc1() {
+        return finTxactSet1_Desc1;
     }
 
-    public LocalDate getFinTxset1_Beg1Date1() {
-        return finTxset1_Beg1Date1;
+    public void setFinTxactSet1_Desc1(String finTxactSet1_Desc1) {
+        this.finTxactSet1_Desc1 = finTxactSet1_Desc1;
     }
 
-    public void setFinTxset1_Beg1Time1(LocalTime finTxset1_Beg1Time1) {
-        this.finTxset1_Beg1Time1 = finTxset1_Beg1Time1;
+    public String getFinTxactSet1_EI1_Role() {
+        return finTxactSet1_EI1_Role;
     }
 
-    public LocalTime getFinTxset1_Beg1Time1() {
-        return finTxset1_Beg1Time1;
-    }
-
-
-    public String getFinTxset1_GenTags1_Id2() {
-        return finTxset1_GenTags1_Id2;
-    }
-
-    public void setFinTxset1_GenTags1_Id2(String finTxset1_GenTags1_Id2) {
-        this.finTxset1_GenTags1_Id2 = finTxset1_GenTags1_Id2;
-    }
-
-    public String getFinTxset1_GenDocVers1_Id2() {
-        return finTxset1_GenDocVers1_Id2;
-    }
-
-    public void setFinTxset1_GenDocVers1_Id2(String finTxset1_GenDocVers1_Id2) {
-        this.finTxset1_GenDocVers1_Id2 = finTxset1_GenDocVers1_Id2;
+    public void setFinTxactSet1_EI1_Role(String finTxactSet1_EI1_Role) {
+        this.finTxactSet1_EI1_Role = finTxactSet1_EI1_Role;
     }
 
 
-
-    public String getFinTxset1_GenChan1_Id2() {
-        return finTxset1_GenChan1_Id2;
+    public void setFinTxactSet1_Beg1Date1(LocalDate finTxactSet1_Beg1Date1) {
+        this.finTxactSet1_Beg1Date1 = finTxactSet1_Beg1Date1;
     }
 
-    public void setFinTxset1_GenChan1_Id2(String finTxset1_GenChan1_Id2) {
-        this.finTxset1_GenChan1_Id2 = finTxset1_GenChan1_Id2;
+    public LocalDate getFinTxactSet1_Beg1Date1() {
+        return finTxactSet1_Beg1Date1;
+    }
+
+    public void setFinTxactSet1_Beg1Time1(LocalTime finTxactSet1_Beg1Time1) {
+        this.finTxactSet1_Beg1Time1 = finTxactSet1_Beg1Time1;
+    }
+
+    public LocalTime getFinTxactSet1_Beg1Time1() {
+        return finTxactSet1_Beg1Time1;
+    }
+
+
+    public String getFinTxactSet1_GenTags1_Id2() {
+        return finTxactSet1_GenTags1_Id2;
+    }
+
+    public void setFinTxactSet1_GenTags1_Id2(String finTxactSet1_GenTags1_Id2) {
+        this.finTxactSet1_GenTags1_Id2 = finTxactSet1_GenTags1_Id2;
+    }
+
+    public String getFinTxactSet1_GenDocVers1_Id2() {
+        return finTxactSet1_GenDocVers1_Id2;
+    }
+
+    public void setFinTxactSet1_GenDocVers1_Id2(String finTxactSet1_GenDocVers1_Id2) {
+        this.finTxactSet1_GenDocVers1_Id2 = finTxactSet1_GenDocVers1_Id2;
     }
 
 
 
-    public String getFinTxset1_How1_Id2() {
-        return finTxset1_How1_Id2;
+    public String getFinTxactSet1_GenChan1_Id2() {
+        return finTxactSet1_GenChan1_Id2;
     }
 
-    public void setFinTxset1_How1_Id2(String finTxset1_How1_Id2) {
-        this.finTxset1_How1_Id2 = finTxset1_How1_Id2;
-    }
-
-    public String getFinTxset1_WhatText1() {
-        return finTxset1_WhatText1;
-    }
-
-    public void setFinTxset1_WhatText1(String finTxset1_WhatText1) {
-        this.finTxset1_WhatText1 = finTxset1_WhatText1;
-    }
-
-
-    public String getFinTxset1_What1_Id2() {
-        return finTxset1_What1_Id2;
-    }
-
-    public void setFinTxset1_What1_Id2(String finTxset1_What1_Id2) {
-        this.finTxset1_What1_Id2 = finTxset1_What1_Id2;
-    }
-
-
-    public String getFinTxset1_WhyText1() {
-        return finTxset1_WhyText1;
-    }
-
-    public void setFinTxset1_WhyText1(String finTxset1_WhyText1) {
-        this.finTxset1_WhyText1 = finTxset1_WhyText1;
-    }
-
-    public String getFinTxset1_Why1_Id2() {
-        return finTxset1_Why1_Id2;
-    }
-
-    public void setFinTxset1_Why1_Id2(String finTxset1_Why1_Id2) {
-        this.finTxset1_Why1_Id2 = finTxset1_Why1_Id2;
+    public void setFinTxactSet1_GenChan1_Id2(String finTxactSet1_GenChan1_Id2) {
+        this.finTxactSet1_GenChan1_Id2 = finTxactSet1_GenChan1_Id2;
     }
 
 
 
-
-
-    public UsrNode getFinTxact1_Id() {
-        return finTxact1_Id;
+    public String getFinTxactSet1_How1_Id2() {
+        return finTxactSet1_How1_Id2;
     }
+
+    public void setFinTxactSet1_How1_Id2(String finTxactSet1_How1_Id2) {
+        this.finTxactSet1_How1_Id2 = finTxactSet1_How1_Id2;
+    }
+
+    public String getFinTxactSet1_WhatText1() {
+        return finTxactSet1_WhatText1;
+    }
+
+    public void setFinTxactSet1_WhatText1(String finTxactSet1_WhatText1) {
+        this.finTxactSet1_WhatText1 = finTxactSet1_WhatText1;
+    }
+
+
+    public String getFinTxactSet1_What1_Id2() {
+        return finTxactSet1_What1_Id2;
+    }
+
+    public void setFinTxactSet1_What1_Id2(String finTxactSet1_What1_Id2) {
+        this.finTxactSet1_What1_Id2 = finTxactSet1_What1_Id2;
+    }
+
+
+    public String getFinTxactSet1_WhyText1() {
+        return finTxactSet1_WhyText1;
+    }
+
+    public void setFinTxactSet1_WhyText1(String finTxactSet1_WhyText1) {
+        this.finTxactSet1_WhyText1 = finTxactSet1_WhyText1;
+    }
+
+    public String getFinTxactSet1_Why1_Id2() {
+        return finTxactSet1_Why1_Id2;
+    }
+
+    public void setFinTxactSet1_Why1_Id2(String finTxactSet1_Why1_Id2) {
+        this.finTxactSet1_Why1_Id2 = finTxactSet1_Why1_Id2;
+    }
+
+
+
+
+
+    public UsrNode getFinTxact1_Id() {return finTxact1_Id; }
 
     public void setFinTxact1_Id(UsrNode finTxact1_Id) {
         this.finTxact1_Id = finTxact1_Id;
@@ -2236,7 +2249,7 @@ public class UsrNode implements AcceptsTenant {
     public void setFinTxacts1_AmtEqCalc(Boolean finTxacts1_AmtEqCalc) {this.finTxacts1_AmtEqCalc = finTxacts1_AmtEqCalc; }
 
 
-    // Edge to FinTxact1.FinTxsets
+    // Edge to FinTxact1.FinTxactSets
 
     public String getFinTxact1_FinTxactItms1_Id2() {
         return finTxact1_FinTxactItms1_Id2;
@@ -2420,26 +2433,6 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public Boolean updateId2Calc(){
-        String logPrfx = "updateId2Calc()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        String id2Calc_ = getId2Calc();
-        logger.debug(logPrfx + " --- calling getId2CalcFrFields()");
-        String id2Calc = getId2CalcFrFields();
-
-        if (!Objects.equals(id2Calc_, id2Calc)){
-            logger.debug(logPrfx + " --- calling setId2Calc("+ id2Calc +")");
-            setId2Calc(id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
 
     public String getId2CalcFrFields(){
         String logPrfx = "getId2CalcFrFields";
@@ -2455,11 +2448,27 @@ public class UsrNode implements AcceptsTenant {
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
-         DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
                 .appendPattern("HH:mm")
                 .toFormatter();
         DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
+
+        //require name1
+        switch (className) {
+            case "FinAcct" -> {
+                if (name1 == null) {
+                    logger.debug(logPrfx + " --- name1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- name1: " + name1);
+                }
+
+            }
+        }
+
+        //require idTs.ts1
         switch (className) {
             case "timestamp based type placeholder" -> {
                 if (idTs == null) {
@@ -2475,7 +2484,11 @@ public class UsrNode implements AcceptsTenant {
                     logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
                 }
             }
-            case "FinTxset", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
+        }
+
+        //require idDt.date1
+        switch (className) {
+            case "FinTxactSet", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
                 if (idDt == null) {
                     logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2491,8 +2504,45 @@ public class UsrNode implements AcceptsTenant {
             }
         }
 
+        //require beg1.ts1
         switch (className) {
-            case "FinStmt":
+            case "FinBal" -> {
+                if (beg1 == null) {
+                    logger.debug(logPrfx + " --- beg1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (beg1.getTs1() == null) {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): " + beg1.getTs1().format(frmtTs));
+                }
+            }
+        }
+
+        //require end1.ts1
+        switch (className) {
+            case "FinBal" -> {
+                if (end1 == null) {
+                    logger.debug(logPrfx + " --- end1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (end1.getTs1() == null) {
+                    logger.debug(logPrfx + " --- end1.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- end1.getTs1(): " + end1.getTs1().format(frmtTs));
+                }
+            }
+        }
+
+        //require finAcct1_Id
+        switch (className) {
+            case "FinStmt" -> {
                 if (finAcct1_Id == null) {
                     logger.debug(logPrfx + " --- finAcct1_Id: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2500,8 +2550,13 @@ public class UsrNode implements AcceptsTenant {
                 } else {
                     logger.debug(logPrfx + " --- finAcct1_Id: " + finAcct1_Id.getId());
                 }
-                break;
-            case "FinStmtItm":
+
+            }
+        }
+
+        //require finStmt1_Id -> finAcct1_Id
+        switch (className) {
+            case "FinStmtItm" ->{
                 if (finStmt1_Id == null) {
                     logger.debug(logPrfx + " --- finStmt1_Id: null");
                     logger.trace(logPrfx + " <--- ");
@@ -2515,55 +2570,60 @@ public class UsrNode implements AcceptsTenant {
                         logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: " + finStmt1_Id.getFinAcct1_Id().getId());
                     }
                 }
-                break;
-            case "FinAcct", "FinCurcy":
-                if (name1 == null) {
-                    logger.debug(logPrfx + " --- name1: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- name1: " + name1);
-                }
-                break;
-            default:
-
+            }
         }
 
-        switch (className){
-            case "FinAcct":
-                //Parent
-                if (parent1_Id == null) {
-                    logger.debug(logPrfx + " --- parent1_Id: null");
-                } else {
-                    logger.debug(logPrfx + " --- parent1_Id: " + parent1_Id.getId());
-                    sb.append(parent1_Id.getId2()).append("/");
-                }
-                break;
+        //update type1_Id2
+        if (type1_Id != null){
+            type1_Id2 = type1_Id.getId2();
         }
 
-
+        //create id2
         switch (className) {
-            case "FinTxset", "FinTxact", "FinTxactItm" ->
-                //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
-            case "FinStmt" ->
-                //finAcct1
-                sb.append(finAcct1_Id.getId2())
-                //idDt
-                .append(SEP + "D").append(idDt.getDate1().format(frmtDt));
-            case "FinStmtItm" ->
-                //finAcct1
-                sb.append(finStmt1_Id.getFinAcct1_Id().getId2())
-                //idDt
-                .append(SEP + "D").append(idTs.getTs1().format(frmtDt));
-            case "FinAcct", "FinCurcy" ->
+            case "GenAgent" ->{
+                switch (type1_Id2){
+                    case "/P" -> {
+                        sb.append("P-" +  String.valueOf(name1));
+                    }
+                    case "/O" -> {
+                        sb.append("O-" +  String.valueOf(name1));
+                    }
+                    case "/C" -> {
+                        String a1fn = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameFrst());
+                        String a1ln = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameLast());
+                        String a2fn = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameFrst());
+                        String a2ln = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameLast());
+                        //name1
+                        sb.append("C-");
+                        sb.append(a1fn.charAt(0));
+                        sb.append(a1ln.equals(String.valueOf(name1)) ? "" : "(" + a1ln + ")");
+                        sb.append("&");
+                        sb.append(a2fn.charAt(0));
+                        sb.append(a2ln.equals(String.valueOf(name1)) ? "" : "(" + a2ln + ")");
+                        sb.append(" ").append(String.valueOf(name1));
+                    }
+                    default -> {
+                        sb.append(name1);
+                    }
+                }
+
+            }
+            case "GenChan", "GenDocVer" ->{
                 //name1
                 sb.append(name1);
-            case "FinBalSet" ->
+            }
+            case "FinAcct"->{
+                //parent
+                sb.append(parent1_Id == null ? "" : parent1_Id.getId2());
                 //name1
-                sb.append(name1)
+                sb.append(SEP).append(name1);
+            }
+            case "FinBalSet" ->{
+                //name1
+                sb.append(name1);
                 //finDept1
-                .append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2()).append("");
+                sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2()).append("");
+            }
             case "FinBal" -> {
                     if (finBalSet1_Id != null) {
                         //finBalSet1
@@ -2572,75 +2632,63 @@ public class UsrNode implements AcceptsTenant {
                         sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
 
                     } else {
-                        //beg1Dt
-                        if (beg1.getTs1() == null || beg1.getTs1() == null) {
-                            logger.debug(logPrfx + " --- beg1: null");
-                            logger.trace(logPrfx + " <--- ");
-                            return "";
-                        } else {
-                            sb.append("B=").append(beg1.getTs1().format(frmtDt));
-                        }
-
-                        //end1Dt
-                        if (end1.getTs1() == null || end1.getTs1() == null) {
-                            logger.debug(logPrfx + " --- end1: null");
-                            logger.trace(logPrfx + " <--- ");
-                            return "";
-                        } else {
-                            sb.append(SEP2 + "E=").append(end1.getTs1().format(frmtDt));
-                        }
+                        //beg1.ts1
+                        sb.append("B=").append(beg1.getTs1().format(frmtDt));
+                        //end1.Ts1
+                        sb.append(SEP2 + "E=").append(end1.getTs1().format(frmtDt));
                         //finDept1
                         sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2());
                         //finAcct1
                         sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
                     }
             }
-        }
-
-        switch (className){
-            case "FinTxset", "FinTxact", "FinTxactItm", "FinStmtItm" -> {
+            case "FinTxactSet" -> {
+                //idDt
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
                 //IdX
-                if (idX == null) {
-                    logger.debug(logPrfx + " --- idX: null");
-                    sb.append(SEP + "X00");
-                }else{
-                    logger.debug(logPrfx + " --- idX: " + idX);
-                    sb.append(SEP + "X").append(String.format("%02d", idX));
-                }
+                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
             }
-        }
-
-        switch (className){
-            case "FinTxact", "FinTxactItm" -> {
+            case "FinTxact" -> {
+                //idDt
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
                 //IdY
-                if (idY == null) {
-                    logger.debug(logPrfx + " --- idY: null");
-                    sb.append(SEP + "Y00");
-                } else {
-                    logger.debug(logPrfx + " --- idY: " + idY);
-                    sb.append(SEP + "Y").append(String.format("%02d", idY));
-                }
+                sb.append(SEP + "Y").append(String.format("%02d", idY == null ? 0 : idY));
             }
-        }
-
-        switch (className) {
             case "FinTxactItm" ->{
+                //idDt
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
+                //IdY
+                sb.append(SEP + "Y").append(String.format("%02d", idY == null ? 0 : idY));
                 //IdZ
-                if (idZ == null) {
-                    logger.debug(logPrfx + " --- idZ: null");
-                    sb.append(SEP + "Z00");
-                } else {
-                    logger.debug(logPrfx + " --- idZ: " + idZ);
-                    sb.append(SEP + "Z").append(String.format("%02d", idZ));
-                }
+                sb.append(SEP + "Z").append(String.format("%02d", idZ == null ? 0 : idZ));
             }
-        }
-
-        switch (className) {
-            case "FinStmtItm" ->
+            case "FinStmt" ->{
+                //finAcct1
+                sb.append(finAcct1_Id.getId2());
+                //idDt
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+            }
+            case "FinStmtItm" ->{
+                //finAcct1
+                sb.append(finStmt1_Id.getFinAcct1_Id().getId2());
+                //idDt
+                //sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt));
+                //idDt
+                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
                 //amtNet
                 sb.append(SEP + "A").append(frmtDec.format(amtNet));
+            }
         }
+
+        switch (className){
+        }
+
 
 
         logger.debug(logPrfx + " --- sb: " + sb);
@@ -2664,7 +2712,7 @@ public class UsrNode implements AcceptsTenant {
 
         switch (className) {
             // beg1 only
-            case "FinTxset", "FinTxact" -> {
+            case "FinTxactSet", "FinTxact" -> {
                 if (beg1.getTs1() != null) {
                     ts1 = beg1.getTs1();
                 }
@@ -2711,7 +2759,7 @@ public class UsrNode implements AcceptsTenant {
 
         switch (className) {
 
-            case "FinTxset", "FinTxact":
+            case "FinTxactSet", "FinTxact":
                 if (beg1.getDate1() != null){
                     logger.debug(logPrfx + " --- calling idDt.setDate1(("+ beg1.getDate1().format(frmtDt) +")");
                     idDt.setDate1(beg1.getDate1());
@@ -2782,7 +2830,7 @@ public class UsrNode implements AcceptsTenant {
         LocalDateTime beg1_ts1 = null;
 
         switch (className) {
-            case "FinTxset":
+            case "FinTxactSet":
             case "FinTxact":
             case "FinTxactItm":
                 if (beg2 != null
@@ -2969,7 +3017,7 @@ public class UsrNode implements AcceptsTenant {
         switch (className) {
             case "FinTxact":
             case "FinTxactItm":
-            case "FinTxset":
+            case "FinTxactSet":
                 if (id2 != null
                         && id2.length() >= 20){
 
@@ -3084,9 +3132,6 @@ public class UsrNode implements AcceptsTenant {
                 }
             }
 
-            default ->{
-
-            }
         }
 
         logger.trace(logPrfx + " <--- ");
@@ -3158,7 +3203,9 @@ public class UsrNode implements AcceptsTenant {
         String logPrfx = "findUsrNodeById2";
         logger.trace(logPrfx + " --> ");
 
-        String qry = "select e from ampata_UsrNode e where e.className = :className and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e"
+                + " where e.className = :className"
+                + " and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + UsrNode_Id2);
 
@@ -3180,8 +3227,162 @@ public class UsrNode implements AcceptsTenant {
         return usrNode1_Id;
     }
 
-    @Override
-    public String getTenantId() {
-        return tenant;
+
+    public Boolean updateCalcVals(DataManager dataManager){
+        String logPrfx = "updateCalcVals";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Calc() || isChanged;
+        isChanged = this.updateId2Cmp() || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
+
+
+    public Boolean updateId2() {
+        // Assume this is not null
+        String logPrfx = "updateId2";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        String id2_ = this.getId2();
+        String id2 = this.getId2Calc();
+        if(!Objects.equals(id2_, id2)){
+            this.setId2(id2);
+            logger.debug(logPrfx + " --- id2: " + id2);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateId2Calc(){
+        String logPrfx = "updateId2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        String id2Calc_ = this.getId2Calc();
+        String id2Calc = this.getName1();
+        if(!Objects.equals(id2Calc_, id2Calc)){
+            this.setId2Calc(id2Calc);
+            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Cmp() {
+        String logPrfx = "updateId2Cmp";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Boolean id2Cmp_ = this.getId2Cmp();
+        Boolean id2Cmp = !Objects.equals(this.getId2(),this.getId2Calc());
+        if (!Objects.equals(id2Cmp_, id2Cmp)){
+            this.setId2Cmp(id2Cmp);
+            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Dup(DataManager dataManager) {
+        String logPrfx = "updateId2Dup";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Integer id2Dup_ = this.getId2Dup();
+        if (this.getId2() != null){
+            String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
+                    + " where e.id2 = :id2"
+                    + " and e.id <> :id";
+            Integer id2Dup;
+            try{
+                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
+                        .store("main")
+                        .parameter("id",this.getId())
+                        .parameter("id2",this.getId2())
+                        .one();
+            }catch (IllegalStateException e){
+                id2Dup =0;
+
+            }
+            id2Dup = id2Dup + 1;
+            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
+            if (!Objects.equals(id2Dup_, id2Dup)){
+                this.setId2Dup(id2Dup);
+                logger.debug(logPrfx + " --- this.setId2Dup(" + (id2Dup) + ")");
+                isChanged = true;
+            }
+
+        }
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateDesc1(){
+        String logPrfx = "updateDesc1";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    private UsrNode findNodeById2(DataManager dataManager, @NotNull String crtieria_Id2) {
+        String logPrfx = "findNodeById2";
+        logger.trace(logPrfx + " --> ");
+
+        if (crtieria_Id2 == null) {
+            logger.debug(logPrfx + " --- crtieria_Id2 is null.");
+            logger.trace(logPrfx + " <-- ");
+            return null;
+        }
+
+        String qry = "select e from enty_"+ this.getClass().getSimpleName() + " e"
+                + " and e.id2 = :id2";
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
+
+        UsrNode foundUsrNode = null;
+        try {
+            foundUsrNode = dataManager.load(UsrNode.class)
+                    .query(qry)
+                    .parameter("id2", crtieria_Id2)
+                    .one();
+            logger.debug(logPrfx + " --- query qry returned ONE result");
+
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+
+        }
+        logger.trace(logPrfx + " <-- ");
+        return foundUsrNode;
+
+    }
+
+
+
+    public Boolean updateIdParts() {
+        String logPrfx = "updateIdParts";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
 }

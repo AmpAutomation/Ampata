@@ -5,9 +5,9 @@ import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrGenTag.edit")
+@UiController("enty_UsrGenTag.edit")
 @UiDescriptor("usr-gen-tag-edit.xml")
-@EditedEntityContainer("genTagDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrGenTagEdit extends StandardEditor<UsrNode> {
     @Autowired
     private TextField<String> classNameField;
@@ -15,7 +15,7 @@ public class UsrGenTagEdit extends StandardEditor<UsrNode> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
 
-        classNameField.setValue("GenTag");
+        classNameField.setValue("UsrGenTag");
     }
 
 }

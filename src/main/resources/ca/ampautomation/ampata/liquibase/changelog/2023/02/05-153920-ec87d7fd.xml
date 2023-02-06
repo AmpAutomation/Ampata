@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_SYS_NODE_TYPE"
+                                 baseColumnNames="NAME1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_SYS_NODE_TYPE_ON_NAME1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_SYS_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_SYS_NODE_TYPE" indexName="IDX_SYSNODETYPE_NAME1_GEN_FMLA1__ID">
+            <column name="NAME1_GEN_FMLA1__ID"></column>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="AMPATA_SYS_NODE_TYPE"
+                                 baseColumnNames="DESC1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_SYS_NODE_TYPE_ON_DESC1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_SYS_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_SYS_NODE_TYPE" indexName="IDX_SYSNODETYPE_DESC1_GEN_FMLA1__ID">
+            <column name="DESC1_GEN_FMLA1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE_TYPE"
+                                 baseColumnNames="NAME1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_TYPE_ON_NAME1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE_TYPE" indexName="IDX_USRNODETYPE_NAME1_GEN_FMLA1__ID">
+            <column name="NAME1_GEN_FMLA1__ID"></column>
+        </createIndex>
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE_TYPE"
+                                 baseColumnNames="DESC1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_TYPE_ON_DESC1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE_TYPE" indexName="IDX_USRNODETYPE_DESC1_GEN_FMLA1__ID">
+            <column name="DESC1_GEN_FMLA1__ID"></column>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-@UiController("ampata_UsrFinStmtItm.browse")
+@UiController("enty_UsrFinStmtItm.browse")
 @UiDescriptor("usr-fin-stmt-itm-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrFinStmtItmBrowse extends StandardLookup<UsrNode> {
 
-    @Install(to = "table.[idTs.ts1]", subject = "formatter")
+    @Install(to = "tableMain.[idTs.ts1]", subject = "formatter")
     private String tableIdDtDate1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")

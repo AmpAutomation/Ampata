@@ -3,6 +3,11 @@ package ca.ampautomation.ampata.screen.usr.fin;
 import ca.ampautomation.ampata.entity.*;
 import ca.ampautomation.ampata.entity.sys.SysNode;
 import ca.ampautomation.ampata.entity.usr.*;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -27,10 +32,13 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@UiController("ampata_UsrFinTxactItm.edit")
+@UiController("enty_UsrFinTxactItm.edit")
 @UiDescriptor("usr-fin-txact-itm-edit.xml")
-@EditedEntityContainer("finTxactItmDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected UiComponents uiComponents;
@@ -40,9 +48,6 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
     @Autowired
     private EntityManager entityManager;
-
-    @Autowired
-    private UsrNodeRepository repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -65,7 +70,12 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     @Autowired
     private Notifications notifications;
 
+    //CRUD Repo
+    @Autowired
+    private UsrNodeRepo repo;
 
+
+    //Toolbar
     @Autowired
     protected ComboBox<Integer> updateInstItemCalcValsTxactOption;
 
@@ -73,104 +83,74 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     protected ComboBox<Integer> updateInstItemCalcValsTxsetOption;
 
 
+    //Main data containers, loaders and table
     @Autowired
-    private InstanceContainer<UsrNode> finTxactItmDc;
-
-    private CollectionContainer<UsrNodeType> finTxactItmTypesDc;
-
-    private CollectionLoader<UsrNodeType> finTxactItmTypesDl;
+    private InstanceContainer<UsrNode> instCntnrMain;
 
 
-    private CollectionContainer<UsrNode> genChansDc;
-
-    private CollectionLoader<UsrNode> genChansDl;
-
-
-    private CollectionContainer<UsrNode> genDocVersDc;
-
-    private CollectionLoader<UsrNode> genDocVersDl;
+    //Type data container and loader
+    private CollectionContainer<UsrNodeType> colCntnrType;
+    private CollectionLoader<UsrNodeType> colLoadrType;
 
 
-    private CollectionContainer<UsrNode> genTagsDc;
+    //Other data containers, loaders and table
+    private CollectionContainer<UsrNode> colCntnrGenChan;
+    private CollectionLoader<UsrNode> colLoadrGenChan;
 
-    private CollectionLoader<UsrNode> genTagsDl;
+    private CollectionContainer<UsrNode> colCntnrGenDocVer;
+    private CollectionLoader<UsrNode> colLoadrGenDocVer;
 
+    private CollectionContainer<UsrNode> colCntnrGenTag;
+    private CollectionLoader<UsrNode> colLoadrGenTag;
 
-    private CollectionContainer<UsrNode> finTxactsDc;
+    private CollectionContainer<UsrNode> colCntnrFinTxact;
+    private CollectionLoader<UsrNode> colLoadrFinTxact;
 
-    private CollectionLoader<UsrNode> finTxactsDl;
+    private CollectionContainer<UsrNodeType> colCntnrFinTxactType;
+    private CollectionLoader<UsrNodeType> colLoadrFinTxactType;
 
+    private CollectionContainer<UsrNode> colCntnrFinTxactSet;
+    private CollectionLoader<UsrNode> colLoadrFinTxactSet;
 
-    private CollectionContainer<UsrNodeType> finTxactTypesDc;
-
-    private CollectionLoader<UsrNodeType> finTxactTypesDl;
-
-
-    private CollectionContainer<UsrNode> finTxsetsDc;
-
-    private CollectionLoader<UsrNode> finTxsetsDl;
-
-
-    private CollectionContainer<UsrNodeType> finTxsetTypesDc;
-
-    private CollectionLoader<UsrNodeType> finTxsetTypesDl;
+    private CollectionLoader<UsrNodeType> colLoadrFinTxactSetType;
+    private CollectionContainer<UsrNodeType> colCntnrFinTxactSetType;
 
 
-    private CollectionContainer<UsrNode> finStmtsDc;
+    private CollectionLoader<UsrNode> colLoadrFinStmt;
+    private CollectionContainer<UsrNode> colCntnrFinStmt;
 
-    private CollectionLoader<UsrNode> finStmtsDl;
+    private CollectionLoader<UsrNode> colLoadrFinDept;
+    private CollectionContainer<UsrNode> colCntnrFinDept;
 
+    private CollectionLoader<UsrNode> colLoadrFinTaxLne;
+    private CollectionContainer<UsrNode> colCntnrFinTaxLne;
 
-    private CollectionContainer<UsrNode> finDeptsDc;
+    private CollectionLoader<UsrNode> colLoadrFinAcct;
+    private CollectionContainer<UsrNode> colCntnrFinAcct;
 
-    private CollectionLoader<UsrNode> finDeptsDl;
+    private CollectionContainer<SysNode> colCntnrSysFinCurcy;
+    private CollectionLoader<SysNode> colLoadrSysFinCurcy;
 
+    private CollectionContainer<UsrNode> colCntnrFinTxactItm1;
+    private CollectionLoader<UsrNode> colLoadrFinTxactItm1;
 
-    private CollectionContainer<UsrNode> finTaxLnesDc;
+    private CollectionContainer<UsrFinFmla> colCntnrFinFmla;
+    private CollectionLoader<UsrFinFmla> colLoadrFinFmla;
 
-    private CollectionLoader<UsrNode> finTaxLnesDl;
+    private CollectionContainer<UsrFinHow> colCntnrFinHow;
+    private CollectionLoader<UsrFinHow> colLoadrFinHow;
 
+    private CollectionContainer<UsrFinWhat> colCntnrFinWhat;
+    private CollectionLoader<UsrFinWhat> colLoadrFinWhat;
 
-    private CollectionContainer<UsrNode> finAcctsDc;
+    private CollectionContainer<UsrFinWhy> colCntnrFinWhy;
+    private CollectionLoader<UsrFinWhy> colLoadrFinWhy;
 
-    private CollectionLoader<UsrNode> finAcctsDl;
-
-
-    private CollectionContainer<UsrNode> finCurcysDc;
-
-    private CollectionLoader<UsrNode> finCurcysDl;
-
-
-    private CollectionContainer<UsrNode> finTxactItm1sDc;
-
-    private CollectionLoader<UsrNode> finTxactItm1sDl;
-
-
-    private CollectionContainer<UsrFinFmla> finFmlasDc;
-
-    private CollectionLoader<UsrFinFmla> finFmlasDl;
-
-
-    private CollectionContainer<UsrFinHow> finHowsDc;
-
-    private CollectionLoader<UsrFinHow> finHowsDl;
+    private CollectionContainer<UsrGenFmla> colCntnrGenFmla;
+    private CollectionLoader<UsrGenFmla> colLoadrGenFmla;
 
 
-    private CollectionContainer<UsrFinWhat> finWhatsDc;
-
-    private CollectionLoader<UsrFinWhat> finWhatsDl;
-
-
-    private CollectionContainer<UsrFinWhy> finWhysDc;
-
-    private CollectionLoader<UsrFinWhy> finWhysDl;
-
-
-    private CollectionContainer<UsrGenPat> genPatsDc;
-
-    private CollectionLoader<UsrGenPat> genPatsDl;
-
-
+    //Field
     @Autowired
     private TextField<String> classNameField;
 
@@ -205,7 +185,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrFinWhy> finWhy1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrGenPat> desc1GenPat1_IdField;
+    private EntityComboBox<UsrGenFmla> desc1GenFmla1_IdField;
 
     @Autowired
     private EntityComboBox<UsrNode> desc1FinTxactItm1_IdField;
@@ -253,7 +233,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrNode> finDept1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finCurcy1_IdField;
+    private EntityComboBox<SysNode> sysFinCurcy1_IdField;
 
     @Autowired
     private EntityComboBox<UsrNode> amtFinTxactItm1_IdField;
@@ -262,18 +242,15 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrFinFmla> amtFinFmla1_IdField;
 
 
-    // FinTxact
+    //Field (FinTxact)
     @Autowired
     private EntityComboBox<UsrNode> finTxact1_IdField;
-
-    @Autowired
-    private TextField<String> finTxact1_Id2TrgtField;
 
     @Autowired
     private EntityComboBox<UsrNodeType> finTxact1_Id_Type1_IdField;
 
     @Autowired
-    private ComboBox<String> finTxact1_Id_FinTxset1_EI1_RoleField;
+    private ComboBox<String> finTxact1_Id_FinTxactSet1_EI1_RoleField;
 
     @Autowired
     private EntityComboBox<UsrNode> finTxact1_Id_GenChan1_IdField;
@@ -294,48 +271,46 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrFinWhy> finTxact1_Id_FinWhy1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrGenPat> finTxact1_Id_Desc1GenPat1_IdField;
+    private EntityComboBox<UsrGenFmla> finTxact1_Id_Desc1GenFmla1_IdField;
 
     @Autowired
     private EntityComboBox<UsrNode> finTxact1_Id_Desc1FinTxactItm1_IdField;
 
-    // FinTxset
-    @Autowired
-    private EntityComboBox<UsrNode> finTxact1_Id_FinTxset1_IdField;
 
+    // Field (FinTxact.FinTxactSet)
     @Autowired
-    private TextField<String> finTxact1_Id_FinTxset1_Id2TrgtField;
+    private EntityComboBox<UsrNode> finTxact1_Id_FinTxactSet1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNodeType> finTxact1_Id_FinTxset1_Id_Type1_IdField;
+    private TextField<String> finTxact1_Id_FinTxactSet1_Id2TrgtField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finTxact1_Id_FinTxset1_Id_GenChan1_IdField;
+    private EntityComboBox<UsrNodeType> finTxact1_Id_FinTxactSet1_Id_Type1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrFinHow> finTxact1_Id_FinTxset1_Id_FinHow1_IdField;
+    private EntityComboBox<UsrNode> finTxact1_Id_FinTxactSet1_Id_GenChan1_IdField;
 
     @Autowired
-    private ComboBox<String> finTxact1_Id_FinTxset1_Id_WhatText1Field;
+    private EntityComboBox<UsrFinHow> finTxact1_Id_FinTxactSet1_Id_FinHow1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrFinWhat> finTxact1_Id_FinTxset1_Id_FinWhat1_IdField;
+    private ComboBox<String> finTxact1_Id_FinTxactSet1_Id_WhatText1Field;
 
     @Autowired
-    private ComboBox<String> finTxact1_Id_FinTxset1_Id_WhyText1Field;
+    private EntityComboBox<UsrFinWhat> finTxact1_Id_FinTxactSet1_Id_FinWhat1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrFinWhy> finTxact1_Id_FinTxset1_Id_FinWhy1_IdField;
+    private ComboBox<String> finTxact1_Id_FinTxactSet1_Id_WhyText1Field;
 
     @Autowired
-    private EntityComboBox<UsrGenPat> finTxact1_Id_FinTxset1_Id_Desc1GenPat1_IdField;
+    private EntityComboBox<UsrFinWhy> finTxact1_Id_FinTxactSet1_Id_FinWhy1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdField;
+    private EntityComboBox<UsrGenFmla> finTxact1_Id_FinTxactSet1_Id_Desc1GenFmla1_IdField;
 
-    Logger logger = LoggerFactory.getLogger(UsrFinTxactItmBrowse2.class);
+    @Autowired
+    private EntityComboBox<UsrNode> finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField;
 
-    Boolean showNotifications = true;
 
     /*
     InitEvent is sent when the screen controller and all its declaratively defined components are created,
@@ -374,267 +349,267 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         finTaxLne1_CodeField.setNullSelectionCaption("<null>");
 
 
-        finTxactItmTypesDc = dataComponents.createCollectionContainer(UsrNodeType.class);
-        finTxactItmTypesDl = dataComponents.createCollectionLoader();
-        finTxactItmTypesDl.setQuery("select e from ampata_UsrNodeType e where e.className = 'FinTxactItm' order by e.id2");
+        colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
+        colLoadrType = dataComponents.createCollectionLoader();
+        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxactItm' order by e.id2");
         FetchPlan finTxactItmTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxactItmTypesDl.setFetchPlan(finTxactItmTypesFp);
-        finTxactItmTypesDl.setContainer(finTxactItmTypesDc);
-        finTxactItmTypesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrType.setFetchPlan(finTxactItmTypesFp);
+        colLoadrType.setContainer(colCntnrType);
+        colLoadrType.setDataContext(getScreenData().getDataContext());
 
-        type1_IdField.setOptionsContainer(finTxactItmTypesDc);
+        type1_IdField.setOptionsContainer(colCntnrType);
 
 
-        genChansDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genChansDl = dataComponents.createCollectionLoader();
-        genChansDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenChan' order by e.id2");
+        colCntnrGenChan = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrGenChan = dataComponents.createCollectionLoader();
+        colLoadrGenChan.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenChan' order by e.id2");
         FetchPlan genChansFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genChansDl.setFetchPlan(genChansFp);
-        genChansDl.setContainer(genChansDc);
-        genChansDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenChan.setFetchPlan(genChansFp);
+        colLoadrGenChan.setContainer(colCntnrGenChan);
+        colLoadrGenChan.setDataContext(getScreenData().getDataContext());
 
-        genChan1_IdField.setOptionsContainer(genChansDc);
-        finTxact1_Id_GenChan1_IdField.setOptionsContainer(genChansDc);
-        finTxact1_Id_FinTxset1_Id_GenChan1_IdField.setOptionsContainer(genChansDc);
+        genChan1_IdField.setOptionsContainer(colCntnrGenChan);
+        finTxact1_Id_GenChan1_IdField.setOptionsContainer(colCntnrGenChan);
+        finTxact1_Id_FinTxactSet1_Id_GenChan1_IdField.setOptionsContainer(colCntnrGenChan);
 
 
-        finHowsDc = dataComponents.createCollectionContainer(UsrFinHow.class);
-        finHowsDl = dataComponents.createCollectionLoader();
-        finHowsDl.setQuery("select e from ampata_FinHow e order by e.id2");
+        colCntnrFinHow = dataComponents.createCollectionContainer(UsrFinHow.class);
+        colLoadrFinHow = dataComponents.createCollectionLoader();
+        colLoadrFinHow.setQuery("select e from enty_UsrFinHow e order by e.id2");
         FetchPlan finHowsFp = fetchPlans.builder(UsrFinHow.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finHowsDl.setFetchPlan(finHowsFp);
-        finHowsDl.setContainer(finHowsDc);
-        finHowsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinHow.setFetchPlan(finHowsFp);
+        colLoadrFinHow.setContainer(colCntnrFinHow);
+        colLoadrFinHow.setDataContext(getScreenData().getDataContext());
 
-        finHow1_IdField.setOptionsContainer(finHowsDc);
-        finTxact1_Id_FinHow1_IdField.setOptionsContainer(finHowsDc);
-        finTxact1_Id_FinTxset1_Id_FinHow1_IdField.setOptionsContainer(finHowsDc);
+        finHow1_IdField.setOptionsContainer(colCntnrFinHow);
+        finTxact1_Id_FinHow1_IdField.setOptionsContainer(colCntnrFinHow);
+        finTxact1_Id_FinTxactSet1_Id_FinHow1_IdField.setOptionsContainer(colCntnrFinHow);
 
 
-        finWhatsDc = dataComponents.createCollectionContainer(UsrFinWhat.class);
-        finWhatsDl = dataComponents.createCollectionLoader();
-        finWhatsDl.setQuery("select e from ampata_FinWhat e order by e.id2");
+        colCntnrFinWhat = dataComponents.createCollectionContainer(UsrFinWhat.class);
+        colLoadrFinWhat = dataComponents.createCollectionLoader();
+        colLoadrFinWhat.setQuery("select e from enty_UsrFinWhat e order by e.id2");
         FetchPlan finWhatsFp = fetchPlans.builder(UsrFinWhat.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finWhatsDl.setFetchPlan(finWhatsFp);
-        finWhatsDl.setContainer(finWhatsDc);
-        finWhatsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinWhat.setFetchPlan(finWhatsFp);
+        colLoadrFinWhat.setContainer(colCntnrFinWhat);
+        colLoadrFinWhat.setDataContext(getScreenData().getDataContext());
 
-        finWhat1_IdField.setOptionsContainer(finWhatsDc);
-        finTxact1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
-        finTxact1_Id_FinTxset1_Id_FinWhat1_IdField.setOptionsContainer(finWhatsDc);
+        finWhat1_IdField.setOptionsContainer(colCntnrFinWhat);
+        finTxact1_Id_FinWhat1_IdField.setOptionsContainer(colCntnrFinWhat);
+        finTxact1_Id_FinTxactSet1_Id_FinWhat1_IdField.setOptionsContainer(colCntnrFinWhat);
 
 
-        finWhysDc = dataComponents.createCollectionContainer(UsrFinWhy.class);
-        finWhysDl = dataComponents.createCollectionLoader();
-        finWhysDl.setQuery("select e from ampata_FinWhy e order by e.id2");
+        colCntnrFinWhy = dataComponents.createCollectionContainer(UsrFinWhy.class);
+        colLoadrFinWhy = dataComponents.createCollectionLoader();
+        colLoadrFinWhy.setQuery("select e from enty_UsrFinWhy e order by e.id2");
         FetchPlan finWhysFp = fetchPlans.builder(UsrFinWhy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finWhysDl.setFetchPlan(finWhysFp);
-        finWhysDl.setContainer(finWhysDc);
-        finWhysDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinWhy.setFetchPlan(finWhysFp);
+        colLoadrFinWhy.setContainer(colCntnrFinWhy);
+        colLoadrFinWhy.setDataContext(getScreenData().getDataContext());
 
-        finWhy1_IdField.setOptionsContainer(finWhysDc);
-        finTxact1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
-        finTxact1_Id_FinTxset1_Id_FinWhy1_IdField.setOptionsContainer(finWhysDc);
+        finWhy1_IdField.setOptionsContainer(colCntnrFinWhy);
+        finTxact1_Id_FinWhy1_IdField.setOptionsContainer(colCntnrFinWhy);
+        finTxact1_Id_FinTxactSet1_Id_FinWhy1_IdField.setOptionsContainer(colCntnrFinWhy);
 
 
-        genPatsDc = dataComponents.createCollectionContainer(UsrGenPat.class);
-        genPatsDl = dataComponents.createCollectionLoader();
-        genPatsDl.setQuery("select e from ampata_GenPat e order by e.id2");
-        FetchPlan genPatsFp = fetchPlans.builder(UsrGenPat.class)
+        colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
+        colLoadrGenFmla = dataComponents.createCollectionLoader();
+        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.id2");
+        FetchPlan genFmlasFp = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genPatsDl.setFetchPlan(genPatsFp);
-        genPatsDl.setContainer(genPatsDc);
-        genPatsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenFmla.setFetchPlan(genFmlasFp);
+        colLoadrGenFmla.setContainer(colCntnrGenFmla);
+        colLoadrGenFmla.setDataContext(getScreenData().getDataContext());
 
-        desc1GenPat1_IdField.setOptionsContainer(genPatsDc);
-        finTxact1_Id_Desc1GenPat1_IdField.setOptionsContainer(genPatsDc);
-        finTxact1_Id_FinTxset1_Id_Desc1GenPat1_IdField.setOptionsContainer(genPatsDc);
+        desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
+        finTxact1_Id_Desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
+        finTxact1_Id_FinTxactSet1_Id_Desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
 
 
-        genDocVersDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genDocVersDl = dataComponents.createCollectionLoader();
-        genDocVersDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenDocVer' order by e.id2");
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrGenDocVer = dataComponents.createCollectionLoader();
+        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
         FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genDocVersDl.setFetchPlan(genDocVersFp);
-        genDocVersDl.setContainer(genDocVersDc);
-        genDocVersDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenDocVer.setFetchPlan(genDocVersFp);
+        colLoadrGenDocVer.setContainer(colCntnrGenDocVer);
+        colLoadrGenDocVer.setDataContext(getScreenData().getDataContext());
 
-        genDocVer1_IdField.setOptionsContainer(genDocVersDc);
+        genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        genTagsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genTagsDl = dataComponents.createCollectionLoader();
-        genTagsDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenTag' order by e.id2");
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrGenTag = dataComponents.createCollectionLoader();
+        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
         FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genTagsDl.setFetchPlan(genTagsFp);
-        genTagsDl.setContainer(genTagsDc);
-        genTagsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenTag.setFetchPlan(genTagsFp);
+        colLoadrGenTag.setContainer(colCntnrGenTag);
+        colLoadrGenTag.setDataContext(getScreenData().getDataContext());
 
-        genTag1_IdField.setOptionsContainer(genTagsDc);
-        genTag2_IdField.setOptionsContainer(genTagsDc);
-        genTag3_IdField.setOptionsContainer(genTagsDc);
-        genTag4_IdField.setOptionsContainer(genTagsDc);
+        genTag1_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag2_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag3_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag4_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        finTxactsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finTxactsDl = dataComponents.createCollectionLoader();
-        finTxactsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinTxact' order by e.id2");
+        colCntnrFinTxact = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinTxact = dataComponents.createCollectionLoader();
+        colLoadrFinTxact.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxact' order by e.id2");
         FetchPlan finTxactsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxactsDl.setFetchPlan(finTxactsFp);
-        finTxactsDl.setContainer(finTxactsDc);
-        finTxactsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxact.setFetchPlan(finTxactsFp);
+        colLoadrFinTxact.setContainer(colCntnrFinTxact);
+        colLoadrFinTxact.setDataContext(getScreenData().getDataContext());
 
-        finTxact1_IdField.setOptionsContainer(finTxactsDc);
+        finTxact1_IdField.setOptionsContainer(colCntnrFinTxact);
 
 
-        finTxactTypesDc = dataComponents.createCollectionContainer(UsrNodeType.class);
-        finTxactTypesDl = dataComponents.createCollectionLoader();
-        finTxactTypesDl.setQuery("select e from ampata_UsrNodeType e where e.className = 'FinTxact' order by e.id2");
+        colCntnrFinTxactType = dataComponents.createCollectionContainer(UsrNodeType.class);
+        colLoadrFinTxactType = dataComponents.createCollectionLoader();
+        colLoadrFinTxactType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxact' order by e.id2");
         FetchPlan finTxactTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxactTypesDl.setFetchPlan(finTxactTypesFp);
-        finTxactTypesDl.setContainer(finTxactTypesDc);
-        finTxactTypesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxactType.setFetchPlan(finTxactTypesFp);
+        colLoadrFinTxactType.setContainer(colCntnrFinTxactType);
+        colLoadrFinTxactType.setDataContext(getScreenData().getDataContext());
 
-        finTxact1_Id_Type1_IdField.setOptionsContainer(finTxactTypesDc);
+        finTxact1_Id_Type1_IdField.setOptionsContainer(colCntnrFinTxactType);
 
 
-        finTxsetsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finTxsetsDl = dataComponents.createCollectionLoader();
-        finTxsetsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinTxset' order by e.id2");
-        FetchPlan finTxsetsFp = fetchPlans.builder(UsrNode.class)
+        colCntnrFinTxactSet = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinTxactSet = dataComponents.createCollectionLoader();
+        colLoadrFinTxactSet.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' order by e.id2");
+        FetchPlan finTxactSetsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxsetsDl.setFetchPlan(finTxsetsFp);
-        finTxsetsDl.setContainer(finTxsetsDc);
-        finTxsetsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxactSet.setFetchPlan(finTxactSetsFp);
+        colLoadrFinTxactSet.setContainer(colCntnrFinTxactSet);
+        colLoadrFinTxactSet.setDataContext(getScreenData().getDataContext());
 
-        finTxact1_Id_FinTxset1_IdField.setOptionsContainer(finTxsetsDc);
+        finTxact1_Id_FinTxactSet1_IdField.setOptionsContainer(colCntnrFinTxactSet);
 
 
-        finTxsetTypesDc = dataComponents.createCollectionContainer(UsrNodeType.class);
-        finTxsetTypesDl = dataComponents.createCollectionLoader();
-        finTxsetTypesDl.setQuery("select e from ampata_UsrNodeType e where e.className = 'FinTxset' order by e.id2");
-        FetchPlan finTxsetTypesFp = fetchPlans.builder(UsrNodeType.class)
+        colCntnrFinTxactSetType = dataComponents.createCollectionContainer(UsrNodeType.class);
+        colLoadrFinTxactSetType = dataComponents.createCollectionLoader();
+        colLoadrFinTxactSetType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxactSet' order by e.id2");
+        FetchPlan finTxactSetTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxsetTypesDl.setFetchPlan(finTxsetTypesFp);
-        finTxsetTypesDl.setContainer(finTxsetTypesDc);
-        finTxsetTypesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxactSetType.setFetchPlan(finTxactSetTypesFp);
+        colLoadrFinTxactSetType.setContainer(colCntnrFinTxactSetType);
+        colLoadrFinTxactSetType.setDataContext(getScreenData().getDataContext());
 
-        finTxact1_Id_FinTxset1_Id_Type1_IdField.setOptionsContainer(finTxsetTypesDc);
+        finTxact1_Id_FinTxactSet1_Id_Type1_IdField.setOptionsContainer(colCntnrFinTxactSetType);
 
 
-        finStmtsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finStmtsDl = dataComponents.createCollectionLoader();
-        finStmtsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinStmt' order by e.id2");
+        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinStmt = dataComponents.createCollectionLoader();
+        colLoadrFinStmt.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinStmt' order by e.id2");
         FetchPlan finStmtsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finStmtsDl.setFetchPlan(finStmtsFp);
-        finStmtsDl.setContainer(finStmtsDc);
-        finStmtsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinStmt.setFetchPlan(finStmtsFp);
+        colLoadrFinStmt.setContainer(colCntnrFinStmt);
+        colLoadrFinStmt.setDataContext(getScreenData().getDataContext());
 
-        finStmt1_IdField.setOptionsContainer(finStmtsDc);
+        finStmt1_IdField.setOptionsContainer(colCntnrFinStmt);
 
 
-        finTaxLnesDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finTaxLnesDl = dataComponents.createCollectionLoader();
-        finTaxLnesDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenDocFrg' order by e.id2");
+        colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinTaxLne = dataComponents.createCollectionLoader();
+        colLoadrFinTaxLne.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocFrg' order by e.id2");
         FetchPlan finTaxLnesFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTaxLnesDl.setFetchPlan(finTaxLnesFp);
-        finTaxLnesDl.setContainer(finTaxLnesDc);
-        finTaxLnesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTaxLne.setFetchPlan(finTaxLnesFp);
+        colLoadrFinTaxLne.setContainer(colCntnrFinTaxLne);
+        colLoadrFinTaxLne.setDataContext(getScreenData().getDataContext());
 
-        finTaxLne1_IdField.setOptionsContainer(finTaxLnesDc);
+        finTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
 
 
-        finAcctsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finAcctsDl = dataComponents.createCollectionLoader();
-        finAcctsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinAcct' order by e.id2");
+        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinAcct = dataComponents.createCollectionLoader();
+        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finAcctsDl.setFetchPlan(finAcctsFp);
-        finAcctsDl.setContainer(finAcctsDc);
-        finAcctsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinAcct.setFetchPlan(finAcctsFp);
+        colLoadrFinAcct.setContainer(colCntnrFinAcct);
+        colLoadrFinAcct.setDataContext(getScreenData().getDataContext());
 
-        finAcct1_IdField.setOptionsContainer(finAcctsDc);
+        finAcct1_IdField.setOptionsContainer(colCntnrFinAcct);
 
 
-        finDeptsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finDeptsDl = dataComponents.createCollectionLoader();
-        finDeptsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinDept' order by e.id2");
+        colCntnrFinDept = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinDept = dataComponents.createCollectionLoader();
+        colLoadrFinDept.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinDept' order by e.id2");
         FetchPlan finDeptsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finDeptsDl.setFetchPlan(finDeptsFp);
-        finDeptsDl.setContainer(finDeptsDc);
-        finDeptsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinDept.setFetchPlan(finDeptsFp);
+        colLoadrFinDept.setContainer(colCntnrFinDept);
+        colLoadrFinDept.setDataContext(getScreenData().getDataContext());
 
-        finDept1_IdField.setOptionsContainer(finDeptsDc);
+        finDept1_IdField.setOptionsContainer(colCntnrFinDept);
 
 
-        finCurcysDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finCurcysDl = dataComponents.createCollectionLoader();
-        finCurcysDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinCurcy' order by e.id2");
-        FetchPlan finCurcysFp = fetchPlans.builder(UsrNode.class)
+        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNode.class);
+        colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
+        colLoadrSysFinCurcy.setQuery("select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
+        FetchPlan sysFinCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finCurcysDl.setFetchPlan(finCurcysFp);
-        finCurcysDl.setContainer(finCurcysDc);
-        finCurcysDl.setDataContext(getScreenData().getDataContext());
+        colLoadrSysFinCurcy.setFetchPlan(sysFinCurcysFp);
+        colLoadrSysFinCurcy.setContainer(colCntnrSysFinCurcy);
+        colLoadrSysFinCurcy.setDataContext(getScreenData().getDataContext());
 
-        finCurcy1_IdField.setOptionsContainer(finCurcysDc);
+        sysFinCurcy1_IdField.setOptionsContainer(colCntnrSysFinCurcy);
 
 
-        finTxactItm1sDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finTxactItm1sDl = dataComponents.createCollectionLoader();
-        finTxactItm1sDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinTxactItm' order by e.id2");
+        colCntnrFinTxactItm1 = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinTxactItm1 = dataComponents.createCollectionLoader();
+        colLoadrFinTxactItm1.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' order by e.id2");
         FetchPlan finTxactItm1sFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finTxactItm1sDl.setFetchPlan(finTxactItm1sFp);
-        finTxactItm1sDl.setContainer(finTxactItm1sDc);
-        finTxactItm1sDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxactItm1.setFetchPlan(finTxactItm1sFp);
+        colLoadrFinTxactItm1.setContainer(colCntnrFinTxactItm1);
+        colLoadrFinTxactItm1.setDataContext(getScreenData().getDataContext());
 
-        desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
-        finTxact1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
-        finTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
-        amtFinTxactItm1_IdField.setOptionsContainer(finTxactItm1sDc);
+        desc1FinTxactItm1_IdField.setOptionsContainer(colCntnrFinTxactItm1);
+        finTxact1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(colCntnrFinTxactItm1);
+        finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(colCntnrFinTxactItm1);
+        amtFinTxactItm1_IdField.setOptionsContainer(colCntnrFinTxactItm1);
 
 
-        finFmlasDc = dataComponents.createCollectionContainer(UsrFinFmla.class);
-        finFmlasDl = dataComponents.createCollectionLoader();
-        finFmlasDl.setQuery("select e from ampata_FinFmla e order by e.id2");
+        colCntnrFinFmla = dataComponents.createCollectionContainer(UsrFinFmla.class);
+        colLoadrFinFmla = dataComponents.createCollectionLoader();
+        colLoadrFinFmla.setQuery("select e from enty_UsrFinFmla e order by e.id2");
         FetchPlan finFmlasFp = fetchPlans.builder(UsrFinFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finFmlasDl.setFetchPlan(finFmlasFp);
-        finFmlasDl.setContainer(finFmlasDc);
-        finFmlasDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinFmla.setFetchPlan(finFmlasFp);
+        colLoadrFinFmla.setContainer(colCntnrFinFmla);
+        colLoadrFinFmla.setDataContext(getScreenData().getDataContext());
 
-        amtFinFmla1_IdField.setOptionsContainer(finFmlasDc);
+        amtFinFmla1_IdField.setOptionsContainer(colCntnrFinFmla);
 
 
         logger.trace(logPrfx + " <-- ");
@@ -698,57 +673,57 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItmTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxactItmTypesDl.load() ");
+        colLoadrType.load();
+        logger.debug(logPrfx + " --- called colLoadrType.load() ");
 
-        reloadFinTxact1_Id_FinTxset1_EI1_RoleList();
+        reloadFinTxact1_Id_FinTxactSet1_EI1_RoleList();
 
-        finTxactTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxactTypesDl.load() ");
+        colLoadrFinTxactType.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactType.load() ");
 
         reloadFinTxact1_EI1_RoleList();
 
-        finTxsetTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxsetTypesDl.load() ");
+        colLoadrFinTxactSetType.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactSetType.load() ");
 
-        genChansDl.load();
-        logger.debug(logPrfx + " --- called genChansDl.load() ");
+        colLoadrGenChan.load();
+        logger.debug(logPrfx + " --- called colLoadrGenChan.load() ");
 
-        finHowsDl.load();
-        logger.debug(logPrfx + " --- called finHowsDl.load() ");
+        colLoadrFinHow.load();
+        logger.debug(logPrfx + " --- called colLoadrFinHow.load() ");
 
         reloadWhatText1List();
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+        colLoadrFinWhat.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhat.load() ");
 
         reloadWhyText1List();
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+        colLoadrFinWhy.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhy.load() ");
 
-        genPatsDl.load();
-        logger.debug(logPrfx + " --- called genPat.load() ");
+        colLoadrGenFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
-        finStmtsDl.load();
-        logger.debug(logPrfx + " --- called finStmtsDl.load() ");
+        colLoadrFinStmt.load();
+        logger.debug(logPrfx + " --- called colLoadrFinStmt.load() ");
         reloadFinStmtItm1_Desc1List();
         reloadFinStmtItm1_Desc2List();
         reloadFinStmtItm1_Desc3List();
 
-        finAcctsDl.load();
-        logger.debug(logPrfx + " --- called finAcctsDl.load() ");
+        colLoadrFinAcct.load();
+        logger.debug(logPrfx + " --- called colLoadrFinAcct.load() ");
 
-        finDeptsDl.load();
-        logger.debug(logPrfx + " --- called finDeptsDl.load() ");
+        colLoadrFinDept.load();
+        logger.debug(logPrfx + " --- called colLoadrFinDept.load() ");
 
-        finCurcysDl.load();
-        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+        colLoadrSysFinCurcy.load();
+        logger.debug(logPrfx + " --- called colLoadrSysFinCurcy.load() ");
 
-        finTaxLnesDl.load();
-        logger.debug(logPrfx + " --- called finTaxLnesDl.load() ");
+        colLoadrFinTaxLne.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTaxLne.load() ");
         reloadFinTaxLne1_CodeList();
 
-        finFmlasDl.load();
-        logger.debug(logPrfx + " --- called finFmlasDl.load() ");
+        colLoadrFinFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrFinFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
 
@@ -761,7 +736,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -771,11 +746,11 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         Integer finTxactOption = updateInstItemCalcValsTxactOption.getValue();
         if (finTxactOption == null){
             finTxactOption = 0;}
-        Integer finTxsetOption = updateInstItemCalcValsTxsetOption.getValue();
-        if (finTxsetOption == null){
-            finTxsetOption = 0;}
+        Integer finTxactSetOption = updateInstItemCalcValsTxsetOption.getValue();
+        if (finTxactSetOption == null){
+            finTxactSetOption = 0;}
 
-        updateCalcVals(thisFinTxactItm, finTxactOption, finTxsetOption);
+        updateCalcVals(thisFinTxactItm, finTxactOption, finTxactSetOption);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -785,9 +760,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateDesc1FieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -803,9 +778,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
-                logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -821,9 +796,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -842,9 +817,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -861,9 +836,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateId2CmpFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -878,9 +853,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateId2DupFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -896,8 +871,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateType1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItmTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxactItmTypesDl.load() ");
+        colLoadrType.load();
+        logger.debug(logPrfx + " --- called colLoadrType.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -928,8 +903,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateGenChan1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genChansDl.load();
-        logger.debug(logPrfx + " --- called genChansDl.load() ");
+        colLoadrGenChan.load();
+        logger.debug(logPrfx + " --- called colLoadrGenChan.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -939,8 +914,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinHow1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finHowsDl.load();
-        logger.debug(logPrfx + " --- called finHowsDl.load() ");
+        colLoadrFinHow.load();
+        logger.debug(logPrfx + " --- called colLoadrFinHow.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -971,8 +946,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinWhat1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+        colLoadrFinWhat.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhat.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1003,8 +978,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinWhy1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+        colLoadrFinWhy.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhy.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1014,8 +989,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateDescPat1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genPatsDl.load();
-        logger.debug(logPrfx + " --- called genPatDl.load() ");
+        colLoadrGenFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1025,8 +1000,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateDesc1FinTxactItm1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        colLoadrFinTxactItm1.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactItm1.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1037,7 +1012,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1063,9 +1038,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateBeg1Ts1FieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1081,7 +1056,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1107,9 +1082,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateBeg2Ts1FieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1125,9 +1100,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
-                logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -1138,8 +1113,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             logger.debug(logPrfx + " --- calling updateFinTxact1_Id2Trgt(thisFinTxactItm)");
             updateFinTxact1_Id2Trgt(thisFinTxactItm);
 
-            logger.debug(logPrfx + " --- calling updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxactItm)");
-            updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxactItm);
+            logger.debug(logPrfx + " --- calling updateFinTxact1_FinTxactSet1_Id2Trgt(thisFinTxactItm)");
+            updateFinTxact1_FinTxactSet1_Id2Trgt(thisFinTxactItm);
         }
         logger.trace(logPrfx + " <-- ");
     }
@@ -1149,9 +1124,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateIdXFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1167,9 +1142,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
-                logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -1189,9 +1164,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateIdYFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1207,9 +1182,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
-                logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -1226,9 +1201,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateIdZFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1243,8 +1218,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genDocVersDl.load();
-        logger.debug(logPrfx + " --- called genDocVersDl.load() ");
+        colLoadrGenDocVer.load();
+        logger.debug(logPrfx + " --- called colLoadrGenDocVer.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1254,8 +1229,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateGenTag1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genTagsDl.load();
-        logger.debug(logPrfx + " --- called genTagsDl.load() ");
+        colLoadrGenTag.load();
+        logger.debug(logPrfx + " --- called colLoadrGenTag.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1267,9 +1242,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Desc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1285,15 +1260,15 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+            UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
-                logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
             if (thisFinTxactItm.getFinTxact1_Id() != null) {
-                updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxactItm);
+                updateFinTxact1_FinTxactSet1_Id2Trgt(thisFinTxactItm);
             }
         }
         logger.trace(logPrfx + " <-- ");
@@ -1305,7 +1280,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_IdFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1325,8 +1300,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactsDl.load();
-        logger.debug(logPrfx + " --- called finTxactsDl.load() ");
+        colLoadrFinTxact.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxact.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1336,9 +1311,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id2TrgtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1353,15 +1328,15 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Type1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxactTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxactTypesDl.load() ");
+        colLoadrFinTxactType.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactType.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "finTxact1_Id_FinTxset1_EI1_RoleField", subject = "enterPressHandler")
-    private void finTxact1_Id_FinTxset1_EI1_RoleFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "finTxact1_Id_FinTxset1_EI1_RoleFieldEnterPressHandler";
+    @Install(to = "finTxact1_Id_FinTxactSet1_EI1_RoleField", subject = "enterPressHandler")
+    private void finTxact1_Id_FinTxactSet1_EI1_RoleFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "finTxact1_Id_FinTxactSet1_EI1_RoleFieldEnterPressHandler";
         logger.trace(logPrfx + " --> ");
 
         addEnteredTextToComboBoxOptionsList(enterPressEvent);
@@ -1369,12 +1344,12 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_EI1_RoleFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_EI1_RoleFieldListBtnClick(Button.ClickEvent event) {
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_EI1_RoleFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_EI1_RoleFieldListBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateFinTxact1_Id_GenChan1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        reloadFinTxact1_Id_FinTxset1_EI1_RoleList();
+        reloadFinTxact1_Id_FinTxactSet1_EI1_RoleList();
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1384,8 +1359,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_GenChan1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        genChansDl.load();
-        logger.debug(logPrfx + " --- called genChansDl.load() ");
+        colLoadrGenChan.load();
+        logger.debug(logPrfx + " --- called colLoadrGenChan.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1395,8 +1370,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_How1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finHowsDl.load();
-        logger.debug(logPrfx + " --- called finHowsDl.load() ");
+        colLoadrFinHow.load();
+        logger.debug(logPrfx + " --- called colLoadrFinHow.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1426,8 +1401,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_What1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+        colLoadrFinWhat.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhat.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1457,8 +1432,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Why1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+        colLoadrFinWhy.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhy.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1469,8 +1444,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_DescPat1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genPatsDl.load();
-        logger.debug(logPrfx + " --- called genPatDl.load() ");
+        colLoadrGenFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1480,8 +1455,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Desc1FinTxactItm1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        colLoadrFinTxactItm1.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactItm1.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1492,9 +1467,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1509,9 +1484,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtDebtSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1526,9 +1501,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtCredSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1544,9 +1519,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1558,107 +1533,107 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     }
 
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_Desc1FieldBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_Desc1FieldBtnClick(Button.ClickEvent event) {
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_Desc1FieldBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_Desc1FieldBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateFinTxact1_Id_Desc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_Id_FinTxset1_Id_Desc1(thisFinTxactItm);
+        updateFinTxact1_Id_FinTxactSet1_Id_Desc1(thisFinTxactItm);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_IdFieldBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_IdFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_IdFieldBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_IdFieldBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_IdFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_IdFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        Integer finTxsetOption = updateInstItemCalcValsTxsetOption.getValue();
-        if (finTxsetOption == null){
-            finTxsetOption = 0;}
-        updateFinTxact1_FinTxset1_Id(thisFinTxactItm, finTxsetOption);
+        Integer finTxactSetOption = updateInstItemCalcValsTxsetOption.getValue();
+        if (finTxactSetOption == null){
+            finTxactSetOption = 0;}
+        updateFinTxact1_FinTxactSet1_Id(thisFinTxactItm, finTxactSetOption);
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_IdFieldListBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxsetsDl.load();
-        logger.debug(logPrfx + " --- called finTxsetsDl.load() ");
+        colLoadrFinTxactSet.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactSet.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id2TrgtBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id2TrgtBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id2TrgtBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id2TrgtBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id2TrgtBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id2TrgtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxactItm);
+        updateFinTxact1_FinTxactSet1_Id2Trgt(thisFinTxactItm);
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_Type1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_Type1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_Type1_IdFieldListBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_Type1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_Type1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_Type1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finTxsetTypesDl.load();
-        logger.debug(logPrfx + " --- called finTxsetTypesDl.load() ");
+        colLoadrFinTxactSetType.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactSetType.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_GenChan1_IdFieldListBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_GenChan1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_GenChan1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_GenChan1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        genChansDl.load();
-        logger.debug(logPrfx + " --- called genChansDl.load() ");
+        colLoadrGenChan.load();
+        logger.debug(logPrfx + " --- called colLoadrGenChan.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_How1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_How1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_How1_IdFieldListBtn";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_How1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_How1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_How1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finHowsDl.load();
-        logger.debug(logPrfx + " --- called finHowsDl.load() ");
+        colLoadrFinHow.load();
+        logger.debug(logPrfx + " --- called colLoadrFinHow.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_WhatText1FieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_WhatText1FieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_WhatText1FieldListBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_WhatText1FieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_WhatText1FieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_WhatText1FieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         reloadWhatText1List();
@@ -1666,9 +1641,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "finTxact1_Id_FinTxset1_Id_WhatText1Field", subject = "enterPressHandler")
-    private void finTxact1_Id_FinTxset1_Id_WhatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "finTxact1_Id_FinTxset1_Id_WhatText1FieldEnterPressHandler";
+    @Install(to = "finTxact1_Id_FinTxactSet1_Id_WhatText1Field", subject = "enterPressHandler")
+    private void finTxact1_Id_FinTxactSet1_Id_WhatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "finTxact1_Id_FinTxactSet1_Id_WhatText1FieldEnterPressHandler";
         logger.trace(logPrfx + " --> ");
 
         addEnteredTextToComboBoxOptionsList(enterPressEvent);
@@ -1676,20 +1651,20 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_What1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_What1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_What1_IdFieldListBtn";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_What1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_What1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_What1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhatsDl.load();
-        logger.debug(logPrfx + " --- called finWhatsDl.load() ");
+        colLoadrFinWhat.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhat.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_WhyText1FieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_WhyText1FieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_WhyText1FieldListBtnClick";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_WhyText1FieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_WhyText1FieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_WhyText1FieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         reloadWhyText1List();
@@ -1697,9 +1672,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "finTxact1_Id_FinTxset1_Id_WhyText1Field", subject = "enterPressHandler")
-    private void finTxact1_Id_FinTxset1_Id_WhyText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "finTxact1_Id_FinTxset1_Id_WhyText1FieldEnterPressHandler";
+    @Install(to = "finTxact1_Id_FinTxactSet1_Id_WhyText1Field", subject = "enterPressHandler")
+    private void finTxact1_Id_FinTxactSet1_Id_WhyText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+        String logPrfx = "finTxact1_Id_FinTxactSet1_Id_WhyText1FieldEnterPressHandler";
         logger.trace(logPrfx + " --> ");
 
         addEnteredTextToComboBoxOptionsList(enterPressEvent);
@@ -1707,35 +1682,35 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_Why1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_Why1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_Why1_IdFieldListBtn";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_Why1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_Why1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_Why1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finWhysDl.load();
-        logger.debug(logPrfx + " --- called finWhysDl.load() ");
+        colLoadrFinWhy.load();
+        logger.debug(logPrfx + " --- called colLoadrFinWhy.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_DescPat1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_DescPat1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_DescPat1_IdFieldListBtn";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_DescPat1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_DescPat1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_DescPat1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genPatsDl.load();
-        logger.debug(logPrfx + " --- called genPatDl.load() ");
+        colLoadrGenFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateFinTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtn")
-    public void onUpdateFinTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateFinTxact1_Id_FinTxset1_Id_Desc1FinTxactItm1_IdFieldListBtn";
+    @Subscribe("updateFinTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdFieldListBtn")
+    public void onUpdateFinTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdFieldListBtn(Button.ClickEvent event) {
+        String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        colLoadrFinTxactItm1.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactItm1.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1756,8 +1731,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinStmt1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finStmtsDl.load();
-        logger.debug(logPrfx + " --- called finStmtsDl.load() ");
+        colLoadrFinStmt.load();
+        logger.debug(logPrfx + " --- called colLoadrFinStmt.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1817,7 +1792,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTaxLne1_IdFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1834,8 +1809,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinTaxLne1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finTaxLnesDl.load();
-        logger.debug(logPrfx + " --- called finTaxLnesDl.load() ");
+        colLoadrFinTaxLne.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTaxLne.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1865,8 +1840,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinDept1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finDeptsDl.load();
-        logger.debug(logPrfx + " --- called finDeptsDl.load() ");
+        colLoadrFinDept.load();
+        logger.debug(logPrfx + " --- called colLoadrFinDept.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1876,8 +1851,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinAcct1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finAcctsDl.load();
-        logger.debug(logPrfx + " --- called finAcctsDl.load() ");
+        colLoadrFinAcct.load();
+        logger.debug(logPrfx + " --- called colLoadrFinAcct.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1887,8 +1862,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateFinCurcy1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finCurcysDl.load();
-        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+        colLoadrSysFinCurcy.load();
+        logger.debug(logPrfx + " --- called colLoadrSysFinCurcy.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1898,8 +1873,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateAmtFinTxactItm1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finTxactItm1sDl.load();
-        logger.debug(logPrfx + " --- called finTxactItm1sDl.load() ");
+        colLoadrFinTxactItm1.load();
+        logger.debug(logPrfx + " --- called colLoadrFinTxactItm1.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1910,9 +1885,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateAmtFinTxactItm1_EI1_RateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1927,9 +1902,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateAmtCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1945,9 +1920,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateCalcAmtNetBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinTxactItm = finTxactItmDc.getItemOrNull();
+        UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -1962,21 +1937,21 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         String logPrfx = "onUpdateAmtFinFmla1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finFmlasDl.load();
-        logger.debug(logPrfx + " --- called finFmlasDl.load() ");
+        colLoadrFinFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrFinFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    private Boolean updateCalcVals(@NotNull UsrNode thisFinTxactItm, Integer finTxactOption, Integer finTxsetOption) {
+    private Boolean updateCalcVals(@NotNull UsrNode thisFinTxactItm, Integer finTxactOption, Integer finTxactSetOption) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         isChanged = updateFinTxactItmCalcVals(thisFinTxactItm, finTxactOption) || isChanged;
-        isChanged = updateFinTxactCalcVals(thisFinTxactItm, finTxsetOption) || isChanged;
-        isChanged = updateFinTxsetCalcVals(thisFinTxactItm) || isChanged;
+        isChanged = updateFinTxactCalcVals(thisFinTxactItm, finTxactSetOption) || isChanged;
+        isChanged = updateFinTxactSetCalcVals(thisFinTxactItm) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2006,7 +1981,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxactCalcVals(@NotNull UsrNode thisFinTxactItm, Integer finTxsetOption) {
+    private Boolean updateFinTxactCalcVals(@NotNull UsrNode thisFinTxactItm, Integer finTxactSetOption) {
         String logPrfx = "updateFinTxactCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -2019,21 +1994,21 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         isChanged = updateFintxact1_Id_FinTxactItms1_AmtCredSumCalc(thisFinTxactItm)  || isChanged;
         isChanged = updateFintxact1_Id_FinTxactItms1_AmtEqCalc(thisFinTxactItm)  || isChanged;
 
-        isChanged = updateFinTxact1_FinTxset1_Id2Trgt(thisFinTxactItm) || isChanged;
-        isChanged = updateFinTxact1_FinTxset1_Id(thisFinTxactItm, finTxsetOption) || isChanged;
+        isChanged = updateFinTxact1_FinTxactSet1_Id2Trgt(thisFinTxactItm) || isChanged;
+        isChanged = updateFinTxact1_FinTxactSet1_Id(thisFinTxactItm, finTxactSetOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    private Boolean updateFinTxsetCalcVals(@NotNull UsrNode thisFinTxactItm) {
-        String logPrfx = "updateFinTxsetCalcVals";
+    private Boolean updateFinTxactSetCalcVals(@NotNull UsrNode thisFinTxactItm) {
+        String logPrfx = "updateFinTxactSetCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        // Stored in FinTxset Object
-        isChanged = updateFinTxact1_Id_FinTxset1_Id_Desc1(thisFinTxactItm) || isChanged;
+        // Stored in FinTxactSet Object
+        isChanged = updateFinTxact1_Id_FinTxactSet1_Id_Desc1(thisFinTxactItm) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2119,7 +2094,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         boolean isChanged = false;
         Integer id2Dup_ = thisFinTxactItm.getId2Dup();
         if (thisFinTxactItm.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -2419,41 +2394,41 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_Id_FinTxset1_Id_Desc1(@NotNull UsrNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_Id_FinTxactSet1_Id_Desc1(@NotNull UsrNode thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
-        String logPrfx = "updateFinTxact1_Id_FinTxset1_Id_Desc1";
+        String logPrfx = "updateFinTxact1_Id_FinTxactSet1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrNode thisFinTxset = thisFinTxactItm.getFinTxact1_Id() == null ? null : thisFinTxactItm.getFinTxact1_Id().getFinTxset1_Id();
+        UsrNode thisFinTxactSet = thisFinTxactItm.getFinTxact1_Id() == null ? null : thisFinTxactItm.getFinTxact1_Id().getFinTxactSet1_Id();
 
-        if (thisFinTxset != null) {
-            //finTxset is a 2nd ref (ref of a ref) of finTxactItm and is not automatically loaded into the dataContext
-            UsrNode thisTrackedTxset = dataContext.merge(thisFinTxset);
-            thisFinTxset = thisTrackedTxset;
+        if (thisFinTxactSet != null) {
+            //finTxactSet is a 2nd ref (ref of a ref) of finTxactItm and is not automatically loaded into the dataContext
+            UsrNode thisTrackedTxset = dataContext.merge(thisFinTxactSet);
+            thisFinTxactSet = thisTrackedTxset;
 
-            String desc1_ = thisFinTxset.getDesc1();
+            String desc1_ = thisFinTxactSet.getDesc1();
 
-            if (thisFinTxset.getDesc1GenPat1_Id() == null) {
+            if (thisFinTxactSet.getDesc1GenFmla1_Id() == null) {
 
                 //thisType
                 String thisType = "";
-                if (thisFinTxset.getType1_Id() != null) {
-                    thisType = Objects.toString(thisFinTxset.getType1_Id().getId2(), "");
+                if (thisFinTxactSet.getType1_Id() != null) {
+                    thisType = Objects.toString(thisFinTxactSet.getType1_Id().getId2(), "");
                 }
                 logger.debug(logPrfx + " --- thisType: " + thisType);
 
                 String desc1FinTxactItm1_Id2 = null;
                 switch (thisType) {
                     case "/Txfer-Exch":
-                        desc1FinTxactItm1_Id2 = thisFinTxset.getId2()+ "/Y01/Z00";
+                        desc1FinTxactItm1_Id2 = thisFinTxactSet.getId2()+ "/Y01/Z00";
                         break;
                     default:
-                        desc1FinTxactItm1_Id2 = thisFinTxset.getId2()+ "/Y00/Z00";
+                        desc1FinTxactItm1_Id2 = thisFinTxactSet.getId2()+ "/Y00/Z00";
                 }
-                UsrNode desc1FinTxactItm1 = thisFinTxset.getDesc1FinTxactItm1_Id() == null
+                UsrNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1FinTxactItm1_Id() == null
                         ? findFinTxactItmById2(desc1FinTxactItm1_Id2)
-                        : thisFinTxset.getDesc1FinTxactItm1_Id();
+                        : thisFinTxactSet.getDesc1FinTxactItm1_Id();
 
                 //thisAmt
                 String thisAmt = "";
@@ -2480,8 +2455,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
 
                 String thisChan = "";
-                if (thisFinTxset.getGenChan1_Id() != null) {
-                    thisChan = Objects.toString(thisFinTxset.getGenChan1_Id().getId2(), "");
+                if (thisFinTxactSet.getGenChan1_Id() != null) {
+                    thisChan = Objects.toString(thisFinTxactSet.getGenChan1_Id().getId2(), "");
                 }
                 if (!thisChan.equals("")) {
                     thisChan = "in chan [" + thisChan + "]";
@@ -2490,26 +2465,26 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
 
                 String thisHow = "";
-                if (thisFinTxset.getFinHow1_Id() != null) {
-                    thisHow = Objects.toString(thisFinTxset.getFinHow1_Id().getId2(), "");
+                if (thisFinTxactSet.getFinHow1_Id() != null) {
+                    thisHow = Objects.toString(thisFinTxactSet.getFinHow1_Id().getId2(), "");
                 }
                 if (!thisHow.equals("")) {
                     thisHow = "via " + thisHow;
                 }
                 logger.debug(logPrfx + " --- thisHow: " + thisHow);
 
-                String thisWhat = Objects.toString(thisFinTxset.getWhatText1(), "");
-                if (thisFinTxset.getFinWhat1_Id() != null) {
-                    thisWhat = thisWhat + " " + Objects.toString(thisFinTxset.getFinWhat1_Id().getId2());
+                String thisWhat = Objects.toString(thisFinTxactSet.getWhatText1(), "");
+                if (thisFinTxactSet.getFinWhat1_Id() != null) {
+                    thisWhat = thisWhat + " " + Objects.toString(thisFinTxactSet.getFinWhat1_Id().getId2());
                 }
                 if (!thisWhat.equals("")) {
                     thisWhat = "for " + thisWhat.trim();
                 }
                 logger.debug(logPrfx + " --- thisWhat: " + thisWhat);
 
-                String thisWhy = Objects.toString(thisFinTxset.getWhyText1(), "");
-                if (thisFinTxset.getFinWhy1_Id() != null) {
-                    thisWhy = thisWhy + " " + Objects.toString(thisFinTxset.getFinWhy1_Id().getId2());
+                String thisWhy = Objects.toString(thisFinTxactSet.getWhyText1(), "");
+                if (thisFinTxactSet.getFinWhy1_Id() != null) {
+                    thisWhy = thisWhy + " " + Objects.toString(thisFinTxactSet.getFinWhy1_Id().getId2());
                 }
                 if (!thisWhy.equals("")) {
                     thisWhy = "for " + thisWhy.trim();
@@ -2517,8 +2492,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                 logger.debug(logPrfx + " --- thisWhy: " + thisWhy);
 
                 String thisDocVer = "";
-                if (thisFinTxset.getGenDocVer1_Id() != null) {
-                    thisDocVer = Objects.toString(thisFinTxset.getGenDocVer1_Id().getId2());
+                if (thisFinTxactSet.getGenDocVer1_Id() != null) {
+                    thisDocVer = Objects.toString(thisFinTxactSet.getGenDocVer1_Id().getId2());
                 }
                 if (!thisDocVer.equals("")) {
                     thisDocVer = "doc ver " + thisDocVer;
@@ -2527,20 +2502,20 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
                 String thisTag = "";
                 String thisTag1 = "";
-                if (thisFinTxset.getGenTag1_Id() != null) {
-                    thisTag1 = Objects.toString(thisFinTxset.getGenTag1_Id().getId2());
+                if (thisFinTxactSet.getGenTag1_Id() != null) {
+                    thisTag1 = Objects.toString(thisFinTxactSet.getGenTag1_Id().getId2());
                 }
                 String thisTag2 = "";
-                if (thisFinTxset.getGenTag1_Id() != null) {
-                    thisTag2 = Objects.toString(thisFinTxset.getGenTag2_Id().getId2());
+                if (thisFinTxactSet.getGenTag1_Id() != null) {
+                    thisTag2 = Objects.toString(thisFinTxactSet.getGenTag2_Id().getId2());
                 }
                 String thisTag3 = "";
-                if (thisFinTxset.getGenTag1_Id() != null) {
-                    thisTag3 = Objects.toString(thisFinTxset.getGenTag3_Id().getId2());
+                if (thisFinTxactSet.getGenTag1_Id() != null) {
+                    thisTag3 = Objects.toString(thisFinTxactSet.getGenTag3_Id().getId2());
                 }
                 String thisTag4 = "";
-                if (thisFinTxset.getGenTag1_Id() != null) {
-                    thisTag4 = Objects.toString(thisFinTxset.getGenTag4_Id().getId2());
+                if (thisFinTxactSet.getGenTag1_Id() != null) {
+                    thisTag4 = Objects.toString(thisFinTxactSet.getGenTag4_Id().getId2());
                 }
                 if (!(thisTag1 + thisTag2 + thisTag3 + thisTag4).equals("")) {
                     thisTag = "tag [" + String.join(",", thisTag1, thisTag2, thisTag3, thisTag4) + "]";
@@ -2562,7 +2537,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                         .collect(Collectors.joining(" "));
 
                 if (!Objects.equals(desc1_, desc1)){
-                    thisFinTxset.setDesc1(desc1);
+                    thisFinTxactSet.setDesc1(desc1);
                     logger.debug(logPrfx + " --- desc1: " + desc1);
                     isChanged = true;
                 }
@@ -2731,7 +2706,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             Integer idCntCalc_ = thisFinTxact.getFinTxactItms1_IdCntCalc();
             Integer idCntCalc = null ;
-            String qry1 = "select count(e.amtNet) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            String qry1 = "select count(e.amtNet) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
                 idCntCalc = dataManager.loadValue(qry1,Integer.class)
                         .store("main")
@@ -2769,7 +2744,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             BigDecimal amtDebtSumCalc_ = thisFinTxact.getFinTxactItms1_AmtDebtSumCalc();
             BigDecimal amtDebtSumCalc = null ;
-            String qry1 = "select sum(e.amtDebt) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finTxact1_Id = :finTxact1_Id";
+            String qry1 = "select sum(e.amtDebt) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id";
             try{
                 amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
@@ -2807,7 +2782,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             BigDecimal amtCredSumCalc_ = thisFinTxact.getFinTxactItms1_AmtCredSumCalc();
             BigDecimal amtCredSumCalc = null ;
-            String qry1 = "select sum(e.amtCred) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            String qry1 = "select sum(e.amtCred) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
                 amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
@@ -2870,7 +2845,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from ampata_UsrNode e where e.className = 'FinTxactItm' and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactItm_Id2);
 
@@ -2900,7 +2875,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from ampata_UsrNode e where e.className = 'FinTxact' and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxact' and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
@@ -2934,7 +2909,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from ampata_UsrNode e where e.className = 'FinTxact' and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxact' and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
@@ -2951,7 +2926,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             logger.debug(logPrfx + " --- query qry returned NO results");
 
             UsrNode newFinTxact = dataManager.create(UsrNode.class);
-            newFinTxact.setClassName("FinTxact");
+            newFinTxact.setClassName("UsrFinTxact");
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
             beg1.setTs1(thisFinTxactItm.getIdTs().getTs1());
@@ -2977,52 +2952,52 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     }
 
 
-    private Boolean updateFinTxact1_FinTxset1_Id(@NotNull UsrNode thisFinTxactItm, Integer finTxsetOption) {
+    private Boolean updateFinTxact1_FinTxactSet1_Id(@NotNull UsrNode thisFinTxactItm, Integer finTxactSetOption) {
         // Assume thisFinTxactItm is not null
-        String logPrfx = "updateFinTxact1_FinTxset1_Id";
+        String logPrfx = "updateFinTxact1_FinTxactSet1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
         UsrNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null){
-            UsrNode finTxset1_Id_ = thisFinTxact.getFinTxset1_Id();
-            UsrNode finTxset1_Id;
+            UsrNode finTxactSet1_Id_ = thisFinTxact.getFinTxactSet1_Id();
+            UsrNode finTxactSet1_Id;
             // Update finTxact
-            switch (finTxsetOption) {
+            switch (finTxactSetOption) {
                 case 1: // Link to Exist Txset
-                    finTxset1_Id = findFinTxsetById2(thisFinTxact.getFinTxset1_Id2Trgt());
-                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)){
+                    finTxactSet1_Id = findFinTxactSetById2(thisFinTxact.getFinTxactSet1_Id2Trgt());
+                    if (!Objects.equals(finTxactSet1_Id_, finTxactSet1_Id)){
                         isChanged = true;
-                        thisFinTxact.setFinTxset1_Id(finTxset1_Id);
+                        thisFinTxact.setFinTxactSet1_Id(finTxactSet1_Id);
                     }
                     break;
                 case 2: // Link to Exist/New Txset
-                    finTxset1_Id = findFinTxsetById2(thisFinTxact.getFinTxset1_Id2Trgt());
-                    if (finTxset1_Id == null) {
-                        finTxset1_Id = createFinTxsetFrFinTxactItm(thisFinTxactItm);
+                    finTxactSet1_Id = findFinTxactSetById2(thisFinTxact.getFinTxactSet1_Id2Trgt());
+                    if (finTxactSet1_Id == null) {
+                        finTxactSet1_Id = createFinTxactSetFrFinTxactItm(thisFinTxactItm);
                     }
-                    if (!Objects.equals(finTxset1_Id_, finTxset1_Id)){
-                        thisFinTxact.setFinTxset1_Id(finTxset1_Id);
+                    if (!Objects.equals(finTxactSet1_Id_, finTxactSet1_Id)){
+                        thisFinTxact.setFinTxactSet1_Id(finTxactSet1_Id);
                         isChanged = true;
                     }
                     break;
                 case 3: // Update Exist Txact
-                    Boolean thisFinTxsetIsChanged = false;
-                    UsrNode thisFinTxset = thisFinTxact.getFinTxset1_Id();
-                    if (thisFinTxset != null) {
-                        if (!Objects.equals(thisFinTxset.getIdTs().getTs1(), thisFinTxactItm.getIdTs().getTs1())) {
-                            thisFinTxset.getBeg1().setTs1(thisFinTxactItm.getIdTs().getTs1());
-                            thisFinTxsetIsChanged = true;
+                    Boolean thisFinTxactSetIsChanged = false;
+                    UsrNode thisFinTxactSet = thisFinTxact.getFinTxactSet1_Id();
+                    if (thisFinTxactSet != null) {
+                        if (!Objects.equals(thisFinTxactSet.getIdTs().getTs1(), thisFinTxactItm.getIdTs().getTs1())) {
+                            thisFinTxactSet.getBeg1().setTs1(thisFinTxactItm.getIdTs().getTs1());
+                            thisFinTxactSetIsChanged = true;
                         }
-                        if (!Objects.equals(thisFinTxset.getIdX(), thisFinTxactItm.getIdX())) {
-                            thisFinTxset.setIdX(thisFinTxactItm.getIdX());
-                            thisFinTxsetIsChanged = true;
+                        if (!Objects.equals(thisFinTxactSet.getIdX(), thisFinTxactItm.getIdX())) {
+                            thisFinTxactSet.setIdX(thisFinTxactItm.getIdX());
+                            thisFinTxactSetIsChanged = true;
                         }
-                        if (thisFinTxsetIsChanged) {
-                            thisFinTxset.updateIdTs();
-                            thisFinTxset.setId2Calc(thisFinTxset.getId2CalcFrFields());
-                            thisFinTxset.setId2(thisFinTxset.getId2Calc());
-                            dataManager.save(thisFinTxset);
+                        if (thisFinTxactSetIsChanged) {
+                            thisFinTxactSet.updateIdTs();
+                            thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
+                            thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
+                            dataManager.save(thisFinTxactSet);
                         }
                     }
                     break;
@@ -3033,9 +3008,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_FinTxset1_Id2Trgt(@NotNull UsrNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_FinTxactSet1_Id2Trgt(@NotNull UsrNode thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
-        String logPrfx = "updateFinTxact1_FinTxset1_Id2Trgt";
+        String logPrfx = "updateFinTxact1_FinTxactSet1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
@@ -3045,7 +3020,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             String id2Calc = thisFinTxactItm.getId2CalcFrFields().substring(0, 20);
             if (!Objects.equals(id2Calc_, id2Calc)){
                 isChanged = true;
-                thisFinTxact.setFinTxset1_Id2Trgt(id2Calc);
+                thisFinTxact.setFinTxactSet1_Id2Trgt(id2Calc);
                 logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
             }
 
@@ -3054,93 +3029,93 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         return isChanged;
     }
 
-    private UsrNode findFinTxsetById2(@NotNull String finTxset_Id2) {
-        String logPrfx = "findFinTxsetById2";
+    private UsrNode findFinTxactSetById2(@NotNull String finTxactSet_Id2) {
+        String logPrfx = "findFinTxactSetById2";
         logger.trace(logPrfx + " --> ");
 
-        if (finTxset_Id2 == null) {
-            logger.debug(logPrfx + " --- finTxset_Id2 is null.");
-            notifications.create().withCaption("finTxset_Id2 is empty. Please set it to correct value.").show();
+        if (finTxactSet_Id2 == null) {
+            logger.debug(logPrfx + " --- finTxactSet_Id2 is null.");
+            notifications.create().withCaption("finTxactSet_Id2 is empty. Please set it to correct value.").show();
             logger.trace(logPrfx + " <-- ");
             return null;
         }
 
-        String qry = "select e from ampata_UsrNode e where e.className = 'FinTxset' and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + finTxset_Id2);
+        logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
-        UsrNode finTxset1_Id = null;
+        UsrNode finTxactSet1_Id = null;
         try {
-            finTxset1_Id = dataManager.load(UsrNode.class)
+            finTxactSet1_Id = dataManager.load(UsrNode.class)
                     .query(qry)
-                    .parameter("id2", finTxset_Id2)
+                    .parameter("id2", finTxactSet_Id2)
                     .one();
             logger.debug(logPrfx + " --- query qry returned ONE result");
-            // notifications.create().withCaption("finTxset with id2: " + finTxset1_Id2Trgt + " already exists.").show();
+            // notifications.create().withCaption("finTxactSet with id2: " + finTxactSet1_Id2Trgt + " already exists.").show();
         } catch (IllegalStateException e) {
             logger.debug(logPrfx + " --- query qry returned NO results");
 
         }
         logger.trace(logPrfx + " <-- ");
-        return finTxset1_Id;
+        return finTxactSet1_Id;
 
     }
 
-    private UsrNode createFinTxsetFrFinTxactItm(@NotNull UsrNode thisFinTxactItm) {
+    private UsrNode createFinTxactSetFrFinTxactItm(@NotNull UsrNode thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
-        String logPrfx = "createFinTxsetFrFinTxactItm";
+        String logPrfx = "createFinTxactSetFrFinTxactItm";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode mergedFinTxset = null;
+        UsrNode mergedFinTxactSet = null;
         if (thisFinTxactItm.getFinTxact1_Id() != null) {
-            String finTxset_Id2 = thisFinTxactItm.getFinTxact1_Id().getFinTxset1_Id2Trgt();
-            if (finTxset_Id2 == null) {
-                logger.debug(logPrfx + " --- finTxset_Id2 is null.");
-                notifications.create().withCaption("finTxset_Id2 is empty. Please set it to correct value.").show();
+            String finTxactSet_Id2 = thisFinTxactItm.getFinTxact1_Id().getFinTxactSet1_Id2Trgt();
+            if (finTxactSet_Id2 == null) {
+                logger.debug(logPrfx + " --- finTxactSet_Id2 is null.");
+                notifications.create().withCaption("finTxactSet_Id2 is empty. Please set it to correct value.").show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }
 
-            String qry = "select e from ampata_UsrNode e where e.className = 'FinTxset' and e.id2 = :id2";
+            String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' and e.id2 = :id2";
             logger.debug(logPrfx + " --- qry: " + qry);
-            logger.debug(logPrfx + " --- qry:id2: " + finTxset_Id2);
+            logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
             try {
-                UsrNode finTxset = dataManager.load(UsrNode.class)
+                UsrNode finTxactSet = dataManager.load(UsrNode.class)
                         .query(qry)
-                        .parameter("id2", finTxset_Id2)
+                        .parameter("id2", finTxactSet_Id2)
                         .one();
                 logger.debug(logPrfx + " --- query qry returned ONE result");
                 logger.trace(logPrfx + " <-- ");
-                return finTxset;
+                return finTxactSet;
 
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- query qry returned NO results");
 
-                UsrNode newFinTxset = dataManager.create(UsrNode.class);
-                newFinTxset.setClassName("FinTxset");
+                UsrNode newFinTxactSet = dataManager.create(UsrNode.class);
+                newFinTxactSet.setClassName("UsrFinTxactSet");
 
                 HasTmst beg1 = dataManager.create(HasTmst.class);
                 beg1.setTs1(thisFinTxactItm.getIdTs().getTs1());
-                newFinTxset.setBeg1(beg1);
-                newFinTxset.updateIdTs();
+                newFinTxactSet.setBeg1(beg1);
+                newFinTxactSet.updateIdTs();
 
-                newFinTxset.setIdX(thisFinTxactItm.getIdX());
+                newFinTxactSet.setIdX(thisFinTxactItm.getIdX());
 
-                newFinTxset.setId2Calc(newFinTxset.getId2CalcFrFields());
-                newFinTxset.setId2(newFinTxset.getId2Calc());
+                newFinTxactSet.setId2Calc(newFinTxactSet.getId2CalcFrFields());
+                newFinTxactSet.setId2(newFinTxactSet.getId2Calc());
 
 
-                UsrNode savedFinTxset = dataManager.save(newFinTxset);
+                UsrNode savedFinTxactSet = dataManager.save(newFinTxactSet);
 
-                mergedFinTxset = dataContext.merge(savedFinTxset);
-                logger.debug(logPrfx + " --- created FinTxset id: " + mergedFinTxset.getId());
-                notifications.create().withCaption("Created FinTxset with id2:" + mergedFinTxset.getId2()).show();
+                mergedFinTxactSet = dataContext.merge(savedFinTxactSet);
+                logger.debug(logPrfx + " --- created FinTxactSet id: " + mergedFinTxactSet.getId());
+                notifications.create().withCaption("Created FinTxactSet with id2:" + mergedFinTxactSet.getId2()).show();
             }
 
         }
         logger.trace(logPrfx + " <-- ");
-        return mergedFinTxset;
+        return mergedFinTxactSet;
     }
 
 
@@ -3217,7 +3192,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         SysNode curcyExchRate;
         try {
             curcyExchRate = dataManager.load(SysNode.class)
-                    .query("select e from ampata_SysNode e"
+                    .query("select e from enty_SysNode e"
                             + " where e.finCurcy1_Id.id = :curcyFr"
                             + " and   e.finCurcy2_Id.id = :curcyTo"
                             + " and   e.beg1.date1 = :date1"
@@ -3244,7 +3219,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             try {
 
                 curcyExchRate = dataManager.load(SysNode.class)
-                        .query("select e from ampata_SysNode e "
+                        .query("select e from enty_SysNode e "
                                 + " where e.finCurcy1_Id.id = :curcyFr"
                                 + " and   e.finCurcy2_Id.id = :curcyTo"
                                 + " and   e.beg1.date1 = :date1"
@@ -3471,7 +3446,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             prevFinTxactItm.setIdZ(prevFinTxactItm.getIdZ() - 1);
             String prev1FinTxactItm_Id2 = prevFinTxactItm.getId2CalcFrFields();
 
-            String qry = "select gn from ampata_UsrNode gn"
+            String qry = "select gn from enty_UsrNode gn"
                     + " where gn.id2 = :id2";
 
             logger.debug(logPrfx + " --- qry: " + qry);
@@ -3502,8 +3477,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whatText1"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxset'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactSet'"
                 + " and e.whatText1 IS NOT NULL"
                 + " order by e.whatText1"
                 ;
@@ -3528,8 +3503,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         finTxact1_Id_WhatText1Field.setOptionsList(texts);
         logger.debug(logPrfx + " --- called finTxact1_Id_WhatText1Field.setOptionsList()");
 
-        finTxact1_Id_FinTxset1_Id_WhatText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called finTxact1_Id_FinTxset1_Id_WhatText1Field.setOptionsList()");
+        finTxact1_Id_FinTxactSet1_Id_WhatText1Field.setOptionsList(texts);
+        logger.debug(logPrfx + " --- called finTxact1_Id_FinTxactSet1_Id_WhatText1Field.setOptionsList()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -3540,8 +3515,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whyText1"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxset'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactSet'"
                 + " and e.whyText1 IS NOT NULL"
                 + " order by e.whyText1"
                 ;
@@ -3568,22 +3543,22 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.debug(logPrfx + " --- called finTxact1_Id_WhatText1Field.setOptionsList()");
 
 
-        finTxact1_Id_FinTxset1_Id_WhyText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called finTxact1_Id_FinTxset1_Id_WhyText1Field.setOptionsList()");
+        finTxact1_Id_FinTxactSet1_Id_WhyText1Field.setOptionsList(texts);
+        logger.debug(logPrfx + " --- called finTxact1_Id_FinTxactSet1_Id_WhyText1Field.setOptionsList()");
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-    private void reloadFinTxact1_Id_FinTxset1_EI1_RoleList(){
-        String logPrfx = "reloadFinTxact1_Id_FinTxset1_EI1_RoleList";
+    private void reloadFinTxact1_Id_FinTxactSet1_EI1_RoleList(){
+        String logPrfx = "reloadFinTxact1_Id_FinTxactSet1_EI1_RoleList";
         logger.trace(logPrfx + " --> ");
 
-        String qry = "select distinct e.finTxset1_EI1_Role"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxact'"
-                + " and e.finTxset1_EI1_Role IS NOT NULL"
-                + " order by e.finTxset1_EI1_Role"
+        String qry = "select distinct e.finTxactSet1_EI1_Role"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxact'"
+                + " and e.finTxactSet1_EI1_Role IS NOT NULL"
+                + " order by e.finTxactSet1_EI1_Role"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
 
@@ -3600,7 +3575,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return;
         }
 
-        finTxact1_Id_FinTxset1_EI1_RoleField.setOptionsList(roles);
+        finTxact1_Id_FinTxactSet1_EI1_RoleField.setOptionsList(roles);
         logger.debug(logPrfx + " --- called finStmtItm1_Desc1Field.setOptionsList()");
 
         logger.trace(logPrfx + " <-- ");
@@ -3612,8 +3587,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finTxact1_EI1_Role"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxactItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactItm'"
                 + " and e.finTxact1_EI1_Role IS NOT NULL"
                 + " order by e.finTxact1_EI1_Role"
                 ;
@@ -3644,8 +3619,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc1"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxactItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactItm'"
                 + " and e.finStmtItm1_Desc1 IS NOT NULL"
                 + " order by e.finStmtItm1_Desc1"
                 ;
@@ -3675,8 +3650,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc2"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxactItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactItm'"
                 + " and e.finStmtItm1_Desc2 IS NOT NULL"
                 + " order by e.finStmtItm1_Desc2"
                 ;
@@ -3706,8 +3681,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc3"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxactItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactItm'"
                 + " and e.finStmtItm1_Desc3 IS NOT NULL"
                 + " order by e.finStmtItm1_Desc3"
                 ;
@@ -3737,8 +3712,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finTaxLne1_Code"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinTxactItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinTxactItm'"
                 + " and e.finTaxLne1_Code IS NOT NULL"
                 + " order by e.finTaxLne1_Code"
                 ;

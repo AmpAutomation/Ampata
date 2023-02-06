@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://genAgentBrowse.caption"
-        focusComponent="table">
+        focusComponent="tableMain">
     <data readOnly="true">
-        <collection id="genAgentsDc"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                    fetchPlan="usrGenAgent-fetch-plan-base">
-            <loader id="genAgentsDl">
+        <collection id="colCntnrMain"
+                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent"
+                    fetchPlan="fetchPlan_UsrGenAgent_Base">
+            <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from ampata_UsrNode e where e.className = 'GenAgent' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrGenAgent where e.className = 'UsrGenAgent' order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -27,11 +27,10 @@
                 caption="msg:///actions.Cancel"
                 icon="LOOKUP_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="table" spacing="true">
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
         <filter id="filter"
-                dataLoader="genAgentsDl">
+                dataLoader="colLoadrMain">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -40,19 +39,19 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="table"
+        <table id="tableMain"
                     width="100%"
-                    dataContainer="genAgentsDc">
+                    dataContainer="colCntnrMain">
             <actions>
                 <action id="create" type="create">
                     <properties>
-                        <property name="screenId" value="ampata_GenAgent.edit"/>
+                        <property name="screenId" value="ampata_UsrGenAgent.edit"/>
                     </properties>
                 </action>
                 <action id="duplicate" />
                 <action id="edit" type="edit">
                     <properties>
-                        <property name="screenId" value="ampata_GenAgent.edit"/>
+                        <property name="screenId" value="ampata_UsrGenAgent.edit"/>
                     </properties>
                 </action>
                 <action id="refresh" type="refresh"/>
@@ -70,10 +69,10 @@
                 <column id="sortIdx"/>
                 <column id="type1_Id"/>
                 <column id="type1_Id2"/>
-                <column id="inst"/>
+                <column id="inst1"/>
                 <column id="name1"/>
-                <column id="name1GenPat1_Id"/>
-                <column id="name1GenPat1_Id2"/>
+                <column id="name1GenFmla1_Id"/>
+                <column id="name1GenFmla1_Id2"/>
                 <column id="name2"/>
                 <column id="abrv"/>
                 <column id="desc1"/>
@@ -98,13 +97,13 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="table.create"/>
-                <button id="duplicateBtn" action="table.duplicate" caption="Duplicate" icon="font-icon:COPY"/>
-                <button id="editBtn" action="table.edit"/>
-                <button id="refreshBtn" action="table.refresh"/>
-                <button id="removeBtn" action="table.remove"/>
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="duplicateBtn" action="tableMain.duplicate" caption="Duplicate" icon="font-icon:COPY"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
             </buttonsPanel>
-        </groupTable>
+        </table>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

@@ -1,10 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 
-@UiController("ampata_UsrFinWhat.edit")
+@UiController("enty_UsrFinWhat.edit")
 @UiDescriptor("usr-fin-what-edit.xml")
-@EditedEntityContainer("finWhatDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinWhatEdit extends StandardEditor<UsrFinWhat> {
 }

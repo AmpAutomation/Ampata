@@ -58,6 +58,8 @@ CREATE EXTENSION "uuid-ossp";
 CREATE EXTENSION plpython3u;
 
 
+
+
 alter table ampata_sys_node 
 ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
@@ -72,28 +74,51 @@ alter table ampata_sys_node_type
 ALTER COLUMN "version" SET DEFAULT 1;
 
 
-alter table ampata_sys_entity 
+alter table ampata_sys_item 
 ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
-alter table ampata_sys_entity 
+alter table ampata_sys_item 
 ALTER COLUMN "version" SET DEFAULT 1;
 
 
-alter table ampata_sys_entity_type
+alter table ampata_sys_item_type
 ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
-alter table ampata_sys_entity_type 
+alter table ampata_sys_item_type 
 ALTER COLUMN "version" SET DEFAULT 1;
 
 
 
 
 
-alter table ampata_ext_curcy_exch_rate  
+alter table ampata_usr_node 
 ALTER COLUMN id SET DEFAULT uuid_generate_v4();
 
-alter table ampata_ext_curcy_exch_rate  
+alter table ampata_usr_node 
 ALTER COLUMN "version" SET DEFAULT 1;
+
+
+alter table ampata_usr_node_type
+ALTER COLUMN id SET DEFAULT uuid_generate_v4();
+
+alter table ampata_usr_node_type 
+ALTER COLUMN "version" SET DEFAULT 1;
+
+
+alter table ampata_usr_item 
+ALTER COLUMN id SET DEFAULT uuid_generate_v4();
+
+alter table ampata_usr_item 
+ALTER COLUMN "version" SET DEFAULT 1;
+
+
+alter table ampata_usr_item_type
+ALTER COLUMN id SET DEFAULT uuid_generate_v4();
+
+alter table ampata_usr_item_type 
+ALTER COLUMN "version" SET DEFAULT 1;
+
+
 
 
 drop database ampata_dev_bkup;

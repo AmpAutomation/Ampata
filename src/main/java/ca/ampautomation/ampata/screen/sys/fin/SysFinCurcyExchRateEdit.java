@@ -12,18 +12,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_SysFinCurcyExchRate.edit")
+@UiController("enty_SysFinCurcyExchRate.edit")
 @UiDescriptor("sys-fin-curcy-exch-rate-edit.xml")
 @EditedEntityContainer("finCurcyExchRateDc")
 public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
 
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
-    private InstanceContainer<SysNode> sysFinCurcyExchRateDc;
+    private InstanceContainer<SysNode> instCntnrMain;
 
     @Autowired
     private Notifications notifications;
 
-    Logger logger = LoggerFactory.getLogger(SysFinCurcyExchRateEdit.class);
+
     @Autowired
     private DataManager dataManager;
 
@@ -33,7 +36,7 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
+            SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();
             if (thisSysFinCurcyExchRate == null) {
                 logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -51,7 +54,7 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
+        SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();
         if (thisSysFinCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -76,7 +79,7 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         String logPrfx = "onUpdateId2CmpFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
+        SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();
         if (thisSysFinCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -93,7 +96,7 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         String logPrfx = "onUpdateId2DupFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        SysNode thisSysFinCurcyExchRate = sysFinCurcyExchRateDc.getItemOrNull();
+        SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();
         if (thisSysFinCurcyExchRate == null) {
             logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -162,7 +165,7 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
         logger.trace(logPrfx + " --> ");
 
         if (thisSysFinCurcyExchRate.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_SysNode e"
+            String id2Qry = "select count(e) from enty_SysNode e"
                     +" where e.className = 'SysFinCurcyExchRate'"
                     +" where e.id2 = :id2"
                     +" and e.id <> :id"

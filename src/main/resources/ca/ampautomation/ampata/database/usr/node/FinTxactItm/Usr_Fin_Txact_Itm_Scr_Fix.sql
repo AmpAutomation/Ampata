@@ -43,7 +43,7 @@ set fin_fmla1__id = t1.id
 from ampata_sys_entity as t1
 where t.fin_fmla1__id2 = t1.id2 
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinFmla'
+and t1.dtype ='enty_UsrFinFmla'
 ;
 
 /*
@@ -55,7 +55,7 @@ from ampata_sys_node as t
 	,ampata_sys_entity as t1
 where t.fin_fmla1__id2 = t1.id2 
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinFmla'
+and t1.dtype ='enty_UsrFinFmla'
 ;*/
 
 -- Update fin_txact_itm1__id
@@ -287,7 +287,7 @@ set fin_how1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_how1__id2 = t1.id2
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinHow'
+and t1.dtype ='enty_UsrFinHow'
 ;
 
 -- Update fin_what1__id
@@ -296,7 +296,7 @@ set fin_what1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_what1__id2 = t1.id2
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinWhat'
+and t1.dtype ='enty_UsrFinWhat'
 ;
 
 -- Update fin_txact1__what1__id
@@ -305,7 +305,7 @@ set fin_txact1__what1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_txact1__what1__id2 = t1.id2
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinWhat'
+and t1.dtype ='enty_UsrFinWhat'
 ;
 
 
@@ -317,7 +317,7 @@ set fin_why1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_why1__id2 = t1.id2
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinWhy'
+and t1.dtype ='enty_UsrFinWhy'
 ;
 
 -- Update fin_txact1__why1__id
@@ -326,7 +326,7 @@ set fin_txact1__why1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_txact1__why1__id2 = t1.id2
 and t.class_name ='FinTxactItm'
-and t1.dtype ='ampata_FinWhy'
+and t1.dtype ='enty_UsrFinWhy'
 ;
 
 

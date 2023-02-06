@@ -3,9 +3,9 @@
         caption="msg://genAgentEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="usrNodeDc"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                  fetchPlan="usrGenAgent-fetch-plan-base">
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent"
+                  fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader/>
         </instance>
     </data>
@@ -22,11 +22,10 @@
                 caption="msg:///actions.Close"
                 icon="EDITOR_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
-            <form id="form" dataContainer="usrNodeDc">
+            <form id="form" dataContainer="instCntnrMain">
                 <column width="350px">
                     <textField id="id2Field" property="id2"/>
                     <textField id="id2CalcField" property="id2Calc"/>
@@ -49,15 +48,15 @@
                         </actions>
                     </entityPicker>
                     <textField id="type1_Id2Field" property="type1_Id2"/>
-                    <textField id="instField" property="inst"/>
+                    <textField id="instField" property="inst1"/>
                     <textField id="name1Field" property="name1"/>
-                    <entityPicker id="name1UsrNode1_IdField" property="name1GenPat1_Id">
+                    <entityPicker id="name1UsrNode1_IdField" property="name1GenFmla1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>
                         </actions>
                     </entityPicker>
-                    <textField id="name1GenPat1_Id2Field" property="name1GenPat1_Id2"/>
+                    <textField id="name1GenFmla1_Id2Field" property="name1GenFmla1_Id2"/>
                     <textField id="name2Field" property="name2"/>
                     <textField id="abrvField" property="abrv"/>
                     <textArea id="desc1Field" property="desc1" rows="5"/>

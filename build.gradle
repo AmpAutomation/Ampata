@@ -50,6 +50,9 @@ dependencies {
     implementation("org.hsqldb:hsqldb")
     implementation 'io.jmix.multitenancy:jmix-multitenancy-starter'
     implementation 'io.jmix.multitenancy:jmix-multitenancy-ui-starter'
+
+    implementation 'ch.obermuhlner:jshell-scriptengine:1.1.0'
+    implementation 'org.apache.commons:commons-lang3'
 }
 
 test {

@@ -23,7 +23,7 @@ import org.springframework.security.authentication.LockedException;
 
 import java.util.Locale;
 
-@UiController("ampata_LoginScreen")
+@UiController("enty_LoginScreen")
 @UiDescriptor("login-screen.xml")
 @Route(path = "login", root = true)
 public class LoginScreen extends Screen {

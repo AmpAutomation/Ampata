@@ -5,9 +5,9 @@ import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrFinAcctType.edit")
+@UiController("enty_UsrFinAcctType.edit")
 @UiDescriptor("usr-fin-acct-type-edit.xml")
-@EditedEntityContainer("finAcctTypeDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinAcctTypeEdit extends StandardEditor<UsrNodeType> {
     @Autowired
     private TextField<String> classNameField;
@@ -15,7 +15,7 @@ public class UsrFinAcctTypeEdit extends StandardEditor<UsrNodeType> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
 
-        classNameField.setValue("FinAcct");
+        classNameField.setValue("UsrFinAcct");
     }
 
 

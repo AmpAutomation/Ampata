@@ -3,9 +3,9 @@
         caption="msg://finFmlaEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="finFmlaDc"
-                  class="ca.ampautomation.ampata.entity.usr.UsrFinFmla"
-                  fetchPlan="usrFinFmla-fetch-plan-base">
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla"
+                  fetchPlan="fetchPlan_UsrFinFmla_Base">
             <loader/>
         </instance>
     </data>
@@ -22,10 +22,9 @@
                 caption="msg:///actions.Close"
                 icon="EDITOR_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="editActions">
-        <form id="form" dataContainer="finFmlaDc">
+        <form id="form" dataContainer="instCntnrMain">
             <column width="350px">
                 <textField id="id2Field" property="id2"/>
                 <textField id="id2CalcField" property="id2Calc"/>

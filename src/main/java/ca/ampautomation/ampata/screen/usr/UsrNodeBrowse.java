@@ -9,6 +9,8 @@ import io.jmix.core.UuidProvider;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.Button;
 import io.jmix.ui.component.GroupTable;
+import io.jmix.ui.component.Table;
+import io.jmix.ui.component.TreeTable;
 import io.jmix.ui.model.CollectionContainer;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.screen.*;
@@ -16,54 +18,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrNode.browse")
+@UiController("enty_UsrNode.browse")
 @UiDescriptor("usr-node-browse.xml")
-@LookupComponent("usrNodesTable")
+@LookupComponent("tableMain")
 public class UsrNodeBrowse extends StandardLookup<UsrNode> {
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private GroupTable<UsrNode> usrNodesTable;
-
-    @Autowired
-    private Notifications notifications;
-
-    @Autowired
-    private CollectionContainer<UsrNode> usrNodesDc;
-
-    Logger logger = LoggerFactory.getLogger(UsrGenAgentBrowse.class);
-
-    @Subscribe("duplicateBtn")
-    public void onDuplicateBtnClick(Button.ClickEvent event) {
-        usrNodesTable.getSelected().stream()
-                .forEach(orig -> {
-                    UsrNode copy = makeCopy(orig);
-                    UsrNode savedCopy = dataManager.save(copy);
-                    usrNodesDc.getMutableItems().add(savedCopy);
-                    logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
-                            + " [" + orig.getId() + "]"
-                            + " -> "
-                            + "[" + copy.getId() + "]"
-                    );
-
-
-                });
-    }
-
-
-    private UsrNode makeCopy(UsrNode orig) {
-        UsrNode copy = metadataTools.copy(orig);
-        copy.setId(UuidProvider.createUuid());
-        return copy;
-    }
 }

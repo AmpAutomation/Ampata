@@ -1,6 +1,7 @@
 package ca.ampautomation.ampata.entity.sys;
 
-import ca.ampautomation.ampata.entity.HasDate;
+import ca.ampautomation.ampata.entity.HasTmst;
+import ca.ampautomation.ampata.entity.gen.SysGenFmla;
 import ca.ampautomation.ampata.entity.usr.UsrItem;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -17,6 +18,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
@@ -26,15 +28,24 @@ import java.util.UUID;
 @Table(name = "AMPATA_SYS_NODE", indexes = {
         @Index(name = "IDX_SYSNODE_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_SYSNODE_PARENT1__ID", columnList = "PARENT1__ID"),
-        @Index(name = "IDX_SYSNODE_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
-        @Index(name = "IDX_SYSNODE_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID"),
+        @Index(name = "IDX_SYSNODE_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_SYSNODE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
 })
-@Entity(name = "ampata_SysNode")
+@Entity(name = "enty_SysNode")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 public class SysNode {
+
+    @Transient
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
+
+    @Column(name="DTYPE", insertable = false, updatable = false)
+    protected String dtype;
 
     @InstanceName
     @Column(name = "ID2")
@@ -76,18 +87,21 @@ public class SysNode {
     @Column(name = "TYPE1__ID2")
     private String type1_Id2;
 
-    @Column(name = "INST")
-    private String inst;
+    @Column(name = "INST1")
+    private String inst1;
 
     @Column(name = "NAME1")
     private String name1;
 
-    @JoinColumn(name = "NAME1_GEN_PAT1__ID")
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private SysGenPat name1GenPat1_Id;
+    private SysGenFmla name1GenFmla1_Id;
 
-    @Column(name = "NAME1_GEN_PAT1__ID2")
-    private String name1GenPat1_Id2;
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
+
+    @Column(name = "NAME2")
+    private String name2;
 
     @Column(name = "ABRV", length = 16)
     private String abrv;
@@ -98,26 +112,33 @@ public class SysNode {
     @Column(name = "DESC1")
     private String desc1;
 
-    @JoinColumn(name = "DESC1_GEN_PAT1__ID")
+    @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private SysGenPat desc1GenPat1_Id;
+    private SysGenFmla desc1GenFmla1_Id;
 
-    @Column(name = "DESC1_GEN_PAT1__ID2")
-    private String desc1GenPat1_Id2;
+    @Column(name = "DESC1_GEN_FMLA1__ID2")
+    private String desc1GenFmla1_Id2;
+
+    @Column(name = "NOTE")
+    @Lob
+    private String note;
 
 
     @AttributeOverrides({
+            @AttributeOverride(name = "ts1", column = @Column(name = "BEG1_TS1")),
             @AttributeOverride(name = "date1", column = @Column(name = "BEG1_DATE1")),
             @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG1_DATE1_YR")),
             @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG1_DATE1_QTR")),
             @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG1_DATE1_MON")),
             @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG1_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG1_DATE1_DAY"))
+            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG1_DATE1_DAY")),
+            @AttributeOverride(name = "time1", column = @Column(name = "BEG1_TIME1")),
+            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG1_TIME1_HR")),
+            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG1_TIME1_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasDate beg1;
-
+    private HasTmst beg1;
     @Column(name = "AMT1", precision = 19, scale = 9)
     private BigDecimal amt1;
 
@@ -169,12 +190,20 @@ public class SysNode {
     @Version
     private Integer version;
 
-    @Transient
-    protected Logger logger = LoggerFactory.getLogger(UsrItem.class);
 
     public UUID getId() { return id; }
 
     public void setId(UUID id) { this.id = id; }
+
+    public String getDtype() {return dtype; }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
     public String getId2() { return id2; }
 
     public void setId2(String id2) { this.id2 = id2; }
@@ -191,20 +220,28 @@ public class SysNode {
 
     public void setId2Dup(Integer id2Dup) {this.id2Dup = id2Dup; }
 
-    public String getClassName() {
-        return className;
+    public SysNode getParent1_Id() {
+        return parent1_Id;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setParent1_Id(SysNode parent1_Id) {
+        this.parent1_Id = parent1_Id;
     }
 
-    public SysNodeType getType1_Id() {
-        return type1_Id;
+    public String getParent1_Id2() {
+        return parent1_Id2;
     }
 
-    public void setType1_Id(SysNodeType type1_Id) {
-        this.type1_Id = type1_Id;
+    public void setParent1_Id2(String parent1_Id2) {
+        this.parent1_Id2 = parent1_Id2;
+    }
+
+    public String getAncestors1_Id2() {
+        return ancestors1_Id2;
+    }
+
+    public void setAncestors1_Id2(String ancestors1_Id2) {
+        this.ancestors1_Id2 = ancestors1_Id2;
     }
 
     public Integer getSortIdx() { return sortIdx; }
@@ -215,22 +252,103 @@ public class SysNode {
 
     public void setSortKey(String sortKey) {this.sortKey = sortKey; }
 
+    public void setType1_Id(SysNodeType type1_Id) {
+        this.type1_Id = type1_Id;
+    }
+
+    public SysNodeType getType1_Id() {
+        return type1_Id;
+    }
+
+    public String getType1_Id2() {
+        return type1_Id2;
+    }
+
+    public void setType1_Id2(String type1_Id2) {
+        this.type1_Id2 = type1_Id2;
+    }
+
+
+    public String getInst1() {
+        return inst1;
+    }
+
+    public void setInst1(String inst1) {
+        this.inst1 = inst1;
+    }
+
+
     public String getName1() { return name1; }
 
     public void setName1(String name1) {this.name1 = name1; }
 
+
+    public SysGenFmla getName1GenFmla1_Id() { return name1GenFmla1_Id; }
+
+    public void setName1GenFmla1_Id(SysGenFmla name1GenFmla1_Id) { this.name1GenFmla1_Id = name1GenFmla1_Id; }
+
+    public String getName1GenFmla1_Id2() { return name1GenFmla1_Id2; }
+
+    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) { this.name1GenFmla1_Id2 = name1GenFmla1_Id2; }
+
+
+    public String getName2() { return name2; }
+
+    public void setName2(String name2) {this.name2 = name2; }
+
+
+    public String getAbrv() {
+        return abrv;
+    }
+
+    public void setAbrv(String abrv) {
+        this.abrv = abrv;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.abrv = code;
+    }
+
+    
     public String getDesc1() { return desc1; }
 
     public void setDesc1(String desc1) {this.desc1 = desc1; }
 
 
-    public HasDate getBeg1() {
+    public SysGenFmla getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
+
+    public void setDesc1GenFmla1_Id(SysGenFmla desc1GenFmla1_Id) { this.desc1GenFmla1_Id = desc1GenFmla1_Id; }
+
+    public String getDesc1GenFmla1_Id2() { return desc1GenFmla1_Id2; }
+
+    public void setDesc1GenFmla1_Id2(String desc1GenFmla1_Id2) { this.desc1GenFmla1_Id2 = desc1GenFmla1_Id2; }
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+
+    public void setBeg1(HasTmst beg1) {
+        String logPrfx = "setBeg";
+        logger.trace(logPrfx + " --> ");
+        this.beg1 = beg1;
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    public HasTmst getBeg1() {
         return beg1;
     }
 
-    public void setBeg1(HasDate beg1) {
-        this.beg1 = beg1;
-    }
 
     public SysNode getFinCurcy1_Id() { return finCurcy1_Id; }
 
@@ -298,45 +416,102 @@ public class SysNode {
     public String getId2CalcFrFields(){
         String logPrfx = "getId2CalcFrFields";
         logger.trace(logPrfx + " --> ");
+
         final String SEP = "/";
         StringBuilder sb = new StringBuilder();
 
+        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd HHmm")
+                .toFormatter();
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
+        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+                .appendPattern("HH:mm")
+                .toFormatter();
+        DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
-        if (beg1 == null) {
-            logger.debug(logPrfx + " --- beg: null");
-            logger.trace(logPrfx + " <--- ");
-            return "";
-        }
-        if (beg1.getDate1() == null) {
-            logger.debug(logPrfx + " --- beg.date1: null");
-            logger.trace(logPrfx + " <--- ");
-            return "";
-        } else {
-            logger.debug(logPrfx + " --- beg.date1: " + beg1.getDate1().format(frmtDt));
-        }
+        //require name1
+        switch (className) {
+            case "FinCurcy" -> {
+                if (name1 == null) {
+                    logger.debug(logPrfx + " --- name1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- name1: " + name1);
+                }
 
-        if (finCurcy1_Id == null) {
-            logger.debug(logPrfx + " --- finCurcy1_Id: null");
-            logger.trace(logPrfx + " <--- ");
-            return "";
-        } else {
-            logger.debug(logPrfx + " --- finCurcy1_Id: " + finCurcy1_Id.getId());
+            }
         }
 
-        if (finCurcy2_Id == null) {
-            logger.debug(logPrfx + " --- finCurcy2_Id: null");
-            logger.trace(logPrfx + " <--- ");
-            return "";
-        } else {
-            logger.debug(logPrfx + " --- finCurcy2_Id: " + finCurcy2_Id.getId());
+        //require beg1.ts1
+        switch (className) {
+            case "FinCurcyExchRate" -> {
+                if (beg1 == null) {
+                    logger.debug(logPrfx + " --- beg1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (beg1.getTs1() == null) {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): " + beg1.getTs1().format(frmtTs));
+                }
+            }
         }
 
-        sb.append(finCurcy1_Id.getId2() + "->" + finCurcy2_Id.getId2()
-                + SEP + "D" + beg1.getDate1().format(frmtDt)
-        );
+        //require finCurcy1_Id
+        switch (className) {
+            case "FinCurcyExchRate" -> {
+                if (finCurcy1_Id == null) {
+                    logger.debug(logPrfx + " --- finCurcy1_Id: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- finCurcy1_Id: " + finCurcy1_Id.getId());
+                }
+
+            }
+        }
+
+        //require finCurcy2_Id
+        switch (className) {
+            case "FinCurcyExchRate" -> {
+                if (finCurcy2_Id == null) {
+                    logger.debug(logPrfx + " --- finCurcy2_Id: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- finCurcy2_Id: " + finCurcy2_Id.getId());
+                }
+
+            }
+        }
+
+        //update type1_Id2
+        if (type1_Id != null){
+            type1_Id2 = type1_Id.getId2();
+        }
+
+        //create id2
+        switch (className) {
+            case "FinCurcy" -> {
+                sb.append(name1);
+            }
+            case "FinCurcyExchRate" -> {
+                //finCurcy1_Id
+                sb.append(finCurcy1_Id.getId2());
+                //finCurcy2_Id
+                sb.append( "->").append(finCurcy2_Id.getId2());
+                //beg1.ts1
+                sb.append(SEP + "D").append(beg1.getTs1().format(frmtDt)
+                );
+            }
+        }
+
 
         logger.debug(logPrfx + " --- sb: " + sb);
         logger.trace(logPrfx + " <--- ");

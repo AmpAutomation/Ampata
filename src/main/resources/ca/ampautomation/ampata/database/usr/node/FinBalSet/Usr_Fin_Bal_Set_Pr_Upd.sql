@@ -35,14 +35,14 @@ set
 	,end1_time1  = t.end1_ts1::time
 	,end1_time1_hr  = date_part('hour',t.end1_ts1)
 	,end1_time1_min  = date_part('minute',t.end1_ts1)
-where t.class_name = 'FinBalSet'
+where t.class_name = 'UsrFinBalSet'
 ;
 
  --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
 set id_dt_date1 = end1_date1
-where class_name = 'FinBalSet'
+where class_name = 'UsrFinBalSet'
 ;	
 
 
@@ -53,7 +53,7 @@ update ampata_usr_node t
 set fin_dept1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_dept1__id = t1.id
-and	t.class_name = 'FinBalSet'
+and	t.class_name = 'UsrFinBalSet'
 and t.deleted_by is null
 ;	
 
@@ -64,7 +64,7 @@ set id2_calc = Usr_Fin_Bal_Set_Fn_get_Id2_Calc(
 		 t.name1
 		,t.fin_dept1__id2
 		)
-where	t.class_name = 'FinBalSet'
+where	t.class_name = 'UsrFinBalSet'
 and t.deleted_by is null
 ;
 
@@ -73,7 +73,7 @@ and t.deleted_by is null
 raise notice 'Updating sort_key';
 update ampata_usr_node t
 set sort_key = '_' || right('0' || t.sort_idx,2)
-where	t.class_name = 'FinBalSet'
+where	t.class_name = 'UsrFinBalSet'
 and t.deleted_by is null
 ;
 
@@ -100,13 +100,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinBalSet'
+			where t.class_name = 'UsrFinBalSet'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinBalSet'
+		and	t.class_name = 'UsrFinBalSet'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter

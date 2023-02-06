@@ -1,7 +1,8 @@
 package ca.ampautomation.ampata.screen.sys.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepository;
+import ca.ampautomation.ampata.entity.HasTmst;
+import ca.ampautomation.ampata.entity.sys.SysNodeRepo;
+import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -17,16 +18,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-@UiController("ampata_SysFinCurcyExchRate.browse")
+@UiController("enty_SysFinCurcyExchRate.browse")
 @UiDescriptor("sys-fin-curcy-exch-rate-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
 
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected UiComponents uiComponents;
@@ -38,7 +43,7 @@ public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private UsrNodeRepository repo;
+    private SysNodeRepo repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -82,31 +87,29 @@ public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
 
     //Template
     @Autowired
-    private CheckBox tmplt_Beg1Date1FieldChk;
+    private CheckBox tmplt_Beg1Ts1FieldChk;
 
     @Autowired
-    private DateField<LocalDate> tmplt_Beg1Date1Field;
+    private DateField<LocalDateTime> tmplt_Beg1Ts1Field;
 
 
-    //Main data loaders and containers
+    //Main data containers, loaders and table
     @Autowired
-    private DataLoader sysFinCurcyExchRatesDl;
+    private CollectionContainer<SysNode> colCntnrMain;
     @Autowired
-    private CollectionContainer<SysNode> sysFinCurcyExchRatesDc;
-
-
-    //Main table
+    private CollectionLoader<SysNode> colLoadrMain;
     @Autowired
-    private GroupTable<SysNode> table;
+    private Table<SysNode> tableMain;
 
-    //Other data loaders and containers
-    private CollectionLoader<SysNode> finCurcysDl;
-    private CollectionContainer<SysNode> finCurcysDc;
+
+    //Type data container and loader
+    private CollectionContainer<SysNode> colCntnrType;
+    private CollectionLoader<SysNode> colLoadrType;
 
 
     //Field
 
-    Logger logger = LoggerFactory.getLogger(SysFinCurcyExchRateBrowse.class);
+
 
     /*
 InitEvent is sent when the screen controller and all its declaratively defined components are created,
@@ -119,21 +122,21 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
 
-        finCurcysDc = dataComponents.createCollectionContainer(SysNode.class);
-        finCurcysDl = dataComponents.createCollectionLoader();
-        finCurcysDl.setQuery("select e from ampata_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
+        colCntnrType = dataComponents.createCollectionContainer(SysNode.class);
+        colLoadrType = dataComponents.createCollectionLoader();
+        colLoadrType.setQuery("select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
         FetchPlan finCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finCurcysDl.setFetchPlan(finCurcysFp);
-        finCurcysDl.setContainer(finCurcysDc);
-        finCurcysDl.setDataContext(getScreenData().getDataContext());
+        colLoadrType.setFetchPlan(finCurcysFp);
+        colLoadrType.setContainer(colCntnrType);
+        colLoadrType.setDataContext(getScreenData().getDataContext());
 
         EntityComboBox<SysNode> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysNode>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
-        propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(finCurcysDc);
+        propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(colCntnrType);
 
         EntityComboBox<SysNode> propFilterCmpnt_SysFinCurcy2_Id = (EntityComboBox<SysNode>) filterConfig1A_SysFinCurcy2_Id.getValueComponent();
-        propFilterCmpnt_SysFinCurcy2_Id.setOptionsContainer(finCurcysDc);
+        propFilterCmpnt_SysFinCurcy2_Id.setOptionsContainer(colCntnrType);
 
     }
 
@@ -175,13 +178,13 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onBeforeShow";
         logger.trace(logPrfx + " --> ");
 
-        table.sort("id2", Table.SortDirection.ASCENDING);
+        tableMain.sort("id2", Table.SortDirection.ASCENDING);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-    @Install(to = "table.[beg1.date1]", subject = "formatter")
+    @Install(to = "tableMain.[beg1.date1]", subject = "formatter")
     private String tableBegDate1Formatter(LocalDate date) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
@@ -189,13 +192,13 @@ are not fully initialized, for example, buttons are not linked with actions.
         return date == null ? null: date.format(formatter);
     }
 
-    @Subscribe("reloadLists")
-    public void onReloadListsClick(Button.ClickEvent event) {
-        String logPrfx = "onReloadListsClick";
+    @Subscribe("reloadListsBtn")
+    public void onReloadListsBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finCurcysDl.load();
-        logger.debug(logPrfx + " --- called finCurcysDl.load() ");
+        colLoadrType.load();
+        logger.debug(logPrfx + " --- called colLoadrType.load() ");
 
         logger.trace(logPrfx + " <-- ");
 
@@ -206,7 +209,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRate = table.getSelected().stream().toList();
+        List<SysNode> thisSysFinCurcyExchRate = tableMain.getSelected().stream().toList();
         if (thisSysFinCurcyExchRate == null || thisSysFinCurcyExchRate.isEmpty()) {
             logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -220,10 +223,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             SysNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            LocalDate beg1;
-            if (tmplt_Beg1Date1FieldChk.isChecked()) {
-                beg1 = tmplt_Beg1Date1Field.getValue();
-                copy.getBeg1().setDate1(beg1);
+            HasTmst beg1 = dataManager.create(HasTmst.class);
+            if (tmplt_Beg1Ts1FieldChk.isChecked()) {
+                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
+                copy.getBeg1().setTs1(beg1.getTs1());
             }
 
             copy.setId2Calc(copy.getId2CalcFrFields());
@@ -234,7 +237,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             SysNode savedCopy = dataManager.save(copy);
-            sysFinCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
@@ -244,8 +247,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             sels.add(savedCopy);
 
         });
-        table.sort("id2", Table.SortDirection.ASCENDING);
-        table.setSelected(sels);
+        tableMain.sort("id2", Table.SortDirection.ASCENDING);
+        tableMain.setSelected(sels);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -255,7 +258,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onDeriveBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<SysNode> thisSysFinCurcyExchRate = table.getSelected().stream().toList();
+        List<SysNode> thisSysFinCurcyExchRate = tableMain.getSelected().stream().toList();
         if (thisSysFinCurcyExchRate == null || thisSysFinCurcyExchRate.isEmpty()) {
             logger.debug(logPrfx + " --- thisSysFinCurcyExchRate is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -269,14 +272,14 @@ are not fully initialized, for example, buttons are not linked with actions.
             SysNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            LocalDate beg1;
-            if (tmplt_Beg1Date1FieldChk.isChecked()) {
-                beg1 = tmplt_Beg1Date1Field.getValue();
-                copy.getBeg1().setDate1(beg1);
+            HasTmst beg1 = dataManager.create(HasTmst.class);
+            if (tmplt_Beg1Ts1FieldChk.isChecked()) {
+                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
+                copy.getBeg1().setTs1(beg1.getTs1());
             }else{
                 if (orig.getBeg1().getDate1() != null) {
-                    beg1 = orig.getBeg1().getDate1().plusDays(1);
-                    copy.getBeg1().setDate1(beg1);
+                    beg1.setTs1(orig.getBeg1().getTs1().plusDays(1));
+                    copy.getBeg1().setTs1(beg1.getTs1());
                 }
             }
 
@@ -288,7 +291,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             SysNode savedCopy = dataManager.save(copy);
-            sysFinCurcyExchRatesDc.getMutableItems().add(savedCopy);
+            colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Derived SysFinCurcyExchRate " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
                     + " -> "
@@ -298,8 +301,8 @@ are not fully initialized, for example, buttons are not linked with actions.
             sels.add(savedCopy);
 
         });
-        table.sort("id2", Table.SortDirection.ASCENDING);
-        table.setSelected(sels);
+        tableMain.sort("id2", Table.SortDirection.ASCENDING);
+        tableMain.setSelected(sels);
 
         logger.trace(logPrfx + " <-- ");
     }

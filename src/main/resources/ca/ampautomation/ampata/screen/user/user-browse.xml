@@ -8,7 +8,7 @@
             <fetchPlan extends="_base"/>
             <loader id="usersDl">
                 <query>
-                    <![CDATA[select e from ampata_User e order by e.username]]>
+                    <![CDATA[select e from enty_User e order by e.username]]>
                 </query>
             </loader>
         </collection>
@@ -28,8 +28,7 @@
         <screenSettings auto="true"/>
         <presentations auto="true"/>
     </facets>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="usersTable">
         <filter id="filter" dataLoader="usersDl">
             <properties include=".*"/>

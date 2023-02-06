@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://usrNodeTypeBrowse.caption"
-        focusComponent="usrNodeTypesTable">
+        focusComponent="tableMain">
     <data readOnly="true">
-        <collection id="usrNodeTypesDc"
+        <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                    fetchPlan="usrNodeType-fetch-plan-base">
-            <loader id="usrNodeTypesDl">
+                    fetchPlan="fetchPlan_UsrNodeType_Base">
+            <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from ampata_UsrNodeType e order by e.id2, e.className]]>
+                    <![CDATA[select e from enty_UsrNodeType e order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -27,54 +27,62 @@
                 caption="msg:///actions.Cancel"
                 icon="LOOKUP_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="usrNodeTypesTable" spacing="true">
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
         <filter id="filter"
-                dataLoader="usrNodeTypesDl" columnsCount="4">
+                dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="3">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
-                    <propertyFilter operation="CONTAINS" property="id2" editable="true"/>
-                    <propertyFilter operation="CONTAINS" property="className" editable="true"/>
-                    <propertyFilter operation="CONTAINS" property="name1" editable="true"/>
+                    <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
+                        <entityPicker metaClass="enty_UsrNode"/>
+                    </propertyFilter>
+                    <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="CONTAINS" property="dtype" operationEditable="true">
+                        <textField/>
+                    </propertyFilter>
                 </configuration>
             </configurations>
         </filter>
-        <treeTable id="usrNodeTypesTable"
+        <table id="tableMain"
                    width="100%"
-                   dataContainer="usrNodeTypesDc"
-                   hierarchyProperty="parent1_Id">
+                   dataContainer="colCntnrMain">
             <actions>
                 <action id="create" type="create"/>
-                <action id="duplicate"/>
                 <action id="edit" type="edit"/>
                 <action id="refresh" type="refresh"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
+                <column id="tenant" collapsed="true"/>
+                <column id="dtype" />
+                <column id="className"/>
                 <column id="id2"/>
                 <column id="id2Calc"/>
                 <column id="id2Cmp"/>
-                <column id="className"/>
+                <column id="id2Dup"/>
                 <column id="parent1_Id"/>
-                <column id="parent1_Id2"/>
-                <column id="ancestors1_Id2"/>
+                <column id="sortIdx"/>
+                <column id="sortKey"/>
                 <column id="name1"/>
+                <column id="name1GenFmla1_Id"/>
                 <column id="abrv"/>
                 <column id="desc1"/>
+                <column id="desc1GenFmla1_Id"/>
+                <column id="note"/>
             </columns>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="usrNodeTypesTable.create"/>
-                <button id="duplicateBtn" action="usrNodeTypesTable.duplicate" caption="Duplicate" icon="font-icon:COPY"/>
-                <button id="editBtn" action="usrNodeTypesTable.edit"/>
-                <button id="refreshBtn" action="usrNodeTypesTable.refresh"/>
-                <button id="removeBtn" action="usrNodeTypesTable.remove"/>
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
             </buttonsPanel>
-        </treeTable>
+        </table>
         <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="100" itemsPerPageVisible="true">
-            <containerProvider dataContainer="usrNodeTypesDc"/>
+            <containerProvider dataContainer="colCntnrMain"/>
         </pagination>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>

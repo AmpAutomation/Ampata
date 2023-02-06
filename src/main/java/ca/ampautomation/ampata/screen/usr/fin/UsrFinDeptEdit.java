@@ -5,9 +5,9 @@ import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrFinDept.edit")
+@UiController("enty_UsrFinDept.edit")
 @UiDescriptor("usr-fin-dept-edit.xml")
-@EditedEntityContainer("finDeptDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinDeptEdit extends StandardEditor<UsrNode> {
     @Autowired
     private TextField<String> classNameField;
@@ -15,6 +15,6 @@ public class UsrFinDeptEdit extends StandardEditor<UsrNode> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
 
-        classNameField.setValue("FinDept");
+        classNameField.setValue("UsrFinDept");
     }
 }

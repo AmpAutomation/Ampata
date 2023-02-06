@@ -1,6 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
 import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;
@@ -8,21 +9,23 @@ import io.jmix.core.UuidProvider;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.component.Button;
 import io.jmix.ui.component.GroupTable;
+import io.jmix.ui.component.Table;
 import io.jmix.ui.model.CollectionContainer;
+import io.jmix.ui.model.CollectionLoader;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.screen.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrGenAgent.browse")
+@UiController("enty_UsrGenAgent.browse")
 @UiDescriptor("usr-gen-agent-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrGenAgentBrowse extends StandardLookup<UsrNode> {
     
     //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    Logger logger = LoggerFactory.getLogger(UsrGenAgentBrowse.class);
     @Autowired
     private DataContext dataContext;
 
@@ -38,22 +41,23 @@ public class UsrGenAgentBrowse extends StandardLookup<UsrNode> {
     @Autowired
     private Notifications notifications;
 
-    
+    //Main data containers, loaders and table
     @Autowired
-    private CollectionContainer<UsrNode> usrNodesDc;
-
+    private CollectionContainer<UsrGenAgent> colCntnrMain;
     @Autowired
-    private GroupTable<UsrNode> table;
+    private CollectionLoader<UsrGenAgent> colLoadrMain;
+    @Autowired
+    private Table<UsrGenAgent> tableMain;
 
 
 
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
-        table.getSelected().stream()
+        tableMain.getSelected().stream()
             .forEach(orig -> {
-                UsrNode copy = makeCopy(orig);
-                UsrNode savedCopy = dataManager.save(copy);
-                usrNodesDc.getMutableItems().add(savedCopy);
+                UsrGenAgent copy = makeCopy(orig);
+                UsrGenAgent savedCopy = dataManager.save(copy);
+                colCntnrMain.getMutableItems().add(savedCopy);
                 logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                         + "[" + orig.getId() + "]"
                         +" -> "
@@ -65,8 +69,8 @@ public class UsrGenAgentBrowse extends StandardLookup<UsrNode> {
     }
 
 
-    private UsrNode makeCopy(UsrNode orig) {
-        UsrNode copy = metadataTools.copy(orig);
+    private UsrGenAgent makeCopy(UsrGenAgent orig) {
+        UsrGenAgent copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
         return copy;
     }

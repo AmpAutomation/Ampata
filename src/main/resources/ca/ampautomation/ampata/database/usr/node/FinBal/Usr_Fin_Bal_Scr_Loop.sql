@@ -75,7 +75,7 @@ loop
 		,t.amt_cred
 		,t.amt_net
 		from ampata_sys_node t
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.deleted_by is null
 		and t.tenant = rec_tenant.tenant_id
 		order by t.fin_acct1__id2, t.fin_dept1__id2, t.fin_curcy1__id2, t.end1_ts1
@@ -102,7 +102,7 @@ loop
 			if rec_fin_bal.fin_dept1__id  is null then
 				select t.id
 				from ampata_sys_node t
-				where t.class_name = 'FinBal'
+				where t.class_name = 'UsrFinBal'
 				and t.deleted_by is null
 				and t.tenant = rec_tenant.tenant_id
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -116,7 +116,7 @@ loop
 			else
 				select t.id
 				from ampata_sys_node t
-				where t.class_name = 'FinBal'
+				where t.class_name = 'UsrFinBal'
 				and t.deleted_by is null
 				and t.tenant = rec_tenant.tenant_id
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -137,7 +137,7 @@ loop
 		if vc_fin_bal1__id is not null then
 			update ampata_sys_node t 
 			set fin_bal1__id = vc_fin_bal1__id::uuid
-			where t.class_name = 'FinBal'
+			where t.class_name = 'UsrFinBal'
 			and t.id = rec_fin_bal.id
 			;
 
@@ -149,11 +149,11 @@ loop
 		from ampata_sys_node t
 		inner join ampata_sys_node t2
 			on t2.id  = t.fin_bal1__id
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.deleted_by is null
 		and t.tenant = rec_tenant.tenant_id
 		and t.id = rec_fin_bal.id
-		and t2.class_name = 'FinBal'
+		and t2.class_name = 'UsrFinBal'
 		into num_amt_beg_bal_calc
 		;
 
@@ -188,7 +188,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select count(t.id)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -199,7 +199,7 @@ loop
 		else
 			select count(t.id)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -221,7 +221,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select sum(t.amt_debt)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -232,7 +232,7 @@ loop
 		else
 			select sum(t.amt_debt)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -253,7 +253,7 @@ loop
 		if rec_fin_bal.fin_dept1__id  is null then
 			select sum(t.amt_cred)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -264,7 +264,7 @@ loop
 		else
 			select sum(t.amt_cred)
 			from ampata_sys_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
@@ -286,7 +286,7 @@ loop
 		from ampata_sys_node t
 		inner join ampata_sys_node_type t2
 			on t.type1__id = t2.id
-		where t.class_name = 'FinAcct'
+		where t.class_name = 'UsrFinAcct'
 		and t.deleted_by is null
 		and t.id = rec_fin_bal.fin_acct1__id
 		into b_bal_inc_on_debt, b_bal_inc_on_cred
@@ -366,7 +366,7 @@ loop
 			,fin_txact_itms1__amt_net_sum_diff = num_fin_txact_itms1__amt_net_sum_diff
 			,fin_txact_itms1__amt_eq_calc = b_fin_txact_itms1__amt_eq_calc
 			,amt_end_bal_calc = num_amt_end_bal_calc
-		where t.class_name = 'FinBal'
+		where t.class_name = 'UsrFinBal'
 		and t.id = rec_fin_bal.id
 		;
 	
@@ -391,13 +391,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_sys_node t
-			where t.class_name = 'FinBal'
+			where t.class_name = 'UsrFinBal'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinBal'
+		and	t.class_name = 'UsrFinBal'
 	    returning 1
 	)
 	select count(*) from rows into i_rows_updated_in_tenant

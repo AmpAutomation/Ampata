@@ -216,7 +216,7 @@ from (
 	on t2a.fin_how1__id = t2b.id
 	where t2a.class_name = 'FinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinHow'
+	and t2b.dtype = 'enty_UsrFinHow'
 	
 ) t1
 where t.id = t1.id 
@@ -240,7 +240,7 @@ from (
 	on t2a.fin_what1__id = t2b.id
 	where t2a.class_name = 'FinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinWhat'
+	and t2b.dtype = 'enty_UsrFinWhat'
 	
 ) t1
 where t.id = t1.id 
@@ -264,7 +264,7 @@ from (
 	on t2a.fin_why1__id = t2b.id
 	where t2a.class_name = 'FinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.dtype = 'ampata_FinWhy'
+	and t2b.dtype = 'enty_UsrFinWhy'
 	
 ) t1
 where t.id = t1.id 
@@ -796,194 +796,194 @@ where t.fin_txact1__id  = t1.id
 
 
 
---fin_txset1__type1__id2
-raise notice 'Updating fin_txset1__type1__id2';
+--fin_txact_set1__type1__id2
+raise notice 'Updating fin_txact_set1__type1__id2';
 update ampata_usr_node t
-set  fin_txset1__type1__id2  = t1.fin_txset1__type1__id2
+set  fin_txact_set1__type1__id2  = t1.fin_txact_set1__type1__id2
 from (
 	--get a list of tx with tx groups and the tx group type1
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , ftxt.id2  as fin_txset1__type1__id2
+	  , ftxg.id as fin_txact_set1__id
+	  , ftxt.id2  as fin_txact_set1__type1__id2
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_node_type ftxt
 		on ftxg.type1__id  = ftxt.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
-	and ftxt.class_name = 'FinTxset'
+	and ftxg.class_name = 'FinTxactSet'
+	and ftxt.class_name = 'FinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
 
---fin_txset1__desc1
-raise notice 'Updating fin_txset1__desc1';
+--fin_txact_set1__desc1
+raise notice 'Updating fin_txact_set1__desc1';
 update ampata_usr_node t
-set  fin_txset1__desc1  = t1.fin_txset1__desc1
+set  fin_txact_set1__desc1  = t1.fin_txact_set1__desc1
 from (
 	--get a list of tx with tx groups and the tx group desc1
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , ftxg.desc1  as fin_txset1__desc1
+	  , ftxg.id as fin_txact_set1__id
+	  , ftxg.desc1  as fin_txact_set1__desc1
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
+	and ftxg.class_name = 'FinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
 
---fin_txset1__gen_chan1__id2
-raise notice 'Updating fin_txset1__gen_chan1__id2';
+--fin_txact_set1__gen_chan1__id2
+raise notice 'Updating fin_txact_set1__gen_chan1__id2';
 update ampata_usr_node t
-set  fin_txset1__gen_chan1__id2 = t1.fin_txset1__gen_chan1__id2
+set  fin_txact_set1__gen_chan1__id2 = t1.fin_txact_set1__gen_chan1__id2
 from (
 	--get a list of tx with tx groups and the tx group gen_chan1__id2
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , gch.id2  as fin_txset1__gen_chan1__id2
+	  , ftxg.id as fin_txact_set1__id
+	  , gch.id2  as fin_txact_set1__gen_chan1__id2
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_node gch
 		on ftxg.gen_chan1__id  = gch.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
+	and ftxg.class_name = 'FinTxactSet'
 	and gch.class_name = 'GenChan'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
 
---fin_txset1__what1__id2
-raise notice 'Updating fin_txset1__gen_chan1__id2';
+--fin_txact_set1__what1__id2
+raise notice 'Updating fin_txact_set1__gen_chan1__id2';
 update ampata_usr_node t
-set  fin_txset1__what1__id2  = t1.fin_txset1__what1__id2
+set  fin_txact_set1__what1__id2  = t1.fin_txact_set1__what1__id2
 from (
 	--get a list of tx with tx groups and the tx group what1__id2
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , fwht.id2 as fin_txset1__what1__id2
+	  , ftxg.id as fin_txact_set1__id
+	  , fwht.id2 as fin_txact_set1__what1__id2
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_item fwht
 		on ftxg.fin_what1__id  = fwht.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
-	and fwht.dtype = 'ampata_FinWhat'
+	and ftxg.class_name = 'FinTxactSet'
+	and fwht.dtype = 'enty_UsrFinWhat'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
---fin_txset1__what_text1
-raise notice 'Updating fin_txset1__what_text1';
+--fin_txact_set1__what_text1
+raise notice 'Updating fin_txact_set1__what_text1';
 update ampata_usr_node t
-set  fin_txset1__what_text1  = t1.fin_txset1__what_text1
+set  fin_txact_set1__what_text1  = t1.fin_txact_set1__what_text1
 from (
 	--get a list of tx with tx groups and the tx group what_text1
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , ftxg.what_text1 as fin_txset1__what_text1
+	  , ftxg.id as fin_txact_set1__id
+	  , ftxg.what_text1 as fin_txact_set1__what_text1
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
+	and ftxg.class_name = 'FinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
 
 
---fin_txset1__why1__id2
-raise notice 'Updating fin_txset1__why1__id2';
+--fin_txact_set1__why1__id2
+raise notice 'Updating fin_txact_set1__why1__id2';
 update ampata_usr_node t
-set  fin_txset1__why1__id2  = t1.fin_txset1__why1__id2
+set  fin_txact_set1__why1__id2  = t1.fin_txact_set1__why1__id2
 from (
 	--get a list of tx with tx groups and the tx group why1__id2
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , fwhy.id2 as fin_txset1__why1__id2
+	  , ftxg.id as fin_txact_set1__id
+	  , fwhy.id2 as fin_txact_set1__why1__id2
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_item fwhy
 		on ftxg.fin_why1__id  = fwhy.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
-	and fwhy.dtype = 'ampata_FinWhy'
+	and ftxg.class_name = 'FinTxactSet'
+	and fwhy.dtype = 'enty_UsrFinWhy'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
---fin_txset1__why_text1
-raise notice 'Updating fin_txset1__why_text1';
+--fin_txact_set1__why_text1
+raise notice 'Updating fin_txact_set1__why_text1';
 update ampata_usr_node t
-set  fin_txset1__why_text1  = t1.fin_txset1__why_text1
+set  fin_txact_set1__why_text1  = t1.fin_txact_set1__why_text1
 from (
 	--get a list of tx with tx groups and the tx group why_text1
 	select ftx.id
-	  , ftxg.id as fin_txset1__id
-	  , ftxg.why_text1 as fin_txset1__why_text1
+	  , ftxg.id as fin_txact_set1__id
+	  , ftxg.why_text1 as fin_txact_set1__why_text1
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
-		on ftx.fin_txset1__id  = ftxg.id
+		on ftx.fin_txact_set1__id  = ftxg.id
 	where ftx.class_name = 'FinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxset'
+	and ftxg.class_name = 'FinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
 
 
 
---fin_txset1__fin_txacts1__id2
-raise notice 'Updating fin_txset1__fin_txacts1__id2';
+--fin_txact_set1__fin_txacts1__id2
+raise notice 'Updating fin_txact_set1__fin_txacts1__id2';
 update ampata_usr_node ftxi
-set  fin_txset1__fin_txacts1__id2 = ftxg.ids2
+set  fin_txact_set1__fin_txacts1__id2 = ftxg.ids2
 from (
-	select t2.fin_txset1__id as id, array_to_string(array_agg(t2.fin_txact1__id2), ',') as ids2
+	select t2.fin_txact_set1__id as id, array_to_string(array_agg(t2.fin_txact1__id2), ',') as ids2
 	from (
 		select ftxi.id
 		  , ftxi.id2
 		  , ftx.id as fin_txact1__id
 		  , ftx.id2 as fin_txact1__id2
-		  , ftxg.id as fin_txset1__id
-		  , ftxg.id2 as fin_txset1__id2
+		  , ftxg.id as fin_txact_set1__id
+		  , ftxg.id2 as fin_txact_set1__id2
 		from ampata_usr_node ftxi
 		inner join ampata_usr_node ftx
 			on ftxi.fin_txact1__id  = ftx.id
 		inner join ampata_usr_node ftxg
-			on ftx.fin_txset1__id  = ftxg.id
+			on ftx.fin_txact_set1__id  = ftxg.id
 		where ftxi.class_name = 'FinTxactItm'
 		and ftxi.deleted_by is null
 		and ftx.class_name = 'FinTxact'
-		and ftxg.class_name = 'FinTxset'
+		and ftxg.class_name = 'FinTxactSet'
 	) t2
-	group by t2.fin_txset1__id
+	group by t2.fin_txact_set1__id
 ) ftxg
 , ampata_usr_node ftx
 where ftxi.fin_txact1__id = ftx.id
-and ftx.fin_txset1__id = ftxg.id
+and ftx.fin_txact_set1__id = ftxg.id
 ;
 
 
---fin_txset1__fin_accts1__id2
+--fin_txact_set1__fin_accts1__id2
 update ampata_usr_node ftxi
-set  fin_txset1__fin_accts1__id2 = ftxg.ids2
+set  fin_txact_set1__fin_accts1__id2 = ftxg.ids2
 from (
-	select t2.fin_txset1__id as id, array_to_string(array_agg(t2.fin_acct1__id2), ',') as ids2
+	select t2.fin_txact_set1__id as id, array_to_string(array_agg(t2.fin_acct1__id2), ',') as ids2
 	from (
 		select ftxi.id
 		  , ftxi.id2
@@ -991,23 +991,23 @@ from (
 		  , ftxi.fin_acct1__id2
 		  , ftx.id as fin_txact1__id
 		  , ftx.id2 as fin_txact1__id2
-		  , ftxg.id as fin_txset1__id
-		  , ftxg.id2 as fin_txset1__id2
+		  , ftxg.id as fin_txact_set1__id
+		  , ftxg.id2 as fin_txact_set1__id2
 		from ampata_usr_node ftxi
 		inner join ampata_usr_node ftx
 			on ftxi.fin_txact1__id  = ftx.id
 		inner join ampata_usr_node ftxg
-			on ftx.fin_txset1__id  = ftxg.id
+			on ftx.fin_txact_set1__id  = ftxg.id
 		where ftxi.class_name = 'FinTxactItm'
 		and ftxi.deleted_by is null
 		and ftx.class_name = 'FinTxact'
-		and ftxg.class_name = 'FinTxset'
+		and ftxg.class_name = 'FinTxactSet'
 	) t2
-	group by t2.fin_txset1__id
+	group by t2.fin_txact_set1__id
 ) ftxg
 , ampata_usr_node ftx
 where ftxi.fin_txact1__id = ftx.id
-and ftx.fin_txset1__id = ftxg.id
+and ftx.fin_txact_set1__id = ftxg.id
 
 ;
 

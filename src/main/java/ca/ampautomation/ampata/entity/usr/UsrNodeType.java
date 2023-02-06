@@ -1,5 +1,8 @@
 package ca.ampautomation.ampata.entity.usr;
 
+import ca.ampautomation.ampata.entity.gen.SysGenFmla;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
+import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.annotation.TenantId;
@@ -7,31 +10,47 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.core.AcceptsTenant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @JmixEntity
 @Table(name = "AMPATA_USR_NODE_TYPE", indexes = {
-        @Index(name = "IDX_USRNODETYPE_PARENT1__ID", columnList = "PARENT1__ID")
+        @Index(name = "IDX_USRNODETYPE_PARENT1__ID", columnList = "PARENT1__ID"),
+        @Index(name = "IDX_USRNODETYPE_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_USRNODETYPE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
 })
-@Entity(name = "ampata_UsrNodeType")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-//@DiscriminatorColumn(name = "DType", discriminatorType = DiscriminatorType.STRING)
+@Entity(name = "enty_UsrNodeType")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 public class UsrNodeType implements AcceptsTenant {
+
+    @Transient
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
 
+    @Column(name="DTYPE", insertable = false, updatable = false)
+    protected String dtype;
+
     @TenantId
     @Column(name = "TENANT")
     private String tenant;
+
+    @Column(name = "CLASS_NAME")
+    private String className;
 
     @InstanceName
     @Column(name = "ID2")
@@ -43,8 +62,8 @@ public class UsrNodeType implements AcceptsTenant {
     @Column(name = "ID2_CMP")
     private Boolean id2Cmp;
 
-    @Column(name = "CLASS_NAME")
-    private String className;
+    @Column(name = "ID2_DUP")
+    private Integer id2Dup;
 
     @JoinColumn(name = "PARENT1__ID")
     @OneToOne(fetch = FetchType.LAZY)
@@ -60,8 +79,21 @@ public class UsrNodeType implements AcceptsTenant {
     @Column(name = "SORT_IDX")
     private Integer sortIdx;
 
+    @Column(name = "SORT_KEY")
+    private String sortKey;
+
     @Column(name = "NAME1")
     private String name1;
+
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrGenFmla name1GenFmla1_Id;
+
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
+
+    @Column(name = "NAME2")
+    private String name2;
 
     @Column(name = "ABRV", length = 16)
     private String abrv;
@@ -69,6 +101,18 @@ public class UsrNodeType implements AcceptsTenant {
     @Column(name = "DESC1")
     @Lob
     private String desc1;
+
+    @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrGenFmla desc1GenFmla1_Id;
+
+    @Column(name = "DESC1_GEN_FMLA1__ID2")
+    private String desc1GenFmla1_Id2;
+
+    @Column(name = "NOTE")
+    @Lob
+    private String note;
+
 
     @Column(name = "BAL_INC_ON_DEBT")
     private Boolean balIncOnDebt;
@@ -107,33 +151,51 @@ public class UsrNodeType implements AcceptsTenant {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+
+    @Override
+    public String getTenantId() { return tenant;}
+
     public String getTenant() { return tenant; }
 
     public void setTenant(String tenant) { this.tenant = tenant; }
 
 
-    public void setBalIncOnDebt(Boolean balIncOnDebt) {
-        this.balIncOnDebt = balIncOnDebt;
+    public String getDtype() {return dtype; }
+
+    public String getClassName() {
+        return className;
     }
 
-    public Boolean getBalIncOnDebt() {
-        return balIncOnDebt;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
-    public void setBalIncOnCred(Boolean balIncOnCred) {
-        this.balIncOnCred = balIncOnCred;
+
+
+    public String getId2() {
+        return id2;
     }
 
-    public Boolean getBalIncOnCred() {
-        return balIncOnCred;
+    public void setId2(String id2) {
+        this.id2 = id2;
     }
 
-    public Integer getSortIdx() {
-        return sortIdx;
+
+    public String getId2Calc() {
+        return id2Calc;
     }
 
-    public void setSortIdx(Integer sortIdx) {
-        this.sortIdx = sortIdx;
+    public void setId2Calc(String id2Calc) {
+        this.id2Calc = id2Calc;
     }
 
     public Boolean getId2Cmp() {
@@ -144,12 +206,21 @@ public class UsrNodeType implements AcceptsTenant {
         this.id2Cmp = id2Cmp;
     }
 
-    public String getId2Calc() {
-        return id2Calc;
+    public Integer getId2Dup() {
+        return id2Dup;
     }
 
-    public void setId2Calc(String id2Calc) {
-        this.id2Calc = id2Calc;
+    public void setId2Dup(Integer id2Dup) {
+        this.id2Dup = id2Dup;
+    }
+
+
+    public UsrNodeType getParent1_Id() {
+        return parent1_Id;
+    }
+
+    public void setParent1_Id(UsrNodeType parent1_Id) {
+        this.parent1_Id = parent1_Id;
     }
 
     public String getParent1_Id2() {
@@ -168,21 +239,23 @@ public class UsrNodeType implements AcceptsTenant {
         this.ancestors1_Id2 = ancestors1_Id2;
     }
 
-    public String getClassName() {
-        return className;
+
+    public Integer getSortIdx() {
+        return sortIdx;
     }
 
-    public void setClassName(String className) {
-        this.className = className;
+    public void setSortIdx(Integer sortIdx) {
+        this.sortIdx = sortIdx;
     }
 
-    public String getDesc1() {
-        return desc1;
+    public String getSortKey() {
+        return sortKey;
     }
 
-    public void setDesc1(String desc1) {
-        this.desc1 = desc1;
+    public void setSortKey(String sortKey) {
+        this.sortKey = sortKey;
     }
+
 
     public String getAbrv() {
         return abrv;
@@ -200,21 +273,81 @@ public class UsrNodeType implements AcceptsTenant {
         this.name1 = name1;
     }
 
-    public UsrNodeType getParent1_Id() {
-        return parent1_Id;
+
+    public UsrGenFmla getName1GenFmla1_Id() { return name1GenFmla1_Id; }
+
+    public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) {
+        this.name1GenFmla1_Id = name1GenFmla1_Id;
     }
 
-    public void setParent1_Id(UsrNodeType parent1_Id) {
-        this.parent1_Id = parent1_Id;
+    public String getName1GenFmla1_Id2() {
+        return name1GenFmla1_Id2;
     }
 
-    public String getId2() {
-        return id2;
+    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) {
+        this.name1GenFmla1_Id2 = name1GenFmla1_Id2;
     }
 
-    public void setId2(String id2) {
-        this.id2 = id2;
+
+    public String getName2() {
+        return name2;
     }
+
+    public void setName2(String name2) {
+        this.name2 = name2;
+    }
+
+
+
+    public String getDesc1() {
+        return desc1;
+    }
+
+    public void setDesc1(String desc1) {
+        this.desc1 = desc1;
+    }
+
+
+    public UsrGenFmla getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
+
+    public void setDesc1GenFmla1_Id(UsrGenFmla desc1GenFmla1_Id) {
+        this.desc1GenFmla1_Id = desc1GenFmla1_Id;
+    }
+
+    public String getDesc1GenFmla1_Id2() {
+        return desc1GenFmla1_Id2;
+    }
+
+    public void setDesc1GenFmla1_Id2(String desc1GenFmla1_Id2) {
+        this.desc1GenFmla1_Id2 = desc1GenFmla1_Id2;
+    }
+
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+
+    public void setBalIncOnDebt(Boolean balIncOnDebt) {
+        this.balIncOnDebt = balIncOnDebt;
+    }
+
+    public Boolean getBalIncOnDebt() {
+        return balIncOnDebt;
+    }
+
+    public void setBalIncOnCred(Boolean balIncOnCred) {
+        this.balIncOnCred = balIncOnCred;
+    }
+
+    public Boolean getBalIncOnCred() {
+        return balIncOnCred;
+    }
+
 
     public Date getDeletedDate() {
         return deletedDate;
@@ -272,14 +405,133 @@ public class UsrNodeType implements AcceptsTenant {
         this.version = version;
     }
 
-    public UUID getId() {
-        return id;
+
+
+    public Boolean updateCalcVals(DataManager dataManager){
+        String logPrfx = "updateCalcVals";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Calc() || isChanged;
+        isChanged = this.updateId2Cmp() || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+
+    public Boolean updateId2() {
+        // Assume this is not null
+        String logPrfx = "updateId2";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        String id2_ = this.getId2();
+        String id2 = this.getId2Calc();
+        if(!Objects.equals(id2_, id2)){
+            this.setId2(id2);
+            logger.debug(logPrfx + " --- id2: " + id2);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
 
-    @Override
-    public String getTenantId() { return tenant;}
+
+    public Boolean updateId2Calc(){
+        String logPrfx = "updateId2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        final String SEP = "/";
+
+        boolean isChanged = false;
+        String id2Calc_ = this.getId2Calc();
+        String parent1_Id2_ = this.getParent1_Id() != null
+                ? this.getParent1_Id().getId2()
+                : null;
+        String id2Calc = !StringUtils.isEmpty(parent1_Id2_) ? parent1_Id2_ + SEP : ""
+                + this.getName1();
+        if(!Objects.equals(id2Calc_, id2Calc)){
+            this.setId2Calc(id2Calc);
+            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateId2Cmp() {
+        String logPrfx = "updateId2Cmp";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Boolean id2Cmp_ = this.getId2Cmp();
+        Boolean id2Cmp = !Objects.equals(this.getId2(),this.getId2Calc());
+        if (!Objects.equals(id2Cmp_, id2Cmp)){
+            this.setId2Cmp(id2Cmp);
+            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Dup(DataManager dataManager) {
+        String logPrfx = "updateId2Dup";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Integer id2Dup_ = this.getId2Dup();
+        if (this.getId2() != null){
+            String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
+                    + " where e.id2 = :id2"
+                    + " and e.id <> :id";
+            Integer id2Dup;
+            try{
+                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
+                        .store("main")
+                        .parameter("id",this.getId())
+                        .parameter("id2",this.getId2())
+                        .one();
+            }catch (IllegalStateException e){
+                id2Dup =0;
+
+            }
+            id2Dup = id2Dup + 1;
+            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
+            if (!Objects.equals(id2Dup_, id2Dup)){
+                this.setId2Dup(id2Dup);
+                logger.debug(logPrfx + " --- this.setId2Dup(" + (id2Dup) + ")");
+                isChanged = true;
+            }
+
+        }
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateName1(){
+        String logPrfx = "updateNesc1";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+        return false;
+    }
+
+    public Boolean updateDesc1(){
+        String logPrfx = "updateDesc1";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+        return false;
+    }
+
+
 }

@@ -4,6 +4,8 @@ import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,8 +17,12 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "AMPATA_USR_EDGE_TYPE")
-@Entity(name = "ampata_UsrEdgeType")
+@Entity(name = "enty_UsrEdgeType")
 public class UsrEdgeType {
+
+    @Transient
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id

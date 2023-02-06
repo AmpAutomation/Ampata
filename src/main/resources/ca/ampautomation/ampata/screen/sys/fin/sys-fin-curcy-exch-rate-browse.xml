@@ -2,14 +2,14 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://sysFinCurcyExchRateBrowse.caption"
-        focusComponent="table">
+        focusComponent="tableMain">
     <data readOnly="true">
-        <collection id="sysFinCurcyExchRatesDc"
+        <collection id="colLoadrMain"
                     class="ca.ampautomation.ampata.entity.sys.SysNode"
-                    fetchPlan="sysFinCurcyExchRate-fetch-plan-base">
-            <loader id="sysFinCurcyExchRatesDl">
+                    fetchPlan="fetchPlan_SysFinCurcyExchRate_Base">
+            <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from ampata_SysNode e where e.className = 'SysFinCurcyExchRate' order by e.id2]]>
+                    <![CDATA[select e from enty_SysNode e where e.className = 'SysFinCurcyExchRate' order by e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -28,11 +28,10 @@
                 caption="msg:///actions.Cancel"
                 icon="LOOKUP_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="table" spacing="true">
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
         <filter id="filter"
-                dataLoader="sysFinCurcyExchRatesDl" collapsable="true" collapsed="true" columnsCount="4">
+                dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="4">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -41,17 +40,18 @@
                     <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_SysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_SysNode"/>
+                        <entityComboBox metaClass="enty_SysNode"/>
                     </propertyFilter>
                     <propertyFilter id="filterConfig1A_SysFinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
-                        <entityComboBox metaClass="ampata_SysNode"/>
+                        <entityComboBox metaClass="enty_SysNode"/>
                     </propertyFilter>
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="table"
+        <table id="tableMain"
                     width="100%"
-                    dataContainer="sysFinCurcyExchRatesDc">
+                    multiselect="true"
+                    dataContainer="colLoadrMain">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
@@ -81,10 +81,10 @@
                 <tabSheet  width="100%">
                     <tab id="tabCmd1" caption="Main" spacing="true">
                         <hbox spacing="true">
-                            <button id="refreshBtn" action="table.refresh"/>
-                            <button id="reloadLists" caption="Reload Lists" icon="font-icon:LIST"/>
+                            <button id="refreshBtn" action="tableMain.refresh"/>
+                            <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                             <label value="|" align="MIDDLE_CENTER"/>
-                            <button id="removeBtn" action="table.remove"/>
+                            <button id="removeBtn" action="tableMain.remove"/>
                         </hbox>
                     </tab>
 
@@ -97,11 +97,11 @@
                     </tab>
                     <tab id="tabCmd3" caption="Create, Edit" spacing="true">
                         <hbox spacing="true">
-                            <button id="createBtn" action="table.create"/>
+                            <button id="createBtn" action="tableMain.create"/>
                             <button id="duplicateBtn" caption="Duplicate" icon="font-icon:COPY"/>
                             <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
                             <label value="|" align="MIDDLE_CENTER"/>
-                            <button id="editBtn" action="table.edit"/>
+                            <button id="editBtn" action="tableMain.edit"/>
                             <label value="|" align="MIDDLE_CENTER"/>
                             <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                         </hbox>
@@ -122,7 +122,7 @@
                     </tab>
                 </tabSheet>
             </buttonsPanel>
-        </groupTable>
+        </table>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

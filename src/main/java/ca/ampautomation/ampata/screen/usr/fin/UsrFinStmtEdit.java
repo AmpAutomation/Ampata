@@ -6,9 +6,9 @@ import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrFinStmt.edit")
+@UiController("enty_UsrFinStmt.edit")
 @UiDescriptor("usr-fin-stmt-edit.xml")
-@EditedEntityContainer("finStmtDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinStmtEdit extends StandardEditor<UsrNode> {
 
     @Autowired
@@ -23,7 +23,7 @@ public class UsrFinStmtEdit extends StandardEditor<UsrNode> {
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
 
-        classNameField.setValue("FinStmt");
+        classNameField.setValue("UsrFinStmt");
     }
 
     @Subscribe("id2Button")

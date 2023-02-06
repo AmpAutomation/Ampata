@@ -9,7 +9,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 import java.util.Objects;
 
-@JmixEntity(name = "ampata_HasTime")
+@JmixEntity(name = "enty_HasTime")
 @Embeddable
 public class HasTime {
 

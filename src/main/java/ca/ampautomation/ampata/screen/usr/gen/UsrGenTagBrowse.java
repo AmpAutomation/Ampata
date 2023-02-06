@@ -3,8 +3,8 @@ package ca.ampautomation.ampata.screen.usr.gen;
 import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 
-@UiController("ampata_UsrGenTag.browse")
+@UiController("enty_UsrGenTag.browse")
 @UiDescriptor("usr-gen-tag-browse.xml")
-@LookupComponent("table")
+@LookupComponent("tableMain")
 public class UsrGenTagBrowse extends StandardLookup<UsrNode> {
 }

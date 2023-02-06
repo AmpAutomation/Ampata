@@ -38,6 +38,17 @@ where t.dtype = 'ampata_FinRate'
 
 
 update ampata_sys_node t
-set class_name = 'FinCurcy'
-where t.class_name = 'SysFinCurcy'
+set id2_calc = id2
+where t.class_name = 'SysFinCurcyExchRate'
 
+select
+ t1.id2
+,t2.id2
+,t.beg1_date1
+
+from ampata_sys_node t
+, ampata_sys_node t1
+, ampata_sys_node t2
+where t.class_name = 'SysFinCurcyExchRate'
+and t.fin_curcy1__id = t1.id 
+and t.fin_curcy2__id = t2.id 

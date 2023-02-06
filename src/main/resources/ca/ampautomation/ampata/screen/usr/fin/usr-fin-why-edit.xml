@@ -3,9 +3,9 @@
         caption="msg://finWhyEdit.caption"
         focusComponent="form">
     <data>
-        <instance id="finWhyDc"
-                  class="ca.ampautomation.ampata.entity.usr.UsrFinWhy">
-            <fetchPlan extends="usrFinWhy-fetch-plan-base"/>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy">
+            <fetchPlan extends="fetchPlan_UsrFinWhy_Base"/>
             <loader/>
         </instance>
     </data>
@@ -22,10 +22,9 @@
                 caption="msg:///actions.Close"
                 icon="EDITOR_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
+    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="editActions">
-        <form id="form" dataContainer="finWhyDc">
+        <form id="form" dataContainer="instCntnrMain">
             <column width="350px">
                 <textField id="id2Field" property="id2"/>
                 <textField id="id2CalcField" property="id2Calc"/>

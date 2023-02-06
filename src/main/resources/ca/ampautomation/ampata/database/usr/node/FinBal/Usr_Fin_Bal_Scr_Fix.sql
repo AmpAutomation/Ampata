@@ -1,7 +1,7 @@
 
 UPDATE ampata_sys_node t 
 set id2 = t.id2_calc 
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 
 
@@ -18,7 +18,7 @@ set amt_beg_bal = t.amt_beg_bal_calc
 	,amt_end_bal = t.amt_end_bal_calc
 from ampata_sys_node t2
 , ampata_sys_node_type t3
-where t.class_name = 'FinBal'
+where t.class_name = 'UsrFinBal'
 and t.deleted_by is null
 and t.fin_acct1__id = t2.id
 and t2.type1__id = t3.id

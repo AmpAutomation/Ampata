@@ -5,6 +5,8 @@ import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,18 +19,25 @@ import java.util.UUID;
 @JmixEntity
 @Table(name = "AMPATA_SYS_ITEM", indexes = {
         @Index(name = "IDX_SYSITEM_TYPE1__ID", columnList = "TYPE1__ID"),
-        @Index(name = "IDX_SYSITEM_NAME1_GEN_PAT1__ID", columnList = "NAME1_GEN_PAT1__ID"),
-        @Index(name = "IDX_SYSITEM_DESC1_GEN_PAT1__ID", columnList = "DESC1_GEN_PAT1__ID")
+        @Index(name = "IDX_SYSITEM_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_SYSITEM_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID")
 })
-@Entity(name = "ampata_SysItem")
+@Entity(name = "enty_SysItem")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 public class SysItem {
+
+    @Transient
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
 
+
+    @Column(name="DTYPE", insertable = false, updatable = false)
+    protected String dtype;
 
     @InstanceName
     @Column(name = "ID2")
@@ -53,25 +62,35 @@ public class SysItem {
     @Column(name = "SORT_IDX")
     private Integer sortIdx;
 
+    @Column(name = "SORT_KEY")
+    private String sortKey;
+
+    @Column(name = "INST1")
+    private String inst1;
+
     @Column(name = "NAME1")
     private String name1;
 
-    @JoinColumn(name = "NAME1_GEN_PAT1__ID")
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private SysItem name1GenPat1_Id;
+    private SysItem name1GenFmla1_Id;
 
-    @Column(name = "NAME1_GEN_PAT1__ID2")
-    private String name1GenPat1_Id2;
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
 
     @Column(name = "DESC1")
     private String desc1;
 
-    @JoinColumn(name = "DESC1_GEN_PAT1__ID")
+    @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private SysItem desc1GenPat1_Id;
+    private SysItem desc1GenFmla1_Id;
 
-    @Column(name = "DESC1_GEN_PAT1__ID2")
-    private String desc1GenPat1_Id2;
+    @Column(name = "DESC1_GEN_FMLA1__ID2")
+    private String desc1GenFmla1_Id2;
+
+    @Column(name = "NOTE")
+    @Lob
+    private String note;
 
     @Column(name = "VERSION", nullable = false)
     @Version
@@ -104,6 +123,16 @@ public class SysItem {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getDtype() {return dtype; }
 
     public String getId2() {
         return id2;
@@ -153,32 +182,47 @@ public class SysItem {
 
     public void setSortIdx(Integer sortIdx) { this.sortIdx = sortIdx; }
 
+    public String getSortKey() { return sortKey; }
+
+    public void setSortKey(String sortKey) {this.sortKey = sortKey; }
+
     public String getName1() { return name1; }
 
     public void setName1(String name1) { this.name1 = name1; }
 
-    public SysItem getName1GenPat1_Id() { return name1GenPat1_Id; }
+    public SysItem getName1GenFmla1_Id() { return name1GenFmla1_Id; }
 
-    public void setName1GenPat1_Id(SysItem name1GenPat1_Id) { this.name1GenPat1_Id = name1GenPat1_Id; }
+    public void setName1GenFmla1_Id(SysItem name1GenFmla1_Id) { this.name1GenFmla1_Id = name1GenFmla1_Id; }
 
-    public String getName1GenPat1_Id2() { return name1GenPat1_Id2; }
+    public String getName1GenFmla1_Id2() { return name1GenFmla1_Id2; }
 
-    public void setName1GenPat1_Id2(String name1GenPat1_Id2) { this.name1GenPat1_Id2 = name1GenPat1_Id2; }
+    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) { this.name1GenFmla1_Id2 = name1GenFmla1_Id2; }
+
+    public String getInst1() { return inst1; }
+
+    public void setInst1(String inst1) { this.inst1 = inst1; }
 
     public String getDesc1() { return desc1; }
 
     public void setDesc1(String desc1) { this.desc1 = desc1; }
 
 
-    public SysItem getDesc1GenPat1_Id() { return desc1GenPat1_Id; }
-
-    public void setDesc1GenPat1_Id(SysItem desc1GenPat1_Id) { this.desc1GenPat1_Id = desc1GenPat1_Id; }
-
-    public String getDesc1GenPat1_Id2() {
-        return desc1GenPat1_Id2;
+    public String getNote() {
+        return note;
     }
 
-    public void setDesc1GenPat1_Id2(String desc1GenPat1_Id2) { this.desc1GenPat1_Id2 = desc1GenPat1_Id2; }
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+
+    public SysItem getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
+
+    public void setDesc1GenFmla1_Id(SysItem desc1GenFmla1_Id) { this.desc1GenFmla1_Id = desc1GenFmla1_Id; }
+
+    public String getDesc1GenFmla1_Id2() { return desc1GenFmla1_Id2; }
+
+    public void setDesc1GenFmla1_Id2(String desc1GenFmla1_Id2) { this.desc1GenFmla1_Id2 = desc1GenFmla1_Id2; }
 
     public Date getDeletedDate() {
         return deletedDate;
@@ -236,11 +280,4 @@ public class SysItem {
         this.version = version;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 }

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://usrGenFileEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.gen.UsrGenFile"
+                  fetchPlan="fetchPlan_UsrGenFile_Base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="instCntnrMain">
+                <column width="350px">
+                    <textField id="tenantField" property="tenant"/>
+                    <textField id="id2Field" property="id2"/>
+                    <textField id="id2CalcField" property="id2Calc"/>
+                    <checkBox id="id2CmpField" property="id2Cmp"/>
+                    <textField id="id2DupField" property="id2Dup"/>
+                    <textField id="classNameField" property="className"/>
+                    <entityPicker id="parent1_IdField" property="parent1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="parent1_Id2Field" property="parent1_Id2"/>
+                    <textArea id="ancestors1_Id2Field" property="ancestors1_Id2" rows="5"/>
+                    <textField id="sortIdxField" property="sortIdx"/>
+                    <textField id="sortKeyField" property="sortKey"/>
+                    <entityPicker id="type1_IdField" property="type1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="type1_Id2Field" property="type1_Id2"/>
+                    <textField id="instField" property="inst1"/>
+                    <textField id="name1Field" property="name1"/>
+                    <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="name1GenFmla1_Id2Field" property="name1GenFmla1_Id2"/>
+                    <textField id="name2Field" property="name2"/>
+                    <textField id="abrvField" property="abrv"/>
+                    <textField id="codeField" property="code"/>
+                    <textArea id="desc1Field" property="desc1" rows="5"/>
+                    <entityPicker id="desc1GenFmla1_IdField" property="desc1GenFmla1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="desc1GenFmla1_Id2Field" property="desc1GenFmla1_Id2"/>
+                    <textField id="statusField" property="status"/>
+                    <textField id="statusCalcField" property="statusCalc"/>
+                    <textArea id="noteField" property="note" rows="5"/>
+                    <textArea id="genDocVers1_Id2Field" property="genDocVers1_Id2" rows="5"/>
+                    <entityPicker id="genDocVer1_IdField" property="genDocVer1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genDocVer1_Id2Field" property="genDocVer1_Id2"/>
+                    <textField id="genDocVer1_CodeField" property="genDocVer1_Code"/>
+                    <textField id="genDocVer1_VerField" property="genDocVer1_Ver"/>
+                    <textField id="genDocVer1_Name1Field" property="genDocVer1_Name1"/>
+                    <entityPicker id="genFile1_IdField" property="genFile1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genFile1_Id2Field" property="genFile1_Id2"/>
+                    <textArea id="genFile1_URIField" property="genFile1_URI" rows="5"/>
+                    <textField id="genTags1_Id2Field" property="genTags1_Id2"/>
+                    <entityPicker id="genTag1_IdField" property="genTag1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
+                    <entityPicker id="genTag2_IdField" property="genTag2_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
+                    <entityPicker id="genTag3_IdField" property="genTag3_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
+                    <entityPicker id="genTag4_IdField" property="genTag4_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="genTag4_Id2Field" property="genTag4_Id2"/>
+                    <dateField id="beg1Ts1Field" property="beg1.ts1"/>
+                    <dateField id="beg1Date1Field" property="beg1.date1"/>
+                    <textField id="beg1Date1YrField" property="beg1.date1Yr"/>
+                    <textField id="beg1Date1QtrField" property="beg1.date1Qtr"/>
+                    <textField id="beg1Date1MonField" property="beg1.date1Mon"/>
+                    <textField id="beg1Date1Mon2Field" property="beg1.date1Mon2"/>
+                    <textField id="beg1Date1DayField" property="beg1.date1Day"/>
+                    <timeField id="beg1Time1Field" property="beg1.time1"/>
+                    <textField id="beg1Time1HrField" property="beg1.time1Hr"/>
+                    <textField id="beg1Time1MinField" property="beg1.time1Min"/>
+                    <dateField id="beg2Ts1Field" property="beg2.ts1"/>
+                    <dateField id="beg2Date1Field" property="beg2.date1"/>
+                    <textField id="beg2Date1YrField" property="beg2.date1Yr"/>
+                    <textField id="beg2Date1QtrField" property="beg2.date1Qtr"/>
+                    <textField id="beg2Date1MonField" property="beg2.date1Mon"/>
+                    <textField id="beg2Date1Mon2Field" property="beg2.date1Mon2"/>
+                    <textField id="beg2Date1DayField" property="beg2.date1Day"/>
+                    <timeField id="beg2Time1Field" property="beg2.time1"/>
+                    <textField id="beg2Time1HrField" property="beg2.time1Hr"/>
+                    <textField id="beg2Time1MinField" property="beg2.time1Min"/>
+                    <dateField id="end1Ts1Field" property="end1.ts1"/>
+                    <dateField id="end1Date1Field" property="end1.date1"/>
+                    <textField id="end1Date1YrField" property="end1.date1Yr"/>
+                    <textField id="end1Date1QtrField" property="end1.date1Qtr"/>
+                    <textField id="end1Date1MonField" property="end1.date1Mon"/>
+                    <textField id="end1Date1Mon2Field" property="end1.date1Mon2"/>
+                    <textField id="end1Date1DayField" property="end1.date1Day"/>
+                    <timeField id="end1Time1Field" property="end1.time1"/>
+                    <textField id="end1Time1HrField" property="end1.time1Hr"/>
+                    <textField id="end1Time1MinField" property="end1.time1Min"/>
+                    <dateField id="end2Ts1Field" property="end2.ts1"/>
+                    <dateField id="end2Date1Field" property="end2.date1"/>
+                    <textField id="end2Date1YrField" property="end2.date1Yr"/>
+                    <textField id="end2Date1QtrField" property="end2.date1Qtr"/>
+                    <textField id="end2Date1MonField" property="end2.date1Mon"/>
+                    <textField id="end2Date1Mon2Field" property="end2.date1Mon2"/>
+                    <textField id="end2Date1DayField" property="end2.date1Day"/>
+                    <timeField id="end2Time1Field" property="end2.time1"/>
+                    <textField id="end2Time1HrField" property="end2.time1Hr"/>
+                    <textField id="end2Time1MinField" property="end2.time1Min"/>
+                    <entityPicker id="genChan1_IdField" property="genChan1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <entityPicker id="genChan2_IdField" property="genChan2_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <dateField id="idTsTs1Field" property="idTs.ts1"/>
+                    <dateField id="idTsDate1Field" property="idTs.date1"/>
+                    <textField id="idTsDate1YrField" property="idTs.date1Yr"/>
+                    <textField id="idTsDate1QtrField" property="idTs.date1Qtr"/>
+                    <textField id="idTsDate1MonField" property="idTs.date1Mon"/>
+                    <textField id="idTsDate1Mon2Field" property="idTs.date1Mon2"/>
+                    <textField id="idTsDate1DayField" property="idTs.date1Day"/>
+                    <timeField id="idTsTime1Field" property="idTs.time1"/>
+                    <textField id="idTsTime1HrField" property="idTs.time1Hr"/>
+                    <textField id="idTsTime1MinField" property="idTs.time1Min"/>
+                    <dateField id="idDtDate1Field" property="idDt.date1"/>
+                    <textField id="idDtDate1YrField" property="idDt.date1Yr"/>
+                    <textField id="idDtDate1QtrField" property="idDt.date1Qtr"/>
+                    <textField id="idDtDate1MonField" property="idDt.date1Mon"/>
+                    <textField id="idDtDate1Mon2Field" property="idDt.date1Mon2"/>
+                    <textField id="idDtDate1DayField" property="idDt.date1Day"/>
+                    <timeField id="idTmTime1Field" property="idTm.time1"/>
+                    <textField id="idTmTime1HrField" property="idTm.time1Hr"/>
+                    <textField id="idTmTime1MinField" property="idTm.time1Min"/>
+                </column>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

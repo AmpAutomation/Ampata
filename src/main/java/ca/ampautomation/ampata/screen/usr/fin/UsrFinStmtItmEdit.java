@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepository;
+import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import io.jmix.core.*;
@@ -21,10 +21,13 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@UiController("ampata_UsrFinStmtItm.edit")
+@UiController("enty_UsrFinStmtItm.edit")
 @UiDescriptor("usr-fin-stmt-itm-edit.xml")
-@EditedEntityContainer("finStmtItmDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
+
+    //Common
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     protected UiComponents uiComponents;
@@ -34,9 +37,6 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
 
     @Autowired
     private EntityManager entityManager;
-
-    @Autowired
-    private UsrNodeRepository repo;
 
     @Autowired
     private DataComponents dataComponents;
@@ -59,42 +59,39 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
     @Autowired
     private Notifications notifications;
 
+    //CRUD Repo
+    @Autowired
+    private UsrNodeRepo repo;
 
 
+    //Main data containers, loaders and table
+    @Autowired
+    private InstanceContainer<UsrNode> instCntnrMain;
+
+
+    //Type data container and loader
+    private CollectionContainer<UsrNodeType> colCntnrType;
+    private CollectionLoader<UsrNodeType> colLoadrType;
+
+
+    //Other data containers, loaders and table
     private CollectionContainer<UsrNode> genAgentsDc;
-
     private CollectionLoader<UsrNode> genAgentsDl;
 
+    private CollectionContainer<UsrNode> colCntnrGenDocVer;
+    private CollectionLoader<UsrNode> colLoadrGenDocVer;
 
-    @Autowired
-    private InstanceContainer<UsrNode> finStmtItmDc;
+    private CollectionContainer<UsrNode> colCntnrGenTag;
+    private CollectionLoader<UsrNode> colLoadrGenTag;
 
-    private CollectionContainer<UsrNodeType> finStmtItmTypesDc;
+    private CollectionContainer<UsrNode> colCntnrFinStmt;
+    private CollectionLoader<UsrNode> colLoadrFinStmt;
 
-    private CollectionLoader<UsrNodeType> finStmtItmTypesDl;
-
-
-    private CollectionContainer<UsrNode> genDocVersDc;
-
-    private CollectionLoader<UsrNode> genDocVersDl;
-
-
-    private CollectionContainer<UsrNode> genTagsDc;
-
-    private CollectionLoader<UsrNode> genTagsDl;
+    private CollectionContainer<UsrNode> colCntnrFinAcct;
+    private CollectionLoader<UsrNode> colLoadrFinAcct;
 
 
-    private CollectionContainer<UsrNode> finStmtsDc;
-
-    private CollectionLoader<UsrNode> finStmtsDl;
-
-
-    private CollectionContainer<UsrNode> finAcctsDc;
-
-    private CollectionLoader<UsrNode> finAcctsDl;
-
-
-
+    //Field
     @Autowired
     private TextField<String> classNameField;
 
@@ -144,7 +141,6 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
 
 
 
-    Logger logger = LoggerFactory.getLogger(UsrFinStmtItmBrowse.class);
 
 
     /*
@@ -167,70 +163,70 @@ are not fully initialized, for example, buttons are not linked with actions.
         desc4Field.setNullSelectionCaption("<null>");
 
 
-        finStmtItmTypesDc = dataComponents.createCollectionContainer(UsrNodeType.class);
-        finStmtItmTypesDl = dataComponents.createCollectionLoader();
-        finStmtItmTypesDl.setQuery("select e from ampata_UsrNodeType e where e.className = 'FinStmtItm' order by e.id2");
+        colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
+        colLoadrType = dataComponents.createCollectionLoader();
+        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinStmtItm' order by e.id2");
         FetchPlan finStmtItmTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finStmtItmTypesDl.setFetchPlan(finStmtItmTypesFp);
-        finStmtItmTypesDl.setContainer(finStmtItmTypesDc);
-        finStmtItmTypesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrType.setFetchPlan(finStmtItmTypesFp);
+        colLoadrType.setContainer(colCntnrType);
+        colLoadrType.setDataContext(getScreenData().getDataContext());
 
-        type1_IdField.setOptionsContainer(finStmtItmTypesDc);
+        type1_IdField.setOptionsContainer(colCntnrType);
 
 
-        genDocVersDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genDocVersDl = dataComponents.createCollectionLoader();
-        genDocVersDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenDocVer' order by e.id2");
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrGenDocVer = dataComponents.createCollectionLoader();
+        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
         FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genDocVersDl.setFetchPlan(genDocVersFp);
-        genDocVersDl.setContainer(genDocVersDc);
-        genDocVersDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenDocVer.setFetchPlan(genDocVersFp);
+        colLoadrGenDocVer.setContainer(colCntnrGenDocVer);
+        colLoadrGenDocVer.setDataContext(getScreenData().getDataContext());
 
-        genDocVer1_IdField.setOptionsContainer(genDocVersDc);
+        genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        genTagsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genTagsDl = dataComponents.createCollectionLoader();
-        genTagsDl.setQuery("select e from ampata_UsrNode e where e.className = 'GenTag' order by e.id2");
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrGenTag = dataComponents.createCollectionLoader();
+        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
         FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genTagsDl.setFetchPlan(genTagsFp);
-        genTagsDl.setContainer(genTagsDc);
-        genTagsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrGenTag.setFetchPlan(genTagsFp);
+        colLoadrGenTag.setContainer(colCntnrGenTag);
+        colLoadrGenTag.setDataContext(getScreenData().getDataContext());
 
-        genTag1_IdField.setOptionsContainer(genTagsDc);
-        genTag2_IdField.setOptionsContainer(genTagsDc);
-        genTag3_IdField.setOptionsContainer(genTagsDc);
-        genTag4_IdField.setOptionsContainer(genTagsDc);
+        genTag1_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag2_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag3_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag4_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        finStmtsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finStmtsDl = dataComponents.createCollectionLoader();
-        finStmtsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinStmt' order by e.id2");
+        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinStmt = dataComponents.createCollectionLoader();
+        colLoadrFinStmt.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinStmt' order by e.id2");
         FetchPlan finStmtsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finStmtsDl.setFetchPlan(finStmtsFp);
-        finStmtsDl.setContainer(finStmtsDc);
-        finStmtsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinStmt.setFetchPlan(finStmtsFp);
+        colLoadrFinStmt.setContainer(colCntnrFinStmt);
+        colLoadrFinStmt.setDataContext(getScreenData().getDataContext());
 
-        finStmt1_IdField.setOptionsContainer(finStmtsDc);
+        finStmt1_IdField.setOptionsContainer(colCntnrFinStmt);
 
 
-        finAcctsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finAcctsDl = dataComponents.createCollectionLoader();
-        finAcctsDl.setQuery("select e from ampata_UsrNode e where e.className = 'FinAcct' order by e.id2");
+        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
+        colLoadrFinAcct = dataComponents.createCollectionLoader();
+        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        finAcctsDl.setFetchPlan(finAcctsFp);
-        finAcctsDl.setContainer(finAcctsDc);
-        finAcctsDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinAcct.setFetchPlan(finAcctsFp);
+        colLoadrFinAcct.setContainer(colCntnrFinAcct);
+        colLoadrFinAcct.setDataContext(getScreenData().getDataContext());
 
         logger.trace(logPrfx + " <--- ");
 
@@ -282,26 +278,26 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finStmtItmTypesDl.load();
-        logger.debug(logPrfx + " --- called finStmtItmTypesDl.load() ");
+        colLoadrType.load();
+        logger.debug(logPrfx + " --- called colLoadrType.load() ");
 
 
-        genDocVersDl.load();
-        logger.debug(logPrfx + " --- called genDocVersDl.load() ");
+        colLoadrGenDocVer.load();
+        logger.debug(logPrfx + " --- called colLoadrGenDocVer.load() ");
 
-        genTagsDl.load();
-        logger.debug(logPrfx + " --- called genTagsDl.load() ");
+        colLoadrGenTag.load();
+        logger.debug(logPrfx + " --- called colLoadrGenTag.load() ");
 
-        finStmtsDl.load();
-        logger.debug(logPrfx + " --- called finStmtsDl.load() ");
+        colLoadrFinStmt.load();
+        logger.debug(logPrfx + " --- called colLoadrFinStmt.load() ");
 
         reloadDesc1List();
         reloadDesc2List();
         reloadDesc3List();
         reloadDesc4List();
 
-        finAcctsDl.load();
-        logger.debug(logPrfx + " --- called finAcctsDl.load() ");
+        colLoadrFinAcct.load();
+        logger.debug(logPrfx + " --- called colLoadrFinAcct.load() ");
 
         logger.trace(logPrfx + " <-- ");
 
@@ -313,7 +309,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateInstIdPartsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -331,7 +327,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -352,9 +348,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+            UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
-                logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -370,9 +366,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -391,9 +387,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -410,9 +406,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CmpFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -427,9 +423,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2DupFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -445,8 +441,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateType1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        finStmtItmTypesDl.load();
-        logger.debug(logPrfx + " --- called finStmtItmTypesDl.load() ");
+        colLoadrType.load();
+        logger.debug(logPrfx + " --- called colLoadrType.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -459,7 +455,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+            UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
                 logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -482,9 +478,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateBeg1Ts1FieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -501,9 +497,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+            UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
-                logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
@@ -519,9 +515,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateIdXFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -537,8 +533,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genDocVersDl.load();
-        logger.debug(logPrfx + " --- called genDocVersDl.load() ");
+        colLoadrGenDocVer.load();
+        logger.debug(logPrfx + " --- called colLoadrGenDocVer.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -548,8 +544,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateGenTag1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genTagsDl.load();
-        logger.debug(logPrfx + " --- called genTagsDl.load() ");
+        colLoadrGenTag.load();
+        logger.debug(logPrfx + " --- called colLoadrGenTag.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -644,8 +640,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinStmt1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        finStmtsDl.load();
-        logger.debug(logPrfx + " --- called finStmtsDl.load() ");
+        colLoadrFinStmt.load();
+        logger.debug(logPrfx + " --- called colLoadrFinStmt.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -655,9 +651,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateAmtNetBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -673,9 +669,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -690,9 +686,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtDebtSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -708,9 +704,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtCredSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -725,9 +721,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtNetSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -744,9 +740,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinStmtItm = finStmtItmDc.getItemOrNull();
+        UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- finStmtItmDc is null, likely because no record is selected.");
+            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
@@ -872,7 +868,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         Integer id2Dup_ = thisFinStmtItm.getId2Dup();
         if (thisFinStmtItm.getId2() != null) {
-            String id2Qry = "select count(e) from ampata_UsrNode e where e.className = 'FinStmtItm' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinStmtItm' and e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -1021,7 +1017,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         Integer idCntCalc_ = thisFinStmtItm.getFinTxactItms1_IdCntCalc();
         Integer idCntCalc = null ;
-        String qry1 = "select count(e.amtNet) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select count(e.amtNet) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             idCntCalc = dataManager.loadValue(qry1,Integer.class)
                     .store("main")
@@ -1055,7 +1051,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         BigDecimal amtDebtSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc();
         BigDecimal amtDebtSumCalc = null ;
-        String qry1 = "select sum(e.amtDebt) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtDebt) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -1088,7 +1084,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         BigDecimal amtCredSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc();
         BigDecimal amtCredSumCalc = null ;
-        String qry1 = "select sum(e.amtCred) from ampata_UsrNode e where e.className = 'FinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtCred) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -1207,7 +1203,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return null;
         }
 
-        String qry = "select e from ampata_UsrNode e where e.className = 'FinStmtItm' and e.id2 = :id2";
+        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinStmtItm' and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finStmtItm_Id2);
 
@@ -1232,8 +1228,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc1"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.desc1 IS NOT NULL"
                 + " order by e.desc1"
                 ;
@@ -1264,8 +1260,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc2"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.desc2 IS NOT NULL"
                 + " order by e.desc2"
                 ;
@@ -1295,8 +1291,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc3"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.desc3 IS NOT NULL"
                 + " order by e.desc3"
                 ;
@@ -1326,8 +1322,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc4"
-                + " from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+                + " from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.desc4 IS NOT NULL"
                 + " order by e.desc4"
                 ;
@@ -1391,8 +1387,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         Integer idX, idXMax;
-        String idXMaxQry = "select max(e.idX) from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+        String idXMaxQry = "select max(e.idX) from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.idTs.ts1 = :idTs1";
         try {
             idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
@@ -1409,8 +1405,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.debug(logPrfx + " --- idXMaxQry result: " + idXMax + "");
 
         Integer idXCntIsNull = null;
-        String idXCntIsNullQry = "select count(e) from ampata_UsrNode e"
-                + " where e.className = 'FinStmtItm'"
+        String idXCntIsNullQry = "select count(e) from enty_UsrNode e"
+                + " where e.className = 'UsrFinStmtItm'"
                 + " and e.idTs.ts1 = :idTs1"
                 + " and e.idX is null";
         try {

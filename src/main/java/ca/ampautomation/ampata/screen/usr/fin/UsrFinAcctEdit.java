@@ -5,9 +5,9 @@ import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_UsrFinAcct.edit")
+@UiController("enty_UsrFinAcct.edit")
 @UiDescriptor("usr-fin-acct-edit.xml")
-@EditedEntityContainer("finAcctDc")
+@EditedEntityContainer("instCntnrMain")
 public class UsrFinAcctEdit extends StandardEditor<UsrNode> {
 
 
@@ -26,7 +26,7 @@ public class UsrFinAcctEdit extends StandardEditor<UsrNode> {
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
-        classNameField.setValue("FinAcct");
+        classNameField.setValue("UsrFinAcct");
     }
 
     @Subscribe

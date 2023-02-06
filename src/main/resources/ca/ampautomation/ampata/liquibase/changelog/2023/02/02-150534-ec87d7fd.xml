@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1" author="ampata">
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_FIN_TXSET1_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_FIN_TXSET1__ID"/>
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__FIN_TXACTS1__ID2" newColumnName="FIN_TXACT_SET1__FIN_TXACTS1__ID2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__FIN_ACCTS1__ID2" newColumnName="FIN_TXACT_SET1__FIN_ACCTS1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__ID" newColumnName="FIN_TXACT_SET1__ID"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__ID2" newColumnName="FIN_TXACT_SET1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__ID2_TRGT" newColumnName="FIN_TXACT_SET1__ID2_TRGT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__EI1__ROLE" newColumnName="FIN_TXACT_SET1__EI1__ROLE"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__TYPE1__ID2" newColumnName="FIN_TXACT_SET1__TYPE1__ID2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__DESC1" newColumnName="FIN_TXACT_SET1__DESC1"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__GEN_CHAN1__ID2" newColumnName="FIN_TXACT_SET1__GEN_CHAN1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__BEG1_DATE1" newColumnName="FIN_TXACT_SET1__BEG1_DATE1"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__BEG1_TIME1" newColumnName="FIN_TXACT_SET1__BEG1_TIME1"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__HOW1__ID2" newColumnName="FIN_TXACT_SET1__HOW1__ID2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__WHAT_TEXT1" newColumnName="FIN_TXACT_SET1__WHAT_TEXT1"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__WHAT1__ID2" newColumnName="FIN_TXACT_SET1__WHAT1__ID2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__WHY_TEXT1" newColumnName="FIN_TXACT_SET1__WHY_TEXT1"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__WHY1__ID2" newColumnName="FIN_TXACT_SET1__WHY1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__GEN_DOC_VERS1__ID2" newColumnName="FIN_TXACT_SET1__GEN_DOC_VERS1__ID2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXSET1__GEN_TAGS1__ID2" newColumnName="FIN_TXACT_SET1__GEN_TAGS1__ID2"/>
+
+
+    </changeSet>
+
+    <changeSet id="3" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="FIN_TXACT_SET1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_FIN_TXACT_SET1_"
+                                 referencedTableName="AMPATA_USR_NODE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_FIN_TXACT_SET1__ID">
+            <column name="FIN_TXACT_SET1__ID"></column>
+        </createIndex>
+    </changeSet>
+
+
+</databaseChangeLog>

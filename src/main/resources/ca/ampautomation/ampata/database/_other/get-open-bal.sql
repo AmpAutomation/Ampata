@@ -12,7 +12,7 @@ select
 ,t.parent1__id
 ,t.parent1__id2
 from ampata_sys_node t
-where t.class_name = 'FinAcct'
+where t.class_name = 'UsrFinAcct'
 and t.deleted_by is null
 and t.id = '24d02d9e-db36-cdc0-4420-2a0cc758df1d' -- /Mark
 union
@@ -24,7 +24,7 @@ select
 ,rt.parent1__id2
 from ampata_sys_node rt
 inner join cte0 ct on ct.id = rt.parent1__id
-where rt.class_name = 'FinAcct'
+where rt.class_name = 'UsrFinAcct'
 and rt.deleted_by is null
 
 )
@@ -41,7 +41,7 @@ select
 ,sum(t.amt_net) as amt_net
 
 from ampata_sys_node t 
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 and t.id_ts_ts1 < '2021-01-01'::timestamp
 and t.fin_acct1__id in (select t.id from cte0 t)
@@ -79,7 +79,7 @@ select
 ,'/Q' as type1__id2
 
 from ampata_sys_node t 
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 and t.id_ts_ts1 < '2017-01-01'::timestamp
 
@@ -112,6 +112,6 @@ order by t.sort_key, fdep.sort_idx
 /*
 select * 
 from ampata_sys_node t
-where t.class_name = 'FinAcct'
+where t.class_name = 'UsrFinAcct'
 and id2 = '/Q/Mark/Open_Bal'
 */

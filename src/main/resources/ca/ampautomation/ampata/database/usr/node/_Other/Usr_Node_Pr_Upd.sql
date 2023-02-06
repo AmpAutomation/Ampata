@@ -15,12 +15,22 @@ begin
 
 
 --type1__id2
+--use left join to set unmatched type1__id2 to null
 raise notice 'Updating type1__id2';
 update ampata_usr_node t
-set type1__id2 = t1.id2 
-from ampata_usr_node t1
-where
-	t.type1__id = t1.id
+set  type1__id2 = t1.type1__id2
+from (
+	select t2a.id
+	,t2a.id2
+	,t2a.type1__id
+	,t2b.id2 as type1__id2
+	from ampata_usr_node t2a
+	left join ampata_usr_node_type as t2b
+		on t2a.type1__id = t2b.id
+--	where t2a.class_name = 'UsrGenAgent'
+--	and t2a.deleted_by is null
+) t1
+where t.id = t1.id 
 ;
 
 
@@ -235,18 +245,18 @@ where
 
 
 
---fin_txset1__id2..
-raise notice 'Updating fin_txset1__id2..';
+--fin_txact_set1__id2..
+raise notice 'Updating fin_txact_set1__id2..';
 update ampata_usr_node t
-set  fin_txset1__id2 = t1.id2 
-	,fin_txset1__type1__id2 = t1.type1__id2
---	,fin_txset1__gen_chan1__id2 = t1.gen_chan_id2 
-	,fin_txset1__how1__id2 = t1.fin_how1__id2
-	,fin_txset1__what1__id2 = t1.fin_what1__id2
-	,fin_txset1__why1__id2 = t1.fin_why1__id2
+set  fin_txact_set1__id2 = t1.id2 
+	,fin_txact_set1__type1__id2 = t1.type1__id2
+--	,fin_txact_set1__gen_chan1__id2 = t1.gen_chan_id2 
+	,fin_txact_set1__how1__id2 = t1.fin_how1__id2
+	,fin_txact_set1__what1__id2 = t1.fin_what1__id2
+	,fin_txact_set1__why1__id2 = t1.fin_why1__id2
 from ampata_usr_node t1
 where
-	t.fin_txset1__id  = t1.id
+	t.fin_txact_set1__id  = t1.id
 ;
 
 --fin_txact1__id2..

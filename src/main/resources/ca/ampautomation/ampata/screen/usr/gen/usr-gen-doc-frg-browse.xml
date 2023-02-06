@@ -2,14 +2,14 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
         caption="msg://genDocFrgBrowse.caption"
-        focusComponent="table">
+        focusComponent="tableMain">
     <data readOnly="true">
-        <collection id="genDocFrgsDc"
+        <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                    fetchPlan="usrGenDocFrg-fetch-plan-base">
-            <loader id="genDocFrgsDl">
+                    fetchPlan="fetchPlan_UsrGenDocFrg_Base">
+            <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from ampata_UsrNode e where e.className = 'GenDocFrg']]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocFrg']]>
                 </query>
             </loader>
         </collection>
@@ -28,11 +28,10 @@
                 caption="msg:///actions.Cancel"
                 icon="LOOKUP_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="table" spacing="true">
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
         <filter id="filter"
-                dataLoader="genDocFrgsDl">
+                dataLoader="colLoadrMain">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -41,9 +40,9 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="table"
+        <table id="tableMain"
                     width="100%"
-                    dataContainer="genDocFrgsDc">
+                    dataContainer="colCntnrMain">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -67,10 +66,10 @@
                 <column id="sortIdx"/>
                 <column id="type1_Id"/>
                 <column id="type1_Id2"/>
-                <column id="inst"/>
+                <column id="inst1"/>
                 <column id="name1"/>
-                <column id="name1GenPat1_Id"/>
-                <column id="name1GenPat1_Id2"/>
+                <column id="name1GenFmla1_Id"/>
+                <column id="name1GenFmla1_Id2"/>
                 <column id="abrv"/>
                 <column id="code"/>
                 <column id="desc1"/>
@@ -84,12 +83,12 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="table.create"/>
-                <button id="editBtn" action="table.edit"/>
-                <button id="refreshBtn" action="table.refresh"/>
-                <button id="removeBtn" action="table.remove"/>
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
             </buttonsPanel>
-        </groupTable>
+        </table>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

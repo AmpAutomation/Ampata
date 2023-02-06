@@ -20,11 +20,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@UiController("ampata_MainScreen")
+@UiController("enty_MainScreen")
 @UiDescriptor("main-screen.xml")
 @Route(path = "main", root = true)
 public class MainScreen extends Screen implements Window.HasWorkArea {
 
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private Notifications notifications;
@@ -47,7 +49,6 @@ public class MainScreen extends Screen implements Window.HasWorkArea {
     @Autowired
     private Button collapseDrawerButton;
 
-    Logger logger = LoggerFactory.getLogger(MainScreen.class);
 
     @Subscribe
     public void onInit(InitEvent event) {

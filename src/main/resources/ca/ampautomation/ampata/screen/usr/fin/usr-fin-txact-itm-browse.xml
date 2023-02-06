@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         caption="msg://finTxactItmBrowse.caption"
-        focusComponent="table">
+        focusComponent="tableMain">
     <data readOnly="true">
-        <collection id="finTxactItmsDc"
+        <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.usr.UsrNode"
-                    fetchPlan="usrFinTxactItm-fetch-plan-base">
-            <loader id="finTxactItmsDl">
+                    fetchPlan="fetchPlan_UsrFinTxactItm_Base">
+            <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from ampata_UsrNode e where e.className = 'FinTxactItm']]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinTxactItm']]>
                 </query>
             </loader>
         </collection>
@@ -27,11 +27,10 @@
                 caption="msg:///actions.Cancel"
                 icon="LOOKUP_CANCEL"/>
     </actions>
-    <dialogMode height="600"
-                width="800"/>
-    <layout expand="table" spacing="true">
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
         <filter id="filter"
-                dataLoader="finTxactItmsDl">
+                dataLoader="colLoadrMain">
             <properties include=".*"/>
             <configurations>
                 <configuration id="filterConfig1" default="true">
@@ -40,9 +39,9 @@
                 </configuration>
             </configurations>
         </filter>
-        <groupTable id="table"
+        <table id="tableMain"
                     width="100%"
-                    dataContainer="finTxactItmsDc">
+                    dataContainer="colCntnrMain">
             <actions>
                 <action id="create" type="create">
                     <properties>
@@ -59,13 +58,13 @@
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="finTxact1_Id.finTxset1_Id"/>
-                <column id="finTxact1_Id.finTxset1_Id.type1_Id" caption="Txs.type1"/>
-                <column id="finTxact1_Id.finTxset1_Id.desc1"  caption="Txs.desc1" width="320px"/>
+                <column id="finTxact1_Id.finTxactSet1_Id"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.type1_Id" caption="Txs.type1"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.desc1"  caption="Txs.desc1" width="320px"/>
 
                 <column id="finTxact1_Id"/>
                 <column id="finTxact1_Id.type1_Id" caption="Txa.type1"/>
-                <column id="finTxact1_Id.finTxset1_EI1_Role" caption="Txa Role"/>
+                <column id="finTxact1_Id.finTxactSet1_EI1_Role" caption="Txa Role"/>
                 <column id="finTxact1_Id.desc1" caption="Txa.desc1" width="320px"/>
 
                 <column id="id2"/>
@@ -106,12 +105,12 @@
                 <column id="finTxactItm1_EI1_Rate"/>
                 <column id="calcRslt"/>
 
-                <column id="finTxact1_Id.finTxset1_Id.genChan1_Id"/>
-                <column id="finTxact1_Id.finTxset1_Id.finHow1_Id"/>
-                <column id="finTxact1_Id.finTxset1_Id.whatText1"/>
-                <column id="finTxact1_Id.finTxset1_Id.finWhat1_Id"/>
-                <column id="finTxact1_Id.finTxset1_Id.whyText1"/>
-                <column id="finTxact1_Id.finTxset1_Id.finWhy1_Id"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.genChan1_Id"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.finHow1_Id"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.whatText1"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.finWhat1_Id"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.whyText1"/>
+                <column id="finTxact1_Id.finTxactSet1_Id.finWhy1_Id"/>
 
                 <column id="finTxact1_Id.genChan1_Id"/>
                 <column id="finTxact1_Id.finHow1_Id"/>
@@ -139,12 +138,12 @@
             <simplePagination/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="table.create"/>
-                <button id="editBtn" action="table.edit"/>
-                <button id="refreshBtn" action="table.refresh"/>
-                <button id="removeBtn" action="table.remove"/>
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
             </buttonsPanel>
-        </groupTable>
+        </table>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

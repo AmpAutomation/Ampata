@@ -1,112 +1,122 @@
 <fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
-    <fetchPlan entity="ampata_UsrItem" name="usrItem-fetch-plan-base" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
-        <property name="name1"/>
-        <property name="desc1"/>
-    </fetchPlan>
-
-    <fetchPlan entity="ampata_FinFmla" name="usrFinFmla-fetch-plan-base" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
-        <property name="name1"/>
-        <property name="desc1"/>
-        <property name="fmla"/>
-    </fetchPlan>
-
-    <fetchPlan entity="ampata_FinHow" name="usrFinHow-fetch-plan-base" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
-        <property name="name1"/>
-        <property name="desc1"/>
-    </fetchPlan>
-
-    <fetchPlan entity="ampata_FinWhat" name="usrFinWhat-fetch-plan-base" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
-        <property name="name1"/>
-        <property name="desc1"/>
-    </fetchPlan>
-
-    <fetchPlan entity="ampata_FinWhy" name="usrFinWhy-fetch-plan-base" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
-        <property name="name1"/>
-        <property name="desc1"/>
-    </fetchPlan>
-
-
-    <fetchPlan entity="ampata_UsrNode" name="usrNode-fetch-plan-lean" extends="_instance_name">
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="className"/>
+    <fetchPlan entity="enty_UsrItem" name="fetchPlan_UsrItem_Base" extends="_instance_name">
         <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
-        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="type1_Id2"/>
-        <property name="inst"/>
+        <property name="inst1"/>
         <property name="name1"/>
-        <property name="name1GenPat1_Id" fetchPlan="_base"/>
-        <property name="name1GenPat1_Id2"/>
-        <property name="name2"/>
-        <property name="abrv"/>
-        <property name="code"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="name1GenFmla1_Id2"/>
         <property name="desc1"/>
-        <property name="end1" fetchPlan="_base"/>
-        <property name="beg1" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
-
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id2"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id2"/>
-
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
-
     </fetchPlan>
-    <fetchPlan entity="ampata_UsrNode" name="usrNode-fetch-plan-base" extends="_instance_name">
+
+    <fetchPlan entity="enty_UsrFinFmla" name="fetchPlan_UsrFinFmla_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="fmla"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrFinHow" name="fetchPlan_UsrFinHow_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrFinWhat" name="fetchPlan_UsrFinWhat_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrFinWhy" name="fetchPlan_UsrFinWhy_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrItemType" name="fetchPlan_UsrItemType_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="name1"/>
+        <property name="desc1"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrNode_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="className"/>
         <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
-        <property name="className"/>
-        <property name="tenant"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
         <property name="parent1_Id2"/>
@@ -114,19 +124,20 @@
         <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_base"/>
         <property name="type1_Id2"/>
-        <property name="inst"/>
+        <property name="inst1"/>
         <property name="name1"/>
-        <property name="name1GenPat1_Id" fetchPlan="_base"/>
-        <property name="name1GenPat1_Id2"/>
-        <property name="name2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
         <property name="abrv"/>
         <property name="code"/>
         <property name="desc1"/>
-        <property name="desc1GenPat1_Id" fetchPlan="_base"/>
-        <property name="desc1GenPat1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
         <property name="status"/>
         <property name="statusCalc"/>
         <property name="note"/>
+
+        <property name="name2"/>
 
         <property name="genChan1_Id" fetchPlan="_base"/>
         <property name="genChan2_Id" fetchPlan="_base"/>
@@ -162,7 +173,33 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrGenAgent-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrGenAgent" name="fetchPlan_UsrGenAgent_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+        <property name="note"/>
+
         <property name="namePrfx"/>
         <property name="nameFrst"/>
         <property name="nameMidl"/>
@@ -172,49 +209,155 @@
         <property name="genAgent1_Id2"/>
         <property name="genAgent2_Id" fetchPlan="_base"/>
         <property name="genAgent2_Id2"/>
-    </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrGenTag-fetch-plan-base" extends="usrNode-fetch-plan-base">
+
+        <property name="genDocVers1_Id2"/>
         <property name="genDocVer1_Id" fetchPlan="_base"/>
+        <property name="genDocVer1_Id2"/>
+        <property name="genDocVer1_Code"/>
+        <property name="genDocVer1_Ver"/>
+        <property name="genDocVer1_Name1"/>
+
+        <property name="genTags1_Id2"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag1_Id2"/>
         <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genAgent2_Id" fetchPlan="_base"/>
-        <property name="genAgent1_Id" fetchPlan="_base"/>
-        <property name="finTxset1_Id" fetchPlan="_base"/>
-        <property name="genChan1_Id" fetchPlan="_base"/>
-        <property name="finTxact1_Id" fetchPlan="_base"/>
-        <property name="finStmt1_Id" fetchPlan="_base"/>
-        <property name="finAcct1_Id" fetchPlan="_base"/>
-        <property name="finTaxLne1_Id" fetchPlan="_base"/>
-        <property name="finDept1_Id" fetchPlan="_base"/>
-        <property name="amtFinTxactItm1_Id" fetchPlan="_base"/>
-        <property name="amtFinFmla1_Id" fetchPlan="_base"/>
-        <property name="sysFinCurcy1_Id" fetchPlan="_base"/>
-        <property name="finWhy1_Id" fetchPlan="_base"/>
-        <property name="finWhat1_Id" fetchPlan="_base"/>
-        <property name="finHow1_Id" fetchPlan="_base"/>
+        <property name="genTag2_Id2"/>
+        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag3_Id2"/>
+        <property name="genTag4_Id" fetchPlan="_base"/>
+        <property name="genTag4_Id2"/>
+
+        <property name="genFile1_Id" fetchPlan="_base"/>
+        <property name="genFile1_Id2"/>
+        <property name="genFile1_URI"/>
+
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrGenChan-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrGenTag" name="fetchPlan_UsrGenTag_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+        <property name="note"/>
+
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrGenDocVer-fetch-plan-base" extends="usrNode-fetch-plan-base">
-        <property name="genAgent1_Id" fetchPlan="_base"/>
-        <property name="genAgent1_Id2"/>
-        <property name="ver"/>
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrGenChan_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
         <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrGenDocFrg-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrGenFile" name="fetchPlan_UsrGenFile_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+        <property name="note"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrGenDocVer_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+        <property name="note"/>
+
+        <property name="genAgent1_Id" fetchPlan="_base"/>
+        <property name="genAgent1_Id2"/>
+        <property name="ver"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrGenDocFrg_Base" extends="fetchPlan_UsrNode_Base">
         <property name="genDocVer1_Id" fetchPlan="_base">
             <property name="genDocVer1_Id" fetchPlan="_base"/>
         </property>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinAcct-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinAcct_Base" extends="fetchPlan_UsrNode_Base">
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id2"/>
         <property name="sysFinCurcy1_Id" fetchPlan="_base"/>
@@ -224,10 +367,10 @@
         <property name="sortKey"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinDept-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinDept_Base" extends="fetchPlan_UsrNode_Base">
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinBalSet-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinBalSet_Base" extends="fetchPlan_UsrNode_Base">
         <property name="finDept1_Id" fetchPlan="_base"/>
         <property name="finDept1_Id2"/>
 
@@ -238,7 +381,7 @@
         <property name="finBals1_AmtEqCalc"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinBal-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinBal_Base" extends="fetchPlan_UsrNode_Base">
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
         <property name="finAcct1_Type1_Id2"/>
@@ -275,7 +418,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinStmt-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinStmt_Base" extends="fetchPlan_UsrNode_Base">
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
         <property name="finAcct1_Type1_Id2"/>
@@ -311,7 +454,7 @@
 
 
     </fetchPlan>
-    <fetchPlan entity="ampata_UsrNode" name="usrFinStmtItm-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinStmtItm_Base" extends="fetchPlan_UsrNode_Base">
         <property name="finStmt1_Id" fetchPlan="_base"/>
         <property name="finStmt1_Id2"/>
         <property name="desc1"/>
@@ -341,7 +484,7 @@
         <property name="finTxactItms1_AmtNetSumDiff"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinTxset-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinTxactSet_Base" extends="fetchPlan_UsrNode_Base">
         <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genChan1_Id" fetchPlan="_base"/>
         <property name="idX"/>
@@ -354,7 +497,7 @@
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
 
-        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
 
@@ -366,35 +509,35 @@
         <property name="finTxacts1_AmtEqCalc"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinTxact-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinTxact_Base" extends="fetchPlan_UsrNode_Base">
         <property name="idX"/>
         <property name="idY"/>
-        <property name="finTxset1_FinTxacts1_Id2"/>
-        <property name="finTxset1_Id" fetchPlan="_base">
+        <property name="finTxactSet1_FinTxacts1_Id2"/>
+        <property name="finTxactSet1_Id" fetchPlan="_base">
             <property name ="genChan1_Id" fetchPlan="_base"/>
             <property name ="type1_Id" fetchPlan="_base"/>
             <property name ="finHow1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhat1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhy1_Id" fetchPlan="_instance_name"/>
 
-            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
         </property>
-        <property name="finTxset1_Id2"/>
-        <property name="finTxset1_Id2Trgt"/>
-        <property name="finTxset1_Type1_Id2"/>
+        <property name="finTxactSet1_Id2"/>
+        <property name="finTxactSet1_Id2Trgt"/>
+        <property name="finTxactSet1_Type1_Id2"/>
 
-        <property name="finTxset1_EI1_Role"/>
+        <property name="finTxactSet1_EI1_Role"/>
 
-        <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
-        <property name="finTxset1_GenDocVers1_Id2"/>
-        <property name="finTxset1_GenTags1_Id2"/>
+        <property name="finTxactSet1_GenDocVers1_Id2"/>
+        <property name="finTxactSet1_GenTags1_Id2"/>
 
         <property name="finTxactItms1_Id2"/>
-        <property name="finTxset1_FinAccts1_Id2"/>
+        <property name="finTxactSet1_FinAccts1_Id2"/>
         <property name="finTxactItms1_FinAccts1_Id2"/>
 
         <property name="amtDebt"/>
@@ -416,21 +559,21 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNode" name="usrFinTxactItm-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrFinTxactItm_Base" extends="fetchPlan_UsrNode_Base">
         <property name="idX"/>
         <property name="idY"/>
         <property name="idZ"/>
         <property name="finTxact1_Id" fetchPlan="_base">
             <property name ="type1_Id" fetchPlan="_base"/>
 
-            <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
             <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
 
             <property name="finTxactItms1_AmtDebtSumCalc" />
             <property name="finTxactItms1_AmtCredSumCalc" />
             <property name="finTxactItms1_IdCntCalc" />
 
-            <property name="finTxset1_Id" fetchPlan="_base">
+            <property name="finTxactSet1_Id" fetchPlan="_base">
                 <property name ="genChan1_Id" fetchPlan="_base">
                     <property name ="type1_Id" fetchPlan="_base"/>
                 </property>
@@ -442,7 +585,7 @@
                 <property name ="finWhat1_Id" fetchPlan="_base"/>
                 <property name ="finWhy1_Id" fetchPlan="_base"/>
 
-                <property name="desc1GenPat1_Id" fetchPlan="_instance_name"/>
+                <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
                 <property name="desc1FinTxactItm1_Id" fetchPlan="_instance_name"/>
                 <property name="desc1FinTxactItm2_Id" fetchPlan="_instance_name"/>
 
@@ -453,7 +596,7 @@
         <property name="finTxact1_EI1_Role"/>
         <property name="finTxact1_Type1_Id2"/>
 
-        <property name="finStmtItm1_Id" fetchPlan="usrFinStmtItm-fetch-plan-base">
+        <property name="finStmtItm1_Id" fetchPlan="fetchPlan_UsrFinStmtItm_Base">
         </property>
         <property name="finStmtItm1_Id2Trgt"/>
 
@@ -506,63 +649,122 @@
         <property name="finWhy1_Id" fetchPlan="_base"/>
         <property name="finWhy1_Id2"/>
     </fetchPlan>
-    <fetchPlan entity="ampata_UsrNode" name="usrTngyEquip-fetch-plan-base" extends="usrNode-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNode" name="fetchPlan_UsrTngyEquip_Base" extends="fetchPlan_UsrNode_Base">
     </fetchPlan>
 
 
-    <fetchPlan entity="ampata_UsrNodeType" name="usrNodeType-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrNodeType" name="fetchPlan_UsrNodeType_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
-        <property name="className"/>
-        <property name="tenant"/>
+        <property name="id2Dup"/>
         <property name="parent1_Id" fetchPlan="_base"/>
         <property name="parent1_Id2"/>
         <property name="ancestors1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
         <property name="abrv"/>
         <property name="desc1"/>
-        <property name="sortIdx"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
+
     </fetchPlan>
 
-    <fetchPlan entity="ampata_UsrNodeType" name="usrFinAcctType-fetch-plan-base" extends="usrNodeType-fetch-plan-base">
+    <fetchPlan entity="enty_UsrNodeType" name="fetchPlan_UsrFinAcctType_Base" extends="fetchPlan_UsrNodeType_Base">
         <property name="balIncOnDebt"/>
         <property name="balIncOnCred"/>
     </fetchPlan>
 
 
-    <fetchPlan entity="ampata_SysItem" name="sysItem-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItem" name="fetchPlan_SysItem_Base" extends="_instance_name">
+        <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="type1_Id2"/>
         <property name="name1"/>
         <property name="desc1"/>
+        <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_SysNode" name="sysNode-fetch-plan-base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItemType" name="fetchPlan_SysItemType_Base" extends="_instance_name">
+        <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
-        <property name="className"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="name1"/>
         <property name="desc1"/>
+        <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_SysNode" name="sysFinCurcy-fetch-plan-base" extends="sysNode-fetch-plan-base">
+    <fetchPlan entity="enty_SysNode" name="fetchPlan_SysNode_Base" extends="_instance_name">
+        <property name="dtype"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="ancestors1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="abrv"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="ampata_SysNode" name="sysFinCurcyExchRate-fetch-plan-base" extends="sysNode-fetch-plan-base">
+    <fetchPlan entity="enty_SysNode" name="fetchPlan_SysFinCurcy_Base" extends="fetchPlan_SysNode_Base">
+    </fetchPlan>
+
+    <fetchPlan entity="enty_SysNode" name="fetchPlan_SysFinCurcyExchRate_Base" extends="fetchPlan_SysNode_Base">
         <property name="beg1" fetchPlan="_base"/>
         <property name="amt1"/>
         <property name="amt2"/>
         <property name="finCurcy1_Id"/>
         <property name="finCurcy1_Id2"/>
         <property name="finCurcy2_Id"/>
-        <property name="finCurcy1_Id2"/>
+        <property name="finCurcy2_Id2"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_SysNodeType" name="fetchPlan_SysNodeType_Base" extends="_instance_name">
+        <property name="dtype"/>
+        <property name="className"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="ancestors1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="abrv"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
     </fetchPlan>
 
 </fetchPlans>
+
