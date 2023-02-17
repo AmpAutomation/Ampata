@@ -79,10 +79,10 @@
                 <column id="amtNet"/>
                 <column id="sysFinCurcy1_Id"/>
 
-                <column id="idTs.ts1" caption="idTs"/>
-                <column id="idX"/>
-                <column id="idY"/>
-                <column id="idZ"/>
+                <column id="nm1s1Inst1Ts1.elTs" caption="idTs"/>
+                <column id="nm1s1Inst1Int1"/>
+                <column id="nm1s1Inst1Int2"/>
+                <column id="nm1s1Inst1Int3"/>
 
                 <column id="genChan1_Id"/>
                 <column id="finHow1_Id"/>

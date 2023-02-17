@@ -125,7 +125,7 @@ SELECT t.id
 ,t.dtype
 ,t.class_name
 from ampata_usr_node_type t
-where t.class_name = 'GenAgent'
+where t.class_name = 'UsrGenAgent'
 
 SELECT t.id
 ,t.id2

@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinBalSetQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -47,9 +47,6 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
     @Autowired
     private EntityManager entityManager;
 
-    @Autowired
-    private UsrNodeRepo repo;
-
 
     @Autowired
     private DataComponents dataComponents;
@@ -74,6 +71,10 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
 
     @Autowired
     private Notifications notifications;
+
+    //Query Manager
+    @Autowired
+    private UsrFinBalSetQryMngr qryMngr;
 
 
     //Filter
@@ -373,9 +374,9 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinBalSetPrUpdNative()");
-        repo.execUsrFinBalSetPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinBalSetPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -408,13 +409,13 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }
 
@@ -458,23 +459,23 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }else{
-                if (orig.getBeg1().getTs1() != null) {
-                    beg1 = orig.getEnd1().getTs1().plusDays(1);
-                    copy.getBeg1().setTs1(beg1);
+                if (orig.getTs1().getElTs() != null) {
+                    beg1 = orig.getTs3().getElTs().plusDays(1);
+                    copy.getTs1().setElTs(beg1);
                 }
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }else{
-                if (orig.getEnd1().getTs1() != null) {
-                    end1 = orig.getEnd1().getTs1().plusMonths(1);
-                    copy.getEnd1().setTs1(end1);
+                if (orig.getTs3().getElTs() != null) {
+                    end1 = orig.getTs3().getElTs().plusMonths(1);
+                    copy.getTs3().setElTs(end1);
                 }
             }
 
@@ -537,7 +538,7 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
                 LocalDateTime beg1;
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     beg1 = tmplt_Beg1Ts1Field.getValue();
-                    thisFinBalSet.getBeg1().setTs1(beg1);
+                    thisFinBalSet.getTs1().setElTs(beg1);
                     thisFinBalSetIsChanged = true;
                     finalChngFinBalSets.add(thisFinBalSet);
                 }
@@ -545,7 +546,7 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
                 LocalDateTime end1;
                 if (tmplt_End1Ts1FieldChk.isChecked()) {
                     end1 = tmplt_End1Ts1Field.getValue();
-                    thisFinBalSet.getEnd1().setTs1(end1);
+                    thisFinBalSet.getTs3().setElTs(end1);
                     thisFinBalSetIsChanged = true;
                     finalChngFinBalSets.add(thisFinBalSet);
 
@@ -1084,8 +1085,8 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBalSet = instCntnrMain.getItemOrNull();
@@ -1160,8 +1161,8 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBalSet = instCntnrMain.getItemOrNull();
@@ -1177,8 +1178,8 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBalSet = instCntnrMain.getItemOrNull();
@@ -1194,8 +1195,8 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         finBalSetTypesDl.load();
@@ -1446,8 +1447,8 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
 
                         finBal.setSortKey("_AA" + thisFinBalSet.getSortKey() + thisFinAcct.getSortKey());
 
-                        finBal.getBeg1().setTs1(thisFinBalSet.getBeg1().getTs1());
-                        finBal.getEnd1().setTs1(thisFinBalSet.getEnd1().getTs1());
+                        finBal.getTs1().setElTs(thisFinBalSet.getTs1().getElTs());
+                        finBal.getTs3().setElTs(thisFinBalSet.getTs3().getElTs());
                         updateIdDt(finBal);
 
                         finBal.setAmtBegBal(BigDecimal.ZERO);
@@ -1641,15 +1642,15 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- type1: " + type1);
 
         String begDate = "";
-        if (thisFinBalSet.getBeg1() != null) {
-            begDate = Objects.toString(thisFinBalSet.getBeg1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinBalSet.getTs1() != null) {
+            begDate = Objects.toString(thisFinBalSet.getTs1().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!begDate.equals("")) {
             begDate = "begDate " + begDate ;}
         logger.debug(logPrfx + " --- begDate: " + begDate);
 
         String endDate = "";
-        if (thisFinBalSet.getEnd1() != null) {
-            endDate = Objects.toString(thisFinBalSet.getEnd1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinBalSet.getTs3() != null) {
+            endDate = Objects.toString(thisFinBalSet.getTs3().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!endDate.equals("")) {
             endDate = "endDate " + endDate ;}
         logger.debug(logPrfx + " --- endDate: " + endDate);
@@ -1706,7 +1707,7 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBalSet.updateIdDt();
+        isChanged = isChanged || thisFinBalSet.updateInstDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1719,7 +1720,7 @@ public class UsrFinBalSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBalSet.updateEnd1();
+        isChanged = isChanged || thisFinBalSet.updateTs3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

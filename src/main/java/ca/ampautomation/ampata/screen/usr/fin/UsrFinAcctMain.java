@@ -515,7 +515,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             copy.setId2Calc(copy.getId2CalcFrFields());
             copy.setId2(copy.getId2Calc());
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
-                copy.setIdZ(copy.getIdZ() == null ? 1 : copy.getIdZ() + 1);
+                copy.setNm1s1Inst1Int3(copy.getNm1s1Inst1Int3() == null ? 1 : copy.getNm1s1Inst1Int3() + 1);
                 copy.setId2Calc(copy.getId2CalcFrFields());
                 copy.setId2(copy.getId2Calc());
             }
@@ -1209,8 +1209,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
@@ -1226,8 +1226,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
@@ -1244,8 +1244,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();

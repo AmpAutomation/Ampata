@@ -44,7 +44,7 @@
                     <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                 </hbox>
                 <textField id="name1Field" property="name1"/>
-                <dateField id="begDate1Field" property="beg1.date1" dateFormat="yyyy-MM-dd"/>
+                <dateField id="begDate1Field" property="ts1.elDt" dateFormat="yyyy-MM-dd"/>
                 <textField id="amt1Field" property="amt1">
                     <formatter>
                         <number format="#0.000000###"/>

@@ -24,14 +24,14 @@ set  beg1_date1 = beg1_ts1::date
 	,beg1_time1  = beg1_ts1::time
 	,beg1_time1_hr  = date_part('hour',beg1_ts1)
 	,beg1_time1_min  = date_part('minute',beg1_ts1)
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 ;
 
 --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
 set id_dt_date1  = beg1_date1
-where class_name = 'FinTxactSet'
+where class_name = 'UsrFinTxactSet'
 ;	
 
 --id2_calc, id_dt_date1..
@@ -58,7 +58,7 @@ set id2_calc = Usr_Fin_Txset_Fn_get_Id2_Calc(
 --	,id_ts_time1_min  = date_part('minute',id_ts_ts1)
 
 	where
-	t.class_name = 'FinTxactSet'
+	t.class_name = 'UsrFinTxactSet'
 ;
 
 --id2_cmp
@@ -68,7 +68,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 ;
 
 
@@ -96,13 +96,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactSet'
+			where t.class_name = 'UsrFinTxactSet'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinTxactSet'
+		and	t.class_name = 'UsrFinTxactSet'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -120,7 +120,7 @@ raise notice 'num_rows_updated:%', num_rows_updated;
 raise notice 'Updating type1__id2';
 update ampata_usr_node t
 set  type1__id2 = null
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -133,13 +133,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node_type t2b
 	on t2a.type1__id = t2b.id
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinTxactSet'
+	and t2b.class_name = 'UsrFinTxactSet'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -150,7 +150,7 @@ and t.deleted_by is null
 raise notice 'Updating type1__id2';
 update ampata_usr_node t
 set  gen_chan1__id2 = null
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -163,13 +163,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.gen_chan1__id = t2b.id
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'GenChan'
+	and t2b.class_name = 'UsrGenChan'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -179,7 +179,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_how1__id2';
 update ampata_usr_node t
 set  fin_how1__id2 = null
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -192,13 +192,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_how1__id = t2b.id
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinHow'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -208,7 +208,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_what1__id2';
 update ampata_usr_node t
 set  fin_what1__id2 = null
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -221,13 +221,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_what1__id = t2b.id
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinWhat'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -237,7 +237,7 @@ and t.deleted_by is null
 raise notice 'Updating fin_why1__id2';
 update ampata_usr_node t
 set  fin_why1__id2 = null
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 update ampata_usr_node t
@@ -250,13 +250,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_why1__id = t2b.id
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinWhy'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -289,10 +289,10 @@ inner join ampata_usr_node tx
 	on txi.fin_txact1__id = tx.id
 inner join ampata_usr_node txg
 	on tx.fin_txact_set1__id = txg.id
-where txi.class_name = 'FinTxactItm'
+where txi.class_name = 'UsrFinTxactItm'
 	and txi.deleted_by is null
-	and tx.class_name = 'FinTxact'
-	and txg.class_name = 'FinTxactSet'
+	and tx.class_name = 'UsrFinTxact'
+	and txg.class_name = 'UsrFinTxactSet'
 order by txi.id_dt_date1, coalesce(txi.id_x,0), coalesce(txi.id_y,0), coalesce(txi.id_z,0)
 ) t
 )
@@ -318,10 +318,10 @@ inner join ampata_usr_node tx
 	on txi.fin_txact1__id = tx.id
 inner join ampata_usr_node txg
 	on tx.fin_txact_set1__id = txg.id
-where txi.class_name = 'FinTxactItm'
+where txi.class_name = 'UsrFinTxactItm'
 	and txi.deleted_by is null
-	and tx.class_name = 'FinTxact'
-	and txg.class_name = 'FinTxactSet'
+	and tx.class_name = 'UsrFinTxact'
+	and txg.class_name = 'UsrFinTxactSet'
 	and txi.id2 like txg.id2 || '/Y01/%'
 	and txg.type1__id2 like '%Exch%'
 order by txi.id_dt_date1, coalesce(txi.id_x,0), coalesce(txi.id_y,0), coalesce(txi.id_z,0)
@@ -401,9 +401,9 @@ from (
 	left join ampata_usr_node t2c
 	on ct3.desc1_fin_txact_itm2__id = t2c.id
 	
-	where t2a.class_name = 'FinTxactSet'
+	where t2a.class_name = 'UsrFinTxactSet'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinTxactItm'
+	and t2b.class_name = 'UsrFinTxactItm'
 ) t
 )
 
@@ -416,7 +416,7 @@ update ampata_usr_node t
 set  desc1 = t1.desc1
 from ct4 t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 

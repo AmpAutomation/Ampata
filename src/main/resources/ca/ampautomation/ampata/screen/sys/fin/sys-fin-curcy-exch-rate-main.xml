@@ -37,8 +37,8 @@
                         <configuration id="filterConfig1" default="true">
                             <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
                             <propertyFilter id="filterConfig1A_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
-                            <propertyFilter id="filterConfig1A_Beg1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_Beg1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Beg1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_Beg1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_FinCurcy1_Id" caption="finCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
                                 <entityComboBox metaClass="enty_SysNode"/>
                             </propertyFilter>
@@ -64,7 +64,7 @@
                         <column id="sortIdx" caption="sortIdx"/>
                         <column id="name1" caption="name1"/>
                         <column id="desc1" caption="desc1" width="360px"/>
-                        <column id="beg1.date1" caption="beg1.date1"/>
+                        <column id="ts1.elDt" caption="beg1.date1"/>
                         <column id="amt1" caption="amt1">
                             <formatter>
                                 <number format="#0.000000"/>
@@ -208,7 +208,7 @@
                                             <button id="updateFinCurcy2_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="Beg1" width="100%">
-                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="instCntnrMain"
+                                            <dateField id="beg1Ts1Field" property="ts1.elTs" dataContainer="instCntnrMain"
                                                        tabIndex="20" datatype="localDateTime" width="220px" dateFormat="yyyy-MM-dd"/>
                                         </hbox>
                                     </column>

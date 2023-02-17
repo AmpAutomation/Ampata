@@ -75,8 +75,8 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();
@@ -92,8 +92,8 @@ public class SysFinCurcyExchRateEdit extends StandardEditor<SysNode> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNode thisSysFinCurcyExchRate = instCntnrMain.getItemOrNull();

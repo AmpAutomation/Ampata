@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatterBuilder;
 @LookupComponent("tableMain")
 public class UsrFinStmtItmBrowse extends StandardLookup<UsrNode> {
 
-    @Install(to = "tableMain.[idTs.ts1]", subject = "formatter")
+    @Install(to = "tableMain.[instTs1.ts1]", subject = "formatter")
     private String tableIdDtDate1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")

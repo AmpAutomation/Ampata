@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -66,9 +66,10 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
     private Notifications notifications;
 
 
-    //CRUD Repo
+
+    //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinStmtQryMngr qryMngr;
 
 
     //Filter
@@ -305,24 +306,24 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "tableMain.[beg1.ts1]", subject = "formatter")
-    private String tableBeg1Ts1Formatter(LocalDateTime ts) {
+    @Install(to = "tableMain.[ts1.ts1]", subject = "formatter")
+    private String tableTs1Ts1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
         return ts == null ? null: ts.format(formatter);
     }
 
-    @Install(to = "tableMain.[end1.ts1]", subject = "formatter")
-    private String tableEnd1Ts1Formatter(LocalDateTime ts) {
+    @Install(to = "tableMain.[ts2.ts1]", subject = "formatter")
+    private String tableTs2Ts1Formatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
         return ts == null ? null: ts.format(formatter);
     }
 
-    @Install(to = "tableFinStmtItm.[idDt.date1]", subject = "formatter")
-    private String table2IdDtDate1Formatter(LocalDate dt) {
+    @Install(to = "tableFinStmtItm.[instDt1.date1]", subject = "formatter")
+    private String table2InstDt1Date1Formatter(LocalDate dt) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
@@ -350,9 +351,9 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinStmtPrUpdNative()");
-        repo.execUsrFinStmtPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinStmtPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -381,13 +382,13 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }
 
@@ -431,23 +432,23 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }else{
-                if (orig.getBeg1().getTs1() != null) {
-                    beg1 = orig.getEnd1().getTs1().plusDays(1);
-                    copy.getBeg1().setTs1(beg1);
+                if (orig.getTs1().getElTs() != null) {
+                    beg1 = orig.getTs3().getElTs().plusDays(1);
+                    copy.getTs1().setElTs(beg1);
                 }
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }else{
-                if (orig.getEnd1().getTs1() != null) {
-                    end1 = orig.getEnd1().getTs1().plusMonths(1);
-                    copy.getEnd1().setTs1(end1);
+                if (orig.getTs3().getElTs() != null) {
+                    end1 = orig.getTs3().getElTs().plusMonths(1);
+                    copy.getTs3().setElTs(end1);
                 }
             }
 
@@ -502,14 +503,14 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinStmtIsChanged = true;
                     beg1 = tmplt_Beg1Ts1Field.getValue();
-                    thisFinStmt.getBeg1().setTs1(beg1);
+                    thisFinStmt.getTs1().setElTs(beg1);
                 }
 
                 LocalDateTime end1;
                 if (tmplt_End1Ts1FieldChk.isChecked()) {
                     thisFinStmtIsChanged = true;
                     end1 = tmplt_End1Ts1Field.getValue();
-                    thisFinStmt.getEnd1().setTs1(end1);
+                    thisFinStmt.getTs3().setElTs(end1);
                     updateIdDt(thisFinStmt);
                 }
 
@@ -666,8 +667,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmt = instCntnrMain.getItemOrNull();
@@ -742,8 +743,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmt = instCntnrMain.getItemOrNull();
@@ -759,8 +760,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmt = instCntnrMain.getItemOrNull();
@@ -776,8 +777,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -1213,8 +1214,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- status: " + status);
 
         String begDate = "";
-        if (thisFinStmt.getBeg1() != null) {
-            begDate = Objects.toString(thisFinStmt.getBeg1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinStmt.getTs1() != null) {
+            begDate = Objects.toString(thisFinStmt.getTs1().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!begDate.equals("")) {
             begDate = "begDate " + begDate ;}
         logger.debug(logPrfx + " --- begDate: " + begDate);
@@ -1226,8 +1227,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- begBal: " + begBal);
 
         String endDate = "";
-        if (thisFinStmt.getEnd1() != null) {
-            endDate = Objects.toString(thisFinStmt.getEnd1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinStmt.getTs3() != null) {
+            endDate = Objects.toString(thisFinStmt.getTs3().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!endDate.equals("")) {
             endDate = "endDate " + endDate ;}
         logger.debug(logPrfx + " --- endDate: " + endDate);
@@ -1289,7 +1290,7 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmt.updateIdDt();
+        isChanged = isChanged || thisFinStmt.updateInstDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1339,8 +1340,8 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
                 .appendPattern("yyyyMMdd")
                 .toFormatter();
 
-        if (thisFinStmt.getBeg1() == null
-                || thisFinStmt.getBeg1().getDate1() == null
+        if (thisFinStmt.getTs1() == null
+                || thisFinStmt.getTs1().getElDt() == null
                 || thisFinStmt.getFinAcct1_Id() == null
                 || thisFinStmt.getFinAcct1_Id().getId2() == null
                 ) {
@@ -1352,7 +1353,7 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         //Account
         sb.append(thisFinStmt.getFinAcct1_Id().getId2())
             //Date
-            .append(SEP + "D").append(thisFinStmt.getBeg1().getDate1().minusDays(1).format(frmtDt));
+            .append(SEP + "D").append(thisFinStmt.getTs1().getElDt().minusDays(1).format(frmtDt));
 
         UsrNode prevFinStmt = findFinStmtById2(sb.toString());
         if (prevFinStmt == null  ){
@@ -1665,7 +1666,7 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmt.updateEnd1();
+        isChanged = isChanged || thisFinStmt.updateTs3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

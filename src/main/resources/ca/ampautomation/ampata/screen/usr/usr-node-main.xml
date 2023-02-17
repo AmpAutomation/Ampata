@@ -139,50 +139,94 @@
                         <tab id="tab_1"
                              caption="General"
                              margin="true"
-                             spacing="true">
-                            <form id="tab1Form" dataContainer="instCntnrMain">
-                                <column width="360px">
-                                    <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
-                                        <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1" tabIndex="10"/>
-                                        <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                             spacing="true"
+                             expand="tab1_hbox2">
+
+                            <hbox id="tab1_hbox1" width="100%" spacing="true">
+                                <hbox caption="desc1" expand="desc1Field" width="1100px">
+                                    <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
+                                    <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="360px">
+                                    <entityComboBox id="desc1GenFmla1_IdField" dataContainer="instCntnrMain"
+                                                    property="desc1GenFmla1_Id">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateDesc1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                            </hbox>
+                            <hbox id="tab1_hbox2" width="100%" spacing="true">
+                                <vbox width="360px">
+                                    <hbox caption="id" expand="id" width="100%">
+                                        <textField id="id" property="id" editable="false"/>
                                     </hbox>
-                                    <textField caption="id" id="id" property="id" width="100%" tabIndex="10" editable="false"/>
-                                    <textField caption="tenant" id="tenantField" property="tenant" width="100%" tabIndex="10" editable="false"/>
-                                    <textField caption="dtype" id="dtypeField" property="dtype" width="100%" tabIndex="10" editable="false"/>
-                                    <textField caption="className" id="classNameField" property="className" width="100%" tabIndex="10"/>
+                                    <hbox caption="tenant" expand="tenantField" width="100%">
+                                        <textField id="tenantField" property="tenant" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="dtype" expand="dtypeField" width="100%">
+                                        <textField id="dtypeField" property="dtype" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="className" expand="classNameField" width="100%">
+                                        <textField id="classNameField" property="className"/>
+                                    </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
-                                        <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
+                                        <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
                                         <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Calc" expand="id2CalcField" width="100%">
-                                        <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false" tabIndex="10"/>
+                                        <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false"/>
                                         <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
-                                    <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
-                                        <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false" tabIndex="10"/>
-                                        <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    <hbox width="100%" spacing="true">
+                                        <hbox caption="id2Cmp" expand="id2CmpField" width="80px">
+                                            <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
+                                            <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="id2Dup" expand="id2DupField" width="120px">
+                                            <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false"/>
+                                            <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                        </hbox>
                                     </hbox>
-                                    <hbox caption="id2Dup" expand="id2DupField" width="100%">
-                                        <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false" tabIndex="10"/>
-                                        <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
-                                    </hbox>
-                                </column>
-                                <column width="360px">
-                                    <hbox caption="sortIdx" expand="sortIdxField" width="100%">
-                                        <textField id="sortIdxField" dataContainer="instCntnrMain" property="sortIdx" tabIndex="20"/>
-                                    </hbox>
-                                    <hbox caption="sortKey" expand="sortKeyField" width="100%">
-                                        <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey" tabIndex="20"/>
+                                </vbox>
+
+                                <vbox width="360px">
+                                    <hbox width="100%" spacing="true">
+                                        <hbox caption="sortIdx" expand="sortIdxField" width="180px">
+                                            <textField id="sortIdxField" dataContainer="instCntnrMain" property="sortIdx"/>
+                                        </hbox>
+                                        <hbox caption="sortKey" expand="sortKeyField" width="180px">
+                                            <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey"/>
+                                        </hbox>
                                     </hbox>
                                     <hbox caption="parent1_Id" expand="parent1_IdField" width="100%">
                                         <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
-                                                        property="parent1_Id" tabIndex="20">
+                                                      property="parent1_Id">
                                             <actions>
                                                 <action id="entityLookup" type="entity_lookup"/>
                                                 <action id="entityOpen" type="entity_open"/>
                                                 <action id="entityClear" type="entity_clear"/>
                                             </actions>
                                         </entityPicker>
+                                        <button id="updateParent1_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="name1" expand="name1Field" width="100%">
+                                        <textField id="name1Field" dataContainer="instCntnrMain" property="name1"/>
+                                    </hbox>
+                                    <hbox caption="name1GenFmla1_Id" expand="name1GenFmla1_IdField" width="100%">
+                                        <entityComboBox id="name1GenFmla1_IdField" dataContainer="instCntnrMain"
+                                                        property="name1GenFmla1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateName1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                         <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
@@ -196,50 +240,129 @@
                                                 tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="inst1" expand="inst1Field" width="100%">
-                                        <textField id="inst1Field" dataContainer="instCntnrMain" property="inst1" tabIndex="20"/>
+                                        <textField id="inst1Field" dataContainer="instCntnrMain" property="inst1"/>
+                                        <button id="updateInst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
-                                    <hbox caption="name1" expand="name1Field" width="100%">
-                                        <textField id="name1Field" dataContainer="instCntnrMain" property="name1" tabIndex="20"/>
+                                </vbox>
+
+                                <vbox width="360px">
+                                    <hbox caption="nm1s1">
+                                        <groupBox width="100%">
+                                            <hbox caption="name1" expand="nm1s1Name1Field" width="100%">
+                                                <textField id="nm1s1Name1Field" dataContainer="instCntnrMain" property="nm1s1Name1"/>
+                                            </hbox>
+                                            <hbox caption="name1GenFmla1_Id" expand="nm1s1Name1GenFmla1_IdField" width="100%">
+                                                <entityComboBox id="nm1s1Name1GenFmla1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Name1GenFmla1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s1Name1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="type1_Id" expand="nm1s1Type1_IdField" width="100%">
+                                                <entityComboBox id="nm1s1Type1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Type1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s1Type1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="inst1" expand="nm1s1Inst1Field" width="100%">
+                                                <textField id="nm1s1Inst1Field" dataContainer="instCntnrMain" property="inst1"/>
+                                                <button id="updateNm1s1Inst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="Dt1.elDt" expand="nm1s1Inst1Ts1_elTsField" width="100%">
+                                                <dateField id="nm1s1Inst1Ts1_elTsField" property="nm1s1Inst1Ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" editable="false"/>
+                                            </hbox>
+
+                                            <hbox width="100%" spacing="true">
+                                                <hbox caption="int1" width="100px" expand="nm1s1Inst1Int1Field">
+                                                    <textField id="nm1s1Inst1Int1Field" property="nm1s1Inst1Int1" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int2" width="100px" expand="nm1s1Inst1Int2Field">
+                                                    <textField id="nm1s1Inst1Int2Field" property="nm1s1Inst1Int2" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int3" width="100px" expand="nm1s1Inst1Int3Field">
+                                                    <textField id="nm1s1Inst1Int3Field" property="nm1s1Inst1Int3" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int3FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                            </hbox>
+                                        </groupBox>
                                     </hbox>
-                                    <hbox caption="name1GenFmla1_Id" expand="name1GenFmla1_IdField" width="100%">
-                                        <entityComboBox id="name1GenFmla1_IdField" dataContainer="instCntnrMain"
-                                                        property="name1GenFmla1_Id" tabIndex="20">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateName1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
+                                </vbox>
+
+                                <vbox width="480px">
+                                    <hbox caption="nm1s2">
+                                        <groupBox width="100%">
+                                            <hbox caption="name1" expand="nm1s2Name1Field" width="100%">
+                                                <textField id="nm1s2Name1Field" dataContainer="instCntnrMain" property="nm1s1Name1"/>
+                                            </hbox>
+                                            <hbox caption="name1GenFmla1_Id" expand="nm1s2Name1GenFmla1_IdField" width="100%">
+                                                <entityComboBox id="nm1s2Name1GenFmla1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Name1GenFmla1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s2Name1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="type1_Id" expand="nm1s2Type1_IdField" width="100%">
+                                                <entityComboBox id="nm1s2Type1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Type1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s2Type1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="inst1" expand="nm1s2Inst1Field" width="100%">
+                                                <textField id="nm1s2Inst1Field" dataContainer="instCntnrMain" property="inst1"/>
+                                                <button id="updateNm1s2Inst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="Dt1.elDt" expand="nm1s2Inst1Ts1_elTsField" width="100%">
+                                                <dateField id="nm1s2Inst1Ts1_elTsField" property="nm1s1Inst1Ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" editable="false"/>
+                                            </hbox>
+
+                                            <hbox width="100%" spacing="true">
+                                                <hbox caption="int1" width="100px" expand="nm1s2Inst1Int1Field">
+                                                    <textField id="nm1s2Inst1Int1Field" property="nm1s1Inst1Int1" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s2Inst1Int1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int2" width="100px" expand="nm1s2Inst1Int2Field">
+                                                    <textField id="nm1s2Inst1Int2Field" property="nm1s1Inst1Int2" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s2Inst2Int1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int3" width="100px" expand="nm1s2Inst1Int3Field">
+                                                    <textField id="nm1s2Inst1Int3Field" property="nm1s1Inst1Int3" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s2Inst3Int1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                            </hbox>
+                                        </groupBox>
+
                                     </hbox>
-                                </column>
-                                <column width="360px">
-                                    <hbox/>
-                                </column>
-                                <column width="360px">
-                                    <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="100%">
-                                        <entityComboBox id="desc1GenFmla1_IdField" dataContainer="instCntnrMain"
-                                                        property="desc1GenFmla1_Id" tabIndex="10">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateDesc1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
-                                    </hbox>
-                                </column>
-                            </form>
+                                </vbox>
+                            </hbox>
                         </tab>
                         <tab id="tab_9"
                              caption="Note"
                              margin="true"
                              spacing="true">
-                            <form id="tab9Form" dataContainer="instCntnrMain" width="100%">
-                                <column width="840px">
-                                    <textArea id="noteField" property="note" tabIndex="10"/>
-                                </column>
-                            </form>
+
+                            <hbox width="1100px" expand="noteField">
+                                <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
+                            </hbox>
                         </tab>
                     </tabSheet>
                 </form>

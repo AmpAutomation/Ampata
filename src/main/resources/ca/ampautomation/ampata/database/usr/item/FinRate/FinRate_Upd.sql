@@ -32,8 +32,8 @@ from ampata_sys_node t1
 	,ampata_sys_node t2
 	where
 	t.dtype = 'ampata_FinRate'
-and t1.class_name = 'FinCurcy'
-and t2.class_name = 'FinCurcy'
+and t1.class_name = 'UsrFinCurcy'
+and t2.class_name = 'UsrFinCurcy'
 and t.fin_curcy1__id = t1.id
 and t.fin_curcy2__id = t2.id
 ;
@@ -44,7 +44,7 @@ update ampata_sys_entity t
 set fin_curcy1__id2 = t2.id2
 from ampata_sys_node t2
 where t.dtype = 'ampata_FinRate'
-and t2.class_name = 'FinCurcy'
+and t2.class_name = 'UsrFinCurcy'
 and t.fin_curcy1__id = t2.id
 ;
 
@@ -54,7 +54,7 @@ update ampata_sys_entity t
 set fin_curcy2__id2 = t2.id2
 from ampata_sys_node t2
 where t.dtype = 'ampata_FinRate'
-and t2.class_name = 'FinCurcy'
+and t2.class_name = 'UsrFinCurcy'
 and t.fin_curcy2__id = t2.id
 ;
 

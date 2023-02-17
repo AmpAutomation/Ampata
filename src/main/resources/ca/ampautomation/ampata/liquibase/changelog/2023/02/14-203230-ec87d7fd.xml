@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+
+    <changeSet id="1" author="ampata">
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_TS" newColumnName="IDT1_INST1_TS1_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT" newColumnName="IDT1_INST1_TS1_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT_YR" newColumnName="IDT1_INST1_TS1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT_QTR" newColumnName="IDT1_INST1_TS1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT_MON" newColumnName="IDT1_INST1_TS1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT_MON2" newColumnName="IDT1_INST1_TS1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_DT_DAY" newColumnName="IDT1_INST1_TS1_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_TM" newColumnName="IDT1_INST1_TS1_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_TM_HR" newColumnName="IDT1_INST1_TS1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_EL_TM_MIN" newColumnName="IDT1_INST1_TS1_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT" newColumnName="IDT1_INST1_DT1_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT_YR" newColumnName="IDT1_INST1_DT1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT_QTR" newColumnName="IDT1_INST1_DT1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT_MON" newColumnName="IDT1_INST1_DT1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT_MON2" newColumnName="IDT1_INST1_DT1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_EL_DT_DAY" newColumnName="IDT1_INST1_DT1_EL_DT_DAY"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_EL_TM" newColumnName="IDT1_INST1_TM1_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_EL_TM_HR" newColumnName="IDT1_INST1_TM1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_EL_TM_MIN" newColumnName="IDT1_INST1_TM1_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_INT1" newColumnName="IDT1_INST1_INT1"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_INT2" newColumnName="IDT1_INST1_INT2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_INT3" newColumnName="IDT1_INST1_INT3"/>
+
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_NAME1_GEN_FMLA1_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_NAME1_GEN_FMLA1__ID"/>
+    </changeSet>
+
+    <changeSet id="3" author="ampata">
+        <dropColumn tableName="AMPATA_USR_NODE" columnName="NAME1_GEN_FMLA1__ID"/>
+        <dropColumn tableName="AMPATA_USR_NODE" columnName="NAME1_GEN_FMLA1__ID2"/>
+    </changeSet>
+
+    <changeSet id="4" author="ampata">
+        <addColumn tableName="AMPATA_USR_NODE">
+
+            <column name="NAME1_SRC" type="INTEGER"/>
+
+            <column name="IDT1_NAME1" type="VARCHAR(255)"/>
+            <column name="IDT1_NAME1_GEN_FMLA1__ID" type="UUID"/>
+            <column name="IDT1_NAME1_GEN_FMLA1__ID2" type="VARCHAR(255)"/>
+
+            <column name="IDT1_TYPE1__ID" type="UUID"/>
+            <column name="IDT1_TYPE1__ID2" type="VARCHAR(255)"/>
+
+            <column name="IDT1_INST1" type="VARCHAR(255)"/>
+            <column name="IDT1_INST1_GEN_FMLA1__ID" type="UUID"/>
+            <column name="IDT1_INST1_GEN_FMLA1__ID2" type="VARCHAR(255)"/>
+            
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="5" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="IDT1_TYPE1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_IDT1_TYPE1_"
+                                 referencedTableName="AMPATA_USR_NODE_TYPE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_IDT1_TYPE1__ID">
+            <column name="IDT1_TYPE1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="IDT1_NAME1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_IDT1_NAME1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_IDT1_NAME1_GEN_FMLA1__ID">
+            <column name="IDT1_NAME1_GEN_FMLA1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="IDT1_INST1_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_IDT1_INST1_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_IDT1_INST1_GEN_FMLA1__ID">
+            <column name="IDT1_INST1_GEN_FMLA1__ID"></column>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

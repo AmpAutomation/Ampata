@@ -51,8 +51,8 @@
                             <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
 
-                            <propertyFilter id="filterConfig1A_IdDtDate1GE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_IdDtDate1LE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_IdDtDate1GE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
+                            <propertyFilter id="filterConfig1A_IdDtDate1LE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_FinBalSet1_Id" caption="finBalSet1" operation="EQUAL" property="finBalSet1_Id" operationEditable="true">
                                 <entityComboBox metaClass="enty_UsrNode" width="200%"/>
                             </propertyFilter>
@@ -96,8 +96,8 @@
                         <column id="type1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
-                        <column id="beg1.ts1" caption="beg1"/>
-                        <column id="end1.ts1" caption="end1"/>
+                        <column id="ts1.elTs" caption="beg1"/>
+                        <column id="ts3.elTs" caption="end1"/>
                         <column id="finBalSet1_Id" caption="finBalSet1"/>
                         <column id="finAcct1_Id" caption="finAcct1"/>
                         <column id="finDept1_Id" caption="finDept1"/>
@@ -344,16 +344,16 @@
 
                             <column width="240px">
                                 <hbox caption="IdDt" width="100%">
-                                    <dateField id="idDtDate1Field" property="idDt.date1" dataContainer="instCntnrMain" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
+                                    <dateField id="idDtDate1Field" property="nm1s1Inst1Dt1.elDt" dataContainer="instCntnrMain" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
                                     <hbox width="20px"/>
                                 </hbox>
                                 <hbox caption="Beg1" width="100%">
-                                    <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                    <dateField id="beg1Ts1Field" property="ts1.elTs" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
                                     <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="End1" width="100%">
-                                    <dateField id="end1Ts1Field" property="end1.ts1" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                    <dateField id="end1Ts1Field" property="ts3.elTs" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
                                     <button id="updateEnd1Ts1FieldBtn" icon="font-icon:REFRESH"
                                             tabIndex="-1"/>
                                 </hbox>

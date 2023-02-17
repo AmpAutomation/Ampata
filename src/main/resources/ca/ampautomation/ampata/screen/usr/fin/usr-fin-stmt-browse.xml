@@ -63,14 +63,14 @@
                 <column id="id2Dup"/>
                 <column id="type1_Id"/>
                 <column id="finAcct1_Id"/>
-                <column id="idTs.ts1" caption="idTs"/>
+                <column id="nm1s1Inst1Ts1.elTs" caption="idTs"/>
 
-                <column id="beg1.date1">
+                <column id="ts1.elDt">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>
                 </column>
-                <column id="end1.date1">
+                <column id="ts2.elDt">
                     <formatter>
                         <date format="yyyy-MM-dd"/>
                     </formatter>

@@ -295,8 +295,8 @@ are not fully initialized, for example, buttons are not linked with actions.
                 copy.setType1_Id(tmplt_Type1_IdField.getValue());
             }
 
-            if (copy.getBeg1() == null) {
-                copy.setBeg1(dataManager.create(HasTmst.class));}
+            if (copy.getTs1() == null) {
+                copy.setTs1(dataManager.create(HasTmst.class));}
 
             updateCalcVals(copy);
 
@@ -522,8 +522,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNode thisFinCurcy = instCntnrMain.getItemOrNull();
@@ -539,8 +539,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNode thisFinCurcy = instCntnrMain.getItemOrNull();
@@ -557,8 +557,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();

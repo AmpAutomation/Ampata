@@ -57,8 +57,8 @@
                 <column id="type1_Id"/>
                 <column id="desc1" width="320px"/>
 
-                <column id="idTs.ts1" caption="idTs"/>
-                <column id="idX"/>
+                <column id="nm1s1Inst1Ts1.elTs" caption="idTs"/>
+                <column id="nm1s1Inst1Int1"/>
 
                 <column id="genChan1_Id"/>
                 <column id="finHow1_Id"/>

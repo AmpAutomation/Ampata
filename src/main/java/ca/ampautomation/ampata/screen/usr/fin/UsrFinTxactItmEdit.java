@@ -3,10 +3,7 @@ package ca.ampautomation.ampata.screen.usr.fin;
 import ca.ampautomation.ampata.entity.*;
 import ca.ampautomation.ampata.entity.sys.SysNode;
 import ca.ampautomation.ampata.entity.usr.*;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.fin.*;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
@@ -70,9 +67,10 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     @Autowired
     private Notifications notifications;
 
-    //CRUD Repo
+
+    //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinTxactItmQryMngr qryMngr;
 
 
     //Toolbar
@@ -756,8 +754,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
@@ -832,8 +830,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
@@ -849,8 +847,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactItm = instCntnrMain.getItemOrNull();
@@ -867,8 +865,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -2555,7 +2553,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateIdTs();
+        isChanged = isChanged || thisFinTxactItm.updateInstTs1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2567,7 +2565,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateBeg1();
+        isChanged = isChanged || thisFinTxactItm.updateTs1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2579,7 +2577,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateBeg2();
+        isChanged = isChanged || thisFinTxactItm.updateTs2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2592,7 +2590,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateIdX();
+        isChanged = isChanged || thisFinTxactItm.updateInstInt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2604,7 +2602,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateIdY();
+        isChanged = isChanged || thisFinTxactItm.updateInstInt2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2616,7 +2614,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateIdZ();
+        isChanged = isChanged || thisFinTxactItm.updateInstInt3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2653,20 +2651,20 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                 Boolean thisFinTxactIsChanged = false;
                 UsrNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
                 if (thisFinTxact != null){
-                    if (!Objects.equals(thisFinTxact.getIdTs().getTs1(), thisFinTxactItm.getIdTs().getTs1())){
-                        thisFinTxact.getBeg1().setTs1(thisFinTxactItm.getIdTs().getTs1());
+                    if (!Objects.equals(thisFinTxact.getNm1s1Inst1Ts1().getElTs(), thisFinTxactItm.getNm1s1Inst1Ts1().getElTs())){
+                        thisFinTxact.getTs1().setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
                         thisFinTxactIsChanged = true;
                     }
-                    if (!Objects.equals(thisFinTxact.getIdX(), thisFinTxactItm.getIdX())){
-                        thisFinTxact.setIdX(thisFinTxactItm.getIdX());
+                    if (!Objects.equals(thisFinTxact.getNm1s1Inst1Int1(), thisFinTxactItm.getNm1s1Inst1Int1())){
+                        thisFinTxact.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
                         thisFinTxactIsChanged = true;
                     }
-                    if (!Objects.equals(thisFinTxact.getIdY(), thisFinTxactItm.getIdY())){
-                        thisFinTxact.setIdY(thisFinTxactItm.getIdY());
+                    if (!Objects.equals(thisFinTxact.getNm1s1Inst1Int2(), thisFinTxactItm.getNm1s1Inst1Int2())){
+                        thisFinTxact.setNm1s1Inst1Int2(thisFinTxactItm.getNm1s1Inst1Int2());
                         thisFinTxactIsChanged = true;
                     }
                     if (thisFinTxactIsChanged){
-                        thisFinTxact.updateIdTs();
+                        thisFinTxact.updateInstTs1();
                         thisFinTxact.setId2Calc(thisFinTxact.getId2CalcFrFields());
                         thisFinTxact.setId2(thisFinTxact.getId2Calc());
                         dataManager.save(thisFinTxact);
@@ -2929,12 +2927,12 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             newFinTxact.setClassName("UsrFinTxact");
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
-            beg1.setTs1(thisFinTxactItm.getIdTs().getTs1());
-            newFinTxact.setBeg1(beg1);
-            newFinTxact.updateIdTs();
+            beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
+            newFinTxact.setTs1(beg1);
+            newFinTxact.updateInstTs1();
 
-            newFinTxact.setIdX(thisFinTxactItm.getIdX());
-            newFinTxact.setIdY(thisFinTxactItm.getIdY());
+            newFinTxact.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
+            newFinTxact.setNm1s1Inst1Int2(thisFinTxactItm.getNm1s1Inst1Int2());
 
             newFinTxact.setId2Calc(newFinTxact.getId2CalcFrFields());
             newFinTxact.setId2(newFinTxact.getId2Calc());
@@ -2985,16 +2983,16 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                     Boolean thisFinTxactSetIsChanged = false;
                     UsrNode thisFinTxactSet = thisFinTxact.getFinTxactSet1_Id();
                     if (thisFinTxactSet != null) {
-                        if (!Objects.equals(thisFinTxactSet.getIdTs().getTs1(), thisFinTxactItm.getIdTs().getTs1())) {
-                            thisFinTxactSet.getBeg1().setTs1(thisFinTxactItm.getIdTs().getTs1());
+                        if (!Objects.equals(thisFinTxactSet.getNm1s1Inst1Ts1().getElTs(), thisFinTxactItm.getNm1s1Inst1Ts1().getElTs())) {
+                            thisFinTxactSet.getTs1().setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
                             thisFinTxactSetIsChanged = true;
                         }
-                        if (!Objects.equals(thisFinTxactSet.getIdX(), thisFinTxactItm.getIdX())) {
-                            thisFinTxactSet.setIdX(thisFinTxactItm.getIdX());
+                        if (!Objects.equals(thisFinTxactSet.getNm1s1Inst1Int1(), thisFinTxactItm.getNm1s1Inst1Int1())) {
+                            thisFinTxactSet.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
                             thisFinTxactSetIsChanged = true;
                         }
                         if (thisFinTxactSetIsChanged) {
-                            thisFinTxactSet.updateIdTs();
+                            thisFinTxactSet.updateInstTs1();
                             thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
                             thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
                             dataManager.save(thisFinTxactSet);
@@ -3096,11 +3094,11 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                 newFinTxactSet.setClassName("UsrFinTxactSet");
 
                 HasTmst beg1 = dataManager.create(HasTmst.class);
-                beg1.setTs1(thisFinTxactItm.getIdTs().getTs1());
-                newFinTxactSet.setBeg1(beg1);
-                newFinTxactSet.updateIdTs();
+                beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
+                newFinTxactSet.setTs1(beg1);
+                newFinTxactSet.updateInstTs1();
 
-                newFinTxactSet.setIdX(thisFinTxactItm.getIdX());
+                newFinTxactSet.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
 
                 newFinTxactSet.setId2Calc(newFinTxactSet.getId2CalcFrFields());
                 newFinTxactSet.setId2(newFinTxactSet.getId2Calc());
@@ -3173,7 +3171,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         }
 
-        LocalDate date1 = thisFinTxactItm.getBeg1().getDate1();
+        LocalDate date1 = thisFinTxactItm.getTs1().getElDt();
 
         DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
                 .appendPattern("yyyyMMdd")
@@ -3441,9 +3439,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         UsrNode prevFinTxactItm = null;
         boolean qryRsltGood = false;
 
-        if (thisFinTxactItm.getIdZ() != null || thisFinTxactItm.getIdZ() >= 1) {
+        if (thisFinTxactItm.getNm1s1Inst1Int3() != null || thisFinTxactItm.getNm1s1Inst1Int3() >= 1) {
             prevFinTxactItm = metadataTools.copy(thisFinTxactItm);
-            prevFinTxactItm.setIdZ(prevFinTxactItm.getIdZ() - 1);
+            prevFinTxactItm.setNm1s1Inst1Int3(prevFinTxactItm.getNm1s1Inst1Int3() - 1);
             String prev1FinTxactItm_Id2 = prevFinTxactItm.getId2CalcFrFields();
 
             String qry = "select gn from enty_UsrNode gn"

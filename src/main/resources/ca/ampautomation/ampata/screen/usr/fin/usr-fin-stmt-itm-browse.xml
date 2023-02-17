@@ -70,7 +70,7 @@
                 <column id="type1_Id"/>
 
                 <column id="finStmt1_Id"/>
-                <column id="idTs.ts1" caption="idTs"/>
+                <column id="nm1s1Inst1Ts1.elTs" caption="idTs"/>
 
                 <column id="desc1"/>
                 <column id="desc2"/>

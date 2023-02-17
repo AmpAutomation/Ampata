@@ -81,9 +81,9 @@
                                 </hbox>
                             </column>
                             <column>
-                                <dateField id="idTsTs1Field" property="idTs.ts1" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
-                                <dateField id="beg1Ts1Field" property="beg1.ts1" datatype="localDateTime" width="220px" tabIndex="30"/>
-                                <dateField id="beg2Ts1Field" property="beg2.ts1" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="idTsTs1Field" property="nm1s1Inst1Ts1.elTs" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                <dateField id="beg1Ts1Field" property="ts1.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="beg2Ts1Field" property="ts2.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
                             </column>
                             <column width="360px">
                             </column>

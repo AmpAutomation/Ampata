@@ -2,7 +2,6 @@ package ca.ampautomation.ampata.screen.sys.fin;
 
 import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.sys.SysNodeRepo;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -225,8 +224,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
-                copy.getBeg1().setTs1(beg1.getTs1());
+                beg1.setElTs(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(beg1.getElTs());
             }
 
             copy.setId2Calc(copy.getId2CalcFrFields());
@@ -274,12 +273,12 @@ are not fully initialized, for example, buttons are not linked with actions.
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
-                copy.getBeg1().setTs1(beg1.getTs1());
+                beg1.setElTs(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(beg1.getElTs());
             }else{
-                if (orig.getBeg1().getDate1() != null) {
-                    beg1.setTs1(orig.getBeg1().getTs1().plusDays(1));
-                    copy.getBeg1().setTs1(beg1.getTs1());
+                if (orig.getTs1().getElDt() != null) {
+                    beg1.setElTs(orig.getTs1().getElTs().plusDays(1));
+                    copy.getTs1().setElTs(beg1.getElTs());
                 }
             }
 

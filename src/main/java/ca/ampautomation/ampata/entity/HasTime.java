@@ -5,8 +5,6 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.time.LocalTime;
-import java.time.format.TextStyle;
-import java.util.Locale;
 import java.util.Objects;
 
 @JmixEntity(name = "enty_HasTime")
@@ -14,37 +12,37 @@ import java.util.Objects;
 public class HasTime {
 
 
-    @Column(name = "TIME1")
-    private LocalTime time1;
+    @Column(name = "EL_TM")
+    private LocalTime elTm;
 
     @javax.persistence.Column
-    private Integer time1Hr;
+    private Integer elTmHr;
 
     @javax.persistence.Column
-    private Integer time1Min;
+    private Integer elTmMin;
 
-    public void setTime1(LocalTime time1) {
-        if (!Objects.equals(this.time1, time1)) {
-            this.time1 = time1;
+    public void setElTm(LocalTime elTm) {
+        if (!Objects.equals(this.elTm, elTm)) {
+            this.elTm = elTm;
             updateAllFields();
         }
     }
 
-    public LocalTime getTime1() {
-        return time1;
+    public LocalTime getElTm() {
+        return elTm;
     }
 
-    public Integer getTime1Min() {
-        return time1Min;
+    public Integer getElTmMin() {
+        return elTmMin;
     }
 
-    public Integer getTime1Hr() {
-        return time1Hr;
+    public Integer getElTmHr() {
+        return elTmHr;
     }
 
     public void updateAllFields(){
-        time1Hr = time1.getHour();
-        time1Min = time1.getMinute();
+        elTmHr = elTm.getHour();
+        elTmMin = elTm.getMinute();
     }
 
 }

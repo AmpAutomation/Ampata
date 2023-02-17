@@ -11,7 +11,7 @@ begin
 	
 delete
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is not null
 ;
 

@@ -53,7 +53,7 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
     private Notifications notifications;
 
 
-    //CRUD Repo
+    //Query Manager
     //@Autowired
     //private UsrItemTypeRepo repo;
 
@@ -340,8 +340,8 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItemType thisItemType = instCntnrMain.getItemOrNull();
@@ -416,8 +416,8 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItemType thisItemType = instCntnrMain.getItemOrNull();
@@ -433,8 +433,8 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItemType thisItemType = instCntnrMain.getItemOrNull();

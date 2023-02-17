@@ -2,6 +2,7 @@ package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.usr.*;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactSetQryMngr;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
@@ -67,9 +68,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     @Autowired
     private Notifications notifications;
 
-    //CRUD Repo
+
+    //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinTxactSetQryMngr qryMngr;
 
 
     //Filter
@@ -572,9 +574,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinTxactSetPrUpdNative()");
-        repo.execUsrFinTxactSetPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinTxactSetPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrFinTxactItm.load()");
         colLoadrMain.load();
@@ -583,14 +585,14 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("purgeColBtn")
-    public void onPurgeColBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onPurgeColBtnClick";
+    @Subscribe("deleteColDeletedColBtn")
+    public void onDeleteColDeletedColBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onDeleteColDeletedColBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinTxactSetPrPurgeNative()");
-        repo.execUsrFinTxactSetPrPurgeNative();
-        logger.debug(logPrfx + " --- finished repo.execFinTxactSetPrPurgeNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrDelDeletedNative()");
+        qryMngr.execPrDelDeletedNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrDelDeletedNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -604,9 +606,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         String logPrfx = "onDeleteColOrphansBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinTxactSetPrDelOrphNative()");
-        repo.execUsrFinTxactSetPrDelOrphNative();
-        logger.debug(logPrfx + " --- finished repo.execFinTxactSetPrDelOrphNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrDelOrphanNative()");
+        qryMngr.execPrDelOrphanNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrDelOrphanNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -633,18 +635,18 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
             UsrNode copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            LocalDate idDt1 = copy.getIdDt() != null ? copy.getIdDt().getDate1() : null;
+            LocalDate idDt1 = copy.getNm1s1Inst1Dt1() != null ? copy.getNm1s1Inst1Dt1().getElDt() : null;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                copy.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(tmplt_Beg1Ts1Field.getValue());
                 updateIdDt(copy);
             }
 
-            Integer idX = copy.getIdX();
+            Integer idX = copy.getNm1s1Inst1Int1();
             if (tmplt_IdXFieldRdo.getValue() != null){
                 // Set
                 if (tmplt_IdXFieldRdo.getValue() == 1){
                     idX = tmplt_IdXField.getValue();
-                    copy.setIdX(idX);
+                    copy.setNm1s1Inst1Int1(idX);
                 }
                 // Max
                 else if (tmplt_IdXFieldRdo.getValue() == 2
@@ -652,7 +654,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
                     idX = getIdXMax(idDt1);
                     if (idX == null) return;
-                    copy.setIdX(idX);
+                    copy.setNm1s1Inst1Int1(idX);
                 }
             }
 
@@ -663,7 +665,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
             copy.setId2Calc(copy.getId2CalcFrFields());
             copy.setId2(copy.getId2Calc());
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
-                copy.setIdY(copy.getIdY() == null ? 1 : copy.getIdY() + 1);
+                copy.setNm1s1Inst1Int2(copy.getNm1s1Inst1Int2() == null ? 1 : copy.getNm1s1Inst1Int2() + 1);
                 copy.setId2Calc(copy.getId2CalcFrFields());
                 copy.setId2(copy.getId2Calc());
             }
@@ -714,20 +716,20 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                     thisFinTxactSet.setType1_Id(tmplt_Type1_IdField.getValue());
                 }
 
-                LocalDate idDt1 = thisFinTxactSet.getIdDt() != null ? thisFinTxactSet.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactSet.getNm1s1Inst1Dt1() != null ? thisFinTxactSet.getNm1s1Inst1Dt1().getElDt() : null;
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinTxactSetIsChanged = true;
-                    thisFinTxactSet.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                    thisFinTxactSet.getTs1().setElTs(tmplt_Beg1Ts1Field.getValue());
                     updateIdDt(thisFinTxactSet);
                 }
 
-                Integer idX = thisFinTxactSet.getIdX();
+                Integer idX = thisFinTxactSet.getNm1s1Inst1Int1();
                 if (tmplt_IdXFieldRdo.getValue() != null){
                     // Set
                     if (tmplt_IdXFieldRdo.getValue() == 1){
                         thisFinTxactSetIsChanged = true;
                         idX = tmplt_IdXField.getValue();
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                     }
                     // Max
                     else if (tmplt_IdXFieldRdo.getValue() == 2
@@ -735,7 +737,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                         thisFinTxactSetIsChanged = true;
                         idX = getIdXMax(idDt1);
                         if (idX == null) return;
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                     }
                 }
 
@@ -1000,8 +1002,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                 }
                 UsrNode thisFinTxact = thisFinTxacts.get(0);
                 if (thisFinTxact != null){
-                    if (thisFinTxact.getIdX() != null && thisFinTxact.getIdDt().getDate1() != null){
-                        filterConfig1B_IdDtGE.setValue(thisFinTxact.getIdDt().getDate1());
+                    if (thisFinTxact.getNm1s1Inst1Int1() != null && thisFinTxact.getNm1s1Inst1Dt1().getElDt() != null){
+                        filterConfig1B_IdDtGE.setValue(thisFinTxact.getNm1s1Inst1Dt1().getElDt());
                         filterConfig1B_IdDtGE.apply();
                     }
                 }
@@ -1033,8 +1035,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                 }
                 UsrNode thisFinTxact = thisFinTxacts.get(0);
                 if (thisFinTxact != null){
-                    if (thisFinTxact.getIdX() != null){
-                        filterConfig1B_IdX.setValue(thisFinTxact.getIdX());
+                    if (thisFinTxact.getNm1s1Inst1Int1() != null){
+                        filterConfig1B_IdX.setValue(thisFinTxact.getNm1s1Inst1Int1());
                         filterConfig1B_IdX.apply();
                     }
                 }
@@ -1065,13 +1067,13 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
                 Boolean thisFinTxactSetIsChanged = false;
 
-                LocalDate idDt1 = thisFinTxactSet.getIdDt() != null ? thisFinTxactSet.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactSet.getNm1s1Inst1Dt1() != null ? thisFinTxactSet.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinTxactSet.getIdX();
+                    Integer idX_ = thisFinTxactSet.getNm1s1Inst1Int1();
                     Integer idX = 0;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinTxactSet.setIdX(" + (idX) + ")");
                         thisFinTxactSetIsChanged = true;
                     }
@@ -1118,13 +1120,13 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
                 Boolean thisFinTxactSetIsChanged = false;
 
-                LocalDate idDt1 = thisFinTxactSet.getIdDt() != null ? thisFinTxactSet.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactSet.getNm1s1Inst1Dt1() != null ? thisFinTxactSet.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinTxactSet.getIdX();
-                    Integer idX = thisFinTxactSet.getIdX() == null || thisFinTxactSet.getIdX() == 0 || thisFinTxactSet.getIdX() == 1 ? 0 : thisFinTxactSet.getIdX() - 1;
+                    Integer idX_ = thisFinTxactSet.getNm1s1Inst1Int1();
+                    Integer idX = thisFinTxactSet.getNm1s1Inst1Int1() == null || thisFinTxactSet.getNm1s1Inst1Int1() == 0 || thisFinTxactSet.getNm1s1Inst1Int1() == 1 ? 0 : thisFinTxactSet.getNm1s1Inst1Int1() - 1;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinTxactSet.setIdX(" + (idX) + ")");
                         thisFinTxactSetIsChanged = true;
                     }
@@ -1171,13 +1173,13 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
                 Boolean thisFinTxactSetIsChanged = false;
 
-                LocalDate idDt1 = thisFinTxactSet.getIdDt() != null ? thisFinTxactSet.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactSet.getNm1s1Inst1Dt1() != null ? thisFinTxactSet.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinTxactSet.getIdX();
-                    Integer idX = (thisFinTxactSet.getIdX() == null ? 0 : thisFinTxactSet.getIdX()) + 1;
+                    Integer idX_ = thisFinTxactSet.getNm1s1Inst1Int1();
+                    Integer idX = (thisFinTxactSet.getNm1s1Inst1Int1() == null ? 0 : thisFinTxactSet.getNm1s1Inst1Int1()) + 1;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinTxactSet.setIdX(" + (idX) + ")");
                         thisFinTxactSetIsChanged = true;
                     }
@@ -1225,7 +1227,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
                 Boolean thisFinTxactSetIsChanged = false;
 
-                LocalDate idDt1 = thisFinTxactSet.getIdDt() != null ? thisFinTxactSet.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactSet.getNm1s1Inst1Dt1() != null ? thisFinTxactSet.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
                     Integer idXMax = 0;
@@ -1244,11 +1246,11 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                     }
                     logger.debug(logPrfx + " --- idXMaxQry result: " + idXMax + "");
 
-                    Integer idX_ = thisFinTxactSet.getIdX();
+                    Integer idX_ = thisFinTxactSet.getNm1s1Inst1Int1();
                     Integer idX = idXMax == null ? 0 : idXMax;
 
                     if (!Objects.equals(idX_, idX)){
-                        thisFinTxactSet.setIdX(idX);
+                        thisFinTxactSet.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinTxactSet.setIdX(" + (idX) + ")");
                         thisFinTxactSetIsChanged = true;
                     }
@@ -1402,8 +1404,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactSet = instCntnrMain.getItemOrNull();
@@ -1481,8 +1483,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactSet = instCntnrMain.getItemOrNull();
@@ -1500,8 +1502,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinTxactSet = instCntnrMain.getItemOrNull();
@@ -1517,8 +1519,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -2010,7 +2012,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactSet.updateIdDt();
+        isChanged = isChanged || thisFinTxactSet.updateInstDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

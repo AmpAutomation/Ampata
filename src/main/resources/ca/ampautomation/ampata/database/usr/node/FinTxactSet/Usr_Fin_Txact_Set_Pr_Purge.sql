@@ -13,7 +13,7 @@ begin
 	
 delete
 from ampata_usr_node t
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is not null
 ;
 
@@ -24,7 +24,7 @@ with cte1 as(
 select t.fin_txset1__id id
 ,count(t.fin_txset1__id) id_cnt
 from ampata_usr_node t
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 group by fin_txset1__id 
 )
@@ -33,7 +33,7 @@ update ampata_usr_node t
 set  fin_txacts1__id_cnt_calc = ct.id_cnt
 from cte1 ct
 where t.id = ct.id
-and t.class_name = 'FinTxactSet'
+and t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 ;
 
@@ -48,7 +48,7 @@ select
  t.id2
 ,t.fin_txacts1__id_cnt_calc 
 from ampata_usr_node t
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 and (
 	fin_txacts1__id_cnt_calc is null
@@ -61,7 +61,7 @@ order by id2
 
 delete
 from ampata_usr_node t
-where t.class_name = 'FinTxactSet'
+where t.class_name = 'UsrFinTxactSet'
 and t.deleted_by is null
 and (
 	t.fin_txacts1__id_cnt_calc is null
@@ -72,7 +72,7 @@ or	t.fin_txacts1__id_cnt_calc = 0
 /*
 select t.id2
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 --and t.deleted_by is null
 and t.fin_txact1__id = '57b40601-3d93-4f63-a741-1ff330e7e9e0'
 */

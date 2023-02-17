@@ -35,7 +35,7 @@ set
 	,beg2_time1_hr  = date_part('hour',beg2_ts1)
 	,beg2_time1_min  = date_part('minute',beg2_ts1)
 where
-	t.class_name = 'FinStmtItm'
+	t.class_name = 'UsrFinStmtItm'
 ;
 	
 
@@ -45,7 +45,7 @@ update ampata_usr_node t
 set id_dt_date1  = case when beg2_date1 is not null then beg2_date1
 		 		else beg1_date1
 		 		end
-where class_name = 'FinStmtItm'
+where class_name = 'UsrFinStmtItm'
 ;	
 
 
@@ -95,14 +95,14 @@ INNER JOIN ampata_usr_node t2b  --FinStmt
 on t2a.fin_stmt1__id = t2b.id
 INNER JOIN ampata_usr_node t2c  --FinAcct
 on t2b.fin_acct1__id = t2c.id
-where t2a.class_name = 'FinStmtItm'
+where t2a.class_name = 'UsrFinStmtItm'
 and t2a.deleted_by IS null
-and t2b.class_name = 'FinStmt'
-and t2c.class_name = 'FinAcct'
+and t2b.class_name = 'UsrFinStmt'
+and t2c.class_name = 'UsrFinAcct'
 
 ) t1
 where t.id = t1.id
-and t.class_name = 'FinStmtItm'
+and t.class_name = 'UsrFinStmtItm'
 AND t.deleted_by IS null
 ;
 
@@ -112,7 +112,7 @@ update ampata_usr_node t
 set	id2_cmp = 	case when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'FinStmtItm'
+where t.class_name = 'UsrFinStmtItm'
 ;
 
 
@@ -139,13 +139,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinStmtItm'
+			where t.class_name = 'UsrFinStmtItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinStmtItm'
+		and	t.class_name = 'UsrFinStmtItm'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -171,9 +171,9 @@ with cte1 as(
 	from ampata_usr_node t1
 	inner join ampata_usr_node_type t2
 		on t1.type1__id  = t2.id
-	where t1.class_name = 'FinAcct'
+	where t1.class_name = 'UsrFinAcct'
 	and t1.deleted_by is null
-	and t2.class_name = 'FinAcct'
+	and t2.class_name = 'UsrFinAcct'
 )
 
 ,cte2 as (
@@ -197,7 +197,7 @@ inner join ampata_usr_node t2
 on t.fin_stmt1__id = t2.id 
 inner join cte1 ct
 on t2.fin_acct1__id = ct.id
-where	t.class_name = 'FinStmtItm'
+where	t.class_name = 'UsrFinStmtItm'
 and t.deleted_by is null
 )
 
@@ -207,7 +207,7 @@ update ampata_usr_node t
 set  amt_net = ct.amt_net
 from cte2 ct
 where t.id = ct.id
-and	t.class_name = 'FinStmtItm'
+and	t.class_name = 'UsrFinStmtItm'
 and t.deleted_by is null
 ;
 
@@ -246,7 +246,7 @@ with cte1 as(
 			) = 1 then coalesce(amt_beg_bal,0) + amt_net else amt_net end
 			as amt_net_merg
 	from ampata_usr_node t
-	where	t.class_name = 'FinStmtItm'
+	where	t.class_name = 'UsrFinStmtItm'
 	and deleted_by is null
 --	and fin_acct1__id2 = '/Mark/A/RBC/Chk'
 	order by fin_acct1__id, id_ts_ts1::date, id_x, amt_net
@@ -279,7 +279,7 @@ update ampata_usr_node t
 set  amt_end_bal_calc = ct.amt_end_bal_calc
 from cte2 ct
 where t.id = ct.id
-and	t.class_name = 'FinStmtItm'
+and	t.class_name = 'UsrFinStmtItm'
 and t.deleted_by is null
 ;
 
@@ -307,7 +307,7 @@ with cte1 as(
 		,amt_net
 		,amt_end_bal_calc
 	from ampata_usr_node t
-	where	t.class_name = 'FinStmtItm'
+	where	t.class_name = 'UsrFinStmtItm'
 	and deleted_by is null
 --	and fin_acct1__id2 = '/Mark/A/RBC/Chk'
 	order by fin_acct1__id, id_ts_ts1::date, id_x, amt_net
@@ -319,7 +319,7 @@ update ampata_usr_node t
 set  amt_beg_bal_calc = ct.amt_beg_bal_calc
 from cte1 ct
 where t.id = ct.id
-and	t.class_name = 'FinStmtItm'
+and	t.class_name = 'UsrFinStmtItm'
 and t.deleted_by is null
 ;
 
@@ -332,9 +332,9 @@ update ampata_usr_node t
 set	fin_stmt1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_stmt1__id = t1.id 
-and	t.class_name = 'FinStmtItm'
+and	t.class_name = 'UsrFinStmtItm'
 and	t.deleted_by is null
-and	t1.class_name = 'FinStmt'
+and	t1.class_name = 'UsrFinStmt'
 ;
 
 

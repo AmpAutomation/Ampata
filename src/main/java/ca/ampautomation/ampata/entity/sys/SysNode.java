@@ -2,7 +2,6 @@ package ca.ampautomation.ampata.entity.sys;
 
 import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.gen.SysGenFmla;
-import ca.ampautomation.ampata.entity.usr.UsrItem;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.entity.annotation.EmbeddedParameters;
@@ -124,21 +123,23 @@ public class SysNode {
     private String note;
 
 
+
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "BEG1_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "BEG1_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG1_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG1_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG1_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG1_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG1_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "BEG1_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG1_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG1_TIME1_MIN"))
+            @AttributeOverride(name = "elTs", column = @Column(name = "TS1_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "TS1_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "TS1_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "TS1_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "TS1_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "TS1_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "TS1_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "TS1_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "TS1_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "TS1_EL_TM_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst beg1;
+    private HasTmst ts1;
+
     @Column(name = "AMT1", precision = 19, scale = 9)
     private BigDecimal amt1;
 
@@ -337,16 +338,16 @@ public class SysNode {
     }
 
 
-    public void setBeg1(HasTmst beg1) {
+    public void setTs1(HasTmst ts1) {
         String logPrfx = "setBeg";
         logger.trace(logPrfx + " --> ");
-        this.beg1 = beg1;
+        this.ts1 = ts1;
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    public HasTmst getBeg1() {
-        return beg1;
+    public HasTmst getTs1() {
+        return ts1;
     }
 
 
@@ -448,17 +449,17 @@ public class SysNode {
         //require beg1.ts1
         switch (className) {
             case "FinCurcyExchRate" -> {
-                if (beg1 == null) {
-                    logger.debug(logPrfx + " --- beg1: null");
+                if (ts1 == null) {
+                    logger.debug(logPrfx + " --- ts1: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (beg1.getTs1() == null) {
-                    logger.debug(logPrfx + " --- beg1.getTs1(): null");
+                if (ts1.getElTs() == null) {
+                    logger.debug(logPrfx + " --- ts1.getTs1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-                    logger.debug(logPrfx + " --- beg1.getTs1(): " + beg1.getTs1().format(frmtTs));
+                    logger.debug(logPrfx + " --- ts1.getTs1(): " + ts1.getElTs().format(frmtTs));
                 }
             }
         }
@@ -506,8 +507,8 @@ public class SysNode {
                 sb.append(finCurcy1_Id.getId2());
                 //finCurcy2_Id
                 sb.append( "->").append(finCurcy2_Id.getId2());
-                //beg1.ts1
-                sb.append(SEP + "D").append(beg1.getTs1().format(frmtDt)
+                //ts1.ts1
+                sb.append(SEP + "D").append(ts1.getElTs().format(frmtDt)
                 );
             }
         }

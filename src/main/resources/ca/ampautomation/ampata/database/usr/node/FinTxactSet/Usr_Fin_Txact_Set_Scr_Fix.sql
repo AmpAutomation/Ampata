@@ -3,7 +3,7 @@
 
 -- Update class_name
 update ampata_usr_node t
-	set class_name = 'FinTxactSet'
+	set class_name = 'UsrFinTxactSet'
 where t.class_name ='FinTxset'
 
 
@@ -21,7 +21,7 @@ update ampata_usr_node t
 set type1__id = t1.id
 FROM ampata_usr_node_type t1
 where t.type1__id2 = t1.id2 
-and	t.class_name = 'FinTxactSet'
+and	t.class_name = 'UsrFinTxactSet'
 and t1.class_name ='FinTxactSet'
 ;
 
@@ -36,7 +36,7 @@ FROM
 (
 SELECT DISTINCT LEFT(t1.id2,20) id2
 FROM ampata_usr_node t1
-WHERE t1.class_name = 'FinTxact'
+WHERE t1.class_name = 'UsrFinTxact'
 ) t
 
 
@@ -60,9 +60,9 @@ SELECT
 	
 FROM ampata_usr_node t1
 , ampata_usr_node t2
-WHERE t1.class_name = 'FinTxactSet'
+WHERE t1.class_name = 'UsrFinTxactSet'
 and t1.id = t2.fin_txset1__id 
-and t2.class_name = 'FinTxact'
+and t2.class_name = 'UsrFinTxact'
 and t1.fin_how1__id is null
 and t2.fin_how1__id is not null 
 
@@ -271,7 +271,7 @@ select t.id
 ,t.id_dt_date1 
 ,t.id_x
 from ampata_usr_node t
-where t.class_name = 'FinTxact'
+where t.class_name = 'UsrFinTxact'
 and t.deleted_by is null
 and (
    t.fin_txset1__id = '0ed1c324-6d57-4f84-827b-13a2d03a9861'
@@ -284,7 +284,7 @@ select t.id
 ,t.id_x
 ,t.id_y
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 and (
    t.fin_txact1__id = '85cd9239-7831-4fed-b293-f60e17898f08'

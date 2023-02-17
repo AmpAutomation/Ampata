@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="BEG1_DATE1_QTR" newColumnName="TS1_DATE1_QTR"/>
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="BEG1_DATE1_QTR" newColumnName="TS1_DATE1_QTR"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="BEG2_DATE1_QTR" newColumnName="TS2_DATE1_QTR"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="END1_DATE1_QTR" newColumnName="TS3_DATE1_QTR"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="END2_DATE1_QTR" newColumnName="TS4_DATE1_QTR"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="ID_TS_DATE1_QTR" newColumnName="INST_TS1_DATE1_QTR"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="ID_DT_DATE1_QTR" newColumnName="INST_DT1_DATE1_QTR"/>
+
+    </changeSet>
+
+</databaseChangeLog>

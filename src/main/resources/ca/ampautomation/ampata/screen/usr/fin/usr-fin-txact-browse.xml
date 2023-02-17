@@ -68,9 +68,9 @@
                 <column id="finTxactSet1_EI1_Role" caption="Txa Role"/>
                 <column id="desc1" width="320px"/>
 
-                <column id="idTs.ts1" caption="idTs"/>
-                <column id="idX"/>
-                <column id="idY"/>
+                <column id="nm1s1Inst1Ts1.elTs" caption="idTs"/>
+                <column id="nm1s1Inst1Int1"/>
+                <column id="nm1s1Inst1Int2"/>
 
                 <column id="genChan1_Id"/>
                 <column id="finHow1_Id"/>

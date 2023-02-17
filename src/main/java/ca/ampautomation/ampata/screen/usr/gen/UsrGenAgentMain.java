@@ -1,7 +1,9 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
 import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentType;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
@@ -60,9 +62,9 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
     private Notifications notifications;
 
 
-    //CRUD Repo
+    //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrGenAgentQryMngr qryMngr;
 
 
     //Filter
@@ -301,9 +303,9 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execGenAgentPrUpdNative()");
-        repo.execUsrGenAgentPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execGenAgentPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -506,8 +508,8 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrGenAgent thisGenAgent = instCntnrMain.getItemOrNull();
@@ -585,8 +587,8 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrGenAgent thisGenAgent = instCntnrMain.getItemOrNull();
@@ -602,8 +604,8 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrGenAgent thisGenAgent = instCntnrMain.getItemOrNull();
@@ -619,8 +621,8 @@ public class UsrGenAgentMain extends MasterDetailScreen<UsrGenAgent> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         genAgentTypesDl.load();

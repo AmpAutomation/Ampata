@@ -6,7 +6,7 @@ set fin_curcy1__id = t1.id
 from ampata_sys_node t1
 where
 	t.dtype = 'ampata_FinRate'
-and t1.class_name = 'FinCurcy'
+and t1.class_name = 'UsrFinCurcy'
 and t.fin_curcy1__id2 = t1.id2
 
 /*
@@ -19,7 +19,7 @@ from ampata_sys_entity t
 	, ampata_sys_node t1
 where
 	t.dtype = 'ampata_FinRate'
-and t1.class_name = 'FinCurcy'
+and t1.class_name = 'UsrFinCurcy'
 and t.fin_curcy1__id2 = t1.id2
 */
 
@@ -29,7 +29,7 @@ set fin_curcy1__id = t1.id
 from ampata_sys_node t1
 where
 	t.dtype = 'ampata_FinRate'
-and t1.class_name = 'FinCurcy'
+and t1.class_name = 'UsrFinCurcy'
 and t.fin_curcy2__id2 = t1.id2
 
 

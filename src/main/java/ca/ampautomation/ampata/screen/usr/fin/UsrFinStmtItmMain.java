@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtItmQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -63,9 +63,10 @@ public class UsrFinStmtItmMain extends MasterDetailScreen<UsrNode> {
     @Autowired
     private Notifications notifications;
 
-    //CRUD Repo
+
+    //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinStmtItmQryMngr qryMngr;
 
 
     //Filter
@@ -525,9 +526,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinStmtItmPrUpdNative()");
-        repo.execUsrFinStmtItmPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinStmtItmPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- executing colLoadrFinStmtItm.load()");
         colLoadrFinStmtItm.load();
@@ -556,21 +557,21 @@ are not fully initialized, for example, buttons are not linked with actions.
             copy.setId(UuidProvider.createUuid());
 
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                copy.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(tmplt_Beg1Ts1Field.getValue());
                 updateIdDt(copy);
             }
             if (tmplt_Beg2Ts1FieldChk.isChecked()) {
-                copy.getBeg2().setTs1(tmplt_Beg2Ts1Field.getValue());
+                copy.getTs2().setElTs(tmplt_Beg2Ts1Field.getValue());
                 updateIdDt(copy);
             }
-            LocalDate idDt1 = copy.getIdDt() != null ? copy.getIdDt().getDate1() : null;
+            LocalDate idDt1 = copy.getNm1s1Inst1Dt1() != null ? copy.getNm1s1Inst1Dt1().getElDt() : null;
 
-            Integer idX = copy.getIdX();
+            Integer idX = copy.getNm1s1Inst1Int1();
             if (tmplt_IdXFieldRdo.getValue() != null) {
                 // Set
                 if (tmplt_IdXFieldRdo.getValue() == 1) {
                     idX = tmplt_IdXField.getValue();
-                    copy.setIdX(idX);
+                    copy.setNm1s1Inst1Int1(idX);
                 }
                 // Max
                 else if (tmplt_IdXFieldRdo.getValue() == 2
@@ -578,7 +579,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                     idX = getIdXMax(idDt1);
                     if (idX == null) return;
-                    copy.setIdX(idX);
+                    copy.setNm1s1Inst1Int1(idX);
                 }
             }
 
@@ -625,7 +626,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             copy.setId2Calc(copy.getId2CalcFrFields());
             copy.setId2(copy.getId2Calc());
             if (Objects.equals(copy.getId2(), orig.getId2())) {
-                copy.setIdX((orig.getIdX() == null ? 0 : copy.getIdX()) + 1);
+                copy.setNm1s1Inst1Int1((orig.getNm1s1Inst1Int1() == null ? 0 : copy.getNm1s1Inst1Int1()) + 1);
                 copy.setId2Calc(copy.getId2CalcFrFields());
                 copy.setId2(copy.getId2Calc());
             }
@@ -683,23 +684,23 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinStmtItmIsChanged = true;
-                    thisFinStmtItm.getBeg1().setTs1(tmplt_Beg1Ts1Field.getValue());
+                    thisFinStmtItm.getTs1().setElTs(tmplt_Beg1Ts1Field.getValue());
                     updateIdDt(thisFinStmtItm);
                 }
                 if (tmplt_Beg2Ts1FieldChk.isChecked()) {
                     thisFinStmtItmIsChanged = true;
-                    thisFinStmtItm.getBeg2().setTs1(tmplt_Beg2Ts1Field.getValue());
+                    thisFinStmtItm.getTs2().setElTs(tmplt_Beg2Ts1Field.getValue());
                     updateIdDt(thisFinStmtItm);
                 }
-                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinStmtItm.getNm1s1Inst1Dt1() != null ? thisFinStmtItm.getNm1s1Inst1Dt1().getElDt() : null;
 
-                Integer idX = thisFinStmtItm.getIdX();
+                Integer idX = thisFinStmtItm.getNm1s1Inst1Int1();
                 if (tmplt_IdXFieldRdo.getValue() != null) {
                     // Set
                     if (tmplt_IdXFieldRdo.getValue() == 1) {
                         thisFinStmtItmIsChanged = true;
                         idX = tmplt_IdXField.getValue();
-                        thisFinStmtItm.setIdX(idX);
+                        thisFinStmtItm.setNm1s1Inst1Int1(idX);
                     }
                     // Max
                     else if (tmplt_IdXFieldRdo.getValue() == 2
@@ -707,7 +708,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                         idX = getIdXMax(idDt1);
                         if (idX == null) return;
-                        thisFinStmtItm.setIdX(idX);
+                        thisFinStmtItm.setNm1s1Inst1Int1(idX);
                     }
                 }
 
@@ -881,13 +882,13 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinTxactItmIsChanged = false;
 
-                LocalDate idDt1 = thisFinTxactItm.getIdDt() != null ? thisFinTxactItm.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinTxactItm.getNm1s1Inst1Dt1() != null ? thisFinTxactItm.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinTxactItm.getIdX();
+                    Integer idX_ = thisFinTxactItm.getNm1s1Inst1Int1();
                     Integer idX = 0;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinTxactItm.setIdX(idX);
+                        thisFinTxactItm.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinTxactItm.setIdX(" + (idX) + ")");
                         thisFinTxactItmIsChanged = true;
                     }
@@ -934,13 +935,13 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinStmtItm.getNm1s1Inst1Dt1() != null ? thisFinStmtItm.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinStmtItm.getIdX();
-                    Integer idX = thisFinStmtItm.getIdX() == null || thisFinStmtItm.getIdX() == 0 || thisFinStmtItm.getIdX() == 1 ? 0 : thisFinStmtItm.getIdX() - 1;
+                    Integer idX_ = thisFinStmtItm.getNm1s1Inst1Int1();
+                    Integer idX = thisFinStmtItm.getNm1s1Inst1Int1() == null || thisFinStmtItm.getNm1s1Inst1Int1() == 0 || thisFinStmtItm.getNm1s1Inst1Int1() == 1 ? 0 : thisFinStmtItm.getNm1s1Inst1Int1() - 1;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinStmtItm.setIdX(idX);
+                        thisFinStmtItm.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinStmtItm.setIdX(" + (idX) + ")");
                         thisFinStmtItmIsChanged = true;
                     }
@@ -987,13 +988,13 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinStmtItm.getNm1s1Inst1Dt1() != null ? thisFinStmtItm.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
-                    Integer idX_ = thisFinStmtItm.getIdX();
-                    Integer idX = (thisFinStmtItm.getIdX() == null ? 0 : thisFinStmtItm.getIdX()) + 1;
+                    Integer idX_ = thisFinStmtItm.getNm1s1Inst1Int1();
+                    Integer idX = (thisFinStmtItm.getNm1s1Inst1Int1() == null ? 0 : thisFinStmtItm.getNm1s1Inst1Int1()) + 1;
                     if (!Objects.equals(idX_, idX)){
-                        thisFinStmtItm.setIdX(idX);
+                        thisFinStmtItm.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinStmtItm.setIdX(" + (idX) + ")");
                         thisFinStmtItmIsChanged = true;
                     }
@@ -1041,7 +1042,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                 Boolean thisFinStmtItmIsChanged = false;
 
-                LocalDate idDt1 = thisFinStmtItm.getIdDt() != null ? thisFinStmtItm.getIdDt().getDate1() : null;
+                LocalDate idDt1 = thisFinStmtItm.getNm1s1Inst1Dt1() != null ? thisFinStmtItm.getNm1s1Inst1Dt1().getElDt() : null;
                 if (idDt1 != null){
 
                     Integer idXMax = 0;
@@ -1060,11 +1061,11 @@ are not fully initialized, for example, buttons are not linked with actions.
                     }
                     logger.debug(logPrfx + " --- idXMaxQry result: " + idXMax + "");
 
-                    Integer idX_ = thisFinStmtItm.getIdX();
+                    Integer idX_ = thisFinStmtItm.getNm1s1Inst1Int1();
                     Integer idX = idXMax == null ? 0 : idXMax;
 
                     if (!Objects.equals(idX_, idX)){
-                        thisFinStmtItm.setIdX(idX);
+                        thisFinStmtItm.setNm1s1Inst1Int1(idX);
                         logger.debug(logPrfx + " --- thisFinStmtItm.setIdX(" + (idX) + ")");
                         thisFinStmtItmIsChanged = true;
                     }
@@ -1269,8 +1270,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
@@ -1286,8 +1287,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
@@ -1304,8 +1305,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -1845,7 +1846,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateIdDt();
+        isChanged = isChanged || thisFinStmtItm.updateInstDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1857,7 +1858,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateBeg1();
+        isChanged = isChanged || thisFinStmtItm.updateTs1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1869,7 +1870,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateBeg2();
+        isChanged = isChanged || thisFinStmtItm.updateTs2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1882,7 +1883,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateIdX();
+        isChanged = isChanged || thisFinStmtItm.updateInstInt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

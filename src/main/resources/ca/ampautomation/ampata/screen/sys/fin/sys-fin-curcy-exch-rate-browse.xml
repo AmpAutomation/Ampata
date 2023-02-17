@@ -37,8 +37,8 @@
                 <configuration id="filterConfig1" default="true">
                     <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
                     <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
-                    <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
-                    <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="beg1.date1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_SysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
                         <entityComboBox metaClass="enty_SysNode"/>
                     </propertyFilter>
@@ -61,7 +61,7 @@
             <columns>
                 <column id="id2" caption="id2"/>
                 <column id="name1" caption="name"/>
-                <column id="beg1.date1" caption="beg1.date1"/>
+                <column id="ts1.elDt" caption="beg1.date1"/>
                 <column id="amt1" caption="amt1">
                     <formatter>
                         <number format="#0.000000"/>

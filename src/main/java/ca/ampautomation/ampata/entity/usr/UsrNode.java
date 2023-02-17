@@ -34,7 +34,6 @@ import java.net.URI;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
@@ -45,9 +44,12 @@ import java.util.regex.Pattern;
 
 @JmixEntity
 @Table(name = "AMPATA_USR_NODE", indexes = {
-        @Index(name = "IDX_USRNODE_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_USRNODE_PARENT1__ID", columnList = "PARENT1__ID"),
+        @Index(name = "IDX_USRNODE_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_USRNODE_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_USRNODE_NM1S1_TYPE1__ID", columnList = "NM1S1_TYPE1__ID"),
+        @Index(name = "IDX_USRNODE_NM1S1_NAME1_GEN_FMLA1__ID", columnList = "NM1S1_NAME1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_USRNODE_NM1S1_INST1_GEN_FMLA1__ID", columnList = "NM1S1_INST1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM2__ID", columnList = "DESC1_FIN_TXACT_ITM2__ID"),
@@ -164,6 +166,16 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "SORT_KEY")
     private String sortKey;
 
+    @Column(name = "NAME1")
+    private String name1;
+
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrGenFmla name1GenFmla1_Id;
+
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
+
     @JoinColumn(name = "TYPE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private UsrNodeType type1_Id;
@@ -174,15 +186,80 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "INST1")
     private String inst1;
 
-    @Column(name = "NAME1")
-    private String name1;
+    @Column(name = "NM1S1_NAME1")
+    private String nm1s1Name1;
 
-    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
+    @JoinColumn(name = "NM1S1_NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFmla name1GenFmla1_Id;
+    private UsrGenFmla nm1s1Name1GenFmla1_Id;
 
-    @Column(name = "NAME1_GEN_FMLA1__ID2")
-    private String name1GenFmla1_Id2;
+    @Column(name = "NM1S1_NAME1_GEN_FMLA1__ID2")
+    private String nm1s1Name1GenFmla1_Id2;
+
+    @JoinColumn(name = "NM1S1_TYPE1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrNodeType nm1s1Type1_Id;
+
+    @Column(name = "NM1S1_TYPE1__ID2")
+    private String nm1s1Type1_Id2;
+
+
+    @Column(name = "NM1S1_INST1")
+    private String nm1s1Inst1;
+
+    @JoinColumn(name = "NM1S1_INST1_GEN_FMLA1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrGenFmla nm1s1Inst1GenFmla1_Id;
+
+    @Column(name = "NM1S1_INST1_GEN_FMLA1__ID2")
+    private String nm1s1Inst1GenFmla1_Id2;
+
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "elTs", column = @Column(name = "NM1S1_INST1_TS1_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "NM1S1_INST1_TS1_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "NM1S1_INST1_TS1_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "NM1S1_INST1_TS1_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "NM1S1_INST1_TS1_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "NM1S1_INST1_TS1_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "NM1S1_INST1_TS1_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "NM1S1_INST1_TS1_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_MIN"))
+    })
+    private HasTmst nm1s1Inst1Ts1;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "elDt", column = @Column(name = "NM1S1_INST1_DT1_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_DAY"))
+    })
+    private HasDate nm1s1Inst1Dt1;
+
+    @EmbeddedParameters(nullAllowed = false)
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "elTm", column = @Column(name = "NM1S1_INST1_TM1_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_MIN"))
+    })
+    private HasTime nm1s1Inst1Tm1;
+
+    @Column(name = "NM1S1_INST1_INT1")
+    private Integer nm1s1Inst1Int1;
+
+    @Column(name = "NM1S1_INST1_INT2")
+    private Integer nm1s1Inst1Int2;
+
+    @Column(name = "NM1S1_INST1_INT3")
+    private Integer nm1s1Inst1Int3;
 
     @Column(name = "NAME2")
     private String name2;
@@ -333,68 +410,68 @@ public class UsrNode implements AcceptsTenant {
     private String genAgent2_Id2;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "BEG1_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "BEG1_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG1_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG1_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG1_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG1_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG1_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "BEG1_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG1_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG1_TIME1_MIN"))
+            @AttributeOverride(name = "elTs", column = @Column(name = "TS1_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "TS1_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "TS1_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "TS1_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "TS1_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "TS1_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "TS1_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "TS1_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "TS1_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "TS1_EL_TM_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst beg1;
+    private HasTmst ts1;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "BEG2_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "BEG2_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "BEG2_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "BEG2_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "BEG2_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "BEG2_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "BEG2_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "BEG2_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "BEG2_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "BEG2_TIME1_MIN"))
+            @AttributeOverride(name = "elTs", column = @Column(name = "TS2_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "TS2_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "TS2_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "TS2_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "TS2_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "TS2_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "TS2_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "TS2_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "TS2_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "TS2_EL_TM_MIN"))
     })
-    private HasTmst beg2;
+    private HasTmst ts2;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "END1_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "END1_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "END1_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "END1_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "END1_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "END1_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "END1_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "END1_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "END1_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "END1_TIME1_MIN"))
+            @AttributeOverride(name = "elTs", column = @Column(name = "TS3_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "TS3_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "TS3_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "TS3_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "TS3_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "TS3_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "TS3_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "TS3_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "TS3_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "TS3_EL_TM_MIN"))
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst end1;
+    private HasTmst ts3;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "END2_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "END2_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "END2_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "END2_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "END2_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "END2_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "END2_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "END2_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "END2_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "END2_TIME1_MIN"))
+            @AttributeOverride(name = "elTs", column = @Column(name = "TS4_EL_TS")),
+            @AttributeOverride(name = "elDt", column = @Column(name = "TS4_EL_DT")),
+            @AttributeOverride(name = "elDtYr", column = @Column(name = "TS4_EL_DT_YR")),
+            @AttributeOverride(name = "elDtQtr", column = @Column(name = "TS4_EL_DT_QTR")),
+            @AttributeOverride(name = "elDtMon", column = @Column(name = "TS4_EL_DT_MON")),
+            @AttributeOverride(name = "elDtMon2", column = @Column(name = "TS4_EL_DT_MON2")),
+            @AttributeOverride(name = "elDtDay", column = @Column(name = "TS4_EL_DT_DAY")),
+            @AttributeOverride(name = "elTm", column = @Column(name = "TS4_EL_TM")),
+            @AttributeOverride(name = "elTmHr", column = @Column(name = "TS4_EL_TM_HR")),
+            @AttributeOverride(name = "elTmMin", column = @Column(name = "TS4_EL_TM_MIN"))
     })
-    private HasTmst end2;
+    private HasTmst ts4;
 
 
     @Column(name = "VER")
@@ -447,13 +524,6 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "FIN_TXACT_SET1__GEN_CHAN1__ID2")
     private String finTxactSet1_GenChan1_Id2;
 
-    @Column(name = "FIN_TXACT_SET1__BEG1_DATE1")
-    private LocalDate finTxactSet1_Beg1Date1;
-
-    @Column(name = "FIN_TXACT_SET1__BEG1_TIME1")
-    private LocalTime finTxactSet1_Beg1Time1;
-
-
     @Column(name = "FIN_TXACT_SET1__HOW1__ID2")
     private String finTxactSet1_How1_Id2;
 
@@ -491,12 +561,6 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "FIN_TXACT1__GEN_CHAN1__ID2")
     private String finTxact1_GenChan1_Id2;
 
-    @Column(name = "FIN_TXACT1__BEG1_DATE1")
-    private LocalDate finTxact1_Beg1Date1;
-
-    @Column(name = "FIN_TXACT1__BEG1_TIME1")
-    private LocalTime finTxact1_Beg1Time1;
-
     @Column(name = "FIN_TXACT1__HOW1__ID2")
     private String finTxact1_How1_Id2;
 
@@ -513,53 +577,6 @@ public class UsrNode implements AcceptsTenant {
 
     @Column(name = "FIN_TXACT1__WHY1__ID2")
     private String finTxact1_Why1_Id2;
-
-
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "ts1", column = @Column(name = "ID_TS_TS1")),
-            @AttributeOverride(name = "date1", column = @Column(name = "ID_TS_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "ID_TS_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "ID_TS_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "ID_TS_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "ID_TS_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "ID_TS_DATE1_DAY")),
-            @AttributeOverride(name = "time1", column = @Column(name = "ID_TS_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "ID_TS_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "ID_TS_TIME1_MIN"))
-    })
-    private HasTmst idTs;
-
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "date1", column = @Column(name = "ID_DT_DATE1")),
-            @AttributeOverride(name = "date1Yr", column = @Column(name = "ID_DT_DATE1_YR")),
-            @AttributeOverride(name = "date1Qtr", column = @Column(name = "ID_DT_DATE1_QTR")),
-            @AttributeOverride(name = "date1Mon", column = @Column(name = "ID_DT_DATE1_MON")),
-            @AttributeOverride(name = "date1Mon2", column = @Column(name = "ID_DT_DATE1_MON2")),
-            @AttributeOverride(name = "date1Day", column = @Column(name = "ID_DT_DATE1_DAY"))
-    })
-    private HasDate idDt;
-
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "time1", column = @Column(name = "ID_TM_TIME1")),
-            @AttributeOverride(name = "time1Hr", column = @Column(name = "ID_TM_TIME1_HR")),
-            @AttributeOverride(name = "time1Min", column = @Column(name = "ID_TM_TIME1_MIN"))
-    })
-    private HasTime idTm;
-
-    @Column(name = "ID_X")
-    private Integer idX;
-
-    @Column(name = "ID_Y")
-    private Integer idY;
-
-    @Column(name = "ID_Z")
-    private Integer idZ;
 
     @JoinColumn(name = "FIN_STMT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -1003,6 +1020,14 @@ public class UsrNode implements AcceptsTenant {
         this.sortKey = sortKey;
     }
 
+    public String getName1() {
+        return name1;
+    }
+
+    public void setName1(String name1) {
+        this.name1 = name1;
+    }
+
     public void setType1_Id(UsrNodeType type1_Id) {
         this.type1_Id = type1_Id;
     }
@@ -1028,16 +1053,10 @@ public class UsrNode implements AcceptsTenant {
         this.inst1 = inst1;
     }
 
-    public String getName1() {
-        return name1;
+
+    public UsrGenFmla getName1GenFmla1_Id() {
+        return name1GenFmla1_Id;
     }
-
-    public void setName1(String name1) {
-        this.name1 = name1;
-    }
-
-
-    public UsrGenFmla getName1GenFmla1_Id() { return name1GenFmla1_Id; }
 
     public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) {
         this.name1GenFmla1_Id = name1GenFmla1_Id;
@@ -1051,7 +1070,61 @@ public class UsrNode implements AcceptsTenant {
         this.name1GenFmla1_Id2 = name1GenFmla1_Id2;
     }
 
+    
+    public UsrNodeType getNm1s1Type1_Id() {
+        return nm1s1Type1_Id;
+    }
 
+    public void setNm1s1Type1_Id(UsrNodeType nm1s1Type1_Id) {
+        this.nm1s1Type1_Id = nm1s1Type1_Id;
+    }
+
+
+    public String getNm1s1Type1_Id2() {
+        return nm1s1Type1_Id2;
+    }
+
+    public void setNm1s1Type1_Id2(String nm1s1Type1_Id2) {
+        this.nm1s1Type1_Id2 = nm1s1Type1_Id2;
+    }
+
+
+    public String getNm1s1Name1() {
+        return nm1s1Name1;
+    }
+
+    public void setNm1s1Name1(String nm1s1Name1) {
+        this.nm1s1Name1 = nm1s1Name1;
+    }
+
+    public UsrGenFmla getNm1s1Name1GenFmla1_Id() { return nm1s1Name1GenFmla1_Id; }
+
+    public void setNm1s1Name1GenFmla1_Id(UsrGenFmla nm1s1Name1GenFmla1_Id) { this.nm1s1Name1GenFmla1_Id = nm1s1Name1GenFmla1_Id; }
+
+    
+    public String getNm1s1Name1GenFmla1_Id2() {
+        return nm1s1Name1GenFmla1_Id2;
+    }
+
+    public void setNm1s1Name1GenFmla1_Id2(String nm1s1Name1GenFmla1_Id2) { this.nm1s1Name1GenFmla1_Id2 = nm1s1Name1GenFmla1_Id2; }
+
+
+    public String getNm1s1Inst1() { return nm1s1Inst1; }
+
+    public void setNm1s1Inst1(String nm1s1Inst1) { this.nm1s1Inst1 = nm1s1Inst1; }
+
+    public UsrGenFmla getNm1s1Inst1GenFmla1_Id() { return nm1s1Inst1GenFmla1_Id; }
+
+    public void setNm1s1Inst1GenFmla1_Id(UsrGenFmla nm1s1Inst1GenFmla1_Id) { this.nm1s1Inst1GenFmla1_Id = nm1s1Inst1GenFmla1_Id; }
+
+
+    public String getNm1s1Inst1GenFmla1_Id2() {
+        return nm1s1Inst1GenFmla1_Id2;
+    }
+
+    public void setNm1s1Inst1GenFmla1_Id2(String nm1s1Inst1GenFmla1_Id2) { this.nm1s1Inst1GenFmla1_Id2 = nm1s1Inst1GenFmla1_Id2; }
+
+    
     public String getName2() {
         return name2;
     }
@@ -1185,44 +1258,44 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public HasTmst getIdTs() {
-        return idTs;
+    public HasTmst getNm1s1Inst1Ts1() {
+        return nm1s1Inst1Ts1;
     }
 
-    public void setIdTs(HasTmst idTs) {
-        this.idTs = idTs;
+    public void setNm1s1Inst1Ts1(HasTmst nm1s1Inst1Ts1) {
+        this.nm1s1Inst1Ts1 = nm1s1Inst1Ts1;
     }
 
-    public HasTmst getEnd2() {
-        return end2;
+    public HasTmst getTs4() {
+        return ts4;
     }
 
-    public void setEnd2(HasTmst end2) {
-        this.end2 = end2;
+    public void setTs4(HasTmst ts4) {
+        this.ts4 = ts4;
     }
 
-    public HasTmst getBeg2() {
-        return beg2;
+    public HasTmst getTs2() {
+        return ts2;
     }
 
-    public void setBeg2(HasTmst beg2) {
-        this.beg2 = beg2;
+    public void setTs2(HasTmst ts2) {
+        this.ts2 = ts2;
     }
 
-    public HasTime getIdTm() {
-        return idTm;
+    public HasTime getNm1s1Inst1Tm1() {
+        return nm1s1Inst1Tm1;
     }
 
-    public void setIdTm(HasTime idTm) {
-        this.idTm = idTm;
+    public void setNm1s1Inst1Tm1(HasTime nm1s1Inst1Tm1) {
+        this.nm1s1Inst1Tm1 = nm1s1Inst1Tm1;
     }
 
-    public HasDate getIdDt() {
-        return idDt;
+    public HasDate getNm1s1Inst1Dt1() {
+        return nm1s1Inst1Dt1;
     }
 
-    public void setIdDt(HasDate idDt) {
-        this.idDt = idDt;
+    public void setNm1s1Inst1Dt1(HasDate nm1s1Inst1Dt1) {
+        this.nm1s1Inst1Dt1 = nm1s1Inst1Dt1;
     }
 
     public String getFinTxact1_GenDocVers1_Id2() {
@@ -1234,65 +1307,65 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public void setBeg1(HasTmst beg1) {
+    public void setTs1(HasTmst ts1) {
         String logPrfx = "setBeg";
         logger.trace(logPrfx + " --> ");
-        this.beg1 = beg1;
+        this.ts1 = ts1;
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    public HasTmst getBeg1() {
-        return beg1;
+    public HasTmst getTs1() {
+        return ts1;
     }
 
-    public void setEnd1(HasTmst end1) {
+    public void setTs3(HasTmst ts3) {
         String logPrfx = "setEnd";
         logger.trace(logPrfx + " --> ");
-        this.end1 = end1;
+        this.ts3 = ts3;
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    public HasTmst getEnd1() {
-        return end1;
+    public HasTmst getTs3() {
+        return ts3;
     }
 
 
-    public Integer getIdX() {
-        return idX;
+    public Integer getNm1s1Inst1Int1() {
+        return nm1s1Inst1Int1;
     }
 
-    public void setIdX(Integer idX) {
+    public void setNm1s1Inst1Int1(Integer nm1s1Inst1Int1) {
         String logPrfx = "setIdX";
         logger.trace(logPrfx + " --> ");
-        this.idX = idX;
+        this.nm1s1Inst1Int1 = nm1s1Inst1Int1;
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    public Integer getIdY() {
-        return idY;
+    public Integer getNm1s1Inst1Int2() {
+        return nm1s1Inst1Int2;
     }
 
-    public void setIdY(Integer idY) {
+    public void setNm1s1Inst1Int2(Integer nm1s1Inst1Int2) {
         String logPrfx = "setIdY";
         logger.trace(logPrfx + " --> ");
-        this.idY = idY;
+        this.nm1s1Inst1Int2 = nm1s1Inst1Int2;
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    public Integer getIdZ() {
-        return idZ;
+    public Integer getNm1s1Inst1Int3() {
+        return nm1s1Inst1Int3;
     }
 
-    public void setIdZ(Integer idZ) {
+    public void setNm1s1Inst1Int3(Integer nm1s1Inst1Int3) {
         String logPrfx = "setIdZ";
         logger.trace(logPrfx + " --> ");
 
 //        EntityInternals.fireListeners((io.jmix.core.Entity) this, "idZ", this.idZ, idZ);
-        this.idZ = idZ;
+        this.nm1s1Inst1Int3 = nm1s1Inst1Int3;
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1582,24 +1655,6 @@ public class UsrNode implements AcceptsTenant {
         this.finTxactSet1_EI1_Role = finTxactSet1_EI1_Role;
     }
 
-
-    public void setFinTxactSet1_Beg1Date1(LocalDate finTxactSet1_Beg1Date1) {
-        this.finTxactSet1_Beg1Date1 = finTxactSet1_Beg1Date1;
-    }
-
-    public LocalDate getFinTxactSet1_Beg1Date1() {
-        return finTxactSet1_Beg1Date1;
-    }
-
-    public void setFinTxactSet1_Beg1Time1(LocalTime finTxactSet1_Beg1Time1) {
-        this.finTxactSet1_Beg1Time1 = finTxactSet1_Beg1Time1;
-    }
-
-    public LocalTime getFinTxactSet1_Beg1Time1() {
-        return finTxactSet1_Beg1Time1;
-    }
-
-
     public String getFinTxactSet1_GenTags1_Id2() {
         return finTxactSet1_GenTags1_Id2;
     }
@@ -1715,22 +1770,6 @@ public class UsrNode implements AcceptsTenant {
 
     public void setFinTxact1_GenChan1_Id2(String finTxact1_GenChan1_Id2) {
         this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2;
-    }
-
-    public void setFinTxact1_Beg1Time1(LocalTime finTxact1_Beg1Time1) {
-        this.finTxact1_Beg1Time1 = finTxact1_Beg1Time1;
-    }
-
-    public LocalTime getFinTxact1_Beg1Time1() {
-        return finTxact1_Beg1Time1;
-    }
-
-    public void setFinTxact1_Beg1Date1(LocalDate finTxact1_Beg1Date1) {
-        this.finTxact1_Beg1Date1 = finTxact1_Beg1Date1;
-    }
-
-    public LocalDate getFinTxact1_Beg1Date1() {
-        return finTxact1_Beg1Date1;
     }
 
 
@@ -2468,20 +2507,20 @@ public class UsrNode implements AcceptsTenant {
             }
         }
 
-        //require idTs.ts1
+        //require instTs1.ts1
         switch (className) {
             case "timestamp based type placeholder" -> {
-                if (idTs == null) {
+                if (nm1s1Inst1Ts1 == null) {
                     logger.debug(logPrfx + " --- idTs: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (idTs.getTs1() == null) {
+                if (nm1s1Inst1Ts1.getElTs() == null) {
                     logger.debug(logPrfx + " --- idTs.getTs1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-                    logger.debug(logPrfx + " --- idTs.getTs1(): " + idTs.getTs1().format(frmtTs));
+                    logger.debug(logPrfx + " --- idTs.getTs1(): " + nm1s1Inst1Ts1.getElTs().format(frmtTs));
                 }
             }
         }
@@ -2489,17 +2528,17 @@ public class UsrNode implements AcceptsTenant {
         //require idDt.date1
         switch (className) {
             case "FinTxactSet", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
-                if (idDt == null) {
+                if (nm1s1Inst1Dt1 == null) {
                     logger.debug(logPrfx + " --- idDt: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (idDt.getDate1() == null) {
+                if (nm1s1Inst1Dt1.getElDt() == null) {
                     logger.debug(logPrfx + " --- idDt.getDate1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-                    logger.debug(logPrfx + " --- idDt.getDate1(): " + idDt.getDate1().format(frmtDt));
+                    logger.debug(logPrfx + " --- idDt.getDate1(): " + nm1s1Inst1Dt1.getElDt().format(frmtDt));
                 }
             }
         }
@@ -2507,17 +2546,17 @@ public class UsrNode implements AcceptsTenant {
         //require beg1.ts1
         switch (className) {
             case "FinBal" -> {
-                if (beg1 == null) {
+                if (ts1 == null) {
                     logger.debug(logPrfx + " --- beg1: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (beg1.getTs1() == null) {
+                if (ts1.getElTs() == null) {
                     logger.debug(logPrfx + " --- beg1.getTs1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-                    logger.debug(logPrfx + " --- beg1.getTs1(): " + beg1.getTs1().format(frmtTs));
+                    logger.debug(logPrfx + " --- beg1.getTs1(): " + ts1.getElTs().format(frmtTs));
                 }
             }
         }
@@ -2525,17 +2564,17 @@ public class UsrNode implements AcceptsTenant {
         //require end1.ts1
         switch (className) {
             case "FinBal" -> {
-                if (end1 == null) {
+                if (ts3 == null) {
                     logger.debug(logPrfx + " --- end1: null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 }
-                if (end1.getTs1() == null) {
+                if (ts3.getElTs() == null) {
                     logger.debug(logPrfx + " --- end1.getTs1(): null");
                     logger.trace(logPrfx + " <--- ");
                     return "";
                 } else {
-                    logger.debug(logPrfx + " --- end1.getTs1(): " + end1.getTs1().format(frmtTs));
+                    logger.debug(logPrfx + " --- end1.getTs1(): " + ts3.getElTs().format(frmtTs));
                 }
             }
         }
@@ -2633,9 +2672,9 @@ public class UsrNode implements AcceptsTenant {
 
                     } else {
                         //beg1.ts1
-                        sb.append("B=").append(beg1.getTs1().format(frmtDt));
+                        sb.append("B=").append(ts1.getElTs().format(frmtDt));
                         //end1.Ts1
-                        sb.append(SEP2 + "E=").append(end1.getTs1().format(frmtDt));
+                        sb.append(SEP2 + "E=").append(ts3.getElTs().format(frmtDt));
                         //finDept1
                         sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2());
                         //finAcct1
@@ -2644,33 +2683,33 @@ public class UsrNode implements AcceptsTenant {
             }
             case "FinTxactSet" -> {
                 //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
                 //IdX
-                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
             }
             case "FinTxact" -> {
                 //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
                 //IdX
-                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
                 //IdY
-                sb.append(SEP + "Y").append(String.format("%02d", idY == null ? 0 : idY));
+                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
             }
             case "FinTxactItm" ->{
                 //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
                 //IdX
-                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
                 //IdY
-                sb.append(SEP + "Y").append(String.format("%02d", idY == null ? 0 : idY));
+                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
                 //IdZ
-                sb.append(SEP + "Z").append(String.format("%02d", idZ == null ? 0 : idZ));
+                sb.append(SEP + "Z").append(String.format("%02d", nm1s1Inst1Int3 == null ? 0 : nm1s1Inst1Int3));
             }
             case "FinStmt" ->{
                 //finAcct1
                 sb.append(finAcct1_Id.getId2());
                 //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
             }
             case "FinStmtItm" ->{
                 //finAcct1
@@ -2678,9 +2717,9 @@ public class UsrNode implements AcceptsTenant {
                 //idDt
                 //sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt));
                 //idDt
-                sb.append(SEP + "D").append(idDt.getDate1().format(frmtDt));
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
                 //IdX
-                sb.append(SEP + "X").append(String.format("%02d", idX == null ? 0 : idX));
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
                 //amtNet
                 sb.append(SEP + "A").append(frmtDec.format(amtNet));
             }
@@ -2696,48 +2735,49 @@ public class UsrNode implements AcceptsTenant {
         return sb.toString();
 
     }
-    public Boolean updateIdTs() {
-        // Assume beg1, beg2, end1 is not null
-        String logPrfx = "updateIdTs()";
+    public Boolean updateInstTs1() {
+        // Assume ts1, ts2, ts3 is not null
+        String logPrfx = "updateInstTs1()";
         logger.trace(logPrfx + " --> ");
 
-        boolean isChanged = false;
 
-        LocalDateTime ts1_ = idTs.getTs1();
-        LocalDateTime ts1 = null;
+        boolean isChanged = false;
 
         DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
                 .appendPattern("yyyyMMdd HHmm")
                 .toFormatter();
 
+        LocalDateTime instTs1_Ts1_ = nm1s1Inst1Ts1.getElTs();
+        LocalDateTime instTs1_Ts1 = null;
+
         switch (className) {
-            // beg1 only
+            // ts1 only
             case "FinTxactSet", "FinTxact" -> {
-                if (beg1.getTs1() != null) {
-                    ts1 = beg1.getTs1();
+                if (ts1.getElTs() != null) {
+                    instTs1_Ts1 = ts1.getElTs();
                 }
-                if (!Objects.equals(ts1_, ts1)) {
-                    logger.debug(logPrfx + " --- calling idTs.setTs1((" + ts1 == null ? "null" : ts1.format(frmtTs) + ")");
-                    idTs.setTs1(ts1);
+                if (!Objects.equals(instTs1_Ts1_, instTs1_Ts1)) {
+                    logger.debug(logPrfx + " --- calling instTs1.setTs1((" + instTs1_Ts1 == null ? "null" : instTs1_Ts1.format(frmtTs) + ")");
+                    nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
                     isChanged = true;
                 }
             }
-            // beg2 otherwise beg1
+            // ts2 otherwise ts1
             case "FinTxactItm", "FinStmtItm" -> {
-                if (beg2.getTs1() != null) {
-                    ts1 = beg2.getTs1();
-                } else if (beg1.getTs1() != null) {
-                    ts1 = beg1.getTs1();
+                if (ts3.getElTs() != null) {
+                    instTs1_Ts1 = ts3.getElTs();
+                } else if (ts2.getElTs() != null) {
+                    instTs1_Ts1 = ts2.getElTs();
+                } else if (ts1.getElTs() != null) {
+                    instTs1_Ts1 = ts1.getElTs();
                 } else {
-                    ts1 = null;
+                    instTs1_Ts1 = null;
                 }
-                if (!Objects.equals(ts1_, ts1)) {
-                    logger.debug(logPrfx + " --- calling idTs.setTs1((" + ts1 == null ? "null" : ts1.format(frmtTs) + ")");
-                    idTs.setTs1(ts1);
+                if (!Objects.equals(instTs1_Ts1_, instTs1_Ts1)) {
+                    logger.debug(logPrfx + " --- calling instTs1.setTs1((" + instTs1_Ts1 == null ? "null" : instTs1_Ts1.format(frmtTs) + ")");
+                    nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
                     isChanged = true;
                 }
-            }
-            default -> {
             }
         }
 
@@ -2746,9 +2786,9 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateIdDt() {
-        // Assume beg1, beg2, end1 is not null
-        String logPrfx = "updateIdDt()";
+    public Boolean updateInstDt1() {
+        // Assume ts1, ts2, ts3 is not null
+        String logPrfx = "updateInstDt1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
@@ -2757,37 +2797,43 @@ public class UsrNode implements AcceptsTenant {
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
 
+        LocalDate instDt1_Ts1_ = nm1s1Inst1Dt1.getElDt();
+        LocalDate instDt1_Ts1 = null;
+
         switch (className) {
 
             case "FinTxactSet", "FinTxact":
-                if (beg1.getDate1() != null){
-                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ beg1.getDate1().format(frmtDt) +")");
-                    idDt.setDate1(beg1.getDate1());
+                if (ts1.getElDt() != null){
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts1.getElDt().format(frmtDt) +")");
+                    nm1s1Inst1Dt1.setElDt(ts1.getElDt());
                 }else{
-                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
-                    idDt.setDate1(null);
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
+                    nm1s1Inst1Dt1.setElDt(null);
                 }
                 break;
 
             case  "FinTxactItm", "FinStmtItm" :
-                if (beg2.getDate1() != null) {
-                    logger.debug(logPrfx + " --- calling idDt.setDate1((" + beg2.getDate1().format(frmtDt) + ")");
-                    idDt.setDate1(beg2.getDate1());
-                }else if (beg1.getDate1() != null){
-                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ beg1.getDate1().format(frmtDt) +")");
-                    idDt.setDate1(beg1.getDate1());
+                if (ts3.getElDt() != null) {
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1((" + ts3.getElDt().format(frmtDt) + ")");
+                    nm1s1Inst1Dt1.setElDt(ts3.getElDt());
+                } else if (ts2.getElDt() != null) {
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1((" + ts2.getElDt().format(frmtDt) + ")");
+                    nm1s1Inst1Dt1.setElDt(ts2.getElDt());
+                }else if (ts1.getElDt() != null){
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts1.getElDt().format(frmtDt) +")");
+                    nm1s1Inst1Dt1.setElDt(ts1.getElDt());
                 }else{
-                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
-                    idDt.setDate1(null);
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
+                    nm1s1Inst1Dt1.setElDt(null);
                 }
                 break;
             case "FinStmt":
-                if (end1.getDate1() != null){
-                    logger.debug(logPrfx + " --- calling idDt.setDate1(("+ end1.getDate1().format(frmtDt) +")");
-                    idDt.setDate1(end1.getDate1());
+                if (ts3.getElDt() != null){
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts3.getElDt().format(frmtDt) +")");
+                    nm1s1Inst1Dt1.setElDt(ts3.getElDt());
                 }else{
-                    logger.debug(logPrfx + " --- calling idDt.setDate1((null)");
-                    idDt.setDate1(null);
+                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
+                    nm1s1Inst1Dt1.setElDt(null);
                 }
                 break;
             default:
@@ -2798,9 +2844,8 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateIdTm() {
-        // Assume beg1, beg2 is not null
-        String logPrfx = "updateIdTm()";
+    public Boolean updateInstTm1() {
+        String logPrfx = "updateInstTm1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
@@ -2819,23 +2864,23 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateBeg1() {
+    public Boolean updateTs1() {
         // Assume id2 is not null
-        String logPrfx = "updateBeg1()";
+        String logPrfx = "updateTs1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        LocalDateTime beg1_ts1_ = beg1.getTs1();
-        LocalDateTime beg1_ts1 = null;
+        LocalDateTime ts1_ts1_ = ts1.getElTs();
+        LocalDateTime ts1_ts1 = null;
 
         switch (className) {
             case "FinTxactSet":
             case "FinTxact":
             case "FinTxactItm":
-                if (beg2 != null
-                        && beg2.getTs1() != null) {
-                    logger.trace(logPrfx + " ---- beg2 != null");
+                if (ts2 != null
+                        && ts2.getElTs() != null) {
+                    logger.trace(logPrfx + " ---- ts2 != null");
                     logger.trace(logPrfx + " <--- ");
                     return isChanged;
 
@@ -2851,7 +2896,7 @@ public class UsrNode implements AcceptsTenant {
                             .toFormatter();
                     String id2_part = id2.substring(2,10);
                     try{
-                        beg1_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+                        ts1_ts1 = LocalDateTime.parse(id2_part,frmtTs);
 
                     } catch (DateTimeParseException e){
 
@@ -2860,9 +2905,9 @@ public class UsrNode implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(beg1_ts1_, beg1_ts1)){
-                        logger.debug(logPrfx + " --- calling beg1.setTs1(("+ beg1_ts1.format(frmtTs) +")");
-                        beg1.setTs1(beg1_ts1);
+                    if (!Objects.equals(ts1_ts1_, ts1_ts1)){
+                        logger.debug(logPrfx + " --- calling ts1.setTs1(("+ ts1_ts1.format(frmtTs) +")");
+                        ts1.setElTs(ts1_ts1);
                         isChanged = true;
                     }
                 }
@@ -2877,25 +2922,25 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateBeg2() {
+    public Boolean updateTs2() {
         // Assume id2 is not null
-        String logPrfx = "updateBeg2()";
+        String logPrfx = "updateTs2()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        LocalDateTime beg2_ts1_ = beg2.getTs1();
-        LocalDateTime beg2_ts1 = null;
+        LocalDateTime ts2_ts1_ = ts2.getElTs();
+        LocalDateTime ts2_ts1 = null;
 
         switch (className) {
             case "FinTxactItm":
             case "FinStmtItm":
-                if (beg1 == null
-                        || beg1.getTs1() == null
+                if (ts1 == null
+                        || ts1.getElTs() == null
 //                        || beg2 == null
 //                        || beg2.getTs1() == null
                 ) {
-                    logger.trace(logPrfx + " ---- beg1 != null");
+                    logger.trace(logPrfx + " ---- ts1 != null");
                     logger.trace(logPrfx + " <--- ");
                     return isChanged;
 
@@ -2921,7 +2966,7 @@ public class UsrNode implements AcceptsTenant {
                     }
 
                     try{
-                        beg2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+                        ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
 
                     } catch (DateTimeParseException e){
 
@@ -2931,9 +2976,9 @@ public class UsrNode implements AcceptsTenant {
                     }
 
 
-                    if (!Objects.equals(beg2_ts1_, beg2_ts1)){
-                        logger.debug(logPrfx + " --- calling beg2.setTs1(("+ beg2_ts1.format(frmtTs) +")");
-                        beg2.setTs1(beg2_ts1);
+                    if (!Objects.equals(ts2_ts1_, ts2_ts1)){
+                        logger.debug(logPrfx + " --- calling beg2.setTs1(("+ ts2_ts1.format(frmtTs) +")");
+                        ts2.setElTs(ts2_ts1);
                         isChanged = true;
                     }
                 }
@@ -2947,15 +2992,15 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateEnd1() {
+    public Boolean updateTs3() {
         // Assume id2 is not null
-        String logPrfx = "updateEnd1()";
+        String logPrfx = "updateTs3()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        LocalDateTime end1_ts1_ = end1.getTs1();
-        LocalDateTime end1_ts1 = null;
+        LocalDateTime ts3_ts1_ = ts3.getElTs();
+        LocalDateTime ts3_ts1 = null;
 
         switch (className) {
             case "FinStmt":
@@ -2978,7 +3023,7 @@ public class UsrNode implements AcceptsTenant {
 
                     String id2_part = id2.substring(sep1+"//D".length()-1,sep2);
                     try{
-                        end1_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+                        ts3_ts1 = LocalDateTime.parse(id2_part,frmtTs);
 
                     } catch (DateTimeParseException e){
 
@@ -2987,9 +3032,9 @@ public class UsrNode implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(end1_ts1_, end1_ts1)){
-                        logger.debug(logPrfx + " --- calling end1.setTs1(("+ end1_ts1.format(frmtTs) +")");
-                        end1.setTs1(end1_ts1);
+                    if (!Objects.equals(ts3_ts1_, ts3_ts1)){
+                        logger.debug(logPrfx + " --- calling end1.setTs1(("+ ts3_ts1.format(frmtTs) +")");
+                        ts3.setElTs(ts3_ts1);
                         isChanged = true;
                     }
                 }
@@ -3004,15 +3049,15 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateIdX() {
+    public Boolean updateInstInt1() {
         // Assume id2 is not null
-        String logPrfx = "updateIdX()";
+        String logPrfx = "updateInstInt1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        Integer idX_ = idX;
-        Integer idX = null;
+        Integer l_instInt2_ = nm1s1Inst1Int1;
+        Integer l_instInt2 = null;
 
         switch (className) {
             case "FinTxact":
@@ -3023,7 +3068,7 @@ public class UsrNode implements AcceptsTenant {
 
                     String id2_part = id2.substring(18,20);
                     try{
-                        idX = Integer.parseInt(id2_part);
+                        l_instInt2 = Integer.parseInt(id2_part);
 
                     } catch (NumberFormatException e){
 
@@ -3032,9 +3077,9 @@ public class UsrNode implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(idX_, idX)){
-                        logger.debug(logPrfx + " --- calling setIdX("+ idX +")");
-                        setIdX(idX);
+                    if (!Objects.equals(l_instInt2_, l_instInt2)){
+                        logger.debug(logPrfx + " --- calling setInstInt1("+ l_instInt2 +")");
+                        setNm1s1Inst1Int1(l_instInt2);
                         isChanged = true;
                     }
 
@@ -3052,15 +3097,15 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateIdY() {
+    public Boolean updateInstInt2() {
         // Assume id2 is not null
-        String logPrfx = "updateIdY()";
+        String logPrfx = "updateInstInt2()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        Integer idY_ = idY;
-        Integer idY = null;
+        Integer l_instInt2_ = nm1s1Inst1Int2;
+        Integer l_instInt2 = null;
 
         switch (className) {
             case "FinTxact":
@@ -3071,7 +3116,7 @@ public class UsrNode implements AcceptsTenant {
 
                     String id2_part = id2.substring(22,24);
                     try{
-                        idY = Integer.parseInt(id2_part);
+                        l_instInt2 = Integer.parseInt(id2_part);
 
                     } catch (NumberFormatException e){
 
@@ -3080,9 +3125,9 @@ public class UsrNode implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(idY_, idY)){
-                        logger.debug(logPrfx + " --- calling setIdX("+ idY +")");
-                        setIdY(idY);
+                    if (!Objects.equals(l_instInt2_, l_instInt2)){
+                        logger.debug(logPrfx + " --- calling setInstInt2("+ l_instInt2 +")");
+                        setNm1s1Inst1Int2(l_instInt2);
                         isChanged = true;
                     }
 
@@ -3097,15 +3142,15 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateIdZ() {
+    public Boolean updateInstInt3() {
         // Assume id2 is not null
-        String logPrfx = "updateIdZ()";
+        String logPrfx = "updateInstInt3()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        Integer idZ_ = idZ;
-        Integer idZ = null;
+        Integer l_instInt3_ = nm1s1Inst1Int3;
+        Integer l_instInt3 = null;
 
         switch (className) {
             case "FinTxactItm" -> {
@@ -3114,7 +3159,7 @@ public class UsrNode implements AcceptsTenant {
 
                     String id2_part = id2.substring(26,28);
                     try{
-                        idZ = Integer.parseInt(id2_part);
+                        l_instInt3 = Integer.parseInt(id2_part);
 
                     } catch (NumberFormatException e){
 
@@ -3123,9 +3168,9 @@ public class UsrNode implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(idZ_, idZ)){
-                        logger.debug(logPrfx + " --- calling setIdZ("+ idZ +")");
-                        setIdZ(idZ);
+                    if (!Objects.equals(l_instInt3_, l_instInt3)){
+                        logger.debug(logPrfx + " --- calling setInstInt3("+ l_instInt3 +")");
+                        setNm1s1Inst1Int3(l_instInt3);
                         isChanged = true;
                     }
 
@@ -3145,18 +3190,18 @@ public class UsrNode implements AcceptsTenant {
 
         boolean isChanged = false;
 
-        String name1_ = getName1();
-        String name1 = null;
+        String l_name1_ = getName1();
+        String l_name1 = null;
 
 
         switch (className) {
             case "FinAcct" -> {
                 String delim = "/";
                 String id2 = getId2();
-                name1 = id2.substring(id2.lastIndexOf(delim) + 1);
-                if (!Objects.equals(name1_, name1)) {
-                    logger.debug(logPrfx + " --- calling setId2Calc(" + name1 + ")");
-                    setName1(name1);
+                l_name1 = id2.substring(id2.lastIndexOf(delim) + 1);
+                if (!Objects.equals(l_name1_, l_name1)) {
+                    logger.debug(logPrfx + " --- calling setName1(" + l_name1 + ")");
+                    setName1(l_name1);
                     isChanged = true;
                 }
             }
@@ -3173,34 +3218,22 @@ public class UsrNode implements AcceptsTenant {
 
         boolean isChanged = false;
 
-        UsrNode genAgent1_ = getGenAgent1_Id();
-        UsrNode genAgent1 = null;
+        UsrNode l_genAgent1_ = getGenAgent1_Id();
+        UsrNode l_genAgent1 = null;
 
 
         switch (className) {
-            case "FinAcct" -> {
-                String delim = "/";
-                String id2 = getId2();
-                String genAgent1_Id2 = id2.substring(1, id2.indexOf(delim));
-                genAgent1 = findUsrNodeById2(genAgent1_Id2, "FinAcct");
-                if (genAgent1 == null) {
-                    logger.trace(logPrfx + " <-- ");
-                    return isChanged;
-                }
-                if (!Objects.equals(genAgent1_, genAgent1)) {
-                    logger.debug(logPrfx + " --- calling setId2Calc(" + name1 + ")");
-                    setName1(name1);
-                    isChanged = true;
-                }
-            }
+
+            default:
+                break;
         }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    public UsrNode findUsrNodeById2(@NotNull String UsrNode_Id2, @NotNull String className) {
-        String logPrfx = "findUsrNodeById2";
+    public UsrNode findNodeById2(@NotNull String UsrNode_Id2, @NotNull String className, DataManager dataManager) {
+        String logPrfx = "findNodeById2";
         logger.trace(logPrfx + " --> ");
 
         String qry = "select e from enty_UsrNode e"
@@ -3211,14 +3244,13 @@ public class UsrNode implements AcceptsTenant {
 
         UsrNode usrNode1_Id = null;
         try {
-/*
             usrNode1_Id = dataManager.load(UsrNode.class)
                     .query(qry)
                     .parameter("className", className)
                     .parameter("id2", UsrNode_Id2)
                     .one();
             logger.debug(logPrfx + " --- query qry returned ONE result");
-*/
+
         } catch (IllegalStateException e) {
             logger.debug(logPrfx + " --- query qry returned NO results");
         }
@@ -3330,6 +3362,15 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
+    public Boolean updateInst1(){
+        String logPrfx = "updateInst1";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
 
     public Boolean updateDesc1(){
         String logPrfx = "updateDesc1";

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_TS1" newColumnName="TS1_EL_TS"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1" newColumnName="TS1_EL_DT"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1_YR" newColumnName="TS1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1_QTR" newColumnName="TS1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1_MON" newColumnName="TS1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1_MON2" newColumnName="TS1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_DATE1_DAY" newColumnName="TS1_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_TIME1" newColumnName="TS1_EL_TM"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_TIME1_HR" newColumnName="TS1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_SYS_NODE" oldColumnName="TS1_TIME1_MIN" newColumnName="TS1_EL_TM_MIN"/>
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_TS1" newColumnName="TS1_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1" newColumnName="TS1_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1_YR" newColumnName="TS1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1_QTR" newColumnName="TS1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1_MON" newColumnName="TS1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1_MON2" newColumnName="TS1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_DATE1_DAY" newColumnName="TS1_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_TIME1" newColumnName="TS1_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_TIME1_HR" newColumnName="TS1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS1_TIME1_MIN" newColumnName="TS1_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_TS1" newColumnName="TS2_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1" newColumnName="TS2_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1_YR" newColumnName="TS2_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1_QTR" newColumnName="TS2_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1_MON" newColumnName="TS2_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1_MON2" newColumnName="TS2_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_DATE1_DAY" newColumnName="TS2_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_TIME1" newColumnName="TS2_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_TIME1_HR" newColumnName="TS2_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS2_TIME1_MIN" newColumnName="TS2_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_TS1" newColumnName="TS3_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1" newColumnName="TS3_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1_YR" newColumnName="TS3_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1_QTR" newColumnName="TS3_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1_MON" newColumnName="TS3_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1_MON2" newColumnName="TS3_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_DATE1_DAY" newColumnName="TS3_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_TIME1" newColumnName="TS3_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_TIME1_HR" newColumnName="TS3_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS3_TIME1_MIN" newColumnName="TS3_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_TS1" newColumnName="TS4_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1" newColumnName="TS4_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1_YR" newColumnName="TS4_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1_QTR" newColumnName="TS4_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1_MON" newColumnName="TS4_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1_MON2" newColumnName="TS4_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_DATE1_DAY" newColumnName="TS4_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_TIME1" newColumnName="TS4_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_TIME1_HR" newColumnName="TS4_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="TS4_TIME1_MIN" newColumnName="TS4_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_TS1" newColumnName="INST_TS1_EL_TS"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1" newColumnName="INST_TS1_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1_YR" newColumnName="INST_TS1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1_QTR" newColumnName="INST_TS1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1_MON" newColumnName="INST_TS1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1_MON2" newColumnName="INST_TS1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_DATE1_DAY" newColumnName="INST_TS1_EL_DT_DAY"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_TIME1" newColumnName="INST_TS1_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_TIME1_HR" newColumnName="INST_TS1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TS1_TIME1_MIN" newColumnName="INST_TS1_EL_TM_MIN"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1" newColumnName="INST_DT1_EL_DT"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1_YR" newColumnName="INST_DT1_EL_DT_YR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1_QTR" newColumnName="INST_DT1_EL_DT_QTR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1_MON" newColumnName="INST_DT1_EL_DT_MON"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1_MON2" newColumnName="INST_DT1_EL_DT_MON2"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_DT1_DATE1_DAY" newColumnName="INST_DT1_EL_DT_DAY"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_TIME1" newColumnName="INST_TM1_EL_TM"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_TIME1_HR" newColumnName="INST_TM1_EL_TM_HR"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="INST_TM1_TIME1_MIN" newColumnName="INST_TM1_EL_TM_MIN"/>
+
+
+    </changeSet>
+
+</databaseChangeLog>

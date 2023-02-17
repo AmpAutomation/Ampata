@@ -51,7 +51,7 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
     private Notifications notifications;
 
 
-    //CRUD Repo
+    //Query Manager
     @Autowired
     private UsrItemRepo repo;
 
@@ -376,8 +376,8 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItem thisItem = instCntnrMain.getItemOrNull();
@@ -452,8 +452,8 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItem thisItem = instCntnrMain.getItemOrNull();
@@ -469,8 +469,8 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrItem thisItem = instCntnrMain.getItemOrNull();
@@ -486,8 +486,8 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();

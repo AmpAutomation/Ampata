@@ -2,8 +2,8 @@ package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.sys.SysNode;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinBalQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -51,10 +51,6 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private UsrNodeRepo repo;
-
-
-    @Autowired
     private DataComponents dataComponents;
 
     @Autowired
@@ -74,6 +70,10 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
     @Autowired
     private Notifications notifications;
+
+    //Query Manager
+    @Autowired
+    private UsrFinBalQryMngr qryMngr;
 
 
     //Filter
@@ -421,9 +421,9 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinBalPrUpdNative()");
-        repo.execUsrFinBalPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinBalPrUpdNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -452,13 +452,13 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }
 
@@ -502,23 +502,23 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
             LocalDateTime beg1;
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                 beg1 = tmplt_Beg1Ts1Field.getValue();
-                copy.getBeg1().setTs1(beg1);
+                copy.getTs1().setElTs(beg1);
             }else{
-                if (orig.getBeg1().getTs1() != null) {
-                    beg1 = orig.getEnd1().getTs1().plusDays(1);
-                    copy.getBeg1().setTs1(beg1);
+                if (orig.getTs1().getElTs() != null) {
+                    beg1 = orig.getTs3().getElTs().plusDays(1);
+                    copy.getTs1().setElTs(beg1);
                 }
             }
 
             LocalDateTime end1;
             if (tmplt_End1Ts1FieldChk.isChecked()) {
                 end1 = tmplt_End1Ts1Field.getValue();
-                copy.getEnd1().setTs1(end1);
+                copy.getTs3().setElTs(end1);
                 updateIdDt(copy);
             }else{
-                if (orig.getEnd1().getTs1() != null) {
-                    end1 = orig.getEnd1().getTs1().plusMonths(1);
-                    copy.getEnd1().setTs1(end1);
+                if (orig.getTs3().getElTs() != null) {
+                    end1 = orig.getTs3().getElTs().plusMonths(1);
+                    copy.getTs3().setElTs(end1);
                 }
             }
 
@@ -573,14 +573,14 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinBalIsChanged = true;
                     beg1 = tmplt_Beg1Ts1Field.getValue();
-                    thisFinBal.getBeg1().setTs1(beg1);
+                    thisFinBal.getTs1().setElTs(beg1);
                 }
 
                 LocalDateTime end1;
                 if (tmplt_End1Ts1FieldChk.isChecked()) {
                     thisFinBalIsChanged = true;
                     end1 = tmplt_End1Ts1Field.getValue();
-                    thisFinBal.getEnd1().setTs1(end1);
+                    thisFinBal.getTs3().setElTs(end1);
                     updateIdDt(thisFinBal);
                 }
 
@@ -723,8 +723,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1FieldBtn";
+    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBal = instCntnrMain.getItemOrNull();
@@ -799,8 +799,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBal = instCntnrMain.getItemOrNull();
@@ -816,8 +816,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinBal = instCntnrMain.getItemOrNull();
@@ -833,8 +833,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -1444,8 +1444,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- status: " + status);
 
         String begDate = "";
-        if (thisFinBal.getBeg1() != null) {
-            begDate = Objects.toString(thisFinBal.getBeg1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinBal.getTs1() != null) {
+            begDate = Objects.toString(thisFinBal.getTs1().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!begDate.equals("")) {
             begDate = "begDate " + begDate ;}
         logger.debug(logPrfx + " --- begDate: " + begDate);
@@ -1457,8 +1457,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- begBal: " + begBal);
 
         String endDate = "";
-        if (thisFinBal.getEnd1() != null) {
-            endDate = Objects.toString(thisFinBal.getEnd1().getDate1().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
+        if (thisFinBal.getTs3() != null) {
+            endDate = Objects.toString(thisFinBal.getTs3().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
         if (!endDate.equals("")) {
             endDate = "endDate " + endDate ;}
         logger.debug(logPrfx + " --- endDate: " + endDate);
@@ -1529,7 +1529,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBal.updateIdDt();
+        isChanged = isChanged || thisFinBal.updateInstDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1716,14 +1716,14 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
             return isChanged;
         }
 
-        LocalDate begDt = thisFinBal.getBeg1() == null ? null : thisFinBal.getBeg1().getDate1();
+        LocalDate begDt = thisFinBal.getTs1() == null ? null : thisFinBal.getTs1().getElDt();
         if (begDt == null) {
             logger.debug(logPrfx + " --- begDt is null.");
             notifications.create().withCaption("begDt is null.").show();
             logger.trace(logPrfx + " <-- ");
             return isChanged;
         }
-        LocalDate endDt = thisFinBal.getEnd1() == null ? null : thisFinBal.getEnd1().getDate1();
+        LocalDate endDt = thisFinBal.getTs3() == null ? null : thisFinBal.getTs3().getElDt();
         if (endDt == null) {
             logger.debug(logPrfx + " --- endDt is null.");
             notifications.create().withCaption("endDt is null.").show();
@@ -1962,7 +1962,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBal.updateEnd1();
+        isChanged = isChanged || thisFinBal.updateTs3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2101,14 +2101,14 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
             return;
         }
 
-        LocalDate begDt = thisFinBal.getBeg1() == null ? null : thisFinBal.getBeg1().getDate1();
+        LocalDate begDt = thisFinBal.getTs1() == null ? null : thisFinBal.getTs1().getElDt();
         if (begDt == null) {
             logger.debug(logPrfx + " --- begDt is null.");
             notifications.create().withCaption("begDt is null.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        LocalDate endDt = thisFinBal.getEnd1() == null ? null : thisFinBal.getEnd1().getDate1();
+        LocalDate endDt = thisFinBal.getTs3() == null ? null : thisFinBal.getTs3().getElDt();
         if (endDt == null) {
             logger.debug(logPrfx + " --- endDt is null.");
             notifications.create().withCaption("endDt is null.").show();

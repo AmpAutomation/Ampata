@@ -269,8 +269,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
-                copy.getBeg1().setTs1(beg1.getTs1());
+                beg1.setElTs(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(beg1.getElTs());
             }
 
             copy.setId2Calc(copy.getId2CalcFrFields());
@@ -317,12 +317,12 @@ are not fully initialized, for example, buttons are not linked with actions.
 
             HasTmst beg1 = dataManager.create(HasTmst.class);
             if (tmplt_Beg1Ts1FieldChk.isChecked()) {
-                beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
-                copy.getBeg1().setTs1(beg1.getTs1());
+                beg1.setElTs(tmplt_Beg1Ts1Field.getValue());
+                copy.getTs1().setElTs(beg1.getElTs());
             }else{
-                if (orig.getBeg1().getDate1() != null) {
-                    beg1.setTs1(orig.getBeg1().getTs1().plusDays(1));
-                    copy.getBeg1().setTs1(beg1.getTs1());
+                if (orig.getTs1().getElDt() != null) {
+                    beg1.setElTs(orig.getTs1().getElTs().plusDays(1));
+                    copy.getTs1().setElTs(beg1.getElTs());
                 }
             }
 
@@ -372,8 +372,8 @@ are not fully initialized, for example, buttons are not linked with actions.
                 HasTmst beg1 = dataManager.create(HasTmst.class);
                 if (tmplt_Beg1Ts1FieldChk.isChecked()) {
                     thisFinCurcyExchRateIsChanged = true;
-                    beg1.setTs1(tmplt_Beg1Ts1Field.getValue());
-                    thisFinCurcyExchRate.getBeg1().setTs1(beg1.getTs1());
+                    beg1.setElTs(tmplt_Beg1Ts1Field.getValue());
+                    thisFinCurcyExchRate.getTs1().setElTs(beg1.getElTs());
                 }
 
                 if (tmplt_FinCurcy1_IdFieldChk.isChecked()) {
@@ -854,8 +854,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
         String thisDate = "";
-        if (thisFinCurcyExchRate.getBeg1() != null && thisFinCurcyExchRate.getBeg1().getDate1() != null) {
-            thisDate = thisFinCurcyExchRate.getBeg1().getDate1().format(frmtDt);
+        if (thisFinCurcyExchRate.getTs1() != null && thisFinCurcyExchRate.getTs1().getElDt() != null) {
+            thisDate = thisFinCurcyExchRate.getTs1().getElDt().format(frmtDt);
         }else {
             thisDate = "????-??-??";
         }

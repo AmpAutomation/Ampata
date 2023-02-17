@@ -1,6 +1,6 @@
 select agn.id,agn.id2
 from ampata_sys_node agn 
-where class_name = 'FinAcct'
+where class_name = 'UsrFinAcct'
 and agn.id2 = '/L/Mark/RBC/Visa'
 ;
 
@@ -25,7 +25,7 @@ select
 	
 from ampata_sys_node t
 where
-	t.class_name = 'FinTxactItm'
+	t.class_name = 'UsrFinTxactItm'
 and 
 	t.id2 = '' 
 
@@ -41,7 +41,7 @@ and
 select *
 from ampata_sys_node t
 where
-	t.class_name = 'FinTxactItm'	
+	t.class_name = 'UsrFinTxactItm'
 and
 	t.fin_stmt1__id  = '91d7a0af-f997-4b74-817b-855245c98735'
 
@@ -55,14 +55,14 @@ select
 from
 	ampata_sys_node t
 where
-	t.class_name = 'FinCurcy'
+	t.class_name = 'UsrFinCurcy'
 
 	 
 	 
 update ampata_sys_node
 set id2 = id2_calc 
 where
-	class_name = 'FinTxactItm'
+	class_name = 'UsrFinTxactItm'
 and 
 	id2 is null
 
@@ -74,6 +74,6 @@ order by
 select * 
 from ampata_sys_node
 where
-	class_name = 'FinAcct'
+	class_name = 'UsrFinAcct'
 and 
 	id2 is null 

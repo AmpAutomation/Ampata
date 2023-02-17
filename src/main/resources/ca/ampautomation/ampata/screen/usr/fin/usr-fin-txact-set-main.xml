@@ -41,10 +41,10 @@
                                         <entityComboBox metaClass="enty_UsrNodeType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_IdDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1A_IdDtLE" caption="idDt.date1" operation="LESS" property="idDt.date1" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_IdDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_IdDtLE" caption="idDt.date1" operation="LESS" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
 
-                                    <propertyFilter id="filterConfig1A_IdX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1A_IdX" caption="idX" operation="EQUAL" property="nm1s1Inst1Int1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_GenChan1_Id" caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true">
                                         <entityComboBox metaClass="enty_UsrNode"/>
                                     </propertyFilter>
@@ -66,9 +66,9 @@
                                 <groupFilter operation="AND" caption="GroupB">
                                     <propertyFilter id="filterConfig1B_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_IdDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_IdDtLE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="idDt.date1" operationEditable="true"/>
-                                    <propertyFilter id="filterConfig1B_IdX" caption="idX" operation="EQUAL" property="idX" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_IdDtGE" caption="idDt.date1" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_IdDtLE" caption="idDt.date1" operation="LESS_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>
+                                    <propertyFilter id="filterConfig1B_IdX" caption="idX" operation="EQUAL" property="nm1s1Inst1Int1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_GenChan1_Id" caption="genChan1" operation="EQUAL" property="genChan1_Id" operationEditable="true">
                                         <entityComboBox metaClass="enty_UsrNode"/>
                                     </propertyFilter>
@@ -97,8 +97,8 @@
                         <column id="type1_Id"/>
                         <column id="desc1" width="320px"/>
 
-                        <column id="idDt.date1" caption="idDt"/>
-                        <column id="idX"/>
+                        <column id="nm1s1Inst1Dt1.elDt" caption="idDt"/>
+                        <column id="nm1s1Inst1Int1"/>
 
                         <column id="genChan1_Id"/>
                         <column id="genChan2_Id"/>
@@ -132,7 +132,7 @@
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="purgeColBtn" caption="Purge All Deleted" icon="font-icon:ERASER"/>
+                                    <button id="deleteColDeletedColBtn" caption="Purge All Deleted" icon="font-icon:ERASER"/>
                                     <button id="deleteColOrphansBtn" caption="Delete All Orphans" icon="font-icon:ERASER"/>
                                 </hbox>
                             </tab>
@@ -408,11 +408,11 @@
                                     </column>
                                     <column>
                                         <hbox caption="IdDt" width="100%">
-                                            <dateField id="idDtDateField" property="idDt.date1" dataContainer="instCntnrMain" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
+                                            <dateField id="idDtDateField" property="nm1s1Inst1Dt1.elDt" dataContainer="instCntnrMain" tabIndex="30" datatype="localDate" width="220px" editable="false"/>
                                             <hbox width="20px"/>
                                         </hbox>
                                         <hbox caption="Beg1" width="100%">
-                                            <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
+                                            <dateField id="beg1Ts1Field" property="ts1.elTs" dataContainer="instCntnrMain" tabIndex="30" datatype="localDateTime" width="220px"/>
                                             <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
                                                     tabIndex="-1"/>
                                         </hbox>
@@ -420,7 +420,7 @@
                                             <hbox width="48%">
                                                 <label value="idX" align="MIDDLE_RIGHT"/>
                                                 <hbox width="6px"/>
-                                                <textField id="idXField" property="idX" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
+                                                <textField id="idXField" property="nm1s1Inst1Int1" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
                                                 <button id="updateIdXFieldBtn" icon="font-icon:REFRESH"
                                                         tabIndex="-1"/>
                                             </hbox>

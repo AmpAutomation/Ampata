@@ -336,14 +336,14 @@
                                 </hbox>
                             </column>
                             <column>
-                                <dateField id="idTsTs1Field" property="idTs.ts1" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
-                                <dateField id="beg1Ts1Field" property="beg1.ts1" datatype="localDateTime" width="220px" tabIndex="30"/>
-                                <dateField id="beg2Ts1Field" property="beg2.ts1" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="idTsTs1Field" property="nm1s1Inst1Ts1.elTs" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                <dateField id="beg1Ts1Field" property="ts1.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="beg2Ts1Field" property="ts2.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
                                 <hbox spacing="true">
                                     <label value="idX" align="MIDDLE_RIGHT" width="40px"/>
-                                    <textField id="idXField" property="idX" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
+                                    <textField id="idXField" property="nm1s1Inst1Int1" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
                                     <label value="idY" align="MIDDLE_RIGHT" width="40px"/>
-                                    <textField id="idYField" property="idY" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
+                                    <textField id="idYField" property="nm1s1Inst1Int2" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
                                 </hbox>
                             </column>
                             <column width="360px">

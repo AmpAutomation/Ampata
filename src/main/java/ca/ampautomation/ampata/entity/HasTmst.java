@@ -5,11 +5,8 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.time.*;
 import java.time.format.TextStyle;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -18,46 +15,46 @@ import java.util.Objects;
 public class HasTmst {
 
     @InstanceName
-    @Column(name = "TS1")
-    private LocalDateTime ts1;
+    @Column(name = "EL_TS")
+    private LocalDateTime elTs;
 
-    @Column(name = "DATE1")
-    private LocalDate date1;
-
-    @javax.persistence.Column
-    private Integer date1Yr;
+    @Column(name = "EL_DT")
+    private LocalDate elDt;
 
     @javax.persistence.Column
-    private Integer date1Qtr;
+    private Integer elDtYr;
 
     @javax.persistence.Column
-    private Integer date1Mon;
+    private Integer elDtQtr;
 
     @javax.persistence.Column
-    private String date1Mon2;
+    private Integer elDtMon;
 
     @javax.persistence.Column
-    private Integer date1Day;
-
-
-    @Column(name = "TIME1")
-    private LocalTime time1;
+    private String elDtMon2;
 
     @javax.persistence.Column
-    private Integer time1Hr;
+    private Integer elDtDay;
+
+
+    @Column(name = "EL_TM")
+    private LocalTime elTm;
 
     @javax.persistence.Column
-    private Integer time1Min;
+    private Integer elTmHr;
 
-    public void setTs1(LocalDateTime ts1) {
-        if (!Objects.equals(this.ts1, ts1)){
-            this.ts1 = ts1;
+    @javax.persistence.Column
+    private Integer elTmMin;
+
+    public void setElTs(LocalDateTime elTs) {
+        if (!Objects.equals(this.elTs, elTs)){
+            this.elTs = elTs;
             updateAllFields();
         }
     }
 
-    public LocalDateTime getTs1() {
-        return ts1;
+    public LocalDateTime getElTs() {
+        return elTs;
     }
 
     /*
@@ -71,8 +68,8 @@ public class HasTmst {
     }
     */
 
-    public LocalDate getDate1() {
-        return date1;
+    public LocalDate getElDt() {
+        return elDt;
     }
 
     /*
@@ -87,63 +84,63 @@ public class HasTmst {
     }
     */
 
-    public LocalTime getTime1() {
-        return time1;
+    public LocalTime getElTm() {
+        return elTm;
     }
 
-    public Integer getDate1Day() {
-        return date1Day;
+    public Integer getElDtDay() {
+        return elDtDay;
     }
 
-    public Integer getTime1Min() {
-        return time1Min;
+    public Integer getElTmMin() {
+        return elTmMin;
     }
 
-    public Integer getTime1Hr() {
-        return time1Hr;
+    public Integer getElTmHr() {
+        return elTmHr;
     }
 
-    public String getDate1Mon2() {
-        return date1Mon2;
+    public String getElDtMon2() {
+        return elDtMon2;
     }
 
-    public Integer getDate1Mon() {
-        return date1Mon;
+    public Integer getElDtMon() {
+        return elDtMon;
     }
 
-    public Integer getDate1Qtr() {
-        return date1Qtr;
+    public Integer getElDtQtr() {
+        return elDtQtr;
     }
 
-    public Integer getDate1Yr() {
-        return date1Yr;
+    public Integer getElDtYr() {
+        return elDtYr;
     }
 
     public void updateDate1(){
     }
     public void updateAllFields(){
-        if (ts1 == null) {
-            date1 = null;
-            date1Yr = null;
-            date1Qtr = null;
-            date1Mon = null;
-            date1Mon2 = null;
-            date1Day =  null;
+        if (elTs == null) {
+            elDt = null;
+            elDtYr = null;
+            elDtQtr = null;
+            elDtMon = null;
+            elDtMon2 = null;
+            elDtDay =  null;
 
-            time1 = null;
-            time1Hr = null;
-            time1Min = null;
+            elTm = null;
+            elTmHr = null;
+            elTmMin = null;
         }else{
-            date1 = ts1.toLocalDate();
-            date1Yr = date1.getYear();
-            date1Qtr = ((date1.getMonthValue() - 1) / 4) + 1;
-            date1Mon = date1.getMonthValue();
-            date1Mon2 = date1.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-            date1Day = date1.getDayOfMonth();
+            elDt = elTs.toLocalDate();
+            elDtYr = elDt.getYear();
+            elDtQtr = ((elDt.getMonthValue() - 1) / 4) + 1;
+            elDtMon = elDt.getMonthValue();
+            elDtMon2 = elDt.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+            elDtDay = elDt.getDayOfMonth();
 
-            time1 = ts1.toLocalTime();
-            time1Hr = time1.getHour();
-            time1Min = time1.getMinute();
+            elTm = elTs.toLocalTime();
+            elTmHr = elTm.getHour();
+            elTmMin = elTm.getMinute();
         }
     }
 

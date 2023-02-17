@@ -16,7 +16,7 @@ public class SysNodeRepoCustomImpl implements SysNodeRepoCustom {
 
     @Override
     @Transactional
-    public void execSysNodePrUpdNative(){
+    public void execPrUpdNative(){
         String logPrfx = "execNodePrUpdNative";
         logger.trace(logPrfx + " --> ");
         logger.debug(logPrfx + " --- executing(db) call Sys_Node_Pr_Upd()");

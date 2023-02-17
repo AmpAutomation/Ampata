@@ -113,11 +113,11 @@
                             </column>
                             <column width="240px">
                                 <hbox caption="IdTs" width="100%">
-                                    <dateField id="idTsTs1Field" property="idTs.ts1" dataContainer="instCntnrMain" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                    <dateField id="idTsTs1Field" property="nm1s1Inst1Ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
                                     <hbox width="20px"/>
                                 </hbox>
                                 <hbox caption="Beg1" width="100%">
-                                    <dateField id="beg1Ts1Field" property="beg1.ts1" dataContainer="instCntnrMain" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                    <dateField id="beg1Ts1Field" property="ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" width="220px" tabIndex="30"/>
                                     <button id="updateBeg1Ts1FieldBtn" icon="font-icon:REFRESH"
                                             tabIndex="-1"/>
                                 </hbox>
@@ -125,7 +125,7 @@
                                     <hbox width="30%">
                                         <label value="idX" align="MIDDLE_RIGHT"/>
                                         <hbox width="6px"/>
-                                        <textField id="idXField" property="idX" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
+                                        <textField id="idXField" property="nm1s1Inst1Int1" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
                                         <button id="updateIdXFieldBtn" icon="font-icon:REFRESH"
                                                 tabIndex="-1"/>
                                     </hbox>

@@ -13,7 +13,7 @@ and t1.class_name ='GenAgent'
 update ampata_sys_node t
 set	id2 = id2_calc 
 where
-	t.class_name = 'FinAcct'
+	t.class_name = 'UsrFinAcct'
 ;
 
 

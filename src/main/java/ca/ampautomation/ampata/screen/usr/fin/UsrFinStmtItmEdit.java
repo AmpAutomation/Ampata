@@ -59,7 +59,7 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
     @Autowired
     private Notifications notifications;
 
-    //CRUD Repo
+    //Query Manager
     @Autowired
     private UsrNodeRepo repo;
 
@@ -402,8 +402,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtn";
+    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
@@ -419,8 +419,8 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtn";
+    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNode thisFinStmtItm = instCntnrMain.getItemOrNull();
@@ -437,8 +437,8 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtn";
+    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         colLoadrType.load();
@@ -900,7 +900,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateIdTs();
+        isChanged = isChanged || thisFinStmtItm.updateInstTs1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -912,7 +912,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateBeg1();
+        isChanged = isChanged || thisFinStmtItm.updateTs1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -924,7 +924,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateBeg2();
+        isChanged = isChanged || thisFinStmtItm.updateTs2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -937,7 +937,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateIdX();
+        isChanged = isChanged || thisFinStmtItm.updateInstInt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

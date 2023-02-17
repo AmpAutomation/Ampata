@@ -22,10 +22,10 @@ select
 from ampata_sys_node txi
 inner join ampata_sys_node tx on txi.fin_txact1__id = tx.id
 inner join ampata_sys_node txg on tx.fin_txset1__id = txg.id
-where txi.class_name = 'FinTxactItm'
+where txi.class_name = 'UsrFinTxactItm'
 and txi.deleted_by is null 
-and tx.class_name = 'FinTxact'
-and txg.class_name = 'FinTxactSet'
+and tx.class_name = 'UsrFinTxact'
+and txg.class_name = 'UsrFinTxactSet'
 and (
 	txi.id_dt_date1  <> tx.id_dt_date1 
 or	txi.id_x <> tx.id_x

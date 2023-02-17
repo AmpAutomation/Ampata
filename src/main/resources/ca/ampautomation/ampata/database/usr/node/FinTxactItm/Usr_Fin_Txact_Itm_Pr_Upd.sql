@@ -60,7 +60,7 @@ set  beg1_date1 = beg1_ts1::date
 	,beg2_time1_hr  = date_part('hour',beg2_ts1)
 	,beg2_time1_min  = date_part('minute',beg2_ts1)
 where
-	t.class_name = 'FinTxactItm'
+	t.class_name = 'UsrFinTxactItm'
 ;
 	
 --id_dt_date1
@@ -69,7 +69,7 @@ update ampata_usr_node t
 set id_dt_date1  = case when t.beg2_date1 is not null then t.beg2_date1
 		 		else t.beg1_date1
 		 		end
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 ;	
 
 
@@ -98,7 +98,7 @@ set	 id2_calc = Usr_Fin_Txact_Itm_Fn_get_Id2_Calc(
 --	,id_ts_time1_hr  = date_part('hour',id_ts_ts1)
 --	,id_ts_time1_min  = date_part('minute',id_ts_ts1)
 
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 ;
 
 
@@ -108,7 +108,7 @@ update ampata_usr_node t
 set	id2_cmp = 	case when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 ;
 
 
@@ -134,13 +134,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'FinTxactItm'
+			where t.class_name = 'UsrFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'FinTxactItm'
+		and	t.class_name = 'UsrFinTxactItm'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -167,13 +167,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node_type t2b
 	on t2a.type1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinTxactItm'
+	and t2b.class_name = 'UsrFinTxactItm'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -191,13 +191,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.gen_chan1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'GenChan'
+	and t2b.class_name = 'UsrGenChan'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -214,13 +214,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_how1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinHow'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -238,13 +238,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_what1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinWhat'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -262,13 +262,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_why1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrFinWhy'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -285,13 +285,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.fin_acct1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinAcct'
+	and t2b.class_name = 'UsrFinAcct'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -316,18 +316,18 @@ from (
 		from ampata_usr_node t3a
 		inner join ampata_usr_node t3b
 			on t3a.fin_acct1__id = t3b.id
-		where t3a.class_name = 'FinTxactItm'
+		where t3a.class_name = 'UsrFinTxactItm'
 		and t3a.deleted_by is null
-		and t3b.class_name = 'FinAcct'
+		and t3b.class_name = 'UsrFinAcct'
 		) t2b
 		on t2a.amt_fin_txact_itm1__id = t2b.id
 	
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
 
 	) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -345,13 +345,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.fin_dept1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinDept'
+	and t2b.class_name = 'UsrFinDept'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -366,9 +366,9 @@ with cte1 as(
 	from ampata_usr_node t1
 	inner join ampata_usr_node_type t2
 		on t1.type1__id  = t2.id
-	where t1.class_name = 'FinAcct'
+	where t1.class_name = 'UsrFinAcct'
 	and t1.deleted_by is null
-	and t2.class_name = 'FinAcct'
+	and t2.class_name = 'UsrFinAcct'
 )
 
 ,cte2 as (
@@ -390,7 +390,7 @@ select
 from ampata_usr_node t
 inner join cte1 ct
 on t.fin_acct1__id = ct.id 
-where	t.class_name = 'FinTxactItm'
+where	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 )
 
@@ -400,7 +400,7 @@ update ampata_usr_node t
 set  amt_net = ct.amt_net
 from cte2 ct
 where t.id = ct.id
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -440,7 +440,7 @@ with cte1 as(
 			) = 1 then coalesce(amt_beg_bal,0) + amt_net else amt_net end
 			as amt_net_merg
 	from ampata_usr_node t
-	where	t.class_name = 'FinTxactItm'
+	where	t.class_name = 'UsrFinTxactItm'
 	and deleted_by is null
 --	and fin_acct1__id2 = '/Mark/A/RBC/Chk'
 	order by fin_acct1__id, id_dt_date1, id_x, id_y, id_z
@@ -475,7 +475,7 @@ update ampata_usr_node t
 set  amt_end_bal_calc = ct.amt_end_bal_calc
 from cte2 ct
 where t.id = ct.id
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -505,7 +505,7 @@ with cte1 as(
 		,amt_net
 		,amt_end_bal_calc
 	from ampata_usr_node t
-	where	t.class_name = 'FinTxactItm'
+	where	t.class_name = 'UsrFinTxactItm'
 	and deleted_by is null
 --	and fin_acct1__id2 = '/Mark/A/RBC/Chk'
 	order by fin_acct1__id, id_dt_date1, id_x, id_y, id_z
@@ -517,7 +517,7 @@ update ampata_usr_node t
 set  amt_beg_bal_calc = ct.amt_beg_bal_calc
 from cte1 ct
 where t.id = ct.id
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -549,7 +549,7 @@ begin
 		,amt_net
 		,fin_stmt_itm1__id
 		from ampata_usr_node t
-		where t.class_name = 'FinTxactItm'
+		where t.class_name = 'UsrFinTxactItm'
 		and t.fin_stmt_itm1__id is null
 --		and t.fin_acct1__id = 'addff8fa-a1a3-47ef-9309-62c1adab4998' -- /Mark/L/RBC/Visa
 		and t.fin_acct1__id = 'cd75edac-f633-4dea-b657-0c0d472e0bdb' -- /Mark/L/RBC/Visa_USD
@@ -574,9 +574,9 @@ begin
 		FROM ampata_usr_node t
 		inner join ampata_usr_node t2
 		on t.fin_stmt1__id = t2.id
-		where t.class_name = 'FinStmtItm'
+		where t.class_name = 'UsrFinStmtItm'
 		and t.deleted_by is null
-		and t2.class_name = 'FinStmt'
+		and t2.class_name = 'UsrFinStmt'
 		and t2.fin_acct1__id = node.fin_acct1__id
 		and t.id_dt_date1 between node.id_dt_date1 - interval '3 day' and node.id_dt_date1 + interval '3 day'
 		and (t.amt_debt = amt or t.amt_cred = amt)
@@ -590,9 +590,9 @@ begin
 			FROM ampata_usr_node t
 			inner join ampata_usr_node t2
 			on t.fin_stmt1__id = t2.id
-			where t.class_name = 'FinStmtItm'
+			where t.class_name = 'UsrFinStmtItm'
 			and t.deleted_by is null
-			and t2.class_name = 'FinStmt'
+			and t2.class_name = 'UsrFinStmt'
 			and t2.fin_acct1__id = node.fin_acct1__id
 			and t.id_dt_date1 between node.id_dt_date1 - interval '3 day' and node.id_dt_date1 + interval '3 day'
 			and (t.amt_debt = amt or t.amt_cred = amt)
@@ -635,13 +635,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_sys_node t2b
 	on t2a.sys_fin_curcy1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinCurcy'
+	and t2b.class_name = 'UsrFinCurcy'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -673,13 +673,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.fin_stmt_itm1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinStmtItm'
+	and t2b.class_name = 'UsrFinStmtItm'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -716,12 +716,12 @@ from (
 	,t2a.fin_stmt_itm1__desc2
 	,case when coalesce(t2a.fin_stmt_itm1__desc1,'') = '' and coalesce(t2a.fin_stmt_itm1__desc2,'') = '' then null else 'for ' || array_to_string(array[t2a.fin_stmt_itm1__desc1, t2a.fin_stmt_itm1__desc2], ' ') || '' end desc1_stmt_itm
 	from ampata_usr_node t2a
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -738,9 +738,9 @@ from (
 	from ampata_usr_node ftx
 	inner join ampata_usr_node_type ftxt
 		on ftx.type1__id  = ftxt.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxt.class_name = 'FinTxact'
+	and ftxt.class_name = 'UsrFinTxact'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -750,7 +750,7 @@ raise notice 'Updating fin_txact1__id2_trgt';
 update ampata_usr_node t
 set	fin_txact1__id2_trgt = substring(id2_calc,1,20)
 where
-	t.class_name = 'FinTxactItm'
+	t.class_name = 'UsrFinTxactItm'
 and deleted_by is null
 ;
 
@@ -763,7 +763,7 @@ select t2.fin_txact1__id as id, array_to_string(array_agg(t2.id2), ',') as ids2
 from (
 select fin_txact1__id, id2
 from ampata_usr_node t
-where t.class_name = 'FinTxactItm'
+where t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 order by fin_txact1__id, id2
 ) t2
@@ -783,7 +783,7 @@ select t2.fin_txact1__id as id, array_to_string(array_agg(t2.fin_acct1__id2), ',
 from (
 select fin_txact1__id, fin_acct1__id2
 from ampata_usr_node
-where class_name = 'FinTxactItm'
+where class_name = 'UsrFinTxactItm'
 and deleted_by is null
 order by fin_txact1__id, id2
 ) t2
@@ -810,10 +810,10 @@ from (
 		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_node_type ftxt
 		on ftxg.type1__id  = ftxt.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
-	and ftxt.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
+	and ftxt.class_name = 'UsrFinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -831,9 +831,9 @@ from (
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
 		on ftx.fin_txact_set1__id  = ftxg.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -853,10 +853,10 @@ from (
 		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_node gch
 		on ftxg.gen_chan1__id  = gch.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
-	and gch.class_name = 'GenChan'
+	and ftxg.class_name = 'UsrFinTxactSet'
+	and gch.class_name = 'UsrGenChan'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -876,9 +876,9 @@ from (
 		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_item fwht
 		on ftxg.fin_what1__id  = fwht.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
 	and fwht.dtype = 'enty_UsrFinWhat'
 ) t1
 where t.fin_txact1__id = t1.id 
@@ -896,9 +896,9 @@ from (
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
 		on ftx.fin_txact_set1__id  = ftxg.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -919,9 +919,9 @@ from (
 		on ftx.fin_txact_set1__id  = ftxg.id
 	inner join ampata_usr_item fwhy
 		on ftxg.fin_why1__id  = fwhy.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
 	and fwhy.dtype = 'enty_UsrFinWhy'
 ) t1
 where t.fin_txact1__id = t1.id 
@@ -939,9 +939,9 @@ from (
 	from ampata_usr_node ftx
 	inner join ampata_usr_node ftxg
 		on ftx.fin_txact_set1__id  = ftxg.id
-	where ftx.class_name = 'FinTxact'
+	where ftx.class_name = 'UsrFinTxact'
 	and ftx.deleted_by is null
-	and ftxg.class_name = 'FinTxactSet'
+	and ftxg.class_name = 'UsrFinTxactSet'
 ) t1
 where t.fin_txact1__id = t1.id 
 ;
@@ -966,10 +966,10 @@ from (
 			on ftxi.fin_txact1__id  = ftx.id
 		inner join ampata_usr_node ftxg
 			on ftx.fin_txact_set1__id  = ftxg.id
-		where ftxi.class_name = 'FinTxactItm'
+		where ftxi.class_name = 'UsrFinTxactItm'
 		and ftxi.deleted_by is null
-		and ftx.class_name = 'FinTxact'
-		and ftxg.class_name = 'FinTxactSet'
+		and ftx.class_name = 'UsrFinTxact'
+		and ftxg.class_name = 'UsrFinTxactSet'
 	) t2
 	group by t2.fin_txact_set1__id
 ) ftxg
@@ -998,10 +998,10 @@ from (
 			on ftxi.fin_txact1__id  = ftx.id
 		inner join ampata_usr_node ftxg
 			on ftx.fin_txact_set1__id  = ftxg.id
-		where ftxi.class_name = 'FinTxactItm'
+		where ftxi.class_name = 'UsrFinTxactItm'
 		and ftxi.deleted_by is null
-		and ftx.class_name = 'FinTxact'
-		and ftxg.class_name = 'FinTxactSet'
+		and ftx.class_name = 'UsrFinTxact'
+		and ftxg.class_name = 'UsrFinTxactSet'
 	) t2
 	group by t2.fin_txact_set1__id
 ) ftxg
@@ -1027,12 +1027,12 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 		on t2a.fin_acct1__id = t2b.id
-	where t2a.class_name = 'FinTxactItm'
+	where t2a.class_name = 'UsrFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'FinAcct'
+	and t2b.class_name = 'UsrFinAcct'
 ) t1
 where t.amt_fin_txact_itm1__id = t1.amt_fin_txact_itm1__id 
-and	t.class_name = 'FinTxactItm'
+and	t.class_name = 'UsrFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -1071,13 +1071,13 @@ select fin_txact1__id, id2, class_name
 from ampata_usr_node
 order by fin_txact1__id, id2
 ) t2
-where t2.class_name = 'FinTxactItm'
+where t2.class_name = 'UsrFinTxactItm'
 group by t2.fin_txact1__id
 ) t1
 , ampata_usr_node t
 where
 	t.fin_txact1__id  = t1.id
-and t.class_name = 'FinTxactItm'
+and t.class_name = 'UsrFinTxactItm'
 ;
 */
 
@@ -1086,8 +1086,8 @@ select t.amt_debt, t.amt_cred
 from ampata_usr_node t
 inner join ampata_usr_node ta
 on t.fin_acct1__id = ta.id 
-where t.class_name = 'FinTxactItm'
-and ta.class_name = 'FinAcct'
+where t.class_name = 'UsrFinTxactItm'
+and ta.class_name = 'UsrFinAcct'
 group by t.fin_txact1__id 
 */
 
@@ -1095,7 +1095,7 @@ group by t.fin_txact1__id
 select t.id2, count(*) id2_dup
 from ampata_usr_node t
 where
-	t.class_name = 'FinTxactItm'
+	t.class_name = 'UsrFinTxactItm'
 and t.id2='/D20191025/T0000/X02/Y01/Z00'
 and t.deleted_by is null
 group by t.id2
