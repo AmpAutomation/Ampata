@@ -1,7 +1,5 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentType;

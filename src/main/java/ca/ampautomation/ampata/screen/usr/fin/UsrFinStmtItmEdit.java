@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtItmQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -61,7 +61,7 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
 
     //Query Manager
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinStmtItmQryMngr qryMngr;
 
 
     //Main data containers, loaders and table

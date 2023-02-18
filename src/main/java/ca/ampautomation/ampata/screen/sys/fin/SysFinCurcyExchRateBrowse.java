@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.sys.fin;
 
 import ca.ampautomation.ampata.entity.HasTmst;
-import ca.ampautomation.ampata.entity.sys.SysNodeRepo;
+import ca.ampautomation.ampata.entity.sys.fin.SysFinCurcyExchRateQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -42,7 +42,7 @@ public class SysFinCurcyExchRateBrowse extends StandardLookup<SysNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private SysNodeRepo repo;
+    private SysFinCurcyExchRateQryMngr qryMngr;
 
     @Autowired
     private DataComponents dataComponents;

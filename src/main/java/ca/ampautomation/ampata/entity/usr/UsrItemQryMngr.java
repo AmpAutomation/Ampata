@@ -7,7 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class UsrItemRepoCustomImpl implements UsrItemRepoCustom {
+public class UsrItemQryMngr implements UsrBaseQryMngr {
+
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -17,14 +18,14 @@ public class UsrItemRepoCustomImpl implements UsrItemRepoCustom {
 
     @Override
     @Transactional
-    public Integer execUsrItemPrUpdNative(){
-        String logPrfx = "execItemPrUpdNative";
+    public Integer execPrUpdAllCalcValsforAllRowsNative(){
+        String logPrfx = "execNodePrUpdNative";
         logger.trace(logPrfx + " --> ");
 
         int rows_updated;
-        logger.debug(logPrfx + " --- executing(db) call Usr_Item_Pr_Upd()");
-        rows_updated = this.em.createNativeQuery("call Usr_Item_Pr_Upd()").executeUpdate();
-        logger.debug(logPrfx + " --- finished(db) call Usr_Item_Pr_Upd()");
+        logger.debug(logPrfx + " --- executing(db) call Usr_Item_Pr_Upd_All_Calc_Vals_for_All_Rows()");
+        rows_updated = this.em.createNativeQuery("call Usr_Item_Pr_Upd_All_Calc_Vals_for_All_Rows()").executeUpdate();
+        logger.debug(logPrfx + " --- finished(db) call Usr_Item_Pr_Upd_All_Calc_Vals_for_All_Rows()");
 
         logger.trace(logPrfx + " <-- ");
         return rows_updated;

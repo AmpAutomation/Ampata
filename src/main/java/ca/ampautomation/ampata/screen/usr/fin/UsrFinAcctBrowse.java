@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -39,7 +39,7 @@ public class UsrFinAcctBrowse extends StandardLookup<UsrNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinAcctQryMngr qryMngr;
 
     @Autowired
     private DataComponents dataComponents;

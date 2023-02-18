@@ -1,9 +1,9 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.sys.SysNode;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeRepo;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
@@ -41,7 +41,7 @@ public class UsrFinAcctMain extends MasterDetailScreen<UsrNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private UsrNodeRepo repo;
+    private UsrFinAcctQryMngr qryMngr;
 
     @Autowired
     private DataComponents dataComponents;

@@ -53,7 +53,7 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
 
     //Query Manager
     @Autowired
-    private UsrItemRepo repo;
+    private UsrItemQryMngr qryMngr;
 
 
     //Filter
@@ -188,9 +188,9 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
         logger.trace(logPrfx + " --> ");
 
 
-        logger.debug(logPrfx + " --- executing repo.execItemPrUpdNative()");
-        repo.execUsrItemPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execItemPrUpdNative()");
+        logger.debug(logPrfx + " --- executing repo.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished repo.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();

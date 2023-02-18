@@ -2,8 +2,8 @@ package ca.ampautomation.ampata.screen.sys.fin;
 
 import ca.ampautomation.ampata.entity.*;
 import ca.ampautomation.ampata.entity.sys.SysNode;
-import ca.ampautomation.ampata.entity.sys.SysNodeRepo;
 import ca.ampautomation.ampata.entity.sys.SysNodeType;
+import ca.ampautomation.ampata.entity.sys.fin.SysFinCurcyQryMngr;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -39,7 +39,7 @@ public class SysFinCurcyMain extends MasterDetailScreen<SysNode> {
     private EntityManager entityManager;
 
     @Autowired
-    private SysNodeRepo repo;
+    private SysFinCurcyQryMngr qryMngr;
 
     @Autowired
     private DataComponents dataComponents;
@@ -261,9 +261,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execFinCurcyPrUpdNative()");
-        repo.execSysFinCurcyPrUpdNative();
-        logger.debug(logPrfx + " --- finished repo.execFinCurcyPrUpdNative()");
+        logger.debug(logPrfx + " --- executing repo.execPrUpdAllCalcValsforAllRowsNative()");
+        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
+        logger.debug(logPrfx + " --- finished repo.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- executing colLoadrMain.load()");
         colLoadrMain.load();
