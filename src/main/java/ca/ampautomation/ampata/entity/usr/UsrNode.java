@@ -4,8 +4,8 @@ import ca.ampautomation.ampata.entity.HasDate;
 import ca.ampautomation.ampata.entity.HasTime;
 import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.sys.SysNode;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFile;
@@ -38,7 +38,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -130,11 +133,17 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "TENANT")
     protected String tenant;
 
-    @Column(name="DTYPE", insertable = false, updatable = false)
+    @Column(name = "DTYPE", insertable = false, updatable = false)
     protected String dtype;
 
     @Column(name = "CLASS_NAME")
     protected String className;
+
+    @JoinTable(name = "AMPATA_USR_NODE__GEN_TAG_LINK",
+            joinColumns = @JoinColumn(name = "NODE_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GEN_TAG_ID"))
+    @ManyToMany
+    private List<UsrGenTag> genTags;
 
     @InstanceName
     @Column(name = "ID2")
@@ -275,7 +284,7 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "NM1S1_INST1_NODE1__ID2")
     protected String nm1s1Inst1Node1_Id2;
 
-    
+
     @Column(name = "NAME2")
     protected String name2;
 
@@ -936,6 +945,17 @@ public class UsrNode implements AcceptsTenant {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
+    public List<UsrGenTag> getGenTags() {
+        return genTags;
+    }
+
+    public void setGenTags(List<UsrGenTag> genTags) {
+        this.genTags = genTags;
+    }
+
+    public String getNm1s1Inst1Node1_Id2() {
+        return nm1s1Inst1Node1_Id2;
+    }
 
 
     public UUID getId() {

@@ -75,7 +75,7 @@
                                  constraintName="FK_AMPATA_USR_NODE_ON_NM1S1_NAME1_GEN_FMLA1_"
                                  referencedTableName="AMPATA_SYS_ITEM"
                                  referencedColumnNames="ID"/>
-        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_USRNODE_NM1S1_NAME1_GEN_FMLA1__ID">
+        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_SYSNODE_NM1S1_NAME1_GEN_FMLA1__ID">
             <column name="NM1S1_NAME1_GEN_FMLA1__ID"></column>
         </createIndex>
 
@@ -84,7 +84,7 @@
                                  constraintName="FK_AMPATA_USR_NODE_ON_NM1S1_TYPE1_"
                                  referencedTableName="AMPATA_SYS_NODE_TYPE"
                                  referencedColumnNames="ID"/>
-        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_USRNODE_NM1S1_TYPE1__ID">
+        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_SYSNODE_NM1S1_TYPE1__ID">
             <column name="NM1S1_TYPE1__ID"></column>
         </createIndex>
 
@@ -93,7 +93,7 @@
                                  constraintName="FK_AMPATA_USR_NODE_ON_NM1S1_INST1_GEN_FMLA1_"
                                  referencedTableName="AMPATA_SYS_ITEM"
                                  referencedColumnNames="ID"/>
-        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_USRNODE_NM1S1_INST1_GEN_FMLA1__ID">
+        <createIndex tableName="AMPATA_SYS_NODE" indexName="IDX_SYSODE_NM1S1_INST1_GEN_FMLA1__ID">
             <column name="NM1S1_INST1_GEN_FMLA1__ID"></column>
         </createIndex>
 

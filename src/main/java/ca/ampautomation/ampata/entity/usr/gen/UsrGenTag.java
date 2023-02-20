@@ -1,19 +1,10 @@
 package ca.ampautomation.ampata.entity.usr.gen;
 
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Arrays;
+import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @JmixEntity
 @Entity(name = "enty_UsrGenTag")
@@ -21,4 +12,17 @@ import java.util.stream.Collectors;
 public class UsrGenTag extends UsrNode {
 
 
+    @JoinTable(name = "AMPATA_USR_NODE__GEN_TAG_LINK",
+            joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "NODE_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<UsrNode> nodes;
+
+    public List<UsrNode> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<UsrNode> nodes) {
+        this.nodes = nodes;
+    }
 }
