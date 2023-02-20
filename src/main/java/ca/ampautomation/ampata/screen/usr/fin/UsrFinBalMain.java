@@ -1529,7 +1529,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBal.updateInstDt1();
+        isChanged = isChanged || thisFinBal.updateNm1s1Inst1Dt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

@@ -2012,7 +2012,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactSet.updateInstDt1();
+        isChanged = isChanged || thisFinTxactSet.updateNm1s1Inst1Dt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

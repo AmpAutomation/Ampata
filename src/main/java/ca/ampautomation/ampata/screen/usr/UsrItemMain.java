@@ -52,7 +52,6 @@ public class UsrItemMain extends MasterDetailScreen<UsrItem> {
 
 
     //Query Manager
-    @Autowired
     private UsrItemQryMngr qryMngr;
 
 

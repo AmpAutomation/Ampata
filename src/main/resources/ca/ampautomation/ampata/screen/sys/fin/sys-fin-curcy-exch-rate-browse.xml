@@ -36,15 +36,21 @@
             <configurations>
                 <configuration id="filterConfig1" default="true">
                     <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true" colspan="2"/>
-                    <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true" colspan="2"/>
-                    <propertyFilter id="filterConfig1A_Beg1Date1GE" caption="beg1.date1" operation="GREATER_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
-                    <propertyFilter id="filterConfig1A_Beg1Date1LE" caption="beg1.date1" operation="LESS_OR_EQUAL" property="ts1.elDt" operationEditable="true"/>
-                    <propertyFilter id="filterConfig1A_SysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_SysNode"/>
+                    <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                        <entityComboBox metaClass="enty_SysFinCurcyExchRateType"/>
                     </propertyFilter>
-                    <propertyFilter id="filterConfig1A_SysFinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_SysNode"/>
+
+                    <propertyFilter id="filterConfig1A_FinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
+                        <entityComboBox metaClass="enty_SysFinCurcy"/>
                     </propertyFilter>
+                    <propertyFilter id="filterConfig1A_FinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
+                        <entityComboBox metaClass="enty_SysFinCurcy"/>
+                    </propertyFilter>
+                    <propertyFilter id="filterConfig1A_Nm1s1Inst1Ts1ElDtGE" caption="nm1s1Inst1Ts1.elDt" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Ts1.elDt" operationEditable="true"/>
+                    <propertyFilter id="filterConfig1A_Nm1s1Inst1Ts1ElDtLE" caption="nm1s1Inst1Ts1.elDt" operation="LESS_OR_EQUAL" property="nm1s1Inst1Ts1.elDt" operationEditable="true"/>
                 </configuration>
             </configurations>
         </filter>

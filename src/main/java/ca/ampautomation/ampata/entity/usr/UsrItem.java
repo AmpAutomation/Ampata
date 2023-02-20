@@ -322,14 +322,18 @@ public class UsrItem implements AcceptsTenant {
 
 
 
+
     public Boolean updateCalcVals(DataManager dataManager){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Calc() || isChanged;
-        isChanged = this.updateId2Cmp() || isChanged;
+        isChanged = this.updateDesc1(dataManager) || isChanged;
+        isChanged = this.updateInst1(dataManager) || isChanged;
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
         isChanged = this.updateId2Dup(dataManager) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
@@ -337,17 +341,16 @@ public class UsrItem implements AcceptsTenant {
     }
 
 
-    public Boolean updateId2() {
-        // Assume this is not null
+    public Boolean updateId2(DataManager dataManager) {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String id2_ = this.getId2();
-        String id2 = this.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            this.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
+        String l_id2_ = this.id2;
+        String l_id2 = this.id2Calc;
+        if(!Objects.equals(l_id2_, l_id2)){
+            this.id2 =  l_id2;
+            logger.debug(logPrfx + " --- id2: " + l_id2);
             isChanged = true;
         }
 
@@ -355,17 +358,28 @@ public class UsrItem implements AcceptsTenant {
         return isChanged;
     }
 
+    public Boolean updateId2Deps(DataManager dataManager) {
+        String logPrfx = "updateId2Deps";
+        logger.trace(logPrfx + " --> ");
 
-    public Boolean updateId2Calc(){
+        boolean isChanged = false;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Calc(DataManager dataManager){
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String id2Calc_ = this.getId2Calc();
-        String id2Calc = this.getName1();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            this.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+        String l_id2Calc_ = this.id2Calc;
+        String l_id2Calc = this.name1;
+        if(!Objects.equals(l_id2Calc_, l_id2Calc)){
+            this.id2Calc = l_id2Calc;
+            logger.debug(logPrfx + " --- id2Calc: " + l_id2Calc);
             isChanged = true;
         }
 
@@ -373,16 +387,28 @@ public class UsrItem implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateId2Cmp() {
+    public Boolean updateId2CalDeps(DataManager dataManager) {
+        String logPrfx = "updateId2CalDeps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Cmp(DataManager dataManager) {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        Boolean id2Cmp_ = this.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(this.getId2(),this.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            this.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
+        Boolean l_id2Cmp_ = this.id2Cmp;
+        Boolean l_id2Cmp = !Objects.equals(this.id2,this.id2Calc);
+        if (!Objects.equals(l_id2Cmp_, l_id2Cmp)){
+            this.id2Cmp =  l_id2Cmp;
+            logger.debug(logPrfx + " --- id2Cmp: " + l_id2Cmp);
             isChanged = true;
         }
 
@@ -395,27 +421,27 @@ public class UsrItem implements AcceptsTenant {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        Integer id2Dup_ = this.getId2Dup();
-        if (this.getId2() != null){
+        Integer l_id2Dup_ = this.id2Dup;
+        if (this.id2 != null){
             String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
                     + " where e.id2 = :id2"
                     + " and e.id <> :id";
-            Integer id2Dup;
+            Integer l_id2Dup;
             try{
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
+                l_id2Dup = dataManager.loadValue(id2Qry, Integer.class)
                         .store("main")
-                        .parameter("id",this.getId())
-                        .parameter("id2",this.getId2())
+                        .parameter("id",this.id)
+                        .parameter("id2",this.id2)
                         .one();
             }catch (IllegalStateException e){
-                id2Dup =0;
+                l_id2Dup =0;
 
             }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                this.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- this.setId2Dup(" + (id2Dup) + ")");
+            l_id2Dup = l_id2Dup + 1;
+            logger.debug(logPrfx + " --- id2Dup qry counted: " + l_id2Dup + " rows");
+            if (!Objects.equals(l_id2Dup_, l_id2Dup)){
+                this.id2Dup = l_id2Dup;
+                logger.debug(logPrfx + " --- id2Dup: " + l_id2Dup);
                 isChanged = true;
             }
 
@@ -425,20 +451,70 @@ public class UsrItem implements AcceptsTenant {
     }
 
 
-    public Boolean updateDesc1(){
+    public Boolean updateName1(DataManager dataManager){
+        String logPrfx = "updateName1()";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        String l_name1_ = this.name1;
+        String l_name1 = this.inst1;
+
+        if (!Objects.equals(l_name1_, l_name1)) {
+            this.name1 = l_name1;
+            logger.debug(logPrfx + " --- name1:" + l_name1);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateName1Deps(DataManager dataManager) {
+        String logPrfx = "updateName1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateInst1(DataManager dataManager){
+        String logPrfx = "updateInst1";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateInst1Deps(DataManager dataManager) {
+        String logPrfx = "updateInst1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateDesc1(DataManager dataManager){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String desc1_ = this.getDesc1();
-        String desc1 = this.getInst1() != null ? this.getInst1()
-                : this.getName1() != null ? this.getName1()
-                : "";
-        if (!Objects.equals(desc1_, desc1)){
-            this.setDesc1(desc1);
-            logger.debug(logPrfx + " --- desc1: " + desc1);
-            isChanged = true;
-        }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

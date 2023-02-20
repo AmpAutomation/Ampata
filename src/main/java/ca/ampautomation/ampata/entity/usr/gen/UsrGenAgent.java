@@ -16,22 +16,8 @@ import java.util.Objects;
 @Entity(name = "enty_UsrGenAgent")
 public class UsrGenAgent extends UsrNode {
 
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc() || isChanged;
-        isChanged = this.updateId2Cmp() || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-        isChanged = this.updateDesc1() || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateDesc1(){
+    @Override
+    public Boolean updateDesc1(DataManager dataManager){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 

@@ -2906,7 +2906,7 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateInstDt1();
+        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Dt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2941,7 +2941,7 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateInstInt1();
+        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Int1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2953,7 +2953,7 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateInstInt2();
+        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Int2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -3001,7 +3001,7 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
                             thisFinTxactSetIsChanged = true;
                         }
                         if (thisFinTxactSetIsChanged) {
-                            thisFinTxactSet.updateInstDt1();
+                            thisFinTxactSet.updateNm1s1Inst1Dt1();
                             thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
                             thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
                             dataManager.save(thisFinTxactSet);
@@ -3130,7 +3130,7 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
             HasTmst beg1 = dataManager.create(HasTmst.class);
             beg1.setElTs(thisFinTxact.getNm1s1Inst1Dt1().getElDt().atStartOfDay());
             newFinTxactSet.setTs1(beg1);
-            newFinTxactSet.updateInstDt1();
+            newFinTxactSet.updateNm1s1Inst1Dt1();
 
             newFinTxactSet.setNm1s1Inst1Int1(thisFinTxact.getNm1s1Inst1Int1());
             newFinTxactSet.setNm1s1Inst1Int2(thisFinTxact.getNm1s1Inst1Int2());

@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrNodeTypeMain.caption"
+        caption="msg://sysNodeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                    fetchPlan="fetchPlan_UsrNodeType_Base">
+                    class="ca.ampautomation.ampata.entity.sys.SysNode"
+                    fetchPlan="fetchPlan_SysNode_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeType e order by e.id2]]>
+                    <![CDATA[select e from enty_SysNode e order by e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                  fetchPlan="fetchPlan_UsrNodeType_Base">
+                  class="ca.ampautomation.ampata.entity.sys.SysNode"
+                  fetchPlan="fetchPlan_SysNode_Base">
             <loader/>
         </instance>
     </data>
@@ -42,7 +42,10 @@
                                 <entityPicker metaClass="enty_UsrNode"/>
                             </propertyFilter>
 
-                            <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="CONTAINS" property="dtype" operationEditable="true">
+                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                <entityComboBox metaClass="enty_UsrNodeType"/>
+                            </propertyFilter>
+                            <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
                                 <textField/>
                             </propertyFilter>
                         </configuration>
@@ -60,8 +63,7 @@
                         <action id="remove" type="remove"/>
                     </actions>
                     <columns>
-                        <column id="tenant" collapsed="true"/>
-                        <column id="dtype"/>
+                        <column id="dtype" />
                         <column id="className"/>
                         <column id="id2"/>
                         <column id="id2Calc"/>
@@ -70,6 +72,8 @@
                         <column id="parent1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
+                        <column id="type1_Id"/>
+                        <column id="inst1"/>
                         <column id="name1"/>
                         <column id="name1GenFmla1_Id"/>
                         <column id="abrv"/>
@@ -105,6 +109,12 @@
                                     <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <hbox spacing="true">
+                                    <hbox caption="Type1_Id" width="150px" expand="tmplt_Type1_IdField">
+                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                            <checkBox id="tmplt_Type1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                        </hbox>
+                                        <entityComboBox id="tmplt_Type1_IdField"/>
+                                    </hbox>
                                 </hbox>
                             </tab>
                         </tabSheet>
@@ -144,13 +154,11 @@
                                             tabIndex="-1"/>
                                 </hbox>
                             </hbox>
+
                             <hbox id="tab1_hbox2" width="100%" spacing="true">
                                 <vbox width="360px">
                                     <hbox caption="id" expand="id" width="100%">
                                         <textField id="id" property="id" editable="false"/>
-                                    </hbox>
-                                    <hbox caption="tenant" expand="tenantField" width="100%">
-                                        <textField id="tenantField" property="tenant" editable="false"/>
                                     </hbox>
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" property="dtype" editable="false"/>
@@ -196,8 +204,7 @@
                                                 <action id="entityClear" type="entity_clear"/>
                                             </actions>
                                         </entityPicker>
-                                        <button id="updateParent1_IdFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
+                                        <button id="updateParent1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain" property="name1"/>
@@ -213,6 +220,21 @@
                                         </entityComboBox>
                                         <button id="updateName1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
                                                 tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                        <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
+                                                        property="type1_Id" tabIndex="20">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateType1_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="inst1" expand="inst1Field" width="100%">
+                                        <textField id="inst1Field" dataContainer="instCntnrMain" property="inst1"/>
+                                        <button id="updateInst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
                             </hbox>

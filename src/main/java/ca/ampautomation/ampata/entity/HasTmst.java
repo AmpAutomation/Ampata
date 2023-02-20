@@ -57,32 +57,26 @@ public class HasTmst {
         return elTs;
     }
 
-    /*
-    public void setDate1(LocalDate date1) {
-        if (!Objects.equals(this.date1, date1)){
-            this.date1 = date1;
-            updateDate1();
+    public void setElDt(LocalDate elDt) {
+        if (!Objects.equals(this.elDt, elDt)){
+            this.elTs = elDt.atTime(this.elTm);
+            updateAllFields();
         }
-        if (!Objects.equals(this.ts1,date1.atTime(this.time1))){
-            setTs1(date1.atTime(this.time1));}
     }
-    */
 
     public LocalDate getElDt() {
         return elDt;
     }
 
-    /*
-    public void setTime1(LocalTime time1) {
-        if (!Objects.equals(this.time1, time1)){
-            this.time1 = time1;
-            updateTime1();
+
+    public void setElTm(LocalTime elTm) {
+        if (!Objects.equals(this.elTm, elTm)){
+            this.elTs = elTm.atDate(this.elDt);
+            updateAllFields();
         }
-        if (!Objects.equals(this.ts1,time1.atDate(this.date1))){
-            setTs1(time1.atDate(this.date1));}
 
     }
-    */
+
 
     public LocalTime getElTm() {
         return elTm;

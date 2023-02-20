@@ -50,6 +50,7 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_USRNODE_NM1S1_TYPE1__ID", columnList = "NM1S1_TYPE1__ID"),
         @Index(name = "IDX_USRNODE_NM1S1_NAME1_GEN_FMLA1__ID", columnList = "NM1S1_NAME1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_NM1S1_INST1_GEN_FMLA1__ID", columnList = "NM1S1_INST1_GEN_FMLA1__ID"),
+        @Index(name = "IDX_USRNODE_NM1S1_INST1_NODE1__ID", columnList = "NM1S1_INST1_NODE1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM2__ID", columnList = "DESC1_FIN_TXACT_ITM2__ID"),
@@ -123,11 +124,11 @@ public class UsrNode implements AcceptsTenant {
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
-    private UUID id;
+    protected UUID id;
 
     @TenantId
     @Column(name = "TENANT")
-    private String tenant;
+    protected String tenant;
 
     @Column(name="DTYPE", insertable = false, updatable = false)
     protected String dtype;
@@ -137,82 +138,82 @@ public class UsrNode implements AcceptsTenant {
 
     @InstanceName
     @Column(name = "ID2")
-    private String id2;
+    protected String id2;
 
     @Column(name = "ID2_CALC")
-    private String id2Calc;
+    protected String id2Calc;
 
     @Column(name = "ID2_CMP")
-    private Boolean id2Cmp;
+    protected Boolean id2Cmp;
 
     @Column(name = "ID2_DUP")
-    private Integer id2Dup;
+    protected Integer id2Dup;
 
 
     @JoinColumn(name = "PARENT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode parent1_Id;
+    protected UsrNode parent1_Id;
 
     @Column(name = "PARENT1__ID2")
-    private String parent1_Id2;
+    protected String parent1_Id2;
 
     @Column(name = "ANCESTORS1__ID2")
     @Lob
-    private String ancestors1_Id2;
+    protected String ancestors1_Id2;
 
     @Column(name = "SORT_IDX")
-    private Integer sortIdx;
+    protected Integer sortIdx;
 
     @Column(name = "SORT_KEY")
-    private String sortKey;
+    protected String sortKey;
 
     @Column(name = "NAME1")
-    private String name1;
+    protected String name1;
 
     @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFmla name1GenFmla1_Id;
+    protected UsrGenFmla name1GenFmla1_Id;
 
     @Column(name = "NAME1_GEN_FMLA1__ID2")
-    private String name1GenFmla1_Id2;
+    protected String name1GenFmla1_Id2;
 
     @JoinColumn(name = "TYPE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNodeType type1_Id;
+    protected UsrNodeType type1_Id;
 
     @Column(name = "TYPE1__ID2")
-    private String type1_Id2;
+    protected String type1_Id2;
 
     @Column(name = "INST1")
-    private String inst1;
+    protected String inst1;
 
     @Column(name = "NM1S1_NAME1")
-    private String nm1s1Name1;
+    protected String nm1s1Name1;
 
     @JoinColumn(name = "NM1S1_NAME1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFmla nm1s1Name1GenFmla1_Id;
+    protected UsrGenFmla nm1s1Name1GenFmla1_Id;
 
     @Column(name = "NM1S1_NAME1_GEN_FMLA1__ID2")
-    private String nm1s1Name1GenFmla1_Id2;
+    protected String nm1s1Name1GenFmla1_Id2;
 
     @JoinColumn(name = "NM1S1_TYPE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNodeType nm1s1Type1_Id;
+    protected UsrNodeType nm1s1Type1_Id;
 
     @Column(name = "NM1S1_TYPE1__ID2")
-    private String nm1s1Type1_Id2;
+    protected String nm1s1Type1_Id2;
 
 
     @Column(name = "NM1S1_INST1")
-    private String nm1s1Inst1;
+    protected String nm1s1Inst1;
 
     @JoinColumn(name = "NM1S1_INST1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFmla nm1s1Inst1GenFmla1_Id;
+    protected UsrGenFmla nm1s1Inst1GenFmla1_Id;
 
     @Column(name = "NM1S1_INST1_GEN_FMLA1__ID2")
-    private String nm1s1Inst1GenFmla1_Id2;
+    protected String nm1s1Inst1GenFmla1_Id2;
 
 
     @EmbeddedParameters(nullAllowed = false)
@@ -229,7 +230,7 @@ public class UsrNode implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_MIN"))
     })
-    private HasTmst nm1s1Inst1Ts1;
+    protected HasTmst nm1s1Inst1Ts1;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
@@ -241,7 +242,7 @@ public class UsrNode implements AcceptsTenant {
             @AttributeOverride(name = "elDtMon2", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_MON2")),
             @AttributeOverride(name = "elDtDay", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_DAY"))
     })
-    private HasDate nm1s1Inst1Dt1;
+    protected HasDate nm1s1Inst1Dt1;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
@@ -250,164 +251,178 @@ public class UsrNode implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_MIN"))
     })
-    private HasTime nm1s1Inst1Tm1;
+    protected HasTime nm1s1Inst1Tm1;
 
     @Column(name = "NM1S1_INST1_INT1")
-    private Integer nm1s1Inst1Int1;
+    protected Integer nm1s1Inst1Int1;
 
     @Column(name = "NM1S1_INST1_INT2")
-    private Integer nm1s1Inst1Int2;
+    protected Integer nm1s1Inst1Int2;
 
     @Column(name = "NM1S1_INST1_INT3")
-    private Integer nm1s1Inst1Int3;
+    protected Integer nm1s1Inst1Int3;
 
+    @Column(name = "NM1S1_INST1_TXT1")
+    protected String nm1s1Inst1Txt1;
+
+    @Column(name = "NM1S1_INST1_TXT2")
+    protected String nm1s1Inst1Txt2;
+
+    @JoinColumn(name = "NM1S1_INST1_NODE1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    protected UsrNode nm1s1Inst1Node1_Id;
+
+    @Column(name = "NM1S1_INST1_NODE1__ID2")
+    protected String nm1s1Inst1Node1_Id2;
+
+    
     @Column(name = "NAME2")
-    private String name2;
+    protected String name2;
 
     @Column(name = "ABRV", length = 16)
-    private String abrv;
+    protected String abrv;
 
     @Column(name = "CODE")
-    private String code;
+    protected String code;
 
     @Column(name = "DESC1")
     @Lob
-    private String desc1;
+    protected String desc1;
 
     @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFmla desc1GenFmla1_Id;
+    protected UsrGenFmla desc1GenFmla1_Id;
 
     @Column(name = "DESC1_GEN_FMLA1__ID2")
-    private String desc1GenFmla1_Id2;
+    protected String desc1GenFmla1_Id2;
 
     @JoinColumn(name = "DESC1_FIN_TXACT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode desc1FinTxactItm1_Id;
+    protected UsrNode desc1FinTxactItm1_Id;
 
     @Column(name = "DESC1_FIN_TXACT_ITM1__ID2")
-    private String desc1FinTxactItm1_Id2;
+    protected String desc1FinTxactItm1_Id2;
 
     @JoinColumn(name = "DESC1_FIN_TXACT_ITM2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode desc1FinTxactItm2_Id;
+    protected UsrNode desc1FinTxactItm2_Id;
 
     @Column(name = "DESC1_FIN_TXACT_ITM2__ID2")
-    private String desc1FinTxactItm2_Id2;
+    protected String desc1FinTxactItm2_Id2;
 
     @Column(name = "DESC2")
     @Lob
-    private String desc2;
+    protected String desc2;
 
     @Column(name = "DESC3")
     @Lob
-    private String desc3;
+    protected String desc3;
 
     @Column(name = "DESC4")
     @Lob
-    private String desc4;
+    protected String desc4;
 
     @Column(name = "STATUS")
-    private String status;
+    protected String status;
 
     @Column(name = "STATUS_CALC")
-    private String statusCalc;
+    protected String statusCalc;
 
     @Column(name = "NOTE")
     @Lob
-    private String note;
+    protected String note;
 
     @Lob
     @Column(name = "GEN_DOC_VERS1__ID2")
-    private String genDocVers1_Id2;
+    protected String genDocVers1_Id2;
 
     @JoinColumn(name = "GEN_DOC_VER1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genDocVer1_Id;
+    protected UsrNode genDocVer1_Id;
 
     @Column(name = "GEN_DOC_VER1__ID2")
-    private String genDocVer1_Id2;
+    protected String genDocVer1_Id2;
 
     @Column(name = "GEN_DOC_VER1__CODE")
-    private String genDocVer1_Code;
+    protected String genDocVer1_Code;
 
     @Column(name = "GEN_DOC_VER1__VER")
-    private String genDocVer1_Ver;
+    protected String genDocVer1_Ver;
 
     @Column(name = "GEN_DOC_VER1__NAME1")
-    private String genDocVer1_Name1;
+    protected String genDocVer1_Name1;
 
     @JoinColumn(name = "GEN_FILE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenFile genFile1_Id;
+    protected UsrGenFile genFile1_Id;
 
     @Column(name = "GEN_FILE1__ID2")
-    private String genFile1_Id2;
+    protected String genFile1_Id2;
 
     @Lob
     @Column(name = "GEN_FILE1__URI")
-    private URI genFile1_URI;
+    protected URI genFile1_URI;
 
     @Column(name = "GEN_TAGS1__ID2")
-    private String genTags1_Id2;
+    protected String genTags1_Id2;
 
     @JoinColumn(name = "GEN_TAG1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenTag genTag1_Id;
+    protected UsrGenTag genTag1_Id;
 
     @Column(name = "GEN_TAG1__ID2")
-    private String genTag1_Id2;
+    protected String genTag1_Id2;
 
     @JoinColumn(name = "GEN_TAG2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenTag genTag2_Id;
+    protected UsrGenTag genTag2_Id;
 
     @Column(name = "GEN_TAG2__ID2")
-    private String genTag2_Id2;
+    protected String genTag2_Id2;
 
     @JoinColumn(name = "GEN_TAG3__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenTag genTag3_Id;
+    protected UsrGenTag genTag3_Id;
 
     @Column(name = "GEN_TAG3__ID2")
-    private String genTag3_Id2;
+    protected String genTag3_Id2;
 
     @JoinColumn(name = "GEN_TAG4__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrGenTag genTag4_Id;
+    protected UsrGenTag genTag4_Id;
 
     @Column(name = "GEN_TAG4__ID2")
-    private String genTag4_Id2;
+    protected String genTag4_Id2;
 
 
     @Column(name = "NAME_PRFX")
-    private String namePrfx;
+    protected String namePrfx;
 
     @Column(name = "NAME_FRST")
-    private String nameFrst;
+    protected String nameFrst;
 
     @Column(name = "NAME_MIDL")
-    private String nameMidl;
+    protected String nameMidl;
 
     @Column(name = "NAME_LAST")
-    private String nameLast;
+    protected String nameLast;
 
     @Column(name = "NAME_SUFX")
-    private String nameSufx;
+    protected String nameSufx;
 
     @JoinColumn(name = "GEN_AGENT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genAgent1_Id;
+    protected UsrNode genAgent1_Id;
 
     @Column(name = "GEN_AGENT1__ID2")
-    private String genAgent1_Id2;
+    protected String genAgent1_Id2;
 
     @JoinColumn(name = "GEN_AGENT2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genAgent2_Id;
+    protected UsrNode genAgent2_Id;
 
     @Column(name = "GEN_AGENT2__ID2")
-    private String genAgent2_Id2;
+    protected String genAgent2_Id2;
 
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS1_EL_TS")),
@@ -423,7 +438,7 @@ public class UsrNode implements AcceptsTenant {
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst ts1;
+    protected HasTmst ts1;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
@@ -439,7 +454,7 @@ public class UsrNode implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "TS2_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "TS2_EL_TM_MIN"))
     })
-    private HasTmst ts2;
+    protected HasTmst ts2;
 
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS3_EL_TS")),
@@ -455,7 +470,7 @@ public class UsrNode implements AcceptsTenant {
     })
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
-    private HasTmst ts3;
+    protected HasTmst ts3;
 
     @EmbeddedParameters(nullAllowed = false)
     @Embedded
@@ -471,423 +486,423 @@ public class UsrNode implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "TS4_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "TS4_EL_TM_MIN"))
     })
-    private HasTmst ts4;
+    protected HasTmst ts4;
 
 
     @Column(name = "VER")
-    private String ver;
+    protected String ver;
 
     @JoinColumn(name = "GEN_CHAN1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genChan1_Id;
+    protected UsrNode genChan1_Id;
 
     @Column(name = "GEN_CHAN1__ID2")
-    private String genChan1_Id2;
+    protected String genChan1_Id2;
 
     @JoinColumn(name = "GEN_CHAN2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode genChan2_Id;
+    protected UsrNode genChan2_Id;
 
     @Column(name = "GEN_CHAN2__ID2")
-    private String genChan2_Id2;
+    protected String genChan2_Id2;
 
 
     @Lob
     @Column(name = "FIN_TXACT_SET1__FIN_TXACTS1__ID2")
-    private String finTxactSet1_FinTxacts1_Id2;
+    protected String finTxactSet1_FinTxacts1_Id2;
 
     @Lob
     @Column(name = "FIN_TXACT_SET1__FIN_ACCTS1__ID2")
-    private String finTxactSet1_FinAccts1_Id2;
+    protected String finTxactSet1_FinAccts1_Id2;
 
     @JoinColumn(name = "FIN_TXACT_SET1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finTxactSet1_Id;
+    protected UsrNode finTxactSet1_Id;
 
     @Column(name = "FIN_TXACT_SET1__ID2")
-    private String finTxactSet1_Id2;
+    protected String finTxactSet1_Id2;
 
     @Column(name = "FIN_TXACT_SET1__ID2_TRGT")
-    private String finTxactSet1_Id2Trgt;
+    protected String finTxactSet1_Id2Trgt;
 
     @Column(name = "FIN_TXACT_SET1__EI1__ROLE")
-    private String finTxactSet1_EI1_Role;
+    protected String finTxactSet1_EI1_Role;
 
     @Column(name = "FIN_TXACT_SET1__TYPE1__ID2")
-    private String finTxactSet1_Type1_Id2;
+    protected String finTxactSet1_Type1_Id2;
 
     @Column(name = "FIN_TXACT_SET1__DESC1")
     @Lob
-    private String finTxactSet1_Desc1;
+    protected String finTxactSet1_Desc1;
 
 
     @Column(name = "FIN_TXACT_SET1__GEN_CHAN1__ID2")
-    private String finTxactSet1_GenChan1_Id2;
+    protected String finTxactSet1_GenChan1_Id2;
 
     @Column(name = "FIN_TXACT_SET1__HOW1__ID2")
-    private String finTxactSet1_How1_Id2;
+    protected String finTxactSet1_How1_Id2;
 
 
     @Column(name = "FIN_TXACT_SET1__WHAT_TEXT1")
-    private String finTxactSet1_WhatText1;
+    protected String finTxactSet1_WhatText1;
 
     @Column(name = "FIN_TXACT_SET1__WHAT1__ID2")
-    private String finTxactSet1_What1_Id2;
+    protected String finTxactSet1_What1_Id2;
 
 
     @Column(name = "FIN_TXACT_SET1__WHY_TEXT1")
-    private String finTxactSet1_WhyText1;
+    protected String finTxactSet1_WhyText1;
 
     @Column(name = "FIN_TXACT_SET1__WHY1__ID2")
-    private String finTxactSet1_Why1_Id2;
+    protected String finTxactSet1_Why1_Id2;
 
 
     @JoinColumn(name = "FIN_TXACT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finTxact1_Id;
+    protected UsrNode finTxact1_Id;
 
     @Column(name = "FIN_TXACT1__ID2")
-    private String finTxact1_Id2;
+    protected String finTxact1_Id2;
 
     @Column(name = "FIN_TXACT1__ID2_TRGT")
-    private String finTxact1_Id2Trgt;
+    protected String finTxact1_Id2Trgt;
 
     @Column(name = "FIN_TXACT1__EI1__ROLE")
-    private String finTxact1_EI1_Role;
+    protected String finTxact1_EI1_Role;
 
     @Column(name = "FIN_TXACT1__TYPE1__ID2")
-    private String finTxact1_Type1_Id2;
+    protected String finTxact1_Type1_Id2;
 
     @Column(name = "FIN_TXACT1__GEN_CHAN1__ID2")
-    private String finTxact1_GenChan1_Id2;
+    protected String finTxact1_GenChan1_Id2;
 
     @Column(name = "FIN_TXACT1__HOW1__ID2")
-    private String finTxact1_How1_Id2;
+    protected String finTxact1_How1_Id2;
 
 
     @Column(name = "FIN_TXACT1__WHAT_TEXT1")
-    private String finTxact1_WhatText1;
+    protected String finTxact1_WhatText1;
 
     @Column(name = "FIN_TXACT1__WHAT1__ID2")
-    private String finTxact1_What1_Id2;
+    protected String finTxact1_What1_Id2;
 
 
     @Column(name = "FIN_TXACT1__WHY_TEXT1")
-    private String finTxact1_WhyText1;
+    protected String finTxact1_WhyText1;
 
     @Column(name = "FIN_TXACT1__WHY1__ID2")
-    private String finTxact1_Why1_Id2;
+    protected String finTxact1_Why1_Id2;
 
     @JoinColumn(name = "FIN_STMT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finStmt1_Id;
+    protected UsrNode finStmt1_Id;
 
     @Column(name = "FIN_STMT1__ID2")
-    private String finStmt1_Id2;
+    protected String finStmt1_Id2;
 
     @Column(name = "EXCH_DESC")
     @Lob
-    private String exchDesc;
+    protected String exchDesc;
 
     @Column(name = "REF_ID")
     @Lob
-    private String refId;
+    protected String refId;
 
 
     @JoinColumn(name = "FIN_STMT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finStmtItm1_Id;
+    protected UsrNode finStmtItm1_Id;
 
     @Column(name = "FIN_STMT_ITM1__ID2")
-    private String finStmtItm1_Id2;
+    protected String finStmtItm1_Id2;
 
     @Column(name = "FIN_STMT_ITM1__ID2_TRGT")
-    private String finStmtItm1_Id2Trgt;
+    protected String finStmtItm1_Id2Trgt;
 
     @Column(name = "FIN_STMT_ITM1__DESC1")
     @Lob
-    private String finStmtItm1_Desc1;
+    protected String finStmtItm1_Desc1;
 
     @Column(name = "FIN_STMT_ITM1__DESC2")
     @Lob
-    private String finStmtItm1_Desc2;
+    protected String finStmtItm1_Desc2;
 
     @Column(name = "FIN_STMT_ITM1__DESC3")
     @Lob
-    private String finStmtItm1_Desc3;
+    protected String finStmtItm1_Desc3;
 
     @Column(name = "FIN_STMT_ITM1__DESC4")
     @Lob
-    private String finStmtItm1_Desc4;
+    protected String finStmtItm1_Desc4;
 
     @Column(name = "FIN_STMT_ITM1__EXCH_DESC")
-    private String finStmtItm1_ExchDesc;
+    protected String finStmtItm1_ExchDesc;
 
     @Column(name = "FIN_STMT_ITM1__REF_ID")
-    private String finStmtItm1_RefId;
+    protected String finStmtItm1_RefId;
 
     @JoinColumn(name = "FIN_ACCT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finAcct1_Id;
+    protected UsrNode finAcct1_Id;
 
     @Column(name = "FIN_ACCT1__ID2")
-    private String finAcct1_Id2;
+    protected String finAcct1_Id2;
 
     @Column(name = "FIN_ACCT1__TYPE1__ID2")
-    private String finAcct1_Type1_Id2;
+    protected String finAcct1_Type1_Id2;
 
     @JoinColumn(name = "FIN_DEPT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finDept1_Id;
+    protected UsrNode finDept1_Id;
 
     @Column(name = "FIN_DEPT1__ID2")
-    private String finDept1_Id2;
+    protected String finDept1_Id2;
 
     @JoinColumn(name = "FIN_TAX_LNE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finTaxLne1_Id;
+    protected UsrNode finTaxLne1_Id;
 
     @Column(name = "FIN_TAX_LNE1__ID2")
-    private String finTaxLne1_Id2;
+    protected String finTaxLne1_Id2;
 
     @Column(name = "FIN_TAX_LNE1__CODE")
-    private String finTaxLne1_Code;
+    protected String finTaxLne1_Code;
 
     @Column(name = "FIN_TAX_LNE1__TYPE1__ID2")
-    private String finTaxLne1_Type1_Id2;
+    protected String finTaxLne1_Type1_Id2;
 
     @JoinColumn(name = "FIN_HOW1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrFinHow finHow1_Id;
+    protected UsrFinHow finHow1_Id;
 
     @Column(name = "FIN_HOW1__ID2")
-    private String finHow1_Id2;
+    protected String finHow1_Id2;
 
     @Column(name = "WHAT_TEXT1")
-    private String whatText1;
+    protected String whatText1;
 
     @JoinColumn(name = "FIN_WHAT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrFinWhat finWhat1_Id;
+    protected UsrFinWhat finWhat1_Id;
 
     @Column(name = "FIN_WHAT1__ID2")
-    private String finWhat1_Id2;
+    protected String finWhat1_Id2;
 
     @Column(name = "WHY_TEXT1")
-    private String whyText1;
+    protected String whyText1;
 
     @JoinColumn(name = "FIN_WHY1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrFinWhy finWhy1_Id;
+    protected UsrFinWhy finWhy1_Id;
 
     @Column(name = "FIN_WHY1__ID2")
-    private String finWhy1_Id2;
+    protected String finWhy1_Id2;
 
     @Column(name = "AMT_DEBT", precision = 19, scale = 2)
-    private BigDecimal amtDebt;
+    protected BigDecimal amtDebt;
 
     @Column(name = "AMT_CRED", precision = 19, scale = 2)
-    private BigDecimal amtCred;
+    protected BigDecimal amtCred;
 
     @Column(name = "AMT_NET", precision = 19, scale = 2)
-    private BigDecimal amtNet;
+    protected BigDecimal amtNet;
 
     @JoinColumn(name = "SYS_FIN_CURCY1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private SysNode sysFinCurcy1_Id;
+    protected SysNode sysFinCurcy1_Id;
 
     @Column(name = "SYS_FIN_CURCY1__ID2")
-    private String sysFinCurcy1_Id2;
+    protected String sysFinCurcy1_Id2;
 
     @JoinColumn(name = "AMT_FIN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrFinFmla amtFinFmla1_Id;
+    protected UsrFinFmla amtFinFmla1_Id;
 
     @Column(name = "AMT_FIN_FMLA1__ID2")
-    private String amtFinFmla1_Id2;
+    protected String amtFinFmla1_Id2;
 
     @JoinColumn(name = "AMT_FIN_TXACT_ITM1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode amtFinTxactItm1_Id;
+    protected UsrNode amtFinTxactItm1_Id;
 
     @Column(name = "AMT_FIN_TXACT_ITM1__ID2")
-    private String amtFinTxactItm1_Id2;
+    protected String amtFinTxactItm1_Id2;
 
     @Column(name = "AMT_FIN_TXACT_ITM1__EI1__RATE", precision = 19, scale = 9)
-    private BigDecimal amtFinTxactItm1_EI1_Rate;
+    protected BigDecimal amtFinTxactItm1_EI1_Rate;
 
     @Column(name = "AMT_FIN_TXACT_ITM1__FIN_ACCT1__ID2")
-    private String amtFinTxactItm1_FinAcct1_Id2;
+    protected String amtFinTxactItm1_FinAcct1_Id2;
 
     @Column(name = "FIN_ACCT2__ID2")
-    private String finAcct2_Id2;
+    protected String finAcct2_Id2;
 
     @Column(name = "AMT_CALC", precision = 19, scale = 2)
-    private BigDecimal amtCalc;
+    protected BigDecimal amtCalc;
 
 
     @Column(name = "AMT_BEG_BAL", precision = 19, scale = 2)
-    private BigDecimal amtBegBal;
+    protected BigDecimal amtBegBal;
 
     @Column(name = "AMT_BEG_BAL_CALC", precision = 19, scale = 2)
-    private BigDecimal amtBegBalCalc;
+    protected BigDecimal amtBegBalCalc;
 
 
     @Column(name = "AMT_END_BAL", precision = 19, scale = 2)
-    private BigDecimal amtEndBal;
+    protected BigDecimal amtEndBal;
 
     @Column(name = "AMT_END_BAL_CALC", precision = 19, scale = 2)
-    private BigDecimal amtEndBalCalc;
+    protected BigDecimal amtEndBalCalc;
 
 
     @JoinColumn(name = "FIN_BAL1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finBal1_Id;
+    protected UsrNode finBal1_Id;
 
     @Column(name = "FIN_BAL1__ID2")
-    private String finBal1_Id2;
+    protected String finBal1_Id2;
 
 
     @JoinColumn(name = "FIN_BAL_SET1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrNode finBalSet1_Id;
+    protected UsrNode finBalSet1_Id;
 
     @Column(name = "FIN_BAL_SET1__ID2")
-    private String finBalSet1_Id2;
+    protected String finBalSet1_Id2;
 
 
     // Edge to FinTxact1->FinTxactItms1
     @Lob
     @Column(name = "FIN_TXACT1__FIN_TXACT_ITMS1__ID2")
-    private String finTxact1_FinTxactItms1_Id2;
+    protected String finTxact1_FinTxactItms1_Id2;
 
     // Edge to FinTxact1->FinAccts1
     @Lob
     @Column(name = "FIN_TXACT1__FIN_ACCTS1__ID2")
-    private String finTxact1_FinAccts1_Id2;
+    protected String finTxact1_FinAccts1_Id2;
 
 
     // Edge to FinBals
     @Column(name = "FIN_BALS1__ID2")
     @Lob
-    private String finBals1_Id2;
+    protected String finBals1_Id2;
 
 
     @Column(name = "FIN_BALS1__ID_CNT_CALC")
-    private Integer finBals1_IdCntCalc;
+    protected Integer finBals1_IdCntCalc;
 
     @Column(name = "FIN_BALS1__AMT_EQ_CALC")
-    private Boolean finBals1_AmtEqCalc;
+    protected Boolean finBals1_AmtEqCalc;
 
 
     // Edge to FinTxactItms
     @Column(name = "FIN_TXACT_ITMS1__ID2")
     @Lob
-    private String finTxactItms1_Id2;
+    protected String finTxactItms1_Id2;
 
     @Column(name = "FIN_TXACT_ITMS1__FIN_ACCTS1__ID2")
     @Lob
-    private String finTxactItms1_FinAccts1_Id2;
+    protected String finTxactItms1_FinAccts1_Id2;
 
 
     @Column(name = "FIN_TXACT_ITMS1__ID_CNT_CALC")
-    private Integer finTxactItms1_IdCntCalc;
+    protected Integer finTxactItms1_IdCntCalc;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtDebtSumCalc;
+    protected BigDecimal finTxactItms1_AmtDebtSumCalc;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtCredSumCalc;
+    protected BigDecimal finTxactItms1_AmtCredSumCalc;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtNetSumCalc;
+    protected BigDecimal finTxactItms1_AmtNetSumCalc;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_CALC")
-    private Boolean finTxactItms1_AmtEqCalc;
+    protected Boolean finTxactItms1_AmtEqCalc;
 
     @Column(name = "FIN_TXACT_ITMS1__SYS_FIN_CURCY_CALC")
-    private Boolean finTxactItms1_SysFinCurcyEqCalc;
+    protected Boolean finTxactItms1_SysFinCurcyEqCalc;
 
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtDebtSumDiff;
+    protected BigDecimal finTxactItms1_AmtDebtSumDiff;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtCredSumDiff;
+    protected BigDecimal finTxactItms1_AmtCredSumDiff;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finTxactItms1_AmtNetSumDiff;
+    protected BigDecimal finTxactItms1_AmtNetSumDiff;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_DIFF")
-    private Boolean finTxactItms1_AmtEqDiff;
+    protected Boolean finTxactItms1_AmtEqDiff;
 
 
     // Edge to FinTxacts
     @Column(name = "FIN_TXACTS1__ID2")
     @Lob
-    private String finTxacts1_Id2;
+    protected String finTxacts1_Id2;
 
     @Column(name = "FIN_TXACTS1__FIN_ACCTS1__ID2")
     @Lob
-    private String finTxacts1_FinAccts1_Id2;
+    protected String finTxacts1_FinAccts1_Id2;
 
     @Column(name = "FIN_TXACTS1__ID_CNT_CALC")
-    private Integer finTxacts1_IdCntCalc;
+    protected Integer finTxacts1_IdCntCalc;
 
     @Column(name = "FIN_TXACTS1__AMT_EQ_CALC")
-    private Boolean finTxacts1_AmtEqCalc;
+    protected Boolean finTxacts1_AmtEqCalc;
 
 
     // Edge to FinStmtItms
 
     @Column(name = "FIN_STMT_ITMS1__ID_CNT_CALC")
-    private Integer finStmtItms1_IdCntCalc;
+    protected Integer finStmtItms1_IdCntCalc;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_DEBT_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtDebtSumCalc;
+    protected BigDecimal finStmtItms1_AmtDebtSumCalc;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_CRED_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtCredSumCalc;
+    protected BigDecimal finStmtItms1_AmtCredSumCalc;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtNetSumCalc;
+    protected BigDecimal finStmtItms1_AmtNetSumCalc;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_EQ_CALC")
-    private Boolean finStmtItms1_AmtEqCalc;
+    protected Boolean finStmtItms1_AmtEqCalc;
 
 
     @Column(name = "FIN_STMT_ITMS1__AMT_DEBT_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtDebtSumDiff;
+    protected BigDecimal finStmtItms1_AmtDebtSumDiff;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_CRED_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtCredSumDiff;
+    protected BigDecimal finStmtItms1_AmtCredSumDiff;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
-    private BigDecimal finStmtItms1_AmtNetSumDiff;
+    protected BigDecimal finStmtItms1_AmtNetSumDiff;
 
     @Column(name = "FIN_STMT_ITMS1__AMT_EQ_DIFF")
-    private Boolean finStmtItms1_AmtEqDiff;
+    protected Boolean finStmtItms1_AmtEqDiff;
 
 
     // Edge to FinTxactSet1.GenDocVers1
     @Lob
     @Column(name = "FIN_TXACT_SET1__GEN_DOC_VERS1__ID2")
-    private String finTxactSet1_GenDocVers1_Id2;
+    protected String finTxactSet1_GenDocVers1_Id2;
 
     // Edge to FinTxact1.GenDocVers1
     @Lob
     @Column(name = "FIN_TXACT1__GEN_DOC_VERS1__ID2")
-    private String finTxact1_GenDocVers1_Id2;
+    protected String finTxact1_GenDocVers1_Id2;
 
     // Edge to FinTxactSet1.GenTags1
     @Lob
     @Column(name = "FIN_TXACT_SET1__GEN_TAGS1__ID2")
-    private String finTxactSet1_GenTags1_Id2;
+    protected String finTxactSet1_GenTags1_Id2;
 
     // Edge to FinTxact1.GenTags1
     @Lob
     @Column(name = "FIN_TXACT1__GEN_TAGS1__ID2")
-    private String finTxact1_GenTags1_Id2;
+    protected String finTxact1_GenTags1_Id2;
 
 
     @Column(name = "VERSION", nullable = false)
@@ -1028,6 +1043,23 @@ public class UsrNode implements AcceptsTenant {
         this.name1 = name1;
     }
 
+
+    public UsrGenFmla getName1GenFmla1_Id() {
+        return name1GenFmla1_Id;
+    }
+
+    public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) {
+        this.name1GenFmla1_Id = name1GenFmla1_Id;
+    }
+
+    public String getName1GenFmla1_Id2() {
+        return name1GenFmla1_Id2;
+    }
+
+    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) {
+        this.name1GenFmla1_Id2 = name1GenFmla1_Id2;
+    }
+
     public void setType1_Id(UsrNodeType type1_Id) {
         this.type1_Id = type1_Id;
     }
@@ -1051,23 +1083,6 @@ public class UsrNode implements AcceptsTenant {
 
     public void setInst1(String inst1) {
         this.inst1 = inst1;
-    }
-
-
-    public UsrGenFmla getName1GenFmla1_Id() {
-        return name1GenFmla1_Id;
-    }
-
-    public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) {
-        this.name1GenFmla1_Id = name1GenFmla1_Id;
-    }
-
-    public String getName1GenFmla1_Id2() {
-        return name1GenFmla1_Id2;
-    }
-
-    public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) {
-        this.name1GenFmla1_Id2 = name1GenFmla1_Id2;
     }
 
     
@@ -1124,7 +1139,86 @@ public class UsrNode implements AcceptsTenant {
 
     public void setNm1s1Inst1GenFmla1_Id2(String nm1s1Inst1GenFmla1_Id2) { this.nm1s1Inst1GenFmla1_Id2 = nm1s1Inst1GenFmla1_Id2; }
 
-    
+
+    public HasTmst getNm1s1Inst1Ts1() {
+        return nm1s1Inst1Ts1;
+    }
+
+    public void setNm1s1Inst1Ts1(HasTmst nm1s1Inst1Ts1) {
+        this.nm1s1Inst1Ts1 = nm1s1Inst1Ts1;
+    }
+
+    public HasDate getNm1s1Inst1Dt1() {
+        return nm1s1Inst1Dt1;
+    }
+
+    public void setNm1s1Inst1Dt1(HasDate nm1s1Inst1Dt1) {
+        this.nm1s1Inst1Dt1 = nm1s1Inst1Dt1;
+    }
+
+    public HasTime getNm1s1Inst1Tm1() {
+        return nm1s1Inst1Tm1;
+    }
+
+    public void setNm1s1Inst1Tm1(HasTime nm1s1Inst1Tm1) {
+        this.nm1s1Inst1Tm1 = nm1s1Inst1Tm1;
+    }
+
+
+    public Integer getNm1s1Inst1Int1() {
+        return nm1s1Inst1Int1;
+    }
+
+    public void setNm1s1Inst1Int1(Integer nm1s1Inst1Int1) {
+        String logPrfx = "setNm1s1Inst1Int1";
+        logger.trace(logPrfx + " --> ");
+        this.nm1s1Inst1Int1 = nm1s1Inst1Int1;
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    public Integer getNm1s1Inst1Int2() {
+        return nm1s1Inst1Int2;
+    }
+
+    public void setNm1s1Inst1Int2(Integer nm1s1Inst1Int2) {
+        String logPrfx = "setNm1s1Inst1Int2";
+        logger.trace(logPrfx + " --> ");
+        this.nm1s1Inst1Int2 = nm1s1Inst1Int2;
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    public Integer getNm1s1Inst1Int3() {
+        return nm1s1Inst1Int3;
+    }
+
+    public void setNm1s1Inst1Int3(Integer nm1s1Inst1Int3) {
+        String logPrfx = "setNm1s1Inst1Int3";
+        logger.trace(logPrfx + " --> ");
+
+        this.nm1s1Inst1Int3 = nm1s1Inst1Int3;
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    public String getNm1s1Inst1Txt1() {
+        return nm1s1Inst1Txt1;
+    }
+
+    public void setNm1s1Inst1Txt1(String nm1s1Inst1Txt1) { this.nm1s1Inst1Txt1 = nm1s1Inst1Txt1; }
+
+    public String getNm1s1Inst1Txt2() { return nm1s1Inst1Txt2; }
+
+    public void setNm1s1Inst1Txt2(String nm1s1Inst1Txt2) { this.nm1s1Inst1Txt2 = nm1s1Inst1Txt2; }
+
+
+    public UsrNode getNm1s1Inst1Node1_Id() { return nm1s1Inst1Node1_Id; }
+
+    public void setNm1s1Inst1Node1_Id(UsrNode nm1s1Inst1Node1_Id) { this.nm1s1Inst1Node1_Id = nm1s1Inst1Node1_Id; }
+
+
     public String getName2() {
         return name2;
     }
@@ -1258,14 +1352,6 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public HasTmst getNm1s1Inst1Ts1() {
-        return nm1s1Inst1Ts1;
-    }
-
-    public void setNm1s1Inst1Ts1(HasTmst nm1s1Inst1Ts1) {
-        this.nm1s1Inst1Ts1 = nm1s1Inst1Ts1;
-    }
-
     public HasTmst getTs4() {
         return ts4;
     }
@@ -1280,22 +1366,6 @@ public class UsrNode implements AcceptsTenant {
 
     public void setTs2(HasTmst ts2) {
         this.ts2 = ts2;
-    }
-
-    public HasTime getNm1s1Inst1Tm1() {
-        return nm1s1Inst1Tm1;
-    }
-
-    public void setNm1s1Inst1Tm1(HasTime nm1s1Inst1Tm1) {
-        this.nm1s1Inst1Tm1 = nm1s1Inst1Tm1;
-    }
-
-    public HasDate getNm1s1Inst1Dt1() {
-        return nm1s1Inst1Dt1;
-    }
-
-    public void setNm1s1Inst1Dt1(HasDate nm1s1Inst1Dt1) {
-        this.nm1s1Inst1Dt1 = nm1s1Inst1Dt1;
     }
 
     public String getFinTxact1_GenDocVers1_Id2() {
@@ -1329,45 +1399,6 @@ public class UsrNode implements AcceptsTenant {
 
     public HasTmst getTs3() {
         return ts3;
-    }
-
-
-    public Integer getNm1s1Inst1Int1() {
-        return nm1s1Inst1Int1;
-    }
-
-    public void setNm1s1Inst1Int1(Integer nm1s1Inst1Int1) {
-        String logPrfx = "setIdX";
-        logger.trace(logPrfx + " --> ");
-        this.nm1s1Inst1Int1 = nm1s1Inst1Int1;
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    public Integer getNm1s1Inst1Int2() {
-        return nm1s1Inst1Int2;
-    }
-
-    public void setNm1s1Inst1Int2(Integer nm1s1Inst1Int2) {
-        String logPrfx = "setIdY";
-        logger.trace(logPrfx + " --> ");
-        this.nm1s1Inst1Int2 = nm1s1Inst1Int2;
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    public Integer getNm1s1Inst1Int3() {
-        return nm1s1Inst1Int3;
-    }
-
-    public void setNm1s1Inst1Int3(Integer nm1s1Inst1Int3) {
-        String logPrfx = "setIdZ";
-        logger.trace(logPrfx + " --> ");
-
-//        EntityInternals.fireListeners((io.jmix.core.Entity) this, "idZ", this.idZ, idZ);
-        this.nm1s1Inst1Int3 = nm1s1Inst1Int3;
-
-        logger.trace(logPrfx + " <-- ");
     }
 
 
@@ -2473,271 +2504,225 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public String getId2CalcFrFields(){
-        String logPrfx = "getId2CalcFrFields";
+    public Boolean updateCalcVals(DataManager dataManager){
+        String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
-        final String SEP = "/";
-        final String SEP2 = ";";
-        StringBuilder sb = new StringBuilder();
+        boolean isChanged = false;
 
-        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd HHmm")
-                .toFormatter();
-        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-                .appendPattern("HH:mm")
-                .toFormatter();
-        DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
+        isChanged = this.updateDesc1(dataManager) || isChanged;
+        isChanged = this.updateInst1(dataManager) || isChanged;
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
 
-
-        //require name1
-        switch (className) {
-            case "FinAcct" -> {
-                if (name1 == null) {
-                    logger.debug(logPrfx + " --- name1: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- name1: " + name1);
-                }
-
-            }
-        }
-
-        //require instTs1.ts1
-        switch (className) {
-            case "timestamp based type placeholder" -> {
-                if (nm1s1Inst1Ts1 == null) {
-                    logger.debug(logPrfx + " --- idTs: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                }
-                if (nm1s1Inst1Ts1.getElTs() == null) {
-                    logger.debug(logPrfx + " --- idTs.getTs1(): null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- idTs.getTs1(): " + nm1s1Inst1Ts1.getElTs().format(frmtTs));
-                }
-            }
-        }
-
-        //require idDt.date1
-        switch (className) {
-            case "FinTxactSet", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
-                if (nm1s1Inst1Dt1 == null) {
-                    logger.debug(logPrfx + " --- idDt: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                }
-                if (nm1s1Inst1Dt1.getElDt() == null) {
-                    logger.debug(logPrfx + " --- idDt.getDate1(): null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- idDt.getDate1(): " + nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                }
-            }
-        }
-
-        //require beg1.ts1
-        switch (className) {
-            case "FinBal" -> {
-                if (ts1 == null) {
-                    logger.debug(logPrfx + " --- beg1: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                }
-                if (ts1.getElTs() == null) {
-                    logger.debug(logPrfx + " --- beg1.getTs1(): null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- beg1.getTs1(): " + ts1.getElTs().format(frmtTs));
-                }
-            }
-        }
-
-        //require end1.ts1
-        switch (className) {
-            case "FinBal" -> {
-                if (ts3 == null) {
-                    logger.debug(logPrfx + " --- end1: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                }
-                if (ts3.getElTs() == null) {
-                    logger.debug(logPrfx + " --- end1.getTs1(): null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- end1.getTs1(): " + ts3.getElTs().format(frmtTs));
-                }
-            }
-        }
-
-        //require finAcct1_Id
-        switch (className) {
-            case "FinStmt" -> {
-                if (finAcct1_Id == null) {
-                    logger.debug(logPrfx + " --- finAcct1_Id: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- finAcct1_Id: " + finAcct1_Id.getId());
-                }
-
-            }
-        }
-
-        //require finStmt1_Id -> finAcct1_Id
-        switch (className) {
-            case "FinStmtItm" ->{
-                if (finStmt1_Id == null) {
-                    logger.debug(logPrfx + " --- finStmt1_Id: null");
-                    logger.trace(logPrfx + " <--- ");
-                    return "";
-                } else {
-                    if (finStmt1_Id.getFinAcct1_Id()== null){
-                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: null");
-                        logger.trace(logPrfx + " <--- ");
-                        return "";
-                    }else{
-                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: " + finStmt1_Id.getFinAcct1_Id().getId());
-                    }
-                }
-            }
-        }
-
-        //update type1_Id2
-        if (type1_Id != null){
-            type1_Id2 = type1_Id.getId2();
-        }
-
-        //create id2
-        switch (className) {
-            case "GenAgent" ->{
-                switch (type1_Id2){
-                    case "/P" -> {
-                        sb.append("P-" +  String.valueOf(name1));
-                    }
-                    case "/O" -> {
-                        sb.append("O-" +  String.valueOf(name1));
-                    }
-                    case "/C" -> {
-                        String a1fn = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameFrst());
-                        String a1ln = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameLast());
-                        String a2fn = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameFrst());
-                        String a2ln = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameLast());
-                        //name1
-                        sb.append("C-");
-                        sb.append(a1fn.charAt(0));
-                        sb.append(a1ln.equals(String.valueOf(name1)) ? "" : "(" + a1ln + ")");
-                        sb.append("&");
-                        sb.append(a2fn.charAt(0));
-                        sb.append(a2ln.equals(String.valueOf(name1)) ? "" : "(" + a2ln + ")");
-                        sb.append(" ").append(String.valueOf(name1));
-                    }
-                    default -> {
-                        sb.append(name1);
-                    }
-                }
-
-            }
-            case "GenChan", "GenDocVer" ->{
-                //name1
-                sb.append(name1);
-            }
-            case "FinAcct"->{
-                //parent
-                sb.append(parent1_Id == null ? "" : parent1_Id.getId2());
-                //name1
-                sb.append(SEP).append(name1);
-            }
-            case "FinBalSet" ->{
-                //name1
-                sb.append(name1);
-                //finDept1
-                sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2()).append("");
-            }
-            case "FinBal" -> {
-                    if (finBalSet1_Id != null) {
-                        //finBalSet1
-                        sb.append(finBalSet1_Id.getId2());
-                        //finAcct1
-                        sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
-
-                    } else {
-                        //beg1.ts1
-                        sb.append("B=").append(ts1.getElTs().format(frmtDt));
-                        //end1.Ts1
-                        sb.append(SEP2 + "E=").append(ts3.getElTs().format(frmtDt));
-                        //finDept1
-                        sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2());
-                        //finAcct1
-                        sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
-                    }
-            }
-            case "FinTxactSet" -> {
-                //idDt
-                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-            }
-            case "FinTxact" -> {
-                //idDt
-                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //IdY
-                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
-            }
-            case "FinTxactItm" ->{
-                //idDt
-                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //IdY
-                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
-                //IdZ
-                sb.append(SEP + "Z").append(String.format("%02d", nm1s1Inst1Int3 == null ? 0 : nm1s1Inst1Int3));
-            }
-            case "FinStmt" ->{
-                //finAcct1
-                sb.append(finAcct1_Id.getId2());
-                //idDt
-                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-            }
-            case "FinStmtItm" ->{
-                //finAcct1
-                sb.append(finStmt1_Id.getFinAcct1_Id().getId2());
-                //idDt
-                //sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt));
-                //idDt
-                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //amtNet
-                sb.append(SEP + "A").append(frmtDec.format(amtNet));
-            }
-        }
-
-        switch (className){
-        }
-
-
-
-        logger.debug(logPrfx + " --- sb: " + sb);
-        logger.trace(logPrfx + " <--- ");
-        return sb.toString();
-
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
     }
-    public Boolean updateInstTs1() {
+
+    public Boolean updateId2(DataManager dataManager) {
+        String logPrfx = "updateId2";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        String l_id2_ = this.id2;
+        String l_id2 = this.id2Calc;
+        if(!Objects.equals(l_id2_, l_id2)){
+            this.id2 = l_id2;
+            logger.debug(logPrfx + " --- id2: " + l_id2);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Deps(DataManager dataManager) {
+        String logPrfx = "updateId2Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Calc(DataManager dataManager) {
+        String logPrfx = "updateId2Calc";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        final String delim = "/";
+        String l_id2Calc_ = this.name1;
+        String l_id2Calc = this.parent1_Id != null
+                ? this.parent1_Id2 + delim
+                + (this.name1 != null ? this.name1 : "<null>")
+                : this.name1 ;
+        if (!Objects.equals(l_id2Calc_, l_id2Calc)) {
+            this.id2Calc = l_id2Calc;
+            logger.debug(logPrfx + " --- id2Calc:" + l_id2Calc);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2CalcDeps(DataManager dataManager) {
+        String logPrfx = "updateId2CalcDeps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Cmp(DataManager dataManager) {
+        String logPrfx = "updateId2Cmp";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Boolean l_id2Cmp_ = this.id2Cmp;
+        Boolean l_id2Cmp = !Objects.equals(this.id2,this.id2Calc);
+        if (!Objects.equals(l_id2Cmp_, l_id2Cmp)){
+            this.id2Cmp = l_id2Cmp;
+            logger.debug(logPrfx + " --- id2Cmp: " + l_id2Cmp);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateId2Dup(DataManager dataManager) {
+        String logPrfx = "updateId2Dup";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        Integer l_id2Dup_ = this.id2Dup;
+        if (this.id2 != null){
+            String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
+                    + " where e.id2 = :id2"
+                    + " and e.id <> :id";
+            Integer l_id2Dup;
+            try{
+                l_id2Dup = dataManager.loadValue(id2Qry, Integer.class)
+                        .store("main")
+                        .parameter("id",this.id)
+                        .parameter("id2",this.id2)
+                        .one();
+            }catch (IllegalStateException e){
+                l_id2Dup =0;
+
+            }
+            l_id2Dup = l_id2Dup + 1;
+            logger.debug(logPrfx + " --- id2Dup qry counted: " + l_id2Dup + " rows");
+            if (!Objects.equals(l_id2Dup_, l_id2Dup)){
+                this.id2Dup = l_id2Dup;
+                logger.debug(logPrfx + " --- id2Dup: " + l_id2Dup);
+                isChanged = true;
+            }
+
+        }
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateName1(DataManager dataManager){
+        String logPrfx = "updateName1()";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+        String l_name1_ = this.name1;
+        String l_name1 = this.inst1;
+        if (!Objects.equals(l_name1_, l_name1)) {
+            this.name1 = l_name1;
+            logger.debug(logPrfx + " --- name1:" + l_name1);
+            isChanged = true;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateName1Deps(DataManager dataManager) {
+        String logPrfx = "updateName1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateType1_IdDeps(DataManager dataManager) {
+        String logPrfx = "updateType1_IdDeps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateInst1(DataManager dataManager){
+        String logPrfx = "updateInst1";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateInst1Deps(DataManager dataManager) {
+        String logPrfx = "updateInst1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    public Boolean updateDesc1(DataManager dataManager){
+        String logPrfx = "updateDesc1";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+
+    public Boolean updateNm1s1Inst1Ts1() {
         // Assume ts1, ts2, ts3 is not null
-        String logPrfx = "updateInstTs1()";
+        String logPrfx = "updateNm1s1Inst1Ts1()";
         logger.trace(logPrfx + " --> ");
 
 
@@ -2786,9 +2771,9 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateInstDt1() {
+    public Boolean updateNm1s1Inst1Dt1() {
         // Assume ts1, ts2, ts3 is not null
-        String logPrfx = "updateInstDt1()";
+        String logPrfx = "updateNm1s1Inst1Dt1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
@@ -2844,8 +2829,8 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateInstTm1() {
-        String logPrfx = "updateInstTm1()";
+    public Boolean updateNm1s1Inst1Tm1() {
+        String logPrfx = "updateNm1s1Inst1Tm1()";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
@@ -2858,6 +2843,140 @@ public class UsrNode implements AcceptsTenant {
 
             default:
                 break;
+        }
+
+        logger.trace(logPrfx + " <--- ");
+        return isChanged;
+    }
+
+
+    public Boolean updateNm1s1Inst1Int1() {
+        // Assume id2 is not null
+        String logPrfx = "updateNm1s1Inst1Int1()";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        Integer l_instInt2_ = nm1s1Inst1Int1;
+        Integer l_instInt2 = null;
+
+        switch (className) {
+            case "FinTxact":
+            case "FinTxactItm":
+            case "FinTxactSet":
+                if (id2 != null
+                        && id2.length() >= 20){
+
+                    String id2_part = id2.substring(18,20);
+                    try{
+                        l_instInt2 = Integer.parseInt(id2_part);
+
+                    } catch (NumberFormatException e){
+
+                        logger.trace(logPrfx + " ---- NumberFormatException");
+                        logger.trace(logPrfx + " <--- ");
+                        return isChanged;
+                    }
+
+                    if (!Objects.equals(l_instInt2_, l_instInt2)){
+                        logger.debug(logPrfx + " --- calling setInstInt1("+ l_instInt2 +")");
+                        setNm1s1Inst1Int1(l_instInt2);
+                        isChanged = true;
+                    }
+
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+
+        logger.trace(logPrfx + " <--- ");
+        return isChanged;
+    }
+
+    public Boolean updateNm1s1Inst1Int2() {
+        // Assume id2 is not null
+        String logPrfx = "updateNm1s1Inst1Int2()";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        Integer l_instInt2_ = nm1s1Inst1Int2;
+        Integer l_instInt2 = null;
+
+        switch (className) {
+            case "FinTxact":
+            case "FinTxactItm":
+                if (id2 != null
+                        && id2.length() >= 24){
+
+
+                    String id2_part = id2.substring(22,24);
+                    try{
+                        l_instInt2 = Integer.parseInt(id2_part);
+
+                    } catch (NumberFormatException e){
+
+                        logger.trace(logPrfx + " ---- NumberFormatException");
+                        logger.trace(logPrfx + " <--- ");
+                        return isChanged;
+                    }
+
+                    if (!Objects.equals(l_instInt2_, l_instInt2)){
+                        logger.debug(logPrfx + " --- calling setInstInt2("+ l_instInt2 +")");
+                        setNm1s1Inst1Int2(l_instInt2);
+                        isChanged = true;
+                    }
+
+                }
+                break;
+
+            default:
+                break;
+        }
+
+        logger.trace(logPrfx + " <--- ");
+        return isChanged;
+    }
+
+    public Boolean updateNm1s1Inst1Int3() {
+        // Assume id2 is not null
+        String logPrfx = "updateNm1s1Inst1Int3()";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        Integer l_instInt3_ = nm1s1Inst1Int3;
+        Integer l_instInt3 = null;
+
+        switch (className) {
+            case "FinTxactItm" -> {
+                if (id2 != null
+                        && id2.length() >= 28){
+
+                    String id2_part = id2.substring(26,28);
+                    try{
+                        l_instInt3 = Integer.parseInt(id2_part);
+
+                    } catch (NumberFormatException e){
+
+                        logger.trace(logPrfx + " ---- NumberFormatException");
+                        logger.trace(logPrfx + " <--- ");
+                        return isChanged;
+                    }
+
+                    if (!Objects.equals(l_instInt3_, l_instInt3)){
+                        logger.debug(logPrfx + " --- calling setInstInt3("+ l_instInt3 +")");
+                        setNm1s1Inst1Int3(l_instInt3);
+                        isChanged = true;
+                    }
+
+                }
+            }
+
         }
 
         logger.trace(logPrfx + " <--- ");
@@ -3049,168 +3168,6 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateInstInt1() {
-        // Assume id2 is not null
-        String logPrfx = "updateInstInt1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        Integer l_instInt2_ = nm1s1Inst1Int1;
-        Integer l_instInt2 = null;
-
-        switch (className) {
-            case "FinTxact":
-            case "FinTxactItm":
-            case "FinTxactSet":
-                if (id2 != null
-                        && id2.length() >= 20){
-
-                    String id2_part = id2.substring(18,20);
-                    try{
-                        l_instInt2 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <--- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_instInt2_, l_instInt2)){
-                        logger.debug(logPrfx + " --- calling setInstInt1("+ l_instInt2 +")");
-                        setNm1s1Inst1Int1(l_instInt2);
-                        isChanged = true;
-                    }
-
-                }
-
-                break;
-
-            default:
-                break;
-        }
-
-
-        logger.trace(logPrfx + " <--- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateInstInt2() {
-        // Assume id2 is not null
-        String logPrfx = "updateInstInt2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        Integer l_instInt2_ = nm1s1Inst1Int2;
-        Integer l_instInt2 = null;
-
-        switch (className) {
-            case "FinTxact":
-            case "FinTxactItm":
-                if (id2 != null
-                        && id2.length() >= 24){
-
-
-                    String id2_part = id2.substring(22,24);
-                    try{
-                        l_instInt2 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <--- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_instInt2_, l_instInt2)){
-                        logger.debug(logPrfx + " --- calling setInstInt2("+ l_instInt2 +")");
-                        setNm1s1Inst1Int2(l_instInt2);
-                        isChanged = true;
-                    }
-
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <--- ");
-        return isChanged;
-    }
-
-    public Boolean updateInstInt3() {
-        // Assume id2 is not null
-        String logPrfx = "updateInstInt3()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        Integer l_instInt3_ = nm1s1Inst1Int3;
-        Integer l_instInt3 = null;
-
-        switch (className) {
-            case "FinTxactItm" -> {
-                if (id2 != null
-                        && id2.length() >= 28){
-
-                    String id2_part = id2.substring(26,28);
-                    try{
-                        l_instInt3 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <--- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_instInt3_, l_instInt3)){
-                        logger.debug(logPrfx + " --- calling setInstInt3("+ l_instInt3 +")");
-                        setNm1s1Inst1Int3(l_instInt3);
-                        isChanged = true;
-                    }
-
-                }
-            }
-
-        }
-
-        logger.trace(logPrfx + " <--- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateName1(){
-        String logPrfx = "updateName1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        String l_name1_ = getName1();
-        String l_name1 = null;
-
-
-        switch (className) {
-            case "FinAcct" -> {
-                String delim = "/";
-                String id2 = getId2();
-                l_name1 = id2.substring(id2.lastIndexOf(delim) + 1);
-                if (!Objects.equals(l_name1_, l_name1)) {
-                    logger.debug(logPrfx + " --- calling setName1(" + l_name1 + ")");
-                    setName1(l_name1);
-                    isChanged = true;
-                }
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
 
     public Boolean updateGenAgent1(){
         String logPrfx = "updateGenAgent1()";
@@ -3260,129 +3217,7 @@ public class UsrNode implements AcceptsTenant {
     }
 
 
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc() || isChanged;
-        isChanged = this.updateId2Cmp() || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateId2() {
-        // Assume this is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = this.getId2();
-        String id2 = this.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            this.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateId2Calc(){
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = this.getId2Calc();
-        String id2Calc = this.getName1();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            this.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Cmp() {
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = this.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(this.getId2(),this.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            this.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Dup(DataManager dataManager) {
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = this.getId2Dup();
-        if (this.getId2() != null){
-            String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
-                    + " where e.id2 = :id2"
-                    + " and e.id <> :id";
-            Integer id2Dup;
-            try{
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id",this.getId())
-                        .parameter("id2",this.getId2())
-                        .one();
-            }catch (IllegalStateException e){
-                id2Dup =0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                this.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- this.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateInst1(){
-        String logPrfx = "updateInst1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateDesc1(){
-        String logPrfx = "updateDesc1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private UsrNode findNodeById2(DataManager dataManager, @NotNull String crtieria_Id2) {
+    public UsrNode findNodeById2(DataManager dataManager, @NotNull String crtieria_Id2) {
         String logPrfx = "findNodeById2";
         logger.trace(logPrfx + " --> ");
 
@@ -3424,6 +3259,270 @@ public class UsrNode implements AcceptsTenant {
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
+    }
+
+
+    public String getId2CalcFrFields(){
+        String logPrfx = "getId2CalcFrFields";
+        logger.trace(logPrfx + " --> ");
+
+        final String SEP = "/";
+        final String SEP2 = ";";
+        StringBuilder sb = new StringBuilder();
+
+        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+                .appendPattern("yyyyMMdd HHmm")
+                .toFormatter();
+        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd")
+                .toFormatter();
+        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+                .appendPattern("HH:mm")
+                .toFormatter();
+        DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
+
+
+        //require name1
+        switch (className) {
+            case "FinAcct" -> {
+                if (name1 == null) {
+                    logger.debug(logPrfx + " --- name1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- name1: " + name1);
+                }
+
+            }
+        }
+
+        //require instTs1.ts1
+        switch (className) {
+            case "timestamp based type placeholder" -> {
+                if (nm1s1Inst1Ts1 == null) {
+                    logger.debug(logPrfx + " --- idTs: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (nm1s1Inst1Ts1.getElTs() == null) {
+                    logger.debug(logPrfx + " --- idTs.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- idTs.getTs1(): " + nm1s1Inst1Ts1.getElTs().format(frmtTs));
+                }
+            }
+        }
+
+        //require idDt.date1
+        switch (className) {
+            case "FinTxactSet", "FinTxact", "FinTxactItm","FinStmt" , "FinStmtItm" -> {
+                if (nm1s1Inst1Dt1 == null) {
+                    logger.debug(logPrfx + " --- idDt: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (nm1s1Inst1Dt1.getElDt() == null) {
+                    logger.debug(logPrfx + " --- idDt.getDate1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- idDt.getDate1(): " + nm1s1Inst1Dt1.getElDt().format(frmtDt));
+                }
+            }
+        }
+
+        //require beg1.ts1
+        switch (className) {
+            case "FinBal" -> {
+                if (ts1 == null) {
+                    logger.debug(logPrfx + " --- beg1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (ts1.getElTs() == null) {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- beg1.getTs1(): " + ts1.getElTs().format(frmtTs));
+                }
+            }
+        }
+
+        //require end1.ts1
+        switch (className) {
+            case "FinBal" -> {
+                if (ts3 == null) {
+                    logger.debug(logPrfx + " --- end1: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                }
+                if (ts3.getElTs() == null) {
+                    logger.debug(logPrfx + " --- end1.getTs1(): null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- end1.getTs1(): " + ts3.getElTs().format(frmtTs));
+                }
+            }
+        }
+
+        //require finAcct1_Id
+        switch (className) {
+            case "FinStmt" -> {
+                if (finAcct1_Id == null) {
+                    logger.debug(logPrfx + " --- finAcct1_Id: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    logger.debug(logPrfx + " --- finAcct1_Id: " + finAcct1_Id.getId());
+                }
+
+            }
+        }
+
+        //require finStmt1_Id -> finAcct1_Id
+        switch (className) {
+            case "FinStmtItm" ->{
+                if (finStmt1_Id == null) {
+                    logger.debug(logPrfx + " --- finStmt1_Id: null");
+                    logger.trace(logPrfx + " <--- ");
+                    return "";
+                } else {
+                    if (finStmt1_Id.getFinAcct1_Id()== null){
+                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: null");
+                        logger.trace(logPrfx + " <--- ");
+                        return "";
+                    }else{
+                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: " + finStmt1_Id.getFinAcct1_Id().getId());
+                    }
+                }
+            }
+        }
+
+        //update type1_Id2
+        if (type1_Id != null){
+            type1_Id2 = type1_Id.getId2();
+        }
+
+        //create id2
+        switch (className) {
+            case "GenAgent" ->{
+                switch (type1_Id2){
+                    case "/P" -> {
+                        sb.append("P-" +  String.valueOf(name1));
+                    }
+                    case "/O" -> {
+                        sb.append("O-" +  String.valueOf(name1));
+                    }
+                    case "/C" -> {
+                        String a1fn = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameFrst());
+                        String a1ln = genAgent1_Id == null ? "" : String.valueOf(genAgent1_Id.getNameLast());
+                        String a2fn = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameFrst());
+                        String a2ln = genAgent2_Id == null ? "" : String.valueOf(genAgent2_Id.getNameLast());
+                        //name1
+                        sb.append("C-");
+                        sb.append(a1fn.charAt(0));
+                        sb.append(a1ln.equals(String.valueOf(name1)) ? "" : "(" + a1ln + ")");
+                        sb.append("&");
+                        sb.append(a2fn.charAt(0));
+                        sb.append(a2ln.equals(String.valueOf(name1)) ? "" : "(" + a2ln + ")");
+                        sb.append(" ").append(String.valueOf(name1));
+                    }
+                    default -> {
+                        sb.append(name1);
+                    }
+                }
+
+            }
+            case "GenChan", "GenDocVer" ->{
+                //name1
+                sb.append(name1);
+            }
+            case "FinAcct"->{
+                //parent
+                sb.append(parent1_Id == null ? "" : parent1_Id.getId2());
+                //name1
+                sb.append(SEP).append(name1);
+            }
+            case "FinBalSet" ->{
+                //name1
+                sb.append(name1);
+                //finDept1
+                sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2()).append("");
+            }
+            case "FinBal" -> {
+                if (finBalSet1_Id != null) {
+                    //finBalSet1
+                    sb.append(finBalSet1_Id.getId2());
+                    //finAcct1
+                    sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
+
+                } else {
+                    //beg1.ts1
+                    sb.append("B=").append(ts1.getElTs().format(frmtDt));
+                    //end1.Ts1
+                    sb.append(SEP2 + "E=").append(ts3.getElTs().format(frmtDt));
+                    //finDept1
+                    sb.append(SEP2 + "D=").append(finDept1_Id == null ? "" : finDept1_Id.getId2());
+                    //finAcct1
+                    sb.append(SEP2 + "A=").append(finAcct1_Id == null ? "" : finAcct1_Id.getId2());
+                }
+            }
+            case "FinTxactSet" -> {
+                //idDt
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
+            }
+            case "FinTxact" -> {
+                //idDt
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
+                //IdY
+                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
+            }
+            case "FinTxactItm" ->{
+                //idDt
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
+                //IdY
+                sb.append(SEP + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
+                //IdZ
+                sb.append(SEP + "Z").append(String.format("%02d", nm1s1Inst1Int3 == null ? 0 : nm1s1Inst1Int3));
+            }
+            case "FinStmt" ->{
+                //finAcct1
+                sb.append(finAcct1_Id.getId2());
+                //idDt
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
+            }
+            case "FinStmtItm" ->{
+                //finAcct1
+                sb.append(finStmt1_Id.getFinAcct1_Id().getId2());
+                //idDt
+                //sb.append(SEP + "D").append(idTs.getTs1().format(frmtDt));
+                //idDt
+                sb.append(SEP + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
+                //IdX
+                sb.append(SEP + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
+                //amtNet
+                sb.append(SEP + "A").append(frmtDec.format(amtNet));
+            }
+        }
+
+        switch (className){
+        }
+
+
+
+        logger.debug(logPrfx + " --- sb: " + sb);
+        logger.trace(logPrfx + " <--- ");
+        return sb.toString();
+
     }
 
 }

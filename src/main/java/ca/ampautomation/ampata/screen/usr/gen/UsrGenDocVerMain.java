@@ -1,26 +1,20 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
 import ca.ampautomation.ampata.entity.usr.gen.*;
-import ca.ampautomation.ampata.screen.usr.UsrNodeBase;
+import ca.ampautomation.ampata.screen.usr.UsrNodeBaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.UsrNode;
 import io.jmix.ui.screen.LookupComponent;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
-import java.util.Objects;
 
 @UiController("enty_UsrGenDocVer.main")
 @UiDescriptor("usr-gen-doc-ver-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenDocVerMain extends UsrNodeBase<UsrGenDocVer, UsrGenDocVerType, UsrGenDocVerQryMngr> {
+public class UsrGenDocVerMain extends UsrNodeBaseMain<UsrGenDocVer, UsrGenDocVerType, UsrGenDocVerQryMngr> {
 
 
     //Common

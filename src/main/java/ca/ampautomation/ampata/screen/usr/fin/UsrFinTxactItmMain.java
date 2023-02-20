@@ -4987,7 +4987,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstDt1();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Dt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -5024,7 +5024,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt1();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -5036,7 +5036,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt2();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -5048,7 +5048,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt3();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -5110,7 +5110,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
                 if (thisFinTxact != null) {
                     if (!Objects.equals(thisFinTxact.getNm1s1Inst1Dt1().getElDt(), thisFinTxactItm.getNm1s1Inst1Dt1().getElDt())) {
                         thisFinTxact.getTs1().setElTs(thisFinTxactItm.getNm1s1Inst1Dt1().getElDt().atStartOfDay());
-                        thisFinTxact.updateInstDt1();
+                        thisFinTxact.updateNm1s1Inst1Dt1();
                         thisFinTxactIsChanged = true;
                     }
                     if (!Objects.equals(thisFinTxact.getNm1s1Inst1Int1(), thisFinTxactItm.getNm1s1Inst1Int1())) {
@@ -5589,7 +5589,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
             HasTmst beg1 = dataManager.create(HasTmst.class);
             beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Dt1().getElDt().atStartOfDay());
             newFinTxact.setTs1(beg1);
-            newFinTxact.updateInstDt1();
+            newFinTxact.updateNm1s1Inst1Dt1();
 
             newFinTxact.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
             newFinTxact.setNm1s1Inst1Int2(thisFinTxactItm.getNm1s1Inst1Int2());
@@ -5652,7 +5652,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
                             thisFinTxactSetIsChanged = true;
                         }
                         if (thisFinTxactSetIsChanged) {
-                            thisFinTxactSet.updateInstDt1();
+                            thisFinTxactSet.updateNm1s1Inst1Dt1();
                             thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
                             thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
                             dataManager.save(thisFinTxactSet);
@@ -5810,7 +5810,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
                 HasTmst beg1 = dataManager.create(HasTmst.class);
                 beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Dt1().getElDt().atStartOfDay());
                 newFinTxactSet.setTs1(beg1);
-                newFinTxactSet.updateInstDt1();
+                newFinTxactSet.updateNm1s1Inst1Dt1();
 
                 newFinTxactSet.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
 

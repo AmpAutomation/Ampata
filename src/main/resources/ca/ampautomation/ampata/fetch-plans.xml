@@ -707,9 +707,10 @@
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
-        <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="name1"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
         <property name="desc1"/>
         <property name="note"/>
     </fetchPlan>
@@ -729,20 +730,21 @@
     <fetchPlan entity="enty_SysNode" name="fetchPlan_SysNode_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="className"/>
+        <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
         <property name="parent1_Id2"/>
-        <property name="ancestors1_Id2"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
-        <property name="inst1"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
         <property name="name1GenFmla1_Id2"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
         <property name="abrv"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
@@ -750,7 +752,31 @@
         <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="enty_SysNode" name="fetchPlan_SysFinCurcy_Base" extends="fetchPlan_SysNode_Base">
+    <fetchPlan entity="enty_SysFinCurcy" name="fetchPlan_SysFinCurcy_Base" extends="_instance_name">
+        <property name="dtype"/>
+        <property name="className"/>
+        <property name="id2"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+        <property name="inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="inst1GenFmla1_Id2"/>
+        <property name="abrv"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="note"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_SysNode" name="fetchPlan_SysFinCurcyExchRate_Base" extends="fetchPlan_SysNode_Base">

@@ -1,25 +1,25 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.sys.SysNode;
+import ca.ampautomation.ampata.entity.sys.fin.SysFinCurcy;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctQryMngr;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctType;
+import ca.ampautomation.ampata.entity.usr.fin.UsrFinTaxLne;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.screen.usr.UsrNodeBaseMain;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.UiComponents;
 import io.jmix.ui.component.*;
 import io.jmix.ui.component.data.options.ListOptions;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -27,190 +27,98 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinAcct.main")
 @UiDescriptor("usr-fin-acct-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcctMain extends MasterDetailScreen<UsrNode> {
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private UsrFinAcctQryMngr qryMngr;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
+public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr> {
 
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected PropertyFilter<UsrGenAgent> filterConfig1A_GenAgent1_Id;
 
     @Autowired
-    protected PropertyFilter<UsrNodeType> filterConfig1A_Type1_Id;
-
-    @Autowired
-    protected PropertyFilter<UsrNode> filterConfig1A_GenAgent1_Id;
-
-    @Autowired
-    protected PropertyFilter<SysNode> filterConfig1A_SysFinCurcy1_Id;
+    protected PropertyFilter<SysFinCurcy> filterConfig1A_SysFinCurcy1_Id;
 
     
-    //Toolbar
-    @Autowired
-    protected ComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
-    protected ComboBox<Integer> updateInstItemCalcValsOption;
-    
-    
     //Template
     @Autowired
-    protected EntityComboBox<UsrNodeType> tmplt_Type1_IdField;
-    @Autowired
-    protected CheckBox tmplt_Type1_IdFieldChk;
-
-    @Autowired
-    protected EntityComboBox<UsrNode> tmplt_GenAgent1_IdField;
+    protected EntityComboBox<UsrGenAgent> tmplt_GenAgent1_IdField;
     @Autowired
     protected CheckBox tmplt_GenAgent1_IdFieldChk;
 
     @Autowired
-    protected EntityComboBox<SysNode> tmplt_SysFinCurcy1_IdField;
+    protected EntityComboBox<SysFinCurcy> tmplt_SysFinCurcy1_IdField;
     @Autowired
     protected CheckBox tmplt_SysFinCurcy1_IdFieldChk;
-
     @Autowired
-    protected EntityComboBox<UsrNode> tmplt_FinTaxLne1_IdField;
+    protected EntityComboBox<UsrFinTaxLne> tmplt_FinTaxLne1_IdField;
     @Autowired
     protected CheckBox tmplt_FinTaxLne1_IdFieldChk;
 
 
 
-    //Main data containers, loaders and table
-    @Autowired
-    private CollectionContainer<UsrNode> colCntnrMain;
-    @Autowired
-    private CollectionLoader<UsrNode> colLoadrMain;
-    @Autowired
-    private InstanceContainer<UsrNode> instCntnrMain;
-    @Autowired
-    private TreeTable<UsrNode> tableMain;
-
-    //Type data container and loader
-    private CollectionContainer<UsrNodeType> colCntnrType;
-    private CollectionLoader<UsrNodeType> colLoadrType;
-
     //Other data loaders and containers
-    private CollectionContainer<UsrNode> genAgentsDc;
-    private CollectionLoader<UsrNode> genAgentsDl;
+    private CollectionContainer<UsrGenAgent> colCntnrGenAgent;
+    private CollectionLoader<UsrGenAgent> colLoadrGenAgent;
 
-
-
-    private CollectionContainer<SysNode> colCntnrSysFinCurcy;
-    private CollectionLoader<SysNode> colLoadrSysFinCurcy;
-
+    private CollectionContainer<SysFinCurcy> colCntnrSysFinCurcy;
+    private CollectionLoader<SysFinCurcy> colLoadrSysFinCurcy;
 
     private CollectionContainer<UsrGenFmla> colCntnrGenFmla;
     private CollectionLoader<UsrGenFmla> colLoadrGenFmla;
 
+    private CollectionContainer<UsrFinTaxLne> colCntnrFinTaxLne;
+    private CollectionLoader<UsrFinTaxLne> colLoadrFinTaxLne;
 
-    private CollectionContainer<UsrNode> finAcct1sDc;
-    private CollectionLoader<UsrNode> finAcct1sDl;
-
-
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
 
-    private CollectionContainer<UsrNode> colCntnrGenTag;
-    private CollectionLoader<UsrNode> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
-
-    private CollectionContainer<UsrNode> usrFinTaxLnesDc;
-    private CollectionLoader<UsrNode> usrFinTaxLnesDl;
 
     //Field
     @Autowired
     private ComboBox<String> statusField;
 
     @Autowired
-    private TextField<String> classNameField;
+    private EntityComboBox<UsrGenAgent> genAgent1_IdField;
 
     @Autowired
-    private TextField<String> id2Field;
-
-    @Autowired
-    private TextField<String> id2CalcField;
-
-    @Autowired
-    private EntityComboBox<UsrNodeType> type1_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genAgent1_IdField;
-
-    @Autowired
-    private EntityComboBox<SysNode> sysFinCurcy1_IdField;
+    private EntityComboBox<SysFinCurcy> sysFinCurcy1_IdField;
 
     @Autowired
     private EntityComboBox<UsrGenFmla> desc1UsrNode1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> parent1_IdField;
+    private EntityComboBox<UsrFinTaxLne> fchPlnFinTaxLne_Inst;
 
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag2_IdField;
+    private EntityComboBox<UsrGenTag> genTag2_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag3_IdField;
+    private EntityComboBox<UsrGenTag> genTag3_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag4_IdField;
-
+    private EntityComboBox<UsrGenTag> genTag4_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finTaxLne1_IdField;
+    private EntityComboBox<UsrFinTaxLne> finTaxLne1_IdField;
 
 
-    /*
-InitEvent is sent when the screen controller and all its declaratively defined components are created,
-and dependency injection is completed. Nested fragments are not initialized yet. Some visual components
-are not fully initialized, for example, buttons are not linked with actions.
- */
+    @Override
     @Subscribe
     public void onInit(InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
+        super.onInit(event);
 
         statusField.setNullOptionVisible(true);
         statusField.setNullSelectionCaption("<null>");
@@ -222,47 +130,32 @@ are not fully initialized, for example, buttons are not linked with actions.
         updateColItemCalcValsOption.setOptionsMap(map1);
         updateInstItemCalcValsOption.setOptionsMap(map1);
 
-        colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
-        colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinAcct' order by e.id2");
-        FetchPlan finAcctTypesFp = fetchPlans.builder(UsrNodeType.class)
+
+        colCntnrGenAgent = dataComponents.createCollectionContainer(UsrGenAgent.class);
+        colLoadrGenAgent = dataComponents.createCollectionLoader();
+        colLoadrGenAgent.setQuery("select e from enty_UsrGenAgent e order by e.id2");
+        FetchPlan ftchPlnGenAgent_Inst = fetchPlans.builder(UsrGenAgent.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrType.setFetchPlan(finAcctTypesFp);
-        colLoadrType.setContainer(colCntnrType);
-        colLoadrType.setDataContext(getScreenData().getDataContext());
+        colLoadrGenAgent.setFetchPlan(ftchPlnGenAgent_Inst);
+        colLoadrGenAgent.setContainer(colCntnrGenAgent);
+        colLoadrGenAgent.setDataContext(getScreenData().getDataContext());
 
-        type1_IdField.setOptionsContainer(colCntnrType);
+        genAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
         //template
-        tmplt_Type1_IdField.setOptionsContainer(colCntnrType);
-
-
-
-        genAgentsDc = dataComponents.createCollectionContainer(UsrNode.class);
-        genAgentsDl = dataComponents.createCollectionLoader();
-        genAgentsDl.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenAgent' order by e.id2");
-        FetchPlan genAgentsFp = fetchPlans.builder(UsrNode.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        genAgentsDl.setFetchPlan(genAgentsFp);
-        genAgentsDl.setContainer(genAgentsDc);
-        genAgentsDl.setDataContext(getScreenData().getDataContext());
-
-        genAgent1_IdField.setOptionsContainer(genAgentsDc);
-        //template
-        tmplt_GenAgent1_IdField.setOptionsContainer(genAgentsDc);
+        tmplt_GenAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
         //filter
-        EntityComboBox<UsrNode> propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrNode>) filterConfig1A_GenAgent1_Id.getValueComponent();
-        propFilterCmpnt_GenAgent1_Id.setOptionsContainer(genAgentsDc);
+        EntityComboBox<UsrGenAgent> propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrGenAgent>) filterConfig1A_GenAgent1_Id.getValueComponent();
+        propFilterCmpnt_GenAgent1_Id.setOptionsContainer(colCntnrGenAgent);
 
 
-        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNode.class);
+        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysFinCurcy.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrSysFinCurcy.setQuery("select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
-        FetchPlan sysFinCurcysFp = fetchPlans.builder(SysNode.class)
+        colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e where order by e.id2");
+        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysFinCurcy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrSysFinCurcy.setFetchPlan(sysFinCurcysFp);
+        colLoadrSysFinCurcy.setFetchPlan(fchPlnSysFinCurcy_Inst);
         colLoadrSysFinCurcy.setContainer(colCntnrSysFinCurcy);
         colLoadrSysFinCurcy.setDataContext(getScreenData().getDataContext());
 
@@ -270,52 +163,41 @@ are not fully initialized, for example, buttons are not linked with actions.
         //template
         tmplt_SysFinCurcy1_IdField.setOptionsContainer(colCntnrSysFinCurcy);
         //filter
-        EntityComboBox<SysNode> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysNode>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
+        EntityComboBox<SysFinCurcy> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysFinCurcy>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
         propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(colCntnrSysFinCurcy);
 
 
 
         colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
         colLoadrGenFmla = dataComponents.createCollectionLoader();
-        colLoadrGenFmla.setQuery("select e from enty_UsrItem e where e.className = 'UsrGenFmla' order by e.id2");
-        FetchPlan genFmlasFp = fetchPlans.builder(UsrGenFmla.class)
+        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e where order by e.id2");
+        FetchPlan fchPlnGenFmla_Inst = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenFmla.setFetchPlan(genFmlasFp);
+        colLoadrGenFmla.setFetchPlan(fchPlnGenFmla_Inst);
         colLoadrGenFmla.setContainer(colCntnrGenFmla);
         colLoadrGenFmla.setDataContext(getScreenData().getDataContext());
 
         desc1UsrNode1_IdField.setOptionsContainer(colCntnrGenFmla);
 
-        finAcct1sDc = dataComponents.createCollectionContainer(UsrNode.class);
-        finAcct1sDl = dataComponents.createCollectionLoader();
-        finAcct1sDl.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
-        FetchPlan finAcct1sFp = fetchPlans.builder(UsrNode.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        finAcct1sDl.setFetchPlan(finAcct1sFp);
-        finAcct1sDl.setContainer(finAcct1sDc);
-        finAcct1sDl.setDataContext(getScreenData().getDataContext());
 
-        parent1_IdField.setOptionsContainer(finAcct1sDc);
-
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.id2");
+        FetchPlan fchPlnUsrGenDocVer_Inst = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenDocVer.setFetchPlan(genDocVersFp);
+        colLoadrGenDocVer.setFetchPlan(fchPlnUsrGenDocVer_Inst);
         colLoadrGenDocVer.setContainer(colCntnrGenDocVer);
         colLoadrGenDocVer.setDataContext(getScreenData().getDataContext());
 
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e where order by e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -328,133 +210,34 @@ are not fully initialized, for example, buttons are not linked with actions.
         genTag4_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        usrFinTaxLnesDc = dataComponents.createCollectionContainer(UsrNode.class);
-        usrFinTaxLnesDl = dataComponents.createCollectionLoader();
-        usrFinTaxLnesDl.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocFrg' order by e.id2");
-        FetchPlan finTaxLnesFp = fetchPlans.builder(UsrNode.class)
+        colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrFinTaxLne.class);
+        colLoadrFinTaxLne = dataComponents.createCollectionLoader();
+        colLoadrFinTaxLne.setQuery("select e from enty_UsrFinTaxLne e order by e.id2");
+        FetchPlan fchPlnFinTaxLne_Inst = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        usrFinTaxLnesDl.setFetchPlan(finTaxLnesFp);
-        usrFinTaxLnesDl.setContainer(usrFinTaxLnesDc);
-        usrFinTaxLnesDl.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTaxLne.setFetchPlan(fchPlnFinTaxLne_Inst);
+        colLoadrFinTaxLne.setContainer(colCntnrFinTaxLne);
+        colLoadrFinTaxLne.setDataContext(getScreenData().getDataContext());
 
-        finTaxLne1_IdField.setOptionsContainer(usrFinTaxLnesDc);
+        finTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
         //template
-        tmplt_FinTaxLne1_IdField.setOptionsContainer(usrFinTaxLnesDc);
+        tmplt_FinTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
         //filter
 
 
         logger.trace(logPrfx + " <-- ");
     }
 
-
-
-    @Subscribe(target = Target.DATA_CONTEXT)
-    public void onChange(DataContext.ChangeEvent event) {
-        String logPrfx = "onChange";
-        logger.trace(logPrfx + " --> ");
-
-        logger.debug(logPrfx + " --- Changed entity: " + event.getEntity());
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    /*
-    AfterInitEvent is sent when the screen controller and all its declaratively defined components are created,
-    dependency injection is completed, and all components have completed their internal initialization procedures.
-    Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can
-    create visual and data components and perform additional initialization if it depends on initialized nested
-    fragments.
-    */
-    @Subscribe
-    public void onAfterInit(AfterInitEvent event) {
-        String logPrfx = "onAfterInit";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    /*
-    InitEntityEvent is sent in screens inherited from StandardEditor and MasterDetailScreen
-    before the new entity instance is set to edited entity container.
-    Use this event listener to initialize default values in the new entity instance
-    */
-    @Subscribe
-    public void onInitEntity(InitEntityEvent<UsrNode> event) {
-        String logPrfx = "onInitEntity";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = event.getEntity();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- thisFinAcct is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        thisFinAcct.setClassName("UsrFinAcct");
-        logger.debug(logPrfx + " --- className: UsrFinAcct");
-
-        logger.trace(logPrfx + " <-- ");
-
-    }
-
-    /*
-    BeforeShowEvent is sent right before the screen is shown, for example, it is not added to the application UI yet.
-    Security restrictions are applied to UI components. In this event listener, you can load data,
-    check permissions and modify UI components.
-    */
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-        String logPrfx = "onBeforeShow";
-        logger.trace(logPrfx + " --> ");
-
-        tableMain.sort("sortIdx", Table.SortDirection.ASCENDING);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    /*
-    AfterShowEvent is sent right after the screen is shown, for example, when it is added to the application UI.
-    In this event listener, you can show notifications, dialogs or other screens
-    */
-    @Subscribe
-    protected void onAfterShow(AfterShowEvent event) {
-        String logPrfx = "onAfterShow";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinAcctsDcItemChange(InstanceContainer.ItemChangeEvent<UsrNode> event) {
-        String logPrfx = "onFinAcctsDcItemChange";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = event.getItem();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- thisFinAcct is null, likely because no record is selected.");
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        thisFinAcct.setClassName("UsrFinAcct");
-        logger.debug(logPrfx + " --- className: UsrFinAcct");
-
-        logger.trace(logPrfx + " <-- ");
-
-    }
-
-
+    @Override
     @Subscribe("reloadListsBtn")
     public void onReloadListsBtnClick(Button.ClickEvent event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        colLoadrType.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
+        super.onReloadListsBtnClick(event);
 
-        genAgentsDl.load();
+        colLoadrGenAgent.load();
         logger.debug(logPrfx + " --- called genAgentsDl.load() ");
 
         colLoadrSysFinCurcy.load();
@@ -463,45 +246,30 @@ are not fully initialized, for example, buttons are not linked with actions.
         colLoadrGenFmla.load();
         logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
-        finAcct1sDl.load();
-        logger.debug(logPrfx + " --- called finAcct1sDl.load() ");
-
-        usrFinTaxLnesDl.load();
+        colLoadrFinTaxLne.load();
         logger.debug(logPrfx + " --- called usrFinTaxLnesDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
 
     }
 
-    @Subscribe("updateColCalcValsBtn")
-    public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateColCalcValsBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        logger.debug(logPrfx + " --- loading colLoadrMain.load()");
-        colLoadrMain.load();
-        logger.debug(logPrfx + " --- finished colLoadrMain.load()");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
+    @Override
     @Subscribe("duplicateBtn")
     public void onDuplicateBtnClick(Button.ClickEvent event) {
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
+        List<UsrFinAcct> thisFinAccts = tableMain.getSelected().stream().toList();
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        List<UsrNode> sels = new ArrayList<>();
+        List<UsrFinAcct> sels = new ArrayList<>();
 
         thisFinAccts.forEach(orig -> {
-            UsrNode copy = metadataTools.copy(orig);
+            UsrFinAcct copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
             if (tmplt_Type1_IdFieldChk.isChecked()) {
@@ -512,8 +280,11 @@ are not fully initialized, for example, buttons are not linked with actions.
                 copy.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
-            copy.setId2(copy.getId2Calc());
+            copy.updateInst1(dataManager);
+            copy.updateName1(dataManager);
+            copy.updateId2Calc(dataManager);
+            copy.updateId2Deps(dataManager);
+
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int3(copy.getNm1s1Inst1Int3() == null ? 1 : copy.getNm1s1Inst1Int3() + 1);
                 copy.setId2Calc(copy.getId2CalcFrFields());
@@ -521,9 +292,9 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             Integer option = Optional.ofNullable(updateColItemCalcValsOption.getValue()).orElse(0);
-            updateCalcVals(copy, option);
+            copy.updateCalcVals(option);
 
-            UsrNode savedCopy = dataManager.save(copy);
+            UsrFinAcct savedCopy = dataManager.save(copy);
             colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
@@ -545,7 +316,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
+        List<UsrFinAcct> thisFinAccts = tableMain.getSelected().stream().toList();
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -602,7 +373,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onRebuildSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
+        List<UsrFinAcct> thisFinAccts = tableMain.getSelected().stream().toList();
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -610,13 +381,15 @@ are not fully initialized, for example, buttons are not linked with actions.
             return;
         }
 
-        UsrNode firstFinAcct = thisFinAccts.get(0);
+        UsrFinAcct firstFinAcct = thisFinAccts.get(0);
 
-        thisFinAccts = new ArrayList<>(getFinAcctsByParent1(firstFinAcct.getParent1_Id()));
+        List<UsrNode> l = getNodeListByParent1(firstFinAcct.getParent1_Id());
+        List<UsrFinAcct> b = (List<UsrFinAcct>) l;
+        thisFinAccts = new ArrayList<>((List<UsrFinAcct>) l);
         thisFinAccts.sort(Comparator.comparing(UsrNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrNode> chngFinAccts = new ArrayList<>();
-        List<UsrNode> finalChngFinAccts = chngFinAccts;
+        List<UsrFinAcct> chngFinAccts = new ArrayList<>();
+        List<UsrFinAcct> finalChngFinAccts = chngFinAccts;
 
         AtomicInteger sortIdx = new AtomicInteger(0);
         thisFinAccts.forEach(thisFinAcct -> {
@@ -1286,24 +1059,12 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
-    
-    @Subscribe("updateParent1_IdFieldListBtn")
-    public void onUpdateParent1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateParent1_IdFieldListBtn";
-        logger.trace(logPrfx + " --> ");
-
-        finAcct1sDl.load();
-        logger.debug(logPrfx + " --- called finAcct1sDl.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-    
     @Subscribe("updateGenAgent1_IdFieldListBtn")
     public void onUpdateGenAgent1_IdFieldListBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateGenAgent1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        genAgentsDl.load();
+        colLoadrGenAgent.load();
         logger.debug(logPrfx + " --- called genAgentsDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
@@ -1368,164 +1129,12 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinTaxLne1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
-        usrFinTaxLnesDl.load();
+        colLoadrFinTaxLne.load();
         logger.debug(logPrfx + " --- called usrFinTaxLnesDl.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    private Boolean updateCalcVals(@NotNull UsrNode thisFinAcct, Integer option) {
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = updateId2Calc(thisFinAcct) || isChanged;
-        switch (option) {
-            case 1: // Include Id2
-                isChanged = updateId2(thisFinAcct) || isChanged;
-                break;
-
-        }
-        isChanged = updateId2Cmp(thisFinAcct) || isChanged;
-        isChanged = updateId2Dup(thisFinAcct) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateIdParts(@NotNull UsrNode thisFinAcct) {
-        String logPrfx = "updateIdParts";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = updatetName1(thisFinAcct)  || isChanged;
-        isChanged = updatetAgent1(thisFinAcct)  || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateId2(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = thisFinAcct.getId2();
-        String id2 = thisFinAcct.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            thisFinAcct.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Calc(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = thisFinAcct.getId2Calc();
-        String id2Calc = thisFinAcct.getId2CalcFrFields();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            thisFinAcct.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Cmp(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = thisFinAcct.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisFinAcct.getId2(),thisFinAcct.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisFinAcct.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Dup(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = thisFinAcct.getId2Dup();
-        if (thisFinAcct.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNode e"
-                    + " where e.className = 'UsrFinAcct'"
-                    + " and e.id2 = :id2"
-                    + " and e.id <> :id"
-                    ;
-            Integer id2Dup;
-            try {
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id", thisFinAcct.getId())
-                        .parameter("id2", thisFinAcct.getId2())
-                        .one();
-            } catch (IllegalStateException e) {
-                id2Dup = 0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                thisFinAcct.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisFinAcct.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updatetName1(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updatetName1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinAcct.updateName1();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updatetAgent1(@NotNull UsrNode thisFinAcct) {
-        // Assume thisFinAcct is not null
-        String logPrfx = "updatetAgent1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinAcct.updateGenAgent1();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-    
 
     private UsrNode getFinAcctBySortIdx(@NotNull Integer sortIdx, UsrNode parent1_Id) {
         String logPrfx = "getFinAcctBySortIdx";
@@ -1589,8 +1198,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         return finAccts;
     }
 
-    private List<UsrNode> getFinAcctsByParent1(UsrNode parent1_Id) {
-        String logPrfx = "getFinAcctsByParent1";
+    private List<UsrNode> getNodeListByParent1(UsrNode parent1_Id) {
+        String logPrfx = "getNodeListByParent1";
         logger.trace(logPrfx + " --> ");
 
         String qry = "select e from enty_UsrNode e"
@@ -1600,19 +1209,19 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
 
-        List<UsrNode> finAccts = null;
+        List<UsrNode> l_childs = null;
         try {
-            finAccts = dataManager.load(UsrNode.class)
+            l_childs = dataManager.load(UsrNode.class)
                     .query(qry)
                     .parameter("parent1_Id", parent1_Id)
                     .list();
-            logger.debug(logPrfx + " --- query qry returned "+ finAccts.size() +" results");
+            logger.debug(logPrfx + " --- query qry returned "+ l_childs.size() +" results");
         } catch (IllegalStateException e) {
             logger.debug(logPrfx + " --- query qry returned NO results");
         }
 
         logger.trace(logPrfx + " <-- ");
-        return finAccts;
+        return l_childs;
     }
 
     private void reloadStatusList(){

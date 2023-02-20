@@ -12,19 +12,5 @@ import javax.persistence.Entity;
 @DiscriminatorValue(value="enty_UsrGenFile")
 public class UsrGenFile extends UsrNode {
 
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc() || isChanged;
-        isChanged = this.updateId2Cmp() || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-        isChanged = this.updateDesc1() || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
 
 }

@@ -900,7 +900,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateInstTs1();
+        isChanged = isChanged || thisFinStmtItm.updateNm1s1Inst1Ts1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -937,7 +937,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateInstInt1();
+        isChanged = isChanged || thisFinStmtItm.updateNm1s1Inst1Int1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

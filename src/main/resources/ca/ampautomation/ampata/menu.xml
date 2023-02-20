@@ -66,8 +66,16 @@
     <menu id="sys" caption="msg://ca.ampautomation.ampata.menu/sys">
         <menu id="sysFin" caption="msg://ca.ampautomation.ampata.menu/sysFin">
             <menu id="sysFinCurcy" caption="msg://ca.ampautomation.ampata.menu/sysFinCurcy">
-                <item screen="enty_SysFinCurcy.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyMain.menu"/>
-                <item screen="enty_SysFinCurcyExchRate.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateMain.menu"/>
+                <item screen="SysFinCurcyMainMain" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyMain.menu"/>
+                <item screen="SysFinCurcyExchRateMainMain" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateMain.menu"/>
+            </menu>
+        </menu>
+        <menu id="sysComn" caption="msg://ca.ampautomation.ampata.menu/sysCmn">
+            <menu id="sysCmnNode" caption="msg://ca.ampautomation.ampata.menu/sysCmnNode">
+                <item screen="SysNodeMainMain" caption="msg://ca.ampautomation.ampata.screen.sys/sysNodeMain.menu"/>
+                <item screen="enty_SysNodeType.main" caption="msg://ca.ampautomation.ampata.screen.sys/sysNodeTypeMain.menu"/>
+            </menu>
+            <menu id="sysCmnItem" caption="msg://ca.ampautomation.ampata.menu/sysCmnItem">
             </menu>
         </menu>
     </menu>

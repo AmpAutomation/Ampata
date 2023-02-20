@@ -1290,7 +1290,7 @@ public class UsrFinStmtMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmt.updateInstDt1();
+        isChanged = isChanged || thisFinStmt.updateNm1s1Inst1Dt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

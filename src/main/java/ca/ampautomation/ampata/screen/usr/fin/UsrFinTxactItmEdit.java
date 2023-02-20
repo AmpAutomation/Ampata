@@ -2553,7 +2553,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstTs1();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Ts1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2590,7 +2590,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt1();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2602,7 +2602,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt2();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2614,7 +2614,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactItm.updateInstInt3();
+        isChanged = isChanged || thisFinTxactItm.updateNm1s1Inst1Int3();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2664,7 +2664,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                         thisFinTxactIsChanged = true;
                     }
                     if (thisFinTxactIsChanged){
-                        thisFinTxact.updateInstTs1();
+                        thisFinTxact.updateNm1s1Inst1Ts1();
                         thisFinTxact.setId2Calc(thisFinTxact.getId2CalcFrFields());
                         thisFinTxact.setId2(thisFinTxact.getId2Calc());
                         dataManager.save(thisFinTxact);
@@ -2929,7 +2929,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             HasTmst beg1 = dataManager.create(HasTmst.class);
             beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
             newFinTxact.setTs1(beg1);
-            newFinTxact.updateInstTs1();
+            newFinTxact.updateNm1s1Inst1Ts1();
 
             newFinTxact.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
             newFinTxact.setNm1s1Inst1Int2(thisFinTxactItm.getNm1s1Inst1Int2());
@@ -2992,7 +2992,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                             thisFinTxactSetIsChanged = true;
                         }
                         if (thisFinTxactSetIsChanged) {
-                            thisFinTxactSet.updateInstTs1();
+                            thisFinTxactSet.updateNm1s1Inst1Ts1();
                             thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
                             thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
                             dataManager.save(thisFinTxactSet);
@@ -3096,7 +3096,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                 HasTmst beg1 = dataManager.create(HasTmst.class);
                 beg1.setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
                 newFinTxactSet.setTs1(beg1);
-                newFinTxactSet.updateInstTs1();
+                newFinTxactSet.updateNm1s1Inst1Ts1();
 
                 newFinTxactSet.setNm1s1Inst1Int1(thisFinTxactItm.getNm1s1Inst1Int1());
 

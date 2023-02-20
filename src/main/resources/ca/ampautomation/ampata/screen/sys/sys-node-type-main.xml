@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrNodeTypeMain.caption"
+        caption="msg://sysNodeTypeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                    fetchPlan="fetchPlan_UsrNodeType_Base">
+                    class="ca.ampautomation.ampata.entity.sys.SysNodeType"
+                    fetchPlan="fetchPlan_SysNodeType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeType e order by e.id2]]>
+                    <![CDATA[select e from enty_SysNodeType e order by e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                  fetchPlan="fetchPlan_UsrNodeType_Base">
+                  class="ca.ampautomation.ampata.entity.sys.SysNodeType"
+                  fetchPlan="fetchPlan_SysNodeType_Base">
             <loader/>
         </instance>
     </data>
@@ -39,7 +39,7 @@
                             <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                <entityPicker metaClass="enty_UsrNode"/>
+                                <entityPicker metaClass="enty_SysNode"/>
                             </propertyFilter>
 
                             <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="CONTAINS" property="dtype" operationEditable="true">
@@ -60,7 +60,6 @@
                         <action id="remove" type="remove"/>
                     </actions>
                     <columns>
-                        <column id="tenant" collapsed="true"/>
                         <column id="dtype"/>
                         <column id="className"/>
                         <column id="id2"/>
@@ -148,9 +147,6 @@
                                 <vbox width="360px">
                                     <hbox caption="id" expand="id" width="100%">
                                         <textField id="id" property="id" editable="false"/>
-                                    </hbox>
-                                    <hbox caption="tenant" expand="tenantField" width="100%">
-                                        <textField id="tenantField" property="tenant" editable="false"/>
                                     </hbox>
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" property="dtype" editable="false"/>

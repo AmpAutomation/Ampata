@@ -1,7 +1,6 @@
 package ca.ampautomation.ampata.screen.usr;
 
 import ca.ampautomation.ampata.entity.usr.UsrBaseQryMngr;
-import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import io.jmix.core.*;
@@ -10,7 +9,6 @@ import io.jmix.ui.UiComponents;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +18,19 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 
-public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends UsrNodeType, UsrNodeQryMngrT extends UsrBaseQryMngr> extends MasterDetailScreen<UsrNodeT> {
+public abstract class UsrNodeTypeBaseMain<UsrNodeTypeT extends UsrNodeType, UsrNodeTypeQryMngrT extends UsrBaseQryMngr> extends MasterDetailScreen<UsrNodeTypeT> {
 
     //Common
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
 
-
-    private Class<UsrNodeT> typeOfUsrNodeT;
     private Class<UsrNodeTypeT> typeOfUsrNodeTypeT;
 
     @SuppressWarnings("unchecked")
-    public UsrNodeBase() {
-        this.typeOfUsrNodeT = (Class<UsrNodeT>)
-                ((ParameterizedType)getClass()
-                        .getGenericSuperclass())
-                        .getActualTypeArguments()[0];
+    public UsrNodeTypeBaseMain() {
         this.typeOfUsrNodeTypeT = (Class<UsrNodeTypeT>)
                 ((ParameterizedType)getClass()
                         .getGenericSuperclass())
                         .getActualTypeArguments()[0];
-    }
-    protected ListComponent<UsrNodeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
     }
 
     @Autowired
@@ -71,43 +60,31 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
     @Autowired
     protected Notifications notifications;
 
-    
-    //Query Manager
-    protected UsrNodeQryMngrT qryMngr;
 
-    
+    //Query Manager
+    protected UsrNodeTypeQryMngrT qryMngr;
+
+
     //Filter
     @Autowired
     protected Filter filter;
 
-    @Autowired
-    protected PropertyFilter<UsrNodeTypeT> filterConfig1A_Type1_Id;
 
-    
     //Toolbar
 
-    
-    //Template
-    @Autowired
-    protected CheckBox tmplt_Type1_IdFieldChk;
-    @Autowired
-    protected EntityComboBox<UsrNodeTypeT> tmplt_Type1_IdField;
 
-    
+    //Template
+
+
     //Main data containers, loaders and table
     @Autowired
-    protected CollectionLoader<UsrNodeT> colLoadrMain;
+    protected CollectionLoader<UsrNodeType> colLoadrMain;
     @Autowired
-    protected CollectionContainer<UsrNodeT> colCntnrMain;
+    protected CollectionContainer<UsrNodeType> colCntnrMain;
     @Autowired
-    protected InstanceContainer<UsrNodeT> instCntnrMain;
+    protected InstanceContainer<UsrNodeType> instCntnrMain;
     @Autowired
-    protected TreeTable<UsrNodeT> tableMain;
-
-    
-    //Type data container and loader
-    protected CollectionContainer<UsrNodeTypeT> colCntnrType;
-    protected CollectionLoader<UsrNodeTypeT> colLoadrType;
+    protected TreeTable<UsrNodeType> tableMain;
 
 
     //GenFmla data container and loader
@@ -129,51 +106,28 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
     protected TextField<String> id2CalcField;
 
     @Autowired
-    protected EntityPicker<UsrNodeT> parent1_IdField;
-
-    @Autowired
-    protected EntityComboBox<UsrNodeTypeT> type1_IdField;
-
-    @Autowired
     protected EntityComboBox<UsrGenFmla> name1GenFmla1_IdField;
 
     @Autowired
     protected EntityComboBox<UsrGenFmla> desc1GenFmla1_IdField;
 
-
-
+    protected ListComponent<UsrNodeTypeT> getTable() {
+        return (ListComponent) getWindow().getComponentNN("tableMain");
+    }
 
     @Subscribe
     public void onInit(InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
-        colCntnrType = dataComponents.createCollectionContainer(this.typeOfUsrNodeTypeT);
-        colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_"+ this.typeOfUsrNodeTypeT.getSimpleName() + " e order by e.id2");
-        FetchPlan fchPlnType_Inst = fetchPlans.builder(this.typeOfUsrNodeTypeT)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        colLoadrType.setFetchPlan(fchPlnType_Inst);
-        colLoadrType.setContainer(colCntnrType);
-        colLoadrType.setDataContext(getScreenData().getDataContext());
-        //Field
-        type1_IdField.setOptionsContainer(colCntnrType);
-        //Template
-        tmplt_Type1_IdField.setOptionsContainer(colCntnrType);
-        //Filter
-        EntityComboBox<UsrNodeTypeT> propFilterCmpnt_Type1_Id;
-        propFilterCmpnt_Type1_Id = (EntityComboBox<UsrNodeTypeT>) filterConfig1A_Type1_Id.getValueComponent();
-        propFilterCmpnt_Type1_Id.setOptionsContainer(colCntnrType);
-
 
         colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
         colLoadrGenFmla = dataComponents.createCollectionLoader();
         colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.id2");
-        FetchPlan fchPlnGenFmla_Inst = fetchPlans.builder(UsrGenFmla.class)
+        FetchPlan fchPlnGenFmla = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenFmla.setFetchPlan(fchPlnGenFmla_Inst);
+        colLoadrGenFmla.setFetchPlan(fchPlnGenFmla);
         colLoadrGenFmla.setContainer(colCntnrGenFmla);
         colLoadrGenFmla.setDataContext(getScreenData().getDataContext());
         //Field
@@ -191,34 +145,33 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onColCntnrMainCollectionChange(CollectionContainer.CollectionChangeEvent<UsrNodeT> event) {
+    public void onColCntnrMainCollectionChange(CollectionContainer.CollectionChangeEvent<UsrNodeTypeT> event) {
         String logPrfx = "onColCntnrMainCollectionChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.getSource().getItemOrNull() == null){
-            logger.debug(logPrfx + " --- thisNode is null.");
+            logger.debug(logPrfx + " --- thisNodeType is null.");
             logger.trace(logPrfx + " <-- ");
             return;
         }
         logger.trace(logPrfx + " <-- ");
-
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onColCntnrMainItemChange(InstanceContainer.ItemChangeEvent<UsrNodeT> event) {
+    public void onColCntnrMainItemChange(InstanceContainer.ItemChangeEvent<UsrNodeTypeT> event) {
         String logPrfx = "onColCntnrMainItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = event.getItem();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null");
-            //todo I observed thisFinBal is null when selecting a new item
+        UsrNodeTypeT thisNodeType = event.getItem();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null");
+            //todo I observed thisNodeType is null when selecting a new item
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        if (thisNode.getClassName() == null || thisNode.getClassName().isBlank()){
-            thisNode.setClassName("T");
-            logger.debug(logPrfx + " --- className: T");
+        if (thisNodeType.getClassName() == null || thisNodeType.getClassName().isBlank()){
+            thisNodeType.setClassName(typeOfUsrNodeTypeT.getSimpleName());
+            logger.debug(logPrfx + " --- className: " + typeOfUsrNodeTypeT.getSimpleName());
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -230,20 +183,18 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        colLoadrType.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
-
         logger.trace(logPrfx + " <-- ");
 
     }
+
     @Subscribe("updateColCalcValsBtn")
     public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing repo.execPrUpdAllCalcValsforAllNative()");
+        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
         qryMngr.execPrUpdAllCalcValsforAllRowsNative();
-        logger.debug(logPrfx + " --- finished repo.execPrUpdAllCalcValsforAllNative()");
+        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -258,15 +209,15 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
-        if (thisNodes == null || thisNodes.isEmpty()) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
+        List<UsrNodeType> thisNodeTypes = tableMain.getSelected().stream().toList();
+        if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNodes.forEach(orig -> {
-            UsrNodeT copy = metadataTools.copy(orig);
+        thisNodeTypes.forEach(orig -> {
+            UsrNodeType copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
             if (orig.getId2().equals(copy.getId2())){
@@ -274,7 +225,7 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
                 copy.setId2Calc(copy.getId2());
             }
 
-            UsrNodeT savedCopy = dataManager.save(copy);
+            UsrNodeType savedCopy = dataManager.save(copy);
             colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Duplicated " + copy.getClass().getName() + ":" + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
@@ -291,33 +242,27 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
-        if (thisNodes == null || thisNodes.isEmpty()) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
+        List<UsrNodeType> thisNodeTypes = tableMain.getSelected().stream().toList();
+        if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
 
-        thisNodes.forEach(thisNode -> {
-            thisNode = dataContext.merge(thisNode);
-            if (thisNode != null) {
+        thisNodeTypes.forEach(thisNodeType -> {
+            thisNodeType = dataContext.merge(thisNodeType);
+            if (thisNodeType != null) {
 
-                Boolean thisNodeIsChanged = false;
+                Boolean thisNodeTypeIsChanged = false;
 
-                if (tmplt_Type1_IdFieldChk.isChecked()
-                ) {
-                    thisNodeIsChanged = true;
-                    thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
-                }
+                thisNodeTypeIsChanged = thisNodeType.updateId2Calc(dataManager) || thisNodeTypeIsChanged;
+                thisNodeTypeIsChanged = thisNodeType.updateId2(dataManager) || thisNodeTypeIsChanged;
+                thisNodeTypeIsChanged = thisNodeType.updateId2Cmp(dataManager) || thisNodeTypeIsChanged;
 
-                thisNodeIsChanged = thisNode.updateId2Calc() || thisNodeIsChanged;
-                thisNodeIsChanged = thisNode.updateId2() || thisNodeIsChanged;
-                thisNodeIsChanged = thisNode.updateId2Cmp() || thisNodeIsChanged;
-
-                if (thisNodeIsChanged) {
-                    logger.debug(logPrfx + " --- executing dataManager.save(thisNode).");
-                    //dataManager.save(thisNode);
+                if (thisNodeTypeIsChanged) {
+                    logger.debug(logPrfx + " --- executing dataManager.save(thisNodeType).");
+                    //dataManager.save(thisNodeType);
                 }
             }
         });
@@ -338,21 +283,21 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
+            List<UsrNodeType> thisNodeTypes = tableMain.getSelected().stream().toList();
 
             //Loop throught the items again to update the id2Dup attribute
-            thisNodes.forEach(thisNode -> {
-                //T thisTrackedNode = dataContext.merge(thisNode);
-                if (thisNode != null) {
-                    thisNode = dataContext.merge(thisNode);
+            thisNodeTypes.forEach(thisNodeType -> {
+                //UsrNodeType thisTrackedNode = dataContext.merge(thisNodeType);
+                if (thisNodeType != null) {
+                    thisNodeType = dataContext.merge(thisNodeType);
 
-                    Boolean thisNodeIsChanged = false;
+                    Boolean thisNodeTypeIsChanged = false;
 
-                    thisNodeIsChanged = thisNode.updateId2Dup(dataManager) || thisNodeIsChanged;
+                    thisNodeTypeIsChanged = thisNodeType.updateId2Dup(dataManager) || thisNodeTypeIsChanged;
 
-                    if (thisNodeIsChanged) {
-                        logger.debug(logPrfx + " --- executing dataManager.save(thisNode).");
-                        //dataManager.save(thisNode);
+                    if (thisNodeTypeIsChanged) {
+                        logger.debug(logPrfx + " --- executing dataManager.save(thisNodeType).");
+                        //dataManager.save(thisNodeType);
                     }
                 }
             });
@@ -365,7 +310,7 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
                 colLoadrMain.load();
 
                 tableMain.sort("id2", Table.SortDirection.ASCENDING);
-                tableMain.setSelected(thisNodes);
+                tableMain.setSelected(thisNodeTypes);
             }
         }
         logger.trace(logPrfx + " <-- ");
@@ -377,21 +322,21 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeType> thisNodes = tableMain.getSelected().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNodes.forEach(thisNode -> {
-            if (thisNode != null) {
+        thisNodes.forEach(thisNodeType -> {
+            if (thisNodeType != null) {
 
-                thisNode = dataContext.merge(thisNode);;
+                thisNodeType = dataContext.merge(thisNodeType);;
 
                 boolean isChanged = false;
 
-                isChanged = thisNode.updateCalcVals(dataManager);
+                isChanged = thisNodeType.updateCalcVals(dataManager);
 
             }
         });
@@ -412,39 +357,38 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
 
 
     @Subscribe(id = "instCntnrMain", target = Target.DATA_CONTAINER)
-    public void onInstCntnrMainItemChange(InstanceContainer.ItemChangeEvent<UsrNodeT> event) {
+    public void onInstCntnrMainItemChange(InstanceContainer.ItemChangeEvent<UsrNodeType> event) {
         String logPrfx = "onInstCntnrMainItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = event.getSource().getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            //todo I observed thisNode is null when selecting a new item
+        UsrNodeType thisNodeType = event.getSource().getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
+            //todo I observed thisNodeType is null when selecting a new item
             //notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        if (StringUtils.isEmpty(thisNode.getClassName())) {
-            thisNode.setClassName(typeOfUsrNodeT.getSimpleName());
-            logger.debug(logPrfx + " --- className: " + typeOfUsrNodeT.getSimpleName());
-        }
+        thisNodeType.setClassName("UsrNodeType");
+        logger.debug(logPrfx + " --- className: UsrNodeType");
 
         logger.trace(logPrfx + " <-- ");
     }
 
+
     @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemValsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateInstItemValsBtnClick";
+    public void onUpdateInstItemCalcValsBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateInstItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateCalcVals(dataManager);
+        thisNodeType.updateCalcVals(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -455,15 +399,14 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-            if (thisNode == null) {
-                logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+            UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+            if (thisNodeType == null) {
+                logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            thisNode.updateId2Cmp();
-            thisNode.updateId2Dup(dataManager);
+            thisNodeType.updateId2Deps(dataManager);
         }
         logger.trace(logPrfx + " <-- ");
     }
@@ -473,18 +416,16 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateId2();
-        thisNode.updateId2Cmp();
-        thisNode.updateId2Dup(dataManager);
+        thisNodeType.updateId2(dataManager);
+        thisNodeType.updateId2Deps(dataManager);
 
-        logger.debug(logPrfx + " --- id2: " + thisNode.getId2());
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -494,17 +435,17 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateId2Calc();
-        thisNode.updateId2Cmp();
+        thisNodeType.updateId2Calc(dataManager);
+        thisNodeType.updateId2CalDeps(dataManager);
 
-        logger.debug(logPrfx + " --- id2Calc: " + thisNode.getId2Calc());
+        logger.debug(logPrfx + " --- id2Calc: " + thisNodeType.getId2Calc());
         logger.trace(logPrfx + " <-- ");
     }
 
@@ -513,14 +454,14 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateId2Cmp();
+        thisNodeType.updateId2Cmp(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -530,42 +471,14 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateId2Dup(dataManager);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrType.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateInst1FieldBtn")
-    public void onUpdateInst1FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateInst1FieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        thisNode.updateInst1();
+        thisNodeType.updateId2Dup(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -576,7 +489,7 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         logger.trace(logPrfx + " --> ");
 
         colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -586,14 +499,14 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNodeT thisNode = instCntnrMain.getItemOrNull();
-        if (thisNode == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+        UsrNodeType thisNodeType = instCntnrMain.getItemOrNull();
+        if (thisNodeType == null) {
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisNode.updateDesc1();
+        thisNodeType.updateDesc1(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -605,9 +518,10 @@ public abstract class UsrNodeBase<UsrNodeT extends UsrNode, UsrNodeTypeT extends
         logger.trace(logPrfx + " --> ");
 
         colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }
+
 
 }
