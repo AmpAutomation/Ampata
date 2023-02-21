@@ -20,6 +20,7 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.core.AcceptsTenant;
+import io.jmix.ui.screen.Screen;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -2524,7 +2525,7 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public Boolean updateCalcVals(DataManager dataManager){
+    public Boolean updateCalcVals(Screen scrn){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
