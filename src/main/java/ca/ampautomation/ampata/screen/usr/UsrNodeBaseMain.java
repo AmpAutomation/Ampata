@@ -378,6 +378,43 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
     }
 
 
+    private void updateHelper(List<UsrNode> chngNodes) {
+        String logPrfx = "updateHelper";
+        logger.trace(logPrfx + " --> ");
+
+        if(chngNodes != null && !chngNodes.isEmpty()) {
+
+            //sync the UI with the changes to the database
+            logger.debug(logPrfx + " --- executing colLoadrMain.load().");
+            colLoadrMain.load();
+
+            List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
+
+            //Loop throught the items again to update the id2Dup attribute
+            chngNodes.forEach(thisNode -> {
+                //UsrNode thisTrackedFinAcct = dataContext.merge(thisNode);
+                if (thisNode != null) {
+                    thisNode = dataContext.merge(thisNode);
+                    Boolean thisNodeIsChanged = false;
+
+                    thisNodeIsChanged = thisNode.updateId2Dup(dataManager) || thisNodeIsChanged;
+
+                }
+            });
+
+            if (dataContext.hasChanges()) {
+                logger.debug(logPrfx + " --- executing dataContext.commit().");
+                dataContext.commit();
+
+                logger.debug(logPrfx + " --- executing colLoadrMain.load().");
+                colLoadrMain.load();
+
+                tableMain.setSelected(thisNodes);
+            }
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
     @Subscribe("updateColItemCalcValsBtn")
     public void onUpdateColItemCalcValsBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";

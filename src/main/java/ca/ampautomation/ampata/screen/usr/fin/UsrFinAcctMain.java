@@ -362,7 +362,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         }
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -382,8 +382,9 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         }
 
         UsrFinAcct firstFinAcct = thisFinAccts.get(0);
+        UsrNode firstNode = thisFinAccts.get(0);
 
-        List<UsrNode> l = getNodeListByParent1(firstFinAcct.getParent1_Id());
+        List<UsrNode> l = getNodeListByParent1(firstNode.getParent1_Id());
         List<UsrFinAcct> b = (List<UsrFinAcct>) l;
         thisFinAccts = new ArrayList<>((List<UsrFinAcct>) l);
         thisFinAccts.sort(Comparator.comparing(UsrNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
@@ -414,7 +415,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         }
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -498,7 +499,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         });
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -570,7 +571,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         });
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -643,7 +644,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         });
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -737,48 +738,11 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
 
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateFinAcctHelper(chngFinAccts);
+        updateHelper(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    private void updateFinAcctHelper(List<UsrNode> chngFinAccts) {
-        String logPrfx = "updateFinAcctHelper";
-        logger.trace(logPrfx + " --> ");
-
-        if(chngFinAccts != null && !chngFinAccts.isEmpty()) {
-
-            //sync the UI with the changes to the database
-            logger.debug(logPrfx + " --- executing colLoadrMain.load().");
-            colLoadrMain.load();
-
-            List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
-
-            //Loop throught the items again to update the id2Dup attribute
-            chngFinAccts.forEach(thisFinAcct -> {
-                //UsrNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-                if (thisFinAcct != null) {
-                    thisFinAcct = dataContext.merge(thisFinAcct);
-                    Boolean thisFinAcctIsChanged = false;
-
-                    thisFinAcctIsChanged = updateId2Dup(thisFinAcct) || thisFinAcctIsChanged;
-
-                }
-            });
-
-            if (dataContext.hasChanges()) {
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
-
-                logger.debug(logPrfx + " --- executing colLoadrMain.load().");
-                colLoadrMain.load();
-
-                tableMain.setSelected(thisFinAccts);
-            }
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
 
 
     private Integer getSortIdxMax(UsrNode thisFinAcct) {
