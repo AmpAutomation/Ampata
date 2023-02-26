@@ -20,7 +20,6 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.core.AcceptsTenant;
-import io.jmix.ui.screen.Screen;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,11 +139,14 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "CLASS_NAME")
     protected String className;
 
-    @JoinTable(name = "AMPATA_USR_NODE__GEN_TAG_LINK",
+    @JoinTable(name = "AMPATA_USR_NODE__GEN_TAGS1_LINK",
             joinColumns = @JoinColumn(name = "NODE_ID"),
             inverseJoinColumns = @JoinColumn(name = "GEN_TAG_ID"))
     @ManyToMany
-    private List<UsrGenTag> genTags;
+    private List<UsrGenTag> genTags1_Id;
+
+    @Column(name = "GEN_TAGS1__ID2")
+    protected String genTags1_Id2;
 
     @InstanceName
     @Column(name = "ID2")
@@ -372,9 +374,6 @@ public class UsrNode implements AcceptsTenant {
     @Lob
     @Column(name = "GEN_FILE1__URI")
     protected URI genFile1_URI;
-
-    @Column(name = "GEN_TAGS1__ID2")
-    protected String genTags1_Id2;
 
     @JoinColumn(name = "GEN_TAG1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -946,12 +945,12 @@ public class UsrNode implements AcceptsTenant {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedDate;
 
-    public List<UsrGenTag> getGenTags() {
-        return genTags;
+    public List<UsrGenTag> getGenTags1_Id() {
+        return genTags1_Id;
     }
 
-    public void setGenTags(List<UsrGenTag> genTags) {
-        this.genTags = genTags;
+    public void setGenTags1_Id(List<UsrGenTag> genTags1_Id) {
+        this.genTags1_Id = genTags1_Id;
     }
 
     public String getNm1s1Inst1Node1_Id2() {
@@ -2525,7 +2524,7 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public Boolean updateCalcVals(Screen scrn){
+    public Boolean updateCalcVals(DataManager dataManager){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -2542,6 +2541,18 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
+    public Boolean updateCalcVals(DataManager dataManager, Integer option){
+        String logPrfx = "updateCalcVals";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateCalcVals(dataManager);
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
     public Boolean updateId2(DataManager dataManager) {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -2550,7 +2561,7 @@ public class UsrNode implements AcceptsTenant {
         String l_id2_ = this.id2;
         String l_id2 = this.id2Calc;
         if(!Objects.equals(l_id2_, l_id2)){
-            this.id2 = l_id2;
+            this.setId2(l_id2);
             logger.debug(logPrfx + " --- id2: " + l_id2);
             isChanged = true;
         }
@@ -2577,13 +2588,13 @@ public class UsrNode implements AcceptsTenant {
 
         boolean isChanged = false;
         final String delim = "/";
-        String l_id2Calc_ = this.name1;
+        String l_id2Calc_ = this.id2Calc;
         String l_id2Calc = this.parent1_Id != null
                 ? this.parent1_Id2 + delim
                 + (this.name1 != null ? this.name1 : "<null>")
                 : this.name1 ;
         if (!Objects.equals(l_id2Calc_, l_id2Calc)) {
-            this.id2Calc = l_id2Calc;
+            this.setId2Calc(l_id2Calc);
             logger.debug(logPrfx + " --- id2Calc:" + l_id2Calc);
             isChanged = true;
         }
@@ -2612,7 +2623,7 @@ public class UsrNode implements AcceptsTenant {
         Boolean l_id2Cmp_ = this.id2Cmp;
         Boolean l_id2Cmp = !Objects.equals(this.id2,this.id2Calc);
         if (!Objects.equals(l_id2Cmp_, l_id2Cmp)){
-            this.id2Cmp = l_id2Cmp;
+            this.setId2Cmp(l_id2Cmp);
             logger.debug(logPrfx + " --- id2Cmp: " + l_id2Cmp);
             isChanged = true;
         }
@@ -2645,7 +2656,7 @@ public class UsrNode implements AcceptsTenant {
             l_id2Dup = l_id2Dup + 1;
             logger.debug(logPrfx + " --- id2Dup qry counted: " + l_id2Dup + " rows");
             if (!Objects.equals(l_id2Dup_, l_id2Dup)){
-                this.id2Dup = l_id2Dup;
+                this.setId2Dup(l_id2Dup);
                 logger.debug(logPrfx + " --- id2Dup: " + l_id2Dup);
                 isChanged = true;
             }
@@ -2664,7 +2675,7 @@ public class UsrNode implements AcceptsTenant {
         String l_name1_ = this.name1;
         String l_name1 = this.inst1;
         if (!Objects.equals(l_name1_, l_name1)) {
-            this.name1 = l_name1;
+            this.setName1(l_name1);
             logger.debug(logPrfx + " --- name1:" + l_name1);
             isChanged = true;
         }
@@ -2764,7 +2775,7 @@ public class UsrNode implements AcceptsTenant {
                 }
                 if (!Objects.equals(instTs1_Ts1_, instTs1_Ts1)) {
                     logger.debug(logPrfx + " --- calling instTs1.setTs1((" + instTs1_Ts1 == null ? "null" : instTs1_Ts1.format(frmtTs) + ")");
-                    nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
+                    this.nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
                     isChanged = true;
                 }
             }
@@ -2781,7 +2792,7 @@ public class UsrNode implements AcceptsTenant {
                 }
                 if (!Objects.equals(instTs1_Ts1_, instTs1_Ts1)) {
                     logger.debug(logPrfx + " --- calling instTs1.setTs1((" + instTs1_Ts1 == null ? "null" : instTs1_Ts1.format(frmtTs) + ")");
-                    nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
+                    this.nm1s1Inst1Ts1.setElTs(instTs1_Ts1);
                     isChanged = true;
                 }
             }
@@ -2901,7 +2912,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(l_instInt2_, l_instInt2)){
                         logger.debug(logPrfx + " --- calling setInstInt1("+ l_instInt2 +")");
-                        setNm1s1Inst1Int1(l_instInt2);
+                        this.setNm1s1Inst1Int1(l_instInt2);
                         isChanged = true;
                     }
 
@@ -2948,7 +2959,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(l_instInt2_, l_instInt2)){
                         logger.debug(logPrfx + " --- calling setInstInt2("+ l_instInt2 +")");
-                        setNm1s1Inst1Int2(l_instInt2);
+                        this.setNm1s1Inst1Int2(l_instInt2);
                         isChanged = true;
                     }
 
@@ -2991,7 +3002,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(l_instInt3_, l_instInt3)){
                         logger.debug(logPrfx + " --- calling setInstInt3("+ l_instInt3 +")");
-                        setNm1s1Inst1Int3(l_instInt3);
+                        this.setNm1s1Inst1Int3(l_instInt3);
                         isChanged = true;
                     }
 
@@ -3047,7 +3058,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(ts1_ts1_, ts1_ts1)){
                         logger.debug(logPrfx + " --- calling ts1.setTs1(("+ ts1_ts1.format(frmtTs) +")");
-                        ts1.setElTs(ts1_ts1);
+                        this.ts1.setElTs(ts1_ts1);
                         isChanged = true;
                     }
                 }
@@ -3118,7 +3129,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(ts2_ts1_, ts2_ts1)){
                         logger.debug(logPrfx + " --- calling beg2.setTs1(("+ ts2_ts1.format(frmtTs) +")");
-                        ts2.setElTs(ts2_ts1);
+                        this.ts2.setElTs(ts2_ts1);
                         isChanged = true;
                     }
                 }
@@ -3174,7 +3185,7 @@ public class UsrNode implements AcceptsTenant {
 
                     if (!Objects.equals(ts3_ts1_, ts3_ts1)){
                         logger.debug(logPrfx + " --- calling end1.setTs1(("+ ts3_ts1.format(frmtTs) +")");
-                        ts3.setElTs(ts3_ts1);
+                        this.ts3.setElTs(ts3_ts1);
                         isChanged = true;
                     }
                 }
@@ -3210,35 +3221,9 @@ public class UsrNode implements AcceptsTenant {
         return isChanged;
     }
 
-    public UsrNode findNodeById2(@NotNull String UsrNode_Id2, @NotNull String className, DataManager dataManager) {
-        String logPrfx = "findNodeById2";
-        logger.trace(logPrfx + " --> ");
 
-        String qry = "select e from enty_UsrNode e"
-                + " where e.className = :className"
-                + " and e.id2 = :id2";
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + UsrNode_Id2);
-
-        UsrNode usrNode1_Id = null;
-        try {
-            usrNode1_Id = dataManager.load(UsrNode.class)
-                    .query(qry)
-                    .parameter("className", className)
-                    .parameter("id2", UsrNode_Id2)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return usrNode1_Id;
-    }
-
-
-    public UsrNode findNodeById2(DataManager dataManager, @NotNull String crtieria_Id2) {
+    public static <UsrNodeT extends UsrNode> UsrNodeT getNodeById2(Class<UsrNodeT> type, DataManager dataManager, @NotNull String crtieria_Id2) {
+        final Logger logger = LoggerFactory.getLogger(UsrNode.class.getClass());
         String logPrfx = "findNodeById2";
         logger.trace(logPrfx + " --> ");
 
@@ -3248,14 +3233,14 @@ public class UsrNode implements AcceptsTenant {
             return null;
         }
 
-        String qry = "select e from enty_"+ this.getClass().getSimpleName() + " e"
+        String qry = "select e from enty_" + type.getSimpleName() + " e"
                 + " and e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
 
-        UsrNode foundUsrNode = null;
+        UsrNodeT node = null;
         try {
-            foundUsrNode = dataManager.load(UsrNode.class)
+            node = dataManager.load(type)
                     .query(qry)
                     .parameter("id2", crtieria_Id2)
                     .one();
@@ -3266,11 +3251,129 @@ public class UsrNode implements AcceptsTenant {
 
         }
         logger.trace(logPrfx + " <-- ");
-        return foundUsrNode;
+        return node;
 
     }
 
 
+
+    public static <UsrNodeT extends UsrNode> UsrNodeT getNodesBySortIdx(Class<UsrNodeT> type, DataManager dataManager, @NotNull Integer sortIdx, UsrNode parent1_Id) {
+        final Logger logger = LoggerFactory.getLogger(UsrNode.class.getClass());
+        String logPrfx = "getNodesBySortIdx";
+        logger.trace(logPrfx + " --> ");
+
+        String qry = "select e from enty_" + type.getSimpleName() + " e"
+                + " and e.parent1_Id = :parent1_Id"
+                + " and e.sortIdx = :sortIdx"
+                ;
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
+        logger.debug(logPrfx + " --- qry:sortIdx: " + sortIdx);
+
+        UsrNodeT usrNode = null;
+        try {
+            usrNode = dataManager.load(type)
+                    .query(qry)
+                    .parameter("parent1_Id", parent1_Id)
+                    .parameter("sortIdx", sortIdx)
+                    .one();
+            logger.debug(logPrfx + " --- query qry returned ONE result");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return usrNode;
+    }
+
+
+    public static <UsrNodeT extends UsrNode>  List<UsrNodeT> getNodesBtwnSortIdx(Class<UsrNodeT> type, DataManager dataManager, @NotNull Integer sortIdxA , @NotNull Integer sortIdxB, UsrNode parent1_Id) {
+        final Logger logger = LoggerFactory.getLogger(UsrNode.class.getClass());
+        String logPrfx = "getNodesBtwnSortIdx";
+        logger.trace(logPrfx + " --> ");
+
+        String qry = "select e from enty_" + type.getSimpleName() + " e"
+                + " and e.parent1_Id = :parent1_Id"
+                + " and e.sortIdx > :sortIdxA"
+                + " and e.sortIdx < :sortIdxB"
+                ;
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
+        logger.debug(logPrfx + " --- qry:sortIdxA: " + sortIdxA);
+        logger.debug(logPrfx + " --- qry:sortIdxB: " + sortIdxB);
+
+        List<UsrNodeT> nodes = null;
+        try {
+            nodes = dataManager.load(type)
+                    .query(qry)
+                    .parameter("parent1_Id", parent1_Id)
+                    .parameter("sortIdxA", sortIdxA)
+                    .parameter("sortIdxB", sortIdxB)
+                    .list();
+            logger.debug(logPrfx + " --- query qry returned "+ nodes.size() +" results");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return nodes;
+    }
+
+    public static <UsrNodeT extends UsrNode> List<UsrNodeT> getNodesByParent1(Class<UsrNodeT> type, DataManager dataManager, UsrNode parent1_Id) {
+        final Logger logger = LoggerFactory.getLogger(UsrNode.class.getClass());
+        String logPrfx = "getNodeListByParent1";
+        logger.trace(logPrfx + " --> ");
+
+        String qry = "select e from enty_" + type.getSimpleName() + " e"
+                + " and e.parent1_Id = :parent1_Id"
+                ;
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
+
+        List<UsrNodeT> nodes = null;
+        try {
+            nodes = dataManager.load(type)
+                    .query(qry)
+                    .parameter("parent1_Id", parent1_Id)
+                    .list();
+            logger.debug(logPrfx + " --- query qry returned "+ nodes.size() +" results");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return nodes;
+    }
+
+
+    public static <UsrNodeT extends UsrNode> List<String> getStatusList(Class<UsrNodeT> type, DataManager dataManager){
+        final Logger logger = LoggerFactory.getLogger(UsrNode.class.getClass());
+        String logPrfx = "getStatusList";
+        logger.trace(logPrfx + " --> ");
+
+        String qry = "select distinct e.status "
+                + " from enty_" + type.getSimpleName() + " e"
+                + " and e.status IS NOT NULL"
+                + " order by e.status"
+                ;
+        logger.debug(logPrfx + " --- qry: " + qry);
+
+
+        List<String> statuss = null;
+        try {
+            statuss = dataManager.loadValue(qry, String.class)
+                    .store("main")
+                    .list();
+            logger.debug(logPrfx + " --- query qry returned " + statuss.size() + " rows");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned no rows");
+            logger.trace(logPrfx + " <-- ");
+            return statuss;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return statuss;
+    }
 
     public Boolean updateIdParts() {
         String logPrfx = "updateIdParts";

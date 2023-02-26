@@ -2974,8 +2974,8 @@ public class UsrFinTxactMain extends MasterDetailScreen<UsrNode> {
                 case 1: // Link to Exist Txset
                     finTxactSet1_Id = findFinTxactSetById2(thisFinTxact.getFinTxactSet1_Id2Trgt());
                     if (!Objects.equals(finTxactSet1_Id_, finTxactSet1_Id)){
-                        isChanged = true;
                         thisFinTxact.setFinTxactSet1_Id(finTxactSet1_Id);
+                        isChanged = true;
                     }
                     break;
                 case 2: // Link to Exist/New Txset

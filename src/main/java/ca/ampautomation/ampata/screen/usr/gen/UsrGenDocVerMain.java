@@ -159,9 +159,9 @@ public class UsrGenDocVerMain extends UsrNodeBaseMain<UsrGenDocVer, UsrGenDocVer
                     thisGenDocVer.setType1_Id(tmplt_Type1_IdField.getValue());
                 }
 
-                thisGenDocVerIsChanged = thisGenDocVer.updateId2Calc() || thisGenDocVerIsChanged;
-                thisGenDocVerIsChanged = thisGenDocVer.updateId2() || thisGenDocVerIsChanged;
-                thisGenDocVerIsChanged = thisGenDocVer.updateId2Cmp() || thisGenDocVerIsChanged;
+                thisGenDocVerIsChanged = thisGenDocVer.updateId2Calc(dataManager) || thisGenDocVerIsChanged;
+                thisGenDocVerIsChanged = thisGenDocVer.updateId2(dataManager) || thisGenDocVerIsChanged;
+                thisGenDocVerIsChanged = thisGenDocVer.updateId2Cmp(dataManager) || thisGenDocVerIsChanged;
 
                 if (thisGenDocVerIsChanged) {
                     //logger.debug(logPrfx + " --- executing dataManager.save(thisGenDocVer).");

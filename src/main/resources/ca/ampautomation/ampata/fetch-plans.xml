@@ -170,6 +170,7 @@
         <property name="genDocVer1_Ver"/>
         <property name="genDocVer1_Name1"/>
 
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
         <property name="genTags1_Id2"/>
         <property name="genTag1_Id" fetchPlan="_base"/>
         <property name="genTag1_Id2"/>
@@ -770,8 +771,8 @@
         <property name="type1_Id" fetchPlan="_base"/>
         <property name="type1_Id2"/>
         <property name="inst1"/>
-        <property name="inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
         <property name="abrv"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>

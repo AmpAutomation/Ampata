@@ -3248,7 +3248,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        ((UsrFinTxactItm) thisFinTxactItm).updateDesc1();
+        ((UsrFinTxactItm) thisFinTxactItm).updateDesc1(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -4512,7 +4512,7 @@ public class UsrFinTxactItmMain extends MasterDetailScreen<UsrNode> {
         isChanged = updateId2Calc(thisFinTxactItm) || isChanged;
         isChanged = updateId2Cmp(thisFinTxactItm) || isChanged;
         isChanged = updateId2Dup(thisFinTxactItm) || isChanged;
-        isChanged = ((UsrFinTxactItm) thisFinTxactItm).updateDesc1() || isChanged;
+        isChanged = ((UsrFinTxactItm) thisFinTxactItm).updateDesc1(dataManager) || isChanged;
 
 //        isChanged = updateFinTaxLne1_Id(thisFinTxactItm) || isChanged;
         isChanged = updateAmtNet(thisFinTxactItm) || isChanged;

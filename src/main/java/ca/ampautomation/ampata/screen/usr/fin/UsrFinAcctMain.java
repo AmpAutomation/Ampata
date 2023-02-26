@@ -13,11 +13,9 @@ import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import ca.ampautomation.ampata.screen.usr.UsrNodeBaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
-import io.jmix.ui.component.data.options.ListOptions;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -292,7 +290,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
             }
 
             Integer option = Optional.ofNullable(updateColItemCalcValsOption.getValue()).orElse(0);
-            copy.updateCalcVals(option);
+            copy.updateCalcVals(dataManager,option);
 
             UsrFinAcct savedCopy = dataManager.save(copy);
             colCntnrMain.getMutableItems().add(savedCopy);
@@ -311,6 +309,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
     }
 
 
+    @Override
     @Subscribe("setBtn")
     public void onSetBtnClick(Button.ClickEvent event) {
         String logPrfx = "onSetBtnClick";
@@ -324,8 +323,8 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
             return;
         }
 
-        List<UsrNode> chngFinAccts = new ArrayList<>();
-        List<UsrNode> finalChngFinAccts = chngFinAccts;
+        List<UsrFinAcct> chngFinAccts = new ArrayList<>();
+        List<UsrFinAcct> finalChngFinAccts = chngFinAccts;
 
         thisFinAccts.forEach(thisFinAcct -> {
             thisFinAcct = dataContext.merge(thisFinAcct);
@@ -362,7 +361,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         }
 
         chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateHelper(chngFinAccts);
+        updateHelper2(chngFinAccts);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -384,26 +383,24 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         UsrFinAcct firstFinAcct = thisFinAccts.get(0);
         UsrNode firstNode = thisFinAccts.get(0);
 
-        List<UsrNode> l = getNodeListByParent1(firstNode.getParent1_Id());
-        List<UsrFinAcct> b = (List<UsrFinAcct>) l;
-        thisFinAccts = new ArrayList<>((List<UsrFinAcct>) l);
-        thisFinAccts.sort(Comparator.comparing(UsrNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        List<UsrNode> thisNodes = new ArrayList<>(UsrNode.getNodesByParent1(UsrNode.class, dataManager, firstNode.getParent1_Id()));
+        thisNodes.sort(Comparator.comparing(UsrNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrFinAcct> chngFinAccts = new ArrayList<>();
-        List<UsrFinAcct> finalChngFinAccts = chngFinAccts;
+        List<UsrNode> chngNodes = new ArrayList<>();
+        List<UsrNode> finalChngNodes = chngNodes;
 
         AtomicInteger sortIdx = new AtomicInteger(0);
-        thisFinAccts.forEach(thisFinAcct -> {
-            if (thisFinAcct != null) {
-                thisFinAcct = dataContext.merge(thisFinAcct);
-                Boolean thisFinAcctIsChanged = false;
+        thisNodes.forEach(thisNode -> {
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+                Boolean thisNodeIsChanged = false;
 
-                Integer sortIdx_ = thisFinAcct.getSortIdx();
+                Integer sortIdx_ = thisNode.getSortIdx();
                 if (!Objects.equals(sortIdx_, sortIdx)){
-                    thisFinAcct.setSortIdx(sortIdx.get());
-                    logger.debug(logPrfx + " --- thisFinAcct.setSortIdx(" + sortIdx.get() + ")");
-                    thisFinAcctIsChanged = true;
-                    finalChngFinAccts.add(thisFinAcct);
+                    thisNode.setSortIdx(sortIdx.get());
+                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + sortIdx.get() + ")");
+                    thisNodeIsChanged = true;
+                    finalChngNodes.add(thisNode);
                 }
             }
             sortIdx.incrementAndGet() ;
@@ -414,8 +411,8 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
             dataContext.commit();
         }
 
-        chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateHelper(chngFinAccts);
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -461,7 +458,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
                     }
 
                     // for all next items, inc idx
-                    List<UsrNode> nextFinAccts =  getFinAcctsBtwnSortIdx(-1
+                    List<UsrNode> nextFinAccts =  UsrNode.getNodesBtwnSortIdx(UsrNode.class,dataManager,-1
                             , sortIdx_, thisFinAcct.getParent1_Id());
 
                     nextFinAccts.forEach(nextFinAcct -> {
@@ -543,7 +540,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
                     finalChngFinAccts.add(thisFinAcct);
 
                     // for prev item, inc idx
-                    UsrNode prevFinAcct = getFinAcctBySortIdx(sortIdx_-1,thisFinAcct.getParent1_Id());
+                    UsrFinAcct prevFinAcct = UsrNode.getNodesBySortIdx(UsrFinAcct.class, dataManager,-1,thisFinAcct.getParent1_Id());
                     if(prevFinAcct != null){
                         prevFinAcct = dataContext.merge(prevFinAcct);
                         Boolean prevFinAcctIsChanged = false;
@@ -615,7 +612,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
 
 
                     // for next item, dec idx
-                    UsrNode nextFinAcct = getFinAcctBySortIdx(sortIdx_+1,thisFinAcct.getParent1_Id());
+                    UsrFinAcct nextFinAcct = UsrNode.getNodesBySortIdx(UsrFinAcct.class,dataManager,+1,thisFinAcct.getParent1_Id());
                     if(nextFinAcct != null){
                         nextFinAcct = dataContext.merge(nextFinAcct);
                         Boolean nextFinAcctIsChanged = false;
@@ -698,7 +695,7 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
                     }
 
                     // for all next items, dec idx
-                    List<UsrNode> nextFinAccts =  getFinAcctsBtwnSortIdx(sortIdx_
+                    List<UsrNode> nextFinAccts =  UsrNode.getNodesBtwnSortIdx(UsrNode.class, dataManager,sortIdx_
                             , sortIdxMax.intValue()+1, thisFinAcct.getParent1_Id());
 
                     nextFinAccts.forEach(nextFinAcct -> {
@@ -768,51 +765,13 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         return sortIdxMax;
     }
 
-
-    @Subscribe("updateColItemIdPartsBtn")
-    public void onUpdateColItemIdPartsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateColItemIdPartsBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
-        if (thisFinAccts == null || thisFinAccts.isEmpty()) {
-            logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        thisFinAccts.forEach(thisFinAcct -> {
-            if (thisFinAcct != null) {
-
-                UsrNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-                thisFinAcct = thisTrackedFinAcct;
-
-                boolean isChanged = false;
-
-                isChanged = updateIdParts(thisFinAcct);
-
-            }
-        });
-
-        if (dataContext.hasChanges()){
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
-
-            logger.debug(logPrfx + " --- executing colLoadrMain.load().");
-            colLoadrMain.load();
-
-            tableMain.setSelected(thisFinAccts);
-        }
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
+    @Override
     @Subscribe("updateColItemCalcValsBtn")
-    public void onUpdateColItemValsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateColItemValsBtnClick";
+    public void onUpdateColItemCalcValsBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNode> thisFinAccts = tableMain.getSelected().stream().toList();
+        List<UsrFinAcct> thisFinAccts = tableMain.getSelected().stream().toList();
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -822,14 +781,13 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         thisFinAccts.forEach(thisFinAcct -> {
             if (thisFinAcct != null) {
 
-                UsrNode thisTrackedFinAcct = dataContext.merge(thisFinAcct);
-                thisFinAcct = thisTrackedFinAcct;
+                thisFinAcct = dataContext.merge(thisFinAcct);
 
                 boolean isChanged = false;
 
                 Integer option = Optional.ofNullable(updateColItemCalcValsOption.getValue()).orElse(0);
 
-                isChanged = updateCalcVals(thisFinAcct, option);
+                isChanged = thisFinAcct.updateCalcVals(dataManager, option);
 
             }
         });
@@ -847,30 +805,13 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateInstItemIdPartsBtn")
-    public void onUpdateInstIdPartsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateInstIdPartsBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- thisFinAcct is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        updateIdParts(thisFinAcct);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
+    @Override
     @Subscribe("updateInstItemCalcValsBtn")
     public void onUpdateInstItemValsBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
+        UsrFinAcct thisFinAcct = instCntnrMain.getItemOrNull();
         if (thisFinAcct == null) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -880,148 +821,11 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
 
         Integer option = Optional.ofNullable(updateInstItemCalcValsOption.getValue()).orElse(0);
 
-        updateCalcVals(thisFinAcct, option);
+        thisFinAcct.updateCalcVals(dataManager, option);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    @Subscribe("id2Field")
-    public void onId2FieldValueChange(HasValue.ValueChangeEvent<String> event) {
-        String logPrfx = "onId2FieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        if (event.isUserOriginated()) {
-            UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-            if (thisFinAcct == null) {
-                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
-                logger.trace(logPrfx + " <-- ");
-                return;
-            }
-            updateId2Cmp(thisFinAcct);
-            updateId2Dup(thisFinAcct);
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2FieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2(thisFinAcct);
-        updateId2Cmp(thisFinAcct);
-        updateId2Dup(thisFinAcct);
-
-        logger.debug(logPrfx + " --- id2: " + thisFinAcct.getId2());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CalcFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Calc(thisFinAcct);
-        updateId2Cmp(thisFinAcct);
-
-        logger.debug(logPrfx + " --- id2Calc: " + thisFinAcct.getId2Calc());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Cmp(thisFinAcct);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Dup(thisFinAcct);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateType1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrType.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("name1Field")
-    public void onName1FieldValueChange(HasValue.ValueChangeEvent<Integer> event) {
-        String logPrfx = "onName1FieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        if (event.isUserOriginated()) {
-            UsrNode thisFinAcct = instCntnrMain.getItemOrNull();
-            if (thisFinAcct == null) {
-                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
-                logger.trace(logPrfx + " <-- ");
-                return;
-            }
-            logger.debug(logPrfx + " --- calling updateId2Calc(thisFinAcct)");
-            updateId2Calc(thisFinAcct);
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateDescPat1_IdFieldListBtn")
-    public void onUpdateDescPat1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDescPat1_IdFieldListBtn";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
 
     @Subscribe("updateGenAgent1_IdFieldListBtn")
     public void onUpdateGenAgent1_IdFieldListBtn(Button.ClickEvent event) {
@@ -1060,7 +864,9 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
         String logPrfx = "onUpdateStatusFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        reloadStatusList();
+        List<String> statuss = UsrNode.getStatusList(UsrFinAcct.class, dataManager);
+        logger.debug(logPrfx + " --- called UsrNode.getStatusList(UsrFinAcct.class, dataManager)");
+        statusField.setOptionsList(statuss);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1100,156 +906,6 @@ public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, 
     }
 
 
-    private UsrNode getFinAcctBySortIdx(@NotNull Integer sortIdx, UsrNode parent1_Id) {
-        String logPrfx = "getFinAcctBySortIdx";
-        logger.trace(logPrfx + " --> ");
 
-        String qry = "select e from enty_UsrNode e"
-                + " where e.className = 'UsrFinAcct'"
-                + " and e.parent1_Id = :parent1_Id"
-                + " and e.sortIdx = :sortIdx"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-        logger.debug(logPrfx + " --- qry:sortIdx: " + sortIdx);
-
-        UsrNode finAcct = null;
-        try {
-            finAcct = dataManager.load(UsrNode.class)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .parameter("sortIdx", sortIdx)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return finAcct;
-    }
-
-
-    private List<UsrNode> getFinAcctsBtwnSortIdx(@NotNull Integer sortIdxA , @NotNull Integer sortIdxB, UsrNode parent1_Id) {
-        String logPrfx = "getFinAcctsBtwnSortIdx";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select e from enty_UsrNode e"
-                + " where e.className = 'UsrFinAcct'"
-                + " and e.parent1_Id = :parent1_Id"
-                + " and e.sortIdx > :sortIdxA"
-                + " and e.sortIdx < :sortIdxB"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-        logger.debug(logPrfx + " --- qry:sortIdxA: " + sortIdxA);
-        logger.debug(logPrfx + " --- qry:sortIdxB: " + sortIdxB);
-
-        List<UsrNode> finAccts = null;
-        try {
-            finAccts = dataManager.load(UsrNode.class)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .parameter("sortIdxA", sortIdxA)
-                    .parameter("sortIdxB", sortIdxB)
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned "+ finAccts.size() +" results");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return finAccts;
-    }
-
-    private List<UsrNode> getNodeListByParent1(UsrNode parent1_Id) {
-        String logPrfx = "getNodeListByParent1";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select e from enty_UsrNode e"
-                + " where e.className = 'UsrFinAcct'"
-                + " and e.parent1_Id = :parent1_Id"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-
-        List<UsrNode> l_childs = null;
-        try {
-            l_childs = dataManager.load(UsrNode.class)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned "+ l_childs.size() +" results");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return l_childs;
-    }
-
-    private void reloadStatusList(){
-        String logPrfx = "reloadStatusList";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select distinct e.status from enty_UsrNode e"
-                + " where e.className = 'UsrFinAcct'"
-                + " and e.status IS NOT NULL"
-                + " order by e.status"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-
-
-        List<String> statuss = null;
-        try {
-            statuss = dataManager.loadValue(qry, String.class)
-                    .store("main")
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned " + statuss.size() + " rows");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned no rows");
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        statusField.setOptionsList(statuss);
-        logger.debug(logPrfx + " --- called statusField.setOptionsList()");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    private void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "addEnteredTextToComboBoxOptionsList";
-        logger.trace(logPrfx + " --> ");
-
-        String text = enterPressEvent.getText();
-        if (!Objects.equals(text, "<null>")){
-            @SuppressWarnings("unchecked")
-            // enterPressEvent.getSource is directly connected to a ComboBox
-            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
-
-            List<String> list;
-            // this comboBox options list is created with a call to setOptionsList(List)
-            // see onUpdateFinStmtItm1_Desc1Field
-            // therefore cb.getOptions is type ListOptions
-            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
-            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
-                list = (List<String>) listOptions.getItemsCollection();
-            } else {
-                list = new ArrayList<String>();
-            }
-
-            list.add(text);
-            logger.trace(logPrfx + " --- called list.add( " + text + ")");
-
-            cb.setOptionsList(list);
-
-            notifications.create()
-                    .withCaption("Added " + text + " to list.")
-                    .show();
-        }
-
-    }
 
 }

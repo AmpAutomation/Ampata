@@ -3017,9 +3017,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             String id2Calc_ = thisFinTxactItm.getId2Calc();
             String id2Calc = thisFinTxactItm.getId2CalcFrFields().substring(0, 20);
             if (!Objects.equals(id2Calc_, id2Calc)){
-                isChanged = true;
                 thisFinTxact.setFinTxactSet1_Id2Trgt(id2Calc);
                 logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
+                isChanged = true;
             }
 
         }

@@ -294,9 +294,9 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
                     thisGenFile.setType1_Id(tmplt_Type1_IdField.getValue());
                 }
 
-                thisGenFileIsChanged = thisGenFile.updateId2Calc() || thisGenFileIsChanged;
-                thisGenFileIsChanged = thisGenFile.updateId2() || thisGenFileIsChanged;
-                thisGenFileIsChanged = thisGenFile.updateId2Cmp() || thisGenFileIsChanged;
+                thisGenFileIsChanged = thisGenFile.updateId2Calc(dataManager) || thisGenFileIsChanged;
+                thisGenFileIsChanged = thisGenFile.updateId2(dataManager) || thisGenFileIsChanged;
+                thisGenFileIsChanged = thisGenFile.updateId2Cmp(dataManager) || thisGenFileIsChanged;
 
                 if (thisGenFileIsChanged) {
                     logger.debug(logPrfx + " --- executing dataManager.save(thisGenFile).");
@@ -424,7 +424,7 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisGenFile.updateDesc1();
+        thisGenFile.updateDesc1(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -442,7 +442,7 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            thisGenFile.updateId2Cmp();
+            thisGenFile.updateId2Cmp(dataManager);
             thisGenFile.updateId2Dup(dataManager);
         }
         logger.trace(logPrfx + " <-- ");
@@ -460,8 +460,8 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisGenFile.updateId2();
-        thisGenFile.updateId2Cmp();
+        thisGenFile.updateId2(dataManager);
+        thisGenFile.updateId2Cmp(dataManager);
         thisGenFile.updateId2Dup(dataManager);
 
         logger.debug(logPrfx + " --- id2: " + thisGenFile.getId2());
@@ -481,8 +481,8 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisGenFile.updateId2Calc();
-        thisGenFile.updateId2Cmp();
+        thisGenFile.updateId2Calc(dataManager);
+        thisGenFile.updateId2Cmp(dataManager);
 
         logger.debug(logPrfx + " --- id2Calc: " + thisGenFile.getId2Calc());
         logger.trace(logPrfx + " <-- ");
@@ -500,7 +500,7 @@ public class UsrGenFileMain extends MasterDetailScreen<UsrGenFile> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisGenFile.updateId2Cmp();
+        thisGenFile.updateId2Cmp(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }

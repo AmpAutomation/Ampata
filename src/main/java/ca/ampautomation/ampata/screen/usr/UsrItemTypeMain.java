@@ -222,9 +222,9 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
 
                 Boolean thisItemIsChanged = false;
 
-                thisItemIsChanged = thisItemType.updateId2Calc() || thisItemIsChanged;
-                thisItemIsChanged = thisItemType.updateId2() || thisItemIsChanged;
-                thisItemIsChanged = thisItemType.updateId2Cmp() || thisItemIsChanged;
+                thisItemIsChanged = thisItemType.updateId2Calc(dataManager) || thisItemIsChanged;
+                thisItemIsChanged = thisItemType.updateId2(dataManager) || thisItemIsChanged;
+                thisItemIsChanged = thisItemType.updateId2Cmp(dataManager) || thisItemIsChanged;
 
                 if (thisItemIsChanged) {
                     logger.debug(logPrfx + " --- executing dataManager.save(thisItemType).");
@@ -351,7 +351,7 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisItemType.updateDesc1();
+        thisItemType.updateDesc1(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -369,7 +369,7 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
-            thisItemType.updateId2Cmp();
+            thisItemType.updateId2Cmp(dataManager);
             thisItemType.updateId2Dup(dataManager);
         }
         logger.trace(logPrfx + " <-- ");
@@ -387,8 +387,8 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisItemType.updateId2();
-        thisItemType.updateId2Cmp();
+        thisItemType.updateId2(dataManager);
+        thisItemType.updateId2Cmp(dataManager);
         thisItemType.updateId2Dup(dataManager);
 
         logger.debug(logPrfx + " --- id2: " + thisItemType.getId2());
@@ -408,8 +408,8 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisItemType.updateId2Calc();
-        thisItemType.updateId2Cmp();
+        thisItemType.updateId2Calc(dataManager);
+        thisItemType.updateId2Cmp(dataManager);
 
         logger.debug(logPrfx + " --- id2Calc: " + thisItemType.getId2Calc());
         logger.trace(logPrfx + " <-- ");
@@ -427,7 +427,7 @@ public class UsrItemTypeMain extends MasterDetailScreen<UsrItemType> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        thisItemType.updateId2Cmp();
+        thisItemType.updateId2Cmp(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
