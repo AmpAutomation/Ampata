@@ -30,10 +30,9 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <treeTable id="tableMain"
+                <table id="tableMain"
                        width="100%"
                        multiselect="true"
-                       hierarchyProperty="parent1_Id"
                        dataContainer="colCntnrMain">
                     <actions>
                         <action id="create" type="create"/>
@@ -51,16 +50,20 @@
                     </columns>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
-                        <tabSheet  width="100%">
-                            <tab id="tabCmd1" caption="Main" spacing="true">
+                        <tabSheet  width="100%" >
+                            <tab id="tabCmd1" caption="Main">
+                                <image width="1px" height="1px" > </image>
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="View">
+                                <hbox height="1px"/>
+                                <hbox/>
                             </tab>
-                            <tab id="tabCmd3" caption="Create, Edit" spacing="true">
+                            <tab id="tabCmd3" caption="Create, Edit" >
+                                <hbox height="1px"/>
                                 <hbox spacing="true">
                                     <button id="refreshBtn" action="tableMain.refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -77,16 +80,11 @@
                                     <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
                                 </hbox>
                                 <hbox spacing="true">
-                                    <hbox caption="Type1_Id" width="150px" expand="tmplt_Type1_IdField">
-                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                            <checkBox id="tmplt_Type1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                        </hbox>
-                                        <entityComboBox id="tmplt_Type1_IdField"/>
-                                    </hbox>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd4" caption="Filter" spacing="true">
-                            <hbox></hbox>
+                            <tab id="tabCmd4" caption="Filter">
+                                <hbox height="1px"/>
+                                <hbox/>
                                 <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
                                     <properties include=".*"/>
                                     <configurations>
@@ -99,7 +97,8 @@
                                     </configurations>
                                 </filter>
                             </tab>
-                            <tab id="tabCmd5" caption="Options" spacing="true">
+                            <tab id="tabCmd5" caption="Options">
+                                <hbox height="1px"/>
                                 <hbox>
                                     <label value="CalcVals Option"/>
                                     <hbox width="5px"/>
@@ -108,7 +107,7 @@
                             </tab>
                         </tabSheet>
                     </buttonsPanel>
-                </treeTable>
+                </table>
                 <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
                     <containerProvider dataContainer="colCntnrMain"/>
                 </pagination>

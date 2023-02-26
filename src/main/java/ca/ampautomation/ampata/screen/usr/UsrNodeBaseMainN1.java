@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class UsrNodeBaseMainN1<UsrNodeT extends UsrNode, UsrNodeTypeT extends UsrNodeType, UsrNodeQryMngrT extends UsrBaseQryMngr> extends MasterDetailScreen<UsrNodeT> {
+public abstract class UsrNodeBaseMainN1<UsrNodeT extends UsrNode, UsrNodeTypeT extends UsrNodeType, UsrNodeQryMngrT extends UsrBaseQryMngr, TableT extends Table> extends MasterDetailScreen<UsrNodeT> {
 
     //Common
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -95,12 +95,6 @@ public abstract class UsrNodeBaseMainN1<UsrNodeT extends UsrNode, UsrNodeTypeT e
     protected ComboBox<Integer> updateInstItemCalcValsOption;
 
 
-    //Template
-    @Autowired
-    protected CheckBox tmplt_Type1_IdFieldChk;
-    @Autowired
-    protected EntityComboBox<UsrNodeTypeT> tmplt_Type1_IdField;
-
 
     //Main data containers, loaders and table
     @Autowired
@@ -110,7 +104,7 @@ public abstract class UsrNodeBaseMainN1<UsrNodeT extends UsrNode, UsrNodeTypeT e
     @Autowired
     protected InstanceContainer<UsrNodeT> instCntnrMain;
     @Autowired
-    protected TreeTable<UsrNodeT> tableMain;
+    protected TableT tableMain;
 
 
 
@@ -258,12 +252,6 @@ public abstract class UsrNodeBaseMainN1<UsrNodeT extends UsrNode, UsrNodeTypeT e
             if (thisNode != null) {
 
                 Boolean thisNodeIsChanged = false;
-
-                if (tmplt_Type1_IdFieldChk.isChecked()
-                ) {
-                    thisNodeIsChanged = true;
-                    thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
-                }
 
                 thisNodeIsChanged = thisNode.updateId2Calc(dataManager) || thisNodeIsChanged;
                 thisNodeIsChanged = thisNode.updateId2(dataManager) || thisNodeIsChanged;

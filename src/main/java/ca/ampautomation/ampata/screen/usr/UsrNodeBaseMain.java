@@ -19,12 +19,20 @@ import java.util.List;
 import java.util.Map;
 
 
-public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT extends UsrNodeType, UsrNodeQryMngrT extends UsrBaseQryMngr> extends UsrNodeBaseMainN1<UsrNodeT, UsrNodeTypeT, UsrNodeQryMngrT> {
+public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT extends UsrNodeType, UsrNodeQryMngrT extends UsrBaseQryMngr, TableT extends Table> extends UsrNodeBaseMainN1<UsrNodeT, UsrNodeTypeT, UsrNodeQryMngrT, TableT> {
 
 
     //Filter
     @Autowired
     protected PropertyFilter<UsrNodeTypeT> filterConfig1A_Type1_Id;
+
+
+    //Template
+    @Autowired
+    protected CheckBox tmplt_Type1_IdFieldChk;
+    @Autowired
+    protected EntityComboBox<UsrNodeTypeT> tmplt_Type1_IdField;
+
 
     //Type data container and loader
     protected CollectionContainer<UsrNodeTypeT> colCntnrType;
@@ -128,6 +136,46 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
 
         logger.trace(logPrfx + " <-- ");
 
+    }
+
+    @Override
+    @Subscribe("setBtn")
+    public void onSetBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onSetBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<UsrNodeT> thisNodes = tableMain.getSelected().stream().toList();
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        thisNodes.forEach(thisNode -> {
+            thisNode = dataContext.merge(thisNode);
+            if (thisNode != null) {
+
+                Boolean thisNodeIsChanged = false;
+
+                if (tmplt_Type1_IdFieldChk.isChecked()
+                ) {
+                    thisNodeIsChanged = true;
+                    thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
+                }
+
+                thisNodeIsChanged = thisNode.updateId2Calc(dataManager) || thisNodeIsChanged;
+                thisNodeIsChanged = thisNode.updateId2(dataManager) || thisNodeIsChanged;
+                thisNodeIsChanged = thisNode.updateId2Cmp(dataManager) || thisNodeIsChanged;
+
+                if (thisNodeIsChanged) {
+                    logger.debug(logPrfx + " --- executing dataManager.save(thisNode).");
+                    //dataManager.save(thisNode);
+                }
+            }
+        });
+        updateHelper();
+        logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateName1FieldBtn")
