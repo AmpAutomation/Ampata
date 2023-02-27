@@ -155,6 +155,11 @@
 
         <property name="name2"/>
 
+        <property name="edgeIns_Id" fetchPlan="_base"/>
+        <property name="edgeIns_Id2"/>
+        <property name="edgeOts_Id" fetchPlan="_base"/>
+        <property name="edgeOts_Id2"/>
+
         <property name="genChan1_Id" fetchPlan="_base"/>
         <property name="genChan2_Id" fetchPlan="_base"/>
 

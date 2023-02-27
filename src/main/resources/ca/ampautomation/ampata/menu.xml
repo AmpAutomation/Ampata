@@ -3,25 +3,25 @@
     <menu id="usr" caption="msg://ca.ampautomation.ampata.menu/usr">
         <menu id="usrGen" caption="msg://ca.ampautomation.ampata.menu/usrGen">
             <menu id="usrGenTag" caption="msg://ca.ampautomation.ampata.menu/usrGenTag">
-                <item screen="enty_UsrGenTag.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenTagMain.menu"/>
+                <item screen="UsrGenMain" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenTagMain.menu"/>
             </menu>
             <menu id="usrGenAgent" caption="msg://ca.ampautomation.ampata.menu/usrGenAgent">
-                <item screen="enty_UsrGenAgent.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenAgentMain.menu"/>
+                <item screen="UsrGenAgent_Main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenAgentMain.menu"/>
             </menu>
             <menu id="usrGenChan" caption="msg://ca.ampautomation.ampata.menu/usrGenChan">
-                <item screen="enty_UsrGenChan.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genChanMain.menu"/>
+                <item screen="UsrGenChan_Main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genChanMain.menu"/>
             </menu>
             <menu id="usrGenDoc" caption="msg://ca.ampautomation.ampata.menu/usrGenDoc">
-                <item screen="enty_UsrGenDocVer.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genDocVerMain.menu"/>
+                <item screen="UsrGenDocVer_Main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/genDocVerMain.menu"/>
             </menu>
             <menu id="usrGenFile" caption="msg://ca.ampautomation.ampata.menu/usrGenFile">
-                <item screen="enty_UsrGenFile.main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenFileMain.menu"/>
+                <item screen="UsrGenFile_Main" caption="msg://ca.ampautomation.ampata.screen.usr.gen/usrGenFileMain.menu"/>
             </menu>
         </menu>
         <menu id="usrFin" caption="msg://ca.ampautomation.ampata.menu/usrFin">
             <menu id="usrFinAcct" caption="msg://ca.ampautomation.ampata.menu/usrFinAcct">
-                <item screen="enty_UsrFinAcct.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctMain.menu"/>
-                <item screen="enty_UsrFinAcctType.browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctTypeBrowse.menu"/>
+                <item screen="UsrFinAcct_Main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctMain.menu"/>
+                <item screen="UsrFinAcctType_Browse" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finAcctTypeBrowse.menu"/>
             </menu>
             <menu id="usrFinDept" caption="msg://ca.ampautomation.ampata.menu/usrFinDept">
                 <item screen="enty_UsrFinDept.main" caption="msg://ca.ampautomation.ampata.screen.usr.fin/finDeptMain.menu"/>
@@ -54,12 +54,12 @@
         </menu>
         <menu id="usrComn" caption="msg://ca.ampautomation.ampata.menu/usrCmn">
             <menu id="usrCmnNode" caption="msg://ca.ampautomation.ampata.menu/usrCmnNode">
-                <item screen="enty_UsrNode.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeMain.menu"/>
-                <item screen="enty_UsrNodeType.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeTypeMain.menu"/>
+                <item screen="UsrNode_Main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeMain.menu"/>
+                <item screen="UsrNodeType_Main" caption="msg://ca.ampautomation.ampata.screen.usr/usrNodeTypeMain.menu"/>
             </menu>
             <menu id="usrCmnItem" caption="msg://ca.ampautomation.ampata.menu/usrCmnItem">
-                <item screen="enty_UsrItem.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemMain.menu"/>
-                <item screen="enty_UsrItemType.main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemTypeMain.menu"/>
+                <item screen="UsrItem_Main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemMain.menu"/>
+                <item screen="UsrItemType_Main" caption="msg://ca.ampautomation.ampata.screen.usr/usrItemTypeMain.menu"/>
             </menu>
         </menu>
     </menu>

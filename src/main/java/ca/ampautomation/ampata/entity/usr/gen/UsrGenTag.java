@@ -1,17 +1,19 @@
 package ca.ampautomation.ampata.entity.usr.gen;
 
+import ca.ampautomation.ampata.entity.usr.UsrEdge;
+import ca.ampautomation.ampata.entity.usr.UsrItem;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
-import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 @JmixEntity
 @Entity(name = "enty_UsrGenTag")
-@DiscriminatorValue(value="enty_UsrGenTag")
-public class UsrGenTag extends UsrNode {
-
+public class UsrGenTag extends UsrItem {
 
     @JoinTable(name = "AMPATA_USR_NODE__GEN_TAGS1_LINK",
             joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
@@ -28,18 +30,15 @@ public class UsrGenTag extends UsrNode {
     }
 
 
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
 
-        boolean isChanged = false;
+    @JoinTable(name = "AMPATA_USR_EDGE__GEN_TAGS1_LINK",
+            joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "EDGE_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<UsrEdge> edges1_Id;
 
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
+    public List<UsrEdge> getEdges1_Id() { return edges1_Id; }
 
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
+    public void setEdges1_Id(List<UsrEdge> edges1_Id) { this.edges1_Id = edges1_Id; }
 
 }

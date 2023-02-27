@@ -1,19 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://finAcctMain.caption"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://usrGenAgentMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct"
-                    fetchPlan="fetchPlan_UsrFinAcct_Base">
+                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent"
+                    fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinAcct']]>
+                    <![CDATA[select e from enty_UsrGenAgent e where e.className = 'UsrGenAgent' order by e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct"
-                  fetchPlan="fetchPlan_UsrFinAcct_Base">
+                  class="ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent"
+                  fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader/>
         </instance>
     </data>
@@ -29,10 +30,9 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <treeTable id="tableMain"
+                <table id="tableMain"
                        width="100%"
                        multiselect="true"
-                       hierarchyProperty="parent1_Id"
                        dataContainer="colCntnrMain">
                     <actions>
                         <action id="create" type="create"/>
@@ -41,10 +41,13 @@
                         <action id="remove" type="remove"/>
                     </actions>
                     <columns>
-                        <column id="tenant" caption="tenant" collapsed="true"/>
+                        <column id="tenant" collapsed="true"/>
+                        <column id="dtype" />
+                        <column id="className"/>
                         <column id="id2"/>
+                        <column id="id2Calc"/>
+                        <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="parent1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
                         <column id="name1"/>
@@ -52,14 +55,19 @@
                         <column id="type1_Id"/>
                         <column id="inst1"/>
                         <column id="name2"/>
+                        <column id="abrv"/>
+                        <column id="code"/>
                         <column id="desc1"/>
                         <column id="desc1GenFmla1_Id"/>
+                        <column id="namePrfx"/>
+                        <column id="nameFrst"/>
+                        <column id="nameMidl"/>
+                        <column id="nameLast"/>
+                        <column id="nameSufx"/>
                         <column id="genAgent1_Id"/>
-                        <column id="sysFinCurcy1_Id"/>
-                        <column id="finTaxLne1_Id"/>
-                        <column id="status"/>
-                        <column id="statusCalc"/>
+                        <column id="genAgent2_Id"/>
                         <column id="note"/>
+
                     </columns>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
@@ -68,7 +76,6 @@
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
-                                    <label value="|" align="MIDDLE_CENTER"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" caption="View">
@@ -85,14 +92,6 @@
                                     <button id="editBtn" action="tableMain.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="setBtn" caption="Set" icon="font-icon:REFRESH"/>
-                                    <hbox>
-                                        <label value="sortIdx" align="MIDDLE_CENTER"/>
-                                        <button id="rebuildSortIdxBtn" caption="Rebiuld"/>
-                                        <button id="moveFrstSortIdxBtn" caption="Frst"/>
-                                        <button id="movePrevSortIdxBtn"  icon="ARROW_LEFT"/>
-                                        <button id="moveNextSortIdxBtn"  icon="ARROW_RIGHT"/>
-                                        <button id="moveLastSortIdxBtn"  caption="Last"/>
-                                    </hbox>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
@@ -104,57 +103,43 @@
                                         </hbox>
                                         <entityComboBox id="tmplt_Type1_IdField"/>
                                     </hbox>
-                                </hbox>
-                                <hbox spacing="true">
                                     <hbox caption="genAgent1_Id" width="250px" expand="tmplt_GenAgent1_IdField">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
                                             <checkBox id="tmplt_GenAgent1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
                                         </hbox>
                                         <entityComboBox id="tmplt_GenAgent1_IdField"/>
                                     </hbox>
-                                    <hbox caption="sysFinCurcy1_Id" width="250px" expand="tmplt_SysFinCurcy1_IdField">
+                                    <hbox caption="genAgent2_Id" width="250px" expand="tmplt_GenAgent2_IdField">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                            <checkBox id="tmplt_SysFinCurcy1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                            <checkBox id="tmplt_GenAgent2_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
                                         </hbox>
-                                        <entityComboBox id="tmplt_SysFinCurcy1_IdField"/>
-                                    </hbox>
-                                    <hbox caption="finTaxLne1_Id" width="250px" expand="tmplt_FinTaxLne1_IdField">
-                                        <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                            <checkBox id="tmplt_FinTaxLne1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
-                                        </hbox>
-                                        <entityComboBox id="tmplt_FinTaxLne1_IdField"/>
+                                        <entityComboBox id="tmplt_GenAgent2_IdField"/>
                                     </hbox>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd4" caption="Filter" spacing="true">
-                                <hbox></hbox>
-                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
-                                    <properties include=".*"/>
-                                    <configurations>
-                                        <configuration id="filterConfig1" default="true">
-                                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
-                                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
-                                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
-                                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_UsrFinAcctType"/>
-                                            </propertyFilter>
-                                            <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                                <entityPicker metaClass="enty_UsrNode"/>
-                                            </propertyFilter>
+                                <tab id="tabCmd4" caption="Filter" spacing="true">
+                                    <hbox></hbox>
+                                    <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                                        <properties include=".*"/>
+                                        <configurations>
+                                            <configuration id="filterConfig1" default="true">
+                                                <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Type1_Id" caption="type1_Id" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                                    <entityComboBox metaClass="enty_UsrGenAgentType"/>
+                                                </propertyFilter>
 
-                                            <propertyFilter id="filterConfig1A_GenAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_UsrGenAgent"/>
-                                            </propertyFilter>
-                                            <propertyFilter id="filterConfig1A_SysFinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="sysFinCurcy1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_SysFinCurcy"/>
-                                            </propertyFilter>
-                                            <propertyFilter id="filterConfig1A_FinTaxLne1_Id" caption="finTaxLne1_Id" operation="EQUAL" property="finTaxLne1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_UsrNode"/>
-                                            </propertyFilter>
-                                        </configuration>
-                                    </configurations>
-                                </filter>
+                                                <propertyFilter id="filterConfig1A_GenAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
+                                                    <entityComboBox metaClass="enty_UsrGenAgent"/>
+                                                </propertyFilter>
+                                                <propertyFilter id="filterConfig1A_GenAgent2_Id" caption="genAgent2_Id" operation="EQUAL" property="genAgent2_Id" operationEditable="true">
+                                                    <entityComboBox metaClass="enty_UsrGenAgent"/>
+                                                </propertyFilter>
+                                            </configuration>
+                                        </configurations>
+                                    </filter>
                             </tab>
                             <tab id="tabCmd5" caption="Options" spacing="true">
                                 <hbox>
@@ -165,7 +150,7 @@
                             </tab>
                         </tabSheet>
                     </buttonsPanel>
-                </treeTable>
+                </table>
                 <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
                     <containerProvider dataContainer="colCntnrMain"/>
                 </pagination>
@@ -181,7 +166,6 @@
                              caption="General"
                              expand="tab1_hbox3"
                              margin="true">
-
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
                                 <hbox caption="desc1" expand="desc1Field" width="1068px">
@@ -320,53 +304,123 @@
                                 </vbox>
 
                                 <vbox width="348px">
-                                    <hbox caption="name2" expand="name2Field" width="100%">
-                                        <textField id="name2Field" dataContainer="instCntnrMain" property="name2"/>
-                                        <button id="updateName2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
-                                    </hbox>
-                                    <hbox caption="genAgent1_Id" expand="genAgent1_IdField" width="100%">
-                                        <entityComboBox id="genAgent1_IdField" dataContainer="instCntnrMain" tabIndex="20"
-                                                        property="genAgent1_Id">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateGenAgent1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
-                                    </hbox>
-                                    <hbox caption="sysFinCurcy1_Id" expand="sysFinCurcy1_IdField" width="100%">
-                                        <entityComboBox id="sysFinCurcy1_IdField" dataContainer="instCntnrMain" tabIndex="20"
-                                                        property="sysFinCurcy1_Id">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateFinCurcy1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
-                                    </hbox>
-                                    <hbox caption="status" expand="statusField" width="100%">
-                                        <comboBox id="statusField" dataContainer="instCntnrMain"
-                                                  property="status" tabIndex="10">
-
-                                        </comboBox>
-                                        <button id="updateStatusFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
+                                    <hbox caption="nm1s1">
+                                        <groupBox width="100%">
+                                            <hbox caption="name1" expand="nm1s1Name1Field" width="100%">
+                                                <textField id="nm1s1Name1Field" dataContainer="instCntnrMain" property="nm1s1Name1"/>
+                                            </hbox>
+                                            <hbox caption="name1GenFmla1_Id" expand="nm1s1Name1GenFmla1_IdField" width="100%">
+                                                <entityComboBox id="nm1s1Name1GenFmla1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Name1GenFmla1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s1Name1GenFmla1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="type1_Id" expand="nm1s1Type1_IdField" width="100%">
+                                                <entityComboBox id="nm1s1Type1_IdField" dataContainer="instCntnrMain"
+                                                                property="nm1s1Type1_Id">
+                                                    <actions>
+                                                        <action id="entityOpen" type="entity_open"/>
+                                                        <action id="entityClear" type="entity_clear"/>
+                                                    </actions>
+                                                </entityComboBox>
+                                                <button id="updateNm1s1Type1_IdFieldListBtn" icon="font-icon:LIST"
+                                                        tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="inst1" expand="nm1s1Inst1Field" width="100%">
+                                                <textField id="nm1s1Inst1Field" dataContainer="instCntnrMain" property="inst1"/>
+                                                <button id="updateNm1s1Inst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                            </hbox>
+                                            <hbox caption="Ts1.elDt" expand="nm1s1Inst1Ts1_elTsField" width="100%">
+                                                <dateField id="nm1s1Inst1Ts1_elTsField" property="nm1s1Inst1Ts1.elTs" dataContainer="instCntnrMain"/>
+                                            </hbox>
+                                            <hbox spacing="true">
+                                                <hbox caption="Dt1.elDt" expand="nm1s1Inst1Dt1_elDtField" width="100%">
+                                                    <dateField id="nm1s1Inst1Dt1_elDtField" property="nm1s1Inst1Dt1.elDt" dataContainer="instCntnrMain"/>
+                                                </hbox>
+                                                <hbox caption="Tm1.elTm" expand="nm1s1Inst1Tm1_eltmField" width="100%">
+                                                    <timeField id="nm1s1Inst1Tm1_eltmField" property="nm1s1Inst1Tm1.elTm" dataContainer="instCntnrMain" />
+                                                </hbox>
+                                            </hbox>
+                                            <hbox width="100%" spacing="true">
+                                                <hbox caption="int1" width="98px" expand="nm1s1Inst1Int1Field">
+                                                    <textField id="nm1s1Inst1Int1Field" property="nm1s1Inst1Int1" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int2" width="98px" expand="nm1s1Inst1Int2Field">
+                                                    <textField id="nm1s1Inst1Int2Field" property="nm1s1Inst1Int2" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                                <hbox caption="int3" width="98px" expand="nm1s1Inst1Int3Field">
+                                                    <textField id="nm1s1Inst1Int3Field" property="nm1s1Inst1Int3" dataContainer="instCntnrMain"/>
+                                                    <button id="updateNm1s1Inst1Int3FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                                </hbox>
+                                            </hbox>
+                                        </groupBox>
                                     </hbox>
                                 </vbox>
 
                                 <vbox width="348px">
+
+                                    <hbox caption="name2" expand="name2Field" width="100%">
+                                        <textField id="name2Field" dataContainer="instCntnrMain" property="name2" width="100%" tabIndex="10"/>
+                                    </hbox>
+                                    <hbox caption="abrv" expand="abrvField" width="100%">
+                                        <textField id="abrvField" dataContainer="instCntnrMain" property="abrv" width="100%" tabIndex="10"/>
+                                    </hbox>
+
+                                    <hbox caption="namePrfx" expand="namePrfxField" width="100%">
+                                        <textField id="namePrfxField" dataContainer="instCntnrMain"  property="namePrfx" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="nameFrst" expand="nameFrstField" width="100%">
+                                        <textField id="nameFrstField" dataContainer="instCntnrMain"  property="nameFrst" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="nameMidl" expand="nameMidlField" width="100%">
+                                        <textField id="nameMidlField" dataContainer="instCntnrMain"  property="nameMidl" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="nameLast" expand="nameLastField" width="100%">
+                                        <textField id="nameLastField" dataContainer="instCntnrMain"  property="nameLast" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="nameSufx" expand="nameSufxField" width="100%">
+                                        <textField id="nameSufxField" dataContainer="instCntnrMain"  property="nameSufx" tabIndex="20"/>
+                                    </hbox>
+                                    <hbox caption="genAgent1_Id" expand="genAgent1_IdField" width="100%">
+                                        <entityComboBox id="genAgent1_IdField" dataContainer="instCntnrMain"
+                                                        property="genAgent1_Id" tabIndex="20">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenAgent1_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="genAgent2_Id" expand="genAgent2_IdField" width="100%">
+                                        <entityComboBox id="genAgent2_IdField" dataContainer="instCntnrMain"
+                                                        property="genAgent2_Id" tabIndex="20">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenAgent2_IdFieldListBtn" icon="font-icon:LIST"
+                                                tabIndex="-1"/>
+                                    </hbox>
                                 </vbox>
-
                             </hbox>
-
                         </tab>
 
                         <tab id="tab_2"
                              caption="Docs, Files"
-                             expand="tab2_hbox1"
-                             margin="true">
+                             margin="true"
+                             expand="tab2_hbox2"
+                             spacing="true">
 
-                            <hbox id="tab2_hbox1" width="100%" spacing="true">
+                            <hbox id="tab2_hbox2" width="100%" spacing="true">
                                 <vbox width="348px">
                                     <hbox caption="genDocVer1_Id" expand="genDocVer1_IdField">
                                         <entityComboBox id="genDocVer1_IdField" dataContainer="instCntnrMain"
@@ -395,41 +449,18 @@
                                     </hbox>
                                     <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"
                                               tabIndex="20"/>
+
                                 </vbox>
-
-                            </hbox>
-                        </tab>
-                        <tab id="tab_3"
-                             caption="Tax"
-                             expand="tab3_hbox1"
-                             margin="true">
-
-                            <hbox id="tab3_hbox1" width="100%" spacing="true">
-                                <vbox width="348px">
-                                    <hbox caption="finTaxLne1_Id" expand="finTaxLne1_IdField" width="100%">
-                                        <entityComboBox id="finTaxLne1_IdField" dataContainer="instCntnrMain" tabIndex="10"
-                                                        property="finTaxLne1_Id">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateFinTaxLne1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
-                                    </hbox>
-                                </vbox>
-
                             </hbox>
                         </tab>
 
                         <tab id="tab_9"
                              caption="Note"
-                             expand="tab9_hbox1"
-                             margin="true">
+                             margin="true"
+                             spacing="true">
 
-                            <hbox id="tab9_hbox1" width="100%" spacing="true">
-                                    <hbox width="1060px" expand="noteField">
-                                        <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
-                                    </hbox>
+                            <hbox width="1060px" expand="noteField">
+                                <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
                             </hbox>
                         </tab>
                     </tabSheet>
