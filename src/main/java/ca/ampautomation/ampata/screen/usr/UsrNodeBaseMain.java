@@ -3,6 +3,7 @@ package ca.ampautomation.ampata.screen.usr;
 import ca.ampautomation.ampata.entity.usr.UsrBaseQryMngr;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.FetchPlan;
@@ -38,7 +39,9 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
     protected CollectionContainer<UsrNodeTypeT> colCntnrType;
     protected CollectionLoader<UsrNodeTypeT> colLoadrType;
 
-    //GenTag data property container
+    //GenTag data container loader and data property container
+    protected CollectionContainer<UsrGenTag> colCntnrGenTag;
+    protected CollectionLoader<UsrGenTag> colLoadrGenTag;
     @Autowired
     protected CollectionPropertyContainer<UsrGenTag> colPropCntnrGenTag;
 
@@ -46,6 +49,11 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
     //GenFmla data container and loader
     protected CollectionLoader<UsrGenFmla> colLoadrGenFmla;
     protected CollectionContainer<UsrGenFmla> colCntnrGenFmla;
+
+
+    //UsrGenDocVer data container and loader
+    protected CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    protected CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
     //Fields
 
@@ -63,6 +71,15 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
 
     @Autowired
     protected TagField<UsrGenTag> genTags1_IdField;
+
+    @Autowired
+    protected EntityComboBox<UsrGenTag> genTag1_IdField;
+
+    @Autowired
+    protected EntityComboBox<UsrGenTag> genTag2_IdField;
+
+    @Autowired
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -104,19 +121,30 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
         desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
 
 
-/*
         colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
         colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.id2");
-        FetchPlan fchPlnGenTag_Inst = fetchPlans.builder(UsrGenTag.class)
+        FetchPlan fchPlnGenTag = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenTag.setFetchPlan(fchPlnGenTag_Inst);
+        colLoadrGenTag.setFetchPlan(fchPlnGenTag);
         colLoadrGenTag.setContainer(colCntnrGenTag);
         colLoadrGenTag.setDataContext(getScreenData().getDataContext());
-        //Field
-        genTags1_IdField.setOptionsContainer(colCntnrGenTag);
-*/
+
+        genTag1_IdField.setOptionsContainer(colCntnrGenTag);
+        genTag2_IdField.setOptionsContainer(colCntnrGenTag);
+
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
+        colLoadrGenDocVer = dataComponents.createCollectionLoader();
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.id2");
+        FetchPlan fchPlnGenDocVer = fetchPlans.builder(UsrGenDocVer.class)
+                .addFetchPlan(FetchPlan.INSTANCE_NAME)
+                .build();
+        colLoadrGenDocVer.setFetchPlan(fchPlnGenDocVer);
+        colLoadrGenDocVer.setContainer(colCntnrGenDocVer);
+        colLoadrGenDocVer.setDataContext(getScreenData().getDataContext());
+
+        genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -133,6 +161,12 @@ public abstract class UsrNodeBaseMain<UsrNodeT extends UsrNode, UsrNodeTypeT ext
 
         colLoadrType.load();
         logger.debug(logPrfx + " --- called colLoadrType.load() ");
+
+        colLoadrGenFmla.load();
+        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
+
+        colLoadrGenTag.load();
+        logger.debug(logPrfx + " --- called colLoadrGenTag.load() ");
 
         logger.trace(logPrfx + " <-- ");
 

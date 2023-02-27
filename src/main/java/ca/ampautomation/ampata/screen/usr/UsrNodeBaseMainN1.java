@@ -5,6 +5,7 @@ import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.fragment.UsrNodeFrag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;

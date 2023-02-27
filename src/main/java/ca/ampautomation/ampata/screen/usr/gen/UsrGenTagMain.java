@@ -12,7 +12,7 @@ import io.jmix.ui.screen.LookupComponent;
 @UiController("enty_UsrGenTag.main")
 @UiDescriptor("usr-gen-tag-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenTagMain extends UsrNodeBaseMainN1<UsrGenTag, UsrGenTagType, UsrGenTagQryMngr, Table<UsrNode>> {
+public class UsrGenTagMain extends UsrNodeBaseMainN1<UsrGenTag, UsrGenTagType, UsrGenTagQryMngr, Table<UsrGenTag>> {
 
 
 

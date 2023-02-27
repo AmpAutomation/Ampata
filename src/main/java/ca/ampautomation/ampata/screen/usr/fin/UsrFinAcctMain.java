@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinAcct.main")
 @UiDescriptor("usr-fin-acct-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr> {
+public class UsrFinAcctMain extends UsrNodeBaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr, TreeTable<UsrFinAcct>> {
 
 
     //Filter

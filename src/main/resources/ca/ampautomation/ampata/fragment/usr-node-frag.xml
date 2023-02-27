@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/ui/fragment">
+    <data>
+        <instance id="instCntnrMain" provided="true"/>
+    </data>
+    <layout>
+        <hbox caption="id" expand="id" width="100%">
+            <textField id="id" dataContainer="instCntnrMain" property="id" editable="false"/>
+        </hbox>
+        <hbox caption="tenant" expand="tenantField" width="100%">
+            <textField id="tenantField" dataContainer="instCntnrMain" property="tenant" editable="false"/>
+        </hbox>
+        <hbox caption="dtype" expand="dtypeField" width="100%">
+            <textField id="dtypeField" dataContainer="instCntnrMain" property="dtype" editable="false"/>
+        </hbox>
+        <hbox caption="className" expand="classNameField" width="100%">
+            <textField id="classNameField" dataContainer="instCntnrMain" property="className"/>
+        </hbox>
+        <hbox caption="id2" expand="id2Field" width="100%">
+            <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
+            <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+        </hbox>
+        <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+            <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false"/>
+            <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+        </hbox>
+        <hbox width="100%" spacing="true">
+            <hbox caption="id2Cmp" expand="id2CmpField" width="84px">
+                <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
+                <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+            </hbox>
+            <hbox caption="id2Dup" expand="id2DupField" width="120px">
+                <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false"/>
+                <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+            </hbox>
+        </hbox>
+
+    </layout>
+</fragment>

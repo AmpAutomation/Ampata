@@ -14,7 +14,7 @@ import java.util.List;
 @UiController("enty_UsrGenDocVer.main")
 @UiDescriptor("usr-gen-doc-ver-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenDocVerMain extends UsrNodeBaseMain<UsrGenDocVer, UsrGenDocVerType, UsrGenDocVerQryMngr> {
+public class UsrGenDocVerMain extends UsrNodeBaseMain<UsrGenDocVer, UsrGenDocVerType, UsrGenDocVerQryMngr, Table<UsrGenDocVer>> {
 
 
     //Common

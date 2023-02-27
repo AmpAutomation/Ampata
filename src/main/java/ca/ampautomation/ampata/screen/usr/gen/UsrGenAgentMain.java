@@ -26,7 +26,7 @@ import java.util.List;
 @UiController("enty_UsrGenAgent.main")
 @UiDescriptor("usr-gen-agent-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenAgentMain extends UsrNodeBaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr> {
+public class UsrGenAgentMain extends UsrNodeBaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr, Table<UsrGenAgent>> {
 
     //Filter
 
@@ -53,12 +53,6 @@ public class UsrGenAgentMain extends UsrNodeBaseMain<UsrGenAgent, UsrGenAgentTyp
     private CollectionContainer<UsrGenAgent> colCntnrGenAgent;
     private CollectionLoader<UsrGenAgent> colLoadrGenAgent;
 
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
-
-    private CollectionContainer<UsrGenTag> colCntnrGenTag;
-    private CollectionLoader<UsrGenTag> colLoadrGenTag;
-
 
 
     //Field
@@ -68,12 +62,6 @@ public class UsrGenAgentMain extends UsrNodeBaseMain<UsrGenAgent, UsrGenAgentTyp
 
     @Autowired
     private EntityComboBox<UsrGenAgent> genAgent2_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
-
-    @Autowired
-    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
 
     @Subscribe
@@ -105,34 +93,6 @@ public class UsrGenAgentMain extends UsrNodeBaseMain<UsrGenAgent, UsrGenAgentTyp
         EntityComboBox<UsrGenAgent> propFilterCmpnt_GenAgent2_Id;
         propFilterCmpnt_GenAgent2_Id = (EntityComboBox<UsrGenAgent>) filterConfig1A_GenAgent2_Id.getValueComponent();
         propFilterCmpnt_GenAgent2_Id.setOptionsContainer(colCntnrGenAgent);
-
-
-
-        
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
-        colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        colLoadrGenDocVer.setFetchPlan(genDocVersFp);
-        colLoadrGenDocVer.setContainer(colCntnrGenDocVer);
-        colLoadrGenDocVer.setDataContext(getScreenData().getDataContext());
-
-        genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
-
-
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
-        colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
-                .addFetchPlan(FetchPlan.INSTANCE_NAME)
-                .build();
-        colLoadrGenTag.setFetchPlan(genTagsFp);
-        colLoadrGenTag.setContainer(colCntnrGenTag);
-        colLoadrGenTag.setDataContext(getScreenData().getDataContext());
-
-        genTag1_IdField.setOptionsContainer(colCntnrGenTag);
 
         logger.trace(logPrfx + " <-- ");
     }

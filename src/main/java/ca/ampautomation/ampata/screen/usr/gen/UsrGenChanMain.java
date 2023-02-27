@@ -14,7 +14,7 @@ import java.util.List;
 @UiController("enty_UsrGenChan.main")
 @UiDescriptor("usr-gen-chan-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenChanMain extends UsrNodeBaseMain<UsrGenChan, UsrGenChanType, UsrGenChanQryMngr> {
+public class UsrGenChanMain extends UsrNodeBaseMain<UsrGenChan, UsrGenChanType, UsrGenChanQryMngr, Table<UsrGenChan>> {
 
 
     //Other data loaders, containers and tables
