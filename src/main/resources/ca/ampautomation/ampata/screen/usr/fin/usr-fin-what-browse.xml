@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://finWhatBrowse.caption"
+        caption="msg://usrFinWhatBrowse.caption"
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"

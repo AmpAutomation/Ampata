@@ -1,5 +1,5 @@
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://finBalMain.caption"
+        caption="msg://usrFinBalMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"

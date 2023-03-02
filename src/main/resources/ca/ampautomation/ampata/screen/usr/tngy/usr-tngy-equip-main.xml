@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://tngyEquipMain.caption"
+        caption="msg://usrTngyEquipMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
