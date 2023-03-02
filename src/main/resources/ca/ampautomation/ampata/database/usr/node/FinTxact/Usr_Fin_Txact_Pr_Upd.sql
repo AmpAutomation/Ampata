@@ -12,18 +12,18 @@ declare
 begin
 -- Stored procedures are atomic and are executed as a transaction
 
---beg1_date1..
-raise notice 'Updating beg1_date1..';
+--ts1_el_dt..
+raise notice 'Updating ts1_el_dt..';
 update ampata_usr_node t
-set  beg1_date1 = beg1_ts1::date
-	,beg1_date1_yr = date_part('year',beg1_ts1)
-	,beg1_date1_qtr = date_part('quarter',beg1_ts1)
-	,beg1_date1_mon =  date_part('Mon',beg1_ts1)
-	,beg1_date1_mon2 =  to_char(beg1_ts1,'Mon')
-	,beg1_date1_day = date_part('day',beg1_ts1)
-	,beg1_time1  = beg1_ts1::time
-	,beg1_time1_hr  = date_part('hour',beg1_ts1)
-	,beg1_time1_min  = date_part('minute',beg1_ts1)
+set  ts1_el_dt = ts1_el_ts::date
+	,ts1_el_dt_yr = date_part('year',ts1_el_ts)
+	,ts1_el_dt_qtr = date_part('quarter',ts1_el_ts)
+	,ts1_el_dt_mon =  date_part('Mon',ts1_el_ts)
+	,ts1_el_dt_mon2 =  to_char(ts1_el_ts,'Mon')
+	,ts1_el_dt_day = date_part('day',ts1_el_ts)
+	,ts1_el_tm  = ts1_el_ts::time
+	,ts1_el_tm_hr  = date_part('hour',ts1_el_ts)
+	,ts1_el_tm_min  = date_part('minute',ts1_el_ts)
 where
 	t.class_name = 'UsrFinTxact'
 ;
@@ -31,7 +31,7 @@ where
 --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
-set id_dt_date1  = beg1_date1
+set id_dt_date1  = ts1_el_dt
 where class_name = 'UsrFinTxact'
 ;	
 

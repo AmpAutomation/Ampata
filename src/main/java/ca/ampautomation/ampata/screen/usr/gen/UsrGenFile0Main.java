@@ -1,9 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.UsrNodeType;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFile;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFileQryMngr;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGen;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -69,7 +70,7 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
     protected Filter filter;
 
     @Autowired
-    protected PropertyFilter<UsrNodeType> filterConfig1A_Type1_Id;
+    protected PropertyFilter<UsrBaseNodeType> filterConfig1A_Type1_Id;
 
 
     //Toolbar
@@ -79,7 +80,7 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
     @Autowired
     protected CheckBox tmplt_Type1_IdFieldChk;
     @Autowired
-    protected EntityComboBox<UsrNodeType> tmplt_Type1_IdField;
+    protected EntityComboBox<UsrBaseNodeType> tmplt_Type1_IdField;
 
 
     //Main data containers, loaders and table
@@ -94,13 +95,13 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
 
 
     //Type data container and loader
-    private CollectionContainer<UsrNodeType> colCntnrType;
-    private CollectionLoader<UsrNodeType> colLoadrType;
+    private CollectionContainer<UsrBaseNodeType> colCntnrType;
+    private CollectionLoader<UsrBaseNodeType> colLoadrType;
 
 
     //Other data loaders, containers and tables
-    private CollectionContainer<UsrGen> colCntnrGenTag;
-    private CollectionLoader<UsrGen> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
 
     //Field
@@ -114,10 +115,10 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
     private TextField<String> id2CalcField;
 
     @Autowired
-    private EntityComboBox<UsrNodeType> type1_IdField;
+    private EntityComboBox<UsrBaseNodeType> type1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrGen> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
 
     protected ListComponent<UsrGenFile> getTable() {
@@ -130,13 +131,13 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
         logger.trace(logPrfx + " --> ");
 
 
-        colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
+        colCntnrType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrGenFile' order by e.id2");
-        FetchPlan genFileTypesFp = fetchPlans.builder(UsrNodeType.class)
+        colLoadrType.setQuery("select e from enty_UsrGenFileType e where order by e.sortKey, e.id2");
+        FetchPlan fchPlnGenFileType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrType.setFetchPlan(genFileTypesFp);
+        colLoadrType.setFetchPlan(fchPlnGenFileType_Inst);
         colLoadrType.setContainer(colCntnrType);
         colLoadrType.setDataContext(getScreenData().getDataContext());
 
@@ -144,18 +145,18 @@ public class UsrGenFile0Main extends MasterDetailScreen<UsrGenFile> {
         //template
         tmplt_Type1_IdField.setOptionsContainer(colCntnrType);
         //filter
-        EntityComboBox<UsrNodeType> propFilterCmpnt_Type1_Id;
-        propFilterCmpnt_Type1_Id = (EntityComboBox<UsrNodeType>) filterConfig1A_Type1_Id.getValueComponent();
+        EntityComboBox<UsrBaseNodeType> propFilterCmpnt_Type1_Id;
+        propFilterCmpnt_Type1_Id = (EntityComboBox<UsrBaseNodeType>) filterConfig1A_Type1_Id.getValueComponent();
         propFilterCmpnt_Type1_Id.setOptionsContainer(colCntnrType);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGen.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrGen.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan fchPlnGenTag_Inst = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenTag.setFetchPlan(genTagsFp);
+        colLoadrGenTag.setFetchPlan(fchPlnGenTag_Inst);
         colLoadrGenTag.setContainer(colCntnrGenTag);
         colLoadrGenTag.setDataContext(getScreenData().getDataContext());
 

@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://usrFinStmtItmEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                  fetchPlan="fetchPlan_UsrFinStmtItm_Base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout spacing="true" expand="scrollBox">
+        <scrollBox id="scrollBox" spacing="true">
+            <form id="form" dataContainer="instCntnrMain">
+                <tabSheet width="100%">
+                    <tab id="tab_1"
+                         caption="Main"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab1Form" dataContainer="instCntnrMain">
+                            <column width="420px">
+                                <textField id="id" property="id" width="100%" editable="false" tabIndex="10"/>
+                                <hbox caption="id2" expand="id2Field" width="100%">
+                                    <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
+                                    <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                                    <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false" tabIndex="10"/>
+                                    <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
+                                    <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false" tabIndex="10"/>
+                                    <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="id2Dup" expand="id2DupField" width="100%">
+                                    <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false" tabIndex="10"/>
+                                    <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <textField id="classNameField" property="className" editable="false"/>
+                                <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                    <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
+                                                    property="type1_Id" tabIndex="10">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateType1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textField id="name1Field" property="name1" width="100%" tabIndex="10"/>
+                            </column>
+                            <column width="420px">
+                                <hbox caption="finStmt1_Id" expand="finStmt1_IdField" width="100%">
+                                    <entityComboBox id="finStmt1_IdField" dataContainer="instCntnrMain"
+                                                    property="finStmt1_Id" tabIndex="20">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateFinStmt1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="desc1" expand="desc1Field" width="100%">
+                                    <comboBox id="desc1Field" dataContainer="instCntnrMain"
+                                              property="desc1" tabIndex="20">
+                                    </comboBox>
+                                    <button id="updateDesc1FieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="desc2" expand="desc2Field" width="100%">
+                                    <comboBox id="desc2Field" dataContainer="instCntnrMain"
+                                              property="desc2" tabIndex="20">
+                                    </comboBox>
+                                    <button id="updateDesc2FieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="desc3" expand="desc3Field" width="100%">
+                                    <comboBox id="desc3Field" dataContainer="instCntnrMain"
+                                              property="desc3" tabIndex="20">
+                                    </comboBox>
+                                    <button id="updateDesc3FieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="desc4" expand="desc4Field" width="100%">
+                                    <comboBox id="desc4Field" dataContainer="instCntnrMain"
+                                              property="desc4" tabIndex="20">
+                                    </comboBox>
+                                    <button id="updateDesc4FieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="exchDesc" expand="exchDescField" width="100%">
+                                    <textArea id="exchDescField" dataContainer="instCntnrMain" property="exchDesc" rows="1" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="refId" expand="refIdField" width="100%">
+                                    <textArea id="refIdField" dataContainer="instCntnrMain" property="refId" rows="1" tabIndex="20"/>
+                                </hbox>
+                            </column>
+                            <column width="240px">
+                                <hbox caption="IdTs" width="100%">
+                                    <dateField id="n1s1Inst1TsElTsField" property="nm1s1Inst1Ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
+                                    <hbox width="20px"/>
+                                </hbox>
+                                <hbox caption="Ts1" width="100%">
+                                    <dateField id="ts1ElTsField" property="ts1.elTs" dataContainer="instCntnrMain" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                    <button id="updateTs1ElTsFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <hbox width="100%">
+                                    <hbox width="30%">
+                                        <label value="idX" align="MIDDLE_RIGHT"/>
+                                        <hbox width="6px"/>
+                                        <textField id="idXField" property="nm1s1Inst1Int1" dataContainer="instCntnrMain" width="60px" tabIndex="30"/>
+                                        <button id="updateIdXFieldBtn" icon="font-icon:REFRESH"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox width="3%">
+                                        <hbox width="6px"/>
+                                    </hbox>
+                                </hbox>
+                            </column>
+                            <column width="360px">
+                                <hbox caption="amtDebt" expand="amtDebtField" width="100%">
+                                    <textField id="amtDebtField" dataContainer="instCntnrMain" property="amtDebt" tabIndex="40"/>
+                                </hbox>
+
+                                <hbox caption="amtCred" expand="amtCredField" width="100%">
+                                    <textField id="amtCredField" dataContainer="instCntnrMain" property="amtCred" tabIndex="40"/>
+                                </hbox>
+
+                                <hbox caption="amtNet" expand="amtNetField" width="100%">
+                                    <textField id="amtNetField" dataContainer="instCntnrMain" property="amtNet" editable="false"
+                                               tabIndex="40"/>
+                                    <button id="updateAmtNetBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_2"
+                         caption="Docs, Tags"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab2Form" dataContainer="instCntnrMain">
+                            <column width="360px">
+                                <hbox caption="genDocVer1_Id" expand="genDocVer1_IdField">
+                                    <entityComboBox id="genDocVer1_IdField" dataContainer="instCntnrMain"
+                                                    property="genDocVer1_Id" tabIndex="10">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenDocVer1_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenDocVer1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                            </column>
+                            <column width="360px">
+                                <hbox caption="genFile1_Id" expand="genFile1_IdField">
+                                    <entityComboBox id="genFile1_IdField" dataContainer="instCntnrMain"
+                                                    property="genFile1_Id" tabIndex="20">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenFile1_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenFile1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"
+                                          tabIndex="20"/>
+                            </column>
+                            <column width="360px">
+                                <hbox caption="genTag1_Id" expand="genTag1_IdField" width="100%">
+                                    <entityComboBox id="genTag1_IdField" dataContainer="instCntnrMain"
+                                                    property="genTag1_Id" tabIndex="30">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenTag1_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenTag1_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textField id="genTag1_Id2Field" property="genTag1_Id2" editable="false" tabIndex="-1"/>
+                                <hbox caption="genTag2_Id" expand="genTag2_IdField" width="100%">
+                                    <entityComboBox id="genTag2_IdField" dataContainer="instCntnrMain"
+                                                    property="genTag2_Id" tabIndex="30">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenTag2_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenTag2_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textField id="genTag2_Id2Field" property="genTag2_Id2" editable="false" tabIndex="-1"/>
+                                <hbox caption="genTag3_Id" expand="genTag3_IdField" width="100%">
+                                    <entityComboBox id="genTag3_IdField" dataContainer="instCntnrMain"
+                                                    property="genTag3_Id" tabIndex="30">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenTag3_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenTag3_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textField id="genTag3_Id2Field" property="genTag3_Id2" editable="false" tabIndex="-1"/>
+                                <hbox caption="genTag4_Id" expand="genTag4_IdField" width="100%">
+                                    <entityComboBox id="genTag4_IdField" dataContainer="instCntnrMain"
+                                                    property="genTag4_Id" tabIndex="30">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateGenTag4_IdFieldBtn" icon="font-icon:REFRESH"
+                                            tabIndex="-1"/>
+                                    <button id="updateGenTag4_IdFieldListBtn" icon="font-icon:LIST"
+                                            tabIndex="-1"/>
+                                </hbox>
+                                <textField id="genTag4_Id2Field" property="genTag4_Id2" editable="false" tabIndex="-1"/>
+                            </column>
+                            <column width="360px">
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_6"
+                         caption="FinTxactItm"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab6Form" dataContainer="instCntnrMain">
+                            <column width="360px">
+                                <hbox>
+                                </hbox>
+                                <hbox caption="amtDebt" expand="amtDebtField_tab_6" width="100%">
+                                    <textField id="amtDebtField_tab_6" dataContainer="instCntnrMain" property="amtDebt" tabIndex="10"/>
+                                </hbox>
+                                <hbox caption="amtCred" expand="amtCredField_tab_6" width="100%">
+                                    <textField id="amtCredField_tab_6" dataContainer="instCntnrMain" property="amtCred" tabIndex="10"/>
+                                </hbox>
+                                <hbox caption="amtNet" expand="amtNetField_tab_6" width="100%">
+                                    <textField id="amtNetField_tab_6" dataContainer="instCntnrMain" property="amtNet" editable="false" tabIndex="10"/>
+                                </hbox>
+
+                            </column>
+                            <column width="360px">
+                                <hbox caption="finTxactItms1_IdCntCalc" expand="finTxactItms1_IdCntCalcField" width="100%">
+                                    <textField id="finTxactItms1_IdCntCalcField" dataContainer="instCntnrMain" property="finTxactItms1_IdCntCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtDebtSumField" expand="finTxactItms1_AmtDebtSumCalcField" width="100%">
+                                    <textField id="finTxactItms1_AmtDebtSumCalcField" dataContainer="instCntnrMain" property="finTxactItms1_AmtDebtSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtCredSumCalc" expand="finTxactItms1_AmtCredSumCalcField" width="100%">
+                                    <textField id="finTxactItms1_AmtCredSumCalcField" dataContainer="instCntnrMain" property="finTxactItms1_AmtCredSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtNetSumCalc" expand="finTxactItms1_AmtNetSumCalcField" width="100%">
+                                    <textField id="finTxactItms1_AmtNetSumCalcField" dataContainer="instCntnrMain" property="finTxactItms1_AmtNetSumCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxactItms1_AmtNetSumCalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtEqCalc" expand="finTxactItms1_AmtEqCalcBox" width="100%">
+                                    <checkBox id="finTxactItms1_AmtEqCalcBox" dataContainer="instCntnrMain" property="finTxactItms1_AmtEqCalc" editable="false" tabIndex="20"/>
+                                    <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                            </column>
+
+                            <column width="360px">
+                                <hbox width="100%"/>
+                                <hbox caption="finTxactItms1_AmtDebtSumField" expand="finTxactItms1_AmtDebtSumDiffField" width="100%">
+                                    <textField id="finTxactItms1_AmtDebtSumDiffField" dataContainer="instCntnrMain" property="finTxactItms1_AmtDebtSumDiff" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtCredSumDiff" expand="finTxactItms1_AmtCredSumDiffField" width="100%">
+                                    <textField id="finTxactItms1_AmtCredSumDiffField" dataContainer="instCntnrMain" property="finTxactItms1_AmtCredSumDiff" editable="false" tabIndex="20"/>
+                                </hbox>
+                                <hbox caption="finTxactItms1_AmtNetSumDiff" expand="finTxactItms1_AmtNetSumDiffField" width="100%">
+                                    <textField id="finTxactItms1_AmtNetSumDiffField" dataContainer="instCntnrMain" property="finTxactItms1_AmtNetSumDiff" editable="false" tabIndex="20"/>
+                                </hbox>
+                            </column>
+                        </form>
+                    </tab>
+                    <tab id="tab_9"
+                         caption="Note"
+                         margin="true"
+                         spacing="true">
+                        <form id="tab9Form" dataContainer="instCntnrMain">
+                            <column width="840px">
+                                <textArea id="noteField" property="note" tabIndex="10"/>
+                            </column>
+                        </form>
+                    </tab>
+                </tabSheet>
+            </form>
+        </scrollBox>
+        <hbox id="editActions" spacing="true">
+            <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
+            <label value="|" align="MIDDLE_CENTER"/>
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+            <label value="|" align="MIDDLE_CENTER"/>
+            <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
+            <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+            <label value="Option" align="MIDDLE_RIGHT"/>
+            <comboBox id="updateInstItemCalcValsOption" width="160px"/>
+        </hbox>
+    </layout>
+</window>

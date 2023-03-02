@@ -333,16 +333,16 @@ and t1.dtype ='enty_UsrFinWhy'
 
 update ampata_usr_node t
 set 
-	 beg2_date1 = fin_txact1__beg1_date1
-	,beg2_time1 = fin_txact1__beg1_time1
+	 ts2_el_dt = fin_txact1__ts1_el_dt
+	,ts2_el_tm = fin_txact1__ts1_el_tm
 where t.class_name ='FinTxactItm'
 ;
 
 
 update ampata_usr_node t
 set 
-	 beg1_ts1 =	case when beg1_date1 is not null then (beg1_date1 + case when beg1_time1 is not null then beg1_time1 else '00:00'::time end)::timestamp else null end
-	,beg2_ts1 =	case when beg2_date1 is not null then (beg2_date1 + case when beg2_time1 is not null then beg2_time1 else '00:00'::time end)::timestamp else null end
+	 ts1_el_ts =	case when ts1_el_dt is not null then (ts1_el_dt + case when ts1_el_tm is not null then ts1_el_tm else '00:00'::time end)::timestamp else null end
+	,ts2_el_ts =	case when ts2_el_dt is not null then (ts2_el_dt + case when ts2_el_tm is not null then ts2_el_tm else '00:00'::time end)::timestamp else null end
 where t.class_name ='FinTxactItm'
 ;
 
@@ -350,12 +350,12 @@ select
 	 case when id_ts_date1 is not null then (id_ts_date1 + case when id_ts_time1 is not null then id_ts_time1 else '00:00'::time end)::timestamp else null end as id_ts_ts1
 	,id_ts_date1
 	,id_ts_time1
-	,case when beg1_date1 is not null then (beg1_date1 + case when beg1_time1 is not null then beg1_time1 else '00:00'::time end)::timestamp else null end as beg1_ts1
-	,beg1_date1
-	,beg1_time1
-	,case when beg2_date1 is not null then (beg2_date1 + case when beg2_time1 is not null then beg2_time1 else '00:00'::time end)::timestamp else null end as beg2_ts1 
-	,beg2_date1
-	,beg2_time1
+	,case when ts1_el_dt is not null then (ts1_el_dt + case when ts1_el_tm is not null then ts1_el_tm else '00:00'::time end)::timestamp else null end as ts1_el_ts
+	,ts1_el_dt
+	,ts1_el_tm
+	,case when ts2_el_dt is not null then (ts2_el_dt + case when ts2_el_tm is not null then ts2_el_tm else '00:00'::time end)::timestamp else null end as ts2_el_ts
+	,ts2_el_dt
+	,ts2_el_tm
 from ampata_usr_node t
 where t.class_name ='FinTxactItm'
 
@@ -393,9 +393,9 @@ SELECT
 t.id
 ,t.id2
 ,t.class_name 
-,t.fin_txact1__beg1_date1
+,t.fin_txact1__ts1_el_dt
 from ampata_usr_node t
-WHERE t.fin_txact1__beg1_date1 is not null
+WHERE t.fin_txact1__ts1_el_dt is not null
 
 
 

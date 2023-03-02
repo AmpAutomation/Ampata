@@ -104,10 +104,10 @@ from ampata_usr_node t
 where t.class_name = 'UsrGenAgent'
 
 update ampata_usr_node_type t
-set dtype = 'enty_UsrNodeType'
+set dtype = 'enty_UsrBaseNodeType'
 
 update ampata_usr_node t
-set dtype = 'enty_UsrNode'
+set dtype = 'enty_UsrBaseNode'
 
 update ampata_usr_node t
 set dtype = 'enty_' || t.class_name 
@@ -132,7 +132,7 @@ SELECT t.id
 ,t.dtype
 ,t.class_name
 from ampata_usr_node t
-where t.dtype = 'UsrNode'
+where t.dtype = 'UsrBaseNode'
 
 
 

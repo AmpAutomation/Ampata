@@ -1,11 +1,11 @@
 package ca.ampautomation.ampata.entity.usr.tngy;
 
-import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "enty_UsrTngyEquip")
-public class UsrTngyEquip extends UsrNode {
+public class UsrTngyEquip extends UsrBaseNode {
 }

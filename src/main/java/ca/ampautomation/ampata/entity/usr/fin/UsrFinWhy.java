@@ -1,11 +1,11 @@
 package ca.ampautomation.ampata.entity.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrItem;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseItem;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "enty_UsrFinWhy")
-public class UsrFinWhy extends UsrItem {
+public class UsrFinWhy extends UsrBaseItem {
 }

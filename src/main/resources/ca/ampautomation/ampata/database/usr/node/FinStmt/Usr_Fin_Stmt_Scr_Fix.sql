@@ -58,7 +58,7 @@ where
 select
 	 t.id
 	,t.id2
-	,t.beg1_date1 
+	,t.ts1_el_dt
 	,t.fin_stmt_itm1__desc1
 	,t.fin_stmt_itm1__desc2
 	,t.fin_stmt_itm1__desc3
@@ -77,24 +77,24 @@ select 1002.94  + 24.21
 
 update ampata_sys_node t
 set 
-	 beg1_ts1 =	case when beg1_date1 is not null then (beg1_date1 + case when beg1_time1 is not null then beg1_time1 else '00:00'::time end)::timestamp else null end
-	,end1_ts1 =	case when end1_date1 is not null then (end1_date1 + case when end1_time1 is not null then end1_time1 else '00:00'::time end)::timestamp else null end
+	 ts1_el_ts =	case when ts1_el_dt is not null then (ts1_el_dt + case when ts1_el_tm is not null then ts1_el_tm else '00:00'::time end)::timestamp else null end
+	,ts3_el_ts =	case when ts3_el_dt is not null then (ts3_el_dt + case when ts3_el_tm is not null then ts3_el_tm else '00:00'::time end)::timestamp else null end
 where t.class_name ='FinStmt'
 ;
 
 select 
-	 case when beg1_date1 is not null then (beg1_date1 + case when beg1_time1 is not null then beg1_time1 else '00:00'::time end)::timestamp else null end as beg1_ts1
-	,beg1_date1
-	,beg1_time1
-	,case when end1_date1 is not null then (end1_date1 + case when end1_time1 is not null then end1_time1 else '00:00'::time end)::timestamp else null end as end1_ts1 
-	,end1_date1
-	,end1_time1
+	 case when ts1_el_dt is not null then (ts1_el_dt + case when ts1_el_tm is not null then ts1_el_tm else '00:00'::time end)::timestamp else null end as ts1_el_ts
+	,ts1_el_dt
+	,ts1_el_tm
+	,case when ts3_el_dt is not null then (ts3_el_dt + case when ts3_el_tm is not null then ts3_el_tm else '00:00'::time end)::timestamp else null end as ts3_el_ts
+	,ts3_el_dt
+	,ts3_el_tm
 from ampata_sys_node t
 where t.class_name ='FinStmt'
 
 
 select 
-ts1_ts1
+ts1_el_ts
 ,ts2_ts1 
 ,ts3_ts1 
 from ampata_usr_node t

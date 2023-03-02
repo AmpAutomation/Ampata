@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.entity.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @JmixEntity
 @Entity(name = "enty_UsrGenAgent")
-public class UsrGenAgent extends UsrNode {
+public class UsrGenAgent extends UsrBaseNode {
 
     @Override
     public Boolean updateDesc1(DataManager dataManager){

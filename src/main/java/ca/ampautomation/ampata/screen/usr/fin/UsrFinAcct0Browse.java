@@ -1,7 +1,8 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctQryMngr;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -24,7 +25,7 @@ import javax.persistence.EntityManagerFactory;
 @UiController("enty_UsrFinAcct.browse")
 @UiDescriptor("usr-fin-acct-0-browse.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcct0Browse extends StandardLookup<UsrNode> {
+public class UsrFinAcct0Browse extends StandardLookup<UsrBaseNode> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -73,13 +74,13 @@ public class UsrFinAcct0Browse extends StandardLookup<UsrNode> {
 
     //Template
     @Autowired
-    protected PropertyFilter<UsrNode> filterConfig1A_GenAgent1_Id;
+    protected PropertyFilter<UsrGenAgent> filterConfig1A_GenAgent1_Id;
 
 
 
     //Other data containers, loaders and table
-    private CollectionContainer<UsrNode> genAgentsDc;
-    private CollectionLoader<UsrNode> genAgentsDl;
+    private CollectionContainer<UsrGenAgent> genAgentsDc;
+    private CollectionLoader<UsrGenAgent> genAgentsDl;
 
 
     /*
@@ -93,18 +94,18 @@ public class UsrFinAcct0Browse extends StandardLookup<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
 
-        genAgentsDc = dataComponents.createCollectionContainer(UsrNode.class);
+        genAgentsDc = dataComponents.createCollectionContainer(UsrGenAgent.class);
         genAgentsDl = dataComponents.createCollectionLoader();
-        genAgentsDl.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenAgent' order by e.id2");
-        FetchPlan genAgentsFp = fetchPlans.builder(UsrNode.class)
+        genAgentsDl.setQuery("select e from enty_UsrGenAgent e order by e.sortKey, e.id2");
+        FetchPlan fchPlnGenAgent_Inst = fetchPlans.builder(UsrGenAgent.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        genAgentsDl.setFetchPlan(genAgentsFp);
+        genAgentsDl.setFetchPlan(fchPlnGenAgent_Inst);
         genAgentsDl.setContainer(genAgentsDc);
         genAgentsDl.setDataContext(getScreenData().getDataContext());
 
         //filter
-        EntityComboBox<UsrNode> propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrNode>) filterConfig1A_GenAgent1_Id.getValueComponent();
+        EntityComboBox<UsrGenAgent> propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrGenAgent>) filterConfig1A_GenAgent1_Id.getValueComponent();
         propFilterCmpnt_GenAgent1_Id.setOptionsContainer(genAgentsDc);
 
         logger.trace(logPrfx + " <-- ");

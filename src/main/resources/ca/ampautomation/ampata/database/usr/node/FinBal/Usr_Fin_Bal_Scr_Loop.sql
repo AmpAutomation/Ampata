@@ -69,8 +69,8 @@ loop
 		,t.fin_dept1__id2
 		,t.fin_curcy1__id
 		,t.fin_curcy1__id2
-		,t.beg1_ts1 
-		,t.end1_ts1 
+		,t.ts1_el_ts
+		,t.ts3_el_ts
 		,t.amt_debt
 		,t.amt_cred
 		,t.amt_net
@@ -78,7 +78,7 @@ loop
 		where t.class_name = 'UsrFinBal'
 		and t.deleted_by is null
 		and t.tenant = rec_tenant.tenant_id
-		order by t.fin_acct1__id2, t.fin_dept1__id2, t.fin_curcy1__id2, t.end1_ts1
+		order by t.fin_acct1__id2, t.fin_dept1__id2, t.fin_curcy1__id2, t.ts3_el_ts
 		--limit 100
 	loop
 
@@ -92,8 +92,8 @@ loop
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.fin_acct1__id2:%', i_tenant, i_fin_bal, rec_fin_bal.fin_acct1__id2;
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.fin_dept1__id2:%', i_tenant, i_fin_bal, rec_fin_bal.fin_dept1__id2;
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.fin_curcy1__id2:%', i_tenant, i_fin_bal, rec_fin_bal.fin_curcy1__id2;
-		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.beg1_ts1:%', i_tenant, i_fin_bal, rec_fin_bal.beg1_ts1;
-		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.end1_ts1:%', i_tenant, i_fin_bal, rec_fin_bal.end1_ts1;
+		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.ts1_el_ts:%', i_tenant, i_fin_bal, rec_fin_bal.ts1_el_ts;
+		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.ts3_el_ts:%', i_tenant, i_fin_bal, rec_fin_bal.ts3_el_ts;
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.amt_debt:%', i_tenant, i_fin_bal, rec_fin_bal.amt_debt;
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.amt_cred:%', i_tenant, i_fin_bal, rec_fin_bal.amt_cred;
 		raise notice '--- i_tenant:% --- i_fin_bal:% rec_fin_bal.amt_net:%', i_tenant, i_fin_bal, rec_fin_bal.amt_net;
@@ -108,8 +108,8 @@ loop
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 				and t.fin_dept1__id = null
 				and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-				and t.beg1_ts1 = rec_fin_bal.beg1_ts1 - interval '1' year
-				and t.end1_ts1 = rec_fin_bal.end1_ts1 - interval '1' year
+				and t.ts1_el_ts = rec_fin_bal.ts1_el_ts - interval '1' year
+				and t.ts3_el_ts = rec_fin_bal.ts3_el_ts - interval '1' year
 				into vc_fin_bal1__id
 				;
 
@@ -122,8 +122,8 @@ loop
 				and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 				and t.fin_dept1__id = rec_fin_bal.fin_dept1__id
 				and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-				and t.beg1_ts1 = rec_fin_bal.beg1_ts1 - interval '1' year
-				and t.end1_ts1 = rec_fin_bal.end1_ts1 - interval '1' year
+				and t.ts1_el_ts = rec_fin_bal.ts1_el_ts - interval '1' year
+				and t.ts3_el_ts = rec_fin_bal.ts3_el_ts - interval '1' year
 				into vc_fin_bal1__id
 				;
 			end if;
@@ -193,7 +193,7 @@ loop
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into i_fin_txact_itms1__id_cnt_calc
 			;
 		else
@@ -205,7 +205,7 @@ loop
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_dept1__id = rec_fin_bal.fin_dept1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into i_fin_txact_itms1__id_cnt_calc
 			;
 		end if;
@@ -226,7 +226,7 @@ loop
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into num_fin_txact_itms1__amt_debt_sum_calc
 			;
 		else
@@ -238,7 +238,7 @@ loop
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_dept1__id = rec_fin_bal.fin_dept1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into num_fin_txact_itms1__amt_debt_sum_calc
 			;
 		end if;
@@ -258,7 +258,7 @@ loop
 			and t.tenant = rec_tenant.tenant_id
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into num_fin_txact_itms1__amt_cred_sum_calc
 			;
 		else
@@ -270,7 +270,7 @@ loop
 			and t.fin_acct1__id = rec_fin_bal.fin_acct1__id
 			and t.fin_dept1__id = rec_fin_bal.fin_dept1__id
 			and t.fin_curcy1__id = rec_fin_bal.fin_curcy1__id
-			and t.id_ts_ts1 between rec_fin_bal.beg1_ts1 and rec_fin_bal.end1_ts1 
+			and t.id_ts_ts1 between rec_fin_bal.ts1_el_ts and rec_fin_bal.ts3_el_ts
 			into num_fin_txact_itms1__amt_cred_sum_calc
 			;
 		end if;

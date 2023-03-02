@@ -22,23 +22,23 @@ where t.class_name = 'SysFinCurcy'
 and t.deleted_by is null
 ;
 
---update id_ts_date1.., beg1_date1..
-raise notice 'Updating beg1_date1..';
+--update id_ts_date1.., ts1_el_dt..
+raise notice 'Updating ts1_el_dt..';
 update ampata_sys_node t
 /*
-set beg1_date1 = beg1_s1::date
-	,beg1_date1_yr = date_part('year',beg1_ts1)
-	,beg1_date1_qtr = date_part('quarter',beg1_ts1)
-	,beg1_date1_mon =  date_part('Mon',beg1_ts1)
-	,beg1_date1_mon2 =  to_char(beg1_ts1,'Mon')
-	,beg1_date1_day = date_part('day',beg1_ts1)
+set ts1_el_dt = ts1_s1::date
+	,ts1_el_dt_yr = date_part('year',ts1_el_ts)
+	,ts1_el_dt_qtr = date_part('quarter',ts1_el_ts)
+	,ts1_el_dt_mon =  date_part('Mon',ts1_el_ts)
+	,ts1_el_dt_mon2 =  to_char(ts1_el_ts,'Mon')
+	,ts1_el_dt_day = date_part('day',ts1_el_ts)
 */
 
-set beg1_date1_yr = date_part('year',beg1_date1)
-	,beg1_date1_qtr = date_part('quarter',beg1_date1)
-	,beg1_date1_mon =  date_part('Mon',beg1_date1)
-	,beg1_date1_mon2 =  to_char(beg1_date1,'Mon')
-	,beg1_date1_day = date_part('day',beg1_date1)
+set ts1_el_dt_yr = date_part('year',ts1_el_dt)
+	,ts1_el_dt_qtr = date_part('quarter',ts1_el_dt)
+	,ts1_el_dt_mon =  date_part('Mon',ts1_el_dt)
+	,ts1_el_dt_mon2 =  to_char(ts1_el_dt,'Mon')
+	,ts1_el_dt_day = date_part('day',ts1_el_dt)
 
 where t.class_name = 'SysFinCurcy'
 ;

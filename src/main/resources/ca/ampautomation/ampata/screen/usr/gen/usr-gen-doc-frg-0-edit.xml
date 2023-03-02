@@ -4,7 +4,7 @@
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
                   fetchPlan="fetchPlan_UsrGenDocFrg_Base">
             <loader/>
         </instance>
@@ -14,7 +14,7 @@
                     fetchPlan="fetchPlan_UsrGenDocVer_Base">
             <loader id="colLoadrGenDocVer">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocVer']]>
+                    <![CDATA[select e from enty_UsrGenDocVer e where e.className = 'UsrGenDocVer']]>
                 </query>
             </loader>
         </collection>
@@ -34,7 +34,7 @@
                     fetchPlan="fetchPlan_UsrGenChan_Base">
             <loader id="colLoadrGenChan">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenChan']]>
+                    <![CDATA[select e from enty_UsrGenChan e where e.className = 'UsrGenChan']]>
                 </query>
             </loader>
         </collection>
@@ -85,7 +85,7 @@
                             </column>
                             <column width="350px">
                                 <textField id="sortIdxField" property="sortIdx"/>
-                                <entityPicker id="name1UsrNode1_IdField" property="name1GenFmla1_Id">
+                                <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
                                     <actions>
                                         <action id="entityLookup" type="entity_lookup"/>
                                         <action id="entityClear" type="entity_clear"/>

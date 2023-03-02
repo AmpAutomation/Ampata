@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://usrFinTxactSetBrowse.caption"
+        focusComponent="tableMain">
+    <data readOnly="true">
+        <collection id="colCntnrMain"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    fetchPlan="fetchPlan_UsrFinTxactSet_Base">
+            <loader id="colLoadrMain">
+                <query>
+                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinTxactSet']]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
+        <filter id="filter"
+                dataLoader="colLoadrMain">
+            <properties include=".*"/>
+        </filter>
+        <table id="tableMain"
+                    width="100%"
+                    dataContainer="colCntnrMain">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxactSet.edit"/>
+                    </properties>
+                </action>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_FinTxactSet.edit"/>
+                    </properties>
+                </action>
+                <action id="duplicate" />
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Dup"/>
+                <column id="type1_Id"/>
+                <column id="desc1" width="320px"/>
+
+                <column id="nm1s1Inst1Ts1.elTs" caption="n1s1Inst1Ts"/>
+                <column id="nm1s1Inst1Int1"/>
+
+                <column id="genChan1_Id"/>
+                <column id="finHow1_Id"/>
+                <column id="finWhat1_Id"/>
+                <column id="finWhy1_Id"/>
+
+                <column id="genDocVers1_Id2"/>
+                <column id="genDocVer1_Id2"/>
+                <column id="genDocVer1_Code"/>
+                <column id="genDocVer1_Ver"/>
+                <column id="genDocVer1_Name1"/>
+                <column id="genFile1_Id2"/>
+                <column id="genTags1_Id2"/>
+                <column id="genTag1_Id2"/>
+                <column id="genTag2_Id"/>
+                <column id="genTag2_Id2"/>
+                <column id="genTag3_Id"/>
+                <column id="genTag3_Id2"/>
+                <column id="genTag4_Id"/>
+                <column id="genTag4_Id2"/>
+                <column id="note"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
+            </buttonsPanel>
+        </table>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

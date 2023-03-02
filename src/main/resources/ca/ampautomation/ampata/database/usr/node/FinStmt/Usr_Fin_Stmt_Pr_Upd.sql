@@ -12,29 +12,29 @@ begin
 -- Stored procedures are atomic and are executed as a transaction
 
 
---beg1.., end1..
-raise notice 'Updating beg1_date1.., end1_date1..';
+--ts1.., ts3..
+raise notice 'Updating ts1_el_dt.., ts3_el_dt..';
 update ampata_usr_node t
 set 
-	beg1_date1 = t.beg1_ts1::date
-	,beg1_date1_yr = date_part('year',t.beg1_ts1)
-	,beg1_date1_qtr = date_part('quarter',t.beg1_ts1)
-	,beg1_date1_mon =  date_part('Mon',t.beg1_ts1)
-	,beg1_date1_mon2 =  to_char(t.beg1_ts1,'Mon')
-	,beg1_date1_day = date_part('day',t.beg1_ts1)
-	,beg1_time1  = t.beg1_ts1::time
-	,beg1_time1_hr  = date_part('hour',t.beg1_ts1)
-	,beg1_time1_min  = date_part('minute',t.beg1_ts1)
+	ts1_el_dt = t.ts1_el_ts::date
+	,ts1_el_dt_yr = date_part('year',t.ts1_el_ts)
+	,ts1_el_dt_qtr = date_part('quarter',t.ts1_el_ts)
+	,ts1_el_dt_mon =  date_part('Mon',t.ts1_el_ts)
+	,ts1_el_dt_mon2 =  to_char(t.ts1_el_ts,'Mon')
+	,ts1_el_dt_day = date_part('day',t.ts1_el_ts)
+	,ts1_el_tm  = t.ts1_el_ts::time
+	,ts1_el_tm_hr  = date_part('hour',t.ts1_el_ts)
+	,ts1_el_tm_min  = date_part('minute',t.ts1_el_ts)
 
-	,end1_date1 = t.end1_ts1::date
-	,end1_date1_yr = date_part('year',t.end1_date1)
-	,end1_date1_qtr = date_part('quarter',t.end1_ts1)
-	,end1_date1_mon =  date_part('Mon',t.end1_date1)
-	,end1_date1_mon2 =  to_char(t.end1_date1,'Mon')
-	,end1_date1_day = date_part('day',t.end1_date1)
-	,end1_time1  = t.end1_ts1::time
-	,end1_time1_hr  = date_part('hour',t.end1_ts1)
-	,end1_time1_min  = date_part('minute',t.end1_ts1)
+	,ts3_el_dt = t.ts3_el_ts::date
+	,ts3_el_dt_yr = date_part('year',t.ts3_el_dt)
+	,ts3_el_dt_qtr = date_part('quarter',t.ts3_el_ts)
+	,ts3_el_dt_mon =  date_part('Mon',t.ts3_el_dt)
+	,ts3_el_dt_mon2 =  to_char(t.ts3_el_dt,'Mon')
+	,ts3_el_dt_day = date_part('day',t.ts3_el_dt)
+	,ts3_el_tm  = t.ts3_el_ts::time
+	,ts3_el_tm_hr  = date_part('hour',t.ts3_el_ts)
+	,ts3_el_tm_min  = date_part('minute',t.ts3_el_ts)
 where t.class_name = 'UsrFinStmt'
 ;
 	
@@ -42,7 +42,7 @@ where t.class_name = 'UsrFinStmt'
 --id_dt_date1
 raise notice 'Updating id_dt_date1';
 update ampata_usr_node t
-set id_dt_date1 = end1_date1
+set id_dt_date1 = ts3_el_dt
 where class_name = 'UsrFinStmt'
 ;	
 

@@ -13,28 +13,28 @@ begin
 -- Stored procedures are atomic and are executed as a transaction
 
 
---id2_calc, beg1_date1..
-raise notice 'Updating id2_calc, beg1_date1..';
+--id2_calc, ts1_el_dt..
+raise notice 'Updating id2_calc, ts1_el_dt..';
 update ampata_sys_node t
 set id2_calc = Sys_Fin_Curcy_Exch_Rate_Fn_get_Id2_Calc(
 		 t1.id2
 		,t2.id2
-		,t.beg1_ts1::date
+		,t.ts1_el_ts::date
 		)
 
-	,beg1_date1 	= t.beg1_ts1::date
-	,beg1_date1_yr 	= date_part('year',t.beg1_ts1::date)
-	,beg1_date1_qtr =  TRUNC((date_part('Mon',t.beg1_ts1::date) - 1) / 3) + 1
-	,beg1_date1_mon =  date_part('Mon',t.beg1_ts1::date)
-	,beg1_date1_mon2 =  to_char(t.beg1_ts1::date,'Mon')
-	,beg1_date1_day = date_part('day',t.beg1_ts1::date)
+	,ts1_el_dt 	= t.ts1_el_ts::date
+	,ts1_el_dt_yr 	= date_part('year',t.ts1_el_ts::date)
+	,ts1_el_dt_qtr =  TRUNC((date_part('Mon',t.ts1_el_ts::date) - 1) / 3) + 1
+	,ts1_el_dt_mon =  date_part('Mon',t.ts1_el_ts::date)
+	,ts1_el_dt_mon2 =  to_char(t.ts1_el_ts::date,'Mon')
+	,ts1_el_dt_day = date_part('day',t.ts1_el_ts::date)
 
 	/*
-	,beg1_date1_yr = date_part('year',t.beg1_date1)
-	,beg1_date1_qtr = date_part('quarter',t.beg1_date1)
-	,beg1_date1_mon =  date_part('Mon',t.beg1_date1)
-	,beg1_date1_mon2 =  to_char(t.beg1_date1,'Mon')
-	,beg1_date1_day = date_part('day',t.beg1_date1)
+	,ts1_el_dt_yr = date_part('year',t.ts1_el_dt)
+	,ts1_el_dt_qtr = date_part('quarter',t.ts1_el_dt)
+	,ts1_el_dt_mon =  date_part('Mon',t.ts1_el_dt)
+	,ts1_el_dt_mon2 =  to_char(t.ts1_el_dt,'Mon')
+	,ts1_el_dt_day = date_part('day',t.ts1_el_dt)
 	*/
 
 
@@ -97,7 +97,7 @@ from (
 		||	case when t2a.fin_curcy2__id2 is not null then '' || t2a.fin_curcy2__id2 || ''  else '' end
 		)
 		desc1_curcy
-	,case when t2a.beg1_date1 is not null then 'on date ' || t2a.beg1_date1 || '' else '' end desc1_date
+	,case when t2a.ts1_el_dt is not null then 'on date ' || t2a.ts1_el_dt || '' else '' end desc1_date
 	,case when t2a.amt1 is not null then 'at rate ' || t2a.amt1 || '' else '' end desc1_rate
 
 	from ampata_sys_node t2a

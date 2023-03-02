@@ -3,7 +3,7 @@ package ca.ampautomation.ampata.screen.usr.gen;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentQryMngr;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentType;
-import ca.ampautomation.ampata.screen.usr.UsrNode0BaseMain;
+import ca.ampautomation.ampata.screen.usr.base.UsrBaseNode0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @UiController("enty_UsrGenAgent.main")
 @UiDescriptor("usr-gen-agent-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenAgent0Main extends UsrNode0BaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr, Table<UsrGenAgent>> {
+public class UsrGenAgent0Main extends UsrBaseNode0BaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr, Table<UsrGenAgent>> {
 
     //Filter
 
@@ -63,11 +63,11 @@ public class UsrGenAgent0Main extends UsrNode0BaseMain<UsrGenAgent, UsrGenAgentT
 
         colCntnrGenAgent = dataComponents.createCollectionContainer(UsrGenAgent.class);
         colLoadrGenAgent = dataComponents.createCollectionLoader();
-        colLoadrGenAgent.setQuery("select e from enty_UsrGenAgent e order by e.id2");
-        FetchPlan genAgent1sFp = fetchPlans.builder(UsrGenAgent.class)
+        colLoadrGenAgent.setQuery("select e from enty_UsrGenAgent e order by e.sortKey, e.id2");
+        FetchPlan fchPlnGenAgent1_Inst = fetchPlans.builder(UsrGenAgent.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
-        colLoadrGenAgent.setFetchPlan(genAgent1sFp);
+        colLoadrGenAgent.setFetchPlan(fchPlnGenAgent1_Inst);
         colLoadrGenAgent.setContainer(colCntnrGenAgent);
         colLoadrGenAgent.setDataContext(getScreenData().getDataContext());
 

@@ -4,11 +4,11 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
                     fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader id="instCntnrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinAcct']]>
+                    <![CDATA[select e from enty_UsrFinAcct e where e.className = 'UsrFinAcct']]>
                 </query>
             </loader>
         </collection>
@@ -38,7 +38,7 @@
                         <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
                         <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
                         <propertyFilter id="filterConfig1A_GenAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
-                            <entityComboBox metaClass="enty_UsrNode"/>
+                            <entityComboBox metaClass="enty_UsrGenAgent"/>
                         </propertyFilter>
                     </groupFilter>
                 </configuration>

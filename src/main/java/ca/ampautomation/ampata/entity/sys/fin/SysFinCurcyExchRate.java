@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.entity.sys.fin;
 
-import ca.ampautomation.ampata.entity.sys.SysNode;
+import ca.ampautomation.ampata.entity.sys.base.SysBaseNode;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import org.apache.commons.lang3.StringUtils;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @JmixEntity
 @Entity(name = "enty_SysFinCurcyExchRate")
-public class SysFinCurcyExchRate extends SysNode {
+public class SysFinCurcyExchRate extends SysBaseNode {
 
     @Override
     public Boolean updateInst1(DataManager dataManager){
@@ -86,7 +86,7 @@ public class SysFinCurcyExchRate extends SysNode {
         sb.append(finCurcy1_Id.getId2());
         //finCurcy2_Id
         sb.append( "->").append(finCurcy2_Id.getId2());
-        //ts1.ts1
+        //ts1.elTs
         sb.append(SEP + "D").append(ts1.getElTs().format(frmtDt)
         );
 

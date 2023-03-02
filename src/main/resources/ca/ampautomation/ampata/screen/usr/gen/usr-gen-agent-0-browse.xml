@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrGenAgent where e.className = 'UsrGenAgent' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrGenAgent where e.className = 'UsrGenAgent' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>

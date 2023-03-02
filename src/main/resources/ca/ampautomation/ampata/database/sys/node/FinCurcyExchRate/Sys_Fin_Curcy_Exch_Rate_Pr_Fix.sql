@@ -23,12 +23,12 @@ SELECT id
 ,created_by 
 ,created_date 
 ,"version" 
-,beg1_date1
-,beg1_date1_yr
-,beg1_date1_qtr
-,beg1_date1_mon
-,beg1_date1_mon2
-,beg1_date1_day
+,ts1_el_dt
+,ts1_el_dt_yr
+,ts1_el_dt_qtr
+,ts1_el_dt_mon
+,ts1_el_dt_mon2
+,ts1_el_dt_day
 FROM ampata_sys_entity t
 where t.dtype = 'ampata_FinRate'
 
@@ -44,7 +44,7 @@ where t.class_name = 'SysFinCurcyExchRate'
 select
  t1.id2
 ,t2.id2
-,t.beg1_date1
+,t.ts1_el_dt
 
 from ampata_sys_node t
 , ampata_sys_node t1

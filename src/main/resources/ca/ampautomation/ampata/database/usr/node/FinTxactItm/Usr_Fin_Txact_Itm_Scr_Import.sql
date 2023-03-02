@@ -11,7 +11,7 @@ select
 	,t.id2_calc
 	,t.class_name
 	,t.type1__id
-	,t.beg1_ts1
+	,t.ts1_el_ts
 	,t.fin_acct1__id
 	,t.fin_stmt1__id
 	,t.fin_stmt_itm1__desc1
@@ -36,7 +36,7 @@ order by
 
 
 and
-	t.beg1_date1 >= '2021-07-02'
+	t.ts1_el_dt >= '2021-07-02'
 
 select *
 from ampata_sys_node t

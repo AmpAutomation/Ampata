@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrGenFile_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrGenFile e where e.className = 'UsrGenFile' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrGenFile e where e.className = 'UsrGenFile' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -100,7 +100,7 @@
                                             <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                             <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_UsrNodeType"/>
+                                                <entityComboBox metaClass="enty_UsrBaseNodeType"/>
                                             </propertyFilter>
                                         </configuration>
                                     </configurations>
@@ -153,7 +153,7 @@
                             <hbox id="tab1_hbox2" width="100%" spacing="true">
                                 <hbox caption="genTags" expand="genTags1_IdField" width="708px">
                                     <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
-                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGen" fetchPlan="_instance_name"
+                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc" fetchPlan="_instance_name"
                                                escapeValueForLike="true" searchStringFormat="%${searchString}%">
                                             <![CDATA[select e from enty_UsrGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
                                         </query>

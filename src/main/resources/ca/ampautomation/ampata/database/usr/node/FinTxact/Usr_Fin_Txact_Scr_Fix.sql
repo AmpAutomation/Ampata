@@ -93,20 +93,20 @@ and t.class_name ='FinTxact'
 */
 
 
---beg1_ts1 
+--ts1_el_ts
 select 
  id2
 ,TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
 from ampata_sys_node t
 where t.class_name ='FinTxact'
 and deleted_by is null
-and beg1_ts1 is null 
+and ts1_el_ts is null
 
 update ampata_sys_node t
-set beg1_ts1 = TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
+set ts1_el_ts = TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
 where t.class_name ='FinTxact'
 and deleted_by is null
-and beg1_ts1 is null 
+and ts1_el_ts is null
 
 
 

@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.entity.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import javax.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "enty_UsrFinTxactItm")
-public class UsrFinTxactItm extends UsrNode {
+public class UsrFinTxactItm extends UsrBaseNode {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -48,7 +48,7 @@ public class UsrFinTxactItm extends UsrNode {
         logger.debug(logPrfx + " --- thisCurcy: " + thisCurcy);
 
         String thisStmtItm1_Desc = "";
-        UsrNode thisFinStmtItm = this.getFinStmtItm1_Id();
+        UsrBaseNode thisFinStmtItm = this.getFinStmtItm1_Id();
         //thisFinStmtItm = dataContext.merge(thisFinStmtItm);
         if (thisFinStmtItm != null) {
             String thisStmtItm1_Desc1 = Objects.toString(thisFinStmtItm.getDesc1(), "");

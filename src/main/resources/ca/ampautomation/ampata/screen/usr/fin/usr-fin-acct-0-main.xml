@@ -7,7 +7,7 @@
                     fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinAcct']]>
+                    <![CDATA[select e from enty_UsrFinAcct e where e.className = 'UsrFinAcct']]>
                 </query>
             </loader>
         </collection>
@@ -140,7 +140,7 @@
                                                 <entityComboBox metaClass="enty_UsrFinAcctType"/>
                                             </propertyFilter>
                                             <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                                <entityPicker metaClass="enty_UsrNode"/>
+                                                <entityPicker metaClass="enty_UsrBaseNode"/>
                                             </propertyFilter>
 
                                             <propertyFilter id="filterConfig1A_GenAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
@@ -150,7 +150,7 @@
                                                 <entityComboBox metaClass="enty_SysFinCurcy"/>
                                             </propertyFilter>
                                             <propertyFilter id="filterConfig1A_FinTaxLne1_Id" caption="finTaxLne1_Id" operation="EQUAL" property="finTaxLne1_Id" operationEditable="true">
-                                                <entityComboBox metaClass="enty_UsrNode"/>
+                                                <entityComboBox metaClass="enty_UsrFinTaxLne"/>
                                             </propertyFilter>
                                         </configuration>
                                     </configurations>
@@ -204,7 +204,7 @@
                             <hbox id="tab1_hbox2" width="100%" spacing="true">
                                 <hbox caption="genTags" expand="genTags1_IdField" width="708px">
                                     <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
-                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGen" fetchPlan="_instance_name"
+                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc" fetchPlan="_instance_name"
                                                escapeValueForLike="true" searchStringFormat="%${searchString}%">
                                             <![CDATA[select e from enty_UsrGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
                                         </query>

@@ -15,19 +15,19 @@ begin
 -- Stored procedures are atomic and are executed as a transaction
 
 
---id2_calc, beg1_date1..
-raise notice 'Updating id2_calc, beg1_date1..';
+--id2_calc, ts1_el_dt..
+raise notice 'Updating id2_calc, ts1_el_dt..';
 update ampata_sys_entity t
 set id2_calc = Fin_Rate_Fn_get_Id2_Calc(
 		 t1.id2
 		,t2.id2
-		,t.beg1_date1
+		,t.ts1_el_dt
 		)
-	,beg1_date1_yr 	= date_part('year',t.beg1_date1)
-	,beg1_date1_qtr =  TRUNC((date_part('Mon',t.beg1_date1) - 1) / 3) + 1
-	,beg1_date1_mon =  date_part('Mon',t.beg1_date1)
-	,beg1_date1_mon2 =  to_char(t.beg1_date1,'Mon')
-	,beg1_date1_day = date_part('day',t.beg1_date1)
+	,ts1_el_dt_yr 	= date_part('year',t.ts1_el_dt)
+	,ts1_el_dt_qtr =  TRUNC((date_part('Mon',t.ts1_el_dt) - 1) / 3) + 1
+	,ts1_el_dt_mon =  date_part('Mon',t.ts1_el_dt)
+	,ts1_el_dt_mon2 =  to_char(t.ts1_el_dt,'Mon')
+	,ts1_el_dt_day = date_part('day',t.ts1_el_dt)
 from ampata_sys_node t1
 	,ampata_sys_node t2
 	where

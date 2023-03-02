@@ -5,11 +5,11 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenDocFrg"
                     fetchPlan="fetchPlan_UsrGenDocFrg_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocFrg']]>
+                    <![CDATA[select e from enty_UsrGenDocFrg e where e.className = 'UsrGenDocFrg']]>
                 </query>
             </loader>
         </collection>

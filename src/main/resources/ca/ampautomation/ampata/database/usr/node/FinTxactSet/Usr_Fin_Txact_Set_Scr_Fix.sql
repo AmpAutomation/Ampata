@@ -219,20 +219,20 @@ and t.why_text1 = t1.why_text1
 
 
 
---beg1_ts1 
+--ts1_el_ts
 select 
  id2
 ,TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
 from ampata_usr_node t
 where t.class_name ='FinTxactSet'
 and deleted_by is null
-and beg1_ts1 is null 
+and ts1_el_ts is null
 
 update ampata_usr_node t
-set beg1_ts1 = TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
+set ts1_el_ts = TO_DATE(SUBSTRING(id2,3,8),'YYYYMMDD')::date
 where t.class_name ='FinTxactSet'
 and deleted_by is null
-and beg1_ts1 is null 
+and ts1_el_ts is null
 
 
 select 

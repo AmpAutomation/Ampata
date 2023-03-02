@@ -2,13 +2,13 @@
 select
  id2
 ,class_name
-,t.beg1_ts1
-,t.beg1_date1::timestamp
+,t.ts1_el_ts
+,t.ts1_el_dt::timestamp
 
 FROM ampata_sys_node t
-where t.beg1_ts1 is null 
+where t.ts1_el_ts is null
 
 update ampata_sys_node t
-set beg1_ts1 = t.beg1_date1::timestamp
-where t.beg1_ts1 is null 
+set ts1_el_ts = t.ts1_el_dt::timestamp
+where t.ts1_el_ts is null
 

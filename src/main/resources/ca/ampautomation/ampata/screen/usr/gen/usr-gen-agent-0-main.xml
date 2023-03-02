@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrGenAgent e where e.className = 'UsrGenAgent' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrGenAgent e where e.className = 'UsrGenAgent' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -188,7 +188,7 @@
                             <hbox id="tab1_hbox2" width="100%" spacing="true">
                                 <hbox caption="genTags" expand="genTags1_IdField" width="708px">
                                     <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
-                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGen" fetchPlan="_instance_name"
+                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc" fetchPlan="_instance_name"
                                                escapeValueForLike="true" searchStringFormat="%${searchString}%">
                                             <![CDATA[select e from enty_UsrGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
                                         </query>

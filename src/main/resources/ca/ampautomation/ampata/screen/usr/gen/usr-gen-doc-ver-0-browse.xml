@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrGenDocVer_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocVer']]>
+                    <![CDATA[select e from enty_UsrGenDocVer e where e.className = 'UsrGenDocVer' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>

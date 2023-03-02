@@ -4,7 +4,7 @@
         focusComponent="form">
     <data>
         <instance id="colCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
                   fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader/>
         </instance>
@@ -52,7 +52,7 @@
                     <textField id="type1_Id2Field" property="type1_Id2"/>
                     <textField id="instField" property="inst1"/>
                     <textField id="name1Field" property="name1"/>
-                    <entityPicker id="name1UsrNode1_IdField" property="name1GenFmla1_Id">
+                    <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
                         <actions>
                             <action id="entityLookup" type="entity_lookup"/>
                             <action id="entityClear" type="entity_clear"/>

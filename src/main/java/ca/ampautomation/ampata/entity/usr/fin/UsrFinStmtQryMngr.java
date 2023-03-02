@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.entity.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.UsrBaseQryMngr;
+import ca.ampautomation.ampata.entity.usr.base.UsrBaseQryMngr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
