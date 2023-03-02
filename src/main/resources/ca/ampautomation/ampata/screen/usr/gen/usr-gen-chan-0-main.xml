@@ -91,7 +91,7 @@
                             </tab>
                             <tab id="tabCmd4" caption="Filter" spacing="true">
                                 <hbox></hbox>
-                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="5">
                                     <properties include=".*"/>
                                     <configurations>
                                         <configuration id="filterConfig1" default="true">

@@ -1,5 +1,6 @@
 package ca.ampautomation.ampata.entity.usr;
 
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -23,7 +24,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 @JmixEntity
-@Table(name = "AMPATA_USR_ITEM_TYPE")
+@Table(name = "AMPATA_USR_ITEM_TYPE", indexes = {
+})
 @Entity(name = "enty_UsrItemType")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
@@ -187,6 +189,7 @@ public class UsrItemType implements AcceptsTenant {
     public String getName2() {
         return name2;
     }
+
 
     public void setName2(String name2) {
         this.name2 = name2;

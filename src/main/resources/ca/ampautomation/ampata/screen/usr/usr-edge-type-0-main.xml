@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrNodeTypeMain.caption"
+        caption="msg://usrEdgeTypeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                    fetchPlan="fetchPlan_UsrNodeType_Base">
+                    class="ca.ampautomation.ampata.entity.usr.UsrEdgeType"
+                    fetchPlan="fetchPlan_UsrEdgeType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeType e order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrEdgeType e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.UsrNodeType"
-                  fetchPlan="fetchPlan_UsrNodeType_Base">
+                  class="ca.ampautomation.ampata.entity.usr.UsrEdgeType"
+                  fetchPlan="fetchPlan_UsrEdgeType_Base">
             <loader/>
         </instance>
     </data>
@@ -30,10 +30,9 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <treeTable id="tableMain"
+                <table id="tableMain"
                        width="100%"
                        multiselect="true"
-                       hierarchyProperty="parent1_Id"
                        dataContainer="colCntnrMain">
                     <actions>
                         <action id="create" type="create"/>
@@ -44,17 +43,14 @@
                     <columns>
                         <column id="tenant" collapsed="true"/>
                         <column id="dtype"/>
-                        <column id="className"/>
                         <column id="id2"/>
                         <column id="id2Calc"/>
                         <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="parent1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
                         <column id="name1"/>
                         <column id="name1GenFmla1_Id"/>
-                        <column id="abrv"/>
                         <column id="desc1"/>
                         <column id="desc1GenFmla1_Id"/>
                         <column id="note"/>
@@ -107,9 +103,6 @@
                                             <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
 
-                                            <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                                <entityPicker metaClass="enty_UsrNodeType"/>
-                                            </propertyFilter>
                                             <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
                                                 <textField/>
                                             </propertyFilter>
@@ -126,7 +119,7 @@
                             </tab>
                         </tabSheet>
                     </buttonsPanel>
-                </treeTable>
+                </table>
                 <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
                     <containerProvider dataContainer="colCntnrMain"/>
                 </pagination>
@@ -172,9 +165,6 @@
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" dataContainer="instCntnrMain" property="dtype" editable="false"/>
                                     </hbox>
-                                    <hbox caption="className" expand="classNameField" width="100%">
-                                        <textField id="classNameField" dataContainer="instCntnrMain" property="className"/>
-                                    </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
                                         <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
@@ -203,16 +193,6 @@
                                         <hbox caption="sortKey" expand="sortKeyField" width="168px">
                                             <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey"/>
                                         </hbox>
-                                    </hbox>
-                                    <hbox caption="parent1_Id" expand="parent1_IdField" width="100%">
-                                        <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
-                                                      property="parent1_Id">
-                                            <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityPicker>
                                     </hbox>
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain" property="name1"/>

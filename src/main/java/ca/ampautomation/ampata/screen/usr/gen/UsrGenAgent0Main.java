@@ -63,7 +63,7 @@ public class UsrGenAgent0Main extends UsrNode0BaseMain<UsrGenAgent, UsrGenAgentT
 
         colCntnrGenAgent = dataComponents.createCollectionContainer(UsrGenAgent.class);
         colLoadrGenAgent = dataComponents.createCollectionLoader();
-        colLoadrGenAgent.setQuery("select e from enty_UsrGenAgent e where order by e.id2");
+        colLoadrGenAgent.setQuery("select e from enty_UsrGenAgent e order by e.id2");
         FetchPlan genAgent1sFp = fetchPlans.builder(UsrGenAgent.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -152,19 +152,6 @@ public class UsrGenAgent0Main extends UsrNode0BaseMain<UsrGenAgent, UsrGenAgentT
         super.updateHelper();
         logger.trace(logPrfx + " <-- ");
     }
-
-
-    @Subscribe("updateGenDocVer1_IdFieldListBtn")
-    public void onUpdateGenDocVer1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateGenDocVer1_IdFieldListBtn";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenDocVer.load();
-        logger.debug(logPrfx + " --- called colLoadrGenDocVer.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     @Subscribe("updateGenTag1_IdFieldListBtn")
     public void onUpdateGenTag1_IdFieldListBtn(Button.ClickEvent event) {
         String logPrfx = "onUpdateGenTag1_IdFieldListBtn";

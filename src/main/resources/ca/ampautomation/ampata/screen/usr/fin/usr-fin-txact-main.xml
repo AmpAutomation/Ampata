@@ -29,7 +29,7 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="5">
                     <properties include=".*"/>
                     <configurations>
                         <configuration id="filterConfig1" default="true">
@@ -516,7 +516,7 @@
                                         </hbox>
                                         <hbox caption="finTxactSet1_Id.desc1FinTxactItm1_Id" expand="finTxactSet1_Id_Desc1FinTxactItm1_IdField" width="100%">
                                             <entityComboBox id="finTxactSet1_Id_Desc1FinTxactItm1_IdField" dataContainer="instCntnrMain"
-                                                            property="finTxactSet1_Id.desc1FinTxactItm1_Id" tabIndex="30">
+                                                            property="finTxactSet1_Id.desc1Node1_Id" tabIndex="30">
                                                 <actions>
                                                     <action id="entityOpen" type="entity_open"/>
                                                     <action id="entityClear" type="entity_clear"/>
@@ -527,7 +527,7 @@
                                         </hbox>
                                         <hbox caption="finTxactSet1_Id.desc1FinTxactItm2_Id" expand="finTxactSet1_Id_Desc1FinTxactItm2_IdField" width="100%">
                                             <entityComboBox id="finTxactSet1_Id_Desc1FinTxactItm2_IdField" dataContainer="instCntnrMain"
-                                                            property="finTxactSet1_Id.desc1FinTxactItm2_Id" tabIndex="30">
+                                                            property="finTxactSet1_Id.desc1Node2_Id" tabIndex="30">
                                                 <actions>
                                                     <action id="entityOpen" type="entity_open"/>
                                                     <action id="entityClear" type="entity_clear"/>
@@ -608,7 +608,7 @@
                                         </hbox>
                                         <hbox caption="desc1FinTxactItm1_Id" expand="desc1FinTxactItm1_IdField" width="100%">
                                             <entityComboBox id="desc1FinTxactItm1_IdField" dataContainer="instCntnrMain"
-                                                            property="desc1FinTxactItm1_Id" tabIndex="30">
+                                                            property="desc1Node1_Id" tabIndex="30">
                                                 <actions>
                                                     <action id="entityOpen" type="entity_open"/>
                                                     <action id="entityClear" type="entity_clear"/>

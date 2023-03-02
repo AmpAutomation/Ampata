@@ -23,9 +23,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @UiController("enty_UsrFinAcct.main")
-@UiDescriptor("usr-fin-acct-main.xml")
+@UiDescriptor("usr-fin-acct-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcct_Main extends UsrNode0BaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr, TreeTable<UsrFinAcct>> {
+public class UsrFinAcct0Main extends UsrNode0BaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr, TreeTable<UsrFinAcct>> {
 
 
     //Filter
@@ -149,7 +149,7 @@ public class UsrFinAcct_Main extends UsrNode0BaseMain<UsrFinAcct, UsrFinAcctType
 
         colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysFinCurcy.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e where order by e.id2");
+        colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.id2");
         FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysFinCurcy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -168,7 +168,7 @@ public class UsrFinAcct_Main extends UsrNode0BaseMain<UsrFinAcct, UsrFinAcctType
 
         colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
         colLoadrGenFmla = dataComponents.createCollectionLoader();
-        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e where order by e.id2");
+        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.id2");
         FetchPlan fchPlnGenFmla_Inst = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -194,7 +194,7 @@ public class UsrFinAcct_Main extends UsrNode0BaseMain<UsrFinAcct, UsrFinAcctType
 
         colCntnrGenTag = dataComponents.createCollectionContainer(UsrGen.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e where order by e.id2");
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.id2");
         FetchPlan genTagsFp = fetchPlans.builder(UsrGen.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();

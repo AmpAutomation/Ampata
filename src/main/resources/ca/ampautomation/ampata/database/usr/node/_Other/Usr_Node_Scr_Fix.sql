@@ -20,11 +20,11 @@ where fin_txact1__beg_date2 is not null
 
 update ampata_usr_node t
 set  dtype = 'Usr' || t.class_name
-WHERE t.class_name IS NOT NULL
+WHERE t.class_name is not null
 
 update ampata_usr_node t
 set  dtype = case when t.class_name = 'UsrGenTag' then
-WHERE t.class_name IS NOT NULL
+WHERE t.class_name is not null
 
 SELECT t.id
 ,id2

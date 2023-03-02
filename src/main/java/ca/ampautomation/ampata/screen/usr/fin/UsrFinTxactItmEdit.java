@@ -4,7 +4,10 @@ import ca.ampautomation.ampata.entity.*;
 import ca.ampautomation.ampata.entity.sys.SysNode;
 import ca.ampautomation.ampata.entity.usr.*;
 import ca.ampautomation.ampata.entity.usr.fin.*;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenChan;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -92,14 +95,14 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
 
     //Other data containers, loaders and table
-    private CollectionContainer<UsrNode> colCntnrGenChan;
-    private CollectionLoader<UsrNode> colLoadrGenChan;
+    private CollectionContainer<UsrGenChan> colCntnrGenChan;
+    private CollectionLoader<UsrGenChan> colLoadrGenChan;
 
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
-    private CollectionContainer<UsrNode> colCntnrGenTag;
-    private CollectionLoader<UsrNode> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
     private CollectionContainer<UsrNode> colCntnrFinTxact;
     private CollectionLoader<UsrNode> colLoadrFinTxact;
@@ -165,7 +168,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private ComboBox<String> finTxact1_EI1_RoleField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genChan1_IdField;
+    private EntityComboBox<UsrGenChan> genChan1_IdField;
 
     @Autowired
     private EntityComboBox<UsrFinHow> finHow1_IdField;
@@ -189,19 +192,19 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrNode> desc1FinTxactItm1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag2_IdField;
+    private EntityComboBox<UsrGenTag> genTag2_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag3_IdField;
+    private EntityComboBox<UsrGenTag> genTag3_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag4_IdField;
+    private EntityComboBox<UsrGenTag> genTag4_IdField;
 
 
 
@@ -251,7 +254,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private ComboBox<String> finTxact1_Id_FinTxactSet1_EI1_RoleField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finTxact1_Id_GenChan1_IdField;
+    private EntityComboBox<UsrGenChan> finTxact1_Id_GenChan1_IdField;
 
     @Autowired
     private EntityComboBox<UsrFinHow> finTxact1_Id_FinHow1_IdField;
@@ -286,7 +289,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
     private EntityComboBox<UsrNodeType> finTxact1_Id_FinTxactSet1_Id_Type1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> finTxact1_Id_FinTxactSet1_Id_GenChan1_IdField;
+    private EntityComboBox<UsrGenChan> finTxact1_Id_FinTxactSet1_Id_GenChan1_IdField;
 
     @Autowired
     private EntityComboBox<UsrFinHow> finTxact1_Id_FinTxactSet1_Id_FinHow1_IdField;
@@ -349,7 +352,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxactItm' order by e.id2");
+        colLoadrType.setQuery("select e from enty_UsrFinTxactItmType e order by e.sortKey, e.id2");
         FetchPlan finTxactItmTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -360,10 +363,10 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         type1_IdField.setOptionsContainer(colCntnrType);
 
 
-        colCntnrGenChan = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenChan = dataComponents.createCollectionContainer(UsrGenChan.class);
         colLoadrGenChan = dataComponents.createCollectionLoader();
-        colLoadrGenChan.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenChan' order by e.id2");
-        FetchPlan genChansFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenChan.setQuery("select e from enty_UsrGenChan e order by e.sortKey, e.id2");
+        FetchPlan genChansFp = fetchPlans.builder(UsrGenChan.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenChan.setFetchPlan(genChansFp);
@@ -377,7 +380,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinHow = dataComponents.createCollectionContainer(UsrFinHow.class);
         colLoadrFinHow = dataComponents.createCollectionLoader();
-        colLoadrFinHow.setQuery("select e from enty_UsrFinHow e order by e.id2");
+        colLoadrFinHow.setQuery("select e from enty_UsrFinHow e order by e.sortKey, e.id2");
         FetchPlan finHowsFp = fetchPlans.builder(UsrFinHow.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -392,7 +395,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinWhat = dataComponents.createCollectionContainer(UsrFinWhat.class);
         colLoadrFinWhat = dataComponents.createCollectionLoader();
-        colLoadrFinWhat.setQuery("select e from enty_UsrFinWhat e order by e.id2");
+        colLoadrFinWhat.setQuery("select e from enty_UsrFinWhat e order by e.sortKey, e.id2");
         FetchPlan finWhatsFp = fetchPlans.builder(UsrFinWhat.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -407,7 +410,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinWhy = dataComponents.createCollectionContainer(UsrFinWhy.class);
         colLoadrFinWhy = dataComponents.createCollectionLoader();
-        colLoadrFinWhy.setQuery("select e from enty_UsrFinWhy e order by e.id2");
+        colLoadrFinWhy.setQuery("select e from enty_UsrFinWhy e order by e.sortKey, e.id2");
         FetchPlan finWhysFp = fetchPlans.builder(UsrFinWhy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -422,7 +425,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
         colLoadrGenFmla = dataComponents.createCollectionLoader();
-        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.id2");
+        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.sortKey, e.id2");
         FetchPlan genFmlasFp = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -435,10 +438,10 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         finTxact1_Id_FinTxactSet1_Id_Desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
 
 
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.sortKey, e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenDocVer.setFetchPlan(genDocVersFp);
@@ -448,10 +451,10 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -466,7 +469,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTxact = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinTxact = dataComponents.createCollectionLoader();
-        colLoadrFinTxact.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxact' order by e.id2");
+        colLoadrFinTxact.setQuery("select e from enty_UsrFinTxact e order by e.sortKey, e.id2");
         FetchPlan finTxactsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -479,7 +482,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTxactType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrFinTxactType = dataComponents.createCollectionLoader();
-        colLoadrFinTxactType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxact' order by e.id2");
+        colLoadrFinTxactType.setQuery("select e from enty_UsrFinTxactType e order by e.sortKey, e.id2");
         FetchPlan finTxactTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -492,7 +495,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTxactSet = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinTxactSet = dataComponents.createCollectionLoader();
-        colLoadrFinTxactSet.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' order by e.id2");
+        colLoadrFinTxactSet.setQuery("select e from enty_UsrFinTxactSet e order by e.sortKey, e.id2");
         FetchPlan finTxactSetsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -505,7 +508,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTxactSetType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrFinTxactSetType = dataComponents.createCollectionLoader();
-        colLoadrFinTxactSetType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxactSet' order by e.id2");
+        colLoadrFinTxactSetType.setQuery("select e from enty_UsrFinTxactSetType e order by e.sortKey, e.id2");
         FetchPlan finTxactSetTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -518,7 +521,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinStmt = dataComponents.createCollectionLoader();
-        colLoadrFinStmt.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinStmt' order by e.id2");
+        colLoadrFinStmt.setQuery("select e from enty_UsrFinStmt e order by e.sortKey, e.id2");
         FetchPlan finStmtsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -531,7 +534,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinTaxLne = dataComponents.createCollectionLoader();
-        colLoadrFinTaxLne.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocFrg' order by e.id2");
+        colLoadrFinTaxLne.setQuery("select e from enty_UsrGenDocFrg e order by e.sortKey, e.id2");
         FetchPlan finTaxLnesFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -544,7 +547,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
-        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
+        colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -557,7 +560,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinDept = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinDept = dataComponents.createCollectionLoader();
-        colLoadrFinDept.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinDept' order by e.id2");
+        colLoadrFinDept.setQuery("select e from enty_UsrFinDept e order by e.sortKey, e.id2");
         FetchPlan finDeptsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -570,7 +573,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNode.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrSysFinCurcy.setQuery("select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
+        colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
         FetchPlan sysFinCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -583,7 +586,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinTxactItm1 = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinTxactItm1 = dataComponents.createCollectionLoader();
-        colLoadrFinTxactItm1.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' order by e.id2");
+        colLoadrFinTxactItm1.setQuery("select e from enty_UsrFinTxactItm e order by e.sortKey, e.id2");
         FetchPlan finTxactItm1sFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -599,7 +602,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
 
         colCntnrFinFmla = dataComponents.createCollectionContainer(UsrFinFmla.class);
         colLoadrFinFmla = dataComponents.createCollectionLoader();
-        colLoadrFinFmla.setQuery("select e from enty_UsrFinFmla e order by e.id2");
+        colLoadrFinFmla.setQuery("select e from enty_UsrFinFmla e order by e.sortKey, e.id2");
         FetchPlan finFmlasFp = fetchPlans.builder(UsrFinFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -2092,7 +2095,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         boolean isChanged = false;
         Integer id2Dup_ = thisFinTxactItm.getId2Dup();
         if (thisFinTxactItm.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrFinTxactItm e where e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -2424,9 +2427,9 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                     default:
                         desc1FinTxactItm1_Id2 = thisFinTxactSet.getId2()+ "/Y00/Z00";
                 }
-                UsrNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1FinTxactItm1_Id() == null
+                UsrNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1Node1_Id() == null
                         ? findFinTxactItmById2(desc1FinTxactItm1_Id2)
-                        : thisFinTxactSet.getDesc1FinTxactItm1_Id();
+                        : thisFinTxactSet.getDesc1Node1_Id();
 
                 //thisAmt
                 String thisAmt = "";
@@ -2704,7 +2707,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             Integer idCntCalc_ = thisFinTxact.getFinTxactItms1_IdCntCalc();
             Integer idCntCalc = null ;
-            String qry1 = "select count(e.amtNet) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            String qry1 = "select count(e.amtNet) from enty_UsrFinTxactItm e where e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
                 idCntCalc = dataManager.loadValue(qry1,Integer.class)
                         .store("main")
@@ -2742,7 +2745,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             BigDecimal amtDebtSumCalc_ = thisFinTxact.getFinTxactItms1_AmtDebtSumCalc();
             BigDecimal amtDebtSumCalc = null ;
-            String qry1 = "select sum(e.amtDebt) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id";
+            String qry1 = "select sum(e.amtDebt) from enty_UsrFinTxactItm e where e.finTxact1_Id = :finTxact1_Id";
             try{
                 amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
@@ -2780,7 +2783,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         if (thisFinTxact != null) {
             BigDecimal amtCredSumCalc_ = thisFinTxact.getFinTxactItms1_AmtCredSumCalc();
             BigDecimal amtCredSumCalc = null ;
-            String qry1 = "select sum(e.amtCred) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
+            String qry1 = "select sum(e.amtCred) from enty_UsrFinTxactItm e where e.finTxact1_Id = :finTxact1_Id group by e.finTxact1_Id";
             try{
                 amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                         .store("main")
@@ -2843,7 +2846,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinTxactItme where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactItm_Id2);
 
@@ -2873,7 +2876,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxact' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinTxact e where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
@@ -2907,7 +2910,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxact' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinTxact e where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
@@ -3038,7 +3041,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinTxactSete where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
@@ -3074,7 +3077,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
                 return null;
             }
 
-            String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactSet' and e.id2 = :id2";
+            String qry = "select e from enty_UsrFinTxactSet e where e.id2 = :id2";
             logger.debug(logPrfx + " --- qry: " + qry);
             logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
@@ -3217,7 +3220,7 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             try {
 
                 curcyExchRate = dataManager.load(SysNode.class)
-                        .query("select e from enty_SysNode e "
+                        .query("select e from enty_SysNodee"
                                 + " where e.finCurcy1_Id.id = :curcyFr"
                                 + " and   e.finCurcy2_Id.id = :curcyTo"
                                 + " and   e.beg1.date1 = :date1"
@@ -3444,8 +3447,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
             prevFinTxactItm.setNm1s1Inst1Int3(prevFinTxactItm.getNm1s1Inst1Int3() - 1);
             String prev1FinTxactItm_Id2 = prevFinTxactItm.getId2CalcFrFields();
 
-            String qry = "select gn from enty_UsrNode gn"
-                    + " where gn.id2 = :id2";
+            String qry = "select e from enty_UsrNode e"
+                    + " where e.id2 = :id2";
 
             logger.debug(logPrfx + " --- qry: " + qry);
 
@@ -3475,9 +3478,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whatText1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.whatText1 IS NOT NULL"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.whatText1 is not null"
                 + " order by e.whatText1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3513,9 +3515,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whyText1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.whyText1 IS NOT NULL"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.whyText1 is not null"
                 + " order by e.whyText1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3553,9 +3554,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finTxactSet1_EI1_Role"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxact'"
-                + " and e.finTxactSet1_EI1_Role IS NOT NULL"
+                + " from enty_UsrFinTxact e"
+                + " where e.finTxactSet1_EI1_Role is not null"
                 + " order by e.finTxactSet1_EI1_Role"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3585,9 +3585,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finTxact1_EI1_Role"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactItm'"
-                + " and e.finTxact1_EI1_Role IS NOT NULL"
+                + " from enty_UsrFinTxactItm e"
+                + " where e.finTxact1_EI1_Role is not null"
                 + " order by e.finTxact1_EI1_Role"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3617,9 +3616,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactItm'"
-                + " and e.finStmtItm1_Desc1 IS NOT NULL"
+                + " from enty_UsrFinTxactItm e"
+                + " where e.finStmtItm1_Desc1 is not null"
                 + " order by e.finStmtItm1_Desc1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3648,9 +3646,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc2"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactItm'"
-                + " and e.finStmtItm1_Desc2 IS NOT NULL"
+                + " from enty_UsrFinTxactItm e"
+                + " where e.finStmtItm1_Desc2 is not null"
                 + " order by e.finStmtItm1_Desc2"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3679,9 +3676,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finStmtItm1_Desc3"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactItm'"
-                + " and e.finStmtItm1_Desc3 IS NOT NULL"
+                + " from enty_UsrFinTxactItm e"
+                + " where e.finStmtItm1_Desc3 is not null"
                 + " order by e.finStmtItm1_Desc3"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3710,9 +3706,8 @@ public class UsrFinTxactItmEdit extends StandardEditor<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.finTaxLne1_Code"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactItm'"
-                + " and e.finTaxLne1_Code IS NOT NULL"
+                + " from enty_UsrFinTxactItm e"
+                + " where e.finTaxLne1_Code is not null"
                 + " order by e.finTaxLne1_Code"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);

@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrNode_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -49,7 +49,7 @@
                     </actions>
                     <columns>
                         <column id="tenant" collapsed="true"/>
-                        <column id="dtype" />
+                        <column id="dtype"/>
                         <column id="className"/>
                         <column id="id2"/>
                         <column id="id2Calc"/>
@@ -74,15 +74,15 @@
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
                         <tabSheet  width="100%">
-                            <tab id="tabCmd1" caption="Main" spacing="true">
+                            <tab id="tabCmd1" caption="Main" spacing="true" margin="true, false, false, false">
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd2" caption="View">
+                            <tab id="tabCmd2" caption="View" spacing="true" margin="true, false, false, false">
                             </tab>
-                            <tab id="tabCmd3" caption="Create, Edit" spacing="true">
+                            <tab id="tabCmd3" caption="Create, Edit" spacing="true" margin="true, false, false, false">
                                 <hbox spacing="true">
                                     <button id="refreshBtn" action="tableMain.refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -115,9 +115,8 @@
                                     </hbox>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd4" caption="Filter" spacing="true">
-                                <hbox></hbox>
-                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                            <tab id="tabCmd4" caption="Filter" spacing="true" margin="true, false, false, false">
+                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="5">
                                     <properties include=".*"/>
                                     <configurations>
                                         <configuration id="filterConfig1" default="true">
@@ -139,7 +138,7 @@
                                     </configurations>
                                 </filter>
                             </tab>
-                            <tab id="tabCmd5" caption="Options" spacing="true">
+                            <tab id="tabCmd5" caption="Options" spacing="true" margin="true, false, false, false">
                                 <hbox>
                                     <label value="CalcVals Option"/>
                                     <hbox width="5px"/>
@@ -157,7 +156,7 @@
                     <button action="lookupCancelAction"/>
                 </hbox>
             </vbox>
-            <vbox id="editBox" height="100%" margin="false,false,false,true" expand="form" spacing="true">
+            <vbox id="editBox" expand="form" spacing="true" margin="false,false,false,false" height="100%" >
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
@@ -427,45 +426,6 @@
 
                             </hbox>
 
-                        </tab>
-
-                        <tab id="tab_2"
-                             caption="Docs, Files"
-                             expand="tab2_hbox1"
-                             margin="true">
-
-                            <hbox id="tab2_hbox1" width="100%" spacing="true">
-                                <vbox width="348px">
-                                    <hbox caption="genDocVer1_Id" expand="genDocVer1_IdField">
-                                        <entityComboBox id="genDocVer1_IdField" dataContainer="instCntnrMain"
-                                                        property="genDocVer1_Id" tabIndex="10">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateGenDocVer1_IdFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
-                                    </hbox>
-                                </vbox>
-
-                                <vbox width="348px">
-                                    <hbox caption="genFile1_Id" expand="genFile1_IdField">
-                                        <entityComboBox id="genFile1_IdField" dataContainer="instCntnrMain"
-                                                        property="genFile1_Id" tabIndex="20">
-                                            <actions>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>
-                                            </actions>
-                                        </entityComboBox>
-                                        <button id="updateGenFile1_IdFieldListBtn" icon="font-icon:LIST"
-                                                tabIndex="-1"/>
-                                    </hbox>
-                                    <textArea id="genFile1_URIField" property="genFile1_URI" rows="4"
-                                              tabIndex="20"/>
-                                </vbox>
-
-                            </hbox>
                         </tab>
 
                         <tab id="tab_9"

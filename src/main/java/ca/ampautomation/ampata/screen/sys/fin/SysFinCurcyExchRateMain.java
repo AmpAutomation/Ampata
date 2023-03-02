@@ -83,7 +83,7 @@ public class SysFinCurcyExchRateMain extends SysNodeBaseMain<SysFinCurcyExchRate
 
         colCntnrFinCurcy = dataComponents.createCollectionContainer(SysFinCurcy.class);
         colLoadrFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.id2");
+        colLoadrFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
         FetchPlan fchPlnFinCurcy_Inst = fetchPlans.builder(SysFinCurcy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();

@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrItem_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrItem e]]>
+                    <![CDATA[select e from enty_UsrItem e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -30,25 +30,6 @@
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
             <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
-                    <properties include=".*"/>
-                    <configurations>
-                        <configuration id="filterConfig1" default="true">
-                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                            <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
-                                <textField/>
-                            </propertyFilter>
-
-                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                <entityComboBox metaClass="enty_UsrItemType"/>
-                            </propertyFilter>
-
-                        </configuration>
-                    </configurations>
-                </filter>
                 <table id="tableMain"
                        width="100%"
                        multiselect="true"
@@ -68,25 +49,25 @@
                         <column id="id2Dup"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
+                        <column id="name1"/>
                         <column id="type1_Id"/>
                         <column id="type1_Id2"/>
                         <column id="inst1"/>
-                        <column id="name1"/>
                         <column id="desc1"/>
                         <column id="note"/>
                     </columns>
                     <buttonsPanel id="buttonsPanel"
                                   alwaysVisible="true">
                         <tabSheet  width="100%">
-                            <tab id="tabCmd1" caption="Main" spacing="true">
+                            <tab id="tabCmd1" caption="Main" spacing="true" margin="true, false, false, false">
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
                                     <button id="updateColCalcValsBtn" caption="Update All Calc Vals" icon="font-icon:REFRESH"/>
                                 </hbox>
                             </tab>
-                            <tab id="tabCmd2" caption="View">
+                            <tab id="tabCmd2" caption="View" spacing="true" margin="true, false, false, false">
                             </tab>
-                            <tab id="tabCmd3" caption="Create, Edit" spacing="true">
+                            <tab id="tabCmd3" caption="Create, Edit" spacing="true" margin="true, false, false, false">
                                 <hbox spacing="true">
                                     <button id="refreshBtn" action="tableMain.refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
@@ -98,6 +79,14 @@
                                     <button id="editBtn" action="tableMain.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="setBtn" caption="Set" icon="font-icon:REFRESH"/>
+                                    <hbox>
+                                        <label value="sortIdx" align="MIDDLE_CENTER"/>
+                                        <button id="rebuildSortIdxBtn" caption="Rebiuld"/>
+                                        <button id="moveFrstSortIdxBtn" caption="Frst"/>
+                                        <button id="movePrevSortIdxBtn"  icon="ARROW_LEFT"/>
+                                        <button id="moveNextSortIdxBtn"  icon="ARROW_RIGHT"/>
+                                        <button id="moveLastSortIdxBtn"  caption="Last"/>
+                                    </hbox>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="updateColItemCalcValsBtn" caption="Update Calc Vals" icon="font-icon:REFRESH"/>
                                     <button id="updateColItemId2Btn" caption="Update Id2" icon="font-icon:REFRESH"/>
@@ -111,6 +100,33 @@
                                     </hbox>
                                 </hbox>
                             </tab>
+                            <tab id="tabCmd4" caption="Filter" spacing="true" margin="true, false, false, false">
+                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="5">
+                                    <properties include=".*"/>
+                                    <configurations>
+                                        <configuration id="filterConfig1" default="true">
+                                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeType"/>
+                                            </propertyFilter>
+
+                                            <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
+                                                <textField/>
+                                            </propertyFilter>
+                                        </configuration>
+                                    </configurations>
+                                </filter>
+                            </tab>
+                            <tab id="tabCmd5" caption="Options" spacing="true" margin="true, false, false, false">
+                                <hbox>
+                                    <label value="CalcVals Option"/>
+                                    <hbox width="5px"/>
+                                    <comboBox id="updateColItemCalcValsOption" width="100px"/>
+                                </hbox>
+                            </tab>
                         </tabSheet>
                     </buttonsPanel>
                 </table>
@@ -122,21 +138,20 @@
                     <button action="lookupCancelAction"/>
                 </hbox>
             </vbox>
-            <vbox id="editBox" height="100%" margin="false,false,false,true" expand="form" spacing="true">
+            <vbox id="editBox" expand="form" spacing="true" margin="false,false,false,false" height="100%" >
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
                              caption="General"
-                             margin="true"
-                             spacing="true"
-                             expand="tab1_hbox2">
+                             expand="tab1_hbox3"
+                             margin="true">
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
-                                <hbox caption="desc1" expand="desc1Field" width="1100px">
+                                <hbox caption="desc1" expand="desc1Field" width="1068px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
                                     <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
-                                <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="360px">
+                                <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="348px">
                                     <entityComboBox id="desc1GenFmla1_IdField" dataContainer="instCntnrMain"
                                                     property="desc1GenFmla1_Id">
                                         <actions>
@@ -148,19 +163,17 @@
                                             tabIndex="-1"/>
                                 </hbox>
                             </hbox>
-                            <hbox id="tab1_hbox2" width="100%" spacing="true">
-                                <vbox width="360px">
+
+                            <hbox id="tab1_hbox3" width="100%" spacing="true">
+                                <vbox width="348px">
                                     <hbox caption="id" expand="id" width="100%">
-                                        <textField id="id" property="id" editable="false"/>
+                                        <textField id="id" dataContainer="instCntnrMain" property="id" editable="false"/>
                                     </hbox>
                                     <hbox caption="tenant" expand="tenantField" width="100%">
-                                        <textField id="tenantField" property="tenant" editable="false"/>
+                                        <textField id="tenantField" dataContainer="instCntnrMain" property="tenant" editable="false"/>
                                     </hbox>
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
-                                        <textField id="dtypeField" property="dtype" editable="false"/>
-                                    </hbox>
-                                    <hbox caption="className" expand="classNameField" width="100%">
-                                        <textField id="classNameField" property="className"/>
+                                        <textField id="dtypeField" dataContainer="instCntnrMain" property="dtype" editable="false"/>
                                     </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
@@ -171,7 +184,7 @@
                                         <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
-                                        <hbox caption="id2Cmp" expand="id2CmpField" width="80px">
+                                        <hbox caption="id2Cmp" expand="id2CmpField" width="84px">
                                             <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
                                             <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
@@ -182,18 +195,18 @@
                                     </hbox>
                                 </vbox>
 
-                                <vbox width="360px">
+                                <vbox width="348px">
                                     <hbox width="100%" spacing="true">
-                                        <hbox caption="sortIdx" expand="sortIdxField" width="180px">
+                                        <hbox caption="sortIdx" expand="sortIdxField" width="168px">
                                             <textField id="sortIdxField" dataContainer="instCntnrMain" property="sortIdx"/>
                                         </hbox>
-                                        <hbox caption="sortKey" expand="sortKeyField" width="180px">
+                                        <hbox caption="sortKey" expand="sortKeyField" width="168px">
                                             <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey"/>
                                         </hbox>
                                     </hbox>
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain" property="name1"/>
-                                        <button id="updateName1FieldBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                        <button id="updateName1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="name1GenFmla1_Id" expand="name1GenFmla1_IdField" width="100%">
                                         <entityComboBox id="name1GenFmla1_IdField" dataContainer="instCntnrMain"
@@ -225,13 +238,16 @@
 
                             </hbox>
                         </tab>
+
                         <tab id="tab_9"
                              caption="Note"
-                             margin="true"
-                             spacing="true">
+                             expand="tab9_hbox1"
+                             margin="true">
 
-                            <hbox width="1100px" expand="noteField">
-                                <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
+                            <hbox id="tab9_hbox1" width="100%" spacing="true">
+                                    <hbox width="1060px" expand="noteField">
+                                        <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
+                                    </hbox>
                             </hbox>
                         </tab>
                     </tabSheet>
@@ -241,6 +257,8 @@
                     <button id="cancelBtn" action="cancel"/>
                     <label value="|" align="MIDDLE_CENTER"/>
                     <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+                    <label value="Option" align="MIDDLE_RIGHT"/>
+                    <comboBox id="updateInstItemCalcValsOption" width="160px"/>
                 </hbox>
             </vbox>
         </split>

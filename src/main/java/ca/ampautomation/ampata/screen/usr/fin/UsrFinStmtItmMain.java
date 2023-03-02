@@ -3,6 +3,8 @@ package ca.ampautomation.ampata.screen.usr.fin;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtItmQryMngr;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -182,11 +184,11 @@ public class UsrFinStmtItmMain extends MasterDetailScreen<UsrNode> {
 
 
     //Other data loaders and containers
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
-    private CollectionLoader<UsrNode> colLoadrGenTag;
-    private CollectionContainer<UsrNode> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
 
 
     private CollectionContainer<UsrNode> colCntnrFinStmt;
@@ -226,19 +228,19 @@ public class UsrFinStmtItmMain extends MasterDetailScreen<UsrNode> {
 
 
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag2_IdField;
+    private EntityComboBox<UsrGenTag> genTag2_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag3_IdField;
+    private EntityComboBox<UsrGenTag> genTag3_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag4_IdField;
+    private EntityComboBox<UsrGenTag> genTag4_IdField;
 
     
     @Autowired
@@ -304,7 +306,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinStmtItm' order by e.id2");
+        colLoadrType.setQuery("select e from enty_UsrFinStmtItmType e order by e.sortKey, e.id2");
         FetchPlan finStmtItmTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -317,10 +319,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         tmplt_Type1_IdField.setOptionsContainer(colCntnrType);
         
 
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.sortKey, e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenDocVer.setFetchPlan(genDocVersFp);
@@ -330,10 +332,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -348,7 +350,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinStmt = dataComponents.createCollectionLoader();
-        colLoadrFinStmt.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinStmt' order by e.id2");
+        colLoadrFinStmt.setQuery("select e from enty_UsrFinStmt e order by e.sortKey, e.id2");
         FetchPlan finStmtsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -366,7 +368,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
-        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
+        colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -1046,9 +1048,8 @@ are not fully initialized, for example, buttons are not linked with actions.
                 if (idDt1 != null){
 
                     Integer idXMax = 0;
-                    String idXMaxQry = "select max(e.idX) from enty_UsrNode e"
-                            + " where e.className = 'UsrFinStmtItm'"
-                            + " and e.idDt.date1 = :idDt1";
+                    String idXMaxQry = "select max(e.idX) from enty_UsrFinStmtItm e"
+                            + " where e.idDt.date1 = :idDt1";
                     try {
                         idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                                 .store("main")
@@ -1814,7 +1815,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         Integer id2Dup_ = thisFinStmtItm.getId2Dup();
         if (thisFinStmtItm.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinStmtItm' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrFinStmtItm e where e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -1961,7 +1962,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         Integer idCntCalc_ = thisFinStmtItm.getFinTxactItms1_IdCntCalc();
         Integer idCntCalc = null ;
-        String qry1 = "select count(e.amtNet) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select count(e.amtNet) from enty_UsrFinTxactItm e where e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             idCntCalc = dataManager.loadValue(qry1,Integer.class)
                     .store("main")
@@ -1995,7 +1996,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         BigDecimal amtDebtSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtDebtSumCalc();
         BigDecimal amtDebtSumCalc = null ;
-        String qry1 = "select sum(e.amtDebt) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtDebt) from enty_UsrFinTxactItm e where e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtDebtSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -2028,7 +2029,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         BigDecimal amtCredSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtCredSumCalc();
         BigDecimal amtCredSumCalc = null ;
-        String qry1 = "select sum(e.amtCred) from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.finStmtItm1_Id = :finStmtItm1_Id";
+        String qry1 = "select sum(e.amtCred) from enty_UsrFinTxactItm e where e.finStmtItm1_Id = :finStmtItm1_Id";
         try{
             amtCredSumCalc = dataManager.loadValue(qry1,BigDecimal.class)
                     .store("main")
@@ -2147,7 +2148,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinStmtItm' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinStmtItm e where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finStmtItm_Id2);
 
@@ -2172,9 +2173,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc1 IS NOT NULL"
+                + " from enty_UsrFinStmtItm e"
+                + " where e.desc1 is not null"
                 + " order by e.desc1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2211,9 +2211,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc2"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc2 IS NOT NULL"
+                + " from enty_UsrFinStmtItm e"
+                + " where e.desc2 is not null"
                 + " order by e.desc2"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2249,9 +2248,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc3"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc3 IS NOT NULL"
+                + " from enty_UsrFinStmtItm e"
+                + " where e.desc3 is not null"
                 + " order by e.desc3"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2287,9 +2285,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.desc4"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc4 IS NOT NULL"
+                + " from enty_UsrFinStmtItm e"
+                + " where e.desc4 is not null"
                 + " order by e.desc4"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2359,9 +2356,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         Integer idX, idXMax;
-        String idXMaxQry = "select max(e.idX) from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.idDt.date1 = :idDt1";
+        String idXMaxQry = "select max(e.idX) "
+                + " from enty_UsrFinStmtItm e"
+                + " where e.idDt.date1 = :idDt1";
         try {
             idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                     .store("main")
@@ -2377,9 +2374,8 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.debug(logPrfx + " --- idXMaxQry result: " + idXMax + "");
 
         Integer idXCntIsNull = null;
-        String idXCntIsNullQry = "select count(e) from enty_UsrNode e"
-                + " where e.className = 'UsrFinStmtItm'"
-                + " and e.idDt.date1 = :idDt1"
+        String idXCntIsNullQry = "select count(e) from enty_UsrFinStmtItm e"
+                + " where e.idDt.date1 = :idDt1"
                 + " and e.idX is null";
         try {
             idXCntIsNull = dataManager.loadValue(idXCntIsNullQry, Integer.class)

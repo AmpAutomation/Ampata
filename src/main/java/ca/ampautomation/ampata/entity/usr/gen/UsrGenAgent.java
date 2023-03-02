@@ -3,9 +3,7 @@ package ca.ampautomation.ampata.entity.usr.gen;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import org.jetbrains.annotations.NotNull;
 
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;

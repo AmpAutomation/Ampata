@@ -8,9 +8,7 @@ import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenFile;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.usr.gen.*;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -55,8 +53,8 @@ import java.util.regex.Pattern;
         @Index(name = "IDX_USRNODE_NM1S1_INST1_GEN_FMLA1__ID", columnList = "NM1S1_INST1_GEN_FMLA1__ID"),
         @Index(name = "IDX_USRNODE_NM1S1_INST1_NODE1__ID", columnList = "NM1S1_INST1_NODE1__ID"),
         @Index(name = "IDX_USRNODE_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
-        @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM1__ID", columnList = "DESC1_FIN_TXACT_ITM1__ID"),
-        @Index(name = "IDX_USRNODE_DESC1_FIN_TXACT_ITM2__ID", columnList = "DESC1_FIN_TXACT_ITM2__ID"),
+        @Index(name = "IDX_USRNODE_DESC1_NODE1__ID", columnList = "DESC1_NODE1__ID"),
+        @Index(name = "IDX_USRNODE_DESC1_NODE2__ID", columnList = "DESC1_NODE2__ID"),
         @Index(name = "IDX_USRNODE_GEN_CHAN1__ID", columnList = "GEN_CHAN1__ID"),
         @Index(name = "IDX_USRNODE_GEN_CHAN2__ID", columnList = "GEN_CHAN2__ID"),
         @Index(name = "IDX_USRNODE_FIN_HOW1__ID", columnList = "FIN_HOW1__ID"),
@@ -299,19 +297,19 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "DESC1_GEN_FMLA1__ID2")
     protected String desc1GenFmla1_Id2;
 
-    @JoinColumn(name = "DESC1_FIN_TXACT_ITM1__ID")
+    @JoinColumn(name = "DESC1_NODE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode desc1FinTxactItm1_Id;
+    protected UsrNode desc1Node1_Id;
 
-    @Column(name = "DESC1_FIN_TXACT_ITM1__ID2")
-    protected String desc1FinTxactItm1_Id2;
+    @Column(name = "DESC1_NODE1__ID2")
+    protected String desc1Node1_Id2;
 
-    @JoinColumn(name = "DESC1_FIN_TXACT_ITM2__ID")
+    @JoinColumn(name = "DESC1_NODE2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode desc1FinTxactItm2_Id;
+    protected UsrNode desc1Node2_Id;
 
-    @Column(name = "DESC1_FIN_TXACT_ITM2__ID2")
-    protected String desc1FinTxactItm2_Id2;
+    @Column(name = "DESC1_NODE2__ID2")
+    protected String desc1Node2_Id2;
 
     @Column(name = "DESC2")
     @Lob
@@ -353,7 +351,7 @@ public class UsrNode implements AcceptsTenant {
 
     @JoinColumn(name = "GEN_DOC_VER1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode genDocVer1_Id;
+    protected UsrGenDocVer genDocVer1_Id;
 
     @Column(name = "GEN_DOC_VER1__ID2")
     protected String genDocVer1_Id2;
@@ -434,14 +432,14 @@ public class UsrNode implements AcceptsTenant {
 
     @JoinColumn(name = "GEN_AGENT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode genAgent1_Id;
+    protected UsrGenAgent genAgent1_Id;
 
     @Column(name = "GEN_AGENT1__ID2")
     protected String genAgent1_Id2;
 
     @JoinColumn(name = "GEN_AGENT2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode genAgent2_Id;
+    protected UsrGenAgent genAgent2_Id;
 
     @Column(name = "GEN_AGENT2__ID2")
     protected String genAgent2_Id2;
@@ -516,14 +514,14 @@ public class UsrNode implements AcceptsTenant {
 
     @JoinColumn(name = "GEN_CHAN1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode genChan1_Id;
+    protected UsrGenChan genChan1_Id;
 
     @Column(name = "GEN_CHAN1__ID2")
     protected String genChan1_Id2;
 
     @JoinColumn(name = "GEN_CHAN2__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNode genChan2_Id;
+    protected UsrGenChan genChan2_Id;
 
     @Column(name = "GEN_CHAN2__ID2")
     protected String genChan2_Id2;
@@ -673,6 +671,10 @@ public class UsrNode implements AcceptsTenant {
     @Column(name = "FIN_ACCT1__TYPE1__ID2")
     protected String finAcct1_Type1_Id2;
 
+    //Used for doing GST aggregates
+    @Column(name = "FIN_ACCT2__ID2")
+    protected String finAcct2_Id2;
+
     @JoinColumn(name = "FIN_DEPT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     protected UsrNode finDept1_Id;
@@ -755,9 +757,6 @@ public class UsrNode implements AcceptsTenant {
 
     @Column(name = "AMT_FIN_TXACT_ITM1__FIN_ACCT1__ID2")
     protected String amtFinTxactItm1_FinAcct1_Id2;
-
-    @Column(name = "FIN_ACCT2__ID2")
-    protected String finAcct2_Id2;
 
     @Column(name = "AMT_CALC", precision = 19, scale = 2)
     protected BigDecimal amtCalc;
@@ -1153,24 +1152,22 @@ public class UsrNode implements AcceptsTenant {
     public void setDesc1GenFmla1_Id2(String desc1GenFmla1_Id2) { this.desc1GenFmla1_Id2 = desc1GenFmla1_Id2; }
 
 
-    public UsrNode getDesc1FinTxactItm1_Id() { return desc1FinTxactItm1_Id; }
+    public UsrNode getDesc1Node1_Id() { return desc1Node1_Id; }
 
-    public void setDesc1FinTxactItm1_Id(UsrNode desc1FinTxactItm1_Id) { this.desc1FinTxactItm1_Id = desc1FinTxactItm1_Id; }
+    public void setDesc1Node1_Id(UsrNode desc1Node1_Id) { this.desc1Node1_Id = desc1Node1_Id; }
 
-    public String getDesc1FinTxactItm1_Id2() {
-        return desc1FinTxactItm1_Id2;
-    }
+    public String getDesc1Node1_Id2() { return desc1Node1_Id2; }
 
-    public void setDesc1FinTxactItm1_Id2(String desc1FinTxactItm1_Id2) { this.desc1FinTxactItm1_Id2 = desc1FinTxactItm1_Id2; }
+    public void setDesc1Node1_Id2(String desc1Node1_Id2) { this.desc1Node1_Id2 = desc1Node1_Id2; }
 
 
-    public UsrNode getDesc1FinTxactItm2_Id() { return desc1FinTxactItm2_Id; }
+    public UsrNode getDesc1Node2_Id() { return desc1Node2_Id; }
 
-    public void setDesc1FinTxactItm2_Id(UsrNode desc1FinTxactItm2_Id) { this.desc1FinTxactItm2_Id = desc1FinTxactItm2_Id; }
+    public void setDesc1Node2_Id(UsrNode desc1Node2_Id) { this.desc1Node2_Id = desc1Node2_Id; }
 
-    public String getDesc1FinTxactItm2_Id2() { return desc1FinTxactItm2_Id2; }
+    public String getDesc1Node2_Id2() { return desc1Node2_Id2; }
 
-    public void setDesc1FinTxactItm2_Id2(String desc1FinTxactItm2_Id2) { this.desc1FinTxactItm2_Id2 = desc1FinTxactItm2_Id2; }
+    public void setDesc1Node2_Id2(String desc1Node2_Id2) { this.desc1Node2_Id2 = desc1Node2_Id2; }
 
 
     public String getDesc2() { return desc2; }
@@ -1228,21 +1225,21 @@ public class UsrNode implements AcceptsTenant {
         this.edgeOts_Id2 = edgeOts_Id2;
     }
 
+    public UsrGenChan getGenChan1_Id() { return genChan1_Id; }
+
+    public void setGenChan1_Id(UsrGenChan genChan1_Id) { this.genChan1_Id = genChan1_Id; }
+
     public String getGenChan1_Id2() { return genChan1_Id2; }
 
     public void setGenChan1_Id2(String genChan1_Id2) { this.genChan1_Id2 = genChan1_Id2; }
 
-    public UsrNode getGenChan1_Id() { return genChan1_Id; }
+    public UsrGenChan getGenChan2_Id() {return genChan2_Id;}
 
-    public void setGenChan1_Id(UsrNode genChan1_Id) { this.genChan1_Id = genChan1_Id; }
+    public void setGenChan2_Id(UsrGenChan genChan2_Id) {this.genChan2_Id = genChan2_Id;}
 
     public String getGenChan2_Id2() { return genChan2_Id2;}
 
     public void setGenChan2_Id2(String genChan2_Id2) {this.genChan2_Id2 = genChan2_Id2;}
-
-    public UsrNode getGenChan2_Id() {return genChan2_Id;}
-
-    public void setGenChan2_Id(UsrNode genChan2_Id) {this.genChan2_Id = genChan2_Id;}
 
 
 
@@ -1272,9 +1269,9 @@ public class UsrNode implements AcceptsTenant {
 
     public void setGenDocVers1_Id2(String genDocVers1_Id2) { this.genDocVers1_Id2 = genDocVers1_Id2; }
 
-    public UsrNode getGenDocVer1_Id() { return genDocVer1_Id; }
+    public UsrGenDocVer getGenDocVer1_Id() { return genDocVer1_Id; }
 
-    public void setGenDocVer1_Id(UsrNode genDocVer1_Id) { this.genDocVer1_Id = genDocVer1_Id; }
+    public void setGenDocVer1_Id(UsrGenDocVer genDocVer1_Id) { this.genDocVer1_Id = genDocVer1_Id; }
 
     public String getGenDocVer1_Id2() { return genDocVer1_Id2; }
 
@@ -1357,18 +1354,18 @@ public class UsrNode implements AcceptsTenant {
     public void setVer(String ver) { this.ver = ver;}
 
     
-    public UsrNode getGenAgent1_Id() { return genAgent1_Id; }
+    public UsrGenAgent getGenAgent1_Id() { return genAgent1_Id; }
 
-    public void setGenAgent1_Id(UsrNode genAgent1_Id) { this.genAgent1_Id = genAgent1_Id; }
+    public void setGenAgent1_Id(UsrGenAgent genAgent1_Id) { this.genAgent1_Id = genAgent1_Id; }
 
     public String getGenAgent1_Id2() { return genAgent1_Id2; }
 
     public void setGenAgent1_Id2(String genAgent1_Id2) { this.genAgent1_Id2 = genAgent1_Id2; }
 
 
-    public UsrNode getGenAgent2_Id() { return genAgent2_Id; }
+    public UsrGenAgent getGenAgent2_Id() { return genAgent2_Id; }
 
-    public void setGenAgent2_Id(UsrNode genAgent2_Id) { this.genAgent2_Id = genAgent2_Id; }
+    public void setGenAgent2_Id(UsrGenAgent genAgent2_Id) { this.genAgent2_Id = genAgent2_Id; }
 
     public String getGenAgent2_Id2() { return genAgent2_Id2; }
 
@@ -1445,47 +1442,27 @@ public class UsrNode implements AcceptsTenant {
 
 
 
-    public String getFinTxactSet1_How1_Id2() {
-        return finTxactSet1_How1_Id2;
-    }
+    public String getFinTxactSet1_How1_Id2() { return finTxactSet1_How1_Id2; }
 
-    public void setFinTxactSet1_How1_Id2(String finTxactSet1_How1_Id2) {
-        this.finTxactSet1_How1_Id2 = finTxactSet1_How1_Id2;
-    }
+    public void setFinTxactSet1_How1_Id2(String finTxactSet1_How1_Id2) { this.finTxactSet1_How1_Id2 = finTxactSet1_How1_Id2; }
 
-    public String getFinTxactSet1_WhatText1() {
-        return finTxactSet1_WhatText1;
-    }
+    public String getFinTxactSet1_WhatText1() { return finTxactSet1_WhatText1; }
 
-    public void setFinTxactSet1_WhatText1(String finTxactSet1_WhatText1) {
-        this.finTxactSet1_WhatText1 = finTxactSet1_WhatText1;
-    }
+    public void setFinTxactSet1_WhatText1(String finTxactSet1_WhatText1) { this.finTxactSet1_WhatText1 = finTxactSet1_WhatText1; }
 
 
-    public String getFinTxactSet1_What1_Id2() {
-        return finTxactSet1_What1_Id2;
-    }
+    public String getFinTxactSet1_What1_Id2() { return finTxactSet1_What1_Id2; }
 
-    public void setFinTxactSet1_What1_Id2(String finTxactSet1_What1_Id2) {
-        this.finTxactSet1_What1_Id2 = finTxactSet1_What1_Id2;
-    }
+    public void setFinTxactSet1_What1_Id2(String finTxactSet1_What1_Id2) { this.finTxactSet1_What1_Id2 = finTxactSet1_What1_Id2; }
 
 
-    public String getFinTxactSet1_WhyText1() {
-        return finTxactSet1_WhyText1;
-    }
+    public String getFinTxactSet1_WhyText1() { return finTxactSet1_WhyText1; }
 
-    public void setFinTxactSet1_WhyText1(String finTxactSet1_WhyText1) {
-        this.finTxactSet1_WhyText1 = finTxactSet1_WhyText1;
-    }
+    public void setFinTxactSet1_WhyText1(String finTxactSet1_WhyText1) { this.finTxactSet1_WhyText1 = finTxactSet1_WhyText1; }
 
-    public String getFinTxactSet1_Why1_Id2() {
-        return finTxactSet1_Why1_Id2;
-    }
+    public String getFinTxactSet1_Why1_Id2() { return finTxactSet1_Why1_Id2; }
 
-    public void setFinTxactSet1_Why1_Id2(String finTxactSet1_Why1_Id2) {
-        this.finTxactSet1_Why1_Id2 = finTxactSet1_Why1_Id2;
-    }
+    public void setFinTxactSet1_Why1_Id2(String finTxactSet1_Why1_Id2) { this.finTxactSet1_Why1_Id2 = finTxactSet1_Why1_Id2; }
 
 
 
@@ -1493,424 +1470,238 @@ public class UsrNode implements AcceptsTenant {
 
     public UsrNode getFinTxact1_Id() {return finTxact1_Id; }
 
-    public void setFinTxact1_Id(UsrNode finTxact1_Id) {
-        this.finTxact1_Id = finTxact1_Id;
-    }
+    public void setFinTxact1_Id(UsrNode finTxact1_Id) { this.finTxact1_Id = finTxact1_Id; }
 
-    public String getFinTxact1_Id2() {
-        return finTxact1_Id2;
-    }
+    public String getFinTxact1_Id2() { return finTxact1_Id2; }
 
-    public void setFinTxact1_Id2(String finTxact1_Id2) {
-        this.finTxact1_Id2 = finTxact1_Id2;
-    }
+    public void setFinTxact1_Id2(String finTxact1_Id2) { this.finTxact1_Id2 = finTxact1_Id2; }
 
     public String getFinTxact1_Id2Trgt() { return finTxact1_Id2Trgt;}
 
     public void setFinTxact1_Id2Trgt(String finTxact1_Id2Trgt) { this.finTxact1_Id2Trgt = finTxact1_Id2Trgt;}
 
-    public String getFinTxact1_Type1_Id2() {
-        return finTxact1_Type1_Id2;
-    }
+    public String getFinTxact1_Type1_Id2() { return finTxact1_Type1_Id2; }
 
-    public void setFinTxact1_Type1_Id2(String finTxact1_Type1_Id2) {
-        this.finTxact1_Type1_Id2 = finTxact1_Type1_Id2;
-    }
+    public void setFinTxact1_Type1_Id2(String finTxact1_Type1_Id2) { this.finTxact1_Type1_Id2 = finTxact1_Type1_Id2; }
 
-    public String getFinTxact1_EI1_Role() {
-        return finTxact1_EI1_Role;
-    }
+    public String getFinTxact1_EI1_Role() { return finTxact1_EI1_Role; }
 
-    public void setFinTxact1_EI1_Role(String finTxact1_EI1_Role) {
-        this.finTxact1_EI1_Role = finTxact1_EI1_Role;
-    }
+    public void setFinTxact1_EI1_Role(String finTxact1_EI1_Role) { this.finTxact1_EI1_Role = finTxact1_EI1_Role; }
 
 
-    public String getFinTxact1_GenChan1_Id2() {
-        return finTxact1_GenChan1_Id2;
-    }
+    public String getFinTxact1_GenChan1_Id2() { return finTxact1_GenChan1_Id2; }
 
-    public void setFinTxact1_GenChan1_Id2(String finTxact1_GenChan1_Id2) {
-        this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2;
-    }
+    public void setFinTxact1_GenChan1_Id2(String finTxact1_GenChan1_Id2) { this.finTxact1_GenChan1_Id2 = finTxact1_GenChan1_Id2; }
 
 
-    public String getFinTxact1_How1_Id2() {
-        return finTxact1_How1_Id2;
-    }
+    public String getFinTxact1_How1_Id2() { return finTxact1_How1_Id2; }
 
-    public void setFinTxact1_How1_Id2(String finTxact1_How1_Id2) {
-        this.finTxact1_How1_Id2 = finTxact1_How1_Id2;
-    }
+    public void setFinTxact1_How1_Id2(String finTxact1_How1_Id2) { this.finTxact1_How1_Id2 = finTxact1_How1_Id2; }
 
 
-    public String getFinTxact1_WhatText1() {
-        return finTxact1_WhatText1;
-    }
+    public String getFinTxact1_WhatText1() { return finTxact1_WhatText1; }
 
-    public void setFinTxact1_WhatText1(String finTxact1_WhatText1) {
-        this.finTxact1_WhatText1 = finTxact1_WhatText1;
-    }
+    public void setFinTxact1_WhatText1(String finTxact1_WhatText1) { this.finTxact1_WhatText1 = finTxact1_WhatText1; }
 
-    public String getFinTxact1_What1_Id2() {
-        return finTxact1_What1_Id2;
-    }
+    public String getFinTxact1_What1_Id2() { return finTxact1_What1_Id2; }
 
-    public void setFinTxact1_What1_Id2(String finTxact1_What1_Id2) {
-        this.finTxact1_What1_Id2 = finTxact1_What1_Id2;
-    }
+    public void setFinTxact1_What1_Id2(String finTxact1_What1_Id2) { this.finTxact1_What1_Id2 = finTxact1_What1_Id2; }
 
 
-    public String getFinTxact1_WhyText1() {
-        return finTxact1_WhyText1;
-    }
+    public String getFinTxact1_WhyText1() { return finTxact1_WhyText1; }
 
-    public void setFinTxact1_WhyText1(String finTxact1_WhyText1) {
-        this.finTxact1_WhyText1 = finTxact1_WhyText1;
-    }
+    public void setFinTxact1_WhyText1(String finTxact1_WhyText1) { this.finTxact1_WhyText1 = finTxact1_WhyText1; }
 
-    public String getFinTxact1_Why1_Id2() {
-        return finTxact1_Why1_Id2;
-    }
+    public String getFinTxact1_Why1_Id2() { return finTxact1_Why1_Id2; }
 
-    public void setFinTxact1_Why1_Id2(String finTxact1_Why1_Id2) {
-        this.finTxact1_Why1_Id2 = finTxact1_Why1_Id2;
-    }
+    public void setFinTxact1_Why1_Id2(String finTxact1_Why1_Id2) { this.finTxact1_Why1_Id2 = finTxact1_Why1_Id2; }
 
 
 
 
 
 
-    public String getFinStmt1_Id2() {
-        return finStmt1_Id2;
-    }
+    public String getFinStmt1_Id2() { return finStmt1_Id2; }
 
-    public void setFinStmt1_Id2(String finStmt1_Id2) {
-        this.finStmt1_Id2 = finStmt1_Id2;
-    }
+    public void setFinStmt1_Id2(String finStmt1_Id2) { this.finStmt1_Id2 = finStmt1_Id2; }
 
-    public UsrNode getFinStmt1_Id() {
-        return finStmt1_Id;
-    }
+    public UsrNode getFinStmt1_Id() { return finStmt1_Id; }
 
-    public void setFinStmt1_Id(UsrNode finStmt1_Id) {
-        this.finStmt1_Id = finStmt1_Id;
-    }
+    public void setFinStmt1_Id(UsrNode finStmt1_Id) { this.finStmt1_Id = finStmt1_Id; }
 
-    public String getExchDesc() {
-        return exchDesc;
-    }
+    public String getExchDesc() { return exchDesc; }
 
-    public void setExchDesc(String exchDesc) {
-        this.exchDesc = exchDesc;
-    }
+    public void setExchDesc(String exchDesc) { this.exchDesc = exchDesc; }
 
-    public String getRefId() {
-        return refId;
-    }
+    public String getRefId() { return refId; }
 
-    public void setRefId(String refId) {
-        this.refId = refId;
-    }
+    public void setRefId(String refId) { this.refId = refId; }
 
 
-    public UsrNode getFinStmtItm1_Id() {
-        return finStmtItm1_Id;
-    }
+    public UsrNode getFinStmtItm1_Id() { return finStmtItm1_Id; }
 
-    public void setFinStmtItm1_Id(UsrNode finStmtItm1_Id) {
-        this.finStmtItm1_Id = finStmtItm1_Id;
-    }
+    public void setFinStmtItm1_Id(UsrNode finStmtItm1_Id) { this.finStmtItm1_Id = finStmtItm1_Id; }
 
-    public String getFinStmtItm1_Id2() {
-        return finStmtItm1_Id2;
-    }
+    public String getFinStmtItm1_Id2() { return finStmtItm1_Id2; }
 
-    public void setFinStmtItm1_Id2(String finStmtItm1_Id2) {
-        this.finStmtItm1_Id2 = finStmtItm1_Id2;
-    }
+    public void setFinStmtItm1_Id2(String finStmtItm1_Id2) { this.finStmtItm1_Id2 = finStmtItm1_Id2; }
 
-    public String getFinStmtItm1_Id2Trgt() {
-        return finStmtItm1_Id2Trgt;
-    }
+    public String getFinStmtItm1_Id2Trgt() { return finStmtItm1_Id2Trgt; }
 
     public void setFinStmtItm1_Id2Trgt(String finStmtItm1_Id2Trgt) {this.finStmtItm1_Id2Trgt = finStmtItm1_Id2Trgt;}
 
-    public String getFinStmtItm1_Desc1() {
-        return finStmtItm1_Desc1;
-    }
+    public String getFinStmtItm1_Desc1() { return finStmtItm1_Desc1; }
 
-    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) {
-        this.finStmtItm1_Desc1 = finStmtItm1_Desc1;
-    }
+    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) { this.finStmtItm1_Desc1 = finStmtItm1_Desc1; }
 
-    public String getFinStmtItm1_Desc2() {
-        return finStmtItm1_Desc2;
-    }
+    public String getFinStmtItm1_Desc2() { return finStmtItm1_Desc2; }
 
-    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) {
-        this.finStmtItm1_Desc2 = finStmtItm1_Desc2;
-    }
+    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) { this.finStmtItm1_Desc2 = finStmtItm1_Desc2; }
 
-    public String getFinStmtItm1_Desc3() {
-        return finStmtItm1_Desc3;
-    }
+    public String getFinStmtItm1_Desc3() { return finStmtItm1_Desc3; }
 
-    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) {
-        this.finStmtItm1_Desc3 = finStmtItm1_Desc3;
-    }
+    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) { this.finStmtItm1_Desc3 = finStmtItm1_Desc3; }
 
-    public String getFinStmtItm1_Desc4() {
-        return finStmtItm1_Desc4;
-    }
+    public String getFinStmtItm1_Desc4() { return finStmtItm1_Desc4; }
 
-    public void setFinStmtItm1_Desc4(String finStmtItm1_Desc4) {
-        this.finStmtItm1_Desc4 = finStmtItm1_Desc4;
-    }
+    public void setFinStmtItm1_Desc4(String finStmtItm1_Desc4) { this.finStmtItm1_Desc4 = finStmtItm1_Desc4; }
 
-    public String getFinStmtItm1_ExchDesc() {
-        return finStmtItm1_ExchDesc;
-    }
+    public String getFinStmtItm1_ExchDesc() { return finStmtItm1_ExchDesc; }
 
-    public void setFinStmtItm1_ExchDesc(String finStmtItm1_ExchDesc) {
-        this.finStmtItm1_ExchDesc = finStmtItm1_ExchDesc;
-    }
+    public void setFinStmtItm1_ExchDesc(String finStmtItm1_ExchDesc) { this.finStmtItm1_ExchDesc = finStmtItm1_ExchDesc; }
 
-    public String getFinAcct1_Type1_Id2() {
-        return finAcct1_Type1_Id2;
-    }
+    public String getFinAcct1_Type1_Id2() { return finAcct1_Type1_Id2; }
 
     public String getFinStmtItm1_RefId() {return finStmtItm1_RefId;}
 
     public void setFinStmtItm1_RefId(String finStmtItm1_RefId) {this.finStmtItm1_RefId = finStmtItm1_RefId;}
 
-    public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) {
-        this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2;
-    }
+    public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) { this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2; }
 
 
     public UsrNode getFinAcct1_Id() { return finAcct1_Id; }
 
-    public void setFinAcct1_Id(UsrNode finAcct1_Id) {
-        this.finAcct1_Id = finAcct1_Id;
-    }
+    public void setFinAcct1_Id(UsrNode finAcct1_Id) { this.finAcct1_Id = finAcct1_Id; }
 
-    public String getFinAcct1_Id2() {
-        return finAcct1_Id2;
-    }
+    public String getFinAcct1_Id2() { return finAcct1_Id2; }
 
-    public void setFinAcct1_Id2(String finAcct1_Id2) {
-        this.finAcct1_Id2 = finAcct1_Id2;
-    }
+    public void setFinAcct1_Id2(String finAcct1_Id2) { this.finAcct1_Id2 = finAcct1_Id2; }
 
 
-    public UsrNode getFinDept1_Id() {
-        return finDept1_Id;
-    }
+    public UsrNode getFinDept1_Id() { return finDept1_Id; }
 
-    public void setFinDept1_Id(UsrNode finDept1_Id) {
-        this.finDept1_Id = finDept1_Id;
-    }
+    public void setFinDept1_Id(UsrNode finDept1_Id) { this.finDept1_Id = finDept1_Id; }
 
-    public String getFinDept1_Id2() {
-        return finDept1_Id2;
-    }
+    public String getFinDept1_Id2() { return finDept1_Id2; }
 
-    public void setFinDept1_Id2(String finDept1_Id2) {
-        this.finDept1_Id2 = finDept1_Id2;
-    }
+    public void setFinDept1_Id2(String finDept1_Id2) { this.finDept1_Id2 = finDept1_Id2; }
 
 
 
 
-    public SysNode getSysFinCurcy1_Id() {
-        return sysFinCurcy1_Id;
-    }
+    public SysNode getSysFinCurcy1_Id() { return sysFinCurcy1_Id; }
 
-    public void setSysFinCurcy1_Id(SysNode sysFinCurcy1_Id) {
-        this.sysFinCurcy1_Id = sysFinCurcy1_Id;
-    }
+    public void setSysFinCurcy1_Id(SysNode sysFinCurcy1_Id) { this.sysFinCurcy1_Id = sysFinCurcy1_Id; }
 
-    public String getSysFinCurcy1_Id2() {
-        return sysFinCurcy1_Id2;
-    }
+    public String getSysFinCurcy1_Id2() { return sysFinCurcy1_Id2; }
 
-    public void setSysFinCurcy1_Id2(String sysFinCurcy1_Id2) {
-        this.sysFinCurcy1_Id2 = sysFinCurcy1_Id2;
-    }
+    public void setSysFinCurcy1_Id2(String sysFinCurcy1_Id2) { this.sysFinCurcy1_Id2 = sysFinCurcy1_Id2; }
 
 
 
 
-    public UsrNode getFinTaxLne1_Id() {
-        return finTaxLne1_Id;
-    }
+    public UsrNode getFinTaxLne1_Id() { return finTaxLne1_Id; }
 
-    public void setFinTaxLne1_Id(UsrNode finTaxLne1_Id) {
-        this.finTaxLne1_Id = finTaxLne1_Id;
-    }
+    public void setFinTaxLne1_Id(UsrNode finTaxLne1_Id) { this.finTaxLne1_Id = finTaxLne1_Id; }
 
-    public String getFinTaxLne1_Id2() {
-        return finTaxLne1_Id2;
-    }
+    public String getFinTaxLne1_Id2() { return finTaxLne1_Id2; }
 
-    public void setFinTaxLne1_Id2(String finTaxLne1_Id2) {
-        this.finTaxLne1_Id2 = finTaxLne1_Id2;
-    }
+    public void setFinTaxLne1_Id2(String finTaxLne1_Id2) { this.finTaxLne1_Id2 = finTaxLne1_Id2; }
 
-    public String getFinTaxLne1_Type1_Id2() {
-        return finTaxLne1_Type1_Id2;
-    }
+    public String getFinTaxLne1_Type1_Id2() { return finTaxLne1_Type1_Id2; }
 
     public void setFinTaxLne1_Type1_Id2(String finTaxLne1_Type1_Id2) { this.finTaxLne1_Type1_Id2 = finTaxLne1_Type1_Id2; }
 
-    public String getFinTaxLne1_Code() {
-        return finTaxLne1_Code;
-    }
+    public String getFinTaxLne1_Code() { return finTaxLne1_Code; }
 
-    public void setFinTaxLne1_Code(String finTaxLne1_Code) {
-        this.finTaxLne1_Code = finTaxLne1_Code;
-    }
+    public void setFinTaxLne1_Code(String finTaxLne1_Code) { this.finTaxLne1_Code = finTaxLne1_Code; }
 
 
-    public UsrFinFmla getAmtFinFmla1_Id() {
-        return amtFinFmla1_Id;
-    }
+    public UsrFinFmla getAmtFinFmla1_Id() { return amtFinFmla1_Id; }
 
-    public void setAmtFinFmla1_Id(UsrFinFmla amtFinFmla1_Id) {
-        this.amtFinFmla1_Id = amtFinFmla1_Id;
-    }
+    public void setAmtFinFmla1_Id(UsrFinFmla amtFinFmla1_Id) { this.amtFinFmla1_Id = amtFinFmla1_Id; }
 
-    public String getAmtFinFmla1_Id2() {
-        return amtFinFmla1_Id2;
-    }
+    public String getAmtFinFmla1_Id2() { return amtFinFmla1_Id2; }
 
-    public void setAmtFinFmla1_Id2(String amtFinFmla1_Id2) {
-        this.amtFinFmla1_Id2 = amtFinFmla1_Id2;
-    }
+    public void setAmtFinFmla1_Id2(String amtFinFmla1_Id2) { this.amtFinFmla1_Id2 = amtFinFmla1_Id2; }
 
-    public UsrNode getAmtFinTxactItm1_Id() {
-        return amtFinTxactItm1_Id;
-    }
+    public UsrNode getAmtFinTxactItm1_Id() { return amtFinTxactItm1_Id; }
 
-    public void setAmtFinTxactItm1_Id(UsrNode amtFinTxactItm1_Id) {
-        this.amtFinTxactItm1_Id = amtFinTxactItm1_Id;
-    }
+    public void setAmtFinTxactItm1_Id(UsrNode amtFinTxactItm1_Id) { this.amtFinTxactItm1_Id = amtFinTxactItm1_Id; }
 
-    public String getAmtFinTxactItm1_Id2() {
-        return amtFinTxactItm1_Id2;
-    }
+    public String getAmtFinTxactItm1_Id2() { return amtFinTxactItm1_Id2; }
 
-    public void setAmtFinTxactItm1_Id2(String amtFinTxactItm1_Id2) {
-        this.amtFinTxactItm1_Id2 = amtFinTxactItm1_Id2;
-    }
+    public void setAmtFinTxactItm1_Id2(String amtFinTxactItm1_Id2) { this.amtFinTxactItm1_Id2 = amtFinTxactItm1_Id2; }
 
-    public BigDecimal getAmtFinTxactItm1_EI1_Rate() {
-        return amtFinTxactItm1_EI1_Rate;
-    }
+    public BigDecimal getAmtFinTxactItm1_EI1_Rate() { return amtFinTxactItm1_EI1_Rate; }
 
     public void setAmtFinTxactItm1_EI1_Rate(BigDecimal amtFinTxactItm1_EI1_Rate) { this.amtFinTxactItm1_EI1_Rate = amtFinTxactItm1_EI1_Rate; }
 
-    public String getAmtFinTxactItm1_FinAcct1_Id2() {
-        return amtFinTxactItm1_FinAcct1_Id2;
-    }
+    public String getAmtFinTxactItm1_FinAcct1_Id2() { return amtFinTxactItm1_FinAcct1_Id2; }
 
     public void setAmtFinTxactItm1_FinAcct1_Id2(String amtFinTxactItm1_FinAcct1_Id2) { this.amtFinTxactItm1_FinAcct1_Id2 = amtFinTxactItm1_FinAcct1_Id2; }
 
 
-    public String getStatus() {
-        return status;
-    }
+    public String getStatus() { return status; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public void setStatus(String status) { this.status = status; }
 
-    public String getStatusCalc() {
-        return statusCalc;
-    }
+    public String getStatusCalc() { return statusCalc; }
 
-    public void setStatusCalc(String statusCalc) {
-        this.status = statusCalc;
-    }
+    public void setStatusCalc(String statusCalc) { this.status = statusCalc; }
 
 
-    public BigDecimal getAmtBegBal() {
-        return amtBegBal;
-    }
+    public BigDecimal getAmtBegBal() { return amtBegBal; }
 
     public void setAmtBegBal(BigDecimal amtBegBal) { this.amtBegBal = amtBegBal; }
 
-    public BigDecimal getAmtBegBalCalc() {
-        return amtBegBalCalc;
-    }
+    public BigDecimal getAmtBegBalCalc() { return amtBegBalCalc; }
 
-    public void setAmtBegBalCalc(BigDecimal amtBegBalCalc) {
-        this.amtBegBalCalc = amtBegBalCalc;
-    }
+    public void setAmtBegBalCalc(BigDecimal amtBegBalCalc) { this.amtBegBalCalc = amtBegBalCalc; }
 
 
 
-    public BigDecimal getAmtEndBal() {
-        return amtEndBal;
-    }
+    public BigDecimal getAmtEndBal() { return amtEndBal; }
 
-    public void setAmtEndBal(BigDecimal amtEndBal) {
-        this.amtEndBal = amtEndBal;
-    }
+    public void setAmtEndBal(BigDecimal amtEndBal) { this.amtEndBal = amtEndBal; }
 
-    public BigDecimal getAmtEndBalCalc() {
-        return amtEndBalCalc;
-    }
+    public BigDecimal getAmtEndBalCalc() { return amtEndBalCalc; }
 
-    public void setAmtEndBalCalc(BigDecimal amtEndBalCalc) {
-        this.amtEndBalCalc = amtEndBalCalc;
-    }
+    public void setAmtEndBalCalc(BigDecimal amtEndBalCalc) { this.amtEndBalCalc = amtEndBalCalc; }
 
 
 
 
-    public BigDecimal getAmtDebt() {
-        return amtDebt;
-    }
+    public BigDecimal getAmtDebt() { return amtDebt; }
 
-    public void setAmtDebt(BigDecimal amtDebt) {
-        this.amtDebt = amtDebt;
-    }
+    public void setAmtDebt(BigDecimal amtDebt) { this.amtDebt = amtDebt; }
 
-    public BigDecimal getAmtCred() {
-        return amtCred;
-    }
+    public BigDecimal getAmtCred() { return amtCred; }
 
-    public void setAmtCred(BigDecimal amtCred) {
-        this.amtCred = amtCred;
-    }
+    public void setAmtCred(BigDecimal amtCred) { this.amtCred = amtCred; }
 
-    public BigDecimal getAmtNet() {
-        return amtNet;
-    }
+    public BigDecimal getAmtNet() { return amtNet; }
 
-    public void setAmtNet(BigDecimal amtNet) {
-        this.amtNet = amtNet;
-    }
+    public void setAmtNet(BigDecimal amtNet) { this.amtNet = amtNet; }
 
 
-    public String getFinAcct2_Id2() {
-        return finAcct2_Id2;
-    }
+    public String getFinAcct2_Id2() { return finAcct2_Id2; }
 
-    public void setFinAcct2_Id2(String finAcct2_Id2) {
-        this.finAcct2_Id2 = finAcct2_Id2;
-    }
+    public void setFinAcct2_Id2(String finAcct2_Id2) { this.finAcct2_Id2 = finAcct2_Id2; }
 
-    public BigDecimal getAmtCalc() {
-        return amtCalc;
-    }
+    public BigDecimal getAmtCalc() { return amtCalc; }
 
-    public void setAmtCalc(BigDecimal amtCalc) {
-        this.amtCalc = amtCalc;
-    }
+    public void setAmtCalc(BigDecimal amtCalc) { this.amtCalc = amtCalc; }
 
 
 
@@ -2944,7 +2735,7 @@ public class UsrNode implements AcceptsTenant {
         }
 
         String qry = "select e from enty_" + type.getSimpleName() + " e"
-                + " and e.id2 = :id2";
+                + " where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
 
@@ -2973,7 +2764,7 @@ public class UsrNode implements AcceptsTenant {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select e from enty_" + type.getSimpleName() + " e"
-                + " and e.parent1_Id = :parent1_Id"
+                + " where e.parent1_Id = :parent1_Id"
                 + " and e.sortIdx = :sortIdx"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -3003,7 +2794,7 @@ public class UsrNode implements AcceptsTenant {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select e from enty_" + type.getSimpleName() + " e"
-                + " and e.parent1_Id = :parent1_Id"
+                + " where e.parent1_Id = :parent1_Id"
                 + " and e.sortIdx > :sortIdxA"
                 + " and e.sortIdx < :sortIdxB"
                 ;
@@ -3035,7 +2826,7 @@ public class UsrNode implements AcceptsTenant {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select e from enty_" + type.getSimpleName() + " e"
-                + " and e.parent1_Id = :parent1_Id"
+                + " where e.parent1_Id = :parent1_Id"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
@@ -3063,7 +2854,7 @@ public class UsrNode implements AcceptsTenant {
 
         String qry = "select distinct e.status "
                 + " from enty_" + type.getSimpleName() + " e"
-                + " and e.status IS NOT NULL"
+                + " and e.status is not null"
                 + " order by e.status"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);

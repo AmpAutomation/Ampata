@@ -3,6 +3,8 @@ package ca.ampautomation.ampata.screen.usr.fin;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtItmQryMngr;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -78,11 +80,11 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
     private CollectionContainer<UsrNode> genAgentsDc;
     private CollectionLoader<UsrNode> genAgentsDl;
 
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
-    private CollectionContainer<UsrNode> colCntnrGenTag;
-    private CollectionLoader<UsrNode> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
     private CollectionContainer<UsrNode> colCntnrFinStmt;
     private CollectionLoader<UsrNode> colLoadrFinStmt;
@@ -120,19 +122,19 @@ public class UsrFinStmtItmEdit extends StandardEditor<UsrNode> {
 
 
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag2_IdField;
+    private EntityComboBox<UsrGenTag> genTag2_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag3_IdField;
+    private EntityComboBox<UsrGenTag> genTag3_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag4_IdField;
+    private EntityComboBox<UsrGenTag> genTag4_IdField;
 
 
     @Autowired
@@ -165,7 +167,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinStmtItm' order by e.id2");
+        colLoadrType.setQuery("select e from enty_UsrFInStmtItmType e order by e.sortKey, e.id2");
         FetchPlan finStmtItmTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -176,10 +178,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         type1_IdField.setOptionsContainer(colCntnrType);
 
 
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.sortKey, e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenDocVer.setFetchPlan(genDocVersFp);
@@ -189,10 +191,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -207,7 +209,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinStmt = dataComponents.createCollectionLoader();
-        colLoadrFinStmt.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinStmt' order by e.id2");
+        colLoadrFinStmt.setQuery("select e from enty_UsrFinStmt e order by e.sortKey, e.id2");
         FetchPlan finStmtsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -220,7 +222,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
-        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
+        colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -1230,7 +1232,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String qry = "select distinct e.desc1"
                 + " from enty_UsrNode e"
                 + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc1 IS NOT NULL"
+                + " and e.desc1 is not null"
                 + " order by e.desc1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -1262,7 +1264,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String qry = "select distinct e.desc2"
                 + " from enty_UsrNode e"
                 + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc2 IS NOT NULL"
+                + " and e.desc2 is not null"
                 + " order by e.desc2"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -1293,7 +1295,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String qry = "select distinct e.desc3"
                 + " from enty_UsrNode e"
                 + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc3 IS NOT NULL"
+                + " and e.desc3 is not null"
                 + " order by e.desc3"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -1324,7 +1326,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String qry = "select distinct e.desc4"
                 + " from enty_UsrNode e"
                 + " where e.className = 'UsrFinStmtItm'"
-                + " and e.desc4 IS NOT NULL"
+                + " and e.desc4 is not null"
                 + " order by e.desc4"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);

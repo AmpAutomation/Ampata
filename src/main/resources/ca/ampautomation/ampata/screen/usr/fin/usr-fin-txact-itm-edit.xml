@@ -146,7 +146,7 @@
                                 </hbox>
                                 <hbox caption="finTxact1_Id.finTxactSet1_Id.desc1FinTxactItm1_Id" expand="finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField" width="100%">
                                     <entityComboBox id="finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField" dataContainer="instCntnrMain"
-                                                    property="finTxact1_Id.finTxactSet1_Id.desc1FinTxactItm1_Id" tabIndex="30">
+                                                    property="finTxact1_Id.finTxactSet1_Id.desc1Node1_Id" tabIndex="30">
                                         <actions>
                                             <action id="entityOpen" type="entity_open"/>
                                             <action id="entityClear" type="entity_clear"/>
@@ -283,7 +283,7 @@
                                 </hbox>
                                 <hbox caption="finTxact1_Id.desc1FinTxactItm1_Id" expand="finTxact1_Id_Desc1FinTxactItm1_IdField" width="100%">
                                     <entityComboBox id="finTxact1_Id_Desc1FinTxactItm1_IdField" dataContainer="instCntnrMain"
-                                                    property="finTxact1_Id.desc1FinTxactItm1_Id" tabIndex="30">
+                                                    property="finTxact1_Id.desc1Node1_Id" tabIndex="30">
                                         <actions>
                                             <action id="entityOpen" type="entity_open"/>
                                             <action id="entityClear" type="entity_clear"/>
@@ -435,7 +435,7 @@
                                 </hbox>
                                 <hbox caption="desc1FinTxactItm1_Id" expand="desc1FinTxactItm1_IdField" width="100%">
                                     <entityComboBox id="desc1FinTxactItm1_IdField" dataContainer="instCntnrMain"
-                                                    property="desc1FinTxactItm1_Id" tabIndex="30">
+                                                    property="desc1Node1_Id" tabIndex="30">
                                         <actions>
                                             <action id="entityOpen" type="entity_open"/>
                                             <action id="entityClear" type="entity_clear"/>

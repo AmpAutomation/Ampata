@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+
+    <changeSet id="1" author="ampata">
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_DESC1_FIN_TXACT_ITM1_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_DESC1_FIN_TXACT_ITM1__ID"/>
+
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_DESC1_FIN_TXACT_ITM2_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_DESC1_FIN_TXACT_ITM2__ID"/>
+    </changeSet>
+
+
+    <changeSet id="2" author="ampata">
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="DESC1_FIN_TXACT_ITM1__ID" newColumnName="DESC1_NODE1__ID"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="DESC1_FIN_TXACT_ITM1__ID2" newColumnName="DESC1_NODE1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="DESC1_FIN_TXACT_ITM2__ID" newColumnName="DESC1_NODE2__ID"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="DESC1_FIN_TXACT_ITM2__ID2" newColumnName="DESC1_NODE2__ID2"/>
+    </changeSet>
+
+    <changeSet id="3" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="DESC1_NODE1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_DESC1_NODE1_"
+                                 referencedTableName="AMPATA_USR_NODE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_DESC1_NODE1__ID">
+            <column name="DESC1_NODE1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="DESC1_NODE1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_DESC1_NODE2_"
+                                 referencedTableName="AMPATA_USR_NODE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_DESC1_NODE2__ID">
+            <column name="DESC1_NODE2__ID"></column>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

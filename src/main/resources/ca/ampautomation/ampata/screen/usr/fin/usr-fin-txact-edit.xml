@@ -13,7 +13,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="usrNodeTypesDl">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeType e where e.className = 'UsrFinTxact' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeType e where e.className = 'UsrFinTxact' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -22,7 +22,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenChan">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenChan' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenChan' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -31,7 +31,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenDoc">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -40,7 +40,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenTag">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -49,7 +49,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrSysFinCurcy">
                 <query>
-                    <![CDATA[select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2]]>
+                    <![CDATA[select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -58,7 +58,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinTxactItm">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -67,7 +67,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinFmla">
                 <query>
-                    <![CDATA[select e from enty_UsrFinFmla e order by e.id2]]>
+                    <![CDATA[select e from enty_UsrFinFmla e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -76,7 +76,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinHow">
                 <query>
-                    <![CDATA[select e from enty_UsrFinHow e order by e.id2]]>
+                    <![CDATA[select e from enty_UsrFinHow e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>

@@ -17,9 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("enty_UsrFinAcctType.browse")
-@UiDescriptor("usr-fin-acct-type-browse.xml")
+@UiDescriptor("usr-fin-acct-type-0-browse.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcctType_Browse extends StandardLookup<UsrNodeType> {
+public class UsrFinAcctType0Browse extends StandardLookup<UsrNodeType> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());

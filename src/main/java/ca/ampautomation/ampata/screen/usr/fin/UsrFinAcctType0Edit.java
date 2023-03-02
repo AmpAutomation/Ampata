@@ -6,9 +6,9 @@ import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("enty_UsrFinAcctType.edit")
-@UiDescriptor("usr-fin-acct-type-edit.xml")
+@UiDescriptor("usr-fin-acct-type-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrFinAcctType_Edit extends StandardEditor<UsrNodeType> {
+public class UsrFinAcctType0Edit extends StandardEditor<UsrNodeType> {
     @Autowired
     private TextField<String> classNameField;
 

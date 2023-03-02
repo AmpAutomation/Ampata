@@ -9,6 +9,7 @@ as $BODY$
 declare
 	rec_tenant record;
 	num_rows_updated_in_iter int;
+	num_rows_updated_in_loop int;
 	num_rows_updated int;
 
 begin

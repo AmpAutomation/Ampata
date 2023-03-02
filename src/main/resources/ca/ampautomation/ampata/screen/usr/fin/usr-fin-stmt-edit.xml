@@ -13,7 +13,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenDoc">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDoc' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenDoc' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -22,7 +22,7 @@
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenTag">
                 <query>
-                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2]]>
+                    <![CDATA[select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>

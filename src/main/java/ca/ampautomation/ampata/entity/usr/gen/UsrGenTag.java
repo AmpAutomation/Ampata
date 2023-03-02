@@ -1,8 +1,6 @@
 package ca.ampautomation.ampata.entity.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.UsrEdge;
-import ca.ampautomation.ampata.entity.usr.UsrItem;
-import ca.ampautomation.ampata.entity.usr.UsrNode;
+import ca.ampautomation.ampata.entity.usr.*;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
 import javax.persistence.Entity;
@@ -30,6 +28,16 @@ public class UsrGenTag extends UsrItem {
     }
 
 
+    @JoinTable(name = "AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK",
+            joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "NODE_TYPE_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<UsrNodeType> nodeTypes1_Id;
+
+    public List<UsrNodeType> getNodeTypes1_Id() { return nodeTypes1_Id; }
+
+    public void setNodeTypes1_Id(List<UsrNodeType> nodeTypes1_Id) { this.nodeTypes1_Id = nodeTypes1_Id; }
+
 
     @JoinTable(name = "AMPATA_USR_EDGE__GEN_TAGS1_LINK",
             joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
@@ -40,5 +48,17 @@ public class UsrGenTag extends UsrItem {
     public List<UsrEdge> getEdges1_Id() { return edges1_Id; }
 
     public void setEdges1_Id(List<UsrEdge> edges1_Id) { this.edges1_Id = edges1_Id; }
+
+
+
+    @JoinTable(name = "AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK",
+            joinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "EDGE_TYPE_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<UsrEdgeType> edgeTypes1_Id;
+
+    public List<UsrEdgeType> getEdgeTypes1_Id() { return edgeTypes1_Id; }
+
+    public void setEdgeTypes1_Id(List<UsrEdgeType> edgeTypes1_Id) { this.edgeTypes1_Id = edgeTypes1_Id; }
 
 }

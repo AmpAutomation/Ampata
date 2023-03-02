@@ -22,9 +22,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @UiController("enty_UsrFinAcct.browse")
-@UiDescriptor("usr-fin-acct-browse.xml")
+@UiDescriptor("usr-fin-acct-0-browse.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcct_Browse extends StandardLookup<UsrNode> {
+public class UsrFinAcct0Browse extends StandardLookup<UsrNode> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());

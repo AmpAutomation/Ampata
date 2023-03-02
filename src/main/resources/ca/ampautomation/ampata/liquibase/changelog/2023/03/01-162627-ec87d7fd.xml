@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1" author="ampata">
+        <createTable tableName="AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK">
+            <column name="NODE_TYPE_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK"/>
+            </column>
+            <column name="GEN_TAG_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK"/>
+            </column>
+        </createTable>
+        <createTable tableName="AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK">
+            <column name="EDGE_TYPE_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK"/>
+            </column>
+            <column name="GEN_TAG_ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <addColumn tableName="AMPATA_USR_NODE_TYPE">
+            <column name="GEN_TAGS1__ID2" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addColumn tableName="AMPATA_USR_EDGE_TYPE">
+
+            <column name="TENANT" type="VARCHAR(255)"/>
+            <column name="DTYPE" type="VARCHAR(31)"/>
+
+            <column name="ID2_CALC" type="VARCHAR(255)"/>
+            <column name="ID2_CMP" type="BOOLEAN"/>
+            <column name="ID2_DUP" type="INT"/>
+
+            <column name="SORT_IDX" type="INT"/>
+            <column name="SORT_KEY" type="VARCHAR(255)"/>
+
+            <column name="NAME1" type="VARCHAR(255)"/>
+            <column name="NAME1_GEN_PAT1__ID" type="UUID"/>
+            <column name="NAME1_GEN_PAT1__ID2" type="VARCHAR(255)"/>
+
+            <column name="DESC1" type="CLOB"/>
+            <column name="DESC1_GEN_PAT1__ID" type="UUID"/>
+            <column name="DESC1_GEN_PAT1__ID2" type="VARCHAR(255)"/>
+
+            <column name="GEN_TAGS1__ID2" type="VARCHAR(255)"/>
+            <column name="ID2" type="VARCHAR(255)"/>
+
+            <column name="NOTE" type="CLOB"/>
+
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="3" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_EDGE_TYPE"
+                                 baseColumnNames="NAME1_GEN_PAT1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_NAME1_GEN_PAT1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_EDGE_TYPE" indexName="IDX_USREDGETYPE_NAME1_GEN_PAT1__ID">
+            <column name="NAME1_GEN_PAT1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_EDGE_TYPE"
+                                 baseColumnNames="DESC1_GEN_PAT1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_DESC1_GEN_PAT1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_EDGE_TYPE" indexName="IDX_USREDGETYPE_DESC1_GEN_PAT1__ID">
+            <column name="DESC1_GEN_PAT1__ID"></column>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>

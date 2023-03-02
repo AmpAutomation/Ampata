@@ -1,5 +1,6 @@
 package ca.ampautomation.ampata.entity.usr;
 
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -24,7 +25,7 @@ import java.util.UUID;
 @Table(name = "AMPATA_USR_ITEM", indexes = {
         @Index(name = "IDX_USRITEM_TYPE1__ID", columnList = "TYPE1__ID"),
         @Index(name = "IDX_USRITEM_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
-        @Index(name = "IDX_USRITEM_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID")
+        @Index(name = "IDX_USRITEM_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID"),
 })
 @Entity(name = "enty_UsrItem")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -60,6 +61,22 @@ public class UsrItem implements AcceptsTenant {
     @Column(name = "ID2_DUP")
     private Integer id2Dup;
 
+    @Column(name = "SORT_IDX")
+    private Integer sortIdx;
+
+    @Column(name = "SORT_KEY")
+    private String sortKey;
+
+    @Column(name = "NAME1")
+    private String name1;
+
+    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsrGenFmla name1GenFmla1_Id;
+
+    @Column(name = "NAME1_GEN_FMLA1__ID2")
+    private String name1GenFmla1_Id2;
+
     @JoinColumn(name = "TYPE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private UsrItemType type1_Id;
@@ -67,31 +84,15 @@ public class UsrItem implements AcceptsTenant {
     @Column(name = "TYPE1__ID2")
     private String type1_Id2;
 
-    @Column(name = "SORT_IDX")
-    private Integer sortIdx;
-
-    @Column(name = "SORT_KEY")
-    private String sortKey;
-
     @Column(name = "INST1")
     private String inst1;
-
-    @Column(name = "NAME1")
-    private String name1;
-
-    @JoinColumn(name = "NAME1_GEN_FMLA1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UsrItem name1GenFmla1_Id;
-
-    @Column(name = "NAME1_GEN_FMLA1__ID2")
-    private String name1GenFmla1_Id2;
 
     @Column(name = "DESC1")
     private String desc1;
 
     @JoinColumn(name = "DESC1_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    private UsrItem desc1GenFmla1_Id;
+    private UsrGenFmla desc1GenFmla1_Id;
 
     @Column(name = "DESC1_GEN_FMLA1__ID2")
     private String desc1GenFmla1_Id2;
@@ -224,9 +225,9 @@ public class UsrItem implements AcceptsTenant {
         this.name1 = name1;
     }
 
-    public UsrItem getName1GenFmla1_Id() { return name1GenFmla1_Id; }
+    public UsrGenFmla getName1GenFmla1_Id() { return name1GenFmla1_Id; }
 
-    public void setName1GenFmla1_Id(UsrItem name1GenFmla1_Id) { this.name1GenFmla1_Id = name1GenFmla1_Id; }
+    public void setName1GenFmla1_Id(UsrGenFmla name1GenFmla1_Id) { this.name1GenFmla1_Id = name1GenFmla1_Id; }
 
     public String getName1GenFmla1_Id2() { return name1GenFmla1_Id2; }
 
@@ -248,9 +249,9 @@ public class UsrItem implements AcceptsTenant {
         this.desc1 = desc1;
     }
 
-    public UsrItem getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
+    public UsrGenFmla getDesc1GenFmla1_Id() { return desc1GenFmla1_Id; }
 
-    public void setDesc1GenFmla1_Id(UsrItem desc1GenFmla1_Id) { this.desc1GenFmla1_Id = desc1GenFmla1_Id; }
+    public void setDesc1GenFmla1_Id(UsrGenFmla desc1GenFmla1_Id) { this.desc1GenFmla1_Id = desc1GenFmla1_Id; }
 
     public String getDesc1GenFmla1_Id2() { return desc1GenFmla1_Id2; }
 

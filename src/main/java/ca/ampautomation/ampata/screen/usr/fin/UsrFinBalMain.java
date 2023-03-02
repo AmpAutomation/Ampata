@@ -4,6 +4,8 @@ import ca.ampautomation.ampata.entity.sys.SysNode;
 import ca.ampautomation.ampata.entity.usr.UsrNode;
 import ca.ampautomation.ampata.entity.usr.UsrNodeType;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinBalQryMngr;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -151,12 +153,12 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     private CollectionLoader<UsrNode> colLoadrFinBal1;
 
 
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
 
-    private CollectionContainer<UsrNode> colCntnrGenTag;
-    private CollectionLoader<UsrNode> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
 
     @Autowired
@@ -187,10 +189,10 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
     private EntityComboBox<UsrNode> finBal1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
     @Autowired
     private ComboBox<String> statusField;
@@ -221,7 +223,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinBal' order by e.id2");
+        colLoadrType.setQuery("select e from enty_UsrFinBalType e order by e.sortKey, e.id2");
         FetchPlan finBalTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -233,7 +235,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinBalSet = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinBalSet = dataComponents.createCollectionLoader();
-        colLoadrFinBalSet.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinBalSet' order by e.id2");
+        colLoadrFinBalSet.setQuery("select e from enty_UsrNode e order by e.sortKey, e.id2");
         FetchPlan finBalSetsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -246,10 +248,10 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         propFilterCmpnt_FinBalSet1_Id.setOptionsContainer(colCntnrFinBalSet);
 
 
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.sortKey, e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenDocVer.setFetchPlan(genDocVersFp);
@@ -259,10 +261,10 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -274,7 +276,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
-        colLoadrFinAcct.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinAcct' order by e.id2");
+        colLoadrFinAcct.setQuery("select e from enty_UsrNode e order by e.sortKey, e.id2");
         FetchPlan finAcctsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -290,7 +292,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinDept = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinDept = dataComponents.createCollectionLoader();
-        colLoadrFinDept.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinDept' order by e.id2");
+        colLoadrFinDept.setQuery("select e from enty_UsrFinDept e order by e.sortKey, e.id2");
         FetchPlan finDeptsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -306,7 +308,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNode.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrSysFinCurcy.setQuery("select e from enty_SysNode e where e.className = 'SysFinCurcy' order by e.id2");
+        colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
         FetchPlan sysFinCurcysFp = fetchPlans.builder(SysNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -322,7 +324,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinBal1 = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinBal1 = dataComponents.createCollectionLoader();
-        colLoadrFinBal1.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinBal' order by e.id2");
+        colLoadrFinBal1.setQuery("select e from enty_UsrFinBal e order by e.sortKey, e.id2");
         FetchPlan finBal1sFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -1405,7 +1407,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         boolean isChanged = false;
         Integer id2Dup_ = thisFinBal.getId2Dup();
         if (thisFinBal.getId2() != null){
-            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinBal' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrFinBal e where e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try{
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -1737,9 +1739,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         try{
             String finTxactItms1_QryCnt;
             if (finDept1 == null) {
-                finTxactItms1_QryCnt = "select count(e) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryCnt = "select count(e) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
                 finTxactItms1_IdCntCalc = dataManager.loadValue(finTxactItms1_QryCnt,Integer.class)
@@ -1749,9 +1750,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
                         .parameter("endDt",endDt)
                         .one();
             }else{
-                finTxactItms1_QryCnt = "select count(e) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryCnt = "select count(e) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.finDept1_Id = :finDept1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
@@ -1787,9 +1787,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         try{
             String finTxactItms1_QryDebt;
             if (finDept1 == null) {
-                finTxactItms1_QryDebt = "select sum(e.amtDebt) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryDebt = "select sum(e.amtDebt) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
                 finTxactItms1_AmtDebtSumCalc = dataManager.loadValue(finTxactItms1_QryDebt,BigDecimal.class)
@@ -1799,9 +1798,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
                         .parameter("endDt",endDt)
                         .one();
             }else{
-                finTxactItms1_QryDebt = "select sum(e.amtDebt) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryDebt = "select sum(e.amtDebt) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.finDept1_Id = :finDept1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
@@ -1852,9 +1850,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         try {
             String finTxactItms1_QryCred;
             if (finDept1 == null) {
-                finTxactItms1_QryCred = "select sum(e.amtCred) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryCred = "select sum(e.amtCred) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
                 finTxactItms1_AmtCredSumCalc = dataManager.loadValue(finTxactItms1_QryCred,BigDecimal.class)
@@ -1864,9 +1861,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
                         .parameter("endDt",endDt)
                         .one();
             }else{
-                finTxactItms1_QryCred = "select sum(e.amtCred) from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_QryCred = "select sum(e.amtCred) from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.finDept1_Id = :finDept1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
@@ -1980,7 +1976,7 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinBal' and e.id2 = :id2";
+        String qry = "select e from enty_UsrFinBale where e.id2 = :id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + FinBal_Id2);
 
@@ -2007,9 +2003,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.status"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinBal'"
-                + " and e.status IS NOT NULL"
+                + " from enty_UsrFinBal e"
+                + " where e.status is not null"
                 + " order by e.status"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2122,9 +2117,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
         try{
             String finTxactItms1_Qry;
             if (finDept1 == null) {
-                finTxactItms1_Qry = "select e from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_Qry = "select e from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";
                 colLoadrFinTxactItm.setQuery(finTxactItms1_Qry);
@@ -2133,9 +2127,8 @@ public class UsrFinBalMain extends MasterDetailScreen<UsrNode> {
                 colLoadrFinTxactItm.setParameter("endDt",endDt);
                 ;
             }else{
-                finTxactItms1_Qry = "select e from enty_UsrNode e"
-                        + " where e.className = 'UsrFinTxactItm'"
-                        + " and e.finAcct1_Id = :finAcct1_Id"
+                finTxactItms1_Qry = "select e from enty_UsrFinTxactItm e"
+                        + " where e.finAcct1_Id = :finAcct1_Id"
                         + " and e.finDept1_Id = :finDept1_Id"
                         + " and e.idDt.date1 between :begDt and :endDt"
                         + "";

@@ -5,7 +5,10 @@ import ca.ampautomation.ampata.entity.usr.fin.UsrFinHow;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactSetQryMngr;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
 import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenChan;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -88,10 +91,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     protected PropertyFilter<LocalDate> filterConfig1A_IdDtLE;
 
     @Autowired
-    protected PropertyFilter<UsrNode> filterConfig1A_GenChan1_Id;
+    protected PropertyFilter<UsrGenChan> filterConfig1A_GenChan1_Id;
 
     @Autowired
-    protected PropertyFilter<UsrNode> filterConfig1A_GenChan2_Id;
+    protected PropertyFilter<UsrGenChan> filterConfig1A_GenChan2_Id;
 
     @Autowired
     protected PropertyFilter<UsrFinHow> filterConfig1A_FinHow1_Id;
@@ -133,13 +136,13 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     protected RadioButtonGroup<Integer> tmplt_IdXFieldRdo;
 
     @Autowired
-    protected EntityComboBox<UsrNode> tmplt_GenChan1_IdField;
+    protected EntityComboBox<UsrGenChan> tmplt_GenChan1_IdField;
 
     @Autowired
     protected CheckBox tmplt_GenChan1_IdFieldChk;
 
     @Autowired
-    protected EntityComboBox<UsrNode> tmplt_GenChan2_IdField;
+    protected EntityComboBox<UsrGenChan> tmplt_GenChan2_IdField;
 
     @Autowired
     protected CheckBox tmplt_GenChan2_IdFieldChk;
@@ -202,14 +205,14 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     private CollectionLoader<UsrNodeType> colLoadrType;
 
     //Other data containers, loaders and table
-    private CollectionContainer<UsrNode> colCntnrGenChan;
-    private CollectionLoader<UsrNode> colLoadrGenChan;
+    private CollectionContainer<UsrGenChan> colCntnrGenChan;
+    private CollectionLoader<UsrGenChan> colLoadrGenChan;
 
-    private CollectionContainer<UsrNode> colCntnrGenDocVer;
-    private CollectionLoader<UsrNode> colLoadrGenDocVer;
+    private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
+    private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
 
-    private CollectionContainer<UsrNode> colCntnrGenTag;
-    private CollectionLoader<UsrNode> colLoadrGenTag;
+    private CollectionContainer<UsrGenTag> colCntnrGenTag;
+    private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
     private CollectionContainer<UsrNode> finCurcysDc;
     private CollectionLoader<UsrNode> finCurcysDl;
@@ -244,10 +247,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
     private EntityComboBox<UsrNodeType> type1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genChan1_IdField;
+    private EntityComboBox<UsrGenChan> genChan1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genChan2_IdField;
+    private EntityComboBox<UsrGenChan> genChan2_IdField;
 
     @Autowired
     private EntityComboBox<UsrFinHow>  finHow1_IdField;
@@ -275,10 +278,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
     
     @Autowired
-    private EntityComboBox<UsrNode> genDocVer1_IdField;
+    private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrNode> genTag1_IdField;
+    private EntityComboBox<UsrGenTag> genTag1_IdField;
 
 
 
@@ -302,7 +305,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrType = dataComponents.createCollectionContainer(UsrNodeType.class);
         colLoadrType = dataComponents.createCollectionLoader();
-        colLoadrType.setQuery("select e from enty_UsrNodeType e where e.className = 'UsrFinTxactSet' order by e.id2");
+        colLoadrType.setQuery("select e from enty_UsrFinTxactSetType e order by e.sortKey, e.id2");
         FetchPlan finTxactSetTypesFp = fetchPlans.builder(UsrNodeType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -320,10 +323,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         propFilterCmpnt_Type1_Id.setOptionsContainer(colCntnrType);
 
 
-        colCntnrGenChan = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenChan = dataComponents.createCollectionContainer(UsrGenChan.class);
         colLoadrGenChan = dataComponents.createCollectionLoader();
-        colLoadrGenChan.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenChan' order by e.id2");
-        FetchPlan genChansFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenChan.setQuery("select e from enty_UsrGenChan e order by e.sortKey, e.id2");
+        FetchPlan genChansFp = fetchPlans.builder(UsrGenChan.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenChan.setFetchPlan(genChansFp);
@@ -332,15 +335,15 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         genChan1_IdField.setOptionsContainer(colCntnrGenChan);
         genChan2_IdField.setOptionsContainer(colCntnrGenChan);
-        EntityComboBox<UsrNode> propFilterCmpnt_GenChan1_Id = (EntityComboBox<UsrNode>) filterConfig1A_GenChan1_Id.getValueComponent();
+        EntityComboBox<UsrGenChan> propFilterCmpnt_GenChan1_Id = (EntityComboBox<UsrGenChan>) filterConfig1A_GenChan1_Id.getValueComponent();
         propFilterCmpnt_GenChan1_Id.setOptionsContainer(colCntnrGenChan);
-        EntityComboBox<UsrNode> propFilterCmpnt_GenChan2_Id = (EntityComboBox<UsrNode>) filterConfig1A_GenChan2_Id.getValueComponent();
+        EntityComboBox<UsrGenChan> propFilterCmpnt_GenChan2_Id = (EntityComboBox<UsrGenChan>) filterConfig1A_GenChan2_Id.getValueComponent();
         propFilterCmpnt_GenChan2_Id.setOptionsContainer(colCntnrGenChan);
 
         
         colCntnrFinHow = dataComponents.createCollectionContainer(UsrFinHow.class);
         colLoadrFinHow = dataComponents.createCollectionLoader();
-        colLoadrFinHow.setQuery("select e from enty_UsrFinHow e order by e.id2");
+        colLoadrFinHow.setQuery("select e from enty_UsrFinHow e order by e.sortKey, e.id2");
         FetchPlan finHowsFp = fetchPlans.builder(UsrFinHow.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -353,7 +356,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinWhat = dataComponents.createCollectionContainer(UsrFinWhat.class);
         colLoadrFinWhat = dataComponents.createCollectionLoader();
-        colLoadrFinWhat.setQuery("select e from enty_UsrFinWhat e order by e.id2");
+        colLoadrFinWhat.setQuery("select e from enty_UsrFinWhat e order by e.sortKey, e.id2");
         FetchPlan finWhatsFp = fetchPlans.builder(UsrFinWhat.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -366,7 +369,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinWhy = dataComponents.createCollectionContainer(UsrFinWhy.class);
         colLoadrFinWhy = dataComponents.createCollectionLoader();
-        colLoadrFinWhy.setQuery("select e from enty_UsrFinWhy e order by e.id2");
+        colLoadrFinWhy.setQuery("select e from enty_UsrFinWhy e order by e.sortKey, e.id2");
         FetchPlan finWhysFp = fetchPlans.builder(UsrFinWhy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -379,7 +382,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrGenFmla = dataComponents.createCollectionContainer(UsrGenFmla.class);
         colLoadrGenFmla = dataComponents.createCollectionLoader();
-        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.id2");
+        colLoadrGenFmla.setQuery("select e from enty_UsrGenFmla e order by e.sortKey, e.id2");
         FetchPlan genFmlasFp = fetchPlans.builder(UsrGenFmla.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -391,7 +394,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
 
         colCntnrFinTxactItm = dataComponents.createCollectionContainer(UsrNode.class);
         colLoadrFinTxactItm = dataComponents.createCollectionLoader();
-        colLoadrFinTxactItm.setQuery("select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' order by e.id2");
+        colLoadrFinTxactItm.setQuery("select e from enty_UsrFinTxactItm e order by e.sortKey, e.id2");
         FetchPlan finTxactItmsFp = fetchPlans.builder(UsrNode.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
@@ -403,10 +406,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         desc1FinTxactItm2_IdField.setOptionsContainer(colCntnrFinTxactItm);
 
 
-        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenDocVer = dataComponents.createCollectionContainer(UsrGenDocVer.class);
         colLoadrGenDocVer = dataComponents.createCollectionLoader();
-        colLoadrGenDocVer.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenDocVer' order by e.id2");
-        FetchPlan genDocVersFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenDocVer.setQuery("select e from enty_UsrGenDocVer e order by e.sortKey, e.id2");
+        FetchPlan genDocVersFp = fetchPlans.builder(UsrGenDocVer.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenDocVer.setFetchPlan(genDocVersFp);
@@ -416,10 +419,10 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         genDocVer1_IdField.setOptionsContainer(colCntnrGenDocVer);
 
 
-        colCntnrGenTag = dataComponents.createCollectionContainer(UsrNode.class);
+        colCntnrGenTag = dataComponents.createCollectionContainer(UsrGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
-        colLoadrGenTag.setQuery("select e from enty_UsrNode e where e.className = 'UsrGenTag' order by e.id2");
-        FetchPlan genTagsFp = fetchPlans.builder(UsrNode.class)
+        colLoadrGenTag.setQuery("select e from enty_UsrGenTag e order by e.sortKey, e.id2");
+        FetchPlan genTagsFp = fetchPlans.builder(UsrGenTag.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrGenTag.setFetchPlan(genTagsFp);
@@ -1231,9 +1234,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                 if (idDt1 != null){
 
                     Integer idXMax = 0;
-                    String idXMaxQry = "select max(e.idX) from enty_UsrNode e"
-                            + " where e.className = 'UsrFinTxactSet'"
-                            + " and e.idDt.date1 = :idDt1";
+                    String idXMaxQry = "select max(e.idX) from enty_UsrFinTxactSet e"
+                            + " where e.idDt.date1 = :idDt1";
                     try {
                         idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                                 .store("main")
@@ -1822,7 +1824,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         boolean isChanged = false;
         Integer id2Dup_ = thisFinTxactSet.getId2Dup();
         if (thisFinTxactSet.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNode e where e.className = 'UsrFinTxactSet' and e.id2 = :id2 and e.id <> :id";
+            String id2Qry = "select count(e) from enty_UsrFinTxactSet e where e.id2 = :id2 and e.id <> :id";
             Integer id2Dup;
             try {
                 id2Dup = dataManager.loadValue(id2Qry, Integer.class)
@@ -1869,9 +1871,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                 }
                 logger.debug(logPrfx + " --- thisType: " + thisType);
 
-                UsrNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1FinTxactItm1_Id() == null
+                UsrNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1Node1_Id() == null
                         ? findFirstFinTxactItmLikeId2(thisFinTxactSet.getId2() + "/%")
-                        : thisFinTxactSet.getDesc1FinTxactItm1_Id();
+                        : thisFinTxactSet.getDesc1Node1_Id();
 
 
                 //thisAmt
@@ -1887,9 +1889,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
                         thisAmt = thisAmt.trim();
                     }
                     if (thisType.contains("Exch")) {
-                        UsrNode desc1FinTxactItm2 = thisFinTxactSet.getDesc1FinTxactItm2_Id() == null
+                        UsrNode desc1FinTxactItm2 = thisFinTxactSet.getDesc1Node2_Id() == null
                                 ? findFirstFinTxactItmLikeId2(thisFinTxactSet.getId2() + "/Y01/%")
-                                : thisFinTxactSet.getDesc1FinTxactItm2_Id();
+                                : thisFinTxactSet.getDesc1Node2_Id();
 
                         if (desc1FinTxactItm2 != null) {
                             thisAmt = thisAmt + " -> ";
@@ -2025,9 +2027,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whatText1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.whatText1 IS NOT NULL"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.whatText1 is not null"
                 + " order by e.whatText1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2060,9 +2061,8 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         String qry = "select distinct e.whyText1"
-                + " from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.whyText1 IS NOT NULL"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.whyText1 is not null"
                 + " order by e.whyText1"
                 ;
         logger.debug(logPrfx + " --- qry: " + qry);
@@ -2130,9 +2130,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.trace(logPrfx + " --> ");
 
         Integer idX, idXMax;
-        String idXMaxQry = "select max(e.idX) from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.idDt.date1 = :idDt1";
+        String idXMaxQry = "select max(e.idX)"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.idDt.date1 = :idDt1";
         try {
             idXMax = dataManager.loadValue(idXMaxQry, Integer.class)
                     .store("main")
@@ -2148,9 +2148,9 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         logger.debug(logPrfx + " --- idXMaxQry result: " + idXMax + "");
 
         Integer idXCntIsNull = null;
-        String idXCntIsNullQry = "select count(e) from enty_UsrNode e"
-                + " where e.className = 'UsrFinTxactSet'"
-                + " and e.idDt.date1 = :idDt1"
+        String idXCntIsNullQry = "select count(e)"
+                + " from enty_UsrFinTxactSet e"
+                + " where e.idDt.date1 = :idDt1"
                 + " and e.idX is null";
         try {
             idXCntIsNull = dataManager.loadValue(idXCntIsNullQry, Integer.class)
@@ -2202,7 +2202,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
         boolean isChanged = false;
         Integer idCntCalc_ = thisFinTxactSet.getFinTxacts1_IdCntCalc();
         Integer idCntCalc = null ;
-        String qry1 = "select count(e.id2) from enty_UsrNode e where e.className = 'UsrFinTxact' and e.finTxactSet1_Id = :finTxactSet1_Id";
+        String qry1 = "select count(e.id2) from enty_UsrFinTxact e where e.finTxactSet1_Id = :finTxactSet1_Id";
         try{
             idCntCalc = dataManager.loadValue(qry1,Integer.class)
                     .store("main")
@@ -2239,7 +2239,7 @@ public class UsrFinTxactSetMain extends MasterDetailScreen<UsrNode> {
             return null;
         }
 
-        String qry = "select e from enty_UsrNode e where e.className = 'UsrFinTxactItm' and e.id2 like :id2 order by e.id2";
+        String qry = "select e from enty_UsrFinTxactItm e where e.id2 like :id2 order by e.sortKey, e.id2";
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactItm_Id2);
 

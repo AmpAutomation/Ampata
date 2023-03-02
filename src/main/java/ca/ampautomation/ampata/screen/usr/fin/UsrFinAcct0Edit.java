@@ -6,9 +6,9 @@ import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @UiController("enty_UsrFinAcct.edit")
-@UiDescriptor("usr-fin-acct-edit.xml")
+@UiDescriptor("usr-fin-acct-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrFinAcct_Edit extends StandardEditor<UsrNode> {
+public class UsrFinAcct0Edit extends StandardEditor<UsrNode> {
 
 
     @Autowired

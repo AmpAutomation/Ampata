@@ -1,6 +1,7 @@
 package ca.ampautomation.ampata.entity.usr;
 
 import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -111,6 +113,15 @@ public class UsrNodeType implements AcceptsTenant {
     @Column(name = "NOTE")
     @Lob
     private String note;
+
+    @JoinTable(name = "AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK",
+            joinColumns = @JoinColumn(name = "NODE_TYPE_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "GEN_TAG_ID", referencedColumnName = "ID"))
+    @ManyToMany
+    private List<UsrGenTag> genTags1_Id;
+
+    @Column(name = "GEN_TAGS1__ID2")
+    protected String genTags1_Id2;
 
 
     @Column(name = "BAL_INC_ON_DEBT")
@@ -329,6 +340,16 @@ public class UsrNodeType implements AcceptsTenant {
     public void setNote(String note) {
         this.note = note;
     }
+
+
+    public List<UsrGenTag> getGenTags1_Id() { return genTags1_Id; }
+
+    public void setGenTags1_Id(List<UsrGenTag> genTags1_Id) { this.genTags1_Id = genTags1_Id; }
+
+
+    public String getGenTags1_Id2() { return genTags1_Id2; }
+
+    public void setGenTags1_Id2(String genTags1_Id2) { this.genTags1_Id2 = genTags1_Id2; }
 
 
     public void setBalIncOnDebt(Boolean balIncOnDebt) {
