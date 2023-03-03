@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
 import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
 import org.slf4j.Logger;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @UiController("enty_UsrGenAgent.edit")
 @UiDescriptor("usr-gen-agent-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrGenAgent0Edit extends StandardEditor<UsrBaseNode> {
+public class UsrGenAgent0Edit extends StandardEditor<UsrNodeBase> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());

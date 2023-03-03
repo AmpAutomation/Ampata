@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrBaseNodeTypeMain.caption"
+        caption="msg://usrNodeBaseTypeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType"
-                    fetchPlan="fetchPlan_UsrBaseNodeType_Base">
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType"
+                    fetchPlan="fetchPlan_UsrNodeBaseType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNodeType e order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBaseType e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType"
-                  fetchPlan="fetchPlan_UsrBaseNodeType_Base">
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType"
+                  fetchPlan="fetchPlan_UsrNodeBaseType_Base">
             <loader/>
         </instance>
     </data>
@@ -108,7 +108,7 @@
                                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
 
                                             <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                                <entityPicker metaClass="enty_UsrBaseNodeType"/>
+                                                <entityPicker metaClass="enty_UsrNodeBaseType"/>
                                             </propertyFilter>
                                             <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
                                                 <textField/>

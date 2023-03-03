@@ -4,12 +4,12 @@
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinTxact"
+                  class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxact"
                   fetchPlan="fetchPlan_UsrFinTxact_Base">
             <loader/>
         </instance>
 
-        <collection id="colCntnrType" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactType">
+        <collection id="colCntnrType" class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxactType">
             <fetchPlan extends="_instance_name"/>
             <loader id="usrNodeTypesDl">
                 <query>
@@ -18,7 +18,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrGenChan" class="ca.ampautomation.ampata.entity.usr.gen.UsrGenChan">
+        <collection id="colCntnrGenChan" class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenChan">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenChan">
                 <query>
@@ -27,7 +27,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrGenDocVer" class="ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer">
+        <collection id="colCntnrGenDocVer" class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenDoc">
                 <query>
@@ -36,7 +36,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrGenTag" class="ca.ampautomation.ampata.entity.usr.gen.UsrGenTag">
+        <collection id="colCntnrGenTag" class="ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrGenTag">
                 <query>
@@ -45,7 +45,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrSysFinCurcy" class="ca.ampautomation.ampata.entity.sys.fin.SysFinCurcy">
+        <collection id="colCntnrSysFinCurcy" class="ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrSysFinCurcy">
                 <query>
@@ -54,7 +54,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrFinTxactItm" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactItm">
+        <collection id="colCntnrFinTxactItm" class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxactItm">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinTxactItm">
                 <query>
@@ -63,7 +63,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrFinFmla" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla">
+        <collection id="colCntnrFinFmla" class="ca.ampautomation.ampata.entity.usr.item.fin.UsrFinFmla">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinFmla">
                 <query>
@@ -72,7 +72,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrFinHow" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinHow">
+        <collection id="colCntnrFinHow" class="ca.ampautomation.ampata.entity.usr.item.fin.UsrFinHow">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinHow">
                 <query>
@@ -81,7 +81,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrFinWhat" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat">
+        <collection id="colCntnrFinWhat" class="ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhat">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinWhat">
                 <query>
@@ -90,7 +90,7 @@
             </loader>
         </collection>
 
-        <collection id="colCntnrFinWhy" class="ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy">
+        <collection id="colCntnrFinWhy" class="ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhy">
             <fetchPlan extends="_instance_name"/>
             <loader id="colLoadrFinWhy">
                 <query>

@@ -4,7 +4,7 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader id="instCntnrMain">
                 <query>

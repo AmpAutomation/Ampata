@@ -1,5 +1,5 @@
 <fetchPlans xmlns="http://jmix.io/schema/core/fetch-plans">
-    <fetchPlan entity="enty_UsrBaseItem" name="fetchPlan_UsrBaseItem_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrItemBase" name="fetchPlan_UsrItemBase_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="id2Calc"/>
@@ -19,7 +19,7 @@
         <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="enty_UsrBaseItemType" name="fetchPlan_UsrBaseItemType_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrItemBaseType" name="fetchPlan_UsrItemBaseType_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="id2Calc"/>
@@ -32,7 +32,7 @@
         <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="enty_UsrBaseNode" name="fetchPlan_UsrBaseNode_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrNodeBase" name="fetchPlan_UsrNodeBase_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="className"/>
@@ -117,7 +117,7 @@
     </fetchPlan>
 
 
-    <fetchPlan entity="enty_UsrBaseNodeType" name="fetchPlan_UsrBaseNodeType_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrNodeBaseType" name="fetchPlan_UsrNodeBaseType_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="className"/>
@@ -143,7 +143,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="enty_UsrBaseEdge" name="fetchPlan_UsrBaseEdge_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrEdgeBase" name="fetchPlan_UsrEdgeBase_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="id2"/>
@@ -179,7 +179,7 @@
 
 
 
-    <fetchPlan entity="enty_UsrBaseEdgeType" name="fetchPlan_UsrBaseEdgeType_Base" extends="_instance_name">
+    <fetchPlan entity="enty_UsrEdgeBaseType" name="fetchPlan_UsrEdgeBaseType_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
         <property name="id2Calc"/>
@@ -321,11 +321,27 @@
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
+
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrGenAgent" name="fetchPlan_UsrGenAgent_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -344,6 +360,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -385,6 +416,7 @@
     <fetchPlan entity="enty_UsrGenChan" name="fetchPlan_UsrGenChan_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -403,6 +435,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="name2"/>
         <property name="code"/>
@@ -431,6 +478,7 @@
     <fetchPlan entity="enty_UsrGenFile" name="fetchPlan_UsrGenFile_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -449,6 +497,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -474,6 +537,7 @@
     <fetchPlan entity="enty_UsrGenDocVer" name="fetchPlan_UsrGenDocVer_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -492,6 +556,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -507,6 +586,7 @@
     <fetchPlan entity="enty_UsrGenDocFrg" name="fetchPlan_UsrGenDocFrg_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -525,6 +605,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="genDocVer1_Id" fetchPlan="_base">
             <property name="genDocVer1_Id" fetchPlan="_base"/>
@@ -534,6 +629,7 @@
     <fetchPlan entity="enty_UsrFinAcct" name="fetchPlan_UsrFinAcct_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -552,6 +648,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -590,6 +701,7 @@
     <fetchPlan entity="enty_UsrFinDept" name="fetchPlan_UsrFinDept_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -608,12 +720,28 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrFinBalSet" name="fetchPlan_UsrFinBalSet_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -632,6 +760,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="finDept1_Id" fetchPlan="_base"/>
         <property name="finDept1_Id2"/>
@@ -646,6 +789,7 @@
     <fetchPlan entity="enty_UsrFinBal" name="fetchPlan_UsrFinBal_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -664,6 +808,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
@@ -704,6 +863,7 @@
     <fetchPlan entity="enty_UsrFinStmt" name="fetchPlan_UsrFinStmt_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -722,6 +882,21 @@
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
 
         <property name="finAcct1_Id" fetchPlan="_base"/>
         <property name="finAcct1_Id2"/>
@@ -761,6 +936,7 @@
     <fetchPlan entity="enty_UsrFinStmtItm" name="fetchPlan_UsrFinStmtItm_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -780,6 +956,21 @@
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
+
         <property name="finStmt1_Id" fetchPlan="_base"/>
         <property name="finStmt1_Id2"/>
         <property name="desc2"/>
@@ -787,7 +978,6 @@
         <property name="desc4"/>
         <property name="exchDesc"/>
         <property name="refId"/>
-        <property name="nm1s1Inst1Int1"/>
 
         <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
@@ -811,6 +1001,7 @@
     <fetchPlan entity="enty_UsrFinTxactSet" name="fetchPlan_UsrFinTxactSet_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -830,10 +1021,23 @@
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
+
         <property name="genDocVer1_Id" fetchPlan="_base"/>
         <property name="genChan1_Id" fetchPlan="_base"/>
-
-        <property name="nm1s1Inst1Int1"/>
 
         <property name="finHow1_Id" fetchPlan="_base"/>
         <property name="finHow1_Id2"/>
@@ -859,6 +1063,7 @@
     <fetchPlan entity="enty_UsrFinTxact" name="fetchPlan_UsrFinTxact_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -929,6 +1134,7 @@
     <fetchPlan entity="enty_UsrFinTxactItm" name="fetchPlan_UsrFinTxactItm_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -948,9 +1154,21 @@
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
         <property name="nm1s1Inst1Int1"/>
         <property name="nm1s1Inst1Int2"/>
         <property name="nm1s1Inst1Int3"/>
+
         <property name="finTxact1_Id" fetchPlan="_base">
             <property name ="type1_Id" fetchPlan="_base"/>
 
@@ -1041,6 +1259,7 @@
     <fetchPlan entity="enty_UsrTngyEquip" name="fetchPlan_UsrTngyEquip_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -1060,6 +1279,21 @@
         <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
+
         <property name="name2"/>
         <property name="abrv"/>
         <property name="code"/>
@@ -1072,6 +1306,7 @@
     <fetchPlan entity="enty_UsrFinAcctType" name="fetchPlan_UsrFinAcctType_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
+        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -1094,7 +1329,7 @@
 
 
 
-    <fetchPlan entity="enty_SysBaseItem" name="fetchPlan_SysBaseItem_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItemBase0" name="fetchPlan_SysItemBase0_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
@@ -1114,7 +1349,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="enty_SysBaseItemType" name="fetchPlan_SysBaseItemType_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItemBase0Type" name="fetchPlan_SysItemBase0Type_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
@@ -1126,7 +1361,7 @@
         <property name="note"/>
     </fetchPlan>
 
-    <fetchPlan entity="enty_SysBaseNode" name="fetchPlan_SysBaseNode_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysNodeBase" name="fetchPlan_SysNodeBase_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
@@ -1208,7 +1443,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="enty_SysBaseNodeType" name="fetchPlan_SysBaseNodeType_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysNodeBaseType" name="fetchPlan_SysNodeBaseType_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>

@@ -10,7 +10,7 @@ import io.jmix.ui.component.GroupTable;
 import io.jmix.ui.model.CollectionContainer;
 import io.jmix.ui.model.DataContext;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinFmla;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

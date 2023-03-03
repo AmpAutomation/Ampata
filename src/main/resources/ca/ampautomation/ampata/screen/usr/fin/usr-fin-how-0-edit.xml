@@ -4,7 +4,7 @@
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinHow"
+                  class="ca.ampautomation.ampata.entity.usr.item.fin.UsrFinHow"
                   fetchPlan="fetchPlan_UsrFinHow_Base">
             <loader/>
         </instance>

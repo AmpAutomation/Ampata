@@ -1,11 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.entity.usr.fin.*;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenChan;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.node.fin.*;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenChan;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -33,7 +32,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinStmt.main")
 @UiDescriptor("usr-fin-stmt-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
+public class UsrFinStmt0Main extends MasterDetailScreen<UsrNodeBase> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -274,7 +273,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinStmtsDcCollectionChange(CollectionContainer.CollectionChangeEvent<UsrBaseNode> event) {
+    public void onFinStmtsDcCollectionChange(CollectionContainer.CollectionChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinStmtsDcCollectionChange";
         logger.trace(logPrfx + " --> ");
 
@@ -287,11 +286,11 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinStmtsDcItemChange(InstanceContainer.ItemChangeEvent<UsrBaseNode> event) {
+    public void onFinStmtsDcItemChange(InstanceContainer.ItemChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinStmtsDcItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = event.getItem();
+        UsrNodeBase thisFinStmt = event.getItem();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             //todo I observed thisFinStmt is null when selecting a new item
@@ -556,7 +555,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
 
             //Loop throught the items again to update the id2Dup attribute
             thisFinStmts.forEach(thisFinStmt -> {
-                //UsrBaseNode thisTrackedFinStmt = dataContext.merge(thisFinStmt);
+                //UsrNodeBase thisTrackedFinStmt = dataContext.merge(thisFinStmt);
                 if (thisFinStmt != null) {
                     UsrFinStmt thisTrackedFinStmt = dataContext.merge(thisFinStmt);
                     thisFinStmt = thisTrackedFinStmt;
@@ -651,11 +650,11 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "instCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinStmtDcItemChange(InstanceContainer.ItemChangeEvent<UsrBaseNode> event) {
+    public void onFinStmtDcItemChange(InstanceContainer.ItemChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinStmtDcItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = event.getSource().getItemOrNull();
+        UsrNodeBase thisFinStmt = event.getSource().getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             //todo I observed thisFinStmt is null when selecting a new item
@@ -674,7 +673,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -692,7 +691,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -710,7 +709,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -731,7 +730,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -750,7 +749,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -767,7 +766,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -819,7 +818,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtBegBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -843,7 +842,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtBegBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -866,7 +865,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtEndBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -890,7 +889,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtEndBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -936,7 +935,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -960,7 +959,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -980,7 +979,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1012,7 +1011,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1033,7 +1032,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
             if (thisFinStmt == null) {
                 logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1054,7 +1053,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmt = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmt = instCntnrMain.getItemOrNull();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- thisFinStmt is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1066,7 +1065,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public Boolean updateCalcVals(UsrBaseNode thisFinStmt){
+    public Boolean updateCalcVals(UsrNodeBase thisFinStmt){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1079,7 +1078,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateFinStmtCalcVals(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateFinStmtCalcVals(@NotNull UsrNodeBase thisFinStmt) {
         String logPrfx = "updateFinStmtCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1103,7 +1102,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdParts(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateIdParts(@NotNull UsrNodeBase thisFinStmt) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
@@ -1116,7 +1115,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateId2(@NotNull UsrNodeBase thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -1134,7 +1133,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Calc(UsrBaseNode thisFinStmt){
+    private Boolean updateId2Calc(UsrNodeBase thisFinStmt){
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -1152,7 +1151,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -1170,7 +1169,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
     
-    private Boolean updateId2Dup(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -1203,7 +1202,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateDesc1(@NotNull UsrBaseNode thisFinStmt){
+    private Boolean updateDesc1(@NotNull UsrNodeBase thisFinStmt){
         // Assume thisFinStmt is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
@@ -1287,7 +1286,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdDt(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateIdDt(@NotNull UsrNodeBase thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateIdDt";
         logger.trace(logPrfx + " --> ");
@@ -1299,7 +1298,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtNet(@NotNull UsrBaseNode thisFinStmt){
+    public Boolean updateAmtNet(@NotNull UsrNodeBase thisFinStmt){
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
@@ -1328,7 +1327,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateAmtBegBalCalc(@NotNull UsrBaseNode thisFinStmt){
+    public Boolean updateAmtBegBalCalc(@NotNull UsrNodeBase thisFinStmt){
         String logPrfx = "updateAmtBegBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1358,7 +1357,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
             //Date
             .append(SEP + "D").append(thisFinStmt.getTs1().getElDt().minusDays(1).format(frmtDt));
 
-        UsrBaseNode prevFinStmt = findFinStmtById2(sb.toString());
+        UsrNodeBase prevFinStmt = findFinStmtById2(sb.toString());
         if (prevFinStmt == null  ){
             amtBegBalCalc = BigDecimal.valueOf(0);
         } else {
@@ -1376,7 +1375,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-        public Boolean updateAmtEndBalCalc(@NotNull UsrBaseNode thisFinStmt){
+        public Boolean updateAmtEndBalCalc(@NotNull UsrNodeBase thisFinStmt){
         String logPrfx = "updateAmtEndBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1404,7 +1403,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateFinStmtItms1_FieldSet(@NotNull UsrBaseNode thisFinStmt) {
+    public Boolean updateFinStmtItms1_FieldSet(@NotNull UsrNodeBase thisFinStmt) {
         String logPrfx = "updateFinStmtItms1_FieldSet";
         logger.trace(logPrfx + " --> ");
 
@@ -1533,7 +1532,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateFinTxactItms1_FieldSet(@NotNull UsrBaseNode thisFinStmt) {
+    public Boolean updateFinTxactItms1_FieldSet(@NotNull UsrNodeBase thisFinStmt) {
         String logPrfx = "updateFinTxactItms1_FieldSet";
         logger.trace(logPrfx + " --> ");
 
@@ -1663,7 +1662,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateTs3(@NotNull UsrBaseNode thisFinStmt) {
+    private Boolean updateTs3(@NotNull UsrNodeBase thisFinStmt) {
         // Assume thisFinStmt is not null
         String logPrfx = "updateTs3";
         logger.trace(logPrfx + " --> ");
@@ -1676,7 +1675,7 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private UsrBaseNode findFinStmtById2(@NotNull String FinStmt_Id2) {
+    private UsrNodeBase findFinStmtById2(@NotNull String FinStmt_Id2) {
         String logPrfx = "findFinStmtById2";
         logger.trace(logPrfx + " --> ");
 
@@ -1691,9 +1690,9 @@ public class UsrFinStmt0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + FinStmt_Id2);
 
-        UsrBaseNode FinStmt1_Id = null;
+        UsrNodeBase FinStmt1_Id = null;
         try {
-            FinStmt1_Id = dataManager.load(UsrBaseNode.class)
+            FinStmt1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", FinStmt_Id2)
                     .one();

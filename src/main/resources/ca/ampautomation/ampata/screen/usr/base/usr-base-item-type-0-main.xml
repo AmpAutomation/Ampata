@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrBaseItemTypeMain.caption"
+        caption="msg://usrItemBaseTypeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseItemType"
-                    fetchPlan="fetchPlan_UsrBaseItemType_Base">
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrItemBaseType"
+                    fetchPlan="fetchPlan_UsrItemBaseType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseItemType e order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrItemBaseType e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseItemType"
-                  fetchPlan="fetchPlan_UsrBaseItemType_Base">
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrItemBaseType"
+                  fetchPlan="fetchPlan_UsrItemBaseType_Base">
             <loader/>
         </instance>
     </data>

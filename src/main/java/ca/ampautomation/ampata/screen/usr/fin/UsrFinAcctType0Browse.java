@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;
@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @UiController("enty_UsrFinAcctType.browse")
 @UiDescriptor("usr-fin-acct-type-0-browse.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcctType0Browse extends StandardLookup<UsrBaseNodeType> {
+public class UsrFinAcctType0Browse extends StandardLookup<UsrNodeBaseType> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -48,11 +48,11 @@ public class UsrFinAcctType0Browse extends StandardLookup<UsrBaseNodeType> {
 
     //Main data containers, loaders and table
     @Autowired
-    private CollectionContainer<UsrBaseNodeType> colCntnrMain;
+    private CollectionContainer<UsrNodeBaseType> colCntnrMain;
     @Autowired
-    private CollectionLoader<UsrBaseNodeType> colLoadrMain;
+    private CollectionLoader<UsrNodeBaseType> colLoadrMain;
     @Autowired
-    private Table<UsrBaseNodeType> tableMain;
+    private Table<UsrNodeBaseType> tableMain;
 
 
 
@@ -60,8 +60,8 @@ public class UsrFinAcctType0Browse extends StandardLookup<UsrBaseNodeType> {
     public void onDuplicateBtnClick(Button.ClickEvent event) {
         tableMain.getSelected().stream()
                 .forEach(orig -> {
-                    UsrBaseNodeType copy = makeCopy(orig);
-                    UsrBaseNodeType savedCopy = dataManager.save(copy);
+                    UsrNodeBaseType copy = makeCopy(orig);
+                    UsrNodeBaseType savedCopy = dataManager.save(copy);
                     colCntnrMain.getMutableItems().add(savedCopy);
                     logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                             + "[" + orig.getId() + "]"
@@ -73,8 +73,8 @@ public class UsrFinAcctType0Browse extends StandardLookup<UsrBaseNodeType> {
                 });
     }
 
-    private UsrBaseNodeType makeCopy(UsrBaseNodeType orig) {
-        UsrBaseNodeType copy = metadataTools.copy(orig);
+    private UsrNodeBaseType makeCopy(UsrNodeBaseType orig) {
+        UsrNodeBaseType copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
         return copy;
     }

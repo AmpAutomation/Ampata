@@ -3,7 +3,7 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct"
+                    class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinAcct"
                     fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader id="colLoadrMain">
                 <query>
@@ -12,7 +12,7 @@
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct"
+                  class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinAcct"
                   fetchPlan="fetchPlan_UsrFinAcct_Base">
             <loader/>
         </instance>
@@ -140,7 +140,7 @@
                                                 <entityComboBox metaClass="enty_UsrFinAcctType"/>
                                             </propertyFilter>
                                             <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                                <entityPicker metaClass="enty_UsrBaseNode"/>
+                                                <entityPicker metaClass="enty_UsrNodeBase"/>
                                             </propertyFilter>
 
                                             <propertyFilter id="filterConfig1A_GenAgent1_Id" caption="genAgent1_Id" operation="EQUAL" property="genAgent1_Id" operationEditable="true">
@@ -204,7 +204,7 @@
                             <hbox id="tab1_hbox2" width="100%" spacing="true">
                                 <hbox caption="genTags" expand="genTags1_IdField" width="708px">
                                     <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
-                                        <query entityClass="ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc" fetchPlan="_instance_name"
+                                        <query entityClass="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenBasc" fetchPlan="_instance_name"
                                                escapeValueForLike="true" searchStringFormat="%${searchString}%">
                                             <![CDATA[select e from enty_UsrGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
                                         </query>

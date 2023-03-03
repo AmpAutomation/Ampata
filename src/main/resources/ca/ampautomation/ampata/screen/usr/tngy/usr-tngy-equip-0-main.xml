@@ -4,16 +4,16 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.tngy.UsrTngyEquip"
+                    class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrTngyEquip"
                     fetchPlan="fetchPlan_UsrTngyEquip_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrTngyEquip' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrTngyEquip' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.tngy.UsrTngyEquip"
+                  class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrTngyEquip"
                   fetchPlan="fetchPlan_UsrTngyEquip_Base">
             <loader/>
         </instance>
@@ -39,14 +39,14 @@
                             <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                             <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                                <entityPicker metaClass="enty_UsrBaseNode"/>
+                                <entityPicker metaClass="enty_UsrNodeBase"/>
                             </propertyFilter>
 
                             <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="EQUAL" property="dtype" operationEditable="true">
                                 <comboBox/>
                             </propertyFilter>
                             <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                             </propertyFilter>
                         </configuration>
                     </configurations>

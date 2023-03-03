@@ -5,7 +5,7 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenDocFrg"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocFrg"
                     fetchPlan="fetchPlan_UsrGenDocFrg_Base">
             <loader id="colLoadrMain">
                 <query>

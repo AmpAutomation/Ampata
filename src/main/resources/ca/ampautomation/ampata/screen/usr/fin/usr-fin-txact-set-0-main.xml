@@ -3,16 +3,16 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinTxactSet_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinTxactSet']]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrFinTxactSet']]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                   fetchPlan="fetchPlan_UsrFinTxactSet_Base">
             <loader/>
         </instance>
@@ -38,7 +38,7 @@
                                     <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_IdDtGE" caption="n1s1Inst1Dt1.elDt" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Dt1.elDt" operationEditable="true"/>

@@ -4,16 +4,16 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinDept_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinDept' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrFinDept' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                   fetchPlan="fetchPlan_UsrFinDept_Base">
             <loader/>
         </instance>
@@ -38,7 +38,7 @@
                                 <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                    <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                    <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                 </propertyFilter>
                                 <propertyFilter id="filterConfig1A_name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                                 <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>

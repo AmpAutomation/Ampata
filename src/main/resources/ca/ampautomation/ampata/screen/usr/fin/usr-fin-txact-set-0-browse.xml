@@ -4,11 +4,11 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinTxactSet_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinTxactSet']]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrFinTxactSet']]>
                 </query>
             </loader>
         </collection>

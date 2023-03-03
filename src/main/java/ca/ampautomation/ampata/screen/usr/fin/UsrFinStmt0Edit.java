@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
 import io.jmix.ui.component.Button;
 import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @UiController("enty_UsrFinStmt.edit")
 @UiDescriptor("usr-fin-stmt-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrFinStmt0Edit extends StandardEditor<UsrBaseNode> {
+public class UsrFinStmt0Edit extends StandardEditor<UsrNodeBase> {
 
     @Autowired
     private TextField<String> classNameField;

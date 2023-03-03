@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrBaseNodeTypeEdit.caption"
+        caption="msg://usrNodeBaseTypeEdit.caption"
         focusComponent="form">
     <data>
         <instance id="usrNodeTypeDc"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType"
-                  fetchPlan="fetchPlan_UsrBaseNodeType_Base">
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType"
+                  fetchPlan="fetchPlan_UsrNodeBaseType_Base">
             <loader/>
         </instance>
     </data>

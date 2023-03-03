@@ -57,35 +57,35 @@
             </menu>
         </menu>
         <menu id="usrBase" caption="msg://ca.ampautomation.ampata.menu/usrBase">
-            <menu id="usrBaseItem" caption="msg://ca.ampautomation.ampata.menu/usrBaseItem">
-                <item screen="enty_UsrBaseItem.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseItemMain.menu"/>
-                <item screen="enty_UsrBaseItemType.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseItemTypeMain.menu"/>
+            <menu id="usrItemBase" caption="msg://ca.ampautomation.ampata.menu/usrItemBase">
+                <item screen="UsrItemBase0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrItemBaseMain.menu"/>
+                <item screen="UsrItemBase0Type0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrItemBaseTypeMain.menu"/>
             </menu>
-            <menu id="usrBaseNode" caption="msg://ca.ampautomation.ampata.menu/usrBaseNode">
-                <item screen="enty_UsrBaseNode.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseNodeMain.menu"/>
-                <item screen="enty_UsrBaseNodeType.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseNodeTypeMain.menu"/>
+            <menu id="usrNodeBase" caption="msg://ca.ampautomation.ampata.menu/usrNodeBase">
+                <item screen="UsrNodeBase0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrNodeBaseMain.menu"/>
+                <item screen="UsrNodeBase0Type0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrNodeBaseTypeMain.menu"/>
             </menu>
-            <menu id="usrBaseEdge" caption="msg://ca.ampautomation.ampata.menu/usrBaseEdge">
-                <item screen="enty_UsrBaseEdge.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseEdgeMain.menu"/>
-                <item screen="enty_UsrBaseEdgeType.main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrBaseEdgeTypeMain.menu"/>
+            <menu id="usrEdgeBase" caption="msg://ca.ampautomation.ampata.menu/usrEdgeBase">
+                <item screen="UsrEdgeBase0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrEdgeBaseMain.menu"/>
+                <item screen="UsrEdgeBase0Type0Main" caption="msg://ca.ampautomation.ampata.screen.usr.base/usrEdgeBaseTypeMain.menu"/>
             </menu>
         </menu>
     </menu>
     <menu id="sys" caption="msg://ca.ampautomation.ampata.menu/sys">
         <menu id="sysFin" caption="msg://ca.ampautomation.ampata.menu/sysFin">
             <menu id="sysFinCurcy" caption="msg://ca.ampautomation.ampata.menu/sysFinCurcy">
-                <item screen="enty_SysFinCurcy.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyMain.menu"/>
-                <item screen="enty_SysFinCurcyExchRate.main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateMain.menu"/>
+                <item screen="SysNodeFinCurcy0Main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyMain.menu"/>
+                <item screen="SysNodeFinCurcyExchRate0Main" caption="msg://ca.ampautomation.ampata.screen.sys.fin/sysFinCurcyExchRateMain.menu"/>
             </menu>
         </menu>
         <menu id="sysBase" caption="msg://ca.ampautomation.ampata.menu/sysBase">
-            <menu id="sysBaseItem" caption="msg://ca.ampautomation.ampata.menu/sysBaseItem">
+            <menu id="sysItemBase0" caption="msg://ca.ampautomation.ampata.menu/sysItemBase0">
             </menu>
-            <menu id="sysBaseNode" caption="msg://ca.ampautomation.ampata.menu/sysBaseNode">
-                <item screen="enty_SysBaseNode.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysBaseNodeMain.menu"/>
-                <item screen="enty_SysBaseNodeType.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysBaseNodeTypeMain.menu"/>
+            <menu id="sysNodeBase0" caption="msg://ca.ampautomation.ampata.menu/sysNodeBase0">
+                <item screen="enty_SysNodeBase.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysNodeBase0Main.menu"/>
+                <item screen="enty_SysNodeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysNodeBase0TypeMain.menu"/>
             </menu>
-            <menu id="sysBaseEdge" caption="msg://ca.ampautomation.ampata.menu/sysBaseEdge">
+            <menu id="sysEdgeBase" caption="msg://ca.ampautomation.ampata.menu/sysEdgeBase">
             </menu>
         </menu>
     </menu>

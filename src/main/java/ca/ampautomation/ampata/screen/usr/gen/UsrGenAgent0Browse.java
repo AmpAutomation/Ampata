@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgent;
 import io.jmix.core.DataManager;
 import io.jmix.core.Metadata;
 import io.jmix.core.MetadataTools;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @UiController("enty_UsrGenAgent.browse")
 @UiDescriptor("usr-gen-agent-0-browse.xml")
 @LookupComponent("tableMain")
-public class UsrGenAgent0Browse extends StandardLookup<UsrBaseNode> {
+public class UsrGenAgent0Browse extends StandardLookup<UsrNodeBase> {
     
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());

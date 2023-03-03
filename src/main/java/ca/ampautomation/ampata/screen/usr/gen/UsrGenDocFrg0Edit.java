@@ -1,6 +1,6 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
 import io.jmix.ui.component.TextField;
 import io.jmix.ui.screen.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @UiController("enty_UsrGenDocFrg.edit")
 @UiDescriptor("usr-gen-doc-frg-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrGenDocFrg0Edit extends StandardEditor<UsrBaseNode> {
+public class UsrGenDocFrg0Edit extends StandardEditor<UsrNodeBase> {
     @Autowired
     private TextField<String> classNameField;
 

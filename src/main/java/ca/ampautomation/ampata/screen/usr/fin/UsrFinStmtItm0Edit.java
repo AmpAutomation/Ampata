@@ -1,10 +1,10 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinStmtItmQryMngr;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinStmtItmQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -26,7 +26,7 @@ import java.util.*;
 @UiController("enty_UsrFinStmtItm.edit")
 @UiDescriptor("usr-fin-stmt-itm-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrFinStmtItm0Edit extends StandardEditor<UsrBaseNode> {
+public class UsrFinStmtItm0Edit extends StandardEditor<UsrNodeBase> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -68,17 +68,17 @@ public class UsrFinStmtItm0Edit extends StandardEditor<UsrBaseNode> {
 
     //Main data containers, loaders and table
     @Autowired
-    private InstanceContainer<UsrBaseNode> instCntnrMain;
+    private InstanceContainer<UsrNodeBase> instCntnrMain;
 
 
     //Type data container and loader
-    private CollectionContainer<UsrBaseNodeType> colCntnrType;
-    private CollectionLoader<UsrBaseNodeType> colLoadrType;
+    private CollectionContainer<UsrNodeBaseType> colCntnrType;
+    private CollectionLoader<UsrNodeBaseType> colLoadrType;
 
 
     //Other data containers, loaders and table
-    private CollectionContainer<UsrBaseNode> genAgentsDc;
-    private CollectionLoader<UsrBaseNode> genAgentsDl;
+    private CollectionContainer<UsrNodeBase> genAgentsDc;
+    private CollectionLoader<UsrNodeBase> genAgentsDl;
 
     private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
     private CollectionLoader<UsrGenDocVer> colLoadrGenDocVer;
@@ -86,11 +86,11 @@ public class UsrFinStmtItm0Edit extends StandardEditor<UsrBaseNode> {
     private CollectionContainer<UsrGenTag> colCntnrGenTag;
     private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinStmt;
-    private CollectionLoader<UsrBaseNode> colLoadrFinStmt;
+    private CollectionContainer<UsrNodeBase> colCntnrFinStmt;
+    private CollectionLoader<UsrNodeBase> colLoadrFinStmt;
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinAcct;
-    private CollectionLoader<UsrBaseNode> colLoadrFinAcct;
+    private CollectionContainer<UsrNodeBase> colCntnrFinAcct;
+    private CollectionLoader<UsrNodeBase> colLoadrFinAcct;
 
 
     //Field
@@ -104,7 +104,7 @@ public class UsrFinStmtItm0Edit extends StandardEditor<UsrBaseNode> {
     private TextField<String> id2CalcField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNodeType> type1_IdField;
+    private EntityComboBox<UsrNodeBaseType> type1_IdField;
 
 
     @Autowired
@@ -138,7 +138,7 @@ public class UsrFinStmtItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finStmt1_IdField;
+    private EntityComboBox<UsrNodeBase> finStmt1_IdField;
 
 
 
@@ -165,10 +165,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         desc4Field.setNullSelectionCaption("<null>");
 
 
-        colCntnrType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
+        colCntnrType = dataComponents.createCollectionContainer(UsrNodeBaseType.class);
         colLoadrType = dataComponents.createCollectionLoader();
         colLoadrType.setQuery("select e from enty_UsrFInStmtItmType e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinStmtItmType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
+        FetchPlan fchPlnFinStmtItmType_Inst = fetchPlans.builder(UsrNodeBaseType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrType.setFetchPlan(fchPlnFinStmtItmType_Inst);
@@ -207,10 +207,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         genTag4_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinStmt = dataComponents.createCollectionLoader();
         colLoadrFinStmt.setQuery("select e from enty_UsrFinStmt e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinStmt_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinStmt_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinStmt.setFetchPlan(fchPlnFinStmt_Inst);
@@ -220,10 +220,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         finStmt1_IdField.setOptionsContainer(colCntnrFinStmt);
 
 
-        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
         colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinAcct.setFetchPlan(fchPlnFinAcct_Inst);
@@ -311,7 +311,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateInstIdPartsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -329,7 +329,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -350,7 +350,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -368,7 +368,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -389,7 +389,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -408,7 +408,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -425,7 +425,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -457,7 +457,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
                 logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -480,7 +480,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateTs1ElTsFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -499,7 +499,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
             if (thisFinStmtItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -517,7 +517,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateIdXFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -653,7 +653,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateAmtNetBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -671,7 +671,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -688,7 +688,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtDebtSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -706,7 +706,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtCredSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -723,7 +723,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "updateFinTxactItms1_AmtNetSumCalcFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -742,7 +742,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         String logPrfx = "onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinStmtItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
         if (thisFinStmtItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -755,7 +755,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateCalcVals(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateCalcVals(@NotNull UsrNodeBase thisFinStmtItm) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -768,7 +768,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateFinStmtItmCalcVals(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinStmtItmCalcVals(@NotNull UsrNodeBase thisFinStmtItm) {
         String logPrfx = "updateFinStmtItmCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -793,7 +793,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateIdParts(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateIdParts(@NotNull UsrNodeBase thisFinStmtItm) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
@@ -808,7 +808,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateId2(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateId2(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -826,7 +826,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Calc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateId2Calc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -844,7 +844,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -862,7 +862,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateId2Dup(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -896,7 +896,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateIdTs(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateIdTs(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
@@ -908,7 +908,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateTs1(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateTs1(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateTs1";
         logger.trace(logPrfx + " --> ");
@@ -920,7 +920,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateTs2(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateTs2(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateTs2";
         logger.trace(logPrfx + " --> ");
@@ -933,7 +933,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateIdX(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateIdX(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateIdX";
         logger.trace(logPrfx + " --> ");
@@ -948,7 +948,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-    public Boolean updateAmtNet(@NotNull UsrBaseNode thisFinStmtItm) {
+    public Boolean updateAmtNet(@NotNull UsrNodeBase thisFinStmtItm) {
         //Assume thisFinStmtItm is not null
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
@@ -956,7 +956,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
         BigDecimal amtNet_ = thisFinStmtItm.getAmtNet();
 
-        UsrBaseNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
+        UsrNodeBase thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
             notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
@@ -964,7 +964,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return isChanged;
         }
 
-        UsrBaseNode thisFinAcct = thisFinStmt.getFinAcct1_Id();
+        UsrNodeBase thisFinAcct = thisFinStmt.getFinAcct1_Id();
         if (thisFinAcct == null) {
             logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
             notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
@@ -972,7 +972,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return isChanged;
         }
 
-        UsrBaseNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        UsrNodeBaseType thisFinAcctType = thisFinAcct.getType1_Id();
         if (thisFinAcctType == null) {
             logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
             notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
@@ -1011,7 +1011,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-    private Boolean updateFinTxactItms1_IdCntCalc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_IdCntCalc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateFinTxactItms1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
@@ -1045,7 +1045,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateFinTxactItms1_AmtDebtSumCalc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtDebtSumCalc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateFinTxactItms1_AmtDebtSumCalc";
         logger.trace(logPrfx + " --> ");
@@ -1078,7 +1078,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateFinTxactItms1_AmtCredSumCalc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtCredSumCalc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateFinTxactItms1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
@@ -1112,7 +1112,7 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateFinTxactItms1_AmtNetSumCalc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtNetSumCalc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateFinTxactItms1_AmtNetSumCalc";
         logger.trace(logPrfx + " --> ");
@@ -1121,7 +1121,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         BigDecimal amtNetSumCalc_ = thisFinStmtItm.getFinTxactItms1_AmtNetSumCalc();
 
-        UsrBaseNode thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
+        UsrNodeBase thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
         if (thisFinStmt == null) {
             logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
             notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
@@ -1129,7 +1129,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return isChanged;
         }
 
-        UsrBaseNode thisFinAcct = thisFinStmt.getFinAcct1_Id();
+        UsrNodeBase thisFinAcct = thisFinStmt.getFinAcct1_Id();
         if (thisFinAcct == null) {
             logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
             notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
@@ -1137,7 +1137,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             return isChanged;
         }
 
-        UsrBaseNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        UsrNodeBaseType thisFinAcctType = thisFinAcct.getType1_Id();
         if (thisFinAcctType == null) {
             logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
             notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
@@ -1174,7 +1174,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private Boolean updateFinTxactItms1_AmtEqCalc(@NotNull UsrBaseNode thisFinStmtItm) {
+    private Boolean updateFinTxactItms1_AmtEqCalc(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateFinTxactItms1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
@@ -1194,7 +1194,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         return isChanged;
     }
 
-    private UsrBaseNode findFinStmtItmById2(@NotNull String finStmtItm_Id2) {
+    private UsrNodeBase findFinStmtItmById2(@NotNull String finStmtItm_Id2) {
         String logPrfx = "findFinStmtItmById2";
         logger.trace(logPrfx + " --> ");
 
@@ -1209,9 +1209,9 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finStmtItm_Id2);
 
-        UsrBaseNode finStmtItm1_Id = null;
+        UsrNodeBase finStmtItm1_Id = null;
         try {
-            finStmtItm1_Id = dataManager.load(UsrBaseNode.class)
+            finStmtItm1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", finStmtItm_Id2)
                     .one();

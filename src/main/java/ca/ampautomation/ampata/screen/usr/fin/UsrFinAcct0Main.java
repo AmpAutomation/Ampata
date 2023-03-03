@@ -1,13 +1,16 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.sys.fin.SysFinCurcy;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcct;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctQryMngr;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinAcctType;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinTaxLne;
-import ca.ampautomation.ampata.entity.usr.gen.*;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.screen.usr.base.UsrBaseNode0BaseMain;
+import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinAcct;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinAcctQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinAcctType;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTaxLne;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgent;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.screen.usr.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
@@ -22,7 +25,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinAcct.main")
 @UiDescriptor("usr-fin-acct-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr, TreeTable<UsrFinAcct>> {
+public class UsrFinAcct0Main extends UsrNodeBase0BaseMain<UsrFinAcct, UsrFinAcctType, UsrFinAcctQryMngr, TreeTable<UsrFinAcct>> {
 
 
     //Filter
@@ -30,7 +33,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
     protected PropertyFilter<UsrGenAgent> filterConfig1A_GenAgent1_Id;
 
     @Autowired
-    protected PropertyFilter<SysFinCurcy> filterConfig1A_SysFinCurcy1_Id;
+    protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_SysFinCurcy1_Id;
 
     
 
@@ -41,7 +44,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
     protected CheckBox tmplt_GenAgent1_IdFieldChk;
 
     @Autowired
-    protected EntityComboBox<SysFinCurcy> tmplt_SysFinCurcy1_IdField;
+    protected EntityComboBox<SysNodeFinCurcy> tmplt_SysFinCurcy1_IdField;
     @Autowired
     protected CheckBox tmplt_SysFinCurcy1_IdFieldChk;
     @Autowired
@@ -55,8 +58,8 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
     private CollectionContainer<UsrGenAgent> colCntnrGenAgent;
     private CollectionLoader<UsrGenAgent> colLoadrGenAgent;
 
-    private CollectionContainer<SysFinCurcy> colCntnrSysFinCurcy;
-    private CollectionLoader<SysFinCurcy> colLoadrSysFinCurcy;
+    private CollectionContainer<SysNodeFinCurcy> colCntnrSysFinCurcy;
+    private CollectionLoader<SysNodeFinCurcy> colLoadrSysFinCurcy;
 
     private CollectionContainer<UsrGenFmla> colCntnrGenFmla;
     private CollectionLoader<UsrGenFmla> colLoadrGenFmla;
@@ -80,7 +83,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
     private EntityComboBox<UsrGenAgent> genAgent1_IdField;
 
     @Autowired
-    private EntityComboBox<SysFinCurcy> sysFinCurcy1_IdField;
+    private EntityComboBox<SysNodeFinCurcy> sysFinCurcy1_IdField;
 
     @Autowired
     private EntityComboBox<UsrGenFmla> desc1GenFmla1_IdField;
@@ -138,10 +141,10 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         propFilterCmpnt_GenAgent1_Id.setOptionsContainer(colCntnrGenAgent);
 
 
-        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysFinCurcy.class);
+        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNodeFinCurcy.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
         colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
-        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysFinCurcy.class)
+        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysNodeFinCurcy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrSysFinCurcy.setFetchPlan(fchPlnSysFinCurcy_Inst);
@@ -152,7 +155,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         //template
         tmplt_SysFinCurcy1_IdField.setOptionsContainer(colCntnrSysFinCurcy);
         //filter
-        EntityComboBox<SysFinCurcy> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysFinCurcy>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
+        EntityComboBox<SysNodeFinCurcy> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysNodeFinCurcy>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
         propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(colCntnrSysFinCurcy);
 
 
@@ -200,7 +203,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrFinTaxLne.class);
         colLoadrFinTaxLne = dataComponents.createCollectionLoader();
         colLoadrFinTaxLne.setQuery("select e from enty_UsrFinTaxLne e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTaxLne_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinTaxLne_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTaxLne.setFetchPlan(fchPlnFinTaxLne_Inst);
@@ -370,13 +373,13 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         }
 
         UsrFinAcct firstFinAcct = thisFinAccts.get(0);
-        UsrBaseNode firstNode = thisFinAccts.get(0);
+        UsrNodeBase firstNode = thisFinAccts.get(0);
 
-        List<UsrBaseNode> thisNodes = new ArrayList<>(UsrBaseNode.getNodesByParent1(UsrBaseNode.class, dataManager, firstNode.getParent1_Id()));
-        thisNodes.sort(Comparator.comparing(UsrBaseNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        List<UsrNodeBase> thisNodes = new ArrayList<>(UsrNodeBase.getNodesByParent1(UsrNodeBase.class, dataManager, firstNode.getParent1_Id()));
+        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrBaseNode> chngNodes = new ArrayList<>();
-        List<UsrBaseNode> finalChngNodes = chngNodes;
+        List<UsrNodeBase> chngNodes = new ArrayList<>();
+        List<UsrNodeBase> finalChngNodes = chngNodes;
 
         AtomicInteger sortIdx = new AtomicInteger(0);
         thisNodes.forEach(thisNode -> {
@@ -411,7 +414,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         String logPrfx = "onMoveFrstSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<UsrNodeBase> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -422,10 +425,10 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         AtomicInteger sortIdxMin = new AtomicInteger(0);
 
         //order ascending
-        thisFinAccts.sort(Comparator.comparing(UsrBaseNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisFinAccts.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrBaseNode> chngFinAccts = new ArrayList<>();
-        List<UsrBaseNode> finalChngFinAccts = chngFinAccts;
+        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
+        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
 
         thisFinAccts.forEach(thisFinAcct -> {
             if (thisFinAcct != null) {
@@ -447,7 +450,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
                     }
 
                     // for all next items, inc idx
-                    List<UsrBaseNode> nextFinAccts =  UsrBaseNode.getNodesBtwnSortIdx(UsrBaseNode.class,dataManager,-1
+                    List<UsrNodeBase> nextFinAccts =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class,dataManager,-1
                             , sortIdx_, thisFinAcct.getParent1_Id());
 
                     nextFinAccts.forEach(nextFinAcct -> {
@@ -495,7 +498,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         String logPrfx = "onMovePrevSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<UsrNodeBase> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -503,10 +506,10 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
             return;
         }
 
-        thisFinAccts.sort(Comparator.comparing(UsrBaseNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisFinAccts.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrBaseNode> chngFinAccts = new ArrayList<>();
-        List<UsrBaseNode> finalChngFinAccts = chngFinAccts;
+        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
+        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
 
         thisFinAccts.forEach(thisFinAcct -> {
 
@@ -529,7 +532,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
                     finalChngFinAccts.add(thisFinAcct);
 
                     // for prev item, inc idx
-                    UsrFinAcct prevFinAcct = UsrBaseNode.getNodesBySortIdx(UsrFinAcct.class, dataManager,-1,thisFinAcct.getParent1_Id());
+                    UsrFinAcct prevFinAcct = UsrNodeBase.getNodesBySortIdx(UsrFinAcct.class, dataManager,-1,thisFinAcct.getParent1_Id());
                     if(prevFinAcct != null){
                         prevFinAcct = dataContext.merge(prevFinAcct);
                         Boolean prevFinAcctIsChanged = false;
@@ -567,7 +570,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         String logPrfx = "onMoveNextSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<UsrNodeBase> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -575,10 +578,10 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
             return;
         }
 
-        thisFinAccts.sort(Comparator.comparing(UsrBaseNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisFinAccts.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrBaseNode> chngFinAccts = new ArrayList<>();
-        List<UsrBaseNode> finalChngFinAccts = chngFinAccts;
+        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
+        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
 
         thisFinAccts.forEach(thisFinAcct -> {
             if (thisFinAcct != null) {
@@ -601,7 +604,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
 
 
                     // for next item, dec idx
-                    UsrFinAcct nextFinAcct = UsrBaseNode.getNodesBySortIdx(UsrFinAcct.class,dataManager,+1,thisFinAcct.getParent1_Id());
+                    UsrFinAcct nextFinAcct = UsrNodeBase.getNodesBySortIdx(UsrFinAcct.class,dataManager,+1,thisFinAcct.getParent1_Id());
                     if(nextFinAcct != null){
                         nextFinAcct = dataContext.merge(nextFinAcct);
                         Boolean nextFinAcctIsChanged = false;
@@ -641,7 +644,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         String logPrfx = "onMoveLastSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<UsrNodeBase> thisFinAccts = new ArrayList<>(tableMain.getSelected().stream().toList());
         if (thisFinAccts == null || thisFinAccts.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinAcct is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -650,10 +653,10 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
         }
 
         //order descending
-        thisFinAccts.sort(Comparator.comparing(UsrBaseNode::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())).reversed());
+        thisFinAccts.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())).reversed());
 
-        List<UsrBaseNode> chngFinAccts = new ArrayList<>();
-        List<UsrBaseNode> finalChngFinAccts = chngFinAccts;
+        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
+        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
 
         AtomicInteger sortIdxMax = new AtomicInteger(getSortIdxMax(thisFinAccts.get(0)));
         if (sortIdxMax == null) {
@@ -684,7 +687,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
                     }
 
                     // for all next items, dec idx
-                    List<UsrBaseNode> nextFinAccts =  UsrBaseNode.getNodesBtwnSortIdx(UsrBaseNode.class, dataManager,sortIdx_
+                    List<UsrNodeBase> nextFinAccts =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class, dataManager,sortIdx_
                             , sortIdxMax.intValue()+1, thisFinAcct.getParent1_Id());
 
                     nextFinAccts.forEach(nextFinAcct -> {
@@ -731,7 +734,7 @@ public class UsrFinAcct0Main extends UsrBaseNode0BaseMain<UsrFinAcct, UsrFinAcct
 
 
 
-    private Integer getSortIdxMax(UsrBaseNode thisFinAcct) {
+    private Integer getSortIdxMax(UsrNodeBase thisFinAcct) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 

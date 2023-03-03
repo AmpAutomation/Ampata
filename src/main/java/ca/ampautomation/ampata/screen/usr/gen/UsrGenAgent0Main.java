@@ -1,9 +1,9 @@
 package ca.ampautomation.ampata.screen.usr.gen;
 
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentQryMngr;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenAgentType;
-import ca.ampautomation.ampata.screen.usr.base.UsrBaseNode0BaseMain;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgent;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgentQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgentType;
+import ca.ampautomation.ampata.screen.usr.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @UiController("enty_UsrGenAgent.main")
 @UiDescriptor("usr-gen-agent-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrGenAgent0Main extends UsrBaseNode0BaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr, Table<UsrGenAgent>> {
+public class UsrGenAgent0Main extends UsrNodeBase0BaseMain<UsrGenAgent, UsrGenAgentType, UsrGenAgentQryMngr, Table<UsrGenAgent>> {
 
     //Filter
 

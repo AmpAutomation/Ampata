@@ -4,7 +4,7 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactItm"
+                    class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxactItm"
                     fetchPlan="fetchPlan_UsrFinTxactItm_Base">
             <loader id="colLoadrMain">
                 <query>
@@ -13,7 +13,7 @@
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.fin.UsrFinTxactItm"
+                  class="ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxactItm"
                   fetchPlan="fetchPlan_UsrFinTxactItm_Base">
             <loader/>
         </instance>
@@ -40,7 +40,7 @@
                                     <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1A_FinTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true">
@@ -78,7 +78,7 @@
                                     <propertyFilter id="filterConfig1A_FinTxact1_Id_FinTxactSet1_Id2" caption="fTxs.id2" operation="CONTAINS" property="finTxact1_Id.finTxactSet1_Id.id2" operationEditable="true">
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_FinTxact1_Id_FinTxactSet1_Id_Type1_Id" caption="fTxs.type1" operation="EQUAL" property="finTxact1_Id.finTxactSet1_Id.type1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1A_FinTxact1_Id_FinTxactSet1_Id_Desc1" caption="fTxs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxactSet1_Id.desc1" operationEditable="true">
                                     </propertyFilter>
@@ -115,7 +115,7 @@
                                     <propertyFilter id="filterConfig1B_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1B_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                                     <propertyFilter id="filterConfig1B_FinTxact1_EI1_Role" caption="finTxact1_EI1_Role" operation="EQUAL" property="finTxact1_EI1_Role" operationEditable="true">
@@ -153,7 +153,7 @@
                                     <propertyFilter id="filterConfig1B_FinTxact1_Id_FinTxactSet1_Id2" caption="fTxs.id2" operation="CONTAINS" property="finTxact1_Id.finTxactSet1_Id.id2" operationEditable="true">
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1B_FinTxact1_Id_FinTxactSet1_Id_Type1_Id" caption="fTxs.type1" operation="EQUAL" property="finTxact1_Id.finTxactSet1_Id.type1_Id" operationEditable="true">
-                                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                                     </propertyFilter>
                                     <propertyFilter id="filterConfig1B_FinTxact1_Id_FinTxactSet1_Id_Desc1" caption="fTxs.desc1" operation="CONTAINS" property="finTxact1_Id.finTxactSet1_Id.desc1" operationEditable="true">
                                     </propertyFilter>

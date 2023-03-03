@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhat;
 
 @UiController("enty_UsrFinWhat.edit")
 @UiDescriptor("usr-fin-what-0-edit.xml")

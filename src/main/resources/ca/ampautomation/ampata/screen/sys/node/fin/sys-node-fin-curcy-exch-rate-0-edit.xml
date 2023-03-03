@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://sysFinCurcyExchRateEdit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.sys.base.SysNodeBase"
+                  fetchPlan="fetchPlan_SysFinCurcyExchRate_Base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="instCntnrMain">
+            <column width="350px">
+                <textField id="id" property="id" width="100%" editable="false" tabIndex="10"/>
+                <hbox caption="id2" expand="id2Field" width="100%">
+                    <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
+                    <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                    <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" editable="false" tabIndex="10"/>
+                    <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
+                    <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false" tabIndex="10"/>
+                    <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <hbox caption="id2Dup" expand="id2DupField" width="100%">
+                    <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false" tabIndex="10"/>
+                    <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                </hbox>
+                <textField id="name1Field" property="name1"/>
+                <dateField id="ts1ElDtField" property="ts1.elDt" dateFormat="yyyy-MM-dd"/>
+                <textField id="amt1Field" property="amt1">
+                    <formatter>
+                        <number format="#0.000000###"/>
+                    </formatter>
+                </textField>
+                <textField id="amt2Field" property="amt2">
+                    <formatter>
+                        <number format="#0.000000###"/>
+                    </formatter>
+                </textField>
+                <textField id="finCurcy1_IdField" property="finCurcy1_Id"/>
+                <textField id="finCurcy2_IdField" property="finCurcy2_Id"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

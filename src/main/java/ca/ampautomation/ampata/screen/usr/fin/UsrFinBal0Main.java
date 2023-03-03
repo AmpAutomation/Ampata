@@ -1,11 +1,11 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
-import ca.ampautomation.ampata.entity.sys.base.SysBaseNode;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinBalQryMngr;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.sys.base.SysNodeBase;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinBalQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinBal.main")
 @UiDescriptor("usr-fin-bal-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
+public class UsrFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -83,16 +83,16 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     protected Filter filter;
 
     @Autowired
-    protected PropertyFilter<UsrBaseNode> filterConfig1A_FinBalSet1_Id;
+    protected PropertyFilter<UsrNodeBase> filterConfig1A_FinBalSet1_Id;
 
     @Autowired
-    protected PropertyFilter<UsrBaseNode> filterConfig1A_FinAcct1_Id;
+    protected PropertyFilter<UsrNodeBase> filterConfig1A_FinAcct1_Id;
 
     @Autowired
-    protected PropertyFilter<UsrBaseNode> filterConfig1A_FinDept1_Id;
+    protected PropertyFilter<UsrNodeBase> filterConfig1A_FinDept1_Id;
 
     @Autowired
-    protected PropertyFilter<SysBaseNode> filterConfig1A_SysFinCurcy1_Id;
+    protected PropertyFilter<SysNodeBase> filterConfig1A_SysFinCurcy1_Id;
 
 
     //Template
@@ -118,39 +118,39 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
 
     //Main data containers, loaders and table
     @Autowired
-    private CollectionContainer<UsrBaseNode> colCntnrMain;
+    private CollectionContainer<UsrNodeBase> colCntnrMain;
     @Autowired
-    private CollectionLoader<UsrBaseNode> colLoadrMain;
+    private CollectionLoader<UsrNodeBase> colLoadrMain;
     @Autowired
-    private InstanceContainer<UsrBaseNode> instCntnrMain;
+    private InstanceContainer<UsrNodeBase> instCntnrMain;
     @Autowired
-    private Table<UsrBaseNode> tableMain;
+    private Table<UsrNodeBase> tableMain;
 
 
     //Type data container and loader
-    private CollectionContainer<UsrBaseNodeType> colCntnrType;
-    private CollectionLoader<UsrBaseNodeType> colLoadrType;
+    private CollectionContainer<UsrNodeBaseType> colCntnrType;
+    private CollectionLoader<UsrNodeBaseType> colLoadrType;
 
 
     //Other data containers, loaders and table
-    private CollectionContainer<UsrBaseNode> colCntnrFinBalSet;
-    private CollectionLoader<UsrBaseNode> colLoadrFinBalSet;
+    private CollectionContainer<UsrNodeBase> colCntnrFinBalSet;
+    private CollectionLoader<UsrNodeBase> colLoadrFinBalSet;
 
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinAcct;
-    private CollectionLoader<UsrBaseNode> colLoadrFinAcct;
+    private CollectionContainer<UsrNodeBase> colCntnrFinAcct;
+    private CollectionLoader<UsrNodeBase> colLoadrFinAcct;
 
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinDept;
-    private CollectionLoader<UsrBaseNode> colLoadrFinDept;
+    private CollectionContainer<UsrNodeBase> colCntnrFinDept;
+    private CollectionLoader<UsrNodeBase> colLoadrFinDept;
 
 
-    private CollectionContainer<SysBaseNode> colCntnrSysFinCurcy;
-    private CollectionLoader<SysBaseNode> colLoadrSysFinCurcy;
+    private CollectionContainer<SysNodeBase> colCntnrSysFinCurcy;
+    private CollectionLoader<SysNodeBase> colLoadrSysFinCurcy;
 
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinBal1;
-    private CollectionLoader<UsrBaseNode> colLoadrFinBal1;
+    private CollectionContainer<UsrNodeBase> colCntnrFinBal1;
+    private CollectionLoader<UsrNodeBase> colLoadrFinBal1;
 
 
     private CollectionContainer<UsrGenDocVer> colCntnrGenDocVer;
@@ -171,22 +171,22 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     private TextField<String> id2CalcField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNodeType> type1_IdField;
+    private EntityComboBox<UsrNodeBaseType> type1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finBalSet1_IdField;
+    private EntityComboBox<UsrNodeBase> finBalSet1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finAcct1_IdField;
+    private EntityComboBox<UsrNodeBase> finAcct1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finDept1_IdField;
+    private EntityComboBox<UsrNodeBase> finDept1_IdField;
 
     @Autowired
-    private EntityComboBox<SysBaseNode> sysFinCurcy1_IdField;
+    private EntityComboBox<SysNodeBase> sysFinCurcy1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finBal1_IdField;
+    private EntityComboBox<UsrNodeBase> finBal1_IdField;
 
     @Autowired
     private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
@@ -199,13 +199,13 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
 
 
     @Autowired
-    private Table<UsrBaseNode> tableFinTxactItm;
+    private Table<UsrNodeBase> tableFinTxactItm;
 
     @Autowired
-    private CollectionContainer<UsrBaseNode> colCntnrFinTxactItm;
+    private CollectionContainer<UsrNodeBase> colCntnrFinTxactItm;
 
     @Autowired
-    private CollectionLoader<UsrBaseNode> colLoadrFinTxactItm;
+    private CollectionLoader<UsrNodeBase> colLoadrFinTxactItm;
 
     @Autowired
     private Pagination pagetableTinTxactItm;
@@ -221,10 +221,10 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         tmplt_StatusField.setNullSelectionCaption("<null>");
 
 
-        colCntnrType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
+        colCntnrType = dataComponents.createCollectionContainer(UsrNodeBaseType.class);
         colLoadrType = dataComponents.createCollectionLoader();
         colLoadrType.setQuery("select e from enty_UsrFinBalType e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinBalType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
+        FetchPlan fchPlnFinBalType_Inst = fetchPlans.builder(UsrNodeBaseType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrType.setFetchPlan(fchPlnFinBalType_Inst);
@@ -233,10 +233,10 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         type1_IdField.setOptionsContainer(colCntnrType);
 
 
-        colCntnrFinBalSet = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinBalSet = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinBalSet = dataComponents.createCollectionLoader();
         colLoadrFinBalSet.setQuery("select e from enty_UsrFinBalSet e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinBalSet_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinBalSet_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinBalSet.setFetchPlan(fchPlnFinBalSet_Inst);
@@ -244,7 +244,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         colLoadrFinBalSet.setDataContext(getScreenData().getDataContext());
 
         finBalSet1_IdField.setOptionsContainer(colCntnrFinBalSet);
-        EntityComboBox<UsrBaseNode> propFilterCmpnt_FinBalSet1_Id = (EntityComboBox<UsrBaseNode>) filterConfig1A_FinBalSet1_Id.getValueComponent();
+        EntityComboBox<UsrNodeBase> propFilterCmpnt_FinBalSet1_Id = (EntityComboBox<UsrNodeBase>) filterConfig1A_FinBalSet1_Id.getValueComponent();
         propFilterCmpnt_FinBalSet1_Id.setOptionsContainer(colCntnrFinBalSet);
 
 
@@ -274,10 +274,10 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         genTag1_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
         colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinAcct.setFetchPlan(fchPlnFinAcct_Inst);
@@ -286,14 +286,14 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
 
         finAcct1_IdField.setOptionsContainer(colCntnrFinAcct);
         //filter
-        EntityComboBox<UsrBaseNode> propFilterCmpnt_FinAcct1_Id = (EntityComboBox<UsrBaseNode>) filterConfig1A_FinAcct1_Id.getValueComponent();
+        EntityComboBox<UsrNodeBase> propFilterCmpnt_FinAcct1_Id = (EntityComboBox<UsrNodeBase>) filterConfig1A_FinAcct1_Id.getValueComponent();
         propFilterCmpnt_FinAcct1_Id.setOptionsContainer(colCntnrFinAcct);
 
 
-        colCntnrFinDept = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinDept = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinDept = dataComponents.createCollectionLoader();
         colLoadrFinDept.setQuery("select e from enty_UsrFinDept e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinDept_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinDept_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinDept.setFetchPlan(fchPlnFinDept_Inst);
@@ -302,14 +302,14 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
 
         finDept1_IdField.setOptionsContainer(colCntnrFinDept);
         //filter
-        EntityComboBox<UsrBaseNode> propFilterCmpnt_FinDept1_Id = (EntityComboBox<UsrBaseNode>) filterConfig1A_FinDept1_Id.getValueComponent();
+        EntityComboBox<UsrNodeBase> propFilterCmpnt_FinDept1_Id = (EntityComboBox<UsrNodeBase>) filterConfig1A_FinDept1_Id.getValueComponent();
         propFilterCmpnt_FinDept1_Id.setOptionsContainer(colCntnrFinDept);
 
 
-        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysBaseNode.class);
+        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNodeBase.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
         colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
-        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysBaseNode.class)
+        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrSysFinCurcy.setFetchPlan(fchPlnSysFinCurcy_Inst);
@@ -318,14 +318,14 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
 
         sysFinCurcy1_IdField.setOptionsContainer(colCntnrSysFinCurcy);
         //filter
-        EntityComboBox<SysBaseNode> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysBaseNode>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
+        EntityComboBox<SysNodeBase> propFilterCmpnt_SysFinCurcy1_Id = (EntityComboBox<SysNodeBase>) filterConfig1A_SysFinCurcy1_Id.getValueComponent();
         propFilterCmpnt_SysFinCurcy1_Id.setOptionsContainer(colCntnrSysFinCurcy);
 
 
-        colCntnrFinBal1 = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinBal1 = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinBal1 = dataComponents.createCollectionLoader();
         colLoadrFinBal1.setQuery("select e from enty_UsrFinBal e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinBal1_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinBal1_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinBal1.setFetchPlan(fchPlnFinBal1_Inst);
@@ -345,7 +345,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinBalsDcCollectionChange(CollectionContainer.CollectionChangeEvent<UsrBaseNode> event) {
+    public void onFinBalsDcCollectionChange(CollectionContainer.CollectionChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinBalsDcCollectionChange";
         logger.trace(logPrfx + " --> ");
 
@@ -358,11 +358,11 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinBalsDcItemChange(InstanceContainer.ItemChangeEvent<UsrBaseNode> event) {
+    public void onFinBalsDcItemChange(InstanceContainer.ItemChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinBalsDcItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = event.getItem();
+        UsrNodeBase thisFinBal = event.getItem();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             //todo I observed thisFinBal is null when selecting a new item
@@ -440,7 +440,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
         
-        List<UsrBaseNode> thisFinBals = tableMain.getSelected().stream().toList();
+        List<UsrNodeBase> thisFinBals = tableMain.getSelected().stream().toList();
         if (thisFinBals == null || thisFinBals.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -448,7 +448,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
             return;
         }
         thisFinBals.forEach(orig -> {
-            UsrBaseNode copy = metadataTools.copy(orig);
+            UsrNodeBase copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
             LocalDateTime ts1;
@@ -471,7 +471,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
                 copy.setId2Calc(copy.getId2());
             }
 
-            UsrBaseNode savedCopy = dataManager.save(copy);
+            UsrNodeBase savedCopy = dataManager.save(copy);
             colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Duplicated " + copy.getClass().getName() + "(" + copy.getClassName() +") " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
@@ -487,18 +487,18 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onDeriveBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinBals = tableMain.getSelected().stream().toList();
+        List<UsrNodeBase> thisFinBals = tableMain.getSelected().stream().toList();
         if (thisFinBals == null || thisFinBals.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        List<UsrBaseNode> sels = new ArrayList<>();
+        List<UsrNodeBase> sels = new ArrayList<>();
 
         thisFinBals.forEach(orig -> {
 
-            UsrBaseNode copy = metadataTools.copy(orig);
+            UsrNodeBase copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
             LocalDateTime ts1;
@@ -534,7 +534,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
                 copy.setId2Calc(copy.getId2());
             }
 
-            UsrBaseNode savedCopy = dataManager.save(copy);
+            UsrNodeBase savedCopy = dataManager.save(copy);
             colCntnrMain.getMutableItems().add(savedCopy);
             logger.debug("Derived FinBal " + copy.getId2() + " "
                     + "[" + orig.getId() + "]"
@@ -556,7 +556,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinBals = tableMain.getSelected().stream().toList();
+        List<UsrNodeBase> thisFinBals = tableMain.getSelected().stream().toList();
         if (thisFinBals == null || thisFinBals.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -565,7 +565,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         }
 
         thisFinBals.forEach(thisFinBal -> {
-            UsrBaseNode thisTrackedFinBal = dataContext.merge(thisFinBal);
+            UsrNodeBase thisTrackedFinBal = dataContext.merge(thisFinBal);
             thisFinBal = thisTrackedFinBal;
             if (thisFinBal != null) {
 
@@ -621,13 +621,13 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            List<UsrBaseNode> thisFinBals = tableMain.getSelected().stream().toList();
+            List<UsrNodeBase> thisFinBals = tableMain.getSelected().stream().toList();
 
             //Loop throught the items again to update the id2Dup attribute
             thisFinBals.forEach(thisFinBal -> {
-                //UsrBaseNode thisTrackedFinBal = dataContext.merge(thisFinBal);
+                //UsrNodeBase thisTrackedFinBal = dataContext.merge(thisFinBal);
                 if (thisFinBal != null) {
-                    UsrBaseNode thisTrackedFinBal = dataContext.merge(thisFinBal);
+                    UsrNodeBase thisTrackedFinBal = dataContext.merge(thisFinBal);
                     thisFinBal = thisTrackedFinBal;
 
                     Boolean thisFinBalIsChanged = false;
@@ -660,7 +660,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrBaseNode> thisFinBals = tableMain.getSelected().stream().toList();
+        List<UsrNodeBase> thisFinBals = tableMain.getSelected().stream().toList();
         if (thisFinBals == null || thisFinBals.isEmpty()) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -670,7 +670,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         thisFinBals.forEach(thisFinBal -> {
             if (thisFinBal != null) {
 
-                UsrBaseNode thisTrackedFinBal = dataContext.merge(thisFinBal);
+                UsrNodeBase thisTrackedFinBal = dataContext.merge(thisFinBal);
                 thisFinBal = thisTrackedFinBal;
 
                 boolean isChanged = false;
@@ -706,11 +706,11 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
     @Subscribe(id = "instCntnrMain", target = Target.DATA_CONTAINER)
-    public void onFinBalDcItemChange(InstanceContainer.ItemChangeEvent<UsrBaseNode> event) {
+    public void onFinBalDcItemChange(InstanceContainer.ItemChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinBalDcItemChange";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = event.getSource().getItemOrNull();
+        UsrNodeBase thisFinBal = event.getSource().getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             //todo I observed thisFinBal is null when selecting a new item
@@ -729,7 +729,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -747,7 +747,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -765,7 +765,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -786,7 +786,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -805,7 +805,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -822,7 +822,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -897,7 +897,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtBegBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -914,7 +914,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtBegBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -938,7 +938,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtBegBalCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -956,7 +956,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtDebtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -973,7 +973,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtDebtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -997,7 +997,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtCredBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1014,7 +1014,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtCredBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1038,7 +1038,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onSetNullAmtEndBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1062,7 +1062,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtEndBalBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1080,7 +1080,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateAmtEndBalCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1133,7 +1133,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1157,7 +1157,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1177,7 +1177,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1209,7 +1209,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1230,7 +1230,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
             if (thisFinBal == null) {
                 logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1249,7 +1249,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onInstItemManValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1266,7 +1266,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1278,7 +1278,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public Boolean updateManVals(UsrBaseNode thisFinBal){
+    public Boolean updateManVals(UsrNodeBase thisFinBal){
         String logPrfx = "updateManVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1296,7 +1296,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateCalcVals(UsrBaseNode thisFinBal){
+    public Boolean updateCalcVals(UsrNodeBase thisFinBal){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1309,7 +1309,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateFinBalCalcVals(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateFinBalCalcVals(@NotNull UsrNodeBase thisFinBal) {
         String logPrfx = "updateFinBalCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1332,7 +1332,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdParts(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateIdParts(@NotNull UsrNodeBase thisFinBal) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
@@ -1345,7 +1345,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateId2(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -1363,7 +1363,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Calc(UsrBaseNode thisFinBal){
+    private Boolean updateId2Calc(UsrNodeBase thisFinBal){
         // Assume thisFinBal is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -1381,7 +1381,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -1399,7 +1399,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
     
-    private Boolean updateId2Dup(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -1432,7 +1432,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateDesc1(@NotNull UsrBaseNode thisFinBal){
+    private Boolean updateDesc1(@NotNull UsrNodeBase thisFinBal){
         // Assume thisFinBal is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
@@ -1525,7 +1525,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdDt(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateIdDt(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateIdDt";
         logger.trace(logPrfx + " --> ");
@@ -1538,7 +1538,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateAmtDebt(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtDebt(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtDebt";
         logger.trace(logPrfx + " --> ");
 
@@ -1557,7 +1557,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtCred(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtCred(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtCred";
         logger.trace(logPrfx + " --> ");
 
@@ -1577,7 +1577,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateAmtNet(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtNet(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
@@ -1605,7 +1605,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtBegBal(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtBegBal(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtBegBal";
         logger.trace(logPrfx + " --> ");
 
@@ -1621,7 +1621,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtBegBalCalc(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtBegBalCalc(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtBegBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1653,7 +1653,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateAmtEndBal(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtEndBal(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtEndBal";
         logger.trace(logPrfx + " --> ");
 
@@ -1673,7 +1673,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtEndBalCalc(@NotNull UsrBaseNode thisFinBal){
+    public Boolean updateAmtEndBalCalc(@NotNull UsrNodeBase thisFinBal){
         String logPrfx = "updateAmtEndBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1701,15 +1701,15 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    public Boolean updateFinTxactItms1_FieldSet(@NotNull UsrBaseNode thisFinBal) {
+    public Boolean updateFinTxactItms1_FieldSet(@NotNull UsrNodeBase thisFinBal) {
         String logPrfx = "updateFinTxactItms1_FieldSet";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
 
-        UsrBaseNode finAcct1 = thisFinBal.getFinAcct1_Id();
-        UsrBaseNode finDept1 = thisFinBal.getFinDept1_Id();
+        UsrNodeBase finAcct1 = thisFinBal.getFinAcct1_Id();
+        UsrNodeBase finDept1 = thisFinBal.getFinDept1_Id();
 
         if (finAcct1 == null) {
             logger.debug(logPrfx + " --- finAcct1 is null.");
@@ -1953,7 +1953,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private Boolean updateTs3(@NotNull UsrBaseNode thisFinBal) {
+    private Boolean updateTs3(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateTs3";
         logger.trace(logPrfx + " --> ");
@@ -1966,7 +1966,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
     }
 
 
-    private UsrBaseNode findFinBalById2(@NotNull String FinBal_Id2) {
+    private UsrNodeBase findFinBalById2(@NotNull String FinBal_Id2) {
         String logPrfx = "findFinBalById2";
         logger.trace(logPrfx + " --> ");
 
@@ -1981,9 +1981,9 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + FinBal_Id2);
 
-        UsrBaseNode FinBal1_Id = null;
+        UsrNodeBase FinBal1_Id = null;
         try {
-            FinBal1_Id = dataManager.load(UsrBaseNode.class)
+            FinBal1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", FinBal_Id2)
                     .one();
@@ -2071,7 +2071,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         String logPrfx = "onLoadTableFinTxactItmBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinBal = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
         if (thisFinBal == null) {
             logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -2083,12 +2083,12 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    public void loadTableFinTxactItm(@NotNull UsrBaseNode thisFinBal) {
+    public void loadTableFinTxactItm(@NotNull UsrNodeBase thisFinBal) {
         String logPrfx = "loadTableFinTxactItm";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode finAcct1 = thisFinBal.getFinAcct1_Id();
-        UsrBaseNode finDept1 = thisFinBal.getFinDept1_Id();
+        UsrNodeBase finAcct1 = thisFinBal.getFinAcct1_Id();
+        UsrNodeBase finDept1 = thisFinBal.getFinDept1_Id();
 
         if (finAcct1 == null) {
             logger.debug(logPrfx + " --- finAcct1 is null.");
@@ -2112,7 +2112,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
             return;
         }
 
-        colCntnrFinTxactItm = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinTxactItm = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinTxactItm = dataComponents.createCollectionLoader();
 
         try{
@@ -2139,7 +2139,7 @@ public class UsrFinBal0Main extends MasterDetailScreen<UsrBaseNode> {
                 colLoadrFinTxactItm.setParameter("begDt",begDt);
                 colLoadrFinTxactItm.setParameter("endDt",endDt);
             }
-            FetchPlan fchPlnFinTxactItm_Inst = fetchPlans.builder(UsrBaseNode.class)
+            FetchPlan fchPlnFinTxactItm_Inst = fetchPlans.builder(UsrNodeBase.class)
                     .addFetchPlan("fetchPlan_UsrFinTxactItm_Base")
                     .build();
             colLoadrFinTxactItm.setFetchPlan(fchPlnFinTxactItm_Inst);

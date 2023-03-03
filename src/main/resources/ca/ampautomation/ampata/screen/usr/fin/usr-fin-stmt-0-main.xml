@@ -3,26 +3,26 @@
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinStmt_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinStmt' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrFinStmt' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                   fetchPlan="fetchPlan_UsrFinStmt_Base">
             <loader/>
         </instance>
 
         <collection id="colCntnrFinStmtItm"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     fetchPlan="fetchPlan_UsrFinStmtItm_Base">
             <loader id="colLoadrFinStmtItm">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e where e.className = 'UsrFinStmtItm' and e.finStmt1_Id = :finStmt1_Id order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrFinStmtItm' and e.finStmt1_Id = :finStmt1_Id order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>

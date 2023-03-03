@@ -1,14 +1,19 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import ca.ampautomation.ampata.entity.*;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNode;
-import ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType;
-import ca.ampautomation.ampata.entity.sys.base.SysBaseNode;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBase;
+import ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType;
+import ca.ampautomation.ampata.entity.sys.base.SysNodeBase;
 import ca.ampautomation.ampata.entity.usr.fin.*;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenChan;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenFmla;
-import ca.ampautomation.ampata.entity.usr.gen.UsrGenTag;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinHow;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhat;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrFinTxactItmQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenChan;
+import ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenFmla;
+import ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -36,7 +41,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrFinTxactItm.edit")
 @UiDescriptor("usr-fin-txact-itm-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
+public class UsrFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -87,12 +92,12 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
     //Main data containers, loaders and table
     @Autowired
-    private InstanceContainer<UsrBaseNode> instCntnrMain;
+    private InstanceContainer<UsrNodeBase> instCntnrMain;
 
 
     //Type data container and loader
-    private CollectionContainer<UsrBaseNodeType> colCntnrType;
-    private CollectionLoader<UsrBaseNodeType> colLoadrType;
+    private CollectionContainer<UsrNodeBaseType> colCntnrType;
+    private CollectionLoader<UsrNodeBaseType> colLoadrType;
 
 
     //Other data containers, loaders and table
@@ -105,36 +110,36 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     private CollectionContainer<UsrGenTag> colCntnrGenTag;
     private CollectionLoader<UsrGenTag> colLoadrGenTag;
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinTxact;
-    private CollectionLoader<UsrBaseNode> colLoadrFinTxact;
+    private CollectionContainer<UsrNodeBase> colCntnrFinTxact;
+    private CollectionLoader<UsrNodeBase> colLoadrFinTxact;
 
-    private CollectionContainer<UsrBaseNodeType> colCntnrFinTxactType;
-    private CollectionLoader<UsrBaseNodeType> colLoadrFinTxactType;
+    private CollectionContainer<UsrNodeBaseType> colCntnrFinTxactType;
+    private CollectionLoader<UsrNodeBaseType> colLoadrFinTxactType;
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinTxactSet;
-    private CollectionLoader<UsrBaseNode> colLoadrFinTxactSet;
+    private CollectionContainer<UsrNodeBase> colCntnrFinTxactSet;
+    private CollectionLoader<UsrNodeBase> colLoadrFinTxactSet;
 
-    private CollectionLoader<UsrBaseNodeType> colLoadrFinTxactSetType;
-    private CollectionContainer<UsrBaseNodeType> colCntnrFinTxactSetType;
+    private CollectionLoader<UsrNodeBaseType> colLoadrFinTxactSetType;
+    private CollectionContainer<UsrNodeBaseType> colCntnrFinTxactSetType;
 
 
-    private CollectionLoader<UsrBaseNode> colLoadrFinStmt;
-    private CollectionContainer<UsrBaseNode> colCntnrFinStmt;
+    private CollectionLoader<UsrNodeBase> colLoadrFinStmt;
+    private CollectionContainer<UsrNodeBase> colCntnrFinStmt;
 
-    private CollectionLoader<UsrBaseNode> colLoadrFinDept;
-    private CollectionContainer<UsrBaseNode> colCntnrFinDept;
+    private CollectionLoader<UsrNodeBase> colLoadrFinDept;
+    private CollectionContainer<UsrNodeBase> colCntnrFinDept;
 
-    private CollectionLoader<UsrBaseNode> colLoadrFinTaxLne;
-    private CollectionContainer<UsrBaseNode> colCntnrFinTaxLne;
+    private CollectionLoader<UsrNodeBase> colLoadrFinTaxLne;
+    private CollectionContainer<UsrNodeBase> colCntnrFinTaxLne;
 
-    private CollectionLoader<UsrBaseNode> colLoadrFinAcct;
-    private CollectionContainer<UsrBaseNode> colCntnrFinAcct;
+    private CollectionLoader<UsrNodeBase> colLoadrFinAcct;
+    private CollectionContainer<UsrNodeBase> colCntnrFinAcct;
 
-    private CollectionContainer<SysBaseNode> colCntnrSysFinCurcy;
-    private CollectionLoader<SysBaseNode> colLoadrSysFinCurcy;
+    private CollectionContainer<SysNodeBase> colCntnrSysFinCurcy;
+    private CollectionLoader<SysNodeBase> colLoadrSysFinCurcy;
 
-    private CollectionContainer<UsrBaseNode> colCntnrFinTxactItm1;
-    private CollectionLoader<UsrBaseNode> colLoadrFinTxactItm1;
+    private CollectionContainer<UsrNodeBase> colCntnrFinTxactItm1;
+    private CollectionLoader<UsrNodeBase> colLoadrFinTxactItm1;
 
     private CollectionContainer<UsrFinFmla> colCntnrFinFmla;
     private CollectionLoader<UsrFinFmla> colLoadrFinFmla;
@@ -163,7 +168,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     private TextField<String> id2CalcField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNodeType> type1_IdField;
+    private EntityComboBox<UsrNodeBaseType> type1_IdField;
 
     @Autowired
     private ComboBox<String> finTxact1_EI1_RoleField;
@@ -190,7 +195,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     private EntityComboBox<UsrGenFmla> desc1GenFmla1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> desc1FinTxactItm1_IdField;
+    private EntityComboBox<UsrNodeBase> desc1FinTxactItm1_IdField;
 
     @Autowired
     private EntityComboBox<UsrGenDocVer> genDocVer1_IdField;
@@ -210,7 +215,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finStmt1_IdField;
+    private EntityComboBox<UsrNodeBase> finStmt1_IdField;
 
     @Autowired
     private ComboBox<String> finStmtItm1_Desc1Field;
@@ -223,22 +228,22 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finTaxLne1_IdField;
+    private EntityComboBox<UsrNodeBase> finTaxLne1_IdField;
 
     @Autowired
     private ComboBox<String> finTaxLne1_CodeField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finAcct1_IdField;
+    private EntityComboBox<UsrNodeBase> finAcct1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finDept1_IdField;
+    private EntityComboBox<UsrNodeBase> finDept1_IdField;
 
     @Autowired
-    private EntityComboBox<SysBaseNode> sysFinCurcy1_IdField;
+    private EntityComboBox<SysNodeBase> sysFinCurcy1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> amtFinTxactItm1_IdField;
+    private EntityComboBox<UsrNodeBase> amtFinTxactItm1_IdField;
 
     @Autowired
     private EntityComboBox<UsrFinFmla> amtFinFmla1_IdField;
@@ -246,10 +251,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
     //Field (FinTxact)
     @Autowired
-    private EntityComboBox<UsrBaseNode> finTxact1_IdField;
+    private EntityComboBox<UsrNodeBase> finTxact1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNodeType> finTxact1_Id_Type1_IdField;
+    private EntityComboBox<UsrNodeBaseType> finTxact1_Id_Type1_IdField;
 
     @Autowired
     private ComboBox<String> finTxact1_Id_FinTxactSet1_EI1_RoleField;
@@ -276,18 +281,18 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     private EntityComboBox<UsrGenFmla> finTxact1_Id_Desc1GenFmla1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finTxact1_Id_Desc1FinTxactItm1_IdField;
+    private EntityComboBox<UsrNodeBase> finTxact1_Id_Desc1FinTxactItm1_IdField;
 
 
     // Field (FinTxact.FinTxactSet)
     @Autowired
-    private EntityComboBox<UsrBaseNode> finTxact1_Id_FinTxactSet1_IdField;
+    private EntityComboBox<UsrNodeBase> finTxact1_Id_FinTxactSet1_IdField;
 
     @Autowired
     private TextField<String> finTxact1_Id_FinTxactSet1_Id2TrgtField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNodeType> finTxact1_Id_FinTxactSet1_Id_Type1_IdField;
+    private EntityComboBox<UsrNodeBaseType> finTxact1_Id_FinTxactSet1_Id_Type1_IdField;
 
     @Autowired
     private EntityComboBox<UsrGenChan> finTxact1_Id_FinTxactSet1_Id_GenChan1_IdField;
@@ -311,7 +316,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     private EntityComboBox<UsrGenFmla> finTxact1_Id_FinTxactSet1_Id_Desc1GenFmla1_IdField;
 
     @Autowired
-    private EntityComboBox<UsrBaseNode> finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField;
+    private EntityComboBox<UsrNodeBase> finTxact1_Id_FinTxactSet1_Id_Desc1FinTxactItm1_IdField;
 
 
     /*
@@ -351,10 +356,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTaxLne1_CodeField.setNullSelectionCaption("<null>");
 
 
-        colCntnrType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
+        colCntnrType = dataComponents.createCollectionContainer(UsrNodeBaseType.class);
         colLoadrType = dataComponents.createCollectionLoader();
         colLoadrType.setQuery("select e from enty_UsrFinTxactItmType e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxactItmType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
+        FetchPlan fchPlnFinTxactItmType_Inst = fetchPlans.builder(UsrNodeBaseType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrType.setFetchPlan(fchPlnFinTxactItmType_Inst);
@@ -468,10 +473,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         genTag4_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        colCntnrFinTxact = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinTxact = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinTxact = dataComponents.createCollectionLoader();
         colLoadrFinTxact.setQuery("select e from enty_UsrFinTxact e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxact_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinTxact_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTxact.setFetchPlan(fchPlnFinTxact_Inst);
@@ -481,10 +486,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTxact1_IdField.setOptionsContainer(colCntnrFinTxact);
 
 
-        colCntnrFinTxactType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
+        colCntnrFinTxactType = dataComponents.createCollectionContainer(UsrNodeBaseType.class);
         colLoadrFinTxactType = dataComponents.createCollectionLoader();
         colLoadrFinTxactType.setQuery("select e from enty_UsrFinTxactType e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxactType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
+        FetchPlan fchPlnFinTxactType_Inst = fetchPlans.builder(UsrNodeBaseType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTxactType.setFetchPlan(fchPlnFinTxactType_Inst);
@@ -494,10 +499,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTxact1_Id_Type1_IdField.setOptionsContainer(colCntnrFinTxactType);
 
 
-        colCntnrFinTxactSet = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinTxactSet = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinTxactSet = dataComponents.createCollectionLoader();
         colLoadrFinTxactSet.setQuery("select e from enty_UsrFinTxactSet e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxactSet_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinTxactSet_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTxactSet.setFetchPlan(fchPlnFinTxactSet_Inst);
@@ -507,10 +512,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTxact1_Id_FinTxactSet1_IdField.setOptionsContainer(colCntnrFinTxactSet);
 
 
-        colCntnrFinTxactSetType = dataComponents.createCollectionContainer(UsrBaseNodeType.class);
+        colCntnrFinTxactSetType = dataComponents.createCollectionContainer(UsrNodeBaseType.class);
         colLoadrFinTxactSetType = dataComponents.createCollectionLoader();
         colLoadrFinTxactSetType.setQuery("select e from enty_UsrFinTxactSetType e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxactSetType_Inst = fetchPlans.builder(UsrBaseNodeType.class)
+        FetchPlan fchPlnFinTxactSetType_Inst = fetchPlans.builder(UsrNodeBaseType.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTxactSetType.setFetchPlan(fchPlnFinTxactSetType_Inst);
@@ -520,10 +525,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTxact1_Id_FinTxactSet1_Id_Type1_IdField.setOptionsContainer(colCntnrFinTxactSetType);
 
 
-        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinStmt = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinStmt = dataComponents.createCollectionLoader();
         colLoadrFinStmt.setQuery("select e from enty_UsrFinStmt e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinStmt_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinStmt_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinStmt.setFetchPlan(fchPlnFinStmt_Inst);
@@ -533,10 +538,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finStmt1_IdField.setOptionsContainer(colCntnrFinStmt);
 
 
-        colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinTaxLne = dataComponents.createCollectionLoader();
         colLoadrFinTaxLne.setQuery("select e from enty_UsrGenDocFrg e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTaxLne_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinTaxLne_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTaxLne.setFetchPlan(fchPlnFinTaxLne_Inst);
@@ -546,10 +551,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
 
 
-        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinAcct = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinAcct = dataComponents.createCollectionLoader();
         colLoadrFinAcct.setQuery("select e from enty_UsrFinAcct e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinAcct_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinAcct.setFetchPlan(fchPlnFinAcct_Inst);
@@ -559,10 +564,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finAcct1_IdField.setOptionsContainer(colCntnrFinAcct);
 
 
-        colCntnrFinDept = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinDept = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinDept = dataComponents.createCollectionLoader();
         colLoadrFinDept.setQuery("select e from enty_UsrFinDept e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinDept_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinDept_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinDept.setFetchPlan(fchPlnFinDept_Inst);
@@ -572,10 +577,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         finDept1_IdField.setOptionsContainer(colCntnrFinDept);
 
 
-        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysBaseNode.class);
+        colCntnrSysFinCurcy = dataComponents.createCollectionContainer(SysNodeBase.class);
         colLoadrSysFinCurcy = dataComponents.createCollectionLoader();
         colLoadrSysFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
-        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysBaseNode.class)
+        FetchPlan fchPlnSysFinCurcy_Inst = fetchPlans.builder(SysNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrSysFinCurcy.setFetchPlan(fchPlnSysFinCurcy_Inst);
@@ -585,10 +590,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         sysFinCurcy1_IdField.setOptionsContainer(colCntnrSysFinCurcy);
 
 
-        colCntnrFinTxactItm1 = dataComponents.createCollectionContainer(UsrBaseNode.class);
+        colCntnrFinTxactItm1 = dataComponents.createCollectionContainer(UsrNodeBase.class);
         colLoadrFinTxactItm1 = dataComponents.createCollectionLoader();
         colLoadrFinTxactItm1.setQuery("select e from enty_UsrFinTxactItm e order by e.sortKey, e.id2");
-        FetchPlan fchPlnFinTxactItm1_Inst = fetchPlans.builder(UsrBaseNode.class)
+        FetchPlan fchPlnFinTxactItm1_Inst = fetchPlans.builder(UsrNodeBase.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
         colLoadrFinTxactItm1.setFetchPlan(fchPlnFinTxactItm1_Inst);
@@ -738,7 +743,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateInstItemValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -762,7 +767,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -780,7 +785,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -798,7 +803,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -819,7 +824,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -838,7 +843,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -855,7 +860,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1014,7 +1019,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1040,7 +1045,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateTs1ElTsFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1058,7 +1063,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1084,7 +1089,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateTs2ElTsFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1102,7 +1107,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1126,7 +1131,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateIdXFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1144,7 +1149,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1166,7 +1171,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateIdYFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1184,7 +1189,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1203,7 +1208,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateIdZFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1244,7 +1249,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Desc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1257,12 +1262,12 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
     @Subscribe("finTxact1_IdField")
-    public void onFinTxact1_IdFieldValueChange(HasValue.ValueChangeEvent<UsrBaseNode> event) {
+    public void onFinTxact1_IdFieldValueChange(HasValue.ValueChangeEvent<UsrNodeBase> event) {
         String logPrfx = "onFinTxact1_IdFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {
-            UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+            UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
             if (thisFinTxactItm == null) {
                 logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
                 notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1282,7 +1287,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_IdFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1313,7 +1318,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_Id2TrgtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1469,7 +1474,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1486,7 +1491,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtDebtSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1503,7 +1508,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtCredSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1521,7 +1526,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFintxact1_Id_FinTxactItms1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1540,7 +1545,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_Id_Desc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1557,7 +1562,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_IdFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1588,7 +1593,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTxact1_Id_FinTxactSet1_Id2TrgtBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1794,7 +1799,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateFinTaxLne1_IdFieldBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- thisFinTxactItm is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1887,7 +1892,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateAmtFinTxactItm1_EI1_RateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1904,7 +1909,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateAmtCalcBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1922,7 +1927,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         String logPrfx = "onUpdateCalcAmtNetBtn";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode thisFinTxactItm = instCntnrMain.getItemOrNull();
+        UsrNodeBase thisFinTxactItm = instCntnrMain.getItemOrNull();
         if (thisFinTxactItm == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
             notifications.create().withCaption("No record selected. Please select a record.").show();
@@ -1945,7 +1950,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.trace(logPrfx + " <-- ");
     }
 
-    private Boolean updateCalcVals(@NotNull UsrBaseNode thisFinTxactItm, Integer finTxactOption, Integer finTxactSetOption) {
+    private Boolean updateCalcVals(@NotNull UsrNodeBase thisFinTxactItm, Integer finTxactOption, Integer finTxactSetOption) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1959,7 +1964,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxactItmCalcVals(@NotNull UsrBaseNode thisFinTxactItm, Integer finTxactOption) {
+    private Boolean updateFinTxactItmCalcVals(@NotNull UsrNodeBase thisFinTxactItm, Integer finTxactOption) {
         String logPrfx = "updateFinTxactItmCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -1983,7 +1988,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxactCalcVals(@NotNull UsrBaseNode thisFinTxactItm, Integer finTxactSetOption) {
+    private Boolean updateFinTxactCalcVals(@NotNull UsrNodeBase thisFinTxactItm, Integer finTxactSetOption) {
         String logPrfx = "updateFinTxactCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -2003,7 +2008,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxactSetCalcVals(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTxactSetCalcVals(@NotNull UsrNodeBase thisFinTxactItm) {
         String logPrfx = "updateFinTxactSetCalcVals";
         logger.trace(logPrfx + " --> ");
 
@@ -2016,7 +2021,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateIdParts(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateIdParts(@NotNull UsrNodeBase thisFinTxactItm) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
@@ -2034,7 +2039,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateId2(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateId2(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
@@ -2052,7 +2057,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Calc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateId2Calc(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
@@ -2070,7 +2075,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Cmp(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
@@ -2088,7 +2093,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateId2Dup(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
@@ -2121,7 +2126,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateDesc1(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateDesc1(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
@@ -2283,13 +2288,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_Id_Desc1(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_Id_Desc1(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
 
         if (thisFinTxact != null) {
             String desc1_ = thisFinTxact.getDesc1();
@@ -2396,17 +2401,17 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_Id_FinTxactSet1_Id_Desc1(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_Id_FinTxactSet1_Id_Desc1(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_Id_FinTxactSet1_Id_Desc1";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxactSet = thisFinTxactItm.getFinTxact1_Id() == null ? null : thisFinTxactItm.getFinTxact1_Id().getFinTxactSet1_Id();
+        UsrNodeBase thisFinTxactSet = thisFinTxactItm.getFinTxact1_Id() == null ? null : thisFinTxactItm.getFinTxact1_Id().getFinTxactSet1_Id();
 
         if (thisFinTxactSet != null) {
             //finTxactSet is a 2nd ref (ref of a ref) of finTxactItm and is not automatically loaded into the dataContext
-            UsrBaseNode thisTrackedTxset = dataContext.merge(thisFinTxactSet);
+            UsrNodeBase thisTrackedTxset = dataContext.merge(thisFinTxactSet);
             thisFinTxactSet = thisTrackedTxset;
 
             String desc1_ = thisFinTxactSet.getDesc1();
@@ -2428,7 +2433,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
                     default:
                         desc1FinTxactItm1_Id2 = thisFinTxactSet.getId2()+ "/Y00/Z00";
                 }
-                UsrBaseNode desc1FinTxactItm1 = thisFinTxactSet.getDesc1Node1_Id() == null
+                UsrNodeBase desc1FinTxactItm1 = thisFinTxactSet.getDesc1Node1_Id() == null
                         ? findFinTxactItmById2(desc1FinTxactItm1_Id2)
                         : thisFinTxactSet.getDesc1Node1_Id();
 
@@ -2551,7 +2556,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdTs(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateIdTs(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateIdTs";
         logger.trace(logPrfx + " --> ");
@@ -2563,7 +2568,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateTs1(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateTs1(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateTs1";
         logger.trace(logPrfx + " --> ");
@@ -2575,7 +2580,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateTs2(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateTs2(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateTs2";
         logger.trace(logPrfx + " --> ");
@@ -2588,7 +2593,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateIdX(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateIdX(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateIdX";
         logger.trace(logPrfx + " --> ");
@@ -2600,7 +2605,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateIdY(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateIdY(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateIdY";
         logger.trace(logPrfx + " --> ");
@@ -2612,7 +2617,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateIdZ(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateIdZ(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateIdZ";
         logger.trace(logPrfx + " --> ");
@@ -2624,14 +2629,14 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_Id(@NotNull UsrBaseNode thisFinTxactItm, Integer finTxactOption) {
+    private Boolean updateFinTxact1_Id(@NotNull UsrNodeBase thisFinTxactItm, Integer finTxactOption) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode finTxact1_Id_ = thisFinTxactItm.getFinTxact1_Id();
-        UsrBaseNode finTxact1_Id;
+        UsrNodeBase finTxact1_Id_ = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase finTxact1_Id;
         // Update finTxact
         switch (finTxactOption) {
             case 1: // Link to Exist Txact
@@ -2653,7 +2658,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
                 break;
             case 3: // Update Exist Txact
                 Boolean thisFinTxactIsChanged = false;
-                UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+                UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
                 if (thisFinTxact != null){
                     if (!Objects.equals(thisFinTxact.getNm1s1Inst1Ts1().getElTs(), thisFinTxactItm.getNm1s1Inst1Ts1().getElTs())){
                         thisFinTxact.getTs1().setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
@@ -2680,7 +2685,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_Id2Trgt(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_Id2Trgt(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
@@ -2698,13 +2703,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFintxact1_Id_FinTxactItms1_IdCntCalc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFintxact1_Id_FinTxactItms1_IdCntCalc(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFintxact1_Id_FinTxactItms1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null) {
             Integer idCntCalc_ = thisFinTxact.getFinTxactItms1_IdCntCalc();
             Integer idCntCalc = null ;
@@ -2736,13 +2741,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
 
-    private Boolean updateFintxact1_Id_FinTxactItms1_AmtDebtSumCalc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFintxact1_Id_FinTxactItms1_AmtDebtSumCalc(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFintxact1_Id_FinTxactItms1_DebtSum";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null) {
             BigDecimal amtDebtSumCalc_ = thisFinTxact.getFinTxactItms1_AmtDebtSumCalc();
             BigDecimal amtDebtSumCalc = null ;
@@ -2774,13 +2779,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
 
-    private Boolean updateFintxact1_Id_FinTxactItms1_AmtCredSumCalc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFintxact1_Id_FinTxactItms1_AmtCredSumCalc(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFintxact1_Id_FinTxactItms1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null) {
             BigDecimal amtCredSumCalc_ = thisFinTxact.getFinTxactItms1_AmtCredSumCalc();
             BigDecimal amtCredSumCalc = null ;
@@ -2813,13 +2818,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
 
 
-    private Boolean updateFintxact1_Id_FinTxactItms1_AmtEqCalc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFintxact1_Id_FinTxactItms1_AmtEqCalc(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFintxact1_Id_FinTxactItms1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null) {
             Boolean amtEqCalc_ = thisFinTxact.getFinTxactItms1_AmtEqCalc();
             Boolean amtEqCalc = Objects.equals(thisFinTxact.getFinTxactItms1_AmtDebtSumCalc()
@@ -2836,7 +2841,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private UsrBaseNode findFinTxactItmById2(@NotNull String finTxactItm_Id2) {
+    private UsrNodeBase findFinTxactItmById2(@NotNull String finTxactItm_Id2) {
         String logPrfx = "findFinTxactItmById2";
         logger.trace(logPrfx + " --> ");
 
@@ -2851,9 +2856,9 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactItm_Id2);
 
-        UsrBaseNode finTxactItm1_Id = null;
+        UsrNodeBase finTxactItm1_Id = null;
         try {
-            finTxactItm1_Id = dataManager.load(UsrBaseNode.class)
+            finTxactItm1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", finTxactItm_Id2)
                     .one();
@@ -2866,7 +2871,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return finTxactItm1_Id;
     }
 
-    private UsrBaseNode findFinTxactById2(@NotNull String finTxact_Id2) {
+    private UsrNodeBase findFinTxactById2(@NotNull String finTxact_Id2) {
         String logPrfx = "findFinTxactById2";
         logger.trace(logPrfx + " --> ");
 
@@ -2881,9 +2886,9 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
-        UsrBaseNode finTxact1_Id = null;
+        UsrNodeBase finTxact1_Id = null;
         try {
-            finTxact1_Id = dataManager.load(UsrBaseNode.class)
+            finTxact1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", finTxact_Id2)
                     .one();
@@ -2898,7 +2903,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
     }
 
-    private UsrBaseNode createFinTxactFrFinTxactItm(@NotNull UsrBaseNode thisFinTxactItm) {
+    private UsrNodeBase createFinTxactFrFinTxactItm(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "createFinTxactFrFinTxactItm";
         logger.trace(logPrfx + " --> ");
@@ -2916,7 +2921,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry:id2: " + finTxact_Id2);
 
         try {
-            UsrBaseNode finTxact = dataManager.load(UsrBaseNode.class)
+            UsrNodeBase finTxact = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", finTxact_Id2)
                     .one();
@@ -2927,7 +2932,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         } catch (IllegalStateException e) {
             logger.debug(logPrfx + " --- query qry returned NO results");
 
-            UsrBaseNode newFinTxact = dataManager.create(UsrBaseNode.class);
+            UsrNodeBase newFinTxact = dataManager.create(UsrNodeBase.class);
             newFinTxact.setClassName("UsrFinTxact");
 
             HasTmst ts1 = dataManager.create(HasTmst.class);
@@ -2942,9 +2947,9 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             newFinTxact.setId2(newFinTxact.getId2Calc());
 
 
-            UsrBaseNode savedFinTxact = dataManager.save(newFinTxact);
+            UsrNodeBase savedFinTxact = dataManager.save(newFinTxact);
 
-            UsrBaseNode mergedFinTxact = dataContext.merge(savedFinTxact);
+            UsrNodeBase mergedFinTxact = dataContext.merge(savedFinTxact);
             logger.debug(logPrfx + " --- created FinTxactItm id: " + mergedFinTxact.getId());
             notifications.create().withCaption("Created FinTxactItm with id2:" + mergedFinTxact.getId2()).show();
 
@@ -2954,16 +2959,16 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateFinTxact1_FinTxactSet1_Id(@NotNull UsrBaseNode thisFinTxactItm, Integer finTxactSetOption) {
+    private Boolean updateFinTxact1_FinTxactSet1_Id(@NotNull UsrNodeBase thisFinTxactItm, Integer finTxactSetOption) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_FinTxactSet1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null){
-            UsrBaseNode finTxactSet1_Id_ = thisFinTxact.getFinTxactSet1_Id();
-            UsrBaseNode finTxactSet1_Id;
+            UsrNodeBase finTxactSet1_Id_ = thisFinTxact.getFinTxactSet1_Id();
+            UsrNodeBase finTxactSet1_Id;
             // Update finTxact
             switch (finTxactSetOption) {
                 case 1: // Link to Exist Txset
@@ -2985,7 +2990,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
                     break;
                 case 3: // Update Exist Txact
                     Boolean thisFinTxactSetIsChanged = false;
-                    UsrBaseNode thisFinTxactSet = thisFinTxact.getFinTxactSet1_Id();
+                    UsrNodeBase thisFinTxactSet = thisFinTxact.getFinTxactSet1_Id();
                     if (thisFinTxactSet != null) {
                         if (!Objects.equals(thisFinTxactSet.getNm1s1Inst1Ts1().getElTs(), thisFinTxactItm.getNm1s1Inst1Ts1().getElTs())) {
                             thisFinTxactSet.getTs1().setElTs(thisFinTxactItm.getNm1s1Inst1Ts1().getElTs());
@@ -3010,13 +3015,13 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTxact1_FinTxactSet1_Id2Trgt(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTxact1_FinTxactSet1_Id2Trgt(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTxact1_FinTxactSet1_Id2Trgt";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
+        UsrNodeBase thisFinTxact = thisFinTxactItm.getFinTxact1_Id();
         if (thisFinTxact != null){
             String id2Calc_ = thisFinTxactItm.getId2Calc();
             String id2Calc = thisFinTxactItm.getId2CalcFrFields().substring(0, 20);
@@ -3031,7 +3036,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private UsrBaseNode findFinTxactSetById2(@NotNull String finTxactSet_Id2) {
+    private UsrNodeBase findFinTxactSetById2(@NotNull String finTxactSet_Id2) {
         String logPrfx = "findFinTxactSetById2";
         logger.trace(logPrfx + " --> ");
 
@@ -3046,9 +3051,9 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         logger.debug(logPrfx + " --- qry: " + qry);
         logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
-        UsrBaseNode finTxactSet1_Id = null;
+        UsrNodeBase finTxactSet1_Id = null;
         try {
-            finTxactSet1_Id = dataManager.load(UsrBaseNode.class)
+            finTxactSet1_Id = dataManager.load(UsrNodeBase.class)
                     .query(qry)
                     .parameter("id2", finTxactSet_Id2)
                     .one();
@@ -3063,12 +3068,12 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
     }
 
-    private UsrBaseNode createFinTxactSetFrFinTxactItm(@NotNull UsrBaseNode thisFinTxactItm) {
+    private UsrNodeBase createFinTxactSetFrFinTxactItm(@NotNull UsrNodeBase thisFinTxactItm) {
         // Assume thisFinTxactItm is not null
         String logPrfx = "createFinTxactSetFrFinTxactItm";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode mergedFinTxactSet = null;
+        UsrNodeBase mergedFinTxactSet = null;
         if (thisFinTxactItm.getFinTxact1_Id() != null) {
             String finTxactSet_Id2 = thisFinTxactItm.getFinTxact1_Id().getFinTxactSet1_Id2Trgt();
             if (finTxactSet_Id2 == null) {
@@ -3083,7 +3088,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- qry:id2: " + finTxactSet_Id2);
 
             try {
-                UsrBaseNode finTxactSet = dataManager.load(UsrBaseNode.class)
+                UsrNodeBase finTxactSet = dataManager.load(UsrNodeBase.class)
                         .query(qry)
                         .parameter("id2", finTxactSet_Id2)
                         .one();
@@ -3094,7 +3099,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- query qry returned NO results");
 
-                UsrBaseNode newFinTxactSet = dataManager.create(UsrBaseNode.class);
+                UsrNodeBase newFinTxactSet = dataManager.create(UsrNodeBase.class);
                 newFinTxactSet.setClassName("UsrFinTxactSet");
 
                 HasTmst ts1 = dataManager.create(HasTmst.class);
@@ -3108,7 +3113,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
                 newFinTxactSet.setId2(newFinTxactSet.getId2Calc());
 
 
-                UsrBaseNode savedFinTxactSet = dataManager.save(newFinTxactSet);
+                UsrNodeBase savedFinTxactSet = dataManager.save(newFinTxactSet);
 
                 mergedFinTxactSet = dataContext.merge(savedFinTxactSet);
                 logger.debug(logPrfx + " --- created FinTxactSet id: " + mergedFinTxactSet.getId());
@@ -3121,7 +3126,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateAmtFinTxactItm1_EI1_Rate(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateAmtFinTxactItm1_EI1_Rate(@NotNull UsrNodeBase thisFinTxactItm) {
         //Assume thisFinTxactItm is not null
         String logPrfx = "updateAmtFinTxactItm1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
@@ -3143,7 +3148,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- amtFinFmla1: " + amtFinFmla1.getId());
         }
 
-        UsrBaseNode amtFinTxactItm1 = thisFinTxactItm.getAmtFinTxactItm1_Id();
+        UsrNodeBase amtFinTxactItm1 = thisFinTxactItm.getAmtFinTxactItm1_Id();
         if (amtFinTxactItm1 == null) {
             logger.debug(logPrfx + " --- amtFinTxactItm1: null");
             notifications.create().withCaption("Unable to get reference to the other FinTxactItm. Please ensure amtFinTxactItm1_Id is selected and it has a currency is selected.").show();
@@ -3154,7 +3159,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         BigDecimal rate = BigDecimal.valueOf(0);
         boolean qryRsltGood = false;
 
-        SysBaseNode curcyFr = thisFinTxactItm.getAmtFinTxactItm1_Id().getSysFinCurcy1_Id();
+        SysNodeBase curcyFr = thisFinTxactItm.getAmtFinTxactItm1_Id().getSysFinCurcy1_Id();
         if (curcyFr == null) {
             logger.debug(logPrfx + " --- curcyFr: null");
             notifications.create().withCaption("Unable to get the currency from the other FinTxactItm. Please ensure a FinTxactItm1_Id is selected and it has a currency is selected.").show();
@@ -3164,7 +3169,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- curcyFr.Id: " + curcyFr.getId());
         }
 
-        SysBaseNode curcyTo = thisFinTxactItm.getSysFinCurcy1_Id();
+        SysNodeBase curcyTo = thisFinTxactItm.getSysFinCurcy1_Id();
         if (curcyTo == null) {
             logger.debug(logPrfx + " --- curcyTo: null");
             notifications.create().withCaption("Unable to get the currency from this FinTxactItm. Please ensure a currency is selected.").show();
@@ -3191,10 +3196,10 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
 
         }
 
-        SysBaseNode curcyExchRate;
+        SysNodeBase curcyExchRate;
         try {
-            curcyExchRate = dataManager.load(SysBaseNode.class)
-                    .query("select e from enty_SysBaseNode e"
+            curcyExchRate = dataManager.load(SysNodeBase.class)
+                    .query("select e from enty_SysNodeBase e"
                             + " where e.finCurcy1_Id.id = :curcyFr"
                             + " and   e.finCurcy2_Id.id = :curcyTo"
                             + " and   e.ts1.date1 = :date1"
@@ -3220,8 +3225,8 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- qry1 result is empty");
             try {
 
-                curcyExchRate = dataManager.load(SysBaseNode.class)
-                        .query("select e from enty_SysBaseNodee"
+                curcyExchRate = dataManager.load(SysNodeBase.class)
+                        .query("select e from enty_SysNodeBase e"
                                 + " where e.finCurcy1_Id.id = :curcyFr"
                                 + " and   e.finCurcy2_Id.id = :curcyTo"
                                 + " and   e.ts1.date1 = :date1"
@@ -3256,7 +3261,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
     }
 
 
-    private Boolean updateAmtCalc(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateAmtCalc(@NotNull UsrNodeBase thisFinTxactItm) {
         //Assume thisFinTxactItm is not null
         String logPrfx = "updateAmtCalc";
         logger.trace(logPrfx + " --> ");
@@ -3275,8 +3280,8 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- amtFinFmla1: " + amtFinFmla1.getId());
         }
 
-        UsrBaseNode prev1FinTxactItm;
-        UsrBaseNode prev2FinTxactItm;
+        UsrNodeBase prev1FinTxactItm;
+        UsrNodeBase prev2FinTxactItm;
 
         // Switch statement over above string
         switch (amtFinFmla1.getId2()) {
@@ -3284,7 +3289,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             // Ref1 Mult Exch_Rate
             case "Ref1 Mult Exch_Rate":
 
-                UsrBaseNode amtFinTxactItm1 = thisFinTxactItm.getAmtFinTxactItm1_Id();
+                UsrNodeBase amtFinTxactItm1 = thisFinTxactItm.getAmtFinTxactItm1_Id();
                 if (amtFinTxactItm1 == null) {
                     logger.debug(logPrfx + " --- amtFinTxactItm1: null");
                     notifications.create().withCaption("Unable to get amtFinTxactItm1. Please ensure amtFinTxactItm1 has a finTxactItm selected.").show();
@@ -3362,7 +3367,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    public Boolean updateAmtNet(@NotNull UsrBaseNode thisFinTxactItm) {
+    public Boolean updateAmtNet(@NotNull UsrNodeBase thisFinTxactItm) {
         //Assume thisFinTxactItm is not null
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
@@ -3370,7 +3375,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         boolean isChanged = false;
         BigDecimal netAmt_ = thisFinTxactItm.getAmtNet();
 
-        UsrBaseNode thisFinAcct = thisFinTxactItm.getFinAcct1_Id();
+        UsrNodeBase thisFinAcct = thisFinTxactItm.getFinAcct1_Id();
         if (thisFinAcct == null) {
             logger.debug(logPrfx + " --- finAcct1_Id is null. Please select an account.");
             notifications.create().withCaption("FinAcct1_Id is null. Please select an account.").show();
@@ -3378,7 +3383,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             return isChanged;
         }
 
-        UsrBaseNodeType thisFinAcctType = thisFinAcct.getType1_Id();
+        UsrNodeBaseType thisFinAcctType = thisFinAcct.getType1_Id();
         if (thisFinAcctType == null) {
             logger.debug(logPrfx + " --- finAcct1_Id.type1_Id is null. Please select an account.");
             notifications.create().withCaption("FinAcct1_Id.type1_Id is null. Please select a type for this account.").show();
@@ -3415,14 +3420,14 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    private Boolean updateFinTaxLne1_Id(@NotNull UsrBaseNode thisFinTxactItm) {
+    private Boolean updateFinTaxLne1_Id(@NotNull UsrNodeBase thisFinTxactItm) {
         //Assume thisFinTxactItm is not null
         String logPrfx = "updateFinTaxLne1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        UsrBaseNode finTaxLne_ = thisFinTxactItm.getFinTaxLne1_Id();
-        UsrBaseNode finTaxLne = thisFinTxactItm.getFinAcct1_Id() == null ? null :
+        UsrNodeBase finTaxLne_ = thisFinTxactItm.getFinTaxLne1_Id();
+        UsrNodeBase finTaxLne = thisFinTxactItm.getFinAcct1_Id() == null ? null :
                 thisFinTxactItm.getFinAcct1_Id().getFinTaxLne1_Id();
 
         if (!Objects.equals(finTaxLne_, finTaxLne)){
@@ -3435,12 +3440,12 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
         return isChanged;
     }
 
-    public UsrBaseNode getPrevFinTxactItm(@NotNull UsrBaseNode thisFinTxactItm) {
+    public UsrNodeBase getPrevFinTxactItm(@NotNull UsrNodeBase thisFinTxactItm) {
         //Assume thisFinTxactItm is not null
         String logPrfx = "getPrevFinTxactItm";
         logger.trace(logPrfx + " --> ");
 
-        UsrBaseNode prevFinTxactItm = null;
+        UsrNodeBase prevFinTxactItm = null;
         boolean qryRsltGood = false;
 
         if (thisFinTxactItm.getNm1s1Inst1Int3() != null || thisFinTxactItm.getNm1s1Inst1Int3() >= 1) {
@@ -3454,7 +3459,7 @@ public class UsrFinTxactItm0Edit extends StandardEditor<UsrBaseNode> {
             logger.debug(logPrfx + " --- qry: " + qry);
 
             try {
-                prevFinTxactItm = dataManager.load(UsrBaseNode.class)
+                prevFinTxactItm = dataManager.load(UsrNodeBase.class)
                         .query(qry)
                         .parameter("id2", prev1FinTxactItm_Id2)
                         .one()

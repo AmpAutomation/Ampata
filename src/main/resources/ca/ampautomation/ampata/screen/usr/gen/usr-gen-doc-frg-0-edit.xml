@@ -4,13 +4,13 @@
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                  class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                   fetchPlan="fetchPlan_UsrGenDocFrg_Base">
             <loader/>
         </instance>
 
         <collection id="colCntnrGenDocVer"
-                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenDocVer"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenDocVer"
                     fetchPlan="fetchPlan_UsrGenDocVer_Base">
             <loader id="colLoadrGenDocVer">
                 <query>
@@ -20,7 +20,7 @@
         </collection>
 
         <collection id="colCntnrGenTag"
-                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenTag"
+                    class="ca.ampautomation.ampata.entity.usr.item.gen.UsrGenTag"
                     fetchPlan="fetchPlan_UsrGenTag_Base">
             <loader id="colLoadrGenTag">
                 <query>
@@ -30,7 +30,7 @@
         </collection>
 
         <collection id="colCntnrGenChan"
-                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenChan"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenChan"
                     fetchPlan="fetchPlan_UsrGenChan_Base">
             <loader id="colLoadrGenChan">
                 <query>

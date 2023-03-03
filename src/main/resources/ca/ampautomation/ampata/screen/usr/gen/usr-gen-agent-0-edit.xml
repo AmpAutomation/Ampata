@@ -4,7 +4,7 @@
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.gen.UsrGenAgent"
+                  class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenAgent"
                   fetchPlan="fetchPlan_UsrGenAgent_Base">
             <loader/>
         </instance>

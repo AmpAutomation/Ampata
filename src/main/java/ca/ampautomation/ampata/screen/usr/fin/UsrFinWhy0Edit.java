@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinWhy;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinWhy;
 
 @UiController("enty_UsrFinWhy.edit")
 @UiDescriptor("usr-fin-why-0-edit.xml")

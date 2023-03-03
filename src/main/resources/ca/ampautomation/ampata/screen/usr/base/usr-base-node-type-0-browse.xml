@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrBaseNodeTypeBrowse.caption"
+        caption="msg://usrNodeBaseTypeBrowse.caption"
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNodeType"
-                    fetchPlan="fetchPlan_UsrBaseNodeType_Base">
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBaseType"
+                    fetchPlan="fetchPlan_UsrNodeBaseType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNodeType e order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBaseType e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -38,7 +38,7 @@
                     <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                        <entityPicker metaClass="enty_UsrBaseNode"/>
+                        <entityPicker metaClass="enty_UsrNodeBase"/>
                     </propertyFilter>
                     <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="CONTAINS" property="dtype" operationEditable="true">
                         <textField/>

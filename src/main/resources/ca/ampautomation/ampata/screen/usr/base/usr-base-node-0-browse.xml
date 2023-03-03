@@ -4,12 +4,12 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.base.UsrBaseNode"
+                    class="ca.ampautomation.ampata.entity.usr.base.UsrNodeBase"
                     >
-            <fetchPlan extends="fetchPlan_UsrBaseNode_Base"/>
+            <fetchPlan extends="fetchPlan_UsrNodeBase_Base"/>
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrBaseNode e order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -38,13 +38,13 @@
                     <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
-                        <entityPicker metaClass="enty_UsrBaseNode"/>
+                        <entityPicker metaClass="enty_UsrNodeBase"/>
                     </propertyFilter>
                     <propertyFilter id="filterConfig1A_Dtype" caption="dtype" operation="CONTAINS" property="dtype" operationEditable="true">
                         <textField/>
                     </propertyFilter>
                     <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_UsrBaseNodeType"/>
+                        <entityComboBox metaClass="enty_UsrNodeBaseType"/>
                     </propertyFilter>
                 </configuration>
             </configurations>

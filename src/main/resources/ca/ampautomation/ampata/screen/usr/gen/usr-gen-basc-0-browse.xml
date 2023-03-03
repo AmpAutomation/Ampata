@@ -4,7 +4,7 @@
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colCntnrGenTag"
-                    class="ca.ampautomation.ampata.entity.usr.gen.UsrGenBasc"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrGenBasc"
                     fetchPlan="fetchPlan_UsrGenBasc_Base">
             <loader id="colLoadrGenTag">
                 <query>

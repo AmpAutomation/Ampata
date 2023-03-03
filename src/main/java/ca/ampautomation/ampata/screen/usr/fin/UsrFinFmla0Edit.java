@@ -1,7 +1,7 @@
 package ca.ampautomation.ampata.screen.usr.fin;
 
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.fin.UsrFinFmla;
+import ca.ampautomation.ampata.entity.usr.item.fin.UsrFinFmla;
 
 @UiController("enty_UsrFinFmla.edit")
 @UiDescriptor("usr-fin-fmla-0-edit.xml")
