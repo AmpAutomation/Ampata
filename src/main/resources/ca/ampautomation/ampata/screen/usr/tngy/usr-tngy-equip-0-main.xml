@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrTngyEquipMain.caption"
+        caption="msg://usrNodeTngyEquipMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
-                    class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrTngyEquip"
-                    fetchPlan="fetchPlan_UsrTngyEquip_Base">
+                    class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrNodeTngyEquip"
+                    fetchPlan="fetchPlan_UsrNodeTngyEquip_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrTngyEquip' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrNodeTngyEquip' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrTngyEquip"
-                  fetchPlan="fetchPlan_UsrTngyEquip_Base">
+                  class="ca.ampautomation.ampata.entity.usr.node.tngy.UsrNodeTngyEquip"
+                  fetchPlan="fetchPlan_UsrNodeTngyEquip_Base">
             <loader/>
         </instance>
     </data>

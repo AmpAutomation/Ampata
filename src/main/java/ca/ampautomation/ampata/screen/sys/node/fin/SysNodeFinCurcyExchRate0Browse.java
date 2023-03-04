@@ -7,7 +7,7 @@ import ca.ampautomation.ampata.screen.sys.base.SysNodeBase0BaseBrowse;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
 
-@UiController("enty_SysFinCurcyExchRate.browse")
+@UiController("enty_SysNodeFinCurcyExchRate.browse")
 @UiDescriptor("sys-node-fin-curcy-exch-rate-0-browse.xml")
 @LookupComponent("tableMain")
 public class SysNodeFinCurcyExchRate0Browse extends SysNodeBase0BaseBrowse<SysNodeFinCurcyExchRate, SysNodeFinCurcyExchRateType, SysNodeFinCurcyExchRateQryMngr> {

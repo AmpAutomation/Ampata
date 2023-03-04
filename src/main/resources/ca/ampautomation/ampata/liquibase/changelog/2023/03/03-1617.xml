@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="1" author="ampata">
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_AMT_FIN_FMLA1_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_AMT_FIN_FMLA1__ID"/>
+
+        <dropForeignKeyConstraint baseTableName="AMPATA_USR_NODE" constraintName="FK_AMPATA_USR_NODE_ON_SYS_FIN_CURCY1_"/>
+        <dropIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_SYS_FIN_CURCY1__ID"/>
+
+    </changeSet>
+
+
+    <changeSet id="2" author="ampata">
+        <renameColumn tableName="AMPATA_USR_ITEM" oldColumnName="FMLA" newColumnName="SRC_CODE"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="AMT_FIN_FMLA1__ID" newColumnName="AMT_CALC_GEN_FMLA1__ID"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="AMT_FIN_FMLA1__ID2" newColumnName="AMT_CALC_GEN_FMLA1__ID2"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="FIN_TXACT_ITMS1__SYS_FIN_CURCY_CALC" newColumnName="FIN_TXACT_ITMS1__SYS_NODE_FIN_CURCY_CALC"/>
+
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="SYS_FIN_CURCY1__ID" newColumnName="SYS_NODE_FIN_CURCY1__ID"/>
+        <renameColumn tableName="AMPATA_USR_NODE" oldColumnName="SYS_FIN_CURCY1__ID2" newColumnName="SYS_NODE_FIN_CURCY1__ID2"/>
+
+    </changeSet>
+
+
+    <changeSet id="4" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="AMT_CALC_GEN_FMLA1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_AMT_CALC_GEN_FMLA1_"
+                                 referencedTableName="AMPATA_USR_ITEM"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_AMT_CALC_GEN_FMLA1__ID">
+            <column name="AMT_CALC_GEN_FMLA1__ID"></column>
+        </createIndex>
+
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="SYS_NODE_FIN_CURCY1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_SYS_NODE_FIN_CURCY1_"
+                                 referencedTableName="AMPATA_SYS_NODE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_SYS_NODE_FIN_CURCY1__ID">
+            <column name="SYS_NODE_FIN_CURCY1__ID"></column>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

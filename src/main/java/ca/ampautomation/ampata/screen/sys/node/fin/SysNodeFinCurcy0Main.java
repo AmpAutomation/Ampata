@@ -7,7 +7,7 @@ import ca.ampautomation.ampata.screen.sys.base.SysNodeBase0BaseMain;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
 
-@UiController("enty_SysFinCurcy.main")
+@UiController("enty_SysNodeFinCurcy.main")
 @UiDescriptor("sys-node-fin-curcy-0-main.xml")
 @LookupComponent("tableMain")
 public class SysNodeFinCurcy0Main extends SysNodeBase0BaseMain<SysNodeFinCurcy, SysNodeFinCurcyType, SysNodeFinCurcyQryMngr> {

@@ -23,7 +23,7 @@ set  dtype = 'Usr' || t.class_name
 WHERE t.class_name is not null
 
 update ampata_usr_node t
-set  dtype = case when t.class_name = 'UsrGenTag' then
+set  dtype = case when t.class_name = 'UsrItemGenTag' then
 WHERE t.class_name is not null
 
 SELECT t.id

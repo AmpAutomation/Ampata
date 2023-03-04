@@ -27,7 +27,7 @@ from (
 	from ampata_usr_node t2a
 	left join ampata_usr_node_type as t2b
 		on t2a.type1__id = t2b.id
---	where t2a.class_name = 'UsrGenAgent'
+--	where t2a.class_name = 'UsrNodeGenAgent'
 --	and t2a.deleted_by is null
 ) t1
 where t.id = t1.id 

@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.sys.base;
 
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBase;
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBaseQryMngr;
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBaseType;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseQryMngr;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import io.jmix.ui.screen.*;
 
 @UiController("enty_SysNodeBase.main")

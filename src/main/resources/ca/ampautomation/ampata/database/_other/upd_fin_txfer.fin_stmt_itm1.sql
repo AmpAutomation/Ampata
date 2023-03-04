@@ -25,7 +25,7 @@ begin
 		,amt_net
 		,fin_stmt_itm1__id
 		from ampata_sys_node t
-		where t.class_name = 'UsrFinTxactItm'
+		where t.class_name = 'UsrNodeFinTxactItm'
 		and t.fin_stmt_itm1__id is null
 --		and t.fin_acct1__id = 'addff8fa-a1a3-47ef-9309-62c1adab4998' -- /Mark/L/RBC/Visa
 		and t.fin_acct1__id = 'cd75edac-f633-4dea-b657-0c0d472e0bdb' -- /Mark/L/RBC/Visa_USD
@@ -50,9 +50,9 @@ begin
 		FROM ampata_sys_node t
 		inner join ampata_sys_node t2
 		on t.fin_stmt1__id = t2.id
-		where t.class_name = 'UsrFinStmtItm'
+		where t.class_name = 'UsrNodeFinStmtItm'
 		and t.deleted_by is null
-		and t2.class_name = 'UsrFinStmt'
+		and t2.class_name = 'UsrNodeFinStmt'
 		and t2.fin_acct1__id = node.fin_acct1__id
 		and t.id_ts_ts1 between node.id_ts_ts1 - interval '3 day' and node.id_ts_ts1 + interval '3 day'
 		and (t.amt_debt = amt or t.amt_cred = amt)
@@ -66,9 +66,9 @@ begin
 			FROM ampata_sys_node t
 			inner join ampata_sys_node t2
 			on t.fin_stmt1__id = t2.id
-			where t.class_name = 'UsrFinStmtItm'
+			where t.class_name = 'UsrNodeFinStmtItm'
 			and t.deleted_by is null
-			and t2.class_name = 'UsrFinStmt'
+			and t2.class_name = 'UsrNodeFinStmt'
 			and t2.fin_acct1__id = node.fin_acct1__id
 			and t.id_ts_ts1 between node.id_ts_ts1 - interval '3 day' and node.id_ts_ts1 + interval '3 day'
 			and (t.amt_debt = amt or t.amt_cred = amt)

@@ -1,8 +1,8 @@
 package ca.ampautomation.ampata.screen.sys.base;
 
-import ca.ampautomation.ampata.entity.sys.base.SysComnBaseQryMngr;
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBase;
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBaseType;
+import ca.ampautomation.ampata.entity.sys.comn.SysComnBaseQryMngr;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import ca.ampautomation.ampata.entity.sys.item.gen.SysItemGenFmla;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;

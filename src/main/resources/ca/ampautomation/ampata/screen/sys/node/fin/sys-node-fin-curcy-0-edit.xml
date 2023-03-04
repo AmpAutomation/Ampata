@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://sysFinCurcyEdit.caption"
+        caption="msg://sysNodeFinCurcyEdit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
-                  class="ca.ampautomation.ampata.entity.sys.base.SysNodeBase"
-                  fetchPlan="fetchPlan_SysFinCurcy_Base">
+                  class="ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase"
+                  fetchPlan="fetchPlan_SysNodeFinCurcy_Base">
             <loader/>
         </instance>
     </data>

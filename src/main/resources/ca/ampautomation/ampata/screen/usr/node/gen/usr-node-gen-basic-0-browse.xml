@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://usrItemGenTagBrowse.caption"
+        focusComponent="tableMain">
+    <data readOnly="true">
+        <collection id="colCntnrGenTag"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenBasic"
+                    fetchPlan="fetchPlan_UsrNodeGenBasic_Base">
+            <loader id="colLoadrGenTag">
+                <query>
+                    <![CDATA[select e from enty_UsrNodeGenBasic e where e.className = 'UsrNodeGenBasic' order by e.sortKey, e.id2]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
+        <filter id="filter"
+                dataLoader="colLoadrGenTag">
+            <properties include=".*"/>
+            <configurations>
+                <configuration id="filterConfig1" default="true">
+                    <propertyFilter operation="CONTAINS" property="id2" operationEditable="true"/>
+                    <propertyFilter operation="CONTAINS" property="name1" operationEditable="true"/>
+                </configuration>
+            </configurations>
+        </filter>
+        <table id="tableMain"
+                    width="100%"
+                    dataContainer="colCntnrGenTag">
+            <actions>
+                <action id="create" type="create">
+                    <properties>
+                        <property name="screenId" value="ampata_GenTag.edit"/>
+                    </properties>
+                </action>
+                <action id="edit" type="edit">
+                    <properties>
+                        <property name="screenId" value="ampata_GenTag.edit"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <column id="id2"/>
+                <column id="id2Calc"/>
+                <column id="id2Cmp"/>
+                <column id="id2Dup"/>
+                <column id="sortIdx"/>
+                <column id="type1_Id"/>
+                <column id="type1_Id2"/>
+                <column id="inst1"/>
+                <column id="name1"/>
+                <column id="name1GenFmla1_Id"/>
+                <column id="name1GenFmla1_Id2"/>
+                <column id="name2"/>
+                <column id="abrv"/>
+                <column id="desc1"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="tableMain.create"/>
+                <button id="editBtn" action="tableMain.edit"/>
+                <button id="refreshBtn" action="tableMain.refresh"/>
+                <button id="removeBtn" action="tableMain.remove"/>
+            </buttonsPanel>
+        </table>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

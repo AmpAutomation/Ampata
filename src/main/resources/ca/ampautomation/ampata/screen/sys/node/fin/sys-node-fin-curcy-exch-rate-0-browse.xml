@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://sysFinCurcyExchRateBrowse.caption"
+        caption="msg://sysNodeFinCurcyExchRateBrowse.caption"
         focusComponent="tableMain">
     <data readOnly="true">
         <collection id="colLoadrMain"
                     class="ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate"
-                    fetchPlan="fetchPlan_SysFinCurcyExchRate_Base">
+                    fetchPlan="fetchPlan_SysNodeFinCurcyExchRate_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_SysFinCurcyExchRate e where e.className = 'SysFinCurcyExchRate' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_SysNodeFinCurcyExchRate e where e.className = 'SysNodeFinCurcyExchRate' order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -40,14 +40,14 @@
                     <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_SysFinCurcyExchRateType"/>
+                        <entityComboBox metaClass="enty_SysNodeFinCurcyExchRateType"/>
                     </propertyFilter>
 
-                    <propertyFilter id="filterConfig1A_FinCurcy1_Id" caption="sysFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_SysFinCurcy"/>
+                    <propertyFilter id="filterConfig1A_FinCurcy1_Id" caption="sysNodeFinCurcy1_Id" operation="EQUAL" property="finCurcy1_Id" operationEditable="true">
+                        <entityComboBox metaClass="enty_SysNodeFinCurcy"/>
                     </propertyFilter>
-                    <propertyFilter id="filterConfig1A_FinCurcy2_Id" caption="sysFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
-                        <entityComboBox metaClass="enty_SysFinCurcy"/>
+                    <propertyFilter id="filterConfig1A_FinCurcy2_Id" caption="sysNodeFinCurcy2_Id" operation="EQUAL" property="finCurcy2_Id" operationEditable="true">
+                        <entityComboBox metaClass="enty_SysNodeFinCurcy"/>
                     </propertyFilter>
                     <propertyFilter id="filterConfig1A_Nm1s1Inst1Ts1ElDtGE" caption="nm1s1Inst1Ts1.elDt" operation="GREATER_OR_EQUAL" property="nm1s1Inst1Ts1.elDt" operationEditable="true"/>
                     <propertyFilter id="filterConfig1A_Nm1s1Inst1Ts1ElDtLE" caption="nm1s1Inst1Ts1.elDt" operation="LESS_OR_EQUAL" property="nm1s1Inst1Ts1.elDt" operationEditable="true"/>

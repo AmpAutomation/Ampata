@@ -9,7 +9,7 @@ SELECT t.id
 --,'enty_' || dtype dtype2
 --,'Usr' || class_name class_name2
 FROM ampata_usr_node t
-where t.class_name = 'UsrGenFile'
+where t.class_name = 'UsrNodeGenFile'
 
 
 update ampata_sys_node  t

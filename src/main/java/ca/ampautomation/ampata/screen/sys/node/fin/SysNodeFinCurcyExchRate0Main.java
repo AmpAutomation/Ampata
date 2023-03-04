@@ -1,7 +1,6 @@
 package ca.ampautomation.ampata.screen.sys.node.fin;
 
 import ca.ampautomation.ampata.entity.HasTmst;
-import ca.ampautomation.ampata.entity.sys.fin.*;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateQryMngr;
@@ -11,7 +10,7 @@ import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.sys.base.SysNodeBase;
+import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
 import io.jmix.ui.screen.LookupComponent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 
-@UiController("enty_SysFinCurcyExchRate.main")
+@UiController("enty_SysNodeFinCurcyExchRate.main")
 @UiDescriptor("sys-node-fin-curcy-exch-rate-0-main.xml")
 @LookupComponent("tableMain")
 public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFinCurcyExchRate, SysNodeFinCurcyExchRateType, SysNodeFinCurcyExchRateQryMngr> {
@@ -87,7 +86,7 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
 
         colCntnrFinCurcy = dataComponents.createCollectionContainer(SysNodeFinCurcy.class);
         colLoadrFinCurcy = dataComponents.createCollectionLoader();
-        colLoadrFinCurcy.setQuery("select e from enty_SysFinCurcy e order by e.sortKey, e.id2");
+        colLoadrFinCurcy.setQuery("select e from enty_SysNodeFinCurcy e order by e.sortKey, e.id2");
         FetchPlan fchPlnFinCurcy_Inst = fetchPlans.builder(SysNodeFinCurcy.class)
                 .addFetchPlan(FetchPlan.INSTANCE_NAME)
                 .build();
