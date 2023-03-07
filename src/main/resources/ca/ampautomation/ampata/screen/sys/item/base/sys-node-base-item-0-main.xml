@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://sysItemBase0Main.caption"
+        caption="msg://sysItemBaseMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.sys.item.base.SysItemBase"
-                    fetchPlan="fetchPlan_SysItemBase0_Base">
+                    fetchPlan="fetchPlan_SysItemBase_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_SysItemBase0 e]]>
+                    <![CDATA[select e from enty_SysItemBase e]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
                   class="ca.ampautomation.ampata.entity.sys.item.base.SysItemBase"
-                  fetchPlan="fetchPlan_SysItemBase0_Base">
+                  fetchPlan="fetchPlan_SysItemBase_Base">
             <loader/>
         </instance>
     </data>
@@ -43,7 +43,7 @@
                             </propertyFilter>
 
                             <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
-                                <entityComboBox metaClass="enty_SysItemBase0Type"/>
+                                <entityComboBox metaClass="enty_SysItemBaseType"/>
                             </propertyFilter>
 
                         </configuration>

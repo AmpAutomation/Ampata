@@ -380,7 +380,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         EntityComboBox<UsrNodeBase> propFilterCmpnt_FinAcct1_Id = (EntityComboBox<UsrNodeBase>) filterConfig1A_FinAcct1_Id.getValueComponent();
         propFilterCmpnt_FinAcct1_Id.setOptionsContainer(colCntnrFinAcct);
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
 
 
     }
@@ -1847,7 +1847,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateNm1s1Inst1Dt1();
+        isChanged = isChanged || thisFinStmtItm.updateDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1859,7 +1859,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs1();
+        isChanged = isChanged || thisFinStmtItm.updateTs1FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1871,7 +1871,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs2();
+        isChanged = isChanged || thisFinStmtItm.updateTs2FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1884,7 +1884,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateNm1s1Inst1Int1();
+        isChanged = isChanged || thisFinStmtItm.updateInt1FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

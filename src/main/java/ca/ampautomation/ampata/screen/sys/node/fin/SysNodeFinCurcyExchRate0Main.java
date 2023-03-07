@@ -5,7 +5,7 @@ import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateQryMngr;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateType;
-import ca.ampautomation.ampata.screen.sys.base.SysNodeBase0BaseMain;
+import ca.ampautomation.ampata.screen.sys.node.base.SysNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;

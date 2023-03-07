@@ -1433,92 +1433,10 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
     }
 
     private Boolean updateDesc1(@NotNull UsrNodeBase thisFinBal){
-        // Assume thisFinBal is not null
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        String desc1_ = thisFinBal.getDesc1();
-        String  status = Objects.toString(thisFinBal.getStatus(),"");
-        if (!status.equals("")){
-            status = "" + status;
-        }
-        logger.debug(logPrfx + " --- status: " + status);
-
-        String ts1ElDt = "";
-        if (thisFinBal.getTs1() != null) {
-            ts1ElDt = Objects.toString(thisFinBal.getTs1().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!ts1ElDt.equals("")) {
-            ts1ElDt = "ts1ElDt " + ts1ElDt ;}
-        logger.debug(logPrfx + " --- ts1ElDt: " + ts1ElDt);
-
-        String  begBal = Objects.toString(thisFinBal.getAmtBegBal(),"");
-        if (!begBal.equals("")){
-            begBal = "begBal " + begBal;
-        }
-        logger.debug(logPrfx + " --- begBal: " + begBal);
-
-        String ts3ElDt = "";
-        if (thisFinBal.getTs3() != null) {
-            ts3ElDt = Objects.toString(thisFinBal.getTs3().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!ts3ElDt.equals("")) {
-            ts3ElDt = "ts3ElDt " + ts3ElDt ;}
-        logger.debug(logPrfx + " --- ts3ElDt: " + ts3ElDt);
-
-        String acct = "";
-        if (thisFinBal.getFinAcct1_Id() != null) {
-            acct = Objects.toString(thisFinBal.getFinAcct1_Id().getId2(),"");}
-        if (!acct.equals("")) {
-            acct = "Acct [" + acct + "]";}
-        logger.debug(logPrfx + " --- acct: " + acct);
-
-        String dept = "";
-        if (thisFinBal.getFinDept1_Id() != null) {
-            dept = Objects.toString(thisFinBal.getFinDept1_Id().getId2(),"");}
-        if (!dept.equals("")) {
-            dept = " dept [" + dept + "]";}
-        logger.debug(logPrfx + " --- dept: " + dept);
-
-        String  endBalCalc = Objects.toString(thisFinBal.getAmtEndBalCalc(),"");
-        if (!endBalCalc.equals("")){
-            endBalCalc = "endBalCalc " + endBalCalc;
-        }
-        logger.debug(logPrfx + " --- endBalCalc: " + endBalCalc);
-
-
-        String tag = "";
-        String tag1 = "";
-        if (thisFinBal.getGenTag1_Id() != null) {
-            tag1 = Objects.toString(thisFinBal.getGenTag1_Id().getId2());}
-        String tag2 = "";
-        if (thisFinBal.getGenTag1_Id() != null) {
-            tag2 = Objects.toString(thisFinBal.getGenTag2_Id().getId2());}
-        String tag3 = "";
-        if (thisFinBal.getGenTag1_Id() != null) {
-            tag3 = Objects.toString(thisFinBal.getGenTag3_Id().getId2());}
-        String tag4 = "";
-        if (thisFinBal.getGenTag1_Id() != null) {
-            tag4 = Objects.toString(thisFinBal.getGenTag4_Id().getId2());}
-        if (!(tag1 + tag2 + tag3 + tag4).equals("")) {
-            tag = "tag [" + String.join(",",tag1, tag2, tag3, tag4) + "]";}
-        logger.debug(logPrfx + " --- tag: " + tag);
-
-        List<String> list = Arrays.asList(
-                acct
-                ,dept
-                ,ts1ElDt
-                ,"to"
-                ,ts3ElDt
-                ,endBalCalc
-                ,tag);
-        String desc1 = list.stream().filter(StringUtils::isNotBlank)
-                .collect(Collectors.joining(" "));
-
-        if (!Objects.equals(desc1_, desc1)){
-            thisFinBal.setDesc1(desc1);
-            logger.debug(logPrfx + " --- desc1: " + desc1);
-            isChanged = true;
-        }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1531,7 +1449,7 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBal.updateNm1s1Inst1Dt1();
+        isChanged = isChanged || thisFinBal.updateDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

@@ -1364,7 +1364,7 @@
 
 
 
-    <fetchPlan entity="enty_SysItemBase0" name="fetchPlan_SysItemBase0_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItemBase" name="fetchPlan_SysItemBase_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
@@ -1384,7 +1384,7 @@
 
     </fetchPlan>
 
-    <fetchPlan entity="enty_SysItemBase0Type" name="fetchPlan_SysItemBase0Type_Base" extends="_instance_name">
+    <fetchPlan entity="enty_SysItemBaseType" name="fetchPlan_SysItemBaseType_Base" extends="_instance_name">
         <property name="dtype"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>

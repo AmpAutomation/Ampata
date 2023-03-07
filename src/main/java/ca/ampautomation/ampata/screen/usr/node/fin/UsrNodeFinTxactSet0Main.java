@@ -433,7 +433,7 @@ public class UsrNodeFinTxactSet0Main extends MasterDetailScreen<UsrNodeBase> {
         genTag1_IdField.setOptionsContainer(colCntnrGenTag);
 
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
 
 
     }
@@ -2015,7 +2015,7 @@ public class UsrNodeFinTxactSet0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxactSet.updateNm1s1Inst1Dt1();
+        isChanged = isChanged || thisFinTxactSet.updateDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;

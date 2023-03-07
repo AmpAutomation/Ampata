@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+    <changeSet id="3" author="ampata">
+        <addColumn tableName="AMPATA_USR_NODE">
+            <column name="NM1S1_INST1_TXT3" type="VARCHAR(255)"/>
+
+            <column name="TXT1" type="VARCHAR(255)"/>
+            <column name="TXT2" type="VARCHAR(255)"/>
+            <column name="TXT3" type="VARCHAR(255)"/>
+
+            <column name="INT1" type="VARCHAR(255)"/>
+            <column name="INT2" type="VARCHAR(255)"/>
+            <column name="INT3" type="VARCHAR(255)"/>
+
+            <column name="NODE1__ID" type="UUID"/>
+            <column name="NODE1__ID2" type="VARCHAR(255)"/>
+
+        </addColumn>
+
+    </changeSet>
+
+
+    <changeSet id="4" author="ampata">
+        <addForeignKeyConstraint baseTableName="AMPATA_USR_NODE"
+                                 baseColumnNames="NODE1__ID"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_NODE1_"
+                                 referencedTableName="AMPATA_USR_NODE"
+                                 referencedColumnNames="ID"/>
+        <createIndex tableName="AMPATA_USR_NODE" indexName="IDX_USRNODE_NODE1__ID">
+            <column name="NODE1__ID"></column>
+        </createIndex>
+
+    </changeSet>
+
+</databaseChangeLog>

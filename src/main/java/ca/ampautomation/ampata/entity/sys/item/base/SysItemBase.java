@@ -24,7 +24,7 @@ import java.util.UUID;
         @Index(name = "IDX_SYSITEM_NAME1_GEN_FMLA1__ID", columnList = "NAME1_GEN_FMLA1__ID"),
         @Index(name = "IDX_SYSITEM_DESC1_GEN_FMLA1__ID", columnList = "DESC1_GEN_FMLA1__ID")
 })
-@Entity(name = "enty_SysItemBase0")
+@Entity(name = "enty_SysItemBase")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 public class SysItemBase {

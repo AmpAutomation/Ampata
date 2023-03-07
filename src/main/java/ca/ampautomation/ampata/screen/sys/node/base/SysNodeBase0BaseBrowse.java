@@ -1,4 +1,4 @@
-package ca.ampautomation.ampata.screen.sys.base;
+package ca.ampautomation.ampata.screen.sys.node.base;
 
 import ca.ampautomation.ampata.entity.sys.comn.SysComnBaseQryMngr;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;

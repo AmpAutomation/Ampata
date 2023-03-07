@@ -3,7 +3,7 @@ package ca.ampautomation.ampata.screen.sys.node.fin;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateQryMngr;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateType;
-import ca.ampautomation.ampata.screen.sys.base.SysNodeBase0BaseBrowse;
+import ca.ampautomation.ampata.screen.sys.node.base.SysNodeBase0BaseBrowse;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
 

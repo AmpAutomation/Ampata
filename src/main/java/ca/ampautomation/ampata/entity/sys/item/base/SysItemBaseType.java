@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @JmixEntity
 @Table(name = "AMPATA_SYS_ITEM_TYPE")
-@Entity(name = "enty_SysItemBase0Type")
+@Entity(name = "enty_SysItemBaseType")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
 public class SysItemBaseType {

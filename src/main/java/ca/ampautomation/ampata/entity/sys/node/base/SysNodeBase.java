@@ -20,6 +20,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -42,6 +45,30 @@ public class SysNodeBase {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Transient
+    protected final String SEP0 = " ";
+
+    @Transient
+    protected final String SEP1 = "/";
+    @Transient
+    protected final String SEP2 = ";";
+    @Transient
+    protected final String SEP3 = "::";
+    @Transient
+    protected final DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+            .appendPattern("yyyyMMdd HHmm")
+            .toFormatter();
+    @Transient
+    protected final DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
+            .appendPattern("yyyy-MM-dd")
+            .toFormatter();
+    @Transient
+    protected final DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
+            .appendPattern("HH:mm")
+            .toFormatter();
+    @Transient
+    protected final DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)

@@ -8,7 +8,7 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import io.jmix.ui.screen.LookupComponent;
 
 @UiController("enty_UsrNodeBase.main")
-@UiDescriptor("usr-base-node-0-main.xml")
+@UiDescriptor("usr-node-base-0-main.xml")
 @LookupComponent("tableMain")
 public class UsrNodeBase0Main extends UsrNodeBase0BaseMain<UsrNodeBase, UsrNodeBaseType, UsrNodeBaseQryMngr, TreeTable<UsrNodeBase>> {
 

@@ -97,8 +97,8 @@
             <menu id="sysItemBase" caption="msg://ca.ampautomation.ampata.menu/sysItemBase">
             </menu>
             <menu id="sysNodeBase" caption="msg://ca.ampautomation.ampata.menu/sysNodeBase">
-                <item screen="enty_SysNodeBase.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysNodeBase0Main.menu"/>
-                <item screen="enty_SysNodeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.sys.base/sysNodeBase0TypeMain.menu"/>
+                <item screen="enty_SysNodeBase.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.base/sysNodeBaseMain.menu"/>
+                <item screen="enty_SysNodeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.base/sysNodeBaseTypeMain.menu"/>
             </menu>
             <menu id="sysEdgeBase" caption="msg://ca.ampautomation.ampata.menu/sysEdgeBase">
             </menu>

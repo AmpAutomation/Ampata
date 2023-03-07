@@ -575,7 +575,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         finTxactSet1_Id_Desc1FinTxactItm1_IdField.setOptionsContainer(colCntnrFinTxactItm);
 
 
-        logger.trace(logPrfx + " <--- ");
+        logger.trace(logPrfx + " <-- ");
 
 
     }
@@ -2911,7 +2911,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Dt1();
+        isChanged = isChanged || thisFinTxact.updateDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2922,7 +2922,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateTs1();
+        isChanged = isChanged || thisFinTxact.updateTs1FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2934,7 +2934,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateTs2();
+        isChanged = isChanged || thisFinTxact.updateTs2FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2946,7 +2946,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Int1();
+        isChanged = isChanged || thisFinTxact.updateInt1FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2958,7 +2958,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinTxact.updateNm1s1Inst1Int2();
+        isChanged = isChanged || thisFinTxact.updateInt2FrId2();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -3006,7 +3006,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
                             thisFinTxactSetIsChanged = true;
                         }
                         if (thisFinTxactSetIsChanged) {
-                            thisFinTxactSet.updateNm1s1Inst1Dt1();
+                            thisFinTxactSet.updateDt1();
                             thisFinTxactSet.setId2Calc(thisFinTxactSet.getId2CalcFrFields());
                             thisFinTxactSet.setId2(thisFinTxactSet.getId2Calc());
                             dataManager.save(thisFinTxactSet);
@@ -3135,7 +3135,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
             HasTmst ts1 = dataManager.create(HasTmst.class);
             ts1.setElTs(thisFinTxact.getNm1s1Inst1Dt1().getElDt().atStartOfDay());
             newFinTxactSet.setTs1(ts1);
-            newFinTxactSet.updateNm1s1Inst1Dt1();
+            newFinTxactSet.updateDt1();
 
             newFinTxactSet.setNm1s1Inst1Int1(thisFinTxact.getNm1s1Inst1Int1());
             newFinTxactSet.setNm1s1Inst1Int2(thisFinTxact.getNm1s1Inst1Int2());

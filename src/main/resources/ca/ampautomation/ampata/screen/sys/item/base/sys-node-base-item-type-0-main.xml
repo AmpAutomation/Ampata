@@ -1,20 +1,20 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://sysItemBase0TypeMain.caption"
+        caption="msg://sysItemBaseTypeMain.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.sys.item.base.SysItemBaseType"
-                    fetchPlan="fetchPlan_SysItemBase0Type_Base">
+                    fetchPlan="fetchPlan_SysItemBaseType_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_SysItemBase0Type e]]>
+                    <![CDATA[select e from enty_SysItemBaseType e]]>
                 </query>
             </loader>
         </collection>
         <instance id="instCntnrMain"
                   class="ca.ampautomation.ampata.entity.sys.item.base.SysItemBaseType"
-                  fetchPlan="fetchPlan_SysItemBase0Type_Base">
+                  fetchPlan="fetchPlan_SysItemBaseType_Base">
             <loader/>
         </instance>
     </data>

@@ -3,6 +3,7 @@ package ca.ampautomation.ampata.screen.usr.node.fin;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBalSetQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinDept;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
 import io.jmix.core.*;
@@ -84,7 +85,7 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
     protected Filter filter;
 
     @Autowired
-    protected PropertyFilter<UsrNodeBase> filterConfig1A_FinDept1_Id;
+    protected PropertyFilter<UsrNodeFinDept> filterConfig1A_FinDept1_Id;
     
     @Autowired
     protected PropertyFilter<UsrNodeBaseType> filterConfig1A_Type1_Id;
@@ -1402,7 +1403,8 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
                     Integer finBals1_IdCntCalc;
                     try{
                         String finBals1_QryCnt;
-                        finBals1_QryCnt = "select count(e) from enty_UsrNodeFinBal e"
+                        finBals1_QryCnt = "select count(e)"
+                                + " from enty_UsrNodeFinBal e"
                                 + " where e.finBalSet1_Id = :finBalSet1_Id"
                                 + " and e.finAcct1_Id = :finAcct1_Id"
                                 + "";
@@ -1502,23 +1504,6 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
     }
 
 
-    private Boolean updateFinBalSetCalcVals(@NotNull UsrNodeBase thisFinBalSet) {
-        String logPrfx = "updateFinBalSetCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // Stored in FinBalSet Object
-        isChanged = updateIdDt(thisFinBalSet) || isChanged;
-        isChanged = updateId2Calc(thisFinBalSet) || isChanged;
-        isChanged = updateId2Cmp(thisFinBalSet) || isChanged;
-        isChanged = updateId2Dup(thisFinBalSet) || isChanged;
-        isChanged = updateDesc1(thisFinBalSet) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
 
     private Boolean updateIdParts(@NotNull UsrNodeBase thisFinBalSet) {
         String logPrfx = "updateIdParts";
@@ -1533,173 +1518,6 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
         return isChanged;
     }
 
-    private Boolean updateId2(@NotNull UsrNodeBase thisFinBalSet) {
-        // Assume thisFinBalSet is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = thisFinBalSet.getId2();
-        String id2 = thisFinBalSet.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            thisFinBalSet.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Calc(UsrNodeBase thisFinBalSet){
-        // Assume thisFinBalSet is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = thisFinBalSet.getId2Calc();
-        String id2Calc = thisFinBalSet.getId2CalcFrFields();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            thisFinBalSet.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinBalSet) {
-        // Assume thisFinBalSet is not null
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = thisFinBalSet.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisFinBalSet.getId2(),thisFinBalSet.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisFinBalSet.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-    
-    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinBalSet) {
-        // Assume thisFinBalSet is not null
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = thisFinBalSet.getId2Dup();
-        if (thisFinBalSet.getId2() != null){
-            String id2Qry = "select count(e) from enty_UsrNodeFinBalSet e where e.id2 = :id2 and e.id <> :id";
-            Integer id2Dup;
-            try{
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id",thisFinBalSet.getId())
-                        .parameter("id2",thisFinBalSet.getId2())
-                        .one();
-            }catch (IllegalStateException e){
-                id2Dup =0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                thisFinBalSet.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisFinBalSet.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateDesc1(@NotNull UsrNodeBase thisFinBalSet){
-        // Assume thisFinBalSet is not null
-        String logPrfx = "updateDesc1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String desc1_ = thisFinBalSet.getDesc1();
-
-        String  status = Objects.toString(thisFinBalSet.getStatus(),"");
-        if (!status.equals("")){
-            status = "" + status;
-        }
-        logger.debug(logPrfx + " --- status: " + status);
-
-        String type1 = "";
-        if (thisFinBalSet.getType1_Id() != null) {
-            type1 = Objects.toString(thisFinBalSet.getType1_Id().getId2(),"");}
-        if (!type1.equals("")) {
-            type1 = "" + type1 ;}
-        logger.debug(logPrfx + " --- type1: " + type1);
-
-        String ts1ElDt = "";
-        if (thisFinBalSet.getTs1() != null) {
-            ts1ElDt = Objects.toString(thisFinBalSet.getTs1().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!ts1ElDt.equals("")) {
-            ts1ElDt = "ts1ElDt " + ts1ElDt ;}
-        logger.debug(logPrfx + " --- ts1ElDt: " + ts1ElDt);
-
-        String ts3ElDt = "";
-        if (thisFinBalSet.getTs3() != null) {
-            ts3ElDt = Objects.toString(thisFinBalSet.getTs3().getElDt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),"");}
-        if (!ts3ElDt.equals("")) {
-            ts3ElDt = "ts3ElDt " + ts3ElDt ;}
-        logger.debug(logPrfx + " --- ts3ElDt: " + ts3ElDt);
-
-        String dept = "";
-        if (thisFinBalSet.getFinDept1_Id() != null) {
-            dept = Objects.toString(thisFinBalSet.getFinDept1_Id().getId2(),"");}
-        if (!dept.equals("")) {
-            dept = "on dept [" + dept + "]";}
-        logger.debug(logPrfx + " --- dept: " + dept);
-
-
-        String tag = "";
-        String tag1 = "";
-        if (thisFinBalSet.getGenTag1_Id() != null) {
-            tag1 = Objects.toString(thisFinBalSet.getGenTag1_Id().getId2());}
-        String tag2 = "";
-        if (thisFinBalSet.getGenTag1_Id() != null) {
-            tag2 = Objects.toString(thisFinBalSet.getGenTag2_Id().getId2());}
-        String tag3 = "";
-        if (thisFinBalSet.getGenTag1_Id() != null) {
-            tag3 = Objects.toString(thisFinBalSet.getGenTag3_Id().getId2());}
-        String tag4 = "";
-        if (thisFinBalSet.getGenTag1_Id() != null) {
-            tag4 = Objects.toString(thisFinBalSet.getGenTag4_Id().getId2());}
-        if (!(tag1 + tag2 + tag3 + tag4).equals("")) {
-            tag = "tag [" + String.join(",",tag1, tag2, tag3, tag4) + "]";}
-        logger.debug(logPrfx + " --- tag: " + tag);
-
-        List<String> list = Arrays.asList(
-                status
-                ,type1
-                ,ts1ElDt
-                ,ts3ElDt
-                ,dept
-                ,tag);
-        String desc1 = list.stream().filter(StringUtils::isNotBlank)
-                .collect(Collectors.joining(" "));
-
-        if (!Objects.equals(desc1_, desc1)){
-            thisFinBalSet.setDesc1(desc1);
-            logger.debug(logPrfx + " --- desc1: " + desc1);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
 
     private Boolean updateIdDt(@NotNull UsrNodeBase thisFinBalSet) {
         // Assume thisFinBalSet is not null
@@ -1707,7 +1525,7 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinBalSet.updateNm1s1Inst1Dt1();
+        isChanged = isChanged || thisFinBalSet.updateDt1();
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1724,39 +1542,6 @@ public class UsrNodeFinBalSet0Main extends MasterDetailScreen<UsrNodeBase> {
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
-    }
-
-
-    private UsrNodeBase findFinBalSetById2(@NotNull String FinBalSet_Id2) {
-        String logPrfx = "findFinBalSetById2";
-        logger.trace(logPrfx + " --> ");
-
-        if (FinBalSet_Id2 == null) {
-            logger.debug(logPrfx + " --- FinBalSet_Id2 is null.");
-            notifications.create().withCaption("FinBalSet_Id2 is empty. Please set it to correct value.").show();
-            logger.trace(logPrfx + " <-- ");
-            return null;
-        }
-
-        String qry = "select e from enty_UsrNodeFinBalSet e where e.id2 = :id2";
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + FinBalSet_Id2);
-
-        UsrNodeBase FinBalSet1_Id = null;
-        try {
-            FinBalSet1_Id = dataManager.load(UsrNodeBase.class)
-                    .query(qry)
-                    .parameter("id2", FinBalSet_Id2)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return FinBalSet1_Id;
-
     }
 
 
