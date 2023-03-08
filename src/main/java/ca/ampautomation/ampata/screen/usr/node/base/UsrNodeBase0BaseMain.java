@@ -422,7 +422,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         String logPrfx = "onMoveFrstSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<NodeT> thisNodes = tableMain.getSelected().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -506,7 +506,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         String logPrfx = "onMovePrevSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<NodeT> thisNodes = tableMain.getSelected().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -578,7 +578,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         String logPrfx = "onMoveNextSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<NodeT> thisNodes = tableMain.getSelected().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -652,7 +652,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         String logPrfx = "onMoveLastSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        List<NodeT> thisNodes = tableMain.getSelected().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
             notifications.create().withCaption("No records selected. Please select one or more record.").show();
@@ -740,7 +740,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
-    private Integer getSortIdxMax(UsrNodeBase thisFinAcct) {
+    private Integer getSortIdxMax(UsrNodeBase thisNode) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 
@@ -751,7 +751,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         try {
             sortIdxMax = dataManager.loadValue(sortIdxMaxQry, Integer.class)
                     .store("main")
-                    .parameter("parent_Id1", thisFinAcct.getParent1_Id())
+                    .parameter("parent_Id1", thisNode.getParent1_Id())
                     .one();
             // max returns null if no rows or if all rows have a null value
         } catch (IllegalStateException e) {
