@@ -21,9 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManagerFactory;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT extends UsrNodeBaseType, NodeQryMngrT extends UsrComnBaseQryMngr, TableT extends Table>  extends MasterDetailScreen<NodeT> {
 
@@ -367,6 +367,402 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
+
+    @Subscribe("rebuildSortIdxBtn")
+    public void onRebuildSortIdxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onRebuildSortIdxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<NodeT> thisNodes = tableMain.getSelected().stream().toList();
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        UsrNodeBase firstNode = thisNodes.get(0);
+
+        List<UsrNodeBase> thisNodes2 = new ArrayList<>(UsrNodeBase.getNodesByParent1(UsrNodeBase.class, dataManager, firstNode.getParent1_Id()));
+        thisNodes2.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+
+        List<NodeT> chngNodes = new ArrayList<>();
+        List<NodeT> finalChngNodes = chngNodes;
+
+        AtomicInteger sortIdx = new AtomicInteger(0);
+        thisNodes2.forEach(thisNode -> {
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+                Boolean thisNodeIsChanged = false;
+
+                Integer sortIdx_ = thisNode.getSortIdx();
+                if (!Objects.equals(sortIdx_, sortIdx)){
+                    thisNode.setSortIdx(sortIdx.get());
+                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + sortIdx.get() + ")");
+                    thisNodeIsChanged = true;
+                    finalChngNodes.add(thisNode);
+                }
+            }
+            sortIdx.incrementAndGet() ;
+        });
+
+        if (dataContext.hasChanges()) {
+            logger.debug(logPrfx + " --- executing dataContext.commit().");
+            dataContext.commit();
+        }
+
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("moveFrstSortIdxBtn")
+    public void onMoveFrstSortIdxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onMoveFrstSortIdxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        AtomicInteger sortIdxMin = new AtomicInteger(0);
+
+        //order ascending
+        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+
+        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
+        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
+
+        thisNodes.forEach(thisNode -> {
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+                Boolean thisNodeIsChanged = false;
+
+                Integer sortIdx_ = thisNode.getSortIdx();
+                if (sortIdx_ != null
+                        && sortIdx_ > sortIdxMin.intValue()){
+
+                    // for this item, zero idx
+                    Integer sortIdx = sortIdxMin.intValue();
+
+                    if (!Objects.equals(sortIdx_, sortIdx)){
+                        thisNode.setSortIdx(sortIdx);
+                        logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (sortIdx) + ")");
+                        thisNodeIsChanged = true;
+                        finalChngFinAccts.add(thisNode);
+                    }
+
+                    // for all next items, inc idx
+                    List<UsrNodeBase> nextFinAccts =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class,dataManager,-1
+                            , sortIdx_, thisNode.getParent1_Id());
+
+                    nextFinAccts.forEach(nextFinAcct -> {
+                        if (nextFinAcct != null) {
+                            nextFinAcct = dataContext.merge(nextFinAcct);
+
+                            Boolean nextFinAcctIsChanged = false;
+
+                            Integer nextSortIdx_ = nextFinAcct.getSortIdx();
+                            if (nextSortIdx_ != null
+                                    && nextSortIdx_ >= sortIdxMin.intValue()) {
+
+                                // for this item, dec idx
+                                Integer nextSortIdx = nextFinAcct.getSortIdx() + 1;
+
+                                if (!Objects.equals(nextSortIdx_, nextSortIdx)) {
+                                    nextFinAcct.setSortIdx(nextSortIdx);
+                                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (nextSortIdx) + ")");
+                                    nextFinAcctIsChanged = true;
+                                    finalChngFinAccts.add(nextFinAcct);
+                                }
+                            }
+                        }
+                    });
+
+                    sortIdxMin.incrementAndGet();
+
+                    if (dataContext.hasChanges()) {
+                        logger.debug(logPrfx + " --- executing dataContext.commit().");
+                        dataContext.commit();
+                    }
+
+                }
+            }
+        });
+
+        chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngFinAccts);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("movePrevSortIdxBtn")
+    public void onMovePrevSortIdxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onMovePrevSortIdxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+
+        List<UsrNodeBase> chngNodes = new ArrayList<>();
+        List<UsrNodeBase> finalChngNodes = chngNodes;
+
+        thisNodes.forEach(thisNode -> {
+
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+                Boolean thisNodeIsChanged = false;
+
+                Integer sortIdx_ = thisNode.getSortIdx();
+                Integer sortIdxMin = 0;
+                Integer sortIdxMax = getSortIdxMax(thisNode);
+                if (sortIdx_ != null
+                        && sortIdx_ > sortIdxMin){
+
+                    // for this item, dec idx
+                    Integer sortIdx = sortIdx_ - 1;
+
+                    thisNode.setSortIdx(sortIdx);
+                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (sortIdx) + ")");
+                    thisNodeIsChanged = true;
+                    finalChngNodes.add(thisNode);
+
+                    // for prev item, inc idx
+                    UsrNodeBase prevNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class, dataManager,-1,thisNode.getParent1_Id());
+                    if(prevNode != null){
+                        prevNode = dataContext.merge(prevNode);
+                        Boolean prevNodeIsChanged = false;
+
+                        Integer prevSortIdx_ = prevNode.getSortIdx();
+                        if (prevSortIdx_ != null
+                                && prevSortIdx_ < sortIdxMax){
+
+                            Integer prevSortIdx = prevSortIdx_ + 1;
+
+                            prevNode.setSortIdx(prevSortIdx);
+                            logger.debug(logPrfx + " --- prevNode.setSortIdx(" + (prevSortIdx) + ")");
+                            prevNodeIsChanged = true;
+                            finalChngNodes.add(prevNode);
+                        }
+                    }
+
+                    if (dataContext.hasChanges()) {
+                        logger.debug(logPrfx + " --- executing dataContext.commit().");
+                        dataContext.commit();
+                    }
+
+                }
+            }
+        });
+
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("moveNextSortIdxBtn")
+    public void onMoveNextSortIdxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onMoveNextSortIdxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+
+        List<UsrNodeBase> chngNodes = new ArrayList<>();
+        List<UsrNodeBase> finalChngNodes = chngNodes;
+
+        thisNodes.forEach(thisNode -> {
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+                Boolean thisNodeIsChanged = false;
+
+                Integer sortIdx_ = thisNode.getSortIdx();
+                Integer sortIdxMin = 0;
+                Integer sortIdxMax = getSortIdxMax(thisNode);
+                if (sortIdxMax != null
+                        && sortIdx_ < sortIdxMax){
+
+                    // for this item, inc idx
+                    Integer sortIdx = sortIdx_ + 1;
+
+                    thisNode.setSortIdx(sortIdx);
+                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (sortIdx) + ")");
+                    thisNodeIsChanged = true;
+                    finalChngNodes.add(thisNode);
+
+
+                    // for next item, dec idx
+                    UsrNodeBase nextNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class,dataManager,+1,thisNode.getParent1_Id());
+                    if(nextNode != null){
+                        nextNode = dataContext.merge(nextNode);
+                        Boolean nextNodeIsChanged = false;
+
+                        Integer nextSortIdx_ = nextNode.getSortIdx();
+                        if (nextSortIdx_ != null
+                                && nextSortIdx_ > sortIdxMin){
+
+                            Integer nextSortIdx = nextSortIdx_ - 1;
+
+                            nextNode.setSortIdx(nextSortIdx);
+                            logger.debug(logPrfx + " --- nextNode.setSortIdx(" + (nextSortIdx) + ")");
+                            nextNodeIsChanged = true;
+                            finalChngNodes.add(nextNode);
+                        }
+
+                    }
+
+                    if (dataContext.hasChanges()) {
+                        logger.debug(logPrfx + " --- executing dataContext.commit().");
+                        dataContext.commit();
+                    }
+
+                }
+            }
+        });
+
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+
+    @Subscribe("moveLastSortIdxBtn")
+    public void onMoveLastSortIdxBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onMoveLastSortIdxBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        List<UsrNodeBase> thisNodes = new ArrayList<>(tableMain.getSelected().stream().toList());
+        if (thisNodes == null || thisNodes.isEmpty()) {
+            logger.debug(logPrfx + " --- thisNodes is null, likely because no records are selected.");
+            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        //order descending
+        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())).reversed());
+
+        List<UsrNodeBase> chngNodes = new ArrayList<>();
+        List<UsrNodeBase> finalChngNodes = chngNodes;
+
+        AtomicInteger sortIdxMax = new AtomicInteger(getSortIdxMax(thisNodes.get(0)));
+        if (sortIdxMax == null) {
+            logger.debug(logPrfx + " --- sortIdxMax is null.");
+            notifications.create().withCaption("No records selected. Please rebuild sortIdx.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        thisNodes.forEach(thisNode -> {
+            if (thisNode != null) {
+                thisNode = dataContext.merge(thisNode);
+
+                Boolean thisNodeIsChanged = false;
+
+                Integer sortIdx_ = thisNode.getSortIdx();
+                if (sortIdx_ != null
+                        && sortIdx_ < sortIdxMax.intValue()){
+
+                    // for this item, max idx
+                    Integer sortIdx = sortIdxMax.intValue();
+
+                    if (!Objects.equals(sortIdx_, sortIdx)){
+                        thisNode.setSortIdx(sortIdx);
+                        logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (sortIdx) + ")");
+                        thisNodeIsChanged = true;
+                        finalChngNodes.add(thisNode);
+                    }
+
+                    // for all next items, dec idx
+                    List<UsrNodeBase> nextNodes =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class, dataManager,sortIdx_
+                            , sortIdxMax.intValue()+1, thisNode.getParent1_Id());
+
+                    nextNodes.forEach(nextNode -> {
+                        if (nextNode != null) {
+                            nextNode = dataContext.merge(nextNode);
+
+                            Boolean nextNodeIsChanged = false;
+
+                            Integer nextSortIdx_ = nextNode.getSortIdx();
+                            if (nextSortIdx_ != null
+                                    && nextSortIdx_ <= sortIdxMax.intValue()) {
+
+                                // for this item, dec idx
+                                Integer nextSortIdx = nextNode.getSortIdx() - 1;
+
+                                if (!Objects.equals(nextSortIdx_, nextSortIdx)) {
+                                    nextNode.setSortIdx(nextSortIdx);
+                                    logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (nextSortIdx) + ")");
+                                    nextNodeIsChanged = true;
+                                    finalChngNodes.add(nextNode);
+                                }
+                            }
+                        }
+                    });
+
+                    sortIdxMax.decrementAndGet();
+
+                    if (dataContext.hasChanges()) {
+                        logger.debug(logPrfx + " --- executing dataContext.commit().");
+                        dataContext.commit();
+                    }
+
+                }
+
+            }
+        });
+
+
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    private Integer getSortIdxMax(UsrNodeBase thisFinAcct) {
+        String logPrfx = "getSortIdxMax";
+        logger.trace(logPrfx + " --> ");
+
+        Integer sortIdxMax = null;
+        String sortIdxMaxQry = "select max(e.sortIdx)"
+                + " from enty_UsrNodeBase e"
+                + " where e.parent1_Id = :parent_Id1";
+        try {
+            sortIdxMax = dataManager.loadValue(sortIdxMaxQry, Integer.class)
+                    .store("main")
+                    .parameter("parent_Id1", thisFinAcct.getParent1_Id())
+                    .one();
+            // max returns null if no rows or if all rows have a null value
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- sortIdxMaxQry error: " + e.getMessage());
+        }
+        logger.debug(logPrfx + " --- sortIdxMaxQry result: " + sortIdxMax + "");
+
+        logger.trace(logPrfx + " <-- ");
+        return sortIdxMax;
+    }
+
     protected void updateHelper() {
         String logPrfx = "updateHelper";
         logger.trace(logPrfx + " --> ");
@@ -452,7 +848,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     }
 
 
-    protected void updateHelper(List<UsrNodeBase> chngNodes) {
+    protected void updateHelper(List<NodeT> chngNodes) {
         String logPrfx = "updateHelper";
         logger.trace(logPrfx + " --> ");
 

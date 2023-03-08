@@ -2681,7 +2681,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public Boolean updateTs1() {
         // Assume ts1, ts2, ts3 is not null
-        String logPrfx = "updateTs1()";
+        String logPrfx = "updateTs1";
         logger.trace(logPrfx + " --> ");
 
 
@@ -2728,6 +2728,73 @@ public class UsrNodeBase implements AcceptsTenant {
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
+
+    /**
+     * <h1>Update the <i>ts1</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <b>Note</b>: this method is to be overridden
+     * <p></p>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    public Boolean updateTs1Deps(DataManager dataManager) {
+        String logPrfx = "updateTs1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    /**
+     * <h1>Update the <i>ts2</i> field</h1>
+     * <p></p>
+     * <b>Note</b>: this method is to be overridden
+     * <p></p>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    public Boolean updateTs2() {
+        String logPrfx = "updateTs2";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    /**
+     * <h1>Update the <i>ts2</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <b>Note</b>: this method is to be overridden
+     * <p></p>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    public Boolean updateTs2Deps(DataManager dataManager) {
+        String logPrfx = "updateTs2Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
 
 
     public Boolean updateDt1() {
@@ -2793,16 +2860,6 @@ public class UsrNodeBase implements AcceptsTenant {
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-
-        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-                .appendPattern("HHmm")
-                .toFormatter();
-
-        switch (className) {
-
-            default:
-                break;
-        }
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -3030,82 +3087,60 @@ public class UsrNodeBase implements AcceptsTenant {
         LocalDateTime ts2_ts1 = null;
 
         switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxactItm":
-            case "UsrNodeFinStmtItm":
-                if (ts1 == null
-                        || ts1.getElTs() == null
+            case    "UsrNodeFinTxactItm",
+                    "UsrNodeFinStmtItm" ->
+                {
+
+                    if (ts1 == null
+                            || ts1.getElTs() == null
 //                        || ts2 == null
 //                        || ts2.getElTs() == null
-                ) {
-                    logger.trace(logPrfx + " ---- ts1 != null");
-                    logger.trace(logPrfx + " <-- ");
-                    return isChanged;
-
-                }
-                if (id2.length() >= 10){
-
-                    DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
-                            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                            .toFormatter();
-
-                    String id2_part;
-                    Pattern pattern = Pattern.compile("/D[0-9]{4}-[0-9]{2}-[0-9]{2}");
-                    Matcher matcher = pattern.matcher(id2);
-                    if (matcher.find()) {
-                        id2_part = matcher.group(0).substring(2,12);
-                    } else {
+                    ) {
+                        logger.trace(logPrfx + " ---- ts1 != null");
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
+
+                    }
+                    if (id2.length() >= 10){
+
+                        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
+                                .appendPattern("yyyy-MM-dd[THH:mm:ss]")
+                                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                                .toFormatter();
+
+                        String id2_part;
+                        Pattern pattern = Pattern.compile("/D[0-9]{4}-[0-9]{2}-[0-9]{2}");
+                        Matcher matcher = pattern.matcher(id2);
+                        if (matcher.find()) {
+                            id2_part = matcher.group(0).substring(2,12);
+                        } else {
+                            logger.trace(logPrfx + " <-- ");
+                            return isChanged;
+                        }
+
+                        try{
+                            ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+
+                        } catch (DateTimeParseException e){
+
+                            logger.trace(logPrfx + " ---- DateTimeParseException");
+                            logger.trace(logPrfx + " <-- ");
+                            return isChanged;
+                        }
+
+
+                        if (!Objects.equals(ts2_ts1_, ts2_ts1)){
+                            logger.debug(logPrfx + " --- calling ts2.setElTs(("+ ts2_ts1.format(frmtTs) +")");
+                            this.ts2.setElTs(ts2_ts1);
+                            isChanged = true;
+                        }
                     }
 
-                    try{
-                        ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+            }
+            case "UsrNodeFinStmt" ->{
 
-                    } catch (DateTimeParseException e){
-
-                        logger.trace(logPrfx + " ---- DateTimeParseException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-
-                    if (!Objects.equals(ts2_ts1_, ts2_ts1)){
-                        logger.debug(logPrfx + " --- calling ts2.setElTs(("+ ts2_ts1.format(frmtTs) +")");
-                        this.ts2.setElTs(ts2_ts1);
-                        isChanged = true;
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateTs3() {
-        String logPrfx = "updateTs3()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        LocalDateTime ts3_ts1_ = ts3.getElTs();
-        LocalDateTime ts3_ts1 = null;
-
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinStmt":
                 if (id2.length() >= 10){
 
                     DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
@@ -3124,7 +3159,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
                     String id2_part = id2.substring(sep1+"//D".length()-1,sep2);
                     try{
-                        ts3_ts1 = LocalDateTime.parse(id2_part,frmtTs);
+                        ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
 
                     } catch (DateTimeParseException e){
 
@@ -3133,16 +3168,16 @@ public class UsrNodeBase implements AcceptsTenant {
                         return isChanged;
                     }
 
-                    if (!Objects.equals(ts3_ts1_, ts3_ts1)){
-                        logger.debug(logPrfx + " --- calling ts3.setElTs(("+ ts3_ts1.format(frmtTs) +")");
-                        this.ts3.setElTs(ts3_ts1);
+                    if (!Objects.equals(ts2_ts1_, ts2_ts1)){
+                        logger.debug(logPrfx + " --- calling ts2.setElTs(("+ ts2_ts1.format(frmtTs) +")");
+                        this.ts2.setElTs(ts2_ts1);
                         isChanged = true;
                     }
                 }
-                break;
+            }
 
-            default:
-                break;
+            default ->{
+            }
         }
 
         logger.trace(logPrfx + " <-- ");

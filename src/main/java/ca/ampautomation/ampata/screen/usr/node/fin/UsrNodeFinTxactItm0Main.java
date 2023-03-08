@@ -4722,10 +4722,10 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                     }
                     if (desc1FinTxactItm1.getSysNodeFinCurcy1_Id() != null) {
                         thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getSysNodeFinCurcy1_Id().getId2(), "");
-                        thisAmt = thisAmt.trim();
+                        thisAmt = thisAmt.strip();
                     }
                     if (!thisAmt.equals("")) {
-                        thisAmt = thisAmt.trim();
+                        thisAmt = thisAmt.strip();
                     }
 
                 }
@@ -4863,7 +4863,7 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                     }
                     if (desc1FinTxactItm1.getSysNodeFinCurcy1_Id() != null) {
                         thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getSysNodeFinCurcy1_Id().getId2(), "");
-                        thisAmt = thisAmt.trim();
+                        thisAmt = thisAmt.strip();
                     }
                     if (thisType.contains("Exch")) {
                         UsrNodeBase desc1FinTxactItm2 = thisFinTxactSet.getDesc1Node2_Id() == null
@@ -4878,13 +4878,13 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                             }
                             if (desc1FinTxactItm2.getSysNodeFinCurcy1_Id() != null) {
                                 thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm2.getSysNodeFinCurcy1_Id().getId2(), "");
-                                thisAmt = thisAmt.trim();
+                                thisAmt = thisAmt.strip();
                             }
                         }
                     }
 
                     if (!thisAmt.equals("")) {
-                        thisAmt = thisAmt.trim();
+                        thisAmt = thisAmt.strip();
                     }
                 }
                 logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
@@ -4914,7 +4914,7 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                     thisWhat = thisWhat + " " + Objects.toString(thisFinTxactSet.getFinWhat1_Id().getId2());
                 }
                 if (!thisWhat.equals("")) {
-                    thisWhat = "for " + thisWhat.trim();
+                    thisWhat = "for " + thisWhat.strip();
                 }
                 logger.debug(logPrfx + " --- thisWhat: " + thisWhat);
 
@@ -4923,7 +4923,7 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                     thisWhy = thisWhy + " " + Objects.toString(thisFinTxactSet.getFinWhy1_Id().getId2());
                 }
                 if (!thisWhy.equals("")) {
-                    thisWhy = "for " + thisWhy.trim();
+                    thisWhy = "for " + thisWhy.strip();
                 }
                 logger.debug(logPrfx + " --- thisWhy: " + thisWhy);
 

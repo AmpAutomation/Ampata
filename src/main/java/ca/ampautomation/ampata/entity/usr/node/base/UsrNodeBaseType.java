@@ -2,6 +2,7 @@ package ca.ampautomation.ampata.entity.usr.node.base;
 
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
+import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBalSetType;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -10,6 +11,7 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.core.AcceptsTenant;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -591,5 +593,36 @@ public class UsrNodeBaseType implements AcceptsTenant {
         return isChanged;
     }
 
+    public static <NodeTypeT extends UsrNodeBaseType> NodeTypeT getNodeTypeById2(Class<NodeTypeT> type, DataManager dataManager, @NotNull String crtieria_Id2) {
+        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
+        String logPrfx = "getNodeTypeById2";
+        logger.trace(logPrfx + " --> ");
+
+        if (crtieria_Id2 == null) {
+            logger.debug(logPrfx + " --- crtieria_Id2 is null.");
+            logger.trace(logPrfx + " <-- ");
+            return null;
+        }
+
+        String qry = "select e"
+                + " from enty_" + type.getSimpleName() + " e"
+                + " where e.id2 = :id2";
+        logger.debug(logPrfx + " --- qry: " + qry);
+        logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
+
+        NodeTypeT nodeType = null;
+        try {
+            nodeType = dataManager.load(type)
+                    .query(qry)
+                    .parameter("id2", crtieria_Id2)
+                    .one();
+            logger.debug(logPrfx + " --- query qry returned ONE result");
+        } catch (IllegalStateException e) {
+            logger.debug(logPrfx + " --- query qry returned NO results");
+        }
+
+        logger.trace(logPrfx + " <-- ");
+        return nodeType;
+    }
 
 }

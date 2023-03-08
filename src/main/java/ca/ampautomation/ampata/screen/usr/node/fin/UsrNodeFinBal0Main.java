@@ -1332,19 +1332,6 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
     }
 
 
-    private Boolean updateIdParts(@NotNull UsrNodeBase thisFinBal) {
-        String logPrfx = "updateIdParts";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = updateTs3(thisFinBal) || isChanged;
-        isChanged = updateIdDt(thisFinBal)  || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
     private Boolean updateId2(@NotNull UsrNodeBase thisFinBal) {
         // Assume thisFinBal is not null
         String logPrfx = "updateId2";
@@ -1870,18 +1857,6 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
         return isChanged;
     }
 
-
-    private Boolean updateTs3(@NotNull UsrNodeBase thisFinBal) {
-        // Assume thisFinBal is not null
-        String logPrfx = "updateTs3";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinBal.updateTs3();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
 
 
     private UsrNodeBase findFinBalById2(@NotNull String FinBal_Id2) {

@@ -168,7 +168,7 @@ public class User implements JmixUserDetails, HasTimeZone, AcceptsTenant {
     @DependsOnProperties({"firstName", "lastName", "username"})
     public String getDisplayName() {
         return String.format("%s %s [%s]", (firstName != null ? firstName : ""),
-                (lastName != null ? lastName : ""), username).trim();
+                (lastName != null ? lastName : ""), username).strip();
     }
 
     @Override

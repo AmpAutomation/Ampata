@@ -40,7 +40,7 @@ public class UsrNodeFinTxactItm extends UsrNodeBase {
             thisAmt = thisAmt + " " + Objects.toString(this.getSysNodeFinCurcy1_Id().getId2(), "");
         }
         if (!thisAmt.equals("")) {
-            thisAmt = thisAmt.trim();
+            thisAmt = thisAmt.strip();
         }
         logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
 
@@ -115,7 +115,7 @@ public class UsrNodeFinTxactItm extends UsrNodeBase {
         String thisWhat = Objects.toString(this.getWhatText1(), "");
         if (this.getFinWhat1_Id() != null) {
             thisWhat = thisWhat + " " + Objects.toString(this.getFinWhat1_Id().getId2());
-            thisWhat = thisWhat.trim();
+            thisWhat = thisWhat.strip();
         }
         if (!thisWhat.equals("")) {
             thisWhat = "for " + thisWhat;
@@ -125,7 +125,7 @@ public class UsrNodeFinTxactItm extends UsrNodeBase {
         String thisWhy = Objects.toString(this.getWhyText1(), "");
         if (this.getFinWhy1_Id() != null) {
             thisWhy = thisWhy + " " + Objects.toString(this.getFinWhy1_Id().getId2());
-            thisWhy = thisWhy.trim();
+            thisWhy = thisWhy.strip();
         }
         if (!thisWhy.equals("")) {
             thisWhy = "for " + thisWhy;

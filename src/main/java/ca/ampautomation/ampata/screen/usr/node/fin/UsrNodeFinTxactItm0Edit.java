@@ -2139,7 +2139,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
             thisAmt = thisAmt + " Cred " + thisFinTxactItm.getAmtCred();
         }
         if (!thisAmt.equals("")) {
-            thisAmt = thisAmt.trim();
+            thisAmt = thisAmt.strip();
         }
         logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
 
@@ -2212,7 +2212,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
         String thisWhat = Objects.toString(thisFinTxactItm.getWhatText1(), "");
         if (thisFinTxactItm.getFinWhat1_Id() != null) {
             thisWhat = thisWhat + " " + Objects.toString(thisFinTxactItm.getFinWhat1_Id().getId2());
-            thisWhat = thisWhat.trim();
+            thisWhat = thisWhat.strip();
         }
         if (!thisWhat.equals("")) {
             thisWhat = "for " + thisWhat;
@@ -2222,7 +2222,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
         String thisWhy = Objects.toString(thisFinTxactItm.getWhyText1(), "");
         if (thisFinTxactItm.getFinWhy1_Id() != null) {
             thisWhy = thisWhy + " " + Objects.toString(thisFinTxactItm.getFinWhy1_Id().getId2());
-            thisWhy = thisWhy.trim();
+            thisWhy = thisWhy.strip();
         }
         if (!thisWhy.equals("")) {
             thisWhy = "for " + thisWhy;
@@ -2444,7 +2444,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
                         thisAmt = thisAmt + "" + desc1FinTxactItm1.getAmtCred();
                     }
                     if (!thisAmt.equals("")) {
-                        thisAmt = thisAmt.trim();
+                        thisAmt = thisAmt.strip();
                     }
                 }
                 logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
@@ -2483,7 +2483,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
                     thisWhat = thisWhat + " " + Objects.toString(thisFinTxactSet.getFinWhat1_Id().getId2());
                 }
                 if (!thisWhat.equals("")) {
-                    thisWhat = "for " + thisWhat.trim();
+                    thisWhat = "for " + thisWhat.strip();
                 }
                 logger.debug(logPrfx + " --- thisWhat: " + thisWhat);
 
@@ -2492,7 +2492,7 @@ public class UsrNodeFinTxactItm0Edit extends StandardEditor<UsrNodeBase> {
                     thisWhy = thisWhy + " " + Objects.toString(thisFinTxactSet.getFinWhy1_Id().getId2());
                 }
                 if (!thisWhy.equals("")) {
-                    thisWhy = "for " + thisWhy.trim();
+                    thisWhy = "for " + thisWhy.strip();
                 }
                 logger.debug(logPrfx + " --- thisWhy: " + thisWhy);
 

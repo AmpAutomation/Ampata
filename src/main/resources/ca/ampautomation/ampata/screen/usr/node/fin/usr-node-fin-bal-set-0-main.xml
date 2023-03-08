@@ -147,9 +147,9 @@
                                     </hbox>
                                     <hbox caption="ts3.elTs">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
-                                            <checkBox id="tmplt_Ts3ElTsFieldChk" align="MIDDLE_RIGHT"/>
+                                            <checkBox id="tmplt_Ts2ElTsFieldChk" align="MIDDLE_RIGHT"/>
                                         </hbox>
-                                        <dateField id="tmplt_Ts3ElTsField" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
+                                        <dateField id="tmplt_Ts2ElTsField" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
                                     </hbox>
                                     <hbox caption="status" width="250px" expand="tmplt_StatusField">
                                         <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">

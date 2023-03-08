@@ -179,60 +179,68 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
      * <h1>Update the <i>inst1</i> field</h1>
      * <p></p>
      * <h2>Precedent Fields</h2>
+     * <ul style="margin-left: 24px;">
+     *      <li><i>type1_Id.id2</i> required</li>
+     *      <p>switch <i>type1_Id.id2</i></p>
+     *      <p>case "Rng"</p>
      *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> required</li>
-     *          <p style="margin-left: 36px;"> case "Rng"</p>
-     *              <ul style="margin-left: 60px;">
-     *                  <li><i>type1_Id.id2</i> required</li>
-     *                  <li><i>ts1.elTs</i> (tsBeg) required</li>
-     *                  <li><i>ts2.elTs</i> (tsEnd) required</li>
-     *                  <li><i>finDept1_Id.id2</i> optional</li>
-     *              </ul>
-     *          <p style="margin-left: 36px;">
-     *              case "Rng-Given-Year"
-     *          <br>case "Rng-Given-Month"
-     *          <br>case "Rng-Given-Week"
-     *          <br>case "Rng-Given-Day"</p>
-     *              <ul style="margin-left: 60px;">
-     *                  <li><i>type1_Id.id2</i> required</li>
-     *                  <li><i>ts1.elTs</i> (tsInRng) required</li>
-     *                  <li><i>txt1</i> required</li>
-     *                  <li><i>finDept1_Id.id2</i> optional</li>
-     *              </ul>
-     *     </ul>
+     *          <li><i>ts1.elTs</i> (tsBeg) required</li>
+     *          <li><i>ts2.elTs</i> (tsEnd) required</li>
+     *          <li><i>txt1</i> (txtSet) required</li>
+     *          <li><i>finDept1_Id.id2</i> optional</li>
+     *      </ul>
+     *      <p>case "Rng-Given-Year"
+     *      <br>case "Rng-Given-Month"
+     *      <br>case "Rng-Given-Week"
+     *      <br>case "Rng-Given-Day"</p>
+     *      <ul style="margin-left: 24px;">
+     *          <li><i>ts1.elTs</i> (tsInRng) required</li>
+     *          <li><i>txt1</i> (txtSet) required</li>
+     *          <li><i>finDept1_Id.id2</i> optional</li>
+     *      </ul>
+     * </ul>
      * <p></p>
      * <h2>Examples</h2>
      *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = "Rng-Given-Year"</li>
+     *          <li><i>type1_Id.id2</i> = "Rng"</li>
      *          <li><i>ts1.elTs</i> = "2023-01-01"</li>
-     *          <li><i>txt2</i> = "All"</li>
+     *          <li><i>ts2.elTs</i> = "2023-02-28"</li>
+     *          <li><i>txt1</i> = "All"</li>
      *          <li><i>finDept1_Id.id2</i> = "Gen"</li>
-     *          <li><i>id2Calc</i> = "R=Y2023/_;S=All;D=Gen"</li>
+     *          <li><i>inst1</i> = "B=2023-01-01;E=2023-02-28;S=All;D=Gen"</li>
      *      </ul>
      * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = "Rng-Given-Week"</li>
-     *          <li><i>ts1.elTs</i> = "2023-01-01"</li>
-     *          <li><i>txt2</i> = "All"</li>
-     *          <li><i>finDept1_Id.id2</i> = "Gen"</li>
-     *          <li><i>id2Calc</i> = "R=Y2023/W01/_;S=All;D=Gen"</li>
-     *      </ul>
+     * <ul style="margin-left: 24px;">
+     *      <li><i>type1_Id.id2</i> = "Rng-Given-Year"</li>
+     *      <li><i>ts1.elTs</i> = "2023-01-01"</li>
+     *      <li><i>txt1</i> = "All"</li>
+     *      <li><i>finDept1_Id.id2</i> = "Gen"</li>
+     *      <li><i>inst1</i> = "R=Y2023/_;S=All;D=Gen"</li>
+     * </ul>
      * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = "Rng-Given-Month"</li>
-     *          <li><i>ts1.elTs</i> = "2023-01-01"</li>
-     *          <li><i>txt2</i> = "All"</li>
-     *          <li><i>finDept1_Id.id2</i> = "Gen"</li>
-     *          <li><i>id2Calc</i> = "R=Y2023/M01/_;S=All;D=Gen"</li>
-     *      </ul>
+     * <ul style="margin-left: 24px;">
+     *      <li><i>type1_Id.id2</i> = "Rng-Given-Week"</li>
+     *      <li><i>ts1.elTs</i> = "2023-01-01"</li>
+     *      <li><i>txt1</i> = "All"</li>
+     *      <li><i>finDept1_Id.id2</i> = "Gen"</li>
+     *      <li><i>inst1</i> = "R=Y2023/W01/_;S=All;D=Gen"</li>
+     * </ul>
      * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = "Rng-Given-Day"</li>
-     *          <li><i>ts1.elTs</i> = "2023-01-01"</li>
-     *          <li><i>txt2</i> = "All"</li>
-     *          <li><i>finDept1_Id.id2</i> = "Gen"</li>
-     *          <li><i>id2Calc</i> = "R=Y2023/M01/D01;S=All;D=Gen"</li>
-     *      </ul>
+     * <ul style="margin-left: 24px;">
+     *      <li><i>type1_Id.id2</i> = "Rng-Given-Month"</li>
+     *      <li><i>ts1.elTs</i> = "2023-01-01"</li>
+     *      <li><i>txt1</i> = "All"</li>
+     *      <li><i>finDept1_Id.id2</i> = "Gen"</li>
+     *      <li><i>inst1</i> = "R=Y2023/M01/_;S=All;D=Gen"</li>
+     * </ul>
+     * <p></p>
+     * <ul style="margin-left: 24px;">
+     *      <li><i>type1_Id.id2</i> = "Rng-Given-Day"</li>
+     *      <li><i>ts1.elTs</i> = "2023-01-01"</li>
+     *      <li><i>txt1</i> = "All"</li>
+     *      <li><i>finDept1_Id.id2</i> = "Gen"</li>
+     *      <li><i>inst1</i> = "R=Y2023/M01/D01;S=All;D=Gen"</li>
+     * </ul>
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
@@ -275,6 +283,32 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
         }
 
         switch (l_type1_Id2.get()){
+            case "Rng"->{
+                //ex. "B=2023-01-01;E=2023-02-28;D=Gen"
+
+                //ts2.elTs required
+                Optional<LocalDateTime> l_ts2ElTs = Optional.ofNullable(this.ts2).map(HasTmst::getElTs);
+                if (l_ts2ElTs.isEmpty()) {
+                    logger.debug(logPrfx + " --- l_ts2ElTs: null");
+                    logger.trace(logPrfx + " <-- ");
+                    return isChanged;
+                }else{
+                    logger.debug(logPrfx + " --- l_ts2ElTs: " + l_ts2ElTs.get().format(frmtDt));
+                }
+
+                //Ts1.elTs (Beg)
+                sb.append("B=");
+                sb.append(l_ts1ElTs.get().format(frmtDt));
+                //Ts1.elTs (Beg)
+                sb.append(SEP2);
+                sb.append("E=");
+                sb.append(l_ts2ElTs.get().format(frmtDt));
+                //Set
+                sb.append(SEP2);
+                sb.append("S=");
+                sb.append(l_txt1.get());
+
+            }
             case "Rng-Given-Year"->{
                 //ex. "R=Y2023/_;S=All;D=Gen"
                 //Range
@@ -354,11 +388,11 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
         //finDept1_Id.id2 optional
         Optional<String> l_finDept1_Id2 = Optional.ofNullable(this.finDept1_Id).map(UsrNodeBase::getId2);
         if (l_finDept1_Id2.isEmpty()){
-            logger.trace(logPrfx + " --- l_type1_Id2 is null");
+            logger.trace(logPrfx + " --- l_finDept1_Id2 is null");
             sb.append(SEP2);
             sb.append("D=");
         }else{
-            logger.trace(logPrfx + " --- l_type1_Id2: " + l_finDept1_Id2.get());
+            logger.trace(logPrfx + " --- l_finDept1_Id2: " + l_finDept1_Id2.get());
             sb.append(SEP2);
             sb.append("D=");
             sb.append(l_finDept1_Id2);
@@ -487,8 +521,8 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
                 sb.append(SEP1);
                 sb.append("_");
                 //Set
-                sb.append(SEP2);
-                sb.append("S=");
+                sb.append(SEP0);
+                sb.append("Set ");
                 sb.append(l_txt1.get());
 
             }
@@ -507,8 +541,8 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
                 sb.append(SEP1);
                 sb.append("_");
                 //Set
-                sb.append(SEP2);
-                sb.append("S=");
+                sb.append(SEP0);
+                sb.append("Set ");
                 sb.append(l_txt1.get());
 
             }
@@ -524,7 +558,7 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
                 sb.append("M").append(String.format("%2d", l_ts1ElTs.get().getMonthValue()));
                 sb.append(SEP1);
                 sb.append("_");
-                sb.append(SEP2);
+                sb.append(SEP0);
                 sb.append("Set ");
                 sb.append(l_txt1.get());
 
@@ -545,7 +579,7 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
                 sb.append(SEP1);
                 sb.append("_");
                 //Set
-                sb.append(SEP2);
+                sb.append(SEP0);
                 sb.append("Set ");
                 sb.append(l_txt1.get());
 
@@ -564,7 +598,6 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
         }else{
             logger.trace(logPrfx + " --- l_type1_Id2: " + l_finDept1_Id2.get());
             sb.append(SEP0);
-            sb.append("D=");
             sb.append("Dept [");
             sb.append(l_finDept1_Id2.get());
             sb.append("]");
@@ -597,7 +630,7 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
         }
 
         String l_desc1_ = this.desc1;
-        String l_desc1 = sb.toString().trim();
+        String l_desc1 = sb.toString().strip();
         logger.debug(logPrfx + " --- l_desc1: " + l_desc1);
 
         if (Objects.equals(l_desc1_, l_desc1)){
@@ -607,6 +640,85 @@ public class UsrNodeFinBalSet extends UsrNodeBase {
             logger.debug(logPrfx + " --- called setDesc1(l_desc1)");
             isChanged = true;
         }
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    /**
+     * <h1>Update the <i>ts1</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <h2>Dependent Fields</h2>
+     *      <ul style="margin-left: 24px;">
+     *          <li><i>inst1</i></li>
+     *          <li><i>name1</i></li>
+     *          <li><i>desc1</i></li>
+     *          <li><i>id2Calc</i></li>
+     *          <li><i>id2Cmp</i></li>
+     *          <li><i>id2Dup</i></li>     *      </ul>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    @Override
+    public Boolean updateTs1Deps(DataManager dataManager) {
+        String logPrfx = "updateTs1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateInst1(dataManager) || isChanged;
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateDesc1(dataManager) || isChanged;
+
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+
+    /**
+     * <h1>Update the <i>ts2</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <h2>Dependent Fields</h2>
+     *      <ul style="margin-left: 24px;">
+     *          <li><i>inst1</i></li>
+     *          <li><i>name1</i></li>
+     *          <li><i>desc1</i></li>
+     *          <li><i>id2Calc</i></li>
+     *          <li><i>id2Cmp</i></li>
+     *          <li><i>id2Dup</i></li>     *      </ul>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    @Override
+    public Boolean updateTs2Deps(DataManager dataManager) {
+        String logPrfx = "updateTs2Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateInst1(dataManager) || isChanged;
+        isChanged = this.updateName1(dataManager) || isChanged;
+        isChanged = this.updateDesc1(dataManager) || isChanged;
+
+        isChanged = this.updateId2Calc(dataManager) || isChanged;
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+        isChanged = this.updateId2Dup(dataManager) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
