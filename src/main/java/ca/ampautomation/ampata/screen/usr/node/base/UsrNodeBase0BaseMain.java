@@ -6,6 +6,8 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
 import io.jmix.core.*;
+import io.jmix.core.querycondition.LogicalCondition;
+import io.jmix.core.querycondition.PropertyCondition;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
 import io.jmix.ui.component.*;
@@ -381,16 +383,25 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
             return;
         }
 
-        UsrNodeBase firstNode = thisNodes.get(0);
-
-        List<UsrNodeBase> thisNodes2 = new ArrayList<>(UsrNodeBase.getNodesByParent1(UsrNodeBase.class, dataManager, firstNode.getParent1_Id()));
-        thisNodes2.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        NodeT firstNode = thisNodes.get(0);
+        List<UsrNodeBase> thisNodes2 = null;
+        List<NodeT> thisNodes3 = null;
+        if (firstNode.getParent1_Id() == null){
+            thisNodes3 = dataManager.load(typeOfNodeT).all().list();
+        }else{
+            thisNodes3 = dataManager.load(typeOfNodeT)
+                    .condition(PropertyCondition.contains("parent1_Id",firstNode.getParent1_Id()))
+                    .list();
+            //thisNodes2 = new ArrayList<>(UsrNodeBase.getNodesByParent1(UsrNodeBase.class, dataManager, firstNode.getParent1_Id()));
+            //thisNodes3 = (List<NodeT>) thisNodes2.stream().filter(n -> n.getDtype().equals("enty_"+typeOfNodeT.getSimpleName()));
+        }
+        thisNodes3.sort(Comparator.comparing(n -> n.getSortIdx(),Comparator.nullsFirst(Comparator.naturalOrder())));
 
         List<NodeT> chngNodes = new ArrayList<>();
         List<NodeT> finalChngNodes = chngNodes;
 
         AtomicInteger sortIdx = new AtomicInteger(0);
-        thisNodes2.forEach(thisNode -> {
+        thisNodes3.forEach(thisNode -> {
             if (thisNode != null) {
                 thisNode = dataContext.merge(thisNode);
                 Boolean thisNodeIsChanged = false;
@@ -433,10 +444,10 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         AtomicInteger sortIdxMin = new AtomicInteger(0);
 
         //order ascending
-        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisNodes.sort(Comparator.comparing(n -> n.getSortIdx(),Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrNodeBase> chngFinAccts = new ArrayList<>();
-        List<UsrNodeBase> finalChngFinAccts = chngFinAccts;
+        List<NodeT> chngNodes = new ArrayList<>();
+        List<NodeT> finalChngNodes = chngNodes;
 
         thisNodes.forEach(thisNode -> {
             if (thisNode != null) {
@@ -454,13 +465,20 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
                         thisNode.setSortIdx(sortIdx);
                         logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (sortIdx) + ")");
                         thisNodeIsChanged = true;
-                        finalChngFinAccts.add(thisNode);
+                        finalChngNodes.add(thisNode);
                     }
 
                     // for all next items, inc idx
-                    List<UsrNodeBase> nextFinAccts =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class,dataManager,-1
-                            , sortIdx_, thisNode.getParent1_Id());
-
+                    LogicalCondition logcCond = LogicalCondition.and();
+                    logcCond.add(PropertyCondition.greater("sortIdx",-1));
+                    logcCond.add(PropertyCondition.less("sortIdx",sortIdx_));
+                    if(thisNode.getParent1_Id() != null){
+                        logcCond.add(PropertyCondition.greater("parent1_Id",thisNode.getParent1_Id()));
+                    }
+                    List<NodeT> nextFinAccts = dataManager.load(typeOfNodeT).condition(logcCond).list();
+                    // List<NodeT> nextFinAccts =  UsrNodeBase.getNodesBtwnSortIdx(typeOfNodeT,dataManager,-1
+                    //        , sortIdx_, thisNode.getParent1_Id());
+                    
                     nextFinAccts.forEach(nextFinAcct -> {
                         if (nextFinAcct != null) {
                             nextFinAcct = dataContext.merge(nextFinAcct);
@@ -478,7 +496,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
                                     nextFinAcct.setSortIdx(nextSortIdx);
                                     logger.debug(logPrfx + " --- thisNode.setSortIdx(" + (nextSortIdx) + ")");
                                     nextFinAcctIsChanged = true;
-                                    finalChngFinAccts.add(nextFinAcct);
+                                    finalChngNodes.add(nextFinAcct);
                                 }
                             }
                         }
@@ -495,8 +513,8 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
             }
         });
 
-        chngFinAccts = finalChngFinAccts.stream().distinct().collect(Collectors.toList());
-        updateHelper(chngFinAccts);
+        chngNodes = finalChngNodes.stream().distinct().collect(Collectors.toList());
+        updateHelper(chngNodes);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -514,10 +532,10 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
             return;
         }
 
-        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisNodes.sort(Comparator.comparing(n -> n.getSortIdx(),Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrNodeBase> chngNodes = new ArrayList<>();
-        List<UsrNodeBase> finalChngNodes = chngNodes;
+        List<NodeT> chngNodes = new ArrayList<>();
+        List<NodeT> finalChngNodes = chngNodes;
 
         thisNodes.forEach(thisNode -> {
 
@@ -540,7 +558,13 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
                     finalChngNodes.add(thisNode);
 
                     // for prev item, inc idx
-                    UsrNodeBase prevNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class, dataManager,-1,thisNode.getParent1_Id());
+                    LogicalCondition logcCond = LogicalCondition.and();
+                    logcCond.add(PropertyCondition.equal("sortIdx",-1));
+                    if(thisNode.getParent1_Id() != null){
+                        logcCond.add(PropertyCondition.greater("parent1_Id",thisNode.getParent1_Id()));
+                    }
+                    NodeT prevNode = dataManager.load(typeOfNodeT).condition(logcCond).one();
+                    //UsrNodeBase prevNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class, dataManager,-1,thisNode.getParent1_Id());
                     if(prevNode != null){
                         prevNode = dataContext.merge(prevNode);
                         Boolean prevNodeIsChanged = false;
@@ -586,10 +610,10 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
             return;
         }
 
-        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())));
+        thisNodes.sort(Comparator.comparing(n -> n.getSortIdx(),Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrNodeBase> chngNodes = new ArrayList<>();
-        List<UsrNodeBase> finalChngNodes = chngNodes;
+        List<NodeT> chngNodes = new ArrayList<>();
+        List<NodeT> finalChngNodes = chngNodes;
 
         thisNodes.forEach(thisNode -> {
             if (thisNode != null) {
@@ -612,7 +636,13 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
 
 
                     // for next item, dec idx
-                    UsrNodeBase nextNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class,dataManager,+1,thisNode.getParent1_Id());
+                    LogicalCondition logcCond = LogicalCondition.and();
+                    logcCond.add(PropertyCondition.equal("sortIdx",+1));
+                    if(thisNode.getParent1_Id() != null){
+                        logcCond.add(PropertyCondition.greater("parent1_Id",thisNode.getParent1_Id()));
+                    }
+                    NodeT nextNode = dataManager.load(typeOfNodeT).condition(logcCond).one();
+                    //UsrNodeBase nextNode = UsrNodeBase.getNodesBySortIdx(UsrNodeBase.class,dataManager,+1,thisNode.getParent1_Id());
                     if(nextNode != null){
                         nextNode = dataContext.merge(nextNode);
                         Boolean nextNodeIsChanged = false;
@@ -661,10 +691,10 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         }
 
         //order descending
-        thisNodes.sort(Comparator.comparing(UsrNodeBase::getSortIdx,Comparator.nullsFirst(Comparator.naturalOrder())).reversed());
+        thisNodes.sort(Comparator.comparing(n -> n.getSortIdx(),Comparator.nullsFirst(Comparator.naturalOrder())));
 
-        List<UsrNodeBase> chngNodes = new ArrayList<>();
-        List<UsrNodeBase> finalChngNodes = chngNodes;
+        List<NodeT> chngNodes = new ArrayList<>();
+        List<NodeT> finalChngNodes = chngNodes;
 
         AtomicInteger sortIdxMax = new AtomicInteger(getSortIdxMax(thisNodes.get(0)));
         if (sortIdxMax == null) {
@@ -695,7 +725,14 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
                     }
 
                     // for all next items, dec idx
-                    List<UsrNodeBase> nextNodes =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class, dataManager,sortIdx_
+                    LogicalCondition logcCond = LogicalCondition.and();
+                    logcCond.add(PropertyCondition.greater("sortIdx",sortIdx_));
+                    logcCond.add(PropertyCondition.less("sortIdx", sortIdxMax.intValue()+1))
+                    if(thisNode.getParent1_Id() != null){
+                        logcCond.add(PropertyCondition.greater("parent1_Id",thisNode.getParent1_Id()));
+                    }
+                    List<NodeT> nextNodes = dataManager.load(typeOfNodeT).condition(logcCond).list();
+                    //List<UsrNodeBase> nextNodes =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class, dataManager,sortIdx_
                             , sortIdxMax.intValue()+1, thisNode.getParent1_Id());
 
                     nextNodes.forEach(nextNode -> {
@@ -740,22 +777,38 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
-    private Integer getSortIdxMax(UsrNodeBase thisNode) {
+    private Integer getSortIdxMax(NodeT thisNode) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 
         Integer sortIdxMax = null;
-        String sortIdxMaxQry = "select max(e.sortIdx)"
-                + " from enty_UsrNodeBase e"
-                + " where e.parent1_Id = :parent_Id1";
-        try {
-            sortIdxMax = dataManager.loadValue(sortIdxMaxQry, Integer.class)
-                    .store("main")
-                    .parameter("parent_Id1", thisNode.getParent1_Id())
-                    .one();
-            // max returns null if no rows or if all rows have a null value
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- sortIdxMaxQry error: " + e.getMessage());
+        if (thisNode.getParent1_Id() == null){
+            String sortIdxMaxQry = "select max(e.sortIdx)"
+                    + " from enty_"+ typeOfNodeT.getSimpleName() +" e"
+                    ;
+
+            try {
+                sortIdxMax = dataManager.loadValue(sortIdxMaxQry, Integer.class)
+                        .store("main")
+                        .one();
+                // max returns null if no rows or if all rows have a null value
+            } catch (IllegalStateException e) {
+                logger.debug(logPrfx + " --- sortIdxMaxQry error: " + e.getMessage());
+            }
+        }else{
+            String sortIdxMaxQry = "select max(e.sortIdx)"
+                    + " from enty_"+ typeOfNodeT.getSimpleName() +" e"
+                    + " where e.parent1_Id = :parent_Id1"
+                    ;
+            try {
+                sortIdxMax = dataManager.loadValue(sortIdxMaxQry, Integer.class)
+                        .store("main")
+                        .parameter("parent_Id1", thisNode.getParent1_Id())
+                        .one();
+                // max returns null if no rows or if all rows have a null value
+            } catch (IllegalStateException e) {
+                logger.debug(logPrfx + " --- sortIdxMaxQry error: " + e.getMessage());
+            }
         }
         logger.debug(logPrfx + " --- sortIdxMaxQry result: " + sortIdxMax + "");
 

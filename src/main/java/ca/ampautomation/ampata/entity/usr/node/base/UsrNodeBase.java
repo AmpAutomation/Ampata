@@ -2451,6 +2451,35 @@ public class UsrNodeBase implements AcceptsTenant {
     }
 
     /**
+     * <h1>Update the <i>id2Dup</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <h2>Dependent Fields</h2>
+     *      <ul style="margin-left: 24px;">
+     *          <li><i>id2Cmp</i></li>
+     *      </ul>
+     * <p></p>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    public Boolean updateId2DupDeps(DataManager dataManager) {
+        String logPrfx = "updateId2DupDeps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        isChanged = this.updateId2Cmp(dataManager) || isChanged;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
+    /**
      * <h1>Update the <i>name1</i> field</h1>
      * <p></p>
      * <h2>Precedent Fields</h2>
@@ -2679,6 +2708,29 @@ public class UsrNodeBase implements AcceptsTenant {
     }
 
 
+    /**
+     * <h1>Update the <i>txt1</i> field dependent fields</h1>
+     * <p>This includes intermediate fields that higher fields depend on.</p>
+     * <p>Ex.</p>
+     *      <p style="margin-left: 24px;">
+     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
+     *          then update <i>C<br></i>
+     *          then update <i>B<br></i>
+     *      </p>
+     * <p></p>
+     * <b>Note</b>: this method is to be overridden
+     * <p></p>
+     * @return Boolean true if any field was changed, otherwise false
+     */
+    public Boolean updateTxt1Deps(DataManager dataManager) {
+        String logPrfx = "updateTxt1Deps";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
     public Boolean updateTs1() {
         // Assume ts1, ts2, ts3 is not null
         String logPrfx = "updateTs1";
