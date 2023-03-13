@@ -727,13 +727,13 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
                     // for all next items, dec idx
                     LogicalCondition logcCond = LogicalCondition.and();
                     logcCond.add(PropertyCondition.greater("sortIdx",sortIdx_));
-                    logcCond.add(PropertyCondition.less("sortIdx", sortIdxMax.intValue()+1))
+                    logcCond.add(PropertyCondition.less("sortIdx", sortIdxMax.intValue()+1));
                     if(thisNode.getParent1_Id() != null){
                         logcCond.add(PropertyCondition.greater("parent1_Id",thisNode.getParent1_Id()));
                     }
                     List<NodeT> nextNodes = dataManager.load(typeOfNodeT).condition(logcCond).list();
                     //List<UsrNodeBase> nextNodes =  UsrNodeBase.getNodesBtwnSortIdx(UsrNodeBase.class, dataManager,sortIdx_
-                            , sortIdxMax.intValue()+1, thisNode.getParent1_Id());
+                    //        , sortIdxMax.intValue()+1, thisNode.getParent1_Id());
 
                     nextNodes.forEach(nextNode -> {
                         if (nextNode != null) {

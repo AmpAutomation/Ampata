@@ -1399,6 +1399,16 @@ public class UsrNodeBase implements AcceptsTenant {
     public void setNode1_Id2(String node1_Id2) { this.node1_Id2 = node1_Id2; }
 
 
+    public HasDate getDt1() { return dt1; }
+
+    public void setDt1(HasDate dt1) { this.dt1 = dt1; }
+
+
+    public HasTime getTm1() { return tm1; }
+
+    public void setTm1(HasTime tm1) { this.tm1 = tm1; }
+
+
     public String getGenDocVers1_Id2() { return genDocVers1_Id2; }
 
     public void setGenDocVers1_Id2(String genDocVers1_Id2) { this.genDocVers1_Id2 = genDocVers1_Id2; }
