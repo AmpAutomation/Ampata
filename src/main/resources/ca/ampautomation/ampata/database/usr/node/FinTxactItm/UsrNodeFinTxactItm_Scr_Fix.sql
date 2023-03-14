@@ -4,7 +4,7 @@
 
 update ampata_usr_node_type t
 	set class_name ='FinTxactItm'
-where t.class_name = 'UsrFinTxfer'
+where t.dtype = 'enty_UsrNodeFinTxfer'
 
 
 
@@ -22,7 +22,7 @@ and t.id2_calc <> ''
 update ampata_usr_node t
 set type1__id = 'dcc34cd9-ddc8-4622-996b-a8dd86db652a'
 where
-	t.class_name = 'UsrNodeFinTxactItm'
+	t.dtype = 'enty_UsrNodeFinTxactItm'
 ;
 
 
@@ -117,8 +117,8 @@ set fin_curcy1__id = t1.id
 from ampata_usr_node t1
 where 
 	t.fin_curcy1__id2 = t1.id2
-and t.class_name = 'UsrNodeFinTxactItm'
-and t1.class_name = 'UsrFinCurcy'
+and t.dtype = 'enty_UsrNodeFinTxactItm'
+and t1.dtype = 'enty_SysNodeFinCurcy'
 ;
 
 -- Problems
@@ -127,7 +127,7 @@ select
 	,t1.fin_curcy1__id 
 	,t1.fin_curcy1__id2 
 from ampata_usr_node t1
-where t1.class_name = 'UsrNodeFinTxactItm'
+where t1.dtype = 'enty_UsrNodeFinTxactItm'
 and (
 		t1.fin_curcy1__id is null
 	or t1.fin_curcy1__id2 = ''
@@ -372,7 +372,7 @@ where id = 'afcbb4f4-d819-4b89-a9fa-967b78c9338c'
 
 select * 
 from ampata_usr_node t
-where class_name = 'UsrNodeFinTxactItm'
+where dtype = 'enty_UsrNodeFinTxactItm'
 and gen_chan1__id = '7f0c4d3f-925e-4d82-8557-e68935f1d3d5'
 
 select * 

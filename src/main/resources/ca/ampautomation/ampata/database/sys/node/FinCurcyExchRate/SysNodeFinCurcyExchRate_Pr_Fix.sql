@@ -30,16 +30,16 @@ SELECT id
 ,ts1_el_dt_mon2
 ,ts1_el_dt_day
 FROM ampata_sys_entity t
-where t.dtype = 'ampata_FinRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 
 delete
 FROM ampata_sys_entity t
-where t.dtype = 'ampata_FinRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 
 
 update ampata_sys_node t
 set id2_calc = id2
-where t.class_name = 'SysNodeFinCurcyExchRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 
 select
  t1.id2
@@ -49,6 +49,6 @@ select
 from ampata_sys_node t
 , ampata_sys_node t1
 , ampata_sys_node t2
-where t.class_name = 'SysNodeFinCurcyExchRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 and t.fin_curcy1__id = t1.id 
 and t.fin_curcy2__id = t2.id 

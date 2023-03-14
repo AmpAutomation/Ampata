@@ -4,9 +4,9 @@
 
 update ampata_usr_item t set dtype = 'enty_UsrItemBase' where dtype = 'enty_UsrItem';
 
-update ampata_usr_item t set dtype = 'enty_UsrItemFinHow' where dtype = 'enty_UsrFinHow';
-update ampata_usr_item t set dtype = 'enty_UsrItemFinWhat' where dtype = 'enty_UsrFinWhat';
-update ampata_usr_item t set dtype = 'enty_UsrItemFinWhy' where dtype = 'enty_UsrFinWhy';
+update ampata_usr_item t set dtype = 'enty_UsrItemFinHow' where dtype = 'enty_UsrItemFinHow';
+update ampata_usr_item t set dtype = 'enty_UsrItemFinWhat' where dtype = 'enty_UsrItemFinWhat';
+update ampata_usr_item t set dtype = 'enty_UsrItemFinWhy' where dtype = 'enty_UsrItemFinWhy';
 update ampata_usr_item t set dtype = 'enty_UsrItemGenFmla' where dtype = 'enty_UsrFinFmla';
 
 update ampata_usr_item t set dtype = 'enty_UsrItemGenFmla' where dtype = 'enty_UsrGenFmla';

@@ -14,6 +14,9 @@
                 <menu id="usrNodeGenBasic" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenBasic">
                     <item screen="enty_UsrNodeGenBasic.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenBasicMain.menu"/>
                 </menu>
+                <menu id="usrNodeGenUnion" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenUnion">
+                    <item screen="enty_UsrNodeGenUnion.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenUnionMain.menu"/>
+                </menu>
                 <menu id="usrNodeGenAgent" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenAgent">
                     <item screen="enty_UsrNodeGenAgent.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenAgentMain.menu"/>
                 </menu>

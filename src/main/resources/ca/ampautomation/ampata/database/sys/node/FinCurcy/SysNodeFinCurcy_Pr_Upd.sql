@@ -18,7 +18,7 @@ raise notice 'Updating id2_calc, sort_key';
 update ampata_sys_node t
 set id2_calc = t.name1
 	,sort_key = '_' || right('0' || t.sort_idx,2)
-where t.class_name = 'SysNodeFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcy'
 and t.deleted_by is null
 ;
 
@@ -40,7 +40,7 @@ set ts1_el_dt_yr = date_part('year',ts1_el_dt)
 	,ts1_el_dt_mon2 =  to_char(ts1_el_dt,'Mon')
 	,ts1_el_dt_day = date_part('day',ts1_el_dt)
 
-where t.class_name = 'SysNodeFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcy'
 ;
 
 
@@ -51,7 +51,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'SysNodeFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcy'
 ;
 
 
@@ -65,12 +65,12 @@ with rows as (
 	from (
 		select t.id2, count(*) id2_dup
 		from ampata_sys_node t
-		where t.class_name = 'SysNodeFinCurcy'
+		where t.dtype = 'enty_SysNodeFinCurcy'
 		and t.deleted_by is null
 		group by t.id2 
 	) t1
 	where t.id2 = t1.id2 
-	and	t.class_name = 'SysNodeFinCurcy'
+	and	t.dtype = 'enty_SysNodeFinCurcy'
     returning 1
 )
 select count(*) from rows into num_rows_updated
@@ -82,7 +82,7 @@ raise notice 'num_rows_updated:%', num_rows_updated;
 update ampata_sys_node t
 set	type1__id2 = t2.id2
 from ampata_sys_node_type t2
-where t.class_name = 'SysNodeFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcy'
 and t.type1__id = t2.id
 ;
 

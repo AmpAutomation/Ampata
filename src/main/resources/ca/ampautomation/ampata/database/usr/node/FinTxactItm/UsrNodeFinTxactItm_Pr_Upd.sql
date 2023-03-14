@@ -61,7 +61,7 @@ set  ts1_el_dt = ts1_el_ts::date
 	,ts2_el_tm_hr  = date_part('hour',ts2_el_ts)
 	,ts2_el_tm_min  = date_part('minute',ts2_el_ts)
 where
-	t.class_name = 'UsrFinTxactItm'
+	t.dtype = 'enty_UsrItemFinTxactItm'
 ;
 	
 --id_dt_date1
@@ -70,7 +70,7 @@ update ampata_usr_node t
 set id_dt_date1  = case when t.ts2_el_dt is not null then t.ts2_el_dt
 		 		else t.ts1_el_dt
 		 		end
-where t.class_name = 'UsrFinTxactItm'
+where t.dtype = 'enty_UsrNodeFinTxactItm'
 ;	
 
 
@@ -99,7 +99,7 @@ set	 id2_calc = Usr_Fin_Txact_Itm_Fn_get_Id2_Calc(
 --	,id_ts_time1_hr  = date_part('hour',id_ts_ts1)
 --	,id_ts_time1_min  = date_part('minute',id_ts_ts1)
 
-where t.class_name = 'UsrFinTxactItm'
+where t.dtype = 'enty_UsrNodeFinTxactItm'
 ;
 
 
@@ -109,7 +109,7 @@ update ampata_usr_node t
 set	id2_cmp = 	case when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'UsrFinTxactItm'
+where t.dtype = 'enty_UsrNodeFinTxactItm'
 ;
 
 
@@ -135,13 +135,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'UsrFinTxactItm'
+			where t.dtype = 'enty_UsrNodeFinTxactItm'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'UsrFinTxactItm'
+		and	t.dtype = 'enty_UsrNodeFinTxactItm'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -168,13 +168,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node_type t2b
 	on t2a.type1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'UsrFinTxactItm'
+	and t2b.dtype = 'enty_UsrNodeFinTxactItm'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrFinTxactItm'
+and	t.dtype = 'enty_UsrNodeFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -192,13 +192,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.gen_chan1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
-	and t2b.class_name = 'UsrNodeGenChan'
+	and t2b.dtype = 'enty_UsrNodeGenChan'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrFinTxactItm'
+and	t.dtype = 'enty_UsrNodeFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -215,13 +215,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_how1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrItemFinHow'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrFinTxactItm'
+and	t.dtype = 'enty_UsrNodeFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -239,13 +239,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_what1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrItemFinWhat'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrFinTxactItm'
+and	t.dtype = 'enty_UsrNodeFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -263,13 +263,13 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_item t2b
 	on t2a.fin_why1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.dtype = 'enty_UsrItemFinWhy'
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrFinTxactItm'
+and	t.dtype = 'enty_UsrNodeFinTxactItm'
 and t.deleted_by is null
 ;
 
@@ -286,7 +286,7 @@ from (
 	from ampata_usr_node t2a
 	inner join ampata_usr_node t2b
 	on t2a.fin_acct1__id = t2b.id
-	where t2a.class_name = 'UsrFinTxactItm'
+	where t2a.dtype = 'enty_UsrNodeFinTxactItm'
 	and t2a.deleted_by is null
 	and t2b.class_name = 'UsrNodeFinAcct'
 	

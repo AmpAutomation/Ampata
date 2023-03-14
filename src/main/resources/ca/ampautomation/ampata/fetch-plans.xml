@@ -373,6 +373,90 @@
 
     </fetchPlan>
 
+    <fetchPlan entity="enty_UsrNodeGenUnion" name="fetchPlan_UsrNodeGenUnion_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="className"/>
+        <property name="id2"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_base"/>
+        <property name="parent1_Id2"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id2"/>
+        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="type1_Id2"/>
+        <property name="inst1"/>
+
+        <property name="nm1s1Name1"/>
+        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Name1GenFmla1_Id2"/>
+        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Type1_Id2"/>
+        <property name="nm1s1Inst1"/>
+        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="nm1s1Inst1GenFmla1_Id2"/>
+        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
+        <property name="nm1s1Inst1Int1"/>
+        <property name="nm1s1Inst1Int2"/>
+        <property name="nm1s1Inst1Int3"/>
+
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
+        <property name="desc1GenFmla1_Id2"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+        <property name="note"/>
+
+        <property name="name2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_base"/>
+        <property name="edgeIns_Id2"/>
+        <property name="edgeOts_Id" fetchPlan="_base"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="genChan1_Id" fetchPlan="_base"/>
+        <property name="genChan2_Id" fetchPlan="_base"/>
+
+        <property name="ts1" fetchPlan="_base"/>
+        <property name="ts3" fetchPlan="_base"/>
+        <property name="ts2" fetchPlan="_base"/>
+        <property name="ts4" fetchPlan="_base"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+        <property name="genTag1_Id" fetchPlan="_base"/>
+        <property name="genTag1_Id2"/>
+        <property name="genTag2_Id" fetchPlan="_base"/>
+        <property name="genTag2_Id2"/>
+        <property name="genTag3_Id" fetchPlan="_base"/>
+        <property name="genTag3_Id2"/>
+        <property name="genTag4_Id" fetchPlan="_base"/>
+        <property name="genTag4_Id2"/>
+
+
+        <property name="genDocVers1_Id2"/>
+        <property name="genDocVer1_Id" fetchPlan="_base"/>
+        <property name="genDocVer1_Id2"/>
+        <property name="genDocVer1_Code"/>
+        <property name="genDocVer1_Ver"/>
+        <property name="genDocVer1_Name1"/>
+
+        <property name="genFile1_Id" fetchPlan="_base"/>
+        <property name="genFile1_Id2"/>
+        <property name="genFile1_URI"/>
+
+    </fetchPlan>
+
     <fetchPlan entity="enty_UsrNodeGenAgent" name="fetchPlan_UsrNodeGenAgent_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>

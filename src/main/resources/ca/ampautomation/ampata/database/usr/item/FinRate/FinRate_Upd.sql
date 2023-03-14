@@ -31,9 +31,9 @@ set id2_calc = Fin_Rate_Fn_get_Id2_Calc(
 from ampata_sys_node t1
 	,ampata_sys_node t2
 	where
-	t.dtype = 'ampata_FinRate'
-and t1.class_name = 'UsrFinCurcy'
-and t2.class_name = 'UsrFinCurcy'
+	t.dtype = 'enty_SysNodeFinCurcyExchRate'
+and t1.dtype = 'enty_SysNodeFinCurcy'
+and t2.dtype = 'enty_SysNodeFinCurcy'
 and t.fin_curcy1__id = t1.id
 and t.fin_curcy2__id = t2.id
 ;
@@ -43,8 +43,8 @@ raise notice 'Updating fin_curcy1__id';
 update ampata_sys_entity t
 set fin_curcy1__id2 = t2.id2
 from ampata_sys_node t2
-where t.dtype = 'ampata_FinRate'
-and t2.class_name = 'UsrFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
+and t2.dtype = 'enty_SysNodeFinCurcy'
 and t.fin_curcy1__id = t2.id
 ;
 
@@ -53,8 +53,8 @@ raise notice 'Updating fin_curcy2__id';
 update ampata_sys_entity t
 set fin_curcy2__id2 = t2.id2
 from ampata_sys_node t2
-where t.dtype = 'ampata_FinRate'
-and t2.class_name = 'UsrFinCurcy'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
+and t2.dtype = 'enty_SysNodeFinCurcy'
 and t.fin_curcy2__id = t2.id
 ;
 
@@ -66,7 +66,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.dtype = 'ampata_FinRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 ;
 
 
@@ -95,13 +95,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_sys_entity t
-			where t.dtype = 'ampata_FinRate'
+			where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 			and t.deleted_by is null
 --			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.dtype = 'ampata_FinRate'
+		and	t.dtype = 'enty_SysNodeFinCurcyExchRate'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter

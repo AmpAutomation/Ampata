@@ -40,7 +40,7 @@ set id2_calc = Sys_Fin_Curcy_Exch_Rate_Fn_get_Id2_Calc(
 
 from ampata_sys_node t1
 , ampata_sys_node t2
-where t.class_name = 'SysNodeFinCurcyExchRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 and t.fin_curcy1__id = t1.id 
 and t.fin_curcy2__id = t2.id 
 
@@ -53,7 +53,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'SysNodeFinCurcyExchRate'
+where t.dtype = 'enty_SysNodeFinCurcyExchRate'
 ;
 
 
@@ -101,12 +101,12 @@ from (
 	,case when t2a.amt1 is not null then 'at rate ' || t2a.amt1 || '' else '' end desc1_rate
 
 	from ampata_sys_node t2a
-	where t2a.class_name = 'SysNodeFinCurcyExchRate'
+	where t2a.dtype = 'enty_SysNodeFinCurcyExchRate'
 	and t2a.deleted_by is null
 	
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'SysNodeFinCurcyExchRate'
+and	t.dtype = 'enty_SysNodeFinCurcyExchRate'
 and t.deleted_by is null
 ;
 

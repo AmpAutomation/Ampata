@@ -1,6 +1,6 @@
 select agn.id,agn.id2
 from ampata_sys_node agn 
-where class_name = 'UsrNodeFinAcct'
+where dtype = 'enty_UsrNodeFinAcct'
 and agn.id2 = '/L/Mark/RBC/Visa'
 ;
 

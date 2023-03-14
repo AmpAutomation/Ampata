@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class UsrNodeGenBasicQryMngr implements UsrComnBaseQryMngr {
+public class UsrNodeGenUnionQryMngr implements UsrComnBaseQryMngr {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -23,9 +23,9 @@ public class UsrNodeGenBasicQryMngr implements UsrComnBaseQryMngr {
         logger.trace(logPrfx + " --> ");
 
         int rows_updated;
-        logger.debug(logPrfx + " --- executing(db) call UsrNodeGenBasic_Pr_Upd_All_Calc_Vals_for_All_Rows()");
-        rows_updated = this.em.createNativeQuery("call UsrNodeGenBasic_Pr_Upd_All_Calc_Vals_for_All_Rows()").executeUpdate();
-        logger.debug(logPrfx + " --- finished(db) call UsrNodeGenBasic_Pr_Upd_All_Calc_Vals_for_All_Rows()");
+        logger.debug(logPrfx + " --- executing(db) call UsrNodeGenUnion_Pr_Upd_All_Calc_Vals_for_All_Rows()");
+        rows_updated = this.em.createNativeQuery("call UsrNodeGenUnion_Pr_Upd_All_Calc_Vals_for_All_Rows()").executeUpdate();
+        logger.debug(logPrfx + " --- finished(db) call UsrNodeGenUnion_Pr_Upd_All_Calc_Vals_for_All_Rows()");
 
         logger.trace(logPrfx + " <-- ");
         return rows_updated;
