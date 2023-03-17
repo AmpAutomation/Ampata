@@ -41,48 +41,6 @@ import java.util.stream.Collectors;
 @LookupComponent("tableMain")
 public class UsrNodeFinBal0Main extends UsrNodeBase0BaseMain<UsrNodeFinBal, UsrNodeFinBalType, UsrNodeFinBalQryMngr, Table<UsrNodeFinBal>> {
 
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-    //Query Manager
-    @Autowired
-    private UsrNodeFinBalQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
-
     @Autowired
     protected PropertyFilter<UsrNodeBase> filterConfig1A_FinBalSet1_Id;
 
@@ -742,99 +700,6 @@ public class UsrNodeFinBal0Main extends UsrNodeBase0BaseMain<UsrNodeFinBal, UsrN
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("id2Field")
-    public void onId2FieldValueChange(HasValue.ValueChangeEvent<String> event) {
-        String logPrfx = "onId2FieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        if (event.isUserOriginated()) {
-            UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
-            if (thisFinBal == null) {
-                logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
-                logger.trace(logPrfx + " <-- ");
-                return;
-            }
-            updateId2Cmp(thisFinBal);
-            updateId2Dup(thisFinBal);
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2FieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
-        if (thisFinBal == null) {
-            logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2(thisFinBal);
-        updateId2Cmp(thisFinBal);
-        updateId2Dup(thisFinBal);
-
-        logger.debug(logPrfx + " --- id2: " + thisFinBal.getId2());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CalcFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
-        if (thisFinBal == null) {
-            logger.debug(logPrfx + " --- finTxactItmDc is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Calc(thisFinBal);
-        updateId2Cmp(thisFinBal);
-
-        logger.debug(logPrfx + " --- id2Calc: " + thisFinBal.getId2Calc());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
-        if (thisFinBal == null) {
-            logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Cmp(thisFinBal);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinBal = instCntnrMain.getItemOrNull();
-        if (thisFinBal == null) {
-            logger.debug(logPrfx + " --- thisFinBal is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Dup(thisFinBal);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     @Subscribe("updateType1_IdFieldListBtn")
     public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateType1_IdFieldListBtnClick";
@@ -1358,7 +1223,7 @@ public class UsrNodeFinBal0Main extends UsrNodeBase0BaseMain<UsrNodeFinBal, UsrN
 
         boolean isChanged = false;
         String id2Calc_ = thisFinBal.getId2Calc();
-        String id2Calc = thisFinBal.getId2CalcFrFields();
+        String id2Calc = thisFinBal.getId2CalcFrFields(dataManager);
         if(!Objects.equals(id2Calc_, id2Calc)){
             thisFinBal.setId2Calc(id2Calc);
             logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
