@@ -13,6 +13,7 @@ import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
 import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import com.google.common.base.Strings;
 import io.jmix.core.*;
 import io.jmix.multitenancy.core.TenantProvider;
@@ -47,63 +48,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinTxactItm.main")
 @UiDescriptor("usr-node-fin-txact-itm-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    protected ListComponent<UsrNodeBase> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-    @Autowired
-    private MultitenancyUiSupport multitenancyUiSupport;
-
-    @Autowired
-    private TenantProvider tenantProvider;
-
-    @Autowired
-    private ComboBox<String> tenantField;
-
-
-
-    //Query Manager
-    private UsrNodeFinTxactItmQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
+public class UsrNodeFinTxactItm0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxactItm, UsrNodeFinTxactItmType, UsrNodeFinTxactItmQryMngr, Table<UsrNodeFinTxactItm>> {
 
     //Filter (filterConfig1A)
     @Autowired
@@ -1455,11 +1400,11 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
             UsrNodeBase copy = metadataTools.copy(orig);
             copy.setId(UuidProvider.createUuid());
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (Objects.equals(orig.getId2(), copy.getId2())) {
                 copy.setNm1s1Inst1Int3(copy.getNm1s1Inst1Int3() == null ? 1 : copy.getNm1s1Inst1Int3() + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
 
@@ -1640,11 +1585,11 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
                 copy.setAmtCalcGenFmla1_Id(tmplt_AmtCalcGenFmla1_IdField.getValue());
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int3(copy.getNm1s1Inst1Int3() == null ? 1 : copy.getNm1s1Inst1Int3() + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
             Integer finTxactOption = Optional.ofNullable(updateColItemCalcValsTxactOption.getValue()).orElse(0);
@@ -3248,7 +3193,7 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        ((UsrNodeFinTxactItm) thisFinTxactItm).updateDesc1(dataManager);
+        thisFinTxactItm.updateDesc1(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -4512,7 +4457,7 @@ public class UsrNodeFinTxactItm0Main extends MasterDetailScreen<UsrNodeBase> {
         isChanged = updateId2Calc(thisFinTxactItm) || isChanged;
         isChanged = updateId2Cmp(thisFinTxactItm) || isChanged;
         isChanged = updateId2Dup(thisFinTxactItm) || isChanged;
-        isChanged = ((UsrNodeFinTxactItm) thisFinTxactItm).updateDesc1(dataManager) || isChanged;
+        isChanged = thisFinTxactItm.updateDesc1(dataManager) || isChanged;
 
 //        isChanged = updateFinTaxLne1_Id(thisFinTxactItm) || isChanged;
         isChanged = updateAmtNet(thisFinTxactItm) || isChanged;

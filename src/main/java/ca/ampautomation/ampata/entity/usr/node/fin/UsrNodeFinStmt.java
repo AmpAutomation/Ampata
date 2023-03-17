@@ -27,6 +27,8 @@ public class UsrNodeFinStmt extends UsrNodeBase {
      * <h2>Updated Fields</h2>
      *      <ul style="margin-left: 24px;">
      *          <li><i>desc1</i></li>
+     *          <li><i>inst1</i></li>
+     *          <li><i>name1</i></li>
      *          <li><i>id2Calc</i></li>
      *          <li><i>id2Cmp</i></li>
      *          <li><i>id2Dup</i></li>
@@ -80,6 +82,7 @@ public class UsrNodeFinStmt extends UsrNodeBase {
         boolean isChanged = false;
         StringBuilder sb = new StringBuilder();
 
+
         //finAcct1_Id.id2 required
         Optional<String> l_finAcct1_Id2 = Optional.ofNullable(this.finAcct1_Id).map(UsrNodeFinAcct::getId2);
         if (l_finAcct1_Id2.isEmpty()) {
@@ -103,6 +106,7 @@ public class UsrNodeFinStmt extends UsrNodeBase {
             sb.append("D");
             sb.append(l_ts2ElTs.get().format(frmtDt));
         }
+
 
         String l_inst1_ = this.inst1;
         String l_inst1 = sb.toString();

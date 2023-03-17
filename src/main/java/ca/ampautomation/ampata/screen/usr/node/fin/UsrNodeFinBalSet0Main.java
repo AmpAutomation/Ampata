@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinBalSet.main")
 @UiDescriptor("usr-node-fin-bal-set-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinBalSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinBalSet, UsrNodeFinBalSetType, UsrNodeFinBalSetQryMngr, TreeTable<UsrNodeFinBalSet>> {
+public class UsrNodeFinBalSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinBalSet, UsrNodeFinBalSetType, UsrNodeFinBalSetQryMngr, Table<UsrNodeFinBalSet>> {
 
     //Filter
 
@@ -243,7 +243,7 @@ public class UsrNodeFinBalSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinBalSet
                 copy.getTs2().setElTs(ts2);
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");
@@ -305,7 +305,7 @@ public class UsrNodeFinBalSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinBalSet
             if (orig.getAmtEndBalCalc() != null) {
                 copy.setAmtBegBal(orig.getAmtEndBalCalc());}
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");

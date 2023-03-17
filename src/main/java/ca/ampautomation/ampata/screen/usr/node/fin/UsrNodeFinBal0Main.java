@@ -3,9 +3,10 @@ package ca.ampautomation.ampata.screen.usr.node.fin;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
-import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBalQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -38,7 +39,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinBal.main")
 @UiDescriptor("usr-node-fin-bal-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
+public class UsrNodeFinBal0Main extends UsrNodeBase0BaseMain<UsrNodeFinBal, UsrNodeFinBalType, UsrNodeFinBalQryMngr, Table<UsrNodeFinBal>> {
 
     //Common
     Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -464,7 +465,7 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
                 updateIdDt(copy);
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");
@@ -527,7 +528,7 @@ public class UsrNodeFinBal0Main extends MasterDetailScreen<UsrNodeBase> {
             if (orig.getAmtEndBalCalc() != null) {
                 copy.setAmtBegBal(orig.getAmtEndBalCalc());}
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");

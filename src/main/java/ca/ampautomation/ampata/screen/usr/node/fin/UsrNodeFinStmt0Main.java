@@ -5,6 +5,7 @@ import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -32,51 +33,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinStmt.main")
 @UiDescriptor("usr-node-fin-stmt-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinStmt0Main extends MasterDetailScreen<UsrNodeBase> {
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-
-
-    //Query Manager
-    @Autowired
-    private UsrNodeFinStmtQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
+public class UsrNodeFinStmt0Main extends UsrNodeBase0BaseMain<UsrNodeFinStmt, UsrNodeFinStmtType, UsrNodeFinStmtQryMngr, Table<UsrNodeFinStmt>> {
 
     @Autowired
     protected PropertyFilter<UsrNodeGenChan> filterConfig1A_GenChan1_Id;
@@ -394,7 +351,7 @@ public class UsrNodeFinStmt0Main extends MasterDetailScreen<UsrNodeBase> {
                 updateIdDt(copy);
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");
@@ -457,7 +414,7 @@ public class UsrNodeFinStmt0Main extends MasterDetailScreen<UsrNodeBase> {
             if (orig.getAmtEndBalCalc() != null) {
                 copy.setAmtBegBal(orig.getAmtEndBalCalc());}
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (orig.getId2().equals(copy.getId2())){
                 copy.setId2(copy.getId2() + " Copy");

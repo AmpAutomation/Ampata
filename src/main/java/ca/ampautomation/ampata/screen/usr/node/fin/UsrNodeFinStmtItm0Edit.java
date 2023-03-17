@@ -344,100 +344,6 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-    @Subscribe("id2Field")
-    public void onId2FieldValueChange(HasValue.ValueChangeEvent<String> event) {
-        String logPrfx = "onId2FieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        if (event.isUserOriginated()) {
-            UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-            if (thisFinStmtItm == null) {
-                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
-                logger.trace(logPrfx + " <-- ");
-                return;
-            }
-            updateId2Cmp(thisFinStmtItm);
-            updateId2Dup(thisFinStmtItm);
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2FieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2(thisFinStmtItm);
-        updateId2Cmp(thisFinStmtItm);
-        updateId2Dup(thisFinStmtItm);
-
-        logger.debug(logPrfx + " --- id2: " + thisFinStmtItm.getId2());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CalcFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Calc(thisFinStmtItm);
-        updateId2Cmp(thisFinStmtItm);
-
-        logger.debug(logPrfx + " --- id2Calc: " + thisFinStmtItm.getId2Calc());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Cmp(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Dup(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
     @Subscribe("updateType1_IdFieldListBtn")
     public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateType1_IdFieldListBtnClick";
@@ -466,10 +372,10 @@ are not fully initialized, for example, buttons are not linked with actions.
             }
 
             logger.debug(logPrfx + " --- calling updateIdTs(thisFinStmtItm)");
-            updateIdTs(thisFinStmtItm);
+            thisFinStmtItm.updateTs1(dataManager);
 
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
-            updateId2Calc(thisFinStmtItm);
+            thisFinStmtItm.updateId2Calc(dataManager);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -487,7 +393,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateTs1(thisFinStmtItm);
+        thisFinStmtItm.updateTs1FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -507,7 +413,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                 return;
             }
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
-            updateId2Calc(thisFinStmtItm);
+            thisFinStmtItm.updateId2Calc(dataManager);
         }
         logger.trace(logPrfx + " <-- ");
     }
@@ -524,7 +430,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateIdX(thisFinStmtItm);
+        thisFinStmtItm.updateInt1FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -660,7 +566,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        updateAmtNet(thisFinStmtItm);
+        thisFinStmtItm.updateAmtNet(dataManager);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -775,11 +681,10 @@ are not fully initialized, for example, buttons are not linked with actions.
         boolean isChanged = false;
 
         // Stored in FinStmtItm Object
-        isChanged = updateIdTs(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Calc(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Cmp(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Dup(thisFinStmtItm) || isChanged;
-        isChanged = updateAmtNet(thisFinStmtItm) || isChanged;
+        isChanged = thisFinStmtItm.updateAmtNet(dataManager) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Calc(dataManager) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Cmp(dataManager) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Dup(dataManager) || isChanged;
 
         isChanged = updateFinTxactItms1_IdCntCalc(thisFinStmtItm)  || isChanged;
         isChanged = updateFinTxactItms1_AmtDebtSumCalc(thisFinStmtItm)  || isChanged;
@@ -799,147 +704,9 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         boolean isChanged = false;
 
-        isChanged = updateTs1(thisFinStmtItm) || isChanged;
-        isChanged = updateIdX(thisFinStmtItm)  || isChanged;
-        isChanged = updateIdTs(thisFinStmtItm)  || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateId2(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = thisFinStmtItm.getId2();
-        String id2 = thisFinStmtItm.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            thisFinStmtItm.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Calc(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = thisFinStmtItm.getId2Calc();
-        String id2Calc = thisFinStmtItm.getId2CalcFrFields();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            thisFinStmtItm.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = thisFinStmtItm.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisFinStmtItm.getId2(),thisFinStmtItm.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisFinStmtItm.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = thisFinStmtItm.getId2Dup();
-        if (thisFinStmtItm.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNodeFinStmtItm e where e.id2 = :id2 and e.id <> :id";
-            Integer id2Dup;
-            try {
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id", thisFinStmtItm.getId())
-                        .parameter("id2", thisFinStmtItm.getId2())
-                        .one();
-            } catch (IllegalStateException e) {
-                id2Dup = 0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                thisFinStmtItm.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisFinStmtItm.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateIdTs(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateIdTs";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs1();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateTs1(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateTs1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs1FrId2();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateTs2(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateTs2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs2FrId2();
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    private Boolean updateIdX(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateIdX";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateInt1FrId2();
+        isChanged = isChanged || thisFinStmtItm.updateTs1FrId2(dataManager);
+        isChanged = isChanged || thisFinStmtItm.updateTs2FrId2(dataManager);
+        isChanged = isChanged || thisFinStmtItm.updateInt1FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -947,67 +714,6 @@ are not fully initialized, for example, buttons are not linked with actions.
 
 
 
-
-    public Boolean updateAmtNet(@NotNull UsrNodeBase thisFinStmtItm) {
-        //Assume thisFinStmtItm is not null
-        String logPrfx = "updateAmtNet";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        BigDecimal amtNet_ = thisFinStmtItm.getAmtNet();
-
-        UsrNodeBase thisFinStmt = thisFinStmtItm.getFinStmt1_Id();
-        if (thisFinStmt == null) {
-            logger.debug(logPrfx + " --- finStmt_Id is null. Please select an account.");
-            notifications.create().withCaption("FinStmt_Id is null. Please select an account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        UsrNodeBase thisFinAcct = thisFinStmt.getFinAcct1_Id();
-        if (thisFinAcct == null) {
-            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id is null. Please select an account.");
-            notifications.create().withCaption("finStmt_Id.finAcct1_Id is null. Please select an account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        UsrNodeBaseType thisFinAcctType = thisFinAcct.getType1_Id();
-        if (thisFinAcctType == null) {
-            logger.debug(logPrfx + " --- finStmt_Id.finAcct1_Id.type1_Id is null. Please select an account.");
-            notifications.create().withCaption("finStmt_Id.finAcct1_Id.type1_Id is null. Please select a type for this account.").show();
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        BigDecimal amtNet = BigDecimal.valueOf(0);
-        Boolean balIncOnDebt = thisFinAcctType.getBalIncOnDebt();
-        Boolean balIncOnCred = thisFinAcctType.getBalIncOnCred();
-
-        if (thisFinStmtItm.getAmtDebt() != null) {
-            if (balIncOnDebt == null || !balIncOnDebt) {
-                amtNet = amtNet.subtract(thisFinStmtItm.getAmtDebt());
-            } else {
-                amtNet = amtNet.add(thisFinStmtItm.getAmtDebt());
-            }
-        }
-
-        if (thisFinStmtItm.getAmtCred() != null) {
-            if (balIncOnCred == null || !balIncOnCred) {
-                amtNet = amtNet.subtract(thisFinStmtItm.getAmtCred());
-            } else {
-                amtNet = amtNet.add(thisFinStmtItm.getAmtCred());
-            }
-        }
-        if(!Objects.equals(amtNet_, amtNet)){
-            thisFinStmtItm.setAmtNet(amtNet);
-            logger.debug(logPrfx + " --- amtNet: " + amtNet);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
 
 
 

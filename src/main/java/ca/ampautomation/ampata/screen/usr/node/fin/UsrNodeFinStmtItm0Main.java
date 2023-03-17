@@ -2,9 +2,10 @@ package ca.ampautomation.ampata.screen.usr.node.fin;
 
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
-import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinStmtItmQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -30,50 +31,7 @@ import java.util.*;
 @UiController("enty_UsrNodeFinStmtItm.main")
 @UiDescriptor("usr-node-fin-stmt-itm-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinStmtItm0Main extends MasterDetailScreen<UsrNodeBase> {
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-
-    //Query Manager
-    @Autowired
-    private UsrNodeFinStmtItmQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
+public class UsrNodeFinStmtItm0Main extends UsrNodeBase0BaseMain<UsrNodeFinStmtItm, UsrNodeFinStmtItmType, UsrNodeFinStmtItmQryMngr, Table<UsrNodeFinStmtItm>> {
 
     @Autowired
     protected PropertyFilter<String> filterConfig1A_Desc1;
@@ -625,11 +583,11 @@ are not fully initialized, for example, buttons are not linked with actions.
                 copy.setAmtCred(tmplt_AmtCredField.getValue());
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int1((orig.getNm1s1Inst1Int1() == null ? 0 : copy.getNm1s1Inst1Int1()) + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
 
@@ -761,9 +719,9 @@ are not fully initialized, for example, buttons are not linked with actions.
                     thisFinStmtItm.setAmtCred(tmplt_AmtCredField.getValue());
                 }
 
-                thisFinStmtItmIsChanged = updateId2Calc(thisFinStmtItm) || thisFinStmtItmIsChanged;
-                thisFinStmtItmIsChanged = updateId2(thisFinStmtItm) || thisFinStmtItmIsChanged;
-                thisFinStmtItmIsChanged = updateId2Cmp(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Calc(dataManager) || thisFinStmtItmIsChanged;
+                thisFinStmtItmIsChanged = thisFinStmtItm.updateId2(dataManager) || thisFinStmtItmIsChanged;
+                thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Cmp(dataManager) || thisFinStmtItmIsChanged;
 
                 if (thisFinStmtItmIsChanged) {
                     logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmtItm).");
@@ -800,7 +758,7 @@ are not fully initialized, for example, buttons are not linked with actions.
 
                     Boolean thisFinStmtItmIsChanged = false;
 
-                    thisFinStmtItmIsChanged = updateId2Dup(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Dup(dataManager) || thisFinStmtItmIsChanged;
 
                     if (thisFinStmtItmIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmtItm).");
@@ -895,7 +853,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinTxactItmIsChanged = true;
                     }
 
-                    thisFinTxactItmIsChanged = updateId2Calc(thisFinTxactItm) || thisFinTxactItmIsChanged;
+                    thisFinTxactItmIsChanged = thisFinTxactItm.updateId2Calc(dataManager) || thisFinTxactItmIsChanged;
                     String id2_ = thisFinTxactItm.getId2();
                     String id2 = thisFinTxactItm.getId2Calc();
                     if (!Objects.equals(id2_, id2)){
@@ -904,7 +862,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinTxactItmIsChanged = true;
                     }
 
-                    thisFinTxactItmIsChanged = updateId2Cmp(thisFinTxactItm) || thisFinTxactItmIsChanged;
+                    thisFinTxactItmIsChanged = thisFinTxactItm.updateId2Cmp(dataManager) || thisFinTxactItmIsChanged;
 
                     if (thisFinTxactItmIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinTxactItm).");
@@ -948,7 +906,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Calc(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Calc(dataManager) || thisFinStmtItmIsChanged;
                     String id2_ = thisFinStmtItm.getId2();
                     String id2 = thisFinStmtItm.getId2Calc();
                     if (!Objects.equals(id2_, id2)){
@@ -957,7 +915,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Cmp(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Cmp(dataManager) || thisFinStmtItmIsChanged;
 
                     if (thisFinStmtItmIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmtItm).");
@@ -1001,7 +959,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Calc(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Calc(dataManager) || thisFinStmtItmIsChanged;
                     String id2_ = thisFinStmtItm.getId2();
                     String id2 = thisFinStmtItm.getId2Calc();
                     if (!Objects.equals(id2_, id2)){
@@ -1010,7 +968,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Cmp(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Cmp(dataManager) || thisFinStmtItmIsChanged;
 
                     if (thisFinStmtItmIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmtItm).");
@@ -1071,7 +1029,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Calc(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Calc(dataManager) || thisFinStmtItmIsChanged;
                     String id2_ = thisFinStmtItm.getId2();
                     String id2 = thisFinStmtItm.getId2Calc();
                     if (!Objects.equals(id2_, id2)){
@@ -1080,7 +1038,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                         thisFinStmtItmIsChanged = true;
                     }
 
-                    thisFinStmtItmIsChanged = updateId2Cmp(thisFinStmtItm) || thisFinStmtItmIsChanged;
+                    thisFinStmtItmIsChanged = thisFinStmtItm.updateId2Cmp(dataManager) || thisFinStmtItmIsChanged;
 
                     if (thisFinStmtItmIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinStmtItm).");
@@ -1191,118 +1149,6 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemValsBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateInstItemValsBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- thisFinStmtItm is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        updateCalcVals(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-
-    @Subscribe("id2Field")
-    public void onId2FieldValueChange(HasValue.ValueChangeEvent<String> event) {
-        String logPrfx = "onId2FieldValueChange";
-        logger.trace(logPrfx + " --> ");
-
-        if (event.isUserOriginated()) {
-            UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-            if (thisFinStmtItm == null) {
-                logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
-                logger.trace(logPrfx + " <-- ");
-                return;
-            }
-            updateId2Cmp(thisFinStmtItm);
-            updateId2Dup(thisFinStmtItm);
-        }
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2FieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2(thisFinStmtItm);
-        updateId2Cmp(thisFinStmtItm);
-        updateId2Dup(thisFinStmtItm);
-
-        logger.debug(logPrfx + " --- id2: " + thisFinStmtItm.getId2());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CalcFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Calc(thisFinStmtItm);
-        updateId2Cmp(thisFinStmtItm);
-
-        logger.debug(logPrfx + " --- id2Calc: " + thisFinStmtItm.getId2Calc());
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2CmpFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Cmp(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateId2DupFieldBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        UsrNodeBase thisFinStmtItm = instCntnrMain.getItemOrNull();
-        if (thisFinStmtItm == null) {
-            logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-        updateId2Dup(thisFinStmtItm);
-
-        logger.trace(logPrfx + " <-- ");
-    }
 
 
     @Subscribe("updateType1_IdFieldListBtn")
@@ -1335,7 +1181,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             updateIdDt(thisFinStmtItm);
 
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
-            updateId2Calc(thisFinStmtItm);
+            thisFinStmtItm.updateId2Calc(dataManager);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1375,7 +1221,7 @@ are not fully initialized, for example, buttons are not linked with actions.
             updateIdDt(thisFinStmtItm);
 
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
-            updateId2Calc(thisFinStmtItm);
+            thisFinStmtItm.updateId2Calc(dataManager);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1413,7 +1259,7 @@ are not fully initialized, for example, buttons are not linked with actions.
                 return;
             }
             logger.debug(logPrfx + " --- calling updateId2Calc(thisFinStmtItm)");
-            updateId2Calc(thisFinStmtItm);
+            thisFinStmtItm.updateId2Calc(dataManager);
         }
         logger.trace(logPrfx + " <-- ");
     }
@@ -1721,10 +1567,11 @@ are not fully initialized, for example, buttons are not linked with actions.
 
         // Stored in FinStmtItm Object
         isChanged = updateIdDt(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Calc(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Cmp(thisFinStmtItm) || isChanged;
-        isChanged = updateId2Dup(thisFinStmtItm) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Calc(dataManager) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Cmp(dataManager) || isChanged;
+        isChanged = thisFinStmtItm.updateId2Dup(dataManager) || isChanged;
         isChanged = updateAmtNet(thisFinStmtItm) || isChanged;
+
 
         isChanged = updateFinTxactItms1_IdCntCalc(thisFinStmtItm)  || isChanged;
         isChanged = updateFinTxactItms1_AmtDebtSumCalc(thisFinStmtItm)  || isChanged;
@@ -1753,94 +1600,6 @@ are not fully initialized, for example, buttons are not linked with actions.
     }
 
 
-    private Boolean updateId2(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = thisFinStmtItm.getId2();
-        String id2 = thisFinStmtItm.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            thisFinStmtItm.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Calc(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = thisFinStmtItm.getId2Calc();
-        String id2Calc = thisFinStmtItm.getId2CalcFrFields();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            thisFinStmtItm.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Cmp(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = thisFinStmtItm.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisFinStmtItm.getId2(),thisFinStmtItm.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisFinStmtItm.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Dup(@NotNull UsrNodeBase thisFinStmtItm) {
-        // Assume thisFinStmtItm is not null
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = thisFinStmtItm.getId2Dup();
-        if (thisFinStmtItm.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNodeFinStmtItm e where e.id2 = :id2 and e.id <> :id";
-            Integer id2Dup;
-            try {
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id", thisFinStmtItm.getId())
-                        .parameter("id2", thisFinStmtItm.getId2())
-                        .one();
-            } catch (IllegalStateException e) {
-                id2Dup = 0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                thisFinStmtItm.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisFinStmtItm.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
     private Boolean updateIdDt(@NotNull UsrNodeBase thisFinStmtItm) {
         // Assume thisFinStmtItm is not null
         String logPrfx = "updateIdDt";
@@ -1859,7 +1618,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs1FrId2();
+        isChanged = isChanged || thisFinStmtItm.updateTs1FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1871,7 +1630,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateTs2FrId2();
+        isChanged = isChanged || thisFinStmtItm.updateTs2FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -1884,7 +1643,7 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = isChanged || thisFinStmtItm.updateInt1FrId2();
+        isChanged = isChanged || thisFinStmtItm.updateInt1FrId2(dataManager);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -2317,39 +2076,6 @@ are not fully initialized, for example, buttons are not linked with actions.
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    private void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "addEnteredTextToComboBoxOptionsList";
-        logger.trace(logPrfx + " --> ");
-
-        String text = enterPressEvent.getText();
-        if (!Objects.equals(text, "<null>")){
-            @SuppressWarnings("unchecked")
-            // enterPressEvent.getSource is directly connected to a ComboBox
-            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
-
-            List<String> list;
-            // this comboBox options list is created with a call to setOptionsList(List)
-            // see onUpdateFinStmtItm1_Desc1Field
-            // therefore cb.getOptions is type ListOptions
-            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
-            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
-                list = (List<String>) listOptions.getItemsCollection();
-            } else {
-                list = new ArrayList<String>();
-            }
-
-            list.add(text);
-            logger.trace(logPrfx + " --- called list.add( " + text + ")");
-
-            cb.setOptionsList(list);
-
-            notifications.create()
-                    .withCaption("Added " + text + " to list.")
-                    .show();
-        }
-
-    }
 
     private Integer getIdXMax(LocalDate idDt1){
         String logPrfx = "getIdXMax";

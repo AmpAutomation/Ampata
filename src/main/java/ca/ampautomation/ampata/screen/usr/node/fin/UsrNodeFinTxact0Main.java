@@ -8,9 +8,10 @@ import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinWhat;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinWhy;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
-import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinTxactQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -38,51 +39,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinTxact.main")
 @UiDescriptor("usr-node-fin-txact-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
-
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-
-    //Query Manager
-    @Autowired
-    private UsrNodeFinTxactQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
+public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, UsrNodeFinTxactType, UsrNodeFinTxactQryMngr, Table<UsrNodeFinTxact>> {
 
     // filterConfig1A
     @Autowired
@@ -826,11 +783,11 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
                 copy.setType1_Id(tmplt_Type1_IdField.getValue());
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int2(copy.getNm1s1Inst1Int2() == null ? 1 : copy.getNm1s1Inst1Int2() + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
             Integer finTxactSetOption = Optional.ofNullable(updateColItemCalcValsTxsetOption.getValue()).orElse(0);
@@ -1573,7 +1530,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
                         thisFinTxactIsChanged = true;
                     }
 
-                    thisFinTxactIsChanged = updateId2Calc(thisFinTxact) || thisFinTxactIsChanged;
+                    thisFinTxactIsChanged = thisFinTxact.updateId2Calc(dataManager) || thisFinTxactIsChanged;
                     String id2_ = thisFinTxact.getId2();
                     String id2 = thisFinTxact.getId2Calc();
                     if (!Objects.equals(id2_, id2)){
@@ -1582,7 +1539,7 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
                         thisFinTxactIsChanged = true;
                     }
 
-                    thisFinTxactIsChanged = updateId2Cmp(thisFinTxact) || thisFinTxactIsChanged;
+                    thisFinTxactIsChanged = thisFinTxact.updateId2Cmp(dataManager) || thisFinTxactIsChanged;
 
                     if (thisFinTxactIsChanged) {
                         logger.debug(logPrfx + " --- executing dataManager.save(thisFinTxact).");
@@ -2565,182 +2522,6 @@ public class UsrNodeFinTxact0Main extends MasterDetailScreen<UsrNodeBase> {
         isChanged = updateIdY(thisFinTxact)  || isChanged;
         isChanged = updateIdDt(thisFinTxact) || isChanged;
 
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2(@NotNull UsrNodeBase thisFinTxact) {
-        // Assume thisFinTxact is not null
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2_ = thisFinTxact.getId2();
-        String id2 = thisFinTxact.getId2Calc();
-        if(!Objects.equals(id2_, id2)){
-            thisFinTxact.setId2(id2);
-            logger.debug(logPrfx + " --- id2: " + id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Calc(UsrNodeBase thisFinTxact){
-        // Assume thisFinTxact is not null
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String id2Calc_ = thisFinTxact.getId2Calc();
-        String id2Calc = thisFinTxact.getId2CalcFrFields();
-        if(!Objects.equals(id2Calc_, id2Calc)){
-            thisFinTxact.setId2Calc(id2Calc);
-            logger.debug(logPrfx + " --- id2Calc: " + id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Cmp(UsrNodeBase thisFinTxact) {
-        // Assume thisFinTxact is not null
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean id2Cmp_ = thisFinTxact.getId2Cmp();
-        Boolean id2Cmp = !Objects.equals(thisFinTxact.getId2(),thisFinTxact.getId2Calc());
-        if (!Objects.equals(id2Cmp_, id2Cmp)){
-            thisFinTxact.setId2Cmp(id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateId2Dup(UsrNodeBase thisFinTxact) {
-        // Assume thisFinTxact is not null
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer id2Dup_ = thisFinTxact.getId2Dup();
-        if (thisFinTxact.getId2() != null) {
-            String id2Qry = "select count(e) from enty_UsrNodeFinTxact e where e.id2 = :id2 and e.id <> :id";
-            Integer id2Dup;
-            try {
-                id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id", thisFinTxact.getId())
-                        .parameter("id2", thisFinTxact.getId2())
-                        .one();
-            } catch (IllegalStateException e) {
-                id2Dup = 0;
-
-            }
-            id2Dup = id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + id2Dup + " rows");
-            if (!Objects.equals(id2Dup_, id2Dup)){
-                thisFinTxact.setId2Dup(id2Dup);
-                logger.debug(logPrfx + " --- thisFinTxact.setId2Dup(" + (id2Dup) + ")");
-                isChanged = true;
-            }
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    private Boolean updateDesc1(UsrNodeBase thisFinTxact){
-        // Assume thisFinTxact is not null
-        String logPrfx = "updateDesc1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        if (thisFinTxact != null) {
-            String desc1_ = thisFinTxact.getDesc1();
-
-            //thisType
-            String thisType = "";
-            if (thisFinTxact.getType1_Id() != null) {
-                thisType = Objects.toString(thisFinTxact.getType1_Id().getId2(), "");
-            }
-            logger.debug(logPrfx + " --- thisType: " + thisType);
-
-            UsrNodeBase desc1FinTxactItm1 = thisFinTxact.getDesc1Node1_Id() == null
-                    ? findFirstFinTxactItmLikeId2(thisFinTxact.getId2() + "/%")
-                    : thisFinTxact.getDesc1Node1_Id();
-
-            //thisAmt
-            String thisAmt = "";
-            if (desc1FinTxactItm1 != null) {
-                if (desc1FinTxactItm1.getAmtDebt() != null) {
-                    thisAmt = thisAmt + "" + desc1FinTxactItm1.getAmtDebt();
-                } else if (desc1FinTxactItm1.getAmtCred() != null) {
-                    thisAmt = thisAmt + "" + desc1FinTxactItm1.getAmtCred();
-                }
-                if (desc1FinTxactItm1.getSysNodeFinCurcy1_Id() != null) {
-                    thisAmt = thisAmt + " " + Objects.toString(desc1FinTxactItm1.getSysNodeFinCurcy1_Id().getId2(), "");
-                    thisAmt = thisAmt.strip();
-                }
-                if (!thisAmt.equals("")) {
-                    thisAmt = thisAmt.strip();
-                }
-
-            }
-            logger.debug(logPrfx + " --- thisAmt: " + thisAmt);
-
-
-            String thisDocVer = "";
-            if (thisFinTxact.getGenDocVer1_Id() != null) {
-                thisDocVer = Objects.toString(thisFinTxact.getGenDocVer1_Id().getId2());
-            }
-            if (!thisDocVer.equals("")) {
-                thisDocVer = "doc ver " + thisDocVer;
-            }
-            logger.debug(logPrfx + " --- thisDocVer: " + thisDocVer);
-
-            String thisTag = "";
-            String thisTag1 = "";
-            if (thisFinTxact.getGenTag1_Id() != null) {
-                thisTag1 = Objects.toString(thisFinTxact.getGenTag1_Id().getId2());
-            }
-            String thisTag2 = "";
-            if (thisFinTxact.getGenTag1_Id() != null) {
-                thisTag2 = Objects.toString(thisFinTxact.getGenTag2_Id().getId2());
-            }
-            String thisTag3 = "";
-            if (thisFinTxact.getGenTag1_Id() != null) {
-                thisTag3 = Objects.toString(thisFinTxact.getGenTag3_Id().getId2());
-            }
-            String thisTag4 = "";
-            if (thisFinTxact.getGenTag1_Id() != null) {
-                thisTag4 = Objects.toString(thisFinTxact.getGenTag4_Id().getId2());
-            }
-            if (!(thisTag1 + thisTag2 + thisTag3 + thisTag4).equals("")) {
-                thisTag = "tag [" + String.join(",", thisTag1, thisTag2, thisTag3, thisTag4) + "]";
-            }
-            logger.debug(logPrfx + " --- thisTag: " + thisTag);
-
-            List<String> list = Arrays.asList(
-                    thisType
-                    , thisDocVer
-                    , thisTag);
-
-            String desc1 = list.stream().filter(StringUtils::isNotBlank)
-                    .collect(Collectors.joining(" "));
-
-            if (!Objects.equals(desc1_, desc1)){
-                thisFinTxact.setDesc1(desc1);
-                logger.debug(logPrfx + " --- desc1: " + desc1);
-                isChanged = true;
-            }
-        }
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }

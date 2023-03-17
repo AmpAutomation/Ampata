@@ -3,13 +3,14 @@ package ca.ampautomation.ampata.screen.usr.node.fin;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinHow;
-import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinTxactSetQryMngr;
+import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinWhat;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinWhy;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -36,51 +37,7 @@ import java.util.stream.Collectors;
 @UiController("enty_UsrNodeFinTxactSet.main")
 @UiDescriptor("usr-node-fin-txact-set-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeFinTxactSet0Main extends MasterDetailScreen<UsrNodeBase> {
-
-    //Common
-    Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Autowired
-    protected UiComponents uiComponents;
-
-    @Autowired
-    private EntityManagerFactory entityManagerFactory;
-
-    @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private DataComponents dataComponents;
-
-    @Autowired
-    private FetchPlans fetchPlans;
-
-
-    @Autowired
-    private DataContext dataContext;
-
-    @Autowired
-    private DataManager dataManager;
-
-    @Autowired
-    private Metadata metadata;
-
-    @Autowired
-    private MetadataTools metadataTools;
-
-    @Autowired
-    private Notifications notifications;
-
-
-    //Query Manager
-    @Autowired
-    private UsrNodeFinTxactSetQryMngr qryMngr;
-
-
-    //Filter
-    @Autowired
-    protected Filter filter;
+public class UsrNodeFinTxactSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxactSet, UsrNodeFinTxactSet, UsrNodeFinTxactSetQryMngr, Table<UsrNodeFinTxactSet>> {
 
     @Autowired
     protected PropertyFilter<UsrNodeBaseType> filterConfig1A_Type1_Id;
@@ -666,11 +623,11 @@ public class UsrNodeFinTxactSet0Main extends MasterDetailScreen<UsrNodeBase> {
                 copy.setType1_Id(tmplt_Type1_IdField.getValue());
             }
 
-            copy.setId2Calc(copy.getId2CalcFrFields());
+            copy.updateId2Calc(dataManager);
             copy.setId2(copy.getId2Calc());
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int2(copy.getNm1s1Inst1Int2() == null ? 1 : copy.getNm1s1Inst1Int2() + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
 

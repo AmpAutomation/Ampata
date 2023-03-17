@@ -2741,7 +2741,7 @@ public class UsrNodeBase implements AcceptsTenant {
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
-    public Boolean updateTs1() {
+    public Boolean updateTs1(DataManager dataManager) {
         // Assume ts1, ts2, ts3 is not null
         String logPrfx = "updateTs1";
         logger.trace(logPrfx + " --> ");
@@ -2859,6 +2859,16 @@ public class UsrNodeBase implements AcceptsTenant {
 
 
 
+    public Boolean updateAmtNet(DataManager dataManager) {
+        String logPrfx = "updateAmtNet";
+        logger.trace(logPrfx + " --> ");
+
+        boolean isChanged = false;
+
+        logger.trace(logPrfx + " <-- ");
+        return isChanged;
+    }
+
     public Boolean updateDt1() {
         // Assume ts1, ts2, ts3 is not null
         String logPrfx = "updateDt1()";
@@ -2928,7 +2938,7 @@ public class UsrNodeBase implements AcceptsTenant {
     }
 
 
-    public Boolean updateInt1FrId2() {
+    public Boolean updateInt1FrId2(DataManager dataManager) {
         String logPrfx = "updateInt1FrId2()";
         logger.trace(logPrfx + " --> ");
 
@@ -3076,7 +3086,7 @@ public class UsrNodeBase implements AcceptsTenant {
         return isChanged;
     }
 
-    public Boolean updateTs1FrId2() {
+    public Boolean updateTs1FrId2(DataManager dataManager) {
         String logPrfx = "updateTs1FrId2()";
         logger.trace(logPrfx + " --> ");
 
@@ -3132,7 +3142,7 @@ public class UsrNodeBase implements AcceptsTenant {
     }
 
 
-    public Boolean updateTs2FrId2() {
+    public Boolean updateTs2FrId2(DataManager dataManager) {
         String logPrfx = "updateTs2FrId2()";
         logger.trace(logPrfx + " --> ");
 
@@ -3436,169 +3446,5 @@ public class UsrNodeBase implements AcceptsTenant {
         return isChanged;
     }
 
-
-    public String getId2CalcFrFields(){
-        String logPrfx = "getId2CalcFrFields";
-        logger.trace(logPrfx + " --> ");
-
-        StringBuilder sb = new StringBuilder();
-
-        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd HHmm")
-                .toFormatter();
-        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-        DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-                .appendPattern("HH:mm")
-                .toFormatter();
-        DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
-
-
-        //require instTs1.ts1
-        switch (this.dtype.substring(5)) {
-            case "timestamp based type placeholder" -> {
-                if (this.ts1 == null) {
-                    logger.debug(logPrfx + " --- ts1: null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                }
-                if (this.ts1.getElTs() == null) {
-                    logger.debug(logPrfx + " --- ts1.getElTs(): null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- ts1.getElTs(): " + ts1.getElTs().format(frmtTs));
-                }
-            }
-        }
-
-        //require dt1.elDt
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxactSet", "UsrNodeFinTxact", "UsrNodeFinTxactItm"
-                    ,"UsrNodeFinStmt" , "UsrNodeFinStmtItm" -> {
-                if (this.dt1 == null) {
-                    logger.debug(logPrfx + " --- idDt: null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                }
-                if (this.dt1.getElDt() == null) {
-                    logger.debug(logPrfx + " --- dt1.getElDt(): null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- dt1.getElDt(): " + dt1.getElDt().format(frmtDt));
-                }
-            }
-        }
-
-        //require ts2.elTs
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinBal" -> {
-                if (ts3 == null) {
-                    logger.debug(logPrfx + " --- ts2: null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                }
-                if (ts3.getElTs() == null) {
-                    logger.debug(logPrfx + " --- ts2.getElTs(): null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- ts2.getElTs(): " + ts2.getElTs().format(frmtTs));
-                }
-            }
-        }
-
-
-        //require finAcct1_Id
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinStmt" -> {
-                if (finAcct1_Id == null) {
-                    logger.debug(logPrfx + " --- finAcct1_Id: null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                } else {
-                    logger.debug(logPrfx + " --- finAcct1_Id: " + finAcct1_Id.getId());
-                }
-
-            }
-        }
-        //require finStmt1_Id -> finAcct1_Id
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinStmtItm" ->{
-                if (finStmt1_Id == null) {
-                    logger.debug(logPrfx + " --- finStmt1_Id: null");
-                    logger.trace(logPrfx + " <-- ");
-                    return "";
-                } else {
-                    if (finStmt1_Id.getFinAcct1_Id()== null){
-                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: null");
-                        logger.trace(logPrfx + " <-- ");
-                        return "";
-                    }else{
-                        logger.debug(logPrfx + " --- finStmt1_Id.finAcct1_Id: " + finStmt1_Id.getFinAcct1_Id().getId());
-                    }
-                }
-            }
-        }
-
-        //create id2
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinBalSet" ->{
-            }
-            case "UsrNodeFinBal" -> {
-            }
-            case "UsrNodeFinTxactSet" -> {
-                //idDt
-                sb.append(SEP1 + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP1 + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-            }
-            case "UsrNodeFinTxact" -> {
-                //idDt
-                sb.append(SEP1 + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP1 + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //IdY
-                sb.append(SEP1 + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
-            }
-            case "UsrNodeFinTxactItm" ->{
-                //idDt
-                sb.append(SEP1 + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP1 + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //IdY
-                sb.append(SEP1 + "Y").append(String.format("%02d", nm1s1Inst1Int2 == null ? 0 : nm1s1Inst1Int2));
-                //IdZ
-                sb.append(SEP1 + "Z").append(String.format("%02d", nm1s1Inst1Int3 == null ? 0 : nm1s1Inst1Int3));
-            }
-            case "UsrNodeFinStmt" ->{
-                //finAcct1
-                sb.append(finAcct1_Id.getId2());
-                //idDt
-                sb.append(SEP1 + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-            }
-            case "UsrNodeFinStmtItm" ->{
-                //finAcct1
-                sb.append(finStmt1_Id.getFinAcct1_Id().getId2());
-                //idDt
-                //sb.append(SEP + "D").append(n1s1Inst1Ts.getTs1().format(frmtDt));
-                //idDt
-                sb.append(SEP1 + "D").append(nm1s1Inst1Dt1.getElDt().format(frmtDt));
-                //IdX
-                sb.append(SEP1 + "X").append(String.format("%02d", nm1s1Inst1Int1 == null ? 0 : nm1s1Inst1Int1));
-                //amtNet
-                sb.append(SEP1 + "A").append(frmtDec.format(amtNet));
-            }
-        }
-
-
-
-        logger.debug(logPrfx + " --- sb: " + sb);
-        logger.trace(logPrfx + " <-- ");
-        return sb.toString();
-
-    }
 
 }

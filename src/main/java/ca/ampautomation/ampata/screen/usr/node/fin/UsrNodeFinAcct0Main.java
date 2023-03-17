@@ -277,7 +277,7 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
             if (!Objects.equals(copy.getId2(), orig.getId2())) {
                 copy.setNm1s1Inst1Int3(copy.getNm1s1Inst1Int3() == null ? 1 : copy.getNm1s1Inst1Int3() + 1);
-                copy.setId2Calc(copy.getId2CalcFrFields());
+                copy.updateId2Calc(dataManager);
                 copy.setId2(copy.getId2Calc());
             }
 
