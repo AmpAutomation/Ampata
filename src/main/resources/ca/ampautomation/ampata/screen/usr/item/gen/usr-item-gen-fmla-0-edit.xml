@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrItemGenFmlaEdit.caption"
+        caption="msg://usrItemGenFmla0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"

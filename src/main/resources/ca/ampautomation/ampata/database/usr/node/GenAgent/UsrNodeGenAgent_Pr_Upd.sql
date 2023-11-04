@@ -28,7 +28,7 @@ from (
 	from ampata_usr_node t2a
 	left join ampata_usr_node_type as t2b
 		on t2a.type1__id = t2b.id
-	where t2a.class_name = 'UsrNodeGenAgent'
+	where t2a.dtype = 'enty_UsrNodeGenAgent'
 	and t2a.deleted_by is null
 ) t1
 where t.id = t1.id 
@@ -78,7 +78,7 @@ from (
 		left join ampata_usr_node as t3c
 			on t3a.gen_agent2__id = t3c.id
 		where
-		    t3a.class_name ='GenAgent'
+		    t3a.dtype ='enty_UsrNodeGenAgent'
 --		and t3a.type1__id2 = '/C'
 	) t2
 --	where t2.type1__id2 = '/C'
@@ -93,7 +93,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'UsrNodeGenAgent'
+where t.dtype = 'enty_UsrNodeGenAgent'
 ;
 
 
@@ -120,13 +120,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'UsrNodeGenAgent'
+			where t.dtype = 'enty_UsrNodeGenAgent'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'UsrNodeGenAgent'
+		and	t.dtype = 'enty_UsrNodeGenAgent'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -152,11 +152,11 @@ from (
 	,t2a.type1__id
 	,coalesce (name2 ,coalesce (name1,'')) as desc1
 	from ampata_usr_node t2a
-	where t2a.class_name = 'UsrNodeGenAgent'
+	where t2a.dtype = 'enty_UsrNodeGenAgent'
 	and t2a.deleted_by is null
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrNodeGenAgent'
+and	t.dtype = 'enty_UsrNodeGenAgent'
 and t.deleted_by is null
 ;
 

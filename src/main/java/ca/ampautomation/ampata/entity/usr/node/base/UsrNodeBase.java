@@ -3,7 +3,7 @@ package ca.ampautomation.ampata.entity.usr.node.base;
 import ca.ampautomation.ampata.entity.HasDate;
 import ca.ampautomation.ampata.entity.HasTime;
 import ca.ampautomation.ampata.entity.HasTmst;
-import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
+import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.usr.edge.base.UsrEdgeBase;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinHow;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinWhat;
@@ -16,7 +16,7 @@ import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocVer;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenFile;
-import io.jmix.core.DataManager;
+import ca.ampautomation.ampata.other.Globals;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
 import io.jmix.core.annotation.TenantId;
@@ -25,7 +25,6 @@ import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.multitenancy.core.AcceptsTenant;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -36,16 +35,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.net.URI;
-import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @JmixEntity
 @Table(name = "AMPATA_USR_NODE", indexes = {
@@ -123,33 +113,10 @@ import java.util.regex.Pattern;
 
 })
 
-public class UsrNodeBase implements AcceptsTenant {
+public class UsrNodeBase implements AcceptsTenant, Globals {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-    @Transient
-    protected final String SEP0 = " ";
-
-    @Transient
-    protected final String SEP1 = "/";
-    @Transient
-    protected final String SEP2 = ";";
-    @Transient
-    protected final String SEP3 = "::";
-    @Transient
-    protected final DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-            .appendPattern("yyyyMMdd HHmm")
-            .toFormatter();
-    @Transient
-    protected final DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-            .appendPattern("yyyy-MM-dd")
-            .toFormatter();
-    @Transient
-    protected final DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-            .appendPattern("HH:mm")
-            .toFormatter();
-    @Transient
-    protected final DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
@@ -186,6 +153,15 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @Column(name = "PARENT1__ID2")
     protected String parent1_Id2;
+
+    @Column(name = "PARENT1__ID2_TRGT")
+    protected String parent1_Id2Trgt;
+
+    @Column(name = "PARENT1__TYPE1__ID2")
+    protected String parent1_Type1_Id2;
+
+    @Column(name = "PARENT1__EI1__ROLE")
+    protected String parent1_EI1_Role;
 
     @Column(name = "ANCESTORS1__ID2")
     @Lob
@@ -253,8 +229,6 @@ public class UsrNodeBase implements AcceptsTenant {
     protected String nm1s1Inst1GenFmla1_Id2;
 
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "NM1S1_INST1_TS1_EL_TS")),
             @AttributeOverride(name = "elDt", column = @Column(name = "NM1S1_INST1_TS1_EL_DT")),
@@ -267,10 +241,10 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TS1_EL_TM_MIN"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasTmst nm1s1Inst1Ts1;
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elDt", column = @Column(name = "NM1S1_INST1_DT1_EL_DT")),
             @AttributeOverride(name = "elDtYr", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_YR")),
@@ -279,15 +253,17 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elDtMon2", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_MON2")),
             @AttributeOverride(name = "elDtDay", column = @Column(name = "NM1S1_INST1_DT1_EL_DT_DAY"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasDate nm1s1Inst1Dt1;
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elTm", column = @Column(name = "NM1S1_INST1_TM1_EL_TM")),
             @AttributeOverride(name = "elTmHr", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "NM1S1_INST1_TM1_EL_TM_MIN"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasTime nm1s1Inst1Tm1;
 
     @Column(name = "NM1S1_INST1_INT1")
@@ -387,12 +363,19 @@ public class UsrNodeBase implements AcceptsTenant {
 
 
     @Column(name = "TXT1")
+    @Lob
     protected String txt1;
 
     @Column(name = "TXT2")
+    @Lob
     protected String txt2;
 
+    @Column(name = "TXT4")
+    @Lob
+    protected String txt4;
+
     @Column(name = "TXT3")
+    @Lob
     protected String txt3;
 
     @Column(name = "INT1")
@@ -403,6 +386,10 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @Column(name = "INT3")
     protected Integer int3;
+
+    @Column(name = "INT4")
+    protected Integer int4;
+
 
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS1_EL_TS")),
@@ -416,12 +403,10 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "TS1_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "TS1_EL_TM_MIN"))
     })
-    @EmbeddedParameters(nullAllowed = false)
+    @EmbeddedParameters(nullAllowed = true)
     @Embedded
     protected HasTmst ts1;
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS2_EL_TS")),
             @AttributeOverride(name = "elDt", column = @Column(name = "TS2_EL_DT")),
@@ -434,6 +419,8 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "TS2_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "TS2_EL_TM_MIN"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasTmst ts2;
 
     @AttributeOverrides({
@@ -452,8 +439,6 @@ public class UsrNodeBase implements AcceptsTenant {
     @Embedded
     protected HasTmst ts3;
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS4_EL_TS")),
             @AttributeOverride(name = "elDt", column = @Column(name = "TS4_EL_DT")),
@@ -466,11 +451,11 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elTmHr", column = @Column(name = "TS4_EL_TM_HR")),
             @AttributeOverride(name = "elTmMin", column = @Column(name = "TS4_EL_TM_MIN"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasTmst ts4;
 
 
-    @EmbeddedParameters(nullAllowed = false)
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elDt", column = @Column(name = "DT1_EL_DT")),
             @AttributeOverride(name = "elDtYr", column = @Column(name = "DT1_EL_DT_YR")),
@@ -479,9 +464,11 @@ public class UsrNodeBase implements AcceptsTenant {
             @AttributeOverride(name = "elDtMon2", column = @Column(name = "DT1_EL_DT_MON2")),
             @AttributeOverride(name = "elDtDay", column = @Column(name = "DT1_EL_DT_DAY"))
     })
+    @EmbeddedParameters(nullAllowed = true)
+    @Embedded
     protected HasDate dt1;
 
-    @EmbeddedParameters(nullAllowed = false)
+    @EmbeddedParameters(nullAllowed = true)
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "elTm", column = @Column(name = "TM1_EL_TM")),
@@ -625,7 +612,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @JoinColumn(name = "FIN_TXACT_SET1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNodeBase finTxactSet1_Id;
+    protected UsrNodeFinTxactSet finTxactSet1_Id;
 
     @Column(name = "FIN_TXACT_SET1__ID2")
     protected String finTxactSet1_Id2;
@@ -667,7 +654,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @JoinColumn(name = "FIN_TXACT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNodeBase finTxact1_Id;
+    protected UsrNodeFinTxact finTxact1_Id;
 
     @Column(name = "FIN_TXACT1__ID2")
     protected String finTxact1_Id2;
@@ -677,6 +664,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @Column(name = "FIN_TXACT1__EI1__ROLE")
     protected String finTxact1_EI1_Role;
+
 
     @Column(name = "FIN_TXACT1__TYPE1__ID2")
     protected String finTxact1_Type1_Id2;
@@ -703,18 +691,18 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @JoinColumn(name = "FIN_STMT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNodeBase finStmt1_Id;
+    protected UsrNodeFinStmt finStmt1_Id;
 
     @Column(name = "FIN_STMT1__ID2")
     protected String finStmt1_Id2;
 
-    @Column(name = "EXCH_DESC")
+    @Column(name = "TXT_CURCY_EXCH")
     @Lob
-    protected String exchDesc;
+    protected String txtCurcyExch;
 
-    @Column(name = "REF_ID")
+    @Column(name = "TXT_REF_ID")
     @Lob
-    protected String refId;
+    protected String txtRefId;
 
 
     @JoinColumn(name = "FIN_STMT_ITM1__ID")
@@ -727,27 +715,27 @@ public class UsrNodeBase implements AcceptsTenant {
     @Column(name = "FIN_STMT_ITM1__ID2_TRGT")
     protected String finStmtItm1_Id2Trgt;
 
-    @Column(name = "FIN_STMT_ITM1__DESC1")
+    @Column(name = "FIN_STMT_ITM1__TXT1")
     @Lob
-    protected String finStmtItm1_Desc1;
+    protected String finStmtItm1_Txt1;
 
-    @Column(name = "FIN_STMT_ITM1__DESC2")
+    @Column(name = "FIN_STMT_ITM1__TXT2")
     @Lob
-    protected String finStmtItm1_Desc2;
+    protected String finStmtItm1_Txt2;
 
-    @Column(name = "FIN_STMT_ITM1__DESC3")
+    @Column(name = "FIN_STMT_ITM1__TXT3")
     @Lob
-    protected String finStmtItm1_Desc3;
+    protected String finStmtItm1_Txt3;
 
-    @Column(name = "FIN_STMT_ITM1__DESC4")
+    @Column(name = "FIN_STMT_ITM1__TXT4")
     @Lob
-    protected String finStmtItm1_Desc4;
+    protected String finStmtItm1_Txt4;
 
-    @Column(name = "FIN_STMT_ITM1__EXCH_DESC")
-    protected String finStmtItm1_ExchDesc;
+    @Column(name = "FIN_STMT_ITM1__TXT_CURCY_EXCH")
+    protected String finStmtItm1_TxtCurcyExch;
 
-    @Column(name = "FIN_STMT_ITM1__REF_ID")
-    protected String finStmtItm1_RefId;
+    @Column(name = "FIN_STMT_ITM1__TXT_REF_ID")
+    protected String finStmtItm1_TxtRefId;
 
     @JoinColumn(name = "FIN_ACCT1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -772,7 +760,7 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @JoinColumn(name = "FIN_TAX_LNE1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNodeBase finTaxLne1_Id;
+    protected UsrNodeFinTaxLne finTaxLne1_Id;
 
     @Column(name = "FIN_TAX_LNE1__ID2")
     protected String finTaxLne1_Id2;
@@ -819,12 +807,31 @@ public class UsrNodeBase implements AcceptsTenant {
     @Column(name = "AMT_NET", precision = 19, scale = 2)
     protected BigDecimal amtNet;
 
+    @Column(name = "AMT_NET2", precision = 19, scale = 2)
+    protected BigDecimal amtNet2;
+
     @JoinColumn(name = "SYS_NODE_FIN_CURCY1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
-    protected SysNodeBase sysNodeFinCurcy1_Id;
+    protected SysNodeFinCurcy sysNodeFinCurcy1_Id;
 
     @Column(name = "SYS_NODE_FIN_CURCY1__ID2")
     protected String sysNodeFinCurcy1_Id2;
+
+    @JoinColumn(name = "AMT_CALC_FIN_TXACT_ITM1__ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    protected UsrNodeFinTxactItm amtCalcFinTxactItm1_Id;
+
+    @Column(name = "AMT_CALC_FIN_TXACT_ITM1__ID2")
+    protected String amtCalcFinTxactItm1_Id2;
+
+    @Column(name = "AMT_CALC_FIN_TXACT_ITM1__EI1__RATE", precision = 19, scale = 9)
+    protected BigDecimal amtCalcFinTxactItm1_EI1_Rate;
+
+    @Column(name = "AMT_CALC_FIN_TXACT_ITM1__FIN_ACCT1__ID2")
+    protected String amtCalcFinTxactItm1_FinAcct1_Id2;
+
+    @Column(name = "AMT_CALC", precision = 19, scale = 2)
+    protected BigDecimal amtCalc;
 
     @JoinColumn(name = "AMT_CALC_GEN_FMLA1__ID")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -832,22 +839,6 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @Column(name = "AMT_CALC_GEN_FMLA1__ID2")
     protected String amtCalcGenFmla1_Id2;
-
-    @JoinColumn(name = "AMT_FIN_TXACT_ITM1__ID")
-    @ManyToOne(fetch = FetchType.LAZY)
-    protected UsrNodeBase amtFinTxactItm1_Id;
-
-    @Column(name = "AMT_FIN_TXACT_ITM1__ID2")
-    protected String amtFinTxactItm1_Id2;
-
-    @Column(name = "AMT_FIN_TXACT_ITM1__EI1__RATE", precision = 19, scale = 9)
-    protected BigDecimal amtFinTxactItm1_EI1_Rate;
-
-    @Column(name = "AMT_FIN_TXACT_ITM1__FIN_ACCT1__ID2")
-    protected String amtFinTxactItm1_FinAcct1_Id2;
-
-    @Column(name = "AMT_CALC", precision = 19, scale = 2)
-    protected BigDecimal amtCalc;
 
 
     @Column(name = "AMT_BEG_BAL", precision = 19, scale = 2)
@@ -926,6 +917,9 @@ public class UsrNodeBase implements AcceptsTenant {
     @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_CALC", precision = 19, scale = 2)
     protected BigDecimal finTxactItms1_AmtNetSumCalc;
 
+    @Column(name = "FIN_TXACT_ITMS1__AMT_NET2_SUM_CALC", precision = 19, scale = 2)
+    protected BigDecimal finTxactItms1_AmtNet2SumCalc;
+
     @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_CALC")
     protected Boolean finTxactItms1_AmtEqCalc;
 
@@ -941,6 +935,9 @@ public class UsrNodeBase implements AcceptsTenant {
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_NET_SUM_DIFF", precision = 19, scale = 2)
     protected BigDecimal finTxactItms1_AmtNetSumDiff;
+
+    @Column(name = "FIN_TXACT_ITMS1__AMT_NET2_SUM_DIFF", precision = 19, scale = 2)
+    protected BigDecimal finTxactItms1_AmtNet2SumDiff;
 
     @Column(name = "FIN_TXACT_ITMS1__AMT_EQ_DIFF")
     protected Boolean finTxactItms1_AmtEqDiff;
@@ -1089,6 +1086,18 @@ public class UsrNodeBase implements AcceptsTenant {
     public String getParent1_Id2() { return parent1_Id2; }
 
     public void setParent1_Id2(String parent1_Id2) { this.parent1_Id2 = parent1_Id2; }
+
+    public String getParent1_Id2Trgt() { return parent1_Id2Trgt; }
+
+    public void setParent1_Id2Trgt(String parent1_Id2Trgt) { this.parent1_Id2Trgt = parent1_Id2Trgt; }
+
+    public String getParent1_Type1_Id2() { return parent1_Type1_Id2; }
+
+    public void setParent1_Type1_Id2(String parent1_Type1_Id2) { this.parent1_Type1_Id2 = parent1_Type1_Id2; }
+
+    public String getParent1_EI1_Role() { return parent1_EI1_Role; }
+
+    public void setParent1_EI1_Role(String parent1_EI1_Role) { this.parent1_EI1_Role = parent1_EI1_Role; }
 
     public String getAncestors1_Id2() { return ancestors1_Id2; }
 
@@ -1357,6 +1366,10 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setTxt3(String txt3) { this.txt3 = txt3; }
 
+    public String getTxt4() { return txt4; }
+
+    public void setTxt4(String txt4) { this.txt4 = txt4; }
+
 
     public Integer getInt1() { return int1; }
 
@@ -1369,6 +1382,10 @@ public class UsrNodeBase implements AcceptsTenant {
     public Integer getInt3() { return int3; }
 
     public void setInt3(Integer int3) { this.int3 = int3; }
+
+    public Integer getInt4() { return int4; }
+
+    public void setInt4(Integer int4) { this.int4 = int4; }
 
     public HasTmst getTs1() { return ts1; }
 
@@ -1545,9 +1562,9 @@ public class UsrNodeBase implements AcceptsTenant {
     public void setFinTxactSet1_FinTxacts1_Id2(String finTxactSet1_FinTxacts1_Id2) {this.finTxactSet1_FinTxacts1_Id2 = finTxactSet1_FinTxacts1_Id2;}
 
 
-    public UsrNodeBase getFinTxactSet1_Id() { return finTxactSet1_Id; }
+    public UsrNodeFinTxactSet getFinTxactSet1_Id() { return finTxactSet1_Id; }
 
-    public void setFinTxactSet1_Id(UsrNodeBase finTxactSet1_Id) { this.finTxactSet1_Id = finTxactSet1_Id; }
+    public void setFinTxactSet1_Id(UsrNodeFinTxactSet finTxactSet1_Id) { this.finTxactSet1_Id = finTxactSet1_Id; }
 
     public String getFinTxactSet1_Id2() { return finTxactSet1_Id2; }
 
@@ -1612,9 +1629,9 @@ public class UsrNodeBase implements AcceptsTenant {
 
 
 
-    public UsrNodeBase getFinTxact1_Id() {return finTxact1_Id; }
+    public UsrNodeFinTxact getFinTxact1_Id() {return finTxact1_Id; }
 
-    public void setFinTxact1_Id(UsrNodeBase finTxact1_Id) { this.finTxact1_Id = finTxact1_Id; }
+    public void setFinTxact1_Id(UsrNodeFinTxact finTxact1_Id) { this.finTxact1_Id = finTxact1_Id; }
 
     public String getFinTxact1_Id2() { return finTxact1_Id2; }
 
@@ -1669,17 +1686,17 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setFinStmt1_Id2(String finStmt1_Id2) { this.finStmt1_Id2 = finStmt1_Id2; }
 
-    public UsrNodeBase getFinStmt1_Id() { return finStmt1_Id; }
+    public UsrNodeFinStmt getFinStmt1_Id() { return finStmt1_Id; }
 
-    public void setFinStmt1_Id(UsrNodeBase finStmt1_Id) { this.finStmt1_Id = finStmt1_Id; }
+    public void setFinStmt1_Id(UsrNodeFinStmt finStmt1_Id) { this.finStmt1_Id = finStmt1_Id; }
 
-    public String getExchDesc() { return exchDesc; }
+    public String getTxtCurcyExch() { return txtCurcyExch; }
 
-    public void setExchDesc(String exchDesc) { this.exchDesc = exchDesc; }
+    public void setTxtCurcyExch(String txtCurcyExch) { this.txtCurcyExch = txtCurcyExch; }
 
-    public String getRefId() { return refId; }
+    public String getTxtRefId() { return txtRefId; }
 
-    public void setRefId(String refId) { this.refId = refId; }
+    public void setTxtRefId(String txtRefId) { this.txtRefId = txtRefId; }
 
 
     public UsrNodeFinStmtItm getFinStmtItm1_Id() { return finStmtItm1_Id; }
@@ -1694,31 +1711,31 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setFinStmtItm1_Id2Trgt(String finStmtItm1_Id2Trgt) {this.finStmtItm1_Id2Trgt = finStmtItm1_Id2Trgt;}
 
-    public String getFinStmtItm1_Desc1() { return finStmtItm1_Desc1; }
+    public String getFinStmtItm1_Txt1() { return finStmtItm1_Txt1; }
 
-    public void setFinStmtItm1_Desc1(String finStmtItm1_Desc1) { this.finStmtItm1_Desc1 = finStmtItm1_Desc1; }
+    public void setFinStmtItm1_Txt1(String finStmtItm1_Txt1) { this.finStmtItm1_Txt1 = finStmtItm1_Txt1; }
 
-    public String getFinStmtItm1_Desc2() { return finStmtItm1_Desc2; }
+    public String getFinStmtItm1_Txt2() { return finStmtItm1_Txt2; }
 
-    public void setFinStmtItm1_Desc2(String finStmtItm1_Desc2) { this.finStmtItm1_Desc2 = finStmtItm1_Desc2; }
+    public void setFinStmtItm1_Txt2(String finStmtItm1_Txt2) { this.finStmtItm1_Txt2 = finStmtItm1_Txt2; }
 
-    public String getFinStmtItm1_Desc3() { return finStmtItm1_Desc3; }
+    public String getFinStmtItm1_Txt3() { return finStmtItm1_Txt3; }
 
-    public void setFinStmtItm1_Desc3(String finStmtItm1_Desc3) { this.finStmtItm1_Desc3 = finStmtItm1_Desc3; }
+    public void setFinStmtItm1_Txt3(String finStmtItm1_Txt3) { this.finStmtItm1_Txt3 = finStmtItm1_Txt3; }
 
-    public String getFinStmtItm1_Desc4() { return finStmtItm1_Desc4; }
+    public String getFinStmtItm1_Txt4() { return finStmtItm1_Txt4; }
 
-    public void setFinStmtItm1_Desc4(String finStmtItm1_Desc4) { this.finStmtItm1_Desc4 = finStmtItm1_Desc4; }
+    public void setFinStmtItm1_Txt4(String finStmtItm1_Txt4) { this.finStmtItm1_Txt4 = finStmtItm1_Txt4; }
 
-    public String getFinStmtItm1_ExchDesc() { return finStmtItm1_ExchDesc; }
+    public String getFinStmtItm1_TxtCurcyExch() { return finStmtItm1_TxtCurcyExch; }
 
-    public void setFinStmtItm1_ExchDesc(String finStmtItm1_ExchDesc) { this.finStmtItm1_ExchDesc = finStmtItm1_ExchDesc; }
+    public void setFinStmtItm1_TxtCurcyExch(String finStmtItm1_TxtCurcyExch) { this.finStmtItm1_TxtCurcyExch = finStmtItm1_TxtCurcyExch; }
 
     public String getFinAcct1_Type1_Id2() { return finAcct1_Type1_Id2; }
 
-    public String getFinStmtItm1_RefId() {return finStmtItm1_RefId;}
+    public String getFinStmtItm1_TxtRefId() {return finStmtItm1_TxtRefId;}
 
-    public void setFinStmtItm1_RefId(String finStmtItm1_RefId) {this.finStmtItm1_RefId = finStmtItm1_RefId;}
+    public void setFinStmtItm1_TxtRefId(String finStmtItm1_TxtRefId) {this.finStmtItm1_TxtRefId = finStmtItm1_TxtRefId;}
 
     public void setFinAcct1_Type1_Id2(String finAcct1_Type1_Id2) { this.finAcct1_Type1_Id2 = finAcct1_Type1_Id2; }
 
@@ -1743,9 +1760,9 @@ public class UsrNodeBase implements AcceptsTenant {
 
 
 
-    public SysNodeBase getSysNodeFinCurcy1_Id() { return sysNodeFinCurcy1_Id; }
+    public SysNodeFinCurcy getSysNodeFinCurcy1_Id() { return sysNodeFinCurcy1_Id; }
 
-    public void setSysNodeFinCurcy1_Id(SysNodeBase sysNodeFinCurcy1_Id) { this.sysNodeFinCurcy1_Id = sysNodeFinCurcy1_Id; }
+    public void setSysNodeFinCurcy1_Id(SysNodeFinCurcy sysNodeFinCurcy1_Id) { this.sysNodeFinCurcy1_Id = sysNodeFinCurcy1_Id; }
 
     public String getSysNodeFinCurcy1_Id2() { return sysNodeFinCurcy1_Id2; }
 
@@ -1754,9 +1771,9 @@ public class UsrNodeBase implements AcceptsTenant {
 
 
 
-    public UsrNodeBase getFinTaxLne1_Id() { return finTaxLne1_Id; }
+    public UsrNodeFinTaxLne getFinTaxLne1_Id() { return finTaxLne1_Id; }
 
-    public void setFinTaxLne1_Id(UsrNodeBase finTaxLne1_Id) { this.finTaxLne1_Id = finTaxLne1_Id; }
+    public void setFinTaxLne1_Id(UsrNodeFinTaxLne finTaxLne1_Id) { this.finTaxLne1_Id = finTaxLne1_Id; }
 
     public String getFinTaxLne1_Id2() { return finTaxLne1_Id2; }
 
@@ -1779,21 +1796,21 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setAmtCalcGenFmla1_Id2(String amtCalcGenFmla1_Id2) { this.amtCalcGenFmla1_Id2 = amtCalcGenFmla1_Id2; }
 
-    public UsrNodeBase getAmtFinTxactItm1_Id() { return amtFinTxactItm1_Id; }
+    public UsrNodeFinTxactItm getAmtCalcFinTxactItm1_Id() { return amtCalcFinTxactItm1_Id; }
 
-    public void setAmtFinTxactItm1_Id(UsrNodeBase amtFinTxactItm1_Id) { this.amtFinTxactItm1_Id = amtFinTxactItm1_Id; }
+    public void setAmtCalcFinTxactItm1_Id(UsrNodeFinTxactItm amtCalcFinTxactItm1_Id) { this.amtCalcFinTxactItm1_Id = amtCalcFinTxactItm1_Id; }
 
-    public String getAmtFinTxactItm1_Id2() { return amtFinTxactItm1_Id2; }
+    public String getAmtCalcFinTxactItm1_Id2() { return amtCalcFinTxactItm1_Id2; }
 
-    public void setAmtFinTxactItm1_Id2(String amtFinTxactItm1_Id2) { this.amtFinTxactItm1_Id2 = amtFinTxactItm1_Id2; }
+    public void setAmtCalcFinTxactItm1_Id2(String amtCalcFinTxactItm1_Id2) { this.amtCalcFinTxactItm1_Id2 = amtCalcFinTxactItm1_Id2; }
 
-    public BigDecimal getAmtFinTxactItm1_EI1_Rate() { return amtFinTxactItm1_EI1_Rate; }
+    public BigDecimal getAmtCalcFinTxactItm1_EI1_Rate() { return amtCalcFinTxactItm1_EI1_Rate; }
 
-    public void setAmtFinTxactItm1_EI1_Rate(BigDecimal amtFinTxactItm1_EI1_Rate) { this.amtFinTxactItm1_EI1_Rate = amtFinTxactItm1_EI1_Rate; }
+    public void setAmtCalcFinTxactItm1_EI1_Rate(BigDecimal amtCalcFinTxactItm1_EI1_Rate) { this.amtCalcFinTxactItm1_EI1_Rate = amtCalcFinTxactItm1_EI1_Rate; }
 
-    public String getAmtFinTxactItm1_FinAcct1_Id2() { return amtFinTxactItm1_FinAcct1_Id2; }
+    public String getAmtCalcFinTxactItm1_FinAcct1_Id2() { return amtCalcFinTxactItm1_FinAcct1_Id2; }
 
-    public void setAmtFinTxactItm1_FinAcct1_Id2(String amtFinTxactItm1_FinAcct1_Id2) { this.amtFinTxactItm1_FinAcct1_Id2 = amtFinTxactItm1_FinAcct1_Id2; }
+    public void setAmtCalcFinTxactItm1_FinAcct1_Id2(String amtCalcFinTxactItm1_FinAcct1_Id2) { this.amtCalcFinTxactItm1_FinAcct1_Id2 = amtCalcFinTxactItm1_FinAcct1_Id2; }
 
 
     public String getStatus() { return status; }
@@ -1837,6 +1854,10 @@ public class UsrNodeBase implements AcceptsTenant {
     public BigDecimal getAmtNet() { return amtNet; }
 
     public void setAmtNet(BigDecimal amtNet) { this.amtNet = amtNet; }
+
+    public BigDecimal getAmtNet2() { return amtNet2; }
+
+    public void setAmtNet2(BigDecimal amtNet2) { this.amtNet2 = amtNet2; }
 
 
     public String getFinAcct2_Id2() { return finAcct2_Id2; }
@@ -1932,6 +1953,10 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setFinTxactItms1_AmtNetSumCalc(BigDecimal finTxactItms1_AmtNetSumCalc) { this.finTxactItms1_AmtNetSumCalc = finTxactItms1_AmtNetSumCalc; }
 
+    public BigDecimal getFinTxactItms1_AmtNet2SumCalc() { return finTxactItms1_AmtNet2SumCalc; }
+
+    public void setFinTxactItms1_AmtNet2SumCalc(BigDecimal finTxactItms1_AmtNet2SumCalc) { this.finTxactItms1_AmtNet2SumCalc = finTxactItms1_AmtNet2SumCalc; }
+
     public Boolean getFinTxactItms1_AmtEqCalc() { return finTxactItms1_AmtEqCalc; }
 
     public void setFinTxactItms1_AmtEqCalc(Boolean finTxactItms1_AmtEqCalc) {this.finTxactItms1_AmtEqCalc = finTxactItms1_AmtEqCalc; }
@@ -1952,6 +1977,10 @@ public class UsrNodeBase implements AcceptsTenant {
     public BigDecimal getFinTxactItms1_AmtNetSumDiff() { return finTxactItms1_AmtNetSumDiff; }
 
     public void setFinTxactItms1_AmtNetSumDiff(BigDecimal finTxactItms1_AmtNetSumDiff) { this.finTxactItms1_AmtNetSumDiff = finTxactItms1_AmtNetSumDiff; }
+
+    public BigDecimal getFinTxactItms1_AmtNet2SumDiff() { return finTxactItms1_AmtNet2SumDiff; }
+
+    public void setFinTxactItms1_AmtNet2SumDiff(BigDecimal finTxactItms1_AmtNet2SumDiff) { this.finTxactItms1_AmtNet2SumDiff = finTxactItms1_AmtNet2SumDiff; }
 
     public Boolean getFinTxactItms1_AmtEqDiff() { return finTxactItms1_AmtEqDiff; }
 
@@ -2166,1285 +2195,5 @@ public class UsrNodeBase implements AcceptsTenant {
 
     public void setDeletedDate(Date deletedDate) { this.deletedDate = deletedDate; }
 
-
-
-
-    /**
-     * <h1>Update all calculated fields</h1>
-     * <p></p>
-     * <h2>Updated Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i></li>
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateName1(dataManager) || isChanged;
-
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    /**
-     * <h1>Update all calculated fields</h1>
-     * <p></p>
-     * <h2>Updated Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i></li>
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateCalcVals(DataManager dataManager, Integer option){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateCalcVals(dataManager);
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-    
-    /** 
-     * <h1>Update the <b>id2</b> field</h1>
-     * <p></p>
-     * <h2>Precedent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>id2Calc</i> required</li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateId2(DataManager dataManager) {
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String l_id2_ = this.id2;
-        String l_id2 = this.id2Calc;
-        logger.debug(logPrfx + " --- l_id2:" + l_id2);
-
-        if(Objects.equals(l_id2_, l_id2)) {
-            logger.debug(logPrfx + " --- no change detected");
-        }else{
-            this.setId2(l_id2);
-            logger.debug(logPrfx + " --- called setId2(l_id2)");
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>id2</i> field dependent fields</h1>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>id2Cmp</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateId2Deps(DataManager dataManager) {
-        String logPrfx = "updateId2Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>id2Calc</i> field</h1>
-     * <p></p>
-     * <h2>Precedent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i> required</li>
-     *      </ul>
-     * <p></p>
-     * <h2>Examples</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i> = "Gen"</li>
-     *          <li><i>id2Calc</i> = "Gen"</li>
-     *      </ul>
-     * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i> = "Biz"</li>
-     *          <li><i>id2Calc</i> = "Biz"</li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateId2Calc(DataManager dataManager) {
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        StringBuilder sb = new StringBuilder();
-
-        //name1 required
-        Optional<String> l_name1 = Optional.ofNullable(this.name1);
-        if(l_name1.isEmpty()) {
-            logger.trace(logPrfx + " --- name1 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }else{
-            logger.trace(logPrfx + " --- name1 :" + l_name1.get());
-            sb.append(l_name1.get());
-        }
-
-        String l_id2Calc_ = this.id2Calc;
-        String l_id2Calc = sb.toString();
-        logger.debug(logPrfx + " --- l_id2Calc:" + l_id2Calc);
-
-        if (Objects.equals(l_id2Calc_, l_id2Calc)) {
-            logger.debug(logPrfx + " --- no change detected");
-        }else{
-            this.setId2Calc(l_id2Calc);
-            logger.debug(logPrfx + " --- called setId2Calc(l_id2Calc)");
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>id2Calc</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateId2CalcDeps(DataManager dataManager) {
-        String logPrfx = "updateId2CalcDeps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the id2Cmp field</h1>
-     * <p></p>
-     * <h2>Precedent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 required</li>
-     *          <li>id2Calc required</li>
-     *      </ul>
-     * <p></p>
-     * <h2>Examples</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 = "Gen"</li>
-     *          <li>id2Calc = "Gen"</li>
-     *          <li>id2Cmp = true</li>
-     *      </ul>
-     * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 = "Gen"</li>
-     *          <li>id2Calc = "Biz"</li>
-     *          <li>id2Cmp = false</li>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateId2Cmp(DataManager dataManager) {
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-        
-        boolean isChanged = false;
-        Boolean l_id2Cmp_ = this.id2Cmp;
-        Boolean l_id2Cmp = !Objects.equals(this.id2,this.id2Calc);
-        if (!Objects.equals(l_id2Cmp_, l_id2Cmp)){
-            this.setId2Cmp(l_id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + l_id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <b>id2Dup</b> field</h1>
-     * <p></p>
-     * <h2>Precedent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 required</li>
-     *      </ul>
-     * <p></p>
-     * <h2>Examples</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 = "Gen"</li>
-     *          <li>id2Cmp = 1</li>
-     *      </ul>
-     * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li>id2 = "Prf"</li>
-     *          <li>id2Cmp = 3<br>
-     *              Assuming there are 3 objects of this type with id2 = "Prf"
-     *          </li>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateId2Dup(DataManager dataManager) {
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer l_id2Dup_ = this.id2Dup;
-        if (this.id2 != null){
-            String id2Qry = "select count(e)"
-                    + " from enty_" + this.getClass().getSimpleName() + " e"
-                    + " where e.id2 = :id2"
-                    + " and e.id <> :id";
-            Integer l_id2Dup;
-            try{
-                l_id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id",this.id)
-                        .parameter("id2",this.id2)
-                        .one();
-            }catch (IllegalStateException e){
-                l_id2Dup =0;
-
-            }
-            l_id2Dup = l_id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + l_id2Dup + " rows");
-            if (!Objects.equals(l_id2Dup_, l_id2Dup)){
-                this.setId2Dup(l_id2Dup);
-                logger.debug(logPrfx + " --- id2Dup: " + l_id2Dup);
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>id2Dup</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>id2Cmp</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateId2DupDeps(DataManager dataManager) {
-        String logPrfx = "updateId2DupDeps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>name1</i> field</h1>
-     * <p></p>
-     * <h2>Precedent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> optional</li>
-     *          <li><i>inst1</i> required</li>
-     *      </ul>
-     * <p></p>
-     * <h2>Examples</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = null</li>
-     *          <li><i>inst1</i> = "Gen"</li>
-     *          <li><i>name1</i> = "Gen"</li>
-     *      </ul>
-     * <p></p>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>type1_Id.id2</i> = "/"</li>
-     *          <li><i>inst1</i> = "Biz"</li>
-     *          <li><i>name1</i> = "/::Biz"</li>
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateName1(DataManager dataManager){
-        String logPrfx = "updateName1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        StringBuilder sb = new StringBuilder();
-
-        //type1_Id.id2 required
-        Optional<String> l_type1_Id2 = Optional.ofNullable(this.type1_Id).map(UsrNodeBaseType::getId2);
-        if (l_type1_Id2.isEmpty()) {
-            logger.debug(logPrfx + " --- l_type1_Id2: null");
-        }else{
-            logger.debug(logPrfx + " --- l_type1_Id2: " + l_type1_Id2.get());
-            sb.append(l_type1_Id2.get());
-            sb.append(SEP3);
-        }
-
-        //inst1 required
-        Optional<String> l_inst1 = Optional.ofNullable(this.inst1);
-        if (l_inst1.isEmpty()) {
-            logger.debug(logPrfx + " --- inst1: null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }else{
-            logger.debug(logPrfx + " --- inst1: " + l_inst1.get());
-            sb.append(l_inst1.get());
-        }
-
-        String l_name1_ = this.name1;
-        String l_name1 = l_inst1.get();
-        logger.debug(logPrfx + " --- l_name1:" + l_name1);
-
-        if (!Objects.equals(l_name1_, l_name1)) {
-            logger.debug(logPrfx + " --- no change detected");
-        }else{
-            this.setName1(l_name1);
-            logger.debug(logPrfx + " --- called setName1(l_name1)");
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>name1</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateName1Deps(DataManager dataManager) {
-        String logPrfx = "updateName1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>type1_Id</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i></li>
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateType1_IdDeps(DataManager dataManager) {
-        String logPrfx = "updateType1_IdDeps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateName1(dataManager) || isChanged;
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    /**
-     * <h1>Update the <i>inst1</i> field</h1>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateInst1(DataManager dataManager){
-        String logPrfx = "updateInst1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>inst1</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <h2>Dependent Fields</h2>
-     *      <ul style="margin-left: 24px;">
-     *          <li><i>name1</i></li>
-     *          <li><i>id2Calc</i></li>
-     *          <li><i>id2Cmp</i></li>
-     *          <li><i>id2Dup</i></li>
-     *      </ul>
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateInst1Deps(DataManager dataManager) {
-        String logPrfx = "updateInst1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateName1(dataManager) || isChanged;
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>desc1</i> field</h1>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if the field was changed, otherwise false
-     */
-    public Boolean updateDesc1(DataManager dataManager){
-        String logPrfx = "updateDesc1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    /**
-     * <h1>Update the <i>desc1</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateDesc1Deps(DataManager dataManager) {
-        String logPrfx = "updateDesc1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    /**
-     * <h1>Update the <i>txt1</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateTxt1Deps(DataManager dataManager) {
-        String logPrfx = "updateTxt1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-    public Boolean updateTs1(DataManager dataManager) {
-        // Assume ts1, ts2, ts3 is not null
-        String logPrfx = "updateTs1";
-        logger.trace(logPrfx + " --> ");
-
-
-        boolean isChanged = false;
-
-        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                .appendPattern("yyyyMMdd HHmm")
-                .toFormatter();
-
-        LocalDateTime ts1_Ts1_ = this.ts1.getElTs();
-        LocalDateTime ts1_Ts1 = null;
-
-        switch (this.dtype.substring(5)) {
-            // ts1 only
-            case "FinTxactSet", "FinTxact" -> {
-                if (ts1.getElTs() != null) {
-                    ts1_Ts1 = ts1.getElTs();
-                }
-                if (!Objects.equals(ts1_Ts1_, ts1_Ts1)) {
-                    logger.debug(logPrfx + " --- calling ts1.setElTs((" + ts1_Ts1 == null ? "null" : ts1_Ts1.format(frmtTs) + ")");
-                    this.ts1.setElTs(ts1_Ts1);
-                    isChanged = true;
-                }
-            }
-            // ts2 otherwise ts1
-            case "FinTxactItm", "FinStmtItm" -> {
-                if (ts3.getElTs() != null) {
-                    ts1_Ts1 = ts3.getElTs();
-                } else if (ts2.getElTs() != null) {
-                    ts1_Ts1 = ts2.getElTs();
-                } else if (ts1.getElTs() != null) {
-                    ts1_Ts1 = ts1.getElTs();
-                } else {
-                    ts1_Ts1 = null;
-                }
-                if (!Objects.equals(ts1_Ts1_, ts1_Ts1)) {
-                    logger.debug(logPrfx + " --- calling ts1.setElTs((" + ts1_Ts1 == null ? "null" : ts1_Ts1.format(frmtTs) + ")");
-                    this.ts1.setElTs(ts1_Ts1);
-                    isChanged = true;
-                }
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>ts1</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateTs1Deps(DataManager dataManager) {
-        String logPrfx = "updateTs1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    /**
-     * <h1>Update the <i>ts2</i> field</h1>
-     * <p></p>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateTs2() {
-        String logPrfx = "updateTs2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    /**
-     * <h1>Update the <i>ts2</i> field dependent fields</h1>
-     * <p>This includes intermediate fields that higher fields depend on.</p>
-     * <p>Ex.</p>
-     *      <p style="margin-left: 24px;">
-     *          if (<i>A</i> depends on <i>B</i>) and (<i>B</i> depends on <i>C</i>)<br>
-     *          then update <i>C<br></i>
-     *          then update <i>B<br></i>
-     *      </p>
-     * <p></p>
-     * <b>Note</b>: this method is to be overridden
-     * <p></p>
-     * @return Boolean true if any field was changed, otherwise false
-     */
-    public Boolean updateTs2Deps(DataManager dataManager) {
-        String logPrfx = "updateTs2Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-
-    public Boolean updateAmtNet(DataManager dataManager) {
-        String logPrfx = "updateAmtNet";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateDt1() {
-        // Assume ts1, ts2, ts3 is not null
-        String logPrfx = "updateDt1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-                .appendPattern("yyyy-MM-dd")
-                .toFormatter();
-
-        LocalDate dt1_Ts1_ = this.dt1.getElDt();
-        LocalDate dt1_Ts1 = null;
-
-        switch (this.dtype.substring(5)) {
-
-            case "FinTxactSet", "FinTxact":
-                if (ts1.getElDt() != null){
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts1.getElDt().format(frmtDt) +")");
-                    nm1s1Inst1Dt1.setElDt(ts1.getElDt());
-                }else{
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
-                    nm1s1Inst1Dt1.setElDt(null);
-                }
-                break;
-
-            case  "FinTxactItm", "FinStmtItm" :
-                if (ts3.getElDt() != null) {
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1((" + ts3.getElDt().format(frmtDt) + ")");
-                    nm1s1Inst1Dt1.setElDt(ts3.getElDt());
-                } else if (ts2.getElDt() != null) {
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1((" + ts2.getElDt().format(frmtDt) + ")");
-                    nm1s1Inst1Dt1.setElDt(ts2.getElDt());
-                }else if (ts1.getElDt() != null){
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts1.getElDt().format(frmtDt) +")");
-                    nm1s1Inst1Dt1.setElDt(ts1.getElDt());
-                }else{
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
-                    nm1s1Inst1Dt1.setElDt(null);
-                }
-                break;
-            case "FinStmt":
-                if (ts3.getElDt() != null){
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1(("+ ts3.getElDt().format(frmtDt) +")");
-                    nm1s1Inst1Dt1.setElDt(ts3.getElDt());
-                }else{
-                    logger.debug(logPrfx + " --- calling instDt1.setDate1((null)");
-                    nm1s1Inst1Dt1.setElDt(null);
-                }
-                break;
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateNm1s1Inst1Tm1() {
-        String logPrfx = "updateNm1s1Inst1Tm1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateInt1FrId2(DataManager dataManager) {
-        String logPrfx = "updateInt1FrId2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        Integer l_int1_ = this.int1;
-        Integer l_int1 = null;
-
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxact":
-            case "UsrNodeFinTxactItm":
-            case "UsrNodeFinTxactSet":
-                if (id2.length() >= 20){
-
-                    String id2_part = id2.substring(18,20);
-                    try{
-                        l_int1 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_int1_, l_int1)){
-                        logger.debug(logPrfx + " --- calling setInt1("+ l_int1 +")");
-                        this.setInt1(l_int1);
-                        isChanged = true;
-                    }
-
-                }
-
-                break;
-
-            default:
-                break;
-        }
-
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateInt2FrId2() {
-        String logPrfx = "updateInt2FrId2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        Integer l_int2_ = this.int2;
-        Integer l_int2 = null;
-
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxact":
-            case "UsrNodeFinTxactItm":
-                if (id2.length() >= 24){
-
-
-                    String id2_part = id2.substring(22,24);
-                    try{
-                        l_int2 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_int2_, l_int2)){
-                        logger.debug(logPrfx + " --- calling setInt2("+ l_int2 +")");
-                        this.setInt2(l_int2);
-                        isChanged = true;
-                    }
-
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateInt3FrId2() {
-        String logPrfx = "updateInt3FrId2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        Integer l_int3_ = this.int3;
-        Integer l_int3 = null;
-
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxactItm" -> {
-                if (id2.length() >= 28){
-
-                    String id2_part = id2.substring(26,28);
-                    try{
-                        l_int3 = Integer.parseInt(id2_part);
-
-                    } catch (NumberFormatException e){
-
-                        logger.trace(logPrfx + " ---- NumberFormatException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(l_int3_, l_int3)){
-                        logger.debug(logPrfx + " --- calling setInt3("+ l_int3 +")");
-                        this.setInt3(l_int3);
-                        isChanged = true;
-                    }
-
-                }
-            }
-
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateTs1FrId2(DataManager dataManager) {
-        String logPrfx = "updateTs1FrId2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        LocalDateTime ts1_el_ts_ = ts1.getElTs();
-        LocalDateTime ts1_el_ts = null;
-
-        switch (this.dtype.substring(5)) {
-            case "UsrNodeFinTxactSet":
-            case "UsrNodeFinTxact":
-            case "UsrNodeFinTxactItm":
-                if (id2.length() >= 10){
-
-                    DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
-                            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                            .toFormatter();
-                    String id2_part = id2.substring(2,10);
-                    try{
-                        ts1_el_ts = LocalDateTime.parse(id2_part,frmtTs);
-
-                    } catch (DateTimeParseException e){
-
-                        logger.trace(logPrfx + " ---- DateTimeParseException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(ts1_el_ts_, ts1_el_ts)){
-                        logger.debug(logPrfx + " --- calling ts1.setElTs(("+ ts1_el_ts.format(frmtTs) +")");
-                        this.ts1.setElTs(ts1_el_ts);
-                        isChanged = true;
-                    }
-                }
-                break;
-
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateTs2FrId2(DataManager dataManager) {
-        String logPrfx = "updateTs2FrId2()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        // require id2
-        if(this.id2 == null) {
-            logger.trace(logPrfx + " --- id2 is null");
-            logger.trace(logPrfx + " <-- ");
-            return isChanged;
-        }
-
-        LocalDateTime ts2_ts1_ = ts2.getElTs();
-        LocalDateTime ts2_ts1 = null;
-
-        switch (this.dtype.substring(5)) {
-            case    "UsrNodeFinTxactItm",
-                    "UsrNodeFinStmtItm" ->
-                {
-
-                    if (ts1 == null
-                            || ts1.getElTs() == null
-//                        || ts2 == null
-//                        || ts2.getElTs() == null
-                    ) {
-                        logger.trace(logPrfx + " ---- ts1 != null");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-
-                    }
-                    if (id2.length() >= 10){
-
-                        DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                                .appendPattern("yyyy-MM-dd[THH:mm:ss]")
-                                .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                                .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                                .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                                .toFormatter();
-
-                        String id2_part;
-                        Pattern pattern = Pattern.compile("/D[0-9]{4}-[0-9]{2}-[0-9]{2}");
-                        Matcher matcher = pattern.matcher(id2);
-                        if (matcher.find()) {
-                            id2_part = matcher.group(0).substring(2,12);
-                        } else {
-                            logger.trace(logPrfx + " <-- ");
-                            return isChanged;
-                        }
-
-                        try{
-                            ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
-
-                        } catch (DateTimeParseException e){
-
-                            logger.trace(logPrfx + " ---- DateTimeParseException");
-                            logger.trace(logPrfx + " <-- ");
-                            return isChanged;
-                        }
-
-
-                        if (!Objects.equals(ts2_ts1_, ts2_ts1)){
-                            logger.debug(logPrfx + " --- calling ts2.setElTs(("+ ts2_ts1.format(frmtTs) +")");
-                            this.ts2.setElTs(ts2_ts1);
-                            isChanged = true;
-                        }
-                    }
-
-            }
-            case "UsrNodeFinStmt" ->{
-
-                if (id2.length() >= 10){
-
-                    DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-                            .appendPattern("yyyy-MM-dd[THH:mm:ss]")
-                            .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                            .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                            .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
-                            .toFormatter();
-                    Integer sep1 = id2.indexOf("//D");
-                    Integer sep2 = id2.indexOf("//A");
-                    if (sep1 < 0 || sep2 < 0){
-                        logger.trace(logPrfx + " ---- id2 does not match UsrNodeFinStmt pattern.");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    String id2_part = id2.substring(sep1+"//D".length()-1,sep2);
-                    try{
-                        ts2_ts1 = LocalDateTime.parse(id2_part,frmtTs);
-
-                    } catch (DateTimeParseException e){
-
-                        logger.trace(logPrfx + " ---- DateTimeParseException");
-                        logger.trace(logPrfx + " <-- ");
-                        return isChanged;
-                    }
-
-                    if (!Objects.equals(ts2_ts1_, ts2_ts1)){
-                        logger.debug(logPrfx + " --- calling ts2.setElTs(("+ ts2_ts1.format(frmtTs) +")");
-                        this.ts2.setElTs(ts2_ts1);
-                        isChanged = true;
-                    }
-                }
-            }
-
-            default ->{
-            }
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-
-    public Boolean updateGenAgent1(){
-        String logPrfx = "updateGenAgent1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        UsrNodeGenAgent l_genAgent1_ = getGenAgent1_Id();
-        UsrNodeGenAgent l_genAgent1 = null;
-
-
-        switch (this.dtype.substring(5)) {
-
-            default:
-                break;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public static <NodeT extends UsrNodeBase> NodeT getNodeById2(Class<NodeT> type, DataManager dataManager, @NotNull String crtieria_Id2) {
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getNodeById2";
-        logger.trace(logPrfx + " --> ");
-
-        if (crtieria_Id2 == null) {
-            logger.debug(logPrfx + " --- crtieria_Id2 is null.");
-            logger.trace(logPrfx + " <-- ");
-            return null;
-        }
-
-        String qry = "select e"
-                + " from enty_" + type.getSimpleName() + " e"
-                + " where e.id2 = :id2";
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
-
-        NodeT node = null;
-        try {
-            node = dataManager.load(type)
-                    .query(qry)
-                    .parameter("id2", crtieria_Id2)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return node;
-
-    }
-
-
-
-    public static <NodeT extends UsrNodeBase> NodeT getNodesBySortIdx(Class<NodeT> type, DataManager dataManager, @NotNull Integer sortIdx, UsrNodeBase parent1_Id) {
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getNodesBySortIdx";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select e"
-                + " from enty_" + type.getSimpleName() + " e"
-                + " where e.parent1_Id = :parent1_Id"
-                + " and e.sortIdx = :sortIdx"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-        logger.debug(logPrfx + " --- qry:sortIdx: " + sortIdx);
-
-        NodeT usrNode = null;
-        try {
-            usrNode = dataManager.load(type)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .parameter("sortIdx", sortIdx)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return usrNode;
-    }
-
-
-    public static <NodeT extends UsrNodeBase>  List<NodeT> getNodesBtwnSortIdx(Class<NodeT> type, DataManager dataManager, @NotNull Integer sortIdxA , @NotNull Integer sortIdxB, UsrNodeBase parent1_Id) {
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getNodesBtwnSortIdx";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select e"
-                + " from enty_" + type.getSimpleName() + " e"
-                + " where e.parent1_Id = :parent1_Id"
-                + " and e.sortIdx > :sortIdxA"
-                + " and e.sortIdx < :sortIdxB"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-        logger.debug(logPrfx + " --- qry:sortIdxA: " + sortIdxA);
-        logger.debug(logPrfx + " --- qry:sortIdxB: " + sortIdxB);
-
-        List<NodeT> nodes = null;
-        try {
-            nodes = dataManager.load(type)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .parameter("sortIdxA", sortIdxA)
-                    .parameter("sortIdxB", sortIdxB)
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned "+ nodes.size() +" results");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return nodes;
-    }
-
-    public static <NodeT extends UsrNodeBase> List<NodeT> getNodesByParent1(Class<NodeT> type, DataManager dataManager, UsrNodeBase parent1_Id) {
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getNodeListByParent1";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select e"
-                + " from enty_" + type.getSimpleName() + " e"
-                + " where e.parent1_Id = :parent1_Id"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:parent1_Id: " + parent1_Id.getId2());
-
-        List<NodeT> nodes = null;
-        try {
-            nodes = dataManager.load(type)
-                    .query(qry)
-                    .parameter("parent1_Id", parent1_Id)
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned "+ nodes.size() +" results");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return nodes;
-    }
-
-
-    public static <NodeT extends UsrNodeBase> List<String> getStatusList(Class<NodeT> type, DataManager dataManager){
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getStatusList";
-        logger.trace(logPrfx + " --> ");
-
-        String qry = "select distinct e.status "
-                + " from enty_" + type.getSimpleName() + " e"
-                + " and e.status is not null"
-                + " order by e.status"
-                ;
-        logger.debug(logPrfx + " --- qry: " + qry);
-
-
-        List<String> statuss = null;
-        try {
-            statuss = dataManager.loadValue(qry, String.class)
-                    .store("main")
-                    .list();
-            logger.debug(logPrfx + " --- query qry returned " + statuss.size() + " rows");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned no rows");
-            logger.trace(logPrfx + " <-- ");
-            return statuss;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return statuss;
-    }
-
-    public Boolean updateIdParts() {
-        String logPrfx = "updateIdParts";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
 }
+

@@ -9,7 +9,7 @@ select
 	 t.id
 	,t.id2
 	,t.id2_calc
-	,t.class_name
+	,t.dtype
 	,t.type1__id
 	,t.ts1_el_ts
 	,t.fin_acct1__id
@@ -25,7 +25,7 @@ select
 	
 from ampata_sys_node t
 where
-	t.class_name = 'UsrNodeFinTxactItm'
+	t.dtype = 'enty_UsrNodeFinTxactItm'
 and 
 	t.id2 = '' 
 
@@ -41,7 +41,7 @@ and
 select *
 from ampata_sys_node t
 where
-	t.class_name = 'UsrNodeFinTxactItm'
+	t.dtype = 'enty_UsrNodeFinTxactItm'
 and
 	t.fin_stmt1__id  = '91d7a0af-f997-4b74-817b-855245c98735'
 
@@ -55,14 +55,14 @@ select
 from
 	ampata_sys_node t
 where
-	t.class_name = 'UsrFinCurcy'
+	t.dtype = 'enty_UsrNodeFinCurcy'
 
 	 
 	 
 update ampata_sys_node
 set id2 = id2_calc 
 where
-	class_name = 'UsrNodeFinTxactItm'
+	dtype = 'enty_UsrNodeFinTxactItm'
 and 
 	id2 is null
 
@@ -74,6 +74,6 @@ order by
 select * 
 from ampata_sys_node
 where
-	class_name = 'UsrNodeFinAcct'
+	dtype = 'enty_UsrNodeFinAcct'
 and 
 	id2 is null 

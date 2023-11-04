@@ -17,7 +17,7 @@ begin
 		select 
 		 id
 		,id2
-		,class_name
+		,dtype
 		,fin_acct1__id
 		,id_ts_ts1 
 		,amt_debt
@@ -35,7 +35,7 @@ begin
 		--limit 100
 	loop
 	    
-		RAISE NOTICE 'id:% id2:% class_name:% fin_acct1__id:% id_ts_ts1:% amt_debt:% amt_cred:% fin_stmt_itm1__id:%', node.id, node.id2, node.class_name, node.fin_acct1__id, node.id_ts_ts1, node.amt_debt, node.amt_cred, node.fin_stmt_itm1__id;
+		RAISE NOTICE 'id:% id2:% dtype:% fin_acct1__id:% id_ts_ts1:% amt_debt:% amt_cred:% fin_stmt_itm1__id:%', node.id, node.id2, node.dtype, node.fin_acct1__id, node.id_ts_ts1, node.amt_debt, node.amt_cred, node.fin_stmt_itm1__id;
 
 		if node.amt_debt is not null then
 	    	amt = node.amt_debt;
@@ -74,7 +74,7 @@ begin
 			and (t.amt_debt = amt or t.amt_cred = amt)
 			;
 		
-			RAISE NOTICE 'FOUND - id:% id2:% class_name:% fin_stmt1__id:% id_ts_ts1:% amt_debt:% amt_cred:%', node2.id, node2.id2, node2.class_name, node2.fin_stmt1__id, node2.id_ts_ts1, node2.amt_debt, node2.amt_cred;
+			RAISE NOTICE 'FOUND - id:% id2:% dtype:% fin_stmt1__id:% id_ts_ts1:% amt_debt:% amt_cred:%', node2.id, node2.id2, node2.dtype, node2.fin_stmt1__id, node2.id_ts_ts1, node2.amt_debt, node2.amt_cred;
 
 			update ampata_sys_node 
 			set fin_stmt_itm1__id = node2.id 

@@ -58,9 +58,11 @@ public class HasTmst {
     }
 
     public void setElDt(LocalDate elDt) {
-        if (!Objects.equals(this.elDt, elDt)){
-            this.elTs = elDt.atTime(this.elTm);
-            updateAllFields();
+        if (elDt != null && this.elTm != null) {
+            if (!Objects.equals(this.elDt, elDt)){
+                this.elTs = elDt.atTime(this.elTm);
+                updateAllFields();
+            }
         }
     }
 
@@ -70,11 +72,12 @@ public class HasTmst {
 
 
     public void setElTm(LocalTime elTm) {
-        if (!Objects.equals(this.elTm, elTm)){
-            this.elTs = elTm.atDate(this.elDt);
-            updateAllFields();
+        if (this.elDt != null && elTm != null) {
+            if (!Objects.equals(this.elTm, elTm)){
+                this.elTs = elTm.atDate(this.elDt);
+                updateAllFields();
+            }
         }
-
     }
 
 

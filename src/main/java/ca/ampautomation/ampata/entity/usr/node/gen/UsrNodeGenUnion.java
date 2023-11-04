@@ -11,19 +11,4 @@ import javax.persistence.Entity;
 public class UsrNodeGenUnion extends UsrNodeBase {
 
 
-
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
 }

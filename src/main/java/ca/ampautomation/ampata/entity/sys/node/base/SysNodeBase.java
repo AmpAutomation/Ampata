@@ -4,6 +4,7 @@ import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.sys.item.gen.SysItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
+import ca.ampautomation.ampata.other.Globals;
 import io.jmix.core.DataManager;
 import io.jmix.core.annotation.DeletedBy;
 import io.jmix.core.annotation.DeletedDate;
@@ -45,30 +46,6 @@ public class SysNodeBase {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    @Transient
-    protected final String SEP0 = " ";
-
-    @Transient
-    protected final String SEP1 = "/";
-    @Transient
-    protected final String SEP2 = ";";
-    @Transient
-    protected final String SEP3 = "::";
-    @Transient
-    protected final DateTimeFormatter frmtTs = new DateTimeFormatterBuilder()
-            .appendPattern("yyyyMMdd HHmm")
-            .toFormatter();
-    @Transient
-    protected final DateTimeFormatter frmtDt = new DateTimeFormatterBuilder()
-            .appendPattern("yyyy-MM-dd")
-            .toFormatter();
-    @Transient
-    protected final DateTimeFormatter frmtTm = new DateTimeFormatterBuilder()
-            .appendPattern("HH:mm")
-            .toFormatter();
-    @Transient
-    protected final DecimalFormat frmtDec = new DecimalFormat("+0.00;-0.00");
 
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
@@ -223,7 +200,6 @@ public class SysNodeBase {
     protected String note;
 
 
-
     @AttributeOverrides({
             @AttributeOverride(name = "elTs", column = @Column(name = "TS1_EL_TS")),
             @AttributeOverride(name = "elDt", column = @Column(name = "TS1_EL_DT")),
@@ -298,13 +274,12 @@ public class SysNodeBase {
 
     public String getDtype() {return dtype; }
 
-    public String getClassName() {
-        return className;
-    }
+    public String getClassName() { return className;}
 
     public void setClassName(String className) {
         this.className = className;
     }
+
     public String getId2() { return id2; }
 
     public void setId2(String id2) { this.id2 = id2; }
@@ -367,13 +342,12 @@ public class SysNodeBase {
 
     public void setName1GenFmla1_Id2(String name1GenFmla1_Id2) { this.name1GenFmla1_Id2 = name1GenFmla1_Id2; }
 
-    
-    public void setType1_Id(SysNodeBaseType type1_Id) {
-        this.type1_Id = type1_Id;
-    }
-
     public SysNodeBaseType getType1_Id() {
         return type1_Id;
+    }
+
+    public void setType1_Id(SysNodeBaseType type1_Id) {
+        this.type1_Id = type1_Id;
     }
 
     public String getType1_Id2() {
@@ -462,38 +436,19 @@ public class SysNodeBase {
         return nm1s1Inst1Int1;
     }
 
-    public void setNm1s1Inst1Int1(Integer nm1s1Inst1Int1) {
-        String logPrfx = "setNm1s1Inst1Int1";
-        logger.trace(logPrfx + " --> ");
-        this.nm1s1Inst1Int1 = nm1s1Inst1Int1;
-
-        logger.trace(logPrfx + " <-- ");
-    }
+    public void setNm1s1Inst1Int1(Integer nm1s1Inst1Int1) { this.nm1s1Inst1Int1 = nm1s1Inst1Int1; }
 
     public Integer getNm1s1Inst1Int2() {
         return nm1s1Inst1Int2;
     }
 
-    public void setNm1s1Inst1Int2(Integer nm1s1Inst1Int2) {
-        String logPrfx = "setNm1s1Inst1Int2";
-        logger.trace(logPrfx + " --> ");
-        this.nm1s1Inst1Int2 = nm1s1Inst1Int2;
-
-        logger.trace(logPrfx + " <-- ");
-    }
+    public void setNm1s1Inst1Int2(Integer nm1s1Inst1Int2) { this.nm1s1Inst1Int2 = nm1s1Inst1Int2; }
 
     public Integer getNm1s1Inst1Int3() {
         return nm1s1Inst1Int3;
     }
 
-    public void setNm1s1Inst1Int3(Integer nm1s1Inst1Int3) {
-        String logPrfx = "setNm1s1Inst1Int3";
-        logger.trace(logPrfx + " --> ");
-
-        this.nm1s1Inst1Int3 = nm1s1Inst1Int3;
-
-        logger.trace(logPrfx + " <-- ");
-    }
+    public void setNm1s1Inst1Int3(Integer nm1s1Inst1Int3) { this.nm1s1Inst1Int3 = nm1s1Inst1Int3; }
 
 
     public String getNm1s1Inst1Txt1() {
@@ -511,6 +466,9 @@ public class SysNodeBase {
 
     public void setNm1s1Inst1Node1_Id(UsrNodeBase nm1s1Inst1Node1_Id) { this.nm1s1Inst1Node1_Id = nm1s1Inst1Node1_Id; }
 
+    public String getNm1s1Inst1Node1_Id2() { return nm1s1Inst1Node1_Id2; }
+
+    public void setNm1s1Inst1Node1_Id2(String nm1s1Inst1Node1_Id2) { this.nm1s1Inst1Node1_Id2 = nm1s1Inst1Node1_Id2; }
 
     public String getName2() { return name2; }
 
@@ -557,20 +515,14 @@ public class SysNodeBase {
     }
 
 
-    public void setTs1(HasTmst ts1) {
-        String logPrfx = "setBeg";
-        logger.trace(logPrfx + " --> ");
-        this.ts1 = ts1;
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     public HasTmst getTs1() {
         return ts1;
     }
 
+    public void setTs1(HasTmst ts1) {this.ts1 = ts1;}
 
-    public SysNodeBase getFinCurcy1_Id() { return finCurcy1_Id; }
+
+    public SysNodeFinCurcy getFinCurcy1_Id() { return finCurcy1_Id; }
 
     public void setFinCurcy1_Id(SysNodeFinCurcy finCurcy1_Id) { this.finCurcy1_Id = finCurcy1_Id; }
 
@@ -578,7 +530,7 @@ public class SysNodeBase {
 
     public void setFinCurcy1_Id2(String finCurcy1_Id2) { this.finCurcy1_Id2 = finCurcy1_Id2; }
 
-    public SysNodeBase getFinCurcy2_Id() { return finCurcy2_Id; }
+    public SysNodeFinCurcy getFinCurcy2_Id() { return finCurcy2_Id; }
 
     public void setFinCurcy2_Id(SysNodeFinCurcy finCurcy2_Id) { this.finCurcy2_Id = finCurcy2_Id; }
 

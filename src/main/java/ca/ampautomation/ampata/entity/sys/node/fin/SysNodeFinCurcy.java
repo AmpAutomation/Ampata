@@ -8,4 +8,5 @@ import javax.persistence.Entity;
 @JmixEntity
 @Entity(name = "enty_SysNodeFinCurcy")
 public class SysNodeFinCurcy extends SysNodeBase {
+
 }

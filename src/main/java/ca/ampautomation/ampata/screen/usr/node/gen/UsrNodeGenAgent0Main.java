@@ -1,22 +1,37 @@
 package ca.ampautomation.ampata.screen.usr.node.gen;
 
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
-import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgentQryMngr;
+import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenAgent0Repo;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgentType;
+import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
+import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenAgent0Service;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
 import io.jmix.ui.screen.*;
 import io.jmix.ui.screen.LookupComponent;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @UiController("enty_UsrNodeGenAgent.main")
 @UiDescriptor("usr-node-gen-agent-0-main.xml")
 @LookupComponent("tableMain")
-public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgentQryMngr, Table<UsrNodeGenAgent>> {
+public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgent0Service, UsrNodeGenAgent0Repo, Table<UsrNodeGenAgent>> {
+
+    //Service
+    @Override
+    @Autowired
+    @Qualifier("bean_UsrNodeGenAgent.Service")
+    public void setService(UsrNodeGenAgent0Service service) {
+        this.service = service;
+    }
+
+    //Repo
+    @Override
+    @Autowired
+    @Qualifier("bean_UsrNodeGenAgent.Repo")
+    public void setRepo(UsrNodeGenAgent0Repo repo) { this.repo = repo; }
 
     //Filter
 
@@ -102,65 +117,64 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
 
     }
 
-    @Subscribe("setBtn")
-    public void onSetBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onSetBtnClick";
+
+    @Override
+    public Boolean onSetBtnClickHelper(UsrNodeGenAgent thisNode){
+        String logPrfx = "onSetBtnClickHelper";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeGenAgent> thisGenAgents = tableMain.getSelected().stream().toList();
-        if (thisGenAgents == null || thisGenAgents.isEmpty()) {
-            logger.debug(logPrfx + " --- thisGenAgent is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
+        Boolean thisNodeIsChanged = false;
+
+        if (tmplt_Type1_IdFieldChk.isChecked()
+        ) {
+            thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
+            thisNodeIsChanged = true;
         }
 
-        thisGenAgents.forEach(thisGenAgent -> {
-            thisGenAgent = dataContext.merge(thisGenAgent);
-            if (thisGenAgent != null) {
+        if (tmplt_GenAgent1_IdFieldChk.isChecked()
+        ) {
+            thisNode.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
+            thisNodeIsChanged = true;
+        }
 
-                Boolean thisGenAgentIsChanged = false;
+        if (tmplt_GenAgent2_IdFieldChk.isChecked()
+        ) {
+            thisNode.setGenAgent2_Id(tmplt_GenAgent2_IdField.getValue());
+            thisNodeIsChanged = true;
+        }
 
-                if (tmplt_Type1_IdFieldChk.isChecked()
-                ) {
-                    thisGenAgentIsChanged = true;
-                    thisGenAgent.setType1_Id(tmplt_Type1_IdField.getValue());
-                }
+        UpdateOption updOption = UpdateOption.valueOf(updateInstItemCalcValsOption.getValue())
+                .orElse(UpdateOption.SKIP);
+        thisNodeIsChanged = service.updateCalcVals(this, thisNode, updOption) || thisNodeIsChanged;
 
-                if (tmplt_GenAgent1_IdFieldChk.isChecked()
-                ) {
-                    thisGenAgentIsChanged = true;
-                    thisGenAgent.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
-                }
-
-                if (tmplt_GenAgent2_IdFieldChk.isChecked()
-                ) {
-                    thisGenAgentIsChanged = true;
-                    thisGenAgent.setGenAgent2_Id(tmplt_GenAgent2_IdField.getValue());
-                }
-
-                thisGenAgentIsChanged = thisGenAgent.updateId2Calc(dataManager) || thisGenAgentIsChanged;
-                thisGenAgentIsChanged = thisGenAgent.updateId2(dataManager) || thisGenAgentIsChanged;
-                thisGenAgentIsChanged = thisGenAgent.updateId2Cmp(dataManager) || thisGenAgentIsChanged;
-
-                if (thisGenAgentIsChanged) {
-                    logger.debug(logPrfx + " --- executing dataManager.save(thisGenAgent).");
-                    //dataManager.save(thisGenAgent);
-                }
-            }
-        });
-        super.updateHelper();
         logger.trace(logPrfx + " <-- ");
+        return thisNodeIsChanged;
     }
-    @Subscribe("updateGenTag1_IdFieldListBtn")
-    public void onUpdateGenTag1_IdFieldListBtn(Button.ClickEvent event) {
-        String logPrfx = "onUpdateGenTag1_IdFieldListBtn";
+
+    @Subscribe("updateGenAgent1_IdFieldListBtn")
+    public void onUpdateGenAgent1_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateGenAgent1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        colLoadrGenTag.load();
-        logger.debug(logPrfx + " --- called colLoadrGenTag.load() ");
+        logger.debug(logPrfx + " --- calling colLoadrGenAgent.load() ");
+        colLoadrGenAgent.load();
+        logger.debug(logPrfx + " --- called colLoadrGenAgent.load() ");
 
         logger.trace(logPrfx + " <-- ");
+
+    }
+
+    @Subscribe("updateGenAgent2_IdFieldListBtn")
+    public void onUpdateGenAgent2_IdFieldListBtnClick(Button.ClickEvent event) {
+        String logPrfx = "onUpdateGenAgent2_IdFieldListBtnClick";
+        logger.trace(logPrfx + " --> ");
+
+        logger.debug(logPrfx + " --- calling colLoadrGenAgent.load() ");
+        colLoadrGenAgent.load();
+        logger.debug(logPrfx + " --- called colLoadrGenAgent.load() ");
+
+        logger.trace(logPrfx + " <-- ");
+
     }
 
 

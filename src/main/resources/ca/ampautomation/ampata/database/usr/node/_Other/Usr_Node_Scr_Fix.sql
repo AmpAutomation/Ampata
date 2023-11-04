@@ -5,7 +5,7 @@ update ampata_usr_node t
 set gen_chan1__id  = t1.id 
 from ampata_usr_node t1
 where t.gen_chan1__id2 = t1.id2
-and t1.class_name  = 'GenChan'
+and t1.dtype ='enty_UsrNodeGenChan'
 
 
 update ampata_usr_node t

@@ -3,9 +3,10 @@ package ca.ampautomation.ampata.screen.sys.node.fin;
 import ca.ampautomation.ampata.entity.HasTmst;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate;
-import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateQryMngr;
+import ca.ampautomation.ampata.repo.sys.node.fin.SysNodeFinCurcyExchRate0Repo;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRateType;
 import ca.ampautomation.ampata.screen.sys.node.base.SysNodeBase0BaseMain;
+import ca.ampautomation.ampata.service.sys.node.fin.SysNodeFinCurcyExchRate0Service;
 import io.jmix.core.*;
 import io.jmix.ui.component.*;
 import io.jmix.ui.model.*;
@@ -13,6 +14,7 @@ import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
 import io.jmix.ui.screen.LookupComponent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,11 +25,24 @@ import java.util.*;
 @UiController("enty_SysNodeFinCurcyExchRate.main")
 @UiDescriptor("sys-node-fin-curcy-exch-rate-0-main.xml")
 @LookupComponent("tableMain")
-public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFinCurcyExchRate, SysNodeFinCurcyExchRateType, SysNodeFinCurcyExchRateQryMngr> {
+public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFinCurcyExchRate, SysNodeFinCurcyExchRateType, SysNodeFinCurcyExchRate0Service, SysNodeFinCurcyExchRate0Repo> {
+
+    //Service
+    @Override
+    @Autowired
+    @Qualifier("bean_SysNodeFinCurcyExchRate.Service")
+    public void setService(SysNodeFinCurcyExchRate0Service service) {
+        this.service = service;
+    }
+
+    //Repo
+    @Override
+    @Autowired
+    @Qualifier("bean_SysNodeFinCurcyExchRate.Repo")
+    public void setRepo(SysNodeFinCurcyExchRate0Repo repo) { this.repo = repo; }
 
 
     //Filter
-
     @Autowired
     protected PropertyFilter<LocalDate> filterConfig1A_Ts1ElDtGE;
 
@@ -41,14 +56,14 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
     protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_FinCurcy2_Id;
 
     @Autowired
-    private CheckBox tmplt_Ts1ElTsFieldChk;
+    private CheckBox tmplt_Ts1_ElTsFieldChk;
 
 
     //Toolbar
 
     //Template
     @Autowired
-    private DateField<LocalDateTime> tmplt_Ts1ElTsField;
+    private DateField<LocalDateTime> tmplt_Ts1_ElTsField;
 
     @Autowired
     protected EntityComboBox<SysNodeFinCurcy> tmplt_FinCurcy1_IdField;
@@ -111,8 +126,8 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "tableMain.[ts1.elDt]", subject = "formatter")
-    private String tableBegDate1Formatter(LocalDate date) {
+    @Install(to = "tableMain.[ts1.elTs]", subject = "formatter")
+    private String tableMainTs1_ElTsFormatter(LocalDate date) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
@@ -156,8 +171,8 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
             copy.setId(UuidProvider.createUuid());
 
             HasTmst ts1 = dataManager.create(HasTmst.class);
-            if (tmplt_Ts1ElTsFieldChk.isChecked()) {
-                ts1.setElTs(tmplt_Ts1ElTsField.getValue());
+            if (tmplt_Ts1_ElTsFieldChk.isChecked()) {
+                ts1.setElTs(tmplt_Ts1_ElTsField.getValue());
                 copy.getTs1().setElTs(ts1.getElTs());
             }else{
                 if (orig.getTs1().getElDt() != null) {
@@ -211,9 +226,9 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
                 Boolean thisFinCurcyExchRateIsChanged = false;
 
                 HasTmst ts1 = dataManager.create(HasTmst.class);
-                if (tmplt_Ts1ElTsFieldChk.isChecked()) {
+                if (tmplt_Ts1_ElTsFieldChk.isChecked()) {
                     thisFinCurcyExchRateIsChanged = true;
-                    ts1.setElTs(tmplt_Ts1ElTsField.getValue());
+                    ts1.setElTs(tmplt_Ts1_ElTsField.getValue());
                     thisFinCurcyExchRate.getTs1().setElTs(ts1.getElTs());
                 }
 
@@ -303,9 +318,9 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("ts1ElTsField")
-    public void onTs1ElTsFieldValueChange(HasValue.ValueChangeEvent<LocalDateTime> event) {
-        String logPrfx = "onTs1ElTsFieldValueChange";
+    @Subscribe("ts1_ElTsField")
+    public void onTs1_ElTsFieldValueChange(HasValue.ValueChangeEvent<LocalDateTime> event) {
+        String logPrfx = "onTs1_ElTsFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
         if (event.isUserOriginated()) {

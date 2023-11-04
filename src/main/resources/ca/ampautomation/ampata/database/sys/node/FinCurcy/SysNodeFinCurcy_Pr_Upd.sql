@@ -90,7 +90,7 @@ and t.type1__id = t2.id
 /*
 select count(*)
 from ampata_sys_node t
-where t.class_name ='FinCurcy'
+where t.dtype ='SysNodeFinCurcy'
 */
 
 end

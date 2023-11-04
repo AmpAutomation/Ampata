@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        caption="msg://usrNodeBaseType0Edit.caption"
+        focusComponent="form">
+    <data>
+        <instance id="usrNodeTypeDc"
+                  class="ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType"
+                  fetchPlan="fetchPlan_UsrNodeBaseType_Base">
+            <loader/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
+                icon="EDITOR_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="windowClose"
+                caption="msg:///actions.Close"
+                icon="EDITOR_CANCEL"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout spacing="true" expand="editActions">
+        <form id="form" dataContainer="usrNodeTypeDc">
+            <column width="350px">
+                <textField id="id" property="id" editable="false"/>
+                <textField id="id2Field" property="id2"/>
+                <textField id="id2CalcField" property="id2Calc"/>
+                <checkBox id="id2CmpField" property="id2Cmp"/>
+                <entityPicker id="parent1_IdField" property="parent1_Id">
+                    <actions>
+                        <action id="entityLookup" type="entity_lookup"/>
+                        <action id="entityOpen" type="entity_open"/>
+                        <action id="entityClear" type="entity_clear"/>
+                    </actions>
+                </entityPicker>
+                <textField id="parent1_Id2Field" property="parent1_Id2"/>
+                <textArea id="ancestors1_Id2Field" property="ancestors1_Id2" rows="5"/>
+                <textField id="name1Field" property="name1"/>
+                <textField id="abrvField" property="abrv"/>
+                <textArea id="desc1Field" property="desc1" rows="5"/>
+            </column>
+        </form>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

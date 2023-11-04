@@ -1,7 +1,7 @@
 
 select
  id2
-,class_name
+,dtype
 ,t.ts1_el_ts
 ,t.ts1_el_dt::timestamp
 

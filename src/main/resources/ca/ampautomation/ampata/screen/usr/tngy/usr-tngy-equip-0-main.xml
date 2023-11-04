@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrNodeTngyEquipMain.caption"
+        caption="msg://usrNodeTngyEquip0Main.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_UsrNodeTngyEquip_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_UsrNodeBase e where e.className = 'UsrNodeTngyEquip' order by e.sortKey, e.id2]]>
+                    <![CDATA[select e from enty_UsrNodeTngyEquip order by e.sortKey, e.id2]]>
                 </query>
             </loader>
         </collection>
@@ -65,12 +65,11 @@
                     <columns>
                         <column id="tenant" collapsed="true"/>
                         <column id="dtype" />
-                        <column id="className"/>
                         <column id="id2"/>
                         <column id="id2Calc"/>
                         <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="parent1_Id"/>
+                        <column id="parent1_Id" caption="parent1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
                         <column id="type1_Id"/>
@@ -137,7 +136,7 @@
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
-                             caption="General"
+                             caption="Main"
                              margin="true"
                              spacing="true">
                             <form id="tab1Form" dataContainer="instCntnrMain">
@@ -149,7 +148,6 @@
                                     <textField caption="id" id="id" property="id" width="100%" tabIndex="10" editable="false"/>
                                     <textField caption="tenant" id="tenantField" property="tenant" width="100%" tabIndex="10" editable="false"/>
                                     <textField caption="dtype" id="dtypeField" property="dtype" width="100%" tabIndex="10" editable="false"/>
-                                    <textField caption="className" id="classNameField" property="className" width="100%" tabIndex="10"/>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
                                         <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
@@ -178,7 +176,12 @@
                                         <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
                                                       property="parent1_Id" tabIndex="20">
                                             <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
+                                                <action id="entityLookup" type="entity_lookup">
+                                                    <properties>
+                                                        <property name="openMode" value="THIS_TAB"/>
+                                                        <property name="screenClass" value="ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0Lookup"/>
+                                                    </properties>
+                                                </action>
                                                 <action id="entityOpen" type="entity_open"/>
                                                 <action id="entityClear" type="entity_clear"/>
                                             </actions>

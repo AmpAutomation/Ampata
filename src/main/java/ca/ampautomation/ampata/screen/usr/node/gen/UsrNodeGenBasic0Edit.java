@@ -1,21 +1,31 @@
 package ca.ampautomation.ampata.screen.usr.node.gen;
 
-import io.jmix.ui.component.TextField;
+import ca.ampautomation.ampata.entity.usr.node.gen.*;
+import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenAgent0Repo;
+import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenBasic0Repo;
+import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseEdit;
+import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenBasic0Service;
 import io.jmix.ui.screen.*;
-import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 @UiController("enty_UsrNodeGenBasic.edit")
 @UiDescriptor("usr-node-gen-basic-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrNodeGenBasic0Edit extends StandardEditor<UsrNodeBase> {
+public class UsrNodeGenBasic0Edit extends UsrNodeBase0BaseEdit<UsrNodeGenBasic, UsrNodeGenBasicType, UsrNodeGenBasic0Service, UsrNodeGenBasic0Repo> {
+
+    //Service
+    @Override
     @Autowired
-    private TextField<String> classNameField;
-
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-
-        classNameField.setValue("UsrItemGenTag");
+    @Qualifier("bean_UsrNodeGenBasic.Service")
+    public void setService(UsrNodeGenBasic0Service service) {
+        this.service = service;
     }
+
+    //Repo
+    @Override
+    @Autowired
+    @Qualifier("bean_UsrNodeGenBasic.Repo")
+    public void setRepo(UsrNodeGenBasic0Repo repo) { this.repo = repo; }
 
 }

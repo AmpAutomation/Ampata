@@ -27,7 +27,7 @@ from (
 	from ampata_usr_node t2a
 	left join ampata_usr_node_type as t2b
 		on t2a.type1__id = t2b.id
-	where t2a.class_name = 'UsrNodeGenChan'
+	where t2a.dtype = 'enty_UsrNodeGenChan'
 	and t2a.deleted_by is null
 	
 ) t1
@@ -38,7 +38,7 @@ update ampata_sys_node t
 set id2_calc = t.name1
 FROM ampata_sys_node t1
 where
-	t.class_name = 'UsrNodeGenChan'
+	t.dtype = 'enty_UsrNodeGenChan'
 and	t.type1__id = t1.id
 ;
 
@@ -50,7 +50,7 @@ set	id2_cmp = 	case
 				when id2 = id2_calc then false 
 				else true
 				end
-where t.class_name = 'UsrNodeGenChan'
+where t.dtype = 'enty_UsrNodeGenChan'
 ;
 
 
@@ -77,13 +77,13 @@ loop
 		from (
 			select t.id2, count(*) id2_dup
 			from ampata_usr_node t
-			where t.class_name = 'UsrNodeGenChan'
+			where t.dtype = 'enty_UsrNodeGenChan'
 			and t.deleted_by is null
 			and t.tenant = rec_tenant.tenant_id
 			group by t.id2 
 		) t1
 		where t.id2 = t1.id2 
-		and	t.class_name = 'UsrNodeGenChan'
+		and	t.dtype = 'enty_UsrNodeGenChan'
 	    returning 1
 	)
 	select count(*) from rows into num_rows_updated_in_iter
@@ -112,11 +112,11 @@ from (
 	,t2a.type1__id
 	,coalesce (name2 ,coalesce (name1,'')) as desc1
 	from ampata_usr_node t2a
-	where t2a.class_name = 'UsrNodeGenChan'
+	where t2a.dtype = 'enty_UsrNodeGenChan'
 	and t2a.deleted_by is null
 ) t1
 where t.id = t1.id 
-and	t.class_name = 'UsrNodeGenChan'
+and	t.dtype = 'enty_UsrNodeGenChan'
 and t.deleted_by is null
 ;
 

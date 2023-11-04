@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrEdgeGenBasicMain.caption"
+        caption="msg://usrEdgeGenBasic0Main.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
@@ -151,16 +151,16 @@
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
-                             caption="General"
+                             caption="Main"
                              expand="tab1_hbox3"
                              margin="true">
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
-                                <hbox caption="desc1" expand="desc1Field" width="1068px">
+                                <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
                                     <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
-                                <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="348px">
+                                <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="374px">
                                     <entityComboBox id="desc1GenFmla1_IdField" dataContainer="instCntnrMain"
                                                     property="desc1GenFmla1_Id">
                                         <actions>
@@ -185,7 +185,7 @@
                             </hbox>
 
                             <hbox id="tab1_hbox3" width="100%" spacing="true">
-                                <vbox width="348px">
+                                <vbox width="374px">
                                     <hbox caption="id" expand="id" width="100%">
                                         <textField id="id" dataContainer="instCntnrMain" property="id" editable="false"/>
                                     </hbox>
@@ -204,23 +204,23 @@
                                         <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
-                                        <hbox caption="id2Cmp" expand="id2CmpField" width="84px">
+                                        <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
                                             <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
                                             <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="id2Dup" expand="id2DupField" width="120px">
+                                        <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false"/>
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                 </vbox>
 
-                                <vbox width="348px">
+                                <vbox width="374px">
                                     <hbox width="100%" spacing="true">
-                                        <hbox caption="sortIdx" expand="sortIdxField" width="168px">
+                                        <hbox caption="sortIdx" expand="sortIdxField" width="181px">
                                             <textField id="sortIdxField" dataContainer="instCntnrMain" property="sortIdx"/>
                                         </hbox>
-                                        <hbox caption="sortKey" expand="sortKeyField" width="168px">
+                                        <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                             <textField id="sortKeyField" dataContainer="instCntnrMain" property="sortKey"/>
                                         </hbox>
                                     </hbox>

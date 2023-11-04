@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://sysItemBaseTypeMain.caption"
+        caption="msg://sysItemBaseType0Main.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
@@ -110,13 +110,13 @@
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
-                             caption="General"
+                             caption="Main"
                              margin="true"
                              spacing="true"
                              expand="tab1_hbox2">
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
-                                <hbox caption="desc1" expand="desc1Field" width="1100px">
+                                <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
                                     <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
@@ -128,9 +128,6 @@
                                     </hbox>
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" property="dtype" editable="false"/>
-                                    </hbox>
-                                    <hbox caption="className" expand="classNameField" width="100%">
-                                        <textField id="classNameField" property="className"/>
                                     </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
@@ -145,7 +142,7 @@
                                             <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
                                             <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="id2Dup" expand="id2DupField" width="120px">
+                                        <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false"/>
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
@@ -174,7 +171,7 @@
                              margin="true"
                              spacing="true">
 
-                            <hbox width="1100px" expand="noteField">
+                            <hbox caption="note" expand="noteField" width="2304px" >
                                 <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
                             </hbox>
                         </tab>

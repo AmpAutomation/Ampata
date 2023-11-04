@@ -8,14 +8,11 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="name1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
     </fetchPlan>
 
@@ -35,84 +32,54 @@
     <fetchPlan entity="enty_UsrNodeBase" name="fetchPlan_UsrNodeBase_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
-        <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
-        <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
-
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
-
-        <property name="abrv"/>
-        <property name="code"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="status"/>
-        <property name="statusCalc"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="name2"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
 
         <property name="edgeIns_Id" fetchPlan="_base"/>
         <property name="edgeIns_Id2"/>
+
         <property name="edgeOts_Id" fetchPlan="_base"/>
         <property name="edgeOts_Id2"/>
 
-        <property name="genChan1_Id" fetchPlan="_base"/>
-        <property name="genChan2_Id" fetchPlan="_base"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+
+        <property name="name2"/>
+
+        <property name="genChan1_Id" fetchPlan="_instance_name"/>
+        <property name="genChan2_Id" fetchPlan="_instance_name"/>
+
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
+        <property name="int4"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+        <property name="txt3"/>
+        <property name="txt4"/>
 
         <property name="ts1" fetchPlan="_base"/>
         <property name="ts3" fetchPlan="_base"/>
         <property name="ts2" fetchPlan="_base"/>
         <property name="ts4" fetchPlan="_base"/>
-
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id2"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id2"/>
-
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
-
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
 
     </fetchPlan>
 
@@ -120,28 +87,149 @@
     <fetchPlan entity="enty_UsrNodeBaseType" name="fetchPlan_UsrNodeBaseType_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
-        <property name="ancestors1_Id2"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="abrv"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
         <property name="genTags1_Id" fetchPlan="_instance_name"/>
         <property name="genTags1_Id2"/>
 
+        <property name="abrv"/>
+
     </fetchPlan>
+
+
+    <fetchPlan entity="enty_UsrNodeFinAcctType" name="fetchPlan_UsrNodeFinAcctType_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+        </property>
+        <property name="parent1_Id2"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="note"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
+        <property name="int4"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+        <property name="txt3"/>
+        <property name="txt4"/>
+
+        <property name="balIncOnDebt"/>
+        <property name="balIncOnCred"/>
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrNodeFinBalSetType" name="fetchPlan_UsrNodeFinBalSetType_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+        </property>
+        <property name="parent1_Id2"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="note"/>
+
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
+        <property name="int4"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+        <property name="txt3"/>
+        <property name="txt4"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+    </fetchPlan>
+
+    <fetchPlan entity="enty_UsrNodeFinTxactSetType" name="fetchPlan_UsrNodeFinTxactSetType_Base" extends="_instance_name">
+        <property name="tenant"/>
+        <property name="dtype"/>
+        <property name="id2Calc"/>
+        <property name="id2Cmp"/>
+        <property name="id2Dup"/>
+        <property name="sortIdx"/>
+        <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+        </property>
+        <property name="parent1_Id2"/>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="note"/>
+
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
+        <property name="int4"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+        <property name="txt3"/>
+        <property name="txt4"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+    </fetchPlan>
+
 
     <fetchPlan entity="enty_UsrEdgeBase" name="fetchPlan_UsrEdgeBase_Base" extends="_instance_name">
         <property name="tenant"/>
@@ -153,18 +241,13 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="type1_Id2"/>
         <property name="inst1"/>
-
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
-
-        <property name="name2"/>
 
         <property name="genTags1_Id" fetchPlan="_instance_name"/>
         <property name="genTags1_Id2"/>
@@ -174,6 +257,8 @@
 
         <property name="nodeOt_Id" fetchPlan="_base"/>
         <property name="nodeOt_Id2"/>
+
+        <property name="name2"/>
 
     </fetchPlan>
 
@@ -188,11 +273,9 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
         <property name="genTags1_Id" fetchPlan="_instance_name"/>
@@ -212,14 +295,11 @@
         <property name="sortKey"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
         <property name="type1_Id2"/>
         <property name="inst1"/>
-
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
         <property name="name2"/>
@@ -243,15 +323,12 @@
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
     </fetchPlan>
@@ -263,17 +340,16 @@
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="srcCode"/>
         <property name="note"/>
+
+        <property name="srcCode"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrItemFinHow" name="fetchPlan_UsrItemFinHow_Base" extends="_instance_name">
@@ -283,15 +359,13 @@
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
     </fetchPlan>
 
@@ -302,15 +376,13 @@
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
     </fetchPlan>
 
@@ -321,15 +393,13 @@
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
+        <property name="sortKey"/>
         <property name="type1_Id" fetchPlan="_instance_name"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
     </fetchPlan>
 
@@ -343,157 +413,116 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="name2"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
+
+        <property name="ts1" fetchPlan="_base"/>
+        <property name="dt1" fetchPlan="_base"/>
+        <property name="tm1" fetchPlan="_base"/>
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
 
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeGenUnion" name="fetchPlan_UsrNodeGenUnion_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
-        <property name="id2"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
-        <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
+        <property name="ancestors1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
-
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
-
-        <property name="abrv"/>
-        <property name="code"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="status"/>
-        <property name="statusCalc"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="name2"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
 
-        <property name="edgeIns_Id" fetchPlan="_base"/>
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
         <property name="edgeIns_Id2"/>
-        <property name="edgeOts_Id" fetchPlan="_base"/>
-        <property name="edgeOts_Id2"/>
 
-        <property name="genChan1_Id" fetchPlan="_base"/>
-        <property name="genChan2_Id" fetchPlan="_base"/>
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="ts1" fetchPlan="_base"/>
         <property name="ts3" fetchPlan="_base"/>
         <property name="ts2" fetchPlan="_base"/>
         <property name="ts4" fetchPlan="_base"/>
 
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-        <property name="genTag3_Id" fetchPlan="_base"/>
-        <property name="genTag3_Id2"/>
-        <property name="genTag4_Id" fetchPlan="_base"/>
-        <property name="genTag4_Id2"/>
+        <property name="dt1" fetchPlan="_base"/>
+        <property name="tm1" fetchPlan="_base"/>
 
+        <property name="int1"/>
+        <property name="int2"/>
+        <property name="int3"/>
 
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
+        <property name="abrv"/>
+        <property name="code"/>
+        <property name="status"/>
+        <property name="statusCalc"/>
 
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
+        <property name="name2"/>
+
+        <property name="genChan1_Id" fetchPlan="_base"/>
+        <property name="genChan2_Id" fetchPlan="_base"/>
 
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeGenAgent" name="fetchPlan_UsrNodeGenAgent_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -506,190 +535,108 @@
         <property name="nameMidl"/>
         <property name="nameLast"/>
         <property name="nameSufx"/>
+
         <property name="genAgent1_Id" fetchPlan="_base"/>
         <property name="genAgent1_Id2"/>
         <property name="genAgent2_Id" fetchPlan="_base"/>
         <property name="genAgent2_Id2"/>
 
 
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
-
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
-
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeGenChan" name="fetchPlan_UsrNodeGenChan_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="code"/>
         <property name="status"/>
         <property name="statusCalc"/>
-
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
-
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeGenFile" name="fetchPlan_UsrNodeGenFile_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="abrv"/>
         <property name="code"/>
         <property name="status"/>
         <property name="statusCalc"/>
-
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeGenDocVer" name="fetchPlan_UsrNodeGenDocVer_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -705,40 +652,29 @@
     <fetchPlan entity="enty_UsrNodeGenDocFrg" name="fetchPlan_UsrNodeGenDocFrg_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="genDocVer1_Id" fetchPlan="_base">
             <property name="genDocVer1_Id" fetchPlan="_base"/>
@@ -748,7 +684,6 @@
     <fetchPlan entity="enty_UsrNodeFinAcct" name="fetchPlan_UsrNodeFinAcct_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -756,32 +691,22 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -789,38 +714,16 @@
         <property name="status"/>
         <property name="statusCalc"/>
 
-        <property name="genTags1_Id" fetchPlan="_instance_name"/>
-        <property name="genTags1_Id2"/>
-        <property name="genTag1_Id" fetchPlan="_base"/>
-        <property name="genTag1_Id2"/>
-        <property name="genTag2_Id" fetchPlan="_base"/>
-        <property name="genTag2_Id2"/>
-
-        <property name="genDocVers1_Id2"/>
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genDocVer1_Id2"/>
-        <property name="genDocVer1_Code"/>
-        <property name="genDocVer1_Ver"/>
-        <property name="genDocVer1_Name1"/>
-
-        <property name="genFile1_Id" fetchPlan="_base"/>
-        <property name="genFile1_Id2"/>
-        <property name="genFile1_URI"/>
-
         <property name="genAgent1_Id" fetchPlan="_base"/>
-        <property name="genAgent1_Id2"/>
 
         <property name="sysNodeFinCurcy1_Id" fetchPlan="_base"/>
-        <property name="sysNodeFinCurcy1_Id2"/>
 
         <property name="finTaxLne1_Id" fetchPlan="_base"/>
-        <property name="finTaxLne1_Id2"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeFinDept" name="fetchPlan_UsrNodeFinDept_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -828,39 +731,28 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeFinBalSet" name="fetchPlan_UsrNodeFinBalSet_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -868,47 +760,42 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="status"/>
+        <property name="statusCalc"/>
+
+        <property name="ts1" fetchPlan="_base"/>
+        <property name="ts2" fetchPlan="_base"/>
 
         <property name="finDept1_Id" fetchPlan="_base"/>
-        <property name="finDept1_Id2"/>
 
         <property name="finBalSet1_Id" fetchPlan="_base"/>
-        <property name="finBalSet1_Id2"/>
 
         <property name="finBals1_IdCntCalc"/>
         <property name="finBals1_AmtEqCalc"/>
+
+
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeFinBal" name="fetchPlan_UsrNodeFinBal_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -916,48 +803,38 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="status"/>
+        <property name="statusCalc"/>
+
+        <property name="ts1" fetchPlan="_base"/>
+        <property name="ts2" fetchPlan="_base"/>
 
         <property name="finAcct1_Id" fetchPlan="_base"/>
-        <property name="finAcct1_Id2"/>
-        <property name="finAcct1_Type1_Id2"/>
 
         <property name="finDept1_Id" fetchPlan="_base"/>
-        <property name="finDept1_Id2"/>
 
         <property name="sysNodeFinCurcy1_Id" fetchPlan="_base"/>
-        <property name="sysNodeFinCurcy1_Id2"/>
 
         <property name="finBal1_Id" fetchPlan="_base"/>
-        <property name="finBal1_Id2"/>
 
         <property name="finBalSet1_Id" fetchPlan="_base"/>
-        <property name="finBalSet1_Id2"/>
 
         <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
@@ -982,7 +859,6 @@
     <fetchPlan entity="enty_UsrNodeFinStmt" name="fetchPlan_UsrNodeFinStmt_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -990,36 +866,54 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
 
-        <property name="finAcct1_Id" fetchPlan="_base"/>
-        <property name="finAcct1_Id2"/>
-        <property name="finAcct1_Type1_Id2"/>
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="status"/>
+        <property name="statusCalc"/>
+
+        <property name="ts1" fetchPlan="_base"/>
+        <property name="ts2" fetchPlan="_base"/>
+
+        <property name="genChan1_Id" fetchPlan="_instance_name">
+        </property>
+
+        <property name="finAcct1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+            <property name="ancestors1_Id2"/>
+            <property name="parent1_Id" fetchPlan="_instance_name"/>
+            <property name="name1"/>
+            <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="type1_Id" fetchPlan="_instance_name">
+                <property name="balIncOnDebt"/>
+                <property name="balIncOnCred"/>
+            </property>
+            <property name="inst1"/>
+            <property name="desc1"/>
+            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="note"/>
+
+        </property>
 
         <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
@@ -1039,7 +933,6 @@
         <property name="finStmtItms1_AmtCredSumDiff"/>
         <property name="finStmtItms1_AmtNetSumDiff"/>
 
-
         <property name="finTxactItms1_IdCntCalc"/>
         <property name="finTxactItms1_AmtDebtSumCalc"/>
         <property name="finTxactItms1_AmtCredSumCalc"/>
@@ -1055,7 +948,6 @@
     <fetchPlan entity="enty_UsrNodeFinStmtItm" name="fetchPlan_UsrNodeFinStmtItm_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -1063,40 +955,38 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
 
-        <property name="finStmt1_Id" fetchPlan="_base"/>
-        <property name="finStmt1_Id2"/>
-        <property name="desc2"/>
-        <property name="desc3"/>
-        <property name="desc4"/>
-        <property name="exchDesc"/>
-        <property name="refId"/>
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="finAcct1_Id" fetchPlan="_instance_name"/>
+        <property name="finStmt1_Id" fetchPlan="_instance_name"/>
+
+        <property name="int1"/>
+
+        <property name="ts1"/>
+        <property name="ts2"/>
+        <property name="ts3"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+        <property name="txt3"/>
+        <property name="txt4"/>
+        <property name="txtCurcyExch"/>
+        <property name="txtRefId"/>
 
         <property name="amtBegBal"/>
         <property name="amtBegBalCalc"/>
@@ -1120,7 +1010,6 @@
     <fetchPlan entity="enty_UsrNodeFinTxactSet" name="fetchPlan_UsrNodeFinTxactSet_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
@@ -1128,47 +1017,39 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
 
-        <property name="genDocVer1_Id" fetchPlan="_base"/>
-        <property name="genChan1_Id" fetchPlan="_base"/>
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
 
-        <property name="finHow1_Id" fetchPlan="_base"/>
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="genDocVer1_Id" fetchPlan="_instance_name"/>
+        <property name="genChan1_Id" fetchPlan="_instance_name"/>
+
+        <property name="finHow1_Id" fetchPlan="_instance_name"/>
         <property name="finHow1_Id2"/>
         <property name="whatText1"/>
-        <property name="finWhat1_Id" fetchPlan="_base"/>
+        <property name="finWhat1_Id" fetchPlan="_instance_name"/>
         <property name="finWhat1_Id2"/>
         <property name="whyText1"/>
-        <property name="finWhy1_Id" fetchPlan="_base"/>
+        <property name="finWhy1_Id" fetchPlan="_instance_name"/>
         <property name="finWhy1_Id2"/>
 
         <property name="desc1Node1_Id" fetchPlan="_instance_name"/>
         <property name="desc1Node2_Id" fetchPlan="_instance_name"/>
+
+        <property name="ts1"/>
 
         <property name="finTxactItms1_Id2"/>
 
@@ -1182,50 +1063,76 @@
     <fetchPlan entity="enty_UsrNodeFinTxact" name="fetchPlan_UsrNodeFinTxact_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
-        <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
-        <property name="inst1"/>
-        <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="note"/>
+        <property name="parent1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
 
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="finTxactSet1_FinTxacts1_Id2"/>
-        <property name="finTxactSet1_Id" fetchPlan="_base">
-            <property name ="genChan1_Id" fetchPlan="_base"/>
-            <property name ="type1_Id" fetchPlan="_base"/>
+            <property name="name1"/>
+            <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="name1GenFmla1_Id2"/>
+            <property name="type1_Id" fetchPlan="_instance_name"/>
+            <property name="type1_Id2"/>
+            <property name="inst1"/>
+            <property name="desc1"/>
+            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="desc1GenFmla1_Id2"/>
+            <property name="note"/>
+
+            <property name ="genChan1_Id" fetchPlan="_instance_name"/>
             <property name ="finHow1_Id" fetchPlan="_instance_name"/>
             <property name ="finWhat1_Id" fetchPlan="_instance_name"/>
+            <property name="whatText1"/>
             <property name ="finWhy1_Id" fetchPlan="_instance_name"/>
+            <property name="whyText1"/>
 
-            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
             <property name="desc1Node1_Id" fetchPlan="_instance_name"/>
             <property name="desc1Node2_Id" fetchPlan="_instance_name"/>
-        </property>
-        <property name="finTxactSet1_Id2"/>
-        <property name="finTxactSet1_Id2Trgt"/>
-        <property name="finTxactSet1_Type1_Id2"/>
 
-        <property name="finTxactSet1_EI1_Role"/>
+            <property name="ts1"/>
+
+            <property name="finTxactItms1_Id2"/>
+
+            <property name="finTxacts1_Id2"/>
+            <property name="finTxacts1_FinAccts1_Id2"/>
+            <property name="finTxacts1_IdCntCalc"/>
+            <property name="finTxacts1_AmtEqCalc"/>
+
+        </property>
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="inst1"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="note"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="int1"/>
+
+        <property name="ts1"/>
+
+        <property name="parent1_EI1_Role"/>
 
         <property name="desc1Node1_Id" fetchPlan="_instance_name"/>
-
-        <property name="finTxactSet1_GenDocVers1_Id2"/>
-        <property name="finTxactSet1_GenTags1_Id2"/>
 
         <property name="finTxactItms1_Id2"/>
         <property name="finTxactSet1_FinAccts1_Id2"/>
@@ -1238,7 +1145,7 @@
         <property name="finTxactItms1_IdCntCalc"/>
         <property name="finTxactItms1_AmtDebtSumCalc"/>
         <property name="finTxactItms1_AmtCredSumCalc"/>
-        <property name="finTxactItms1_AmtNetSumCalc"/>
+        <property name="finTxactItms1_AmtNet2SumCalc"/>
         <property name="finTxactItms1_AmtEqCalc"/>
         <property name="finTxactItms1_SysNodeFinCurcyEqCalc"/>
 
@@ -1253,91 +1160,195 @@
     <fetchPlan entity="enty_UsrNodeFinTxactItm" name="fetchPlan_UsrNodeFinTxactItm_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
-        <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
-        <property name="inst1"/>
-        <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="parent1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+            <property name="ancestors1_Id2"/>
 
-        <property name="finTxact1_Id" fetchPlan="_base">
-            <property name ="type1_Id" fetchPlan="_base"/>
-
-            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
-            <property name="desc1Node1_Id" fetchPlan="_instance_name"/>
-
-            <property name="finTxactItms1_AmtDebtSumCalc" />
-            <property name="finTxactItms1_AmtCredSumCalc" />
-            <property name="finTxactItms1_IdCntCalc" />
-
-            <property name="finTxactSet1_Id" fetchPlan="_base">
-                <property name ="genChan1_Id" fetchPlan="_base">
-                    <property name ="type1_Id" fetchPlan="_base"/>
-                </property>
-                <property name ="genChan2_Id" fetchPlan="_base">
-                    <property name ="type1_Id" fetchPlan="_base"/>
-                </property>
-                <property name ="type1_Id" fetchPlan="_base"/>
-                <property name ="finHow1_Id" fetchPlan="_base"/>
-                <property name ="finWhat1_Id" fetchPlan="_base"/>
-                <property name ="finWhy1_Id" fetchPlan="_base"/>
-
+            <property name="parent1_Id" fetchPlan="_instance_name">
+                <property name="tenant"/>
+                <property name="dtype"/>
+                <property name="id2Calc"/>
+                <property name="id2Cmp"/>
+                <property name="id2Dup"/>
+                <property name="sortIdx"/>
+                <property name="sortKey"/>
+                <property name="ancestors1_Id2"/>
+                <property name="parent1_Id" fetchPlan="_instance_name"/>
+                <property name="parent1_Id2"/>
+                <property name="name1"/>
+                <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+                <property name="name1GenFmla1_Id2"/>
+                <property name="type1_Id" fetchPlan="_instance_name"/>
+                <property name="type1_Id2"/>
+                <property name="inst1"/>
+                <property name="desc1"/>
                 <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+                <property name="desc1GenFmla1_Id2"/>
+                <property name="note"/>
+
+                <property name="genTags1_Id" fetchPlan="_instance_name"/>
+                <property name="genTags1_Id2"/>
+
                 <property name="desc1Node1_Id" fetchPlan="_instance_name"/>
                 <property name="desc1Node2_Id" fetchPlan="_instance_name"/>
 
+                <property name="int1"/>
+
+                <property name="ts1"/>
+
+                <property name ="genChan1_Id" fetchPlan="_instance_name">
+                    <property name ="type1_Id" fetchPlan="_instance_name"/>
+                </property>
+                <property name ="genChan2_Id" fetchPlan="_instance_name">
+                    <property name ="type1_Id" fetchPlan="_instance_name"/>
+                </property>
+
+                <property name ="finHow1_Id" fetchPlan="_instance_name"/>
+                <property name ="finWhat1_Id" fetchPlan="_instance_name"/>
+                <property name ="whatText1"/>
+                <property name ="finWhy1_Id" fetchPlan="_instance_name"/>
+                <property name ="whyText1"/>
+
+                <property name="finTxacts1_IdCntCalc"/>
+
             </property>
-        </property>
-        <property name="finTxact1_Id2"/>
-        <property name="finTxact1_Id2Trgt"/>
-        <property name="finTxact1_EI1_Role"/>
-        <property name="finTxact1_Type1_Id2"/>
 
-        <property name="finStmtItm1_Id" fetchPlan="fetchPlan_UsrNodeFinStmtItm_Base">
-        </property>
-        <property name="finStmtItm1_Id2Trgt"/>
+            <property name="name1"/>
+            <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="type1_Id" fetchPlan="_instance_name"/>
+            <property name="inst1"/>
+            <property name="desc1"/>
+            <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+            <property name="note"/>
 
-        <property name="finTaxLne1_Id" fetchPlan="_base">
-            <property name="type1_Id" fetchPlan="_base"/>
+            <property name="genTags1_Id" fetchPlan="_instance_name"/>
+            <property name="genTags1_Id2"/>
+
+            <property name="parent1_EI1_Role"/>
+
+            <property name="int1"/>
+
+            <property name="ts1"/>
+
+            <property name="finTxactItms1_AmtDebtSumCalc"/>
+            <property name="finTxactItms1_AmtCredSumCalc"/>
+            <property name="finTxactItms1_AmtNet2SumCalc"/>
+            <property name="finTxactItms1_AmtEqCalc"/>
+            <property name="finTxactItms1_SysNodeFinCurcyEqCalc"/>
+            <property name="finTxactItms1_IdCntCalc"/>
+
+        </property>
+
+        <property name="name1"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
+        <property name="inst1"/>
+        <property name="desc1"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="note"/>
+
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
+
+        <property name="parent1_EI1_Role"/>
+
+        <property name="txt1"/>
+        <property name="txt2"/>
+
+        <property name="int1"/>
+        <property name="int2"/>
+
+        <property name="ts1"/>
+        <property name="ts2"/>
+        <property name="ts3"/>
+
+
+        <property name="finStmtItm1_Id" fetchPlan="_instance_name">
+            <property name="tenant"/>
+            <property name="dtype"/>
+            <property name="id2Calc"/>
+            <property name="id2Cmp"/>
+            <property name="id2Dup"/>
+            <property name="sortIdx"/>
+            <property name="sortKey"/>
+            <property name="name1"/>
+            <property name="inst1"/>
+            <property name="desc1"/>
+
+            <property name="genTags1_Id" fetchPlan="_instance_name"/>
+            <property name="genTags1_Id2"/>
+
+            <property name="finAcct1_Id" fetchPlan="_instance_name"/>
+            <property name="finStmt1_Id" fetchPlan="_instance_name"/>
+
+            <property name="int1"/>
+
+            <property name="ts1"/>
+            <property name="ts2"/>
+            <property name="ts3"/>
+
+            <property name="txt1"/>
+            <property name="txt2"/>
+            <property name="txt3"/>
+            <property name="txt4"/>
+            <property name="txtCurcyExch"/>
+            <property name="txtRefId"/>
+
+            <property name="amtBegBal"/>
+            <property name="amtBegBalCalc"/>
+            <property name="amtDebt"/>
+            <property name="amtCred"/>
+            <property name="amtNet"/>
+            <property name="amtEndBal"/>
+            <property name="amtEndBalCalc"/>
+
+            <property name="finTxactItms1_IdCntCalc"/>
+            <property name="finTxactItms1_AmtDebtSumCalc"/>
+            <property name="finTxactItms1_AmtCredSumCalc"/>
+            <property name="finTxactItms1_AmtNetSumCalc"/>
+            <property name="finTxactItms1_AmtEqCalc"/>
+
+            <property name="finTxactItms1_AmtDebtSumDiff"/>
+            <property name="finTxactItms1_AmtCredSumDiff"/>
+            <property name="finTxactItms1_AmtNetSumDiff"/>
+
+        </property>
+
+        <property name="finTaxLne1_Id" fetchPlan="_instance_name">
+            <property name="type1_Id" fetchPlan="_instance_name"/>
         </property>
         <property name="finTaxLne1_Id2"/>
         <property name="finTaxLne1_Code"/>
 
-        <property name="finAcct1_Id" fetchPlan="_base">
-            <property name="type1_Id" fetchPlan="_base"/>
-            <property name="genAgent1_Id" fetchPlan="_base"/>
+        <property name="finAcct1_Id" fetchPlan="_instance_name">
+            <property name="type1_Id" fetchPlan="_instance_name">
+                <property name="balIncOnDebt"/>
+                <property name="balIncOnCred"/>
+            </property>
+            <property name="genAgent1_Id" fetchPlan="_instance_name"/>
         </property>
         <property name="finAcct1_Id2"/>
-        <property name="finDept1_Id" fetchPlan="_base">
-            <property name ="type1_Id" fetchPlan="_base"/>
+        <property name="finDept1_Id" fetchPlan="_instance_name">
+            <property name ="type1_Id" fetchPlan="_instance_name"/>
         </property>
         <property name="finDept1_Id2"/>
 
@@ -1349,69 +1360,48 @@
         <property name="amtEndBal"/>
         <property name="amtEndBalCalc"/>
 
-        <property name="sysNodeFinCurcy1_Id" fetchPlan="_base">
-            <property name="type1_Id" fetchPlan="_base"/>
+        <property name="sysNodeFinCurcy1_Id" fetchPlan="_instance_name">
+            <property name="type1_Id" fetchPlan="_instance_name"/>
         </property>
         <property name="sysNodeFinCurcy1_Id2"/>
 
-        <property name="amtFinTxactItm1_Id" fetchPlan="_base">
-            <property name="sysNodeFinCurcy1_Id" fetchPlan="_base"/>
+        <property name="amtCalcFinTxactItm1_Id" fetchPlan="_instance_name">
+            <property name="sysNodeFinCurcy1_Id" fetchPlan="_instance_name"/>
         </property>
-        <property name="amtFinTxactItm1_Id2"/>
-        <property name="amtCalcGenFmla1_Id" fetchPlan="_base"/>
+        <property name="amtCalcFinTxactItm1_Id2"/>
+        <property name="amtCalcGenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="amtCalcGenFmla1_Id2"/>
-        <property name="amtFinTxactItm1_EI1_Rate"/>
+        <property name="amtCalcFinTxactItm1_EI1_Rate"/>
         <property name="amtCalc"/>
 
-        <property name="finHow1_Id2"/>
-        <property name="finHow1_Id" fetchPlan="_base"/>
-
-        <property name="whatText1"/>
-        <property name="finWhat1_Id" fetchPlan="_base"/>
-        <property name="finWhat1_Id2"/>
-
-        <property name="whyText1"/>
-        <property name="finWhy1_Id" fetchPlan="_base"/>
-        <property name="finWhy1_Id2"/>
     </fetchPlan>
 
     <fetchPlan entity="enty_UsrNodeTngyEquip" name="fetchPlan_UsrNodeTngyEquip_Base" extends="_instance_name">
         <property name="tenant"/>
         <property name="dtype"/>
-        <property name="className"/>
         <property name="id2Calc"/>
         <property name="id2Cmp"/>
         <property name="id2Dup"/>
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
-        <property name="nm1s1Name1"/>
-        <property name="nm1s1Name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Name1GenFmla1_Id2"/>
-        <property name="nm1s1Type1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Type1_Id2"/>
-        <property name="nm1s1Inst1"/>
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
-        <property name="nm1s1Inst1Ts1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Dt1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Tm1" fetchPlan="_base"/>
-        <property name="nm1s1Inst1Int1"/>
-        <property name="nm1s1Inst1Int2"/>
-        <property name="nm1s1Inst1Int3"/>
+        <property name="genTags1_Id" fetchPlan="_instance_name"/>
+        <property name="genTags1_Id2"/>
+
+        <property name="edgeIns_Id" fetchPlan="_instance_name"/>
+        <property name="edgeIns_Id2"/>
+
+        <property name="edgeOts_Id" fetchPlan="_instance_name"/>
+        <property name="edgeOts_Id2"/>
 
         <property name="name2"/>
         <property name="abrv"/>
@@ -1421,30 +1411,6 @@
 
     </fetchPlan>
 
-
-    <fetchPlan entity="enty_UsrNodeFinAcctType" name="fetchPlan_UsrNodeFinAcctType_Base" extends="_instance_name">
-        <property name="tenant"/>
-        <property name="dtype"/>
-        <property name="className"/>
-        <property name="id2Calc"/>
-        <property name="id2Cmp"/>
-        <property name="id2Dup"/>
-        <property name="sortIdx"/>
-        <property name="sortKey"/>
-        <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
-        <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
-        <property name="note"/>
-
-        <property name="balIncOnDebt"/>
-        <property name="balIncOnCred"/>
-    </fetchPlan>
 
 
 
@@ -1456,14 +1422,11 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
     </fetchPlan>
@@ -1488,17 +1451,13 @@
         <property name="sortIdx"/>
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
-        <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
+        <property name="parent1_Id" fetchPlan="_instance_name"/>
         <property name="name1"/>
-        <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
-        <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
+        <property name="name1GenFmla1_Id" fetchPlan="_instance_name"/>
+        <property name="type1_Id" fetchPlan="_instance_name"/>
         <property name="inst1"/>
         <property name="desc1"/>
-        <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
+        <property name="desc1GenFmla1_Id" fetchPlan="_instance_name"/>
         <property name="note"/>
 
         <property name="abrv"/>
@@ -1513,20 +1472,14 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
-        <property name="nm1s1Inst1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="nm1s1Inst1GenFmla1_Id2"/>
         <property name="abrv"/>
     </fetchPlan>
 
@@ -1539,16 +1492,12 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="name1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="name1GenFmla1_Id2"/>
         <property name="type1_Id" fetchPlan="_base"/>
-        <property name="type1_Id2"/>
         <property name="inst1"/>
         <property name="desc1"/>
         <property name="desc1GenFmla1_Id" fetchPlan="_base"/>
-        <property name="desc1GenFmla1_Id2"/>
         <property name="note"/>
 
         <property name="ts1" fetchPlan="_base"/>
@@ -1571,7 +1520,6 @@
         <property name="sortKey"/>
         <property name="ancestors1_Id2"/>
         <property name="parent1_Id" fetchPlan="_base"/>
-        <property name="parent1_Id2"/>
         <property name="name1"/>
         <property name="desc1"/>
         <property name="note"/>

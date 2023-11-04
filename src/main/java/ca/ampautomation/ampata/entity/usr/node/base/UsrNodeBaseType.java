@@ -125,6 +125,37 @@ public class UsrNodeBaseType implements AcceptsTenant {
     protected String genTags1_Id2;
 
 
+
+    @Column(name = "TXT1")
+    @Lob
+    protected String txt1;
+
+    @Column(name = "TXT2")
+    @Lob
+    protected String txt2;
+
+    @Column(name = "TXT4")
+    @Lob
+    protected String txt4;
+
+    @Column(name = "TXT3")
+    @Lob
+    protected String txt3;
+
+    @Column(name = "INT1")
+    protected Integer int1;
+
+    @Column(name = "INT2")
+    protected Integer int2;
+
+    @Column(name = "INT3")
+    protected Integer int3;
+
+    @Column(name = "INT4")
+    protected Integer int4;
+
+
+
     @Column(name = "BAL_INC_ON_DEBT")
     private Boolean balIncOnDebt;
 
@@ -353,6 +384,42 @@ public class UsrNodeBaseType implements AcceptsTenant {
     public void setGenTags1_Id2(String genTags1_Id2) { this.genTags1_Id2 = genTags1_Id2; }
 
 
+
+
+    public String getTxt1() { return txt1; }
+
+    public void setTxt1(String txt1) { this.txt1 = txt1; }
+
+    public String getTxt2() { return txt2; }
+
+    public void setTxt2(String txt2) { this.txt2 = txt2; }
+
+    public String getTxt3() { return txt3; }
+
+    public void setTxt3(String txt3) { this.txt3 = txt3; }
+
+    public String getTxt4() { return txt4; }
+
+    public void setTxt4(String txt4) { this.txt4 = txt4; }
+
+
+    public Integer getInt1() { return int1; }
+
+    public void setInt1(Integer int1) { this.int1 = int1; }
+
+    public Integer getInt2() { return int2; }
+
+    public void setInt2(Integer int2) { this.int2 = int2; }
+
+    public Integer getInt3() { return int3; }
+
+    public void setInt3(Integer int3) { this.int3 = int3; }
+
+    public Integer getInt4() { return int4; }
+
+    public void setInt4(Integer int4) { this.int4 = int4; }
+
+
     public void setBalIncOnDebt(Boolean balIncOnDebt) {
         this.balIncOnDebt = balIncOnDebt;
     }
@@ -426,203 +493,5 @@ public class UsrNodeBaseType implements AcceptsTenant {
         this.version = version;
     }
 
-
-
-    public Boolean updateCalcVals(DataManager dataManager){
-        String logPrfx = "updateCalcVals";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateDesc1(dataManager) || isChanged;
-        isChanged = this.updateName1(dataManager) || isChanged;
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2(DataManager dataManager) {
-        String logPrfx = "updateId2";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        String l_id2_ = this.id2;
-        String l_id2 = this.id2Calc;
-        if(!Objects.equals(l_id2_, l_id2)){
-            this.setId2(l_id2);
-            logger.debug(logPrfx + " --- id2: " + l_id2);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Deps(DataManager dataManager) {
-        String logPrfx = "updateId2Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Calc(DataManager dataManager) {
-        String logPrfx = "updateId2Calc";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        final String delim = "/";
-        String l_id2Calc_ = this.name1;
-        String l_id2Calc = this.parent1_Id != null
-                ? this.parent1_Id2 + delim
-                + (this.name1 != null ? this.name1 : "<null>")
-                : this.name1 ;
-        if (!Objects.equals(l_id2Calc_, l_id2Calc)) {
-            this.setId2Calc(l_id2Calc);
-            logger.debug(logPrfx + " --- id2Calc:" + l_id2Calc);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2CalDeps(DataManager dataManager) {
-        String logPrfx = "updateId2CalDeps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Cmp(DataManager dataManager) {
-        String logPrfx = "updateId2Cmp";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Boolean l_id2Cmp_ = this.id2Cmp;
-        Boolean l_id2Cmp = !Objects.equals(this.id2,this.id2Calc);
-        if (!Objects.equals(l_id2Cmp_, l_id2Cmp)){
-            this.setId2Cmp(l_id2Cmp);
-            logger.debug(logPrfx + " --- id2Cmp: " + l_id2Cmp);
-            isChanged = true;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateId2Dup(DataManager dataManager) {
-        String logPrfx = "updateId2Dup";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-        Integer l_id2Dup_ = this.id2Dup;
-        if (this.id2 != null){
-            String id2Qry = "select count(e) from enty_" + this.getClass().getSimpleName() + " e"
-                    + " where e.id2 = :id2"
-                    + " and e.id <> :id";
-            Integer l_id2Dup;
-            try{
-                l_id2Dup = dataManager.loadValue(id2Qry, Integer.class)
-                        .store("main")
-                        .parameter("id",this.id)
-                        .parameter("id2",this.id2)
-                        .one();
-            }catch (IllegalStateException e){
-                l_id2Dup =0;
-
-            }
-            l_id2Dup = l_id2Dup + 1;
-            logger.debug(logPrfx + " --- id2Dup qry counted: " + l_id2Dup + " rows");
-            if (!Objects.equals(l_id2Dup_, l_id2Dup)){
-                this.id2Dup = l_id2Dup;
-                logger.debug(logPrfx + " --- id2Dup: " + l_id2Dup);
-                isChanged = true;
-            }
-
-        }
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-
-    public Boolean updateName1(DataManager dataManager){
-        String logPrfx = "updateName1()";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateName1Deps(DataManager dataManager) {
-        String logPrfx = "updateName1Deps";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        isChanged = this.updateId2Calc(dataManager) || isChanged;
-        isChanged = this.updateId2Cmp(dataManager) || isChanged;
-        isChanged = this.updateId2Dup(dataManager) || isChanged;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public Boolean updateDesc1(DataManager dataManager){
-        String logPrfx = "updateDesc1";
-        logger.trace(logPrfx + " --> ");
-
-        boolean isChanged = false;
-
-        logger.trace(logPrfx + " <-- ");
-        return isChanged;
-    }
-
-    public static <NodeTypeT extends UsrNodeBaseType> NodeTypeT getNodeTypeById2(Class<NodeTypeT> type, DataManager dataManager, @NotNull String crtieria_Id2) {
-        final Logger logger = LoggerFactory.getLogger(UsrNodeBase.class.getClass());
-        String logPrfx = "getNodeTypeById2";
-        logger.trace(logPrfx + " --> ");
-
-        if (crtieria_Id2 == null) {
-            logger.debug(logPrfx + " --- crtieria_Id2 is null.");
-            logger.trace(logPrfx + " <-- ");
-            return null;
-        }
-
-        String qry = "select e"
-                + " from enty_" + type.getSimpleName() + " e"
-                + " where e.id2 = :id2";
-        logger.debug(logPrfx + " --- qry: " + qry);
-        logger.debug(logPrfx + " --- qry:id2: " + crtieria_Id2);
-
-        NodeTypeT nodeType = null;
-        try {
-            nodeType = dataManager.load(type)
-                    .query(qry)
-                    .parameter("id2", crtieria_Id2)
-                    .one();
-            logger.debug(logPrfx + " --- query qry returned ONE result");
-        } catch (IllegalStateException e) {
-            logger.debug(logPrfx + " --- query qry returned NO results");
-        }
-
-        logger.trace(logPrfx + " <-- ");
-        return nodeType;
-    }
 
 }

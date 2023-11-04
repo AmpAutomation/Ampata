@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrNodeGenFileEdit.caption"
+        caption="msg://usrNodeGenFile0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
                   class="ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenFile"
                   fetchPlan="fetchPlan_UsrNodeGenFile_Base">
             <loader/>
+            <collection id="colPropCntnrGenTag" property="genTags1_Id">
+            </collection>
+            <collection id="colPropCntnrEdgeIns" property="edgeIns_Id">
+            </collection>
+            <collection id="colPropCntnrEdgeOts" property="edgeOts_Id">
+            </collection>
         </instance>
     </data>
     <facets>
@@ -26,178 +32,153 @@
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="instCntnrMain">
-                <column width="350px">
-                    <textField id="tenantField" property="tenant"/>
-                    <textField id="id2Field" property="id2"/>
-                    <textField id="id2CalcField" property="id2Calc"/>
-                    <checkBox id="id2CmpField" property="id2Cmp"/>
-                    <textField id="id2DupField" property="id2Dup"/>
-                    <textField id="classNameField" property="className"/>
-                    <entityPicker id="parent1_IdField" property="parent1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="parent1_Id2Field" property="parent1_Id2"/>
-                    <textArea id="ancestors1_Id2Field" property="ancestors1_Id2" rows="5"/>
-                    <textField id="sortIdxField" property="sortIdx"/>
-                    <textField id="sortKeyField" property="sortKey"/>
-                    <entityPicker id="type1_IdField" property="type1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="type1_Id2Field" property="type1_Id2"/>
-                    <textField id="instField" property="inst1"/>
-                    <textField id="name1Field" property="name1"/>
-                    <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="name1GenFmla1_Id2Field" property="name1GenFmla1_Id2"/>
-                    <textField id="name2Field" property="name2"/>
-                    <textField id="abrvField" property="abrv"/>
-                    <textField id="codeField" property="code"/>
-                    <textArea id="desc1Field" property="desc1" rows="5"/>
-                    <entityPicker id="desc1GenFmla1_IdField" property="desc1GenFmla1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="desc1GenFmla1_Id2Field" property="desc1GenFmla1_Id2"/>
-                    <textField id="statusField" property="status"/>
-                    <textField id="statusCalcField" property="statusCalc"/>
-                    <textArea id="noteField" property="note" rows="5"/>
-                    <textArea id="genDocVers1_Id2Field" property="genDocVers1_Id2" rows="5"/>
-                    <entityPicker id="genDocVer1_IdField" property="genDocVer1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genDocVer1_Id2Field" property="genDocVer1_Id2"/>
-                    <textField id="genDocVer1_CodeField" property="genDocVer1_Code"/>
-                    <textField id="genDocVer1_VerField" property="genDocVer1_Ver"/>
-                    <textField id="genDocVer1_Name1Field" property="genDocVer1_Name1"/>
-                    <entityPicker id="genFile1_IdField" property="genFile1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genFile1_Id2Field" property="genFile1_Id2"/>
-                    <textArea id="genFile1_URIField" property="genFile1_URI" rows="5"/>
-                    <textField id="genTags1_Id2Field" property="genTags1_Id2"/>
-                    <entityPicker id="genTag1_IdField" property="genTag1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genTag1_Id2Field" property="genTag1_Id2"/>
-                    <entityPicker id="genTag2_IdField" property="genTag2_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genTag2_Id2Field" property="genTag2_Id2"/>
-                    <entityPicker id="genTag3_IdField" property="genTag3_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genTag3_Id2Field" property="genTag3_Id2"/>
-                    <entityPicker id="genTag4_IdField" property="genTag4_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <textField id="genTag4_Id2Field" property="genTag4_Id2"/>
-                    <dateField id="ts1ElTsField" property="ts1.elTs"/>
-                    <dateField id="ts1Date1Field" property="ts1.elDt"/>
-                    <textField id="ts1ElDtYrField" property="ts1.elDtYr"/>
-                    <textField id="ts1ElDtQtrField" property="ts1.elDtQtr"/>
-                    <textField id="ts1ElDtMonField" property="ts1.elDtMon"/>
-                    <textField id="ts1ElDtMon2Field" property="ts1.elDtMon2"/>
-                    <textField id="ts1ElDtDayField" property="ts1.elDtDay"/>
-                    <timeField id="ts1ElTmField" property="ts1.elTm"/>
-                    <textField id="ts1ElTmHrField" property="ts1.elTmHr"/>
-                    <textField id="ts1ElTmMinField" property="ts1.elTmMin"/>
-                    <dateField id="ts2ElTsField" property="ts2.elTs"/>
-                    <dateField id="ts2ElDtField" property="ts2.elDt"/>
-                    <textField id="ts2ElDtYrField" property="ts2.elDtYr"/>
-                    <textField id="ts2ElDtQtrField" property="ts2.elDtQtr"/>
-                    <textField id="ts2ElDtMonField" property="ts2.elDtMon"/>
-                    <textField id="ts2ElDtMon2Field" property="ts2.elDtMon2"/>
-                    <textField id="ts2ElDtDayField" property="ts2.elDtDay"/>
-                    <timeField id="ts2ElTmField" property="ts2.elTm"/>
-                    <textField id="ts2ElTmHrField" property="ts2.elTmHr"/>
-                    <textField id="ts2ElTmMinField" property="ts2.elTmMin"/>
-                    <dateField id="ts3ElTsField" property="ts3.elTs"/>
-                    <dateField id="ts3ElDtField" property="ts3.elDt"/>
-                    <textField id="ts3ElDtYrField" property="ts3.elDtYr"/>
-                    <textField id="ts3ElDtQtrField" property="ts3.elDtQtr"/>
-                    <textField id="ts3ElDtMonField" property="ts3.elDtMon"/>
-                    <textField id="ts3ElDtMon2Field" property="ts3.elDtMon2"/>
-                    <textField id="ts3ElDtDayField" property="ts3.elDtDay"/>
-                    <timeField id="ts3ElTmField" property="ts3.elTm"/>
-                    <textField id="ts3ElTmHrField" property="ts3.elTmHr"/>
-                    <textField id="ts3ElTmMinField" property="ts3.elTmMin"/>
-                    <dateField id="end2Ts1Field" property="ts4.elTs"/>
-                    <dateField id="end2Date1Field" property="ts4.elDt"/>
-                    <textField id="end2Date1YrField" property="ts4.elDtYr"/>
-                    <textField id="end2Date1QtrField" property="ts4.elDtQtr"/>
-                    <textField id="end2Date1MonField" property="ts4.elDtMon"/>
-                    <textField id="end2Date1Mon2Field" property="ts4.elDtMon2"/>
-                    <textField id="end2Date1DayField" property="ts4.elDtDay"/>
-                    <timeField id="end2Time1Field" property="ts4.elTm"/>
-                    <textField id="end2Time1HrField" property="ts4.elTmHr"/>
-                    <textField id="end2Time1MinField" property="ts4.elTmMin"/>
-                    <entityPicker id="genChan1_IdField" property="genChan1_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <entityPicker id="genChan2_IdField" property="genChan2_Id">
-                        <actions>
-                            <action id="entityLookup" type="entity_lookup"/>
-                            <action id="entityClear" type="entity_clear"/>
-                        </actions>
-                    </entityPicker>
-                    <dateField id="n1s1Inst1TsElTsField" property="nm1s1Inst1Ts1.elTs"/>
-                    <dateField id="n1s1Inst1TsElDtField" property="nm1s1Inst1Ts1.elDt"/>
-                    <textField id="n1s1Inst1TsElDtYrField" property="nm1s1Inst1Ts1.elDtYr"/>
-                    <textField id="n1s1Inst1TsElDtQtrField" property="nm1s1Inst1Ts1.elDtQtr"/>
-                    <textField id="n1s1Inst1TsElDtMonField" property="nm1s1Inst1Ts1.elDtMon"/>
-                    <textField id="n1s1Inst1TsElDtMon2Field" property="nm1s1Inst1Ts1.elDtMon2"/>
-                    <textField id="n1s1Inst1TsElDtDayField" property="nm1s1Inst1Ts1.elDtDay"/>
-                    <timeField id="n1s1Inst1Ts1ElTmField" property="nm1s1Inst1Ts1.elTm"/>
-                    <textField id="n1s1Inst1Ts1ElTmHrField" property="nm1s1Inst1Ts1.elTmHr"/>
-                    <textField id="n1s1Inst1Ts1ElTmMinField" property="nm1s1Inst1Ts1.elTmMin"/>
-                    <dateField id="n1s1Inst1Dt1ElDtField" property="nm1s1Inst1Dt1.elDt"/>
-                    <textField id="n1s1Inst1Dt1ElDtYrField" property="nm1s1Inst1Dt1.elDtYr"/>
-                    <textField id="n1s1Inst1Dt1ElDtQtrField" property="nm1s1Inst1Dt1.elDtQtr"/>
-                    <textField id="n1s1Inst1Dt1ElDtMonField" property="nm1s1Inst1Dt1.elDtMon"/>
-                    <textField id="n1s1Inst1Dt1ElDtMon2Field" property="nm1s1Inst1Dt1.elDtMon2"/>
-                    <textField id="n1s1Inst1Dt1ElDtDayField" property="nm1s1Inst1Dt1.elDtDay"/>
-                    <timeField id="n1s1Inst1Tm1ElTmField" property="nm1s1Inst1Tm1.elTm"/>
-                    <textField id="n1s1Inst1Tm1ElTmHrField" property="nm1s1Inst1Tm1.elTmHr"/>
-                    <textField id="n1s1Inst1Tm1ElTmMinField" property="nm1s1Inst1Tm1.elTmMin"/>
-                </column>
+                <tabSheet id="tabsheet1" height="100%" width="100%">
+                    <tab id="tab_1"
+                         caption="Main"
+                         expand="tab1_hbox3"
+                         margin="true">
+
+                        <hbox id="tab1_hbox1" width="100%" spacing="true">
+                            <hbox caption="desc1" expand="desc1Field" width="2304px">
+                                <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
+                                <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                <button id="updateDesc1FieldFmlaBtn" icon="font-icon:WRENCH" tabIndex="-1"/>
+                            </hbox>
+                        </hbox>
+
+                        <hbox id="tab1_hbox2" width="100%" spacing="true">
+                            <hbox caption="genTags" expand="genTags1_IdField" width="2304px">
+                                <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
+                                    <query entityClass="ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag" fetchPlan="_instance_name"
+                                           escapeValueForLike="true" searchStringFormat="%${searchString}%">
+                                        <![CDATA[select e from enty_UsrItemGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
+                                    </query>
+                                </tagField>
+                            </hbox>
+                        </hbox>
+
+                        <hbox id="tab1_hbox3" width="100%" spacing="true">
+                            <vbox width="374px">
+                                <hbox caption="id" expand="id" width="100%">
+                                    <textField id="id" dataContainer="instCntnrMain"
+                                               property="id" editable="false"/>
+                                </hbox>
+                                <hbox caption="tenant" expand="tenantField" width="100%">
+                                    <textField id="tenantField" dataContainer="instCntnrMain"
+                                               property="tenant" editable="false"/>
+                                </hbox>
+                                <hbox caption="dtype" expand="dtypeField" width="100%">
+                                    <textField id="dtypeField" dataContainer="instCntnrMain"
+                                               property="dtype" editable="false"/>
+                                </hbox>
+                                <hbox caption="id2" expand="id2Field" width="100%">
+                                    <textField id="id2Field" dataContainer="instCntnrMain"
+                                               property="id2"/>
+                                    <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                                    <textField id="id2CalcField" dataContainer="instCntnrMain"
+                                               property="id2Calc" editable="false"/>
+                                    <button id="updateId2CalcFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox width="100%" spacing="true">
+                                    <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
+                                        <checkBox id="id2CmpField" dataContainer="instCntnrMain"
+                                                  property="id2Cmp" editable="false"/>
+                                        <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Dup" expand="id2DupField" width="181px">
+                                        <textField id="id2DupField" dataContainer="instCntnrMain"
+                                                   property="id2Dup" editable="false"/>
+                                        <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                </hbox>
+                                <hbox width="100%" spacing="true">
+                                    <hbox caption="sortIdx" expand="sortIdxField" width="181px">
+                                        <textField id="sortIdxField" dataContainer="instCntnrMain"
+                                                   property="sortIdx"/>
+                                    </hbox>
+                                    <hbox caption="sortKey" expand="sortKeyField" width="181px">
+                                        <textField id="sortKeyField" dataContainer="instCntnrMain"
+                                                   property="sortKey"/>
+                                        <button id="updateSortKeyFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    </hbox>
+                                </hbox>
+                            </vbox>
+
+                            <vbox width="374px">
+                                <hbox caption="parent1_Id" expand="parent1_IdField" width="100%">
+                                    <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
+                                                  property="parent1_Id">
+                                        <actions>
+                                            <action id="entityLookup" type="entity_lookup">
+                                                <properties>
+                                                    <property name="openMode" value="THIS_TAB"/>
+                                                    <property name="screenClass" value="ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0Lookup"/>
+                                                </properties>
+                                            </action>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityPicker>
+                                </hbox>
+                                <hbox caption="name1" expand="name1Field" width="100%">
+                                    <textField id="name1Field" dataContainer="instCntnrMain"
+                                               property="name1"/>
+                                    <button id="updateName1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    <button id="updateName1FieldFmlaBtn" icon="font-icon:WRENCH" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                    <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
+                                                    property="type1_Id">
+                                        <actions>
+                                            <action id="entityOpen" type="entity_open"/>
+                                            <action id="entityClear" type="entity_clear"/>
+                                        </actions>
+                                    </entityComboBox>
+                                    <button id="updateType1_IdFieldListBtn" icon="font-icon:LIST" tabIndex="-1"/>
+                                </hbox>
+                                <hbox caption="inst1" expand="inst1Field" width="100%">
+                                    <textField id="inst1Field" dataContainer="instCntnrMain"
+                                               property="inst1"/>
+                                    <button id="updateInst1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
+                                    <button id="updateInst1FieldFmlaBtn" icon="font-icon:WRENCH" tabIndex="-1"/>
+                                </hbox>
+                            </vbox>
+
+                            <vbox width="374px">
+                            </vbox>
+
+                        </hbox>
+
+                    </tab>
+
+                    <tab id="tab_9"
+                         caption="Note"
+                         expand="tab9_hbox1"
+                         margin="true">
+
+                        <hbox id="tab9_hbox1" width="100%" spacing="true">
+                            <hbox caption="note" expand="noteField" width="2304px" >
+                                <textArea id="noteField" dataContainer="instCntnrMain"
+                                          property="note"/>
+                            </hbox>
+                        </hbox>
+                    </tab>
+                </tabSheet>
             </form>
         </scrollBox>
         <hbox id="editActions" spacing="true">
+            <button id="reloadListsBtn" caption="Reload Lists" icon="font-icon:LIST"/>
+            <label value="|" align="MIDDLE_CENTER"/>
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
+            <label value="|" align="MIDDLE_CENTER"/>
+            <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+            <label value="Upd Option" align="MIDDLE_RIGHT"/>
+            <comboBox id="updateInstItemCalcValsOption" width="160px"/>
+            <label value="|" align="MIDDLE_CENTER"/>
+            <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
         </hbox>
     </layout>
 </window>

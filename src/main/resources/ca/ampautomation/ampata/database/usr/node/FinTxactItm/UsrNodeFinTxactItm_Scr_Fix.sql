@@ -3,7 +3,7 @@
 
 
 update ampata_usr_node_type t
-	set class_name ='FinTxactItm'
+	set dtype ='enty_UsrNodeFinTxactItm'
 where t.dtype = 'enty_UsrNodeFinTxfer'
 
 
@@ -12,7 +12,7 @@ where t.dtype = 'enty_UsrNodeFinTxfer'
 -- Update id2
 update ampata_usr_node t
 	set id2 = t.id2_calc
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 and t.id2_calc is not null
 and t.id2_calc <> ''
 
@@ -32,8 +32,8 @@ update ampata_usr_node as t
 set fin_txact1__id2 = t1.id2
 from ampata_usr_node as t1
 where t.fin_txact1__id = t1.id 
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinTxact'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinTxact'
 ;
 
 
@@ -42,7 +42,7 @@ update ampata_usr_node as t
 set fin_fmla1__id = t1.id
 from ampata_sys_entity as t1
 where t.fin_fmla1__id2 = t1.id2 
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemGenFmla'
 ;
 
@@ -54,7 +54,7 @@ select
 from ampata_usr_node as t
 	,ampata_sys_entity as t1
 where t.fin_fmla1__id2 = t1.id2 
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemGenFmla'
 ;*/
 
@@ -63,16 +63,16 @@ update ampata_usr_node t
 set fin_txact_itm1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_txact_itm1__id = t1.id
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinTxactItm'
 ;
 
 update ampata_usr_node t
 set fin_txact_itm1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_txact_itm1__id = t1.id
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinTxactItm'
 ;
 
 
@@ -84,8 +84,8 @@ select
 from ampata_usr_node t
 	,ampata_usr_node t1
 where t.fin_txact_itm1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinTxactItm'
 
 select
 	 t.id2
@@ -93,7 +93,7 @@ select
 	,t.fin_txact_itm1__id2 
 
 from ampata_usr_node t
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 and t.fin_txact_itm1__id2 <> ''
 and t.fin_txact_itm1__id is null
 
@@ -105,7 +105,7 @@ select
 	,t.fin_txact_itm1__id2 
 
 from ampata_usr_node t
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 and t.id2_calc like 'D20170413-T0000-X01%'
 	
 
@@ -141,13 +141,13 @@ update ampata_usr_node t
 set fin_acct1__id = t1.id
 from ampata_usr_node t1
 where t.fin_acct1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinAcct'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinAcct'
 ;
 
 update ampata_usr_node t
 set fin_acct1__id2 = replace(t.fin_acct1__id2,'|','/')
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 and not t.fin_acct1__id2 is null
 
 
@@ -162,13 +162,13 @@ update ampata_usr_node t
 set fin_stmt1__id = t1.id
 from ampata_usr_node t1
 where t.fin_stmt1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinStmt'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinStmt'
 ;
 
 update ampata_usr_node t
 set fin_stmt1__id2 = replace(t.fin_stmt1__id2,'|','/')
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 and not t.fin_stmt1__id2 is null
 
 
@@ -186,8 +186,8 @@ update ampata_usr_node t
 set fin_dept1__id = t1.id
 from ampata_usr_node t1
 where t.fin_dept1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
-and t1.class_name ='FinDept'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeFinDept'
 ;
 
 update ampata_usr_node t
@@ -209,16 +209,16 @@ update ampata_usr_node t
 set fin_tax_lne1__id = t1.id
 from ampata_usr_node t1
 where t.fin_tax_lne1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
-and t1.class_name ='GenDocFrg'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeGenDocFrg'
 ;
 
 update ampata_usr_node t
 set fin_tax_lne1__id2 = t1.id2
 from ampata_usr_node t1
 where t.fin_tax_lne1__id = t1.id
-and t.class_name ='FinTxactItm'
-and t1.class_name ='GenDocFrg'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeGenDocFrg'
 ;
 
 
@@ -229,8 +229,8 @@ from ampata_usr_node t
 left join ampata_usr_node t1
 on  t.fin_tax_lne1__id2 = t1.id2
 where t1.id=null
-and t.class_name ='FinTxactItm'
-and t1.class_name ='GenDocFrg'
+and t.dtype ='enty_UsrNodeFinTxactItm'
+and t1.dtype ='enty_UsrNodeGenDocFrg'
 
 group by t.fin_tax_lne1__id2 
 order by t.fin_tax_lne1__id2 
@@ -257,7 +257,7 @@ update ampata_usr_node t
 set fin_rate1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_rate1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='ampata_FinRate'
 
 
@@ -273,10 +273,10 @@ select
 from ampata_usr_node t
 	, ampata_sys_entity t1
 where t.fin_rate1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='ampata_FinRate'
-and t2.class_name ='FinCurcy'
-and t3.class_name ='FinCurcy'
+and t2.dtype ='enty_UsrNodeFinCurcy'
+and t3.dtype ='enty_UsrNodeFinCurcy'
 ;
 
 
@@ -286,7 +286,7 @@ update ampata_usr_node t
 set fin_how1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_how1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemFinHow'
 ;
 
@@ -295,7 +295,7 @@ update ampata_usr_node t
 set fin_what1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_what1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemFinWhat'
 ;
 
@@ -304,7 +304,7 @@ update ampata_usr_node t
 set fin_txact1__what1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_txact1__what1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemFinWhat'
 ;
 
@@ -316,7 +316,7 @@ update ampata_usr_node t
 set fin_why1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_why1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemFinWhy'
 ;
 
@@ -325,7 +325,7 @@ update ampata_usr_node t
 set fin_txact1__why1__id = t1.id
 from ampata_sys_entity t1
 where t.fin_txact1__why1__id2 = t1.id2
-and t.class_name ='FinTxactItm'
+and t.dtype ='enty_UsrNodeFinTxactItm'
 and t1.dtype ='enty_UsrItemFinWhy'
 ;
 
@@ -335,7 +335,7 @@ update ampata_usr_node t
 set 
 	 ts2_el_dt = fin_txact1__ts1_el_dt
 	,ts2_el_tm = fin_txact1__ts1_el_tm
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 ;
 
 
@@ -343,7 +343,7 @@ update ampata_usr_node t
 set 
 	 ts1_el_ts =	case when ts1_el_dt is not null then (ts1_el_dt + case when ts1_el_tm is not null then ts1_el_tm else '00:00'::time end)::timestamp else null end
 	,ts2_el_ts =	case when ts2_el_dt is not null then (ts2_el_dt + case when ts2_el_tm is not null then ts2_el_tm else '00:00'::time end)::timestamp else null end
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 ;
 
 select 
@@ -357,7 +357,7 @@ select
 	,ts2_el_dt
 	,ts2_el_tm
 from ampata_usr_node t
-where t.class_name ='FinTxactItm'
+where t.dtype ='enty_UsrNodeFinTxactItm'
 
 
 
@@ -392,7 +392,7 @@ where id = 'edbaf1b0-f717-4c6a-8e0b-c53df9b23ea3'
 SELECT
 t.id
 ,t.id2
-,t.class_name 
+,t.dtype
 ,t.fin_txact1__ts1_el_dt
 from ampata_usr_node t
 WHERE t.fin_txact1__ts1_el_dt is not null
@@ -459,5 +459,149 @@ where t.dtype = 'enty_UsrNodeFinTxactItm'
 
 
 
+
+UPDATE ampata_usr_node t 
+set parent1__id = t.fin_txact1__id 
+where t.dtype = 'enty_UsrNodeFinTxactItm'
+
+
+UPDATE ampata_usr_node t 
+set parent1__id = t.fin_txact_set1__id 
+where t.dtype = 'enty_UsrNodeFinTxact'
+
+
+
+
+
+
+
+--ts1
+select count(*)
+from (
+
+select 
+case when ftx.ts1_el_ts <> ftxi.ts1_el_ts or ftxs.ts1_el_ts <> ftxi.ts1_el_ts 
+	then 'ts1_el_ts' 
+	else 
+		case when ftx.int1 <> ftxi.int1 or ftxs.sort_idx <> ftxi.int1
+			then 'int1' 
+			else 
+				case when ftx.sort_idx <> ftxi.int2
+					then 'int2' 
+					else 'good'
+					end
+			end
+	end
+
+,ftxs.id2
+,ftxs.ts1_el_ts
+,ftxs.sort_idx
+
+,ftx.id2
+,ftx.ts1_el_ts 
+,ftx.int1
+,ftx.sort_idx
+
+,ftxi.parent1__id 
+,ftxi.id 
+,ftxi.id2
+,ftxi.ts1_el_ts
+,ftxi.ts2_el_ts
+,ftxi.ts3_el_ts
+,ftxi.int1
+,ftxi.int2
+,ftxi.sort_idx
+,ftxi.desc1
+from ampata_usr_node ftxi
+inner join ampata_usr_node ftx
+on ftx.id = ftxi.parent1__id 
+inner join ampata_usr_node ftxs
+on ftxs.id = ftx.parent1__id 
+where ftxi.dtype = 'enty_UsrNodeFinTxactItm'
+and (
+    ftx.ts1_el_ts <> ftxi.ts1_el_ts 
+or ftxs.ts1_el_ts <> ftxi.ts1_el_ts 
+or ftx.int1 <> ftxi.int1
+or ftxs.sort_idx <> ftxi.int1
+or ftx.sort_idx <> ftxi.int2
+
+)
+order by ftxi.id2
+
+)t2
+
+select
+t.id
+,t.id2
+,t.ts1_el_ts 
+,t.int1 
+,t.sort_idx
+
+from ampata_usr_node t
+where t.dtype = 'enty_UsrNodeFinTxact'
+and t.ts1_el_ts = '2019-06-24 00:00:00.000'
+
+
+select
+t.tenant
+,t.id
+,t.id2
+,t.ts1_el_ts 
+,t.int1 
+,t.sort_idx
+,t.amt_debt
+,t.amt_cred
+,t.amt_net
+
+from ampata_usr_node t
+where t.dtype = 'enty_UsrNodeFinStmtItm'
+and t.ts1_el_ts >= '2019-06-23 00:00:00.000'
+and t.ts1_el_ts <= '2019-06-25 00:00:00.000'
+
+
+select 
+ftxi.id2
+,ftxi.desc1
+,ftxi.int2
+,ftxi.int1
+from ampata_usr_node ftxi
+inner join ampata_usr_node ftx
+on ftx.id = ftxi.parent1__id 
+inner join ampata_usr_node ftxs
+on ftxs.id = ftx.parent1__id 
+where ftxi.dtype = 'enty_UsrNodeFinTxactItm'
+and ftxi.ts1_el_ts <> ftx.ts1_el_ts 
+order by ftxi.id2
+
+select 
+ftxi.id2
+from ampata_usr_node ftxi
+where ftxi.dtype ='enty_UsrNodeFinTxactItm'
+and ftxi.parent1__id = '89d095e6-c5ad-e21e-6b91-f944d04f4f7f'
+
+
+select 
+ftxi.id
+,ftxi.id2
+,fsti.id
+,fsti.id2
+from ampata_usr_node ftxi
+inner join ampata_usr_node fsti
+on ftxi.fin_stmt_itm1__id = fsti.id
+where ftxi.dtype ='enty_UsrNodeFinTxactItm'
+and fsti.deleted_by is not null
+
+
+select 
+fsti.id
+,fsti.id2
+--,fsti.deleted_by 
+--,fsti.deleted_date 
+,fsti.txt1
+,fsti.txt2
+,fsti.txt3
+,fsti.txt4
+from ampata_usr_node fsti
+where dtype = 'enty_UsrNodeFinStmtItm'
 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <dropColumn tableName="AMPATA_USR_NODE_TYPE" columnName="AMT_NET2"/>
+        <dropColumn tableName="AMPATA_USR_NODE_TYPE" columnName="FIN_TXACT_ITMS1__AMT_NET2_SUM"/>
+        <dropColumn tableName="AMPATA_USR_NODE_TYPE" columnName="FIN_TXACT_ITMS1__AMT_NET2_SUM_DIFF"/>
+    </changeSet>
+
+    <changeSet id="2" author="ampata">
+        <addColumn tableName="AMPATA_USR_NODE">
+            <column name="AMT_NET2" type="DECIMAL(19, 9)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET2_SUM_CALC" type="DECIMAL(19, 9)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET2_SUM_DIFF" type="DECIMAL(19, 9)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.11.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <addColumn tableName="AMPATA_USR_NODE_TYPE">
+            <column name="AMT_NET2" type="DECIMAL(19, 9)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET2_SUM" type="DECIMAL(19, 9)"/>
+            <column name="FIN_TXACT_ITMS1__AMT_NET2_SUM_DIFF" type="DECIMAL(19, 9)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

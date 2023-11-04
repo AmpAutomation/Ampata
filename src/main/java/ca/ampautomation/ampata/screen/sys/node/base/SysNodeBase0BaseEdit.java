@@ -1,9 +1,10 @@
 package ca.ampautomation.ampata.screen.sys.node.base;
 
-import ca.ampautomation.ampata.entity.sys.comn.SysComnBaseQryMngr;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
+import ca.ampautomation.ampata.repo.sys.node.base.SysNodeBase0Repo;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import ca.ampautomation.ampata.entity.sys.item.gen.SysItemGenFmla;
+import ca.ampautomation.ampata.service.sys.node.base.SysNodeBase0Service;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -12,7 +13,6 @@ import io.jmix.ui.model.*;
 import io.jmix.ui.screen.StandardEditor;
 import io.jmix.ui.screen.Subscribe;
 import io.jmix.ui.screen.Target;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManagerFactory;
 import java.lang.reflect.ParameterizedType;
 
-public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT extends SysNodeBaseType, NodeQryMngrT extends SysComnBaseQryMngr> extends StandardEditor<NodeT> {
+public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT extends SysNodeBaseType, NodeServiceT extends SysNodeBase0Service, NodeRepoT extends SysNodeBase0Repo> extends StandardEditor<NodeT> implements SysNodeBase0BaseComn{
 
 
     //Common
@@ -42,12 +42,15 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
                         .getActualTypeArguments()[0];
     }
 
+    //Service
+    protected NodeServiceT service;
 
-    @Autowired
-    protected UiComponents uiComponents;
+    protected NodeServiceT getService(){
+        return service;
+    }
 
-    @Autowired
-    protected EntityManagerFactory entityManagerFactory;
+    public void setService(NodeServiceT service) { this.service = service; }
+
 
     @Autowired
     protected DataComponents dataComponents;
@@ -71,8 +74,14 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
     protected Notifications notifications;
 
 
-    //Query Manager
-    protected NodeQryMngrT qryMngr;
+
+    //Repository
+    protected NodeRepoT repo;
+    protected NodeRepoT getRepo(){
+        return repo;
+    }
+
+    public void setRepo(NodeRepoT repo) { this.repo = repo; }
 
 
     //Toolbar
@@ -97,9 +106,6 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
 
 
     //Field
-    @Autowired
-    protected TextField<String> classNameField;
-
     @Autowired
     protected TextField<String> id2Field;
 
@@ -238,10 +244,12 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
             logger.trace(logPrfx + " <-- ");
             return;
         }
+/*
         if (StringUtils.isEmpty(thisNode.getClassName())) {
             thisNode.setClassName(typeOfNodeT.getSimpleName());
             logger.debug(logPrfx + " --- className: " + typeOfNodeT.getSimpleName());
         }
+*/
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -391,17 +399,6 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateName1GenFmla1_IdFieldListBtn")
-    public void onUpdateName1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateName1GenFmla1_IdFieldListBtnClick[super]";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
 
     @Subscribe("Type1_IdField")
     public void onType1_IdFieldValueChange(HasValue.ValueChangeEvent<SysNodeBaseType> event) {
@@ -468,17 +465,8 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    @Subscribe("updateDesc1GenFmla1_IdFieldListBtn")
-    public void onUpdateDesc1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1GenFmla1_IdFieldListBtnClick[super]";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrType.load() ");
-
-        logger.trace(logPrfx + " <-- ");
+    public Notifications getNotifications(){
+        return notifications;
     }
-
 
 }

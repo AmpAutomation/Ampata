@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrNodeBaseEdit.caption"
+        caption="msg://usrNodeBase0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
@@ -54,7 +54,6 @@
                                     <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false" tabIndex="10"/>
                                     <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
-                                <textField id="classNameField" property="className" editable="false"/>
                                 <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                     <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
                                                     property="type1_Id" tabIndex="10">
@@ -81,9 +80,8 @@
                                 </hbox>
                             </column>
                             <column>
-                                <dateField id="n1s1Inst1TsElTsField" property="nm1s1Inst1Ts1.elTs" datatype="localDateTime" editable="false" width="220px" tabIndex="30"/>
-                                <dateField id="ts1ElTsField" property="ts1.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
-                                <dateField id="ts2ElTsField" property="ts2.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="ts1_ElTsField" property="ts1.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
+                                <dateField id="ts2_ElTsField" property="ts2.elTs" datatype="localDateTime" width="220px" tabIndex="30"/>
                             </column>
                             <column width="360px">
                             </column>

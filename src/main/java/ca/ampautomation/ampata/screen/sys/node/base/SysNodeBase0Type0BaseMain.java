@@ -1,8 +1,9 @@
 package ca.ampautomation.ampata.screen.sys.node.base;
 
-import ca.ampautomation.ampata.entity.sys.comn.SysComnBaseQryMngr;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import ca.ampautomation.ampata.entity.sys.item.gen.SysItemGenFmla;
+import ca.ampautomation.ampata.repo.sys.node.base.SysNodeBase0Type0Repo;
+import ca.ampautomation.ampata.service.sys.node.base.SysNodeBase0Type0Service;
 import io.jmix.core.*;
 import io.jmix.ui.Notifications;
 import io.jmix.ui.UiComponents;
@@ -11,7 +12,6 @@ import io.jmix.ui.model.*;
 import io.jmix.ui.screen.MasterDetailScreen;
 import io.jmix.ui.screen.Subscribe;
 import io.jmix.ui.screen.Target;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 
-public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseType, NodeTypeQryMngrT extends SysComnBaseQryMngr> extends MasterDetailScreen<NodeTypeT> {
+public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseType, NodeTypeServiceT extends SysNodeBase0Type0Service, NodeTypeRepoT extends SysNodeBase0Type0Repo> extends MasterDetailScreen<NodeTypeT> {
 
     //Common
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -36,11 +36,19 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
                         .getActualTypeArguments()[0];
     }
 
-    @Autowired
-    protected UiComponents uiComponents;
 
-    @Autowired
-    protected EntityManagerFactory entityManagerFactory;
+    protected ListComponent<NodeTypeT> getTable() {
+        return (ListComponent) getWindow().getComponentNN("tableMain");
+    }
+
+    //Service
+    protected NodeTypeServiceT service;
+
+    protected NodeTypeServiceT getService(){
+        return service;
+    }
+
+    public void setService(NodeTypeServiceT service) { this.service = service; }
 
     @Autowired
     protected DataComponents dataComponents;
@@ -64,8 +72,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     protected Notifications notifications;
 
 
-    //Query Manager
-    protected NodeTypeQryMngrT qryMngr;
+
+    //Repository
+    protected NodeTypeRepoT repo;
+    protected NodeTypeRepoT getRepo(){
+        return repo;
+    }
+
+    public void setRepo(NodeTypeRepoT repo) { this.repo = repo; }
 
 
     //Filter
@@ -99,8 +113,6 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     //Field
-    @Autowired
-    protected TextField<String> classNameField;
 
     @Autowired
     protected TextField<String> id2Field;
@@ -113,10 +125,6 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
     @Autowired
     protected EntityComboBox<SysItemGenFmla> desc1GenFmla1_IdField;
-
-    protected ListComponent<NodeTypeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
 
     @Subscribe
     public void onInit(InitEvent event) {
@@ -143,7 +151,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         colLoadrMain.load();
-        tableMain.sort("id2", Table.SortDirection.ASCENDING);
+        //tableMain.sort("sortKey", Table.SortDirection.ASCENDING);
 
     }
 
@@ -172,10 +180,12 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
             logger.trace(logPrfx + " <-- ");
             return;
         }
+/*
         if (thisNodeType.getClassName() == null || thisNodeType.getClassName().isBlank()){
             thisNodeType.setClassName(typeOfNodeTypeT.getSimpleName());
             logger.debug(logPrfx + " --- className: " + typeOfNodeTypeT.getSimpleName());
         }
+*/
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -195,9 +205,9 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        logger.debug(logPrfx + " --- executing qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
-        qryMngr.execPrUpdAllCalcValsforAllRowsNative();
-        logger.debug(logPrfx + " --- finished qryMngr.execPrUpdAllCalcValsforAllRowsNative()");
+        logger.debug(logPrfx + " --- executing repo.execPr_Upd_AllCalcVals_ForAllRows");
+        repo.execPr_Upd_AllCalcVals_ForAllRows();
+        logger.debug(logPrfx + " --- finished repo.execPr_Upd_AllCalcVals_ForAllRows");
 
         logger.debug(logPrfx + " --- loading colLoadrMain.load()");
         colLoadrMain.load();
@@ -312,7 +322,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
                 logger.debug(logPrfx + " --- executing colLoadrMain.load().");
                 colLoadrMain.load();
 
-                tableMain.sort("id2", Table.SortDirection.ASCENDING);
+                //tableMain.sort("id2", Table.SortDirection.ASCENDING);
                 tableMain.setSelected(thisNodeTypes);
             }
         }
@@ -351,7 +361,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            tableMain.sort("id2", Table.SortDirection.ASCENDING);
+            //tableMain.sort("id2", Table.SortDirection.ASCENDING);
             tableMain.setSelected(thisNodes);
         }
 
@@ -372,10 +382,12 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
             logger.trace(logPrfx + " <-- ");
             return;
         }
+/*
         if (StringUtils.isEmpty(thisNodeType.getClassName())) {
             thisNodeType.setClassName(typeOfNodeTypeT.getSimpleName());
             logger.debug(logPrfx + " --- className: " + typeOfNodeTypeT.getSimpleName());
         }
+*/
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -523,17 +535,6 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Subscribe("updateName1GenFmla1_IdFieldListBtn")
-    public void onUpdateName1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateName1GenFmla1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
     @Subscribe("updateInst1GenFmla1_IdFieldListBtn")
     public void onUpdateInst1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
         String logPrfx = "onUpdateInst1GenFmla1_IdFieldListBtnClick";
@@ -558,18 +559,6 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
             return;
         }
         thisNodeType.updateDesc1(dataManager);
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-
-    @Subscribe("updateDesc1GenFmla1_IdFieldListBtn")
-    public void onUpdateDesc1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
-        String logPrfx = "onUpdateDesc1GenFmla1_IdFieldListBtnClick";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrGenFmla.load();
-        logger.debug(logPrfx + " --- called colLoadrGenFmla.load() ");
 
         logger.trace(logPrfx + " <-- ");
     }

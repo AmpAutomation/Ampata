@@ -1,6 +1,6 @@
 <window xmlns="http://jmix.io/schema/ui/window"
         xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://sysNodeFinCurcyMain.caption"
+        caption="msg://sysNodeFinCurcy0Main.caption"
         focusComponent="tableMain">
     <data>
         <collection id="colCntnrMain"
@@ -8,7 +8,7 @@
                     fetchPlan="fetchPlan_SysNodeFinCurcy_Base">
             <loader id="colLoadrMain">
                 <query>
-                    <![CDATA[select e from enty_SysNodeFinCurcy ORDER BY e.sortKey]]>
+                    <![CDATA[select e from enty_SysNodeFinCurcy e order by e.sortKey]]>
                 </query>
             </loader>
         </collection>
@@ -56,12 +56,11 @@
                     </actions>
                     <columns>
                         <column id="dtype" />
-                        <column id="className"/>
                         <column id="id2"/>
                         <column id="id2Calc"/>
                         <column id="id2Cmp"/>
                         <column id="id2Dup"/>
-                        <column id="parent1_Id"/>
+                        <column id="parent1_Id" caption="parent1_Id"/>
                         <column id="sortIdx"/>
                         <column id="sortKey"/>
                         <column id="name1"/>
@@ -125,13 +124,13 @@
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
-                             caption="General"
+                             caption="Main"
                              margin="true"
                              spacing="true"
                              expand="tab1_hbox2">
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
-                                <hbox caption="desc1" expand="desc1Field" width="1100px">
+                                <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
                                     <button id="updateDesc1FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                 </hbox>
@@ -155,9 +154,6 @@
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" property="dtype" editable="false"/>
                                     </hbox>
-                                    <hbox caption="className" expand="classNameField" width="100%">
-                                        <textField id="classNameField" property="className"/>
-                                    </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
                                         <button id="updateId2FieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
@@ -171,7 +167,7 @@
                                             <checkBox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" editable="false"/>
                                             <button id="updateId2CmpFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
-                                        <hbox caption="id2Dup" expand="id2DupField" width="120px">
+                                        <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" editable="false"/>
                                             <button id="updateId2DupFieldBtn" icon="font-icon:REFRESH" tabIndex="-1"/>
                                         </hbox>
@@ -191,7 +187,12 @@
                                         <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
                                                       property="parent1_Id">
                                             <actions>
-                                                <action id="entityLookup" type="entity_lookup"/>
+                                                <action id="entityLookup" type="entity_lookup">
+                                                    <properties>
+                                                        <property name="openMode" value="THIS_TAB"/>
+                                                        <property name="screenClass" value="ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0Lookup"/>
+                                                    </properties>
+                                                </action>
                                                 <action id="entityOpen" type="entity_open"/>
                                                 <action id="entityClear" type="entity_clear"/>
                                             </actions>
@@ -236,7 +237,7 @@
                              margin="true"
                              spacing="true">
 
-                            <hbox width="1100px" expand="noteField">
+                            <hbox caption="note" expand="noteField" width="2304px" >
                                 <textArea id="noteField" property="note" dataContainer="instCntnrMain"/>
                             </hbox>
                         </tab>
