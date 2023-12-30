@@ -9,7 +9,7 @@ import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixProperty;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 @JmixEntity
 @Entity(name = "enty_UsrNodeFinTxactItm")

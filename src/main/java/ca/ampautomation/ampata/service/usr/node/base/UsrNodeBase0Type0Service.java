@@ -4,9 +4,9 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseGrpg;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.other.Globals;
 import ca.ampautomation.ampata.other.UpdateOption;
-import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseComn;
-import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseEdit;
-import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
+import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseComn;
+import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseEdit;
+import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.DataManager;
 import io.jmix.core.MetadataTools;
 import io.jmix.ui.Notifications;
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Transient;
+import jakarta.persistence.Transient;
 import java.util.Objects;
 import java.util.Optional;
 

@@ -1,129 +1,133 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<menu-config xmlns="http://jmix.io/schema/ui/menu">
-    <menu id="usr" caption="msg://ca.ampautomation.ampata.menu/usr">
-        <menu id="usrGen" caption="msg://ca.ampautomation.ampata.menu/usrGen">
-            <menu id="usrGenItem" caption="msg://ca.ampautomation.ampata.menu/usrGenItem">
-                <menu id="usrItemGenTag" caption="msg://ca.ampautomation.ampata.menu/usrItemGenTag">
-                    <item screen="enty_UsrItemGenTag.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.gen/usrItemGenTag0Main.menu"/>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+    <menu id="usr" title="msg://ca.ampautomation.ampata.menu/usr">
+        <menu id="usrGen" title="msg://ca.ampautomation.ampata.menu/usrGen">
+            <menu id="usrGenItem" title="msg://ca.ampautomation.ampata.menu/usrGenItem">
+                <menu id="usrItemGenTag" title="msg://ca.ampautomation.ampata.menu/usrItemGenTag">
+                    <item view="enty_UsrItemGenTag.main" title="msg://ca.ampautomation.ampata.view.usr.item.gen/usrItemGenTag0Main.menu"/>
                 </menu>
-                <menu id="usrItemGenFmla" caption="msg://ca.ampautomation.ampata.menu/usrItemGenFmla">
-                    <item screen="enty_UsrItemGenFmla.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.gen/usrItemGenFmla0Browse.menu"/>
-                </menu>
-            </menu>
-            <menu id="usrNodeGen" caption="Nodes">
-                <menu id="usrNodeGenBasic" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenBasic">
-                    <item screen="enty_UsrNodeGenBasic.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenBasic0Main.menu"/>
-                </menu>
-                <menu id="usrNodeGenUnion" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenUnion">
-                    <item screen="enty_UsrNodeGenUnion.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenUnion0Main.menu"/>
-                </menu>
-                <menu id="usrNodeGenAgent" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenAgent">
-                    <item screen="enty_UsrNodeGenAgent.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenAgent0Main.menu"/>
-                </menu>
-                <menu id="usrNodeGenChan" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenChan">
-                    <item screen="enty_UsrNodeGenChan.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenChan0Main.menu"/>
-                </menu>
-                <menu id="usrGenDoc" caption="msg://ca.ampautomation.ampata.menu/usrGenDoc">
-                    <item screen="enty_UsrNodeGenDocVer.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenDocVer0Main.menu"/>
-                    <item screen="enty_UsrNodeGenDocFrg.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenDocFrg0Main.menu"/>
-                </menu>
-                <menu id="usrNodeGenFile" caption="msg://ca.ampautomation.ampata.menu/usrNodeGenFile">
-                    <item screen="enty_UsrNodeGenFile.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenFile0Main.menu"/>
+                <menu id="usrItemGenFmla" title="msg://ca.ampautomation.ampata.menu/usrItemGenFmla">
+                    <item view="enty_UsrItemGenFmla.main" title="msg://ca.ampautomation.ampata.view.usr.item.gen/usrItemGenFmla0Browse.menu"/>
                 </menu>
             </menu>
-            <menu id="usrEdgeGen" caption="Edges">
-                <menu id="usrEdgeGenBasic" caption="msg://ca.ampautomation.ampata.menu/usrEdgeGenBasic">
-                    <item screen="enty_UsrEdgeGenBasic.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.gen/usrNodeGenBasic0Main.menu"/>
+            <menu id="usrNodeGen" title="Nodes">
+                <menu id="usrNodeGenBasic" title="msg://ca.ampautomation.ampata.menu/usrNodeGenBasic">
+                    <item view="enty_UsrNodeGenBasic.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenBasic0Main.menu"/>
+                </menu>
+                <menu id="usrNodeGenUnion" title="msg://ca.ampautomation.ampata.menu/usrNodeGenUnion">
+                    <item view="enty_UsrNodeGenUnion.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenUnion0Main.menu"/>
+                </menu>
+                <menu id="usrNodeGenAgent" title="msg://ca.ampautomation.ampata.menu/usrNodeGenAgent">
+                    <item view="enty_UsrNodeGenAgent.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenAgent0Main.menu"/>
+                </menu>
+                <menu id="usrNodeGenChan" title="msg://ca.ampautomation.ampata.menu/usrNodeGenChan">
+                    <item view="enty_UsrNodeGenChan.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenChan0Main.menu"/>
+                </menu>
+                <menu id="usrGenDoc" title="msg://ca.ampautomation.ampata.menu/usrGenDoc">
+                    <item view="enty_UsrNodeGenDocVer.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenDocVer0Main.menu"/>
+                    <item view="enty_UsrNodeGenDocFrg.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenDocFrg0Main.menu"/>
+                </menu>
+                <menu id="usrNodeGenFile" title="msg://ca.ampautomation.ampata.menu/usrNodeGenFile">
+                    <item view="enty_UsrNodeGenFile.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenFile0Main.menu"/>
+                </menu>
+            </menu>
+            <menu id="usrEdgeGen" title="Edges">
+                <menu id="usrEdgeGenBasic" title="msg://ca.ampautomation.ampata.menu/usrEdgeGenBasic">
+                    <item view="enty_UsrEdgeGenBasic.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenBasic0Main.menu"/>
                 </menu>
             </menu>
         </menu>
-        <menu id="usrFin" caption="msg://ca.ampautomation.ampata.menu/usrFin">
-            <menu id="usrNodeFinAcct" caption="msg://ca.ampautomation.ampata.menu/usrNodeFinAcct">
-                <item screen="enty_UsrNodeFinAcct.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinAcct0Main.menu"/>
-                <item screen="enty_UsrNodeFinAcctType.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinAcctType0Main.menu"/>
+        <menu id="usrFin" title="msg://ca.ampautomation.ampata.menu/usrFin">
+            <menu id="usrNodeFinAcct" title="msg://ca.ampautomation.ampata.menu/usrNodeFinAcct">
+                <item view="enty_UsrNodeFinAcct.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinAcct0Main.menu"/>
+                <item view="enty_UsrNodeFinAcctType.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinAcctType0Main.menu"/>
             </menu>
-            <menu id="usrNodeFinDept" caption="msg://ca.ampautomation.ampata.menu/usrNodeFinDept">
-                <item screen="enty_UsrNodeFinDept.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinDept0Main.menu"/>
+            <menu id="usrNodeFinDept" title="msg://ca.ampautomation.ampata.menu/usrNodeFinDept">
+                <item view="enty_UsrNodeFinDept.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinDept0Main.menu"/>
             </menu>
-            <menu id="usrNodeFinBal" caption="msg://ca.ampautomation.ampata.menu/usrNodeFinBal">
-                <item screen="enty_UsrNodeFinBalSet.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinBalSet0Main.menu"/>
-                <item screen="enty_UsrNodeFinBalSetType.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinBalSetType0Main.menu"/>
+            <menu id="usrNodeFinBal" title="msg://ca.ampautomation.ampata.menu/usrNodeFinBal">
+                <item view="enty_UsrNodeFinBalSet.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinBalSet0Main.menu"/>
+                <item view="enty_UsrNodeFinBalSetType.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinBalSetType0Main.menu"/>
                 <separator> --- </separator>
-                <item screen="enty_UsrNodeFinBal.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinBal0Main.menu"/>
+                <item view="enty_UsrNodeFinBal.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinBal0Main.menu"/>
             </menu>
-            <menu id="usrNodeFinStmt" caption="msg://ca.ampautomation.ampata.menu/usrNodeFinStmt">
-                <item screen="enty_UsrNodeFinStmt.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinStmt0Main.menu"/>
-                <item screen="enty_UsrNodeFinStmtItm.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinStmtItm0Main.menu"/>
+            <menu id="usrNodeFinStmt" title="msg://ca.ampautomation.ampata.menu/usrNodeFinStmt">
+                <item view="enty_UsrNodeFinStmt.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinStmt0Main.menu"/>
+                <item view="enty_UsrNodeFinStmtItm.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinStmtItm0Main.menu"/>
             </menu>
             <separator> --- </separator>
-            <menu id="usrNodeFinTxact" caption="msg://ca.ampautomation.ampata.menu/usrNodeFinTxact">
-                <item screen="enty_UsrNodeFinTxactSet.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinTxactSet0Main.menu"/>
-                <item screen="enty_UsrNodeFinTxactSetType.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinTxactSetType0Main.menu"/>
+            <menu id="usrNodeFinTxact" title="msg://ca.ampautomation.ampata.menu/usrNodeFinTxact">
+                <item view="enty_UsrNodeFinTxactSet.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinTxactSet0Main.menu"/>
+                <item view="enty_UsrNodeFinTxactSetType.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinTxactSetType0Main.menu"/>
                 <separator> --- </separator>
-                <item screen="enty_UsrNodeFinTxact.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinTxact0Main.menu"/>
-                <item screen="enty_UsrNodeFinTxactItm.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.fin/usrNodeFinTxactItm0Main.menu"/>
+                <item view="enty_UsrNodeFinTxact.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinTxact0Main.menu"/>
+                <item view="enty_UsrNodeFinTxactItm.main" title="msg://ca.ampautomation.ampata.view.usr.node.fin/usrNodeFinTxactItm0Main.menu"/>
             </menu>
-            <menu id="usrFinItem" caption="msg://ca.ampautomation.ampata.menu/usrFinItem">
-                <item screen="enty_UsrItemFinHow.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.fin/usrItemFinHow0Main.menu"/>
-                <item screen="enty_UsrItemFinWhat.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.fin/usrItemFinWhat0Main.menu"/>
-                <item screen="enty_UsrItemFinWhy.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.fin/usrItemFinWhy0Main.menu"/>
-            </menu>
-        </menu>
-        <menu id="usrTngy" caption="msg://ca.ampautomation.ampata.menu/usrTngy">
-            <menu id="usrNodeTngyEquip" caption="Equipment">
-                <item screen="enty_UsrNodeTngyEquip.main" caption="msg://ca.ampautomation.ampata.screen.usr.tngy/usrNodeTngyEquip0Main.menu"/>
+            <menu id="usrFinItem" title="msg://ca.ampautomation.ampata.menu/usrFinItem">
+                <item view="enty_UsrItemFinHow.main" title="msg://ca.ampautomation.ampata.view.usr.item.fin/usrItemFinHow0Main.menu"/>
+                <item view="enty_UsrItemFinWhat.main" title="msg://ca.ampautomation.ampata.view.usr.item.fin/usrItemFinWhat0Main.menu"/>
+                <item view="enty_UsrItemFinWhy.main" title="msg://ca.ampautomation.ampata.view.usr.item.fin/usrItemFinWhy0Main.menu"/>
             </menu>
         </menu>
-        <menu id="usrBase" caption="msg://ca.ampautomation.ampata.menu/usrBase">
-            <menu id="usrItemBase" caption="msg://ca.ampautomation.ampata.menu/usrItemBase">
-                <item screen="enty_UsrItemBase.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.base/usrItemBase0Main.menu"/>
-                <item screen="enty_UsrItemBaseType.main" caption="msg://ca.ampautomation.ampata.screen.usr.item.base/usrItemBaseType0Main.menu"/>
-            </menu>
-            <menu id="usrNodeBase" caption="msg://ca.ampautomation.ampata.menu/usrNodeBase">
-                <item screen="enty_UsrNodeBase.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.base/usrNodeBase0Main.menu"/>
-                <item screen="enty_UsrNodeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.usr.node.base/usrNodeBaseType0Main.menu"/>
-            </menu>
-            <menu id="usrEdgeBase" caption="msg://ca.ampautomation.ampata.menu/usrEdgeBase">
-                <item screen="enty_UsrEdgeBase.main" caption="msg://ca.ampautomation.ampata.screen.usr.edge.base/usrEdgeBase0Main.menu"/>
-                <item screen="enty_UsrEdgeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.usr.edge.base/usrEdgeBaseType0Main.menu"/>
+        <menu id="usrTngy" title="msg://ca.ampautomation.ampata.menu/usrTngy">
+            <menu id="usrNodeTngyEquip" title="Equipment">
+                <item view="enty_UsrNodeTngyEquip.main" title="msg://ca.ampautomation.ampata.view.usr.tngy/usrNodeTngyEquip0Main.menu"/>
             </menu>
         </menu>
+        <menu id="usrBase" title="msg://ca.ampautomation.ampata.menu/usrBase">
+            <menu id="usrItemBase" title="msg://ca.ampautomation.ampata.menu/usrItemBase">
+                <item view="enty_UsrItemBase.main" title="msg://ca.ampautomation.ampata.view.usr.item.base/usrItemBase0Main.menu"/>
+                <item view="enty_UsrItemBaseType.main" title="msg://ca.ampautomation.ampata.view.usr.item.base/usrItemBaseType0Main.menu"/>
+            </menu>
+            <menu id="usrNodeBase" title="msg://ca.ampautomation.ampata.menu/usrNodeBase">
+                <item view="enty_UsrNodeBase.main" title="msg://ca.ampautomation.ampata.view.usr.node.base/usrNodeBase0Main.menu"/>
+                <item view="enty_UsrNodeBaseType.main" title="msg://ca.ampautomation.ampata.view.usr.node.base/usrNodeBaseType0Main.menu"/>
+            </menu>
+            <menu id="usrEdgeBase" title="msg://ca.ampautomation.ampata.menu/usrEdgeBase">
+                <item view="enty_UsrEdgeBase.main" title="msg://ca.ampautomation.ampata.view.usr.edge.base/usrEdgeBase0Main.menu"/>
+                <item view="enty_UsrEdgeBaseType.main" title="msg://ca.ampautomation.ampata.view.usr.edge.base/usrEdgeBaseType0Main.menu"/>
+            </menu>
+        </menu>
+        <item view="enty_UsrNodeBase.list"
+              title="msg://ca.ampautomation.ampata.view.usrnodebase/usrNodeBaseListView.title"/>
     </menu>
-    <menu id="sys" caption="msg://ca.ampautomation.ampata.menu/sys">
-        <menu id="sysGen" caption="msg://ca.ampautomation.ampata.menu/sysGen">
-            <menu id="sysGenItem" caption="msg://ca.ampautomation.ampata.menu/sysGenItem">
+    <menu id="sys" title="msg://ca.ampautomation.ampata.menu/sys">
+        <menu id="sysGen" title="msg://ca.ampautomation.ampata.menu/sysGen">
+            <menu id="sysGenItem" title="msg://ca.ampautomation.ampata.menu/sysGenItem">
 
             </menu>
         </menu>
-        <menu id="sysFin" caption="msg://ca.ampautomation.ampata.menu/sysFin">
-            <menu id="sysNodeFinCurcy" caption="msg://ca.ampautomation.ampata.menu/sysNodeFinCurcy">
-                <item screen="enty_SysNodeFinCurcy.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.fin/sysNodeFinCurcy0Main.menu"/>
-                <item screen="enty_SysNodeFinCurcyExchRate.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.fin/sysNodeFinCurcyExchRate0Main.menu"/>
+        <menu id="sysFin" title="msg://ca.ampautomation.ampata.menu/sysFin">
+            <menu id="sysNodeFinCurcy" title="msg://ca.ampautomation.ampata.menu/sysNodeFinCurcy">
+                <item view="enty_SysNodeFinCurcy.main" title="msg://ca.ampautomation.ampata.view.sys.node.fin/sysNodeFinCurcy0Main.menu"/>
+                <item view="enty_SysNodeFinCurcyExchRate.main" title="msg://ca.ampautomation.ampata.view.sys.node.fin/sysNodeFinCurcyExchRate0Main.menu"/>
             </menu>
         </menu>
-        <menu id="sysBase" caption="msg://ca.ampautomation.ampata.menu/sysBase">
-            <menu id="sysItemBase" caption="msg://ca.ampautomation.ampata.menu/sysItemBase">
+        <menu id="sysBase" title="msg://ca.ampautomation.ampata.menu/sysBase">
+            <menu id="sysItemBase" title="msg://ca.ampautomation.ampata.menu/sysItemBase">
             </menu>
-            <menu id="sysNodeBase" caption="msg://ca.ampautomation.ampata.menu/sysNodeBase">
-                <item screen="enty_SysNodeBase.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.base/sysNodeBase0Main.menu"/>
-                <item screen="enty_SysNodeBaseType.main" caption="msg://ca.ampautomation.ampata.screen.sys.node.base/sysNodeBaseType0Main.menu"/>
+            <menu id="sysNodeBase" title="msg://ca.ampautomation.ampata.menu/sysNodeBase">
+                <item view="enty_SysNodeBase.main" title="msg://ca.ampautomation.ampata.view.sys.node.base/sysNodeBase0Main.menu"/>
+                <item view="enty_SysNodeBaseType.main" title="msg://ca.ampautomation.ampata.view.sys.node.base/sysNodeBaseType0Main.menu"/>
             </menu>
-            <menu id="sysEdgeBase" caption="msg://ca.ampautomation.ampata.menu/sysEdgeBase">
+            <menu id="sysEdgeBase" title="msg://ca.ampautomation.ampata.menu/sysEdgeBase">
             </menu>
         </menu>
     </menu>
-    <menu id="admin" caption="msg://ca.ampautomation.ampata.menu/admin">
-        <item screen="enty_User.browse" caption="msg://ca.ampautomation.ampata.screen.user/User0Browse.caption"/>
-        <item screen="themeSettingsScreen" caption="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
+    <menu id="admin" title="msg://ca.ampautomation.ampata.menu/admin">
+        <item view="enty_User.browse" title="msg://ca.ampautomation.ampata.view.user/User0Browse.caption"/>
+        <item view="themeSettingsScreen" title="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
         <separator> --- </separator>
-        <item screen="mten_Tenant.browse"/>
-        <item screen="ui_JmxConsoleScreen"/>
-        <item screen="sec_ResourceRoleModel.browse"
-              caption="msg://io.jmix.securityui/menu.sec_ResourceRoleModel.browse"/>
-        <item screen="sec_RowLevelRoleModel.browse"
-              caption="msg://io.jmix.securityui/menu.sec_RowLevelRoleModel.browse"/>
-        <item screen="entityInspector.browse"/>
+        <item view="mten_Tenant.browse"/>
+        <item view="ui_JmxConsoleScreen"/>
+        <item view="sec_ResourceRoleModel.browse"
+              title="msg://io.jmix.securityui/menu.sec_ResourceRoleModel.browse"/>
+        <item view="sec_RowLevelRoleModel.browse"
+              title="msg://io.jmix.securityui/menu.sec_RowLevelRoleModel.browse"/>
+        <item view="entityInspector.browse"/>
     </menu>
+    <item view="enty_UsrNodeBase2.list"
+          title="msg://ca.ampautomation.ampata.view.usrnodebase/usrNodeBaseListView2.title"/>
 
 
 </menu-config>

@@ -7,7 +7,7 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import java.util.Locale;
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;

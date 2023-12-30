@@ -5,7 +5,6 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
 import ca.ampautomation.ampata.other.UpdateOption;
-import ca.ampautomation.ampata.screen.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
 import io.jmix.ui.screen.Screen;
 import org.springframework.stereotype.Component;

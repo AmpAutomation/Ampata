@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://usrNodeFinDept0Lookup.caption"
+        focusComponent="tableMain">
+    <data readOnly="true">
+        <collection id="colCntnrMain"
+                    class="ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinDept">
+            <fetchPlan extends="fetchPlan_UsrNodeFinDept_Base"/>
+            <loader id="colLoadrMain">
+                <query>
+                    <![CDATA[select e from enty_UsrNodeFinDept e order by e.sortKey, e.id2]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+        <presentations auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                icon="LOOKUP_OK"
+                caption="msg:///actions.Select"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"
+        />
+        <action id="lookupCancelAction"
+                icon="LOOKUP_CANCEL"
+                caption="msg:///actions.Cancel"
+        />
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout expand="tableMain" spacing="true">
+        <table id="tableMain"
+               width="100%"
+               dataContainer="colCntnrMain">
+            <actions>
+                <action id="refresh" type="refresh"/>
+            </actions>
+            <columns>
+                <column property="tenant" visible="false"/>
+                <column property="id2"/>
+                <column property="parent1_Id" header="parent1_Id"/>
+                <column property="sortIdx"/>
+                <column property="sortKey"/>
+                <column property="name1"/>
+                <column property="type1_Id"/>
+                <column property="inst1"/>
+                <column property="name2"/>
+                <column property="abrv"/>
+                <column property="code"/>
+                <column property="desc1"/>
+
+                <column property="txt1"/>
+                <column property="txt2"/>
+                <column property="txt3"/>
+                <column property="txt4"/>
+
+                <column property="int1"/>
+                <column property="int2"/>
+                <column property="int3"/>
+                <column property="int4"/>
+
+                <column property="ts1.elTs" caption="ts1.elTs"/>
+                <column property="ts2.elTs" caption="ts2.elTs"/>
+                <column property="ts3.elTs" caption="ts3.elTs"/>
+                <column property="ts4.elTs"/>
+
+                <column property="status"/>
+                <column property="statusCalc"/>
+                <column property="edgeIns_Id2"/>
+                <column property="edgeOts_Id2"/>
+
+                <column property="note"/>
+            </columns>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <tabSheet width="100%">
+                    <tab id="tabCmd1" label="Main">
+                        <hbox spacing="true">
+                            <button id="refreshBtn" action="tableMain.refresh"/>
+                        </hbox>
+                    </tab>
+                    <tab id="tabCmd2" label="View">
+                    </tab>
+
+                    <tab id="tabCmd3" label="Filter">
+                        <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="4">
+                                dataLoader="colLoadrMain">
+                            <properties include=".*"/>
+                            <configurations>
+                                <configuration id="filterConfig1" default="true">
+                                    <groupFilter operation="OR">
+                                        <groupFilter operation="AND" caption="GroupA">
+                                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeBaseType"/>
+                                            </propertyFilter>
+
+                                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_SortIdx" caption="sortIdx" operation="EQUAL" property="sortIdx" operationEditable="true"/>
+                                        </groupFilter>
+                                    </groupFilter>
+                                </configuration>
+                            </configurations>
+                        </filter>
+                    </tab>
+                </tabSheet>
+            </buttonsPanel>
+        </table>
+        <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
+            <containerProvider dataContainer="colCntnrMain"/>
+        </pagination>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>

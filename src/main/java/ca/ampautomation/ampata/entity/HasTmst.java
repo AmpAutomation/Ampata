@@ -3,8 +3,8 @@ package ca.ampautomation.ampata.entity;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import java.time.*;
 import java.time.format.TextStyle;
 import java.util.Locale;

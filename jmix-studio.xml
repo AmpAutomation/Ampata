@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="IgnoredChangelogIncludeConfig">
-    <datastore-include-infos>
-      <datastore-include-info datastore-name="main" />
-    </datastore-include-infos>
-  </component>
   <component name="JmixDataStoreSettingsManager">
     <moduleSettings>
       <entry key="Ampata.main">
@@ -13,13 +8,7 @@
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettingsV2>
-                    <option name="generateDdlType" value="CREATE_AND_UPDATE" />
-                    <option name="supportedTypes">
-                      <option value="hsql" />
-                      <option value="postgres" />
-                    </option>
-                  </DataStoreSettingsV2>
+                  <DataStoreSettingsV2 />
                 </value>
               </entry>
             </map>
@@ -28,17 +17,11 @@
       </entry>
       <entry key="ca.ampautomation.Ampata.main">
         <ModuleSettings>
-          <option name="dataStoreOptions">
+          <option name="dataStoreOptionsV2">
             <map>
               <entry key="main">
                 <value>
-                  <DataStoreSettings>
-                    <option name="generateDdlType" value="CREATE_AND_UPDATE" />
-                    <option name="nameLengthMode" value="POSTGRES" />
-                    <option name="supportedTypes">
-                      <option value="postgres" />
-                    </option>
-                  </DataStoreSettings>
+                  <DataStoreSettingsV2 />
                 </value>
               </entry>
             </map>
@@ -46,19 +29,5 @@
         </ModuleSettings>
       </entry>
     </moduleSettings>
-  </component>
-  <component name="JmixPluginProjectSettings">
-    <option name="savedDbProperties">
-      <list>
-        <SavedDbProperties>
-          <option name="databaseName" value="ampata" />
-          <option name="dbType" value="hsqlfile" />
-          <option name="dbmsVersion" />
-          <option name="host" value=".jmix/hsqldb" />
-          <option name="url" value="jdbc:hsqldb:file:.jmix/hsqldb/ampata" />
-          <option name="user" value="sa" />
-        </SavedDbProperties>
-      </list>
-    </option>
   </component>
 </project>

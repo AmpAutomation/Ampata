@@ -4,8 +4,6 @@ import ca.ampautomation.ampata.entity.usr.edge.base.UsrEdgeBase;
 import ca.ampautomation.ampata.entity.usr.edge.base.UsrEdgeBaseType;
 import ca.ampautomation.ampata.other.Globals;
 import ca.ampautomation.ampata.other.UpdateOption;
-import ca.ampautomation.ampata.screen.usr.edge.base.UsrEdgeBase0BaseComn;
-import ca.ampautomation.ampata.screen.usr.edge.base.UsrEdgeBase0BaseMain;
 import io.jmix.core.DataManager;
 import io.jmix.core.MetadataTools;
 import io.jmix.ui.Notifications;
@@ -16,11 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Transient;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.MessageFormat;
-import java.util.ArrayList;
+import jakarta.persistence.Transient;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;

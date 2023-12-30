@@ -5,7 +5,7 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;

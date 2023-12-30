@@ -1,0 +1,678 @@
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://usrNodeFinBal0Main.caption"
+        focusComponent="tableMain">
+    <data>
+        <collection id="colCntnrMain"
+                    class="ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBal"
+                    fetchPlan="fetchPlan_UsrNodeFinBal_Base">
+            <loader id="colLoadrMain">
+                <query>
+                    <![CDATA[select e from enty_UsrNodeFinBal e order by e.sortKey, e.id2]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="instCntnrMain"
+                  class="ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBal"
+                  fetchPlan="fetchPlan_UsrNodeFinBal_Base">
+            <loader/>
+            <collection id="colPropCntnrGenTag" property="genTags1_Id">
+            </collection>
+            <collection id="colPropCntnrEdgeIns" property="edgeIns_Id">
+            </collection>
+            <collection id="colPropCntnrEdgeOts" property="edgeOts_Id">
+            </collection>
+        </instance>
+        <collection id="colCntnrFinTxactItm"
+                    class="ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinTxactItm"
+                    fetchPlan="fetchPlan_UsrNodeFinTxactItm_Base">
+            <loader id="colLoadrFinTxactItm">
+                <query>
+                    <![CDATA[select e from enty_UsrNodeFinTxactItm e where e.id2 is null order by e.sortKey, e.id2]]>
+                </query>
+            </loader>
+        </collection>
+
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+        <presentations auto="true"/>
+    </facets>
+    <actions>
+        <action id="save" icon="CHECK" caption="msg:///actions.Ok" shortcut="CTRL-ENTER"/>
+        <action id="cancel" icon="CLOSE" caption="msg:///actions.Cancel" description="Esc"/>
+    </actions>
+    <dialogMode width="1024" height="768"/>
+    <layout>
+        <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
+            <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
+                <table id="tableMain"
+                            width="100%"
+                            selectionMode="MULTI"
+                            dataContainer="colCntnrMain">
+                    <actions>
+                        <action id="create" type="create"/>
+                        <action id="edit" type="edit"/>
+                        <action id="refresh" type="refresh"/>
+                        <action id="remove" type="remove"/>
+                    </actions>
+                    <buttonsPanel id="buttonsPanel"
+                                  alwaysVisible="true">
+                        <tabSheet  width="100%">
+                            <tab id="tabCmd1" label="Main">
+                                <hbox spacing="true">
+                                    <button id="reloadListsBtn" text="Reload Lists" icon="vaadin:list"/>
+                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="vaadin:refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="deleteColDeletedColBtn" text="Purge All Deleted" icon="font-icon:ERASER"/>
+                                </hbox>
+                            </tab>
+                            <tab id="tabCmd2" label="View">
+                            </tab>
+                            <tab id="tabCmd3" label="Filter">
+                                <hbox spacing="true">
+                                    <button id="filterPrevTs2ElDtGEBtn" caption="Prev ts2.elTs" icon="ARROW_LEFT"/>
+                                    <button id="filterNextTs2ElDtGEBtn" caption="Next ts2.elTs" icon="ARROW_RIGHT"/>
+                                </hbox>
+                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="true" columnsCount="5">
+                                    <properties include=".*"/>
+                                    <configurations>
+                                        <configuration id="filterConfig1" default="true">
+                                            <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Type1_Id" caption="type1" operation="EQUAL" property="type1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeFinBalType"/>
+                                            </propertyFilter>
+                                            <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+
+                                            <propertyFilter id="filterConfig1A_Ts2ElTsGE" caption="ts2.elTs" operation="GREATER_OR_EQUAL" property="ts2.elTs" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_Ts2ElTsLE" caption="ts2.elTs" operation="LESS_OR_EQUAL" property="ts2.elTs" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_FinBalSet1_Id" caption="finBalSet1" operation="EQUAL" property="finBalSet1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeFinBalSet" width="200%"/>
+                                            </propertyFilter>
+                                            <propertyFilter id="filterConfig1A_FinAcct1_Id" caption="finAcct1" operation="EQUAL" property="finAcct1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeFinAcct" width="200%"/>
+                                            </propertyFilter>
+                                            <propertyFilter id="filterConfig1A_FinDept1_Id" caption="finDept1" operation="EQUAL" property="finDept1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_UsrNodeFinDept" width="200%"/>
+                                            </propertyFilter>
+                                            <propertyFilter id="filterConfig1A_FinDept1_Id_IsSet" caption="finDept1" operation="IS_SET" property="finDept1_Id" operationEditable="true">
+                                            </propertyFilter>
+
+                                            <propertyFilter id="filterConfig1A_SysNodeFinCurcy1_Id" caption="sysNodeFinCurcy1" operation="EQUAL" property="sysNodeFinCurcy1_Id" operationEditable="true">
+                                                <entityComboBox metaClass="enty_SysNodeFinCurcy" width="200%"/>
+                                            </propertyFilter>
+                                            <propertyFilter id="filterConfig1A_Status" caption="status" operation="CONTAINS" property="status" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_AmtDebt" caption="amtDebt" operation="EQUAL" property="amtDebt" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_AmtCred" caption="amtCred" operation="EQUAL" property="amtCred" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_AmtNet" caption="amtNet" operation="EQUAL" property="amtNet" operationEditable="true"/>
+
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_IdCntCalc" caption="finTxactItms1_IdCntCalc" operation="EQUAL" property="finTxactItms1_IdCntCalc" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_FinTxactItms1_AmtDebtSumCalc" caption="finTxactItms1_AmtDebtSumCalc" operation="EQUAL" property="finTxactItms1_AmtDebtSumCalc" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_FinTxactItms1_AmtCredSumCalc" caption="finTxactItms1_AmtCredSumCalc" operation="EQUAL" property="finTxactItms1_AmtCredSumCalc" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_FinTxactItms1_AmtNetSumCalc" caption="finTxactItms1_AmtNetSumCalc" operation="EQUAL" property="finTxactItms1_AmtNetSumCalc" operationEditable="true"/>
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_FinTxactItms1_AmtNetSumDiff" caption="finTxactItms1_AmtNetSumDiff" operation="EQUAL" property="finTxactItms1_AmtNetSumDiff" operationEditable="true"/>
+
+                                            <propertyFilter id="filterConfig1A_FinTxactItms1_FinTxactItms1_AmtEqCalc" caption="finTxactItms1_AmtEqCalc" operation="EQUAL" property="finTxactItms1_AmtEqCalc" operationEditable="true"/>
+                                        </configuration>
+                                    </configurations>
+                                </filter>
+                            </tab>
+                            <tab id="tabCmd4" label="Create, Edit" spacing="true">
+                                <hbox spacing="true">
+                                    <button id="refreshBtn" action="tableMain.refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="createBtn" action="tableMain.create"/>
+                                    <button id="duplicateBtn" text="Duplicate" icon="font-icon:COPY"/>
+                                    <button id="deriveBtn" caption="Derive" icon="font-icon:COPY"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="removeBtn" action="tableMain.remove"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="editBtn" action="tableMain.edit"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="setBtn" text="Set" icon="vaadin:refresh"/>
+                                    <hbox>
+                                        <label value="sortIdx" align="MIDDLE_CENTER"/>
+                                        <button id="rebuildSortIdxBtn" text="Rebiuld"/>
+                                        <button id="moveFrstSortIdxBtn" text="Frst"/>
+                                        <button id="movePrevSortIdxBtn" icon="ARROW_LEFT"/>
+                                        <button id="moveNextSortIdxBtn" icon="ARROW_RIGHT"/>
+                                        <button id="moveLastSortIdxBtn" text="Last"/>
+                                    </hbox>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="vaadin:refresh"/>
+                                    <button id="updateColItemId2Btn" text="Update Id2" icon="vaadin:refresh"/>
+                                    <label value="|" align="MIDDLE_CENTER"/>
+                                    <button id="updateColItemIdPartsBtn" text="Update Id Parts" icon="vaadin:refresh"/>
+                                </hbox>
+                                <tabSheet width="100%">
+                                    <tab id="tabCmd4_Tab1" label="Main">
+                                        <hbox spacing="true">
+                                            <hbox caption="Type1_Id" width="150px" expand="tmplt_Type1_IdField">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_Type1_IdFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                                </hbox>
+                                                <entityComboBox id="tmplt_Type1_IdField"/>
+                                            </hbox>
+                                            <hbox caption="SortIdx">
+                                                <hbox height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <hbox width="5px"/>
+                                                    <radioButtonGroup id="tmplt_SortIdxFieldRdo"/>
+                                                </hbox>
+                                                <textField id="tmplt_SortIdxField" datatype="int" width="40px"/>
+                                            </hbox>
+                                        </hbox>
+                                        <hbox spacing="true">
+                                            <hbox caption="ts1.elTs">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_Ts1_ElTsFieldChk" align="MIDDLE_RIGHT"/>
+                                                </hbox>
+                                                <dateField id="tmplt_Ts1_ElTsField" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
+                                            </hbox>
+                                            <hbox caption="ts2.elTs">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_Ts2_ElTsFieldChk" align="MIDDLE_RIGHT"/>
+                                                </hbox>
+                                                <dateField id="tmplt_Ts2_ElTsField" datatype="localDateTime" dateFormat="yyyy-MM-dd"/>
+                                            </hbox>
+                                            <hbox caption="status" width="250px" expand="tmplt_StatusField">
+                                                <hbox width="60px" height="100%" css="background-color: #F2F2F2 ; border: 1px solid #637497; border-radius: 8px;">
+                                                    <checkBox id="tmplt_StatusFieldChk" align="MIDDLE_RIGHT" width="10px"/>
+                                                </hbox>
+                                                <comboBox id="tmplt_StatusField"/>
+                                            </hbox>
+                                        </hbox>
+                                    </tab>
+                                </tabSheet>
+                            </tab>
+                            <tab id="tabCmd9" label="Options">
+                                <hbox>
+                                    <label value="CalcVals Option"/>
+                                    <hbox width="5px"/>
+                                    <comboBox id="updateColItemCalcValsOption" width="100px"/>
+                                </hbox>
+                            </tab>
+                        </tabSheet>
+                    </buttonsPanel>
+                    <columns>
+                        <column property="tenant" visible="false"/>
+                        <column property="id2"/>
+                        <column property="id2Dup"/>
+                        <column property="type1_Id"/>
+                        <column property="sortIdx"/>
+                        <column property="sortKey"/>
+                        <column property="ts1.elTs" caption="ts1.elTs"/>
+                        <column property="ts2.elTs" caption="ts2.elTs"/>
+                        <column property="finBalSet1_Id" caption="finBalSet1"/>
+                        <column property="finAcct1_Id" caption="finAcct1"/>
+                        <column property="finDept1_Id" caption="finDept1"/>
+                        <column property="sysNodeFinCurcy1_Id" caption="sysNodeFinCurcy1"/>
+                        <column property="finBal1_Id" caption="finBal1"/>
+                        <column property="amtBegBal"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtBegBalCalc"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtDebt"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtCred"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtNet"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtEndBal"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="amtEndBalCalc"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="finTxactItms1_AmtNetSumDiff"><formatter><number format="#,##0.00"/></formatter></column>
+                        <column property="status"/>
+                        <column property="note"/>
+                    </columns>
+                </table>
+                <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
+                    <containerProvider dataContainer="colCntnrMain"/>
+                </pagination>
+                <hbox id="lookupActions" spacing="true" visible="false">
+                    <button action="lookupSelectAction"/>
+                    <button action="lookupCancelAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="editBox" expand="scrollBox" spacing="true" margin="false" height="100%" >
+                <scrollBox id="scrollBox" spacing="true">
+                    <form id="form" dataContainer="instCntnrMain">
+                    <tabSheet id="tabsheet1" height="100%" width="100%">
+                        <tab id="tab_1"
+                             caption="Main"
+                             expand="tab1_hbox3"
+                             margin="true">
+
+                            <hbox id="tab1_hbox1" width="100%" spacing="true">
+                                <hbox caption="desc1" expand="desc1Field" width="2304px">
+                                    <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
+                                    <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
+                                </hbox>
+                            </hbox>
+
+                            <hbox id="tab1_hbox2" width="100%" spacing="true">
+                                <hbox caption="genTags" expand="genTags1_IdField" width="2304px">
+                                    <tagField id="genTags1_IdField" dataContainer="instCntnrMain" property="genTags1_Id">
+                                        <query entityClass="ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag" fetchPlan="_instance_name"
+                                               escapeValueForLike="true" searchStringFormat="%${searchString}%">
+                                            <![CDATA[select e from enty_UsrItemGenTag e where lower(e.id2) like lower(:searchString) escape '\']]>
+                                        </query>
+                                    </tagField>
+                                </hbox>
+                            </hbox>
+
+                            <hbox id="tab1_hbox3" width="100%" spacing="true">
+                                <vbox width="374px">
+                                    <hbox caption="id" expand="id" width="100%">
+                                        <textField id="id" dataContainer="instCntnrMain"
+                                                   property="id" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="tenant" expand="tenantField" width="100%">
+                                        <textField id="tenantField" dataContainer="instCntnrMain"
+                                                   property="tenant" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="dtype" expand="dtypeField" width="100%">
+                                        <textField id="dtypeField" dataContainer="instCntnrMain"
+                                                   property="dtype" editable="false"/>
+                                    </hbox>
+                                    <hbox caption="id2" expand="id2Field" width="100%">
+                                        <textField id="id2Field" dataContainer="instCntnrMain"
+                                                   property="id2"/>
+                                        <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="id2Calc" expand="id2CalcField" width="100%">
+                                        <textField id="id2CalcField" dataContainer="instCntnrMain"
+                                                   property="id2Calc" editable="false"/>
+                                        <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox width="100%" spacing="true">
+                                        <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
+                                            <checkBox id="id2CmpField" dataContainer="instCntnrMain"
+                                                      property="id2Cmp" editable="false"/>
+                                            <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        </hbox>
+                                        <hbox caption="id2Dup" expand="id2DupField" width="181px">
+                                            <textField id="id2DupField" dataContainer="instCntnrMain"
+                                                       property="id2Dup" editable="false"/>
+                                            <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        </hbox>
+                                    </hbox>
+                                    <hbox width="100%" spacing="true">
+                                        <hbox caption="sortIdx" expand="sortIdxField" width="181px">
+                                            <textField id="sortIdxField" dataContainer="instCntnrMain"
+                                                       property="sortIdx"/>
+                                        </hbox>
+                                        <hbox caption="sortKey" expand="sortKeyField" width="181px">
+                                            <textField id="sortKeyField" dataContainer="instCntnrMain"
+                                                       property="sortKey"/>
+                                            <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        </hbox>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="parent1_Id" expand="parent1_IdField" width="100%">
+                                        <entityPicker id="parent1_IdField" dataContainer="instCntnrMain"
+                                                      property="parent1_Id">
+                                            <actions>
+                                                <action id="entityLookup" type="entity_lookup">
+                                                    <properties>
+                                                        <property name="openMode" value="THIS_TAB"/>
+                                                        <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinBalSet0Lookup"/>
+                                                    </properties>
+                                                </action>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityPicker>
+                                        <button id="updateParent1_IdFieldBtn" icon="vaadin:refresh"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="name1" expand="name1Field" width="100%">
+                                        <textField id="name1Field" dataContainer="instCntnrMain"
+                                                   property="name1"/>
+                                        <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="type1_Id" expand="type1_IdField" width="100%">
+                                        <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
+                                                        property="type1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateType1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="inst1" expand="inst1Field" width="100%">
+                                        <textField id="inst1Field" dataContainer="instCntnrMain"
+                                                   property="inst1"/>
+                                        <button id="updateInst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateInst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="ts1.elTs" expand="ts1_ElTsFieldSpace" width="100%" >
+                                        <dateField id="ts1_ElTsField" dataContainer="instCntnrMain"
+                                                   property="ts1.elTs" datatype="localDateTime"/>
+                                        <hbox id="ts1_ElTsFieldSpace"/>
+                                        <button id="extractTs1_ElTsFieldBtn" icon="vaadin:adjust"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="ts2.elTs" expand="ts2_ElTsFieldSpace" width="100%">
+                                        <dateField id="ts2_ElTsField" dataContainer="instCntnrMain"
+                                                   property="ts2.elTs" datatype="localDateTime"/>
+                                        <hbox id="ts2_ElTsFieldSpace"/>
+                                        <button id="extractTs2_ElTsFieldBtn" icon="vaadin:adjust"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="genChan1_Id" expand="genChan1_IdField" width="100%">
+                                        <entityComboBox id="genChan1_IdField" dataContainer="instCntnrMain"
+                                                        property="genChan1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateGenChan1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finBal1" expand="finBal1_IdField" width="100%">
+                                        <entityPicker id="finBal1_IdField" dataContainer="instCntnrMain"
+                                                      property="finBal1_Id">
+                                            <actions>
+                                                <action id="entityLookup" type="entity_lookup">
+                                                    <properties>
+                                                        <property name="openMode" value="THIS_TAB"/>
+                                                        <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinBal0Lookup"/>
+                                                    </properties>
+                                                </action>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityPicker>
+                                        <button id="updateFinBal1_IdFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finBalSet1_Id" expand="finBalSet1_IdField" width="100%">
+                                        <entityComboBox id="finBalSet1_IdField" dataContainer="instCntnrMain"
+                                                        property="finBalSet1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateFinBalSet1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finAcct1_Id" expand="finAcct1_IdField" width="100%">
+                                        <entityComboBox id="finAcct1_IdField" dataContainer="instCntnrMain"
+                                                        property="finAcct1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateFinAcct1_IdFieldListBtn" icon="vaadin:list"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finDept1_Id" expand="finDept1_IdField" width="100%">
+                                        <entityComboBox id="finDept1_IdField" dataContainer="instCntnrMain"
+                                                        property="finDept1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateFinDept1_IdFieldListBtn" icon="vaadin:list"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="sysNodeFinCurcy1_Id" expand="sysNodeFinCurcy1_IdField" width="100%">
+                                        <entityComboBox id="sysNodeFinCurcy1_IdField" dataContainer="instCntnrMain"
+                                                        property="sysNodeFinCurcy1_Id">
+                                            <actions>
+                                                <action id="entityOpen" type="entity_open"/>
+                                                <action id="entityClear" type="entity_clear"/>
+                                            </actions>
+                                        </entityComboBox>
+                                        <button id="updateFinCurcy1_IdFieldListBtn" icon="vaadin:list"
+                                                tabIndex="-1"/>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="amtBegBal" expand="amtBegBalField" width="100%">
+                                        <textField id="amtBegBalField" dataContainer="instCntnrMain"
+                                                   property="amtBegBal">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtBegBalBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="setNullAmtBegBalBtn" icon="font-icon:REMOVE" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtBegBalCalc" expand="amtBegBalCalcField" width="100%">
+                                        <textField id="amtBegBalCalcField" dataContainer="instCntnrMain"
+                                                   property="amtBegBalCalc"
+                                                   editable="false">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtBegBalCalcBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtDebt" expand="amtDebtField" width="100%">
+                                        <textField id="amtDebtField" dataContainer="instCntnrMain"
+                                                   property="amtDebt">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtDebtBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="setNullAmtDebtBtn" icon="font-icon:REMOVE" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtCred" expand="amtCredField" width="100%">
+                                        <textField id="amtCredField" dataContainer="instCntnrMain"
+                                                   property="amtCred">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtCredBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="setNullAmtCredBtn" icon="font-icon:REMOVE" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtNet" expand="amtNetField" width="100%">
+                                        <textField id="amtNetField" dataContainer="instCntnrMain"
+                                                   property="amtNet" editable="false">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtNetBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtEndBal" expand="amtEndBalField" width="100%">
+                                        <textField id="amtEndBalField" dataContainer="instCntnrMain"
+                                                   property="amtEndBal">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtEndBalBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="setNullAmtEndBalBtn" icon="font-icon:REMOVE" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="amtEndBalCalc" expand="amtEndBalCalcField" width="100%">
+                                        <textField id="amtEndBalCalcField" dataContainer="instCntnrMain"
+                                                   property="amtEndBalCalc" editable="false">
+                                            <formatter><number format="#,##0.00"/></formatter>
+                                        </textField>
+                                        <button id="updateAmtEndBalCalcBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="statusField" expand="statusField" width="100%">
+                                        <comboBox id="statusField" dataContainer="instCntnrMain"
+                                                  property="status">
+                                        </comboBox>
+                                    </hbox>
+                                    <hbox caption="statusCalcField" expand="statusCalcField" width="100%">
+                                        <comboBox id="statusCalcField" dataContainer="instCntnrMain"
+                                                  property="statusCalc">
+                                        </comboBox>
+                                    </hbox>
+                                </vbox>
+
+                            </hbox>
+
+                        </tab>
+
+
+                        <tab id="tab_7"
+                             caption="FinTxactItm Calc"
+                             expand="tab7_hbox1"
+                             margin="true">
+
+                            <hbox id="tab7_hbox1" width="100%" spacing="true">
+                                <vbox width="374px">
+                                    <hbox caption="amtDebt" expand="amtDebtField_tab_7" width="100%">
+                                        <textField id="amtDebtField_tab_7" dataContainer="instCntnrMain"
+                                                   property="amtDebt"/>
+                                    </hbox>
+                                    <hbox caption="amtCred" expand="amtCredField_tab_7" width="100%">
+                                        <textField id="amtCredField_tab_7" dataContainer="instCntnrMain"
+                                                   property="amtCred"/>
+                                    </hbox>
+                                    <hbox caption="amtNet" expand="amtNetField_tab_7" width="100%">
+                                        <textField id="amtNetField_tab_7" dataContainer="instCntnrMain"
+                                                   property="amtNet" editable="false"/>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="finTxactItms1_AmtDebtSumCalc" expand="finTxactItms1_AmtDebtSumCalcField" width="100%">
+                                        <textField id="finTxactItms1_AmtDebtSumCalcField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtDebtSumCalc" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_AmtCredSumCalc" expand="finTxactItms1_AmtCredSumCalcField" width="100%">
+                                        <textField id="finTxactItms1_AmtCredSumCalcField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtCredSumCalc" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_AmtNetSumCalc" expand="finTxactItms1_AmtNetSumCalcField" width="100%">
+                                        <textField id="finTxactItms1_AmtNetSumCalcField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtNetSumCalc" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtNetSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_IdCntCalc" expand="finTxactItms1_IdCntCalcField" width="100%">
+                                        <textField id="finTxactItms1_IdCntCalcField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_IdCntCalc" editable="false"/>
+                                        <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_AmtEqCalc" expand="finTxactItms1_AmtEqCalcBox" width="100%">
+                                        <checkBox id="finTxactItms1_AmtEqCalcBox" dataContainer="instCntnrMain"
+                                                  property="finTxactItms1_AmtEqCalc" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                </vbox>
+
+                                <vbox width="374px">
+                                    <hbox caption="finTxactItms1_AmtDebtSumDiff" expand="finTxactItms1_AmtDebtSumDiffField" width="100%">
+                                        <textField id="finTxactItms1_AmtDebtSumDiffField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtDebtSumDiff" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtDebtSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_AmtCredSumDiff" expand="finTxactItms1_AmtCredSumDiffField" width="100%">
+                                        <textField id="finTxactItms1_AmtCredSumDiffField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtCredSumDiff" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtCredSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                    <hbox caption="finTxactItms1_AmtNetSumDiff" expand="finTxactItms1_AmtNetSumDiffField" width="100%">
+                                        <textField id="finTxactItms1_AmtNetSumDiffField" dataContainer="instCntnrMain"
+                                                   property="finTxactItms1_AmtNetSumDiff" editable="false"/>
+                                        <button id="updateFinTxactItms1_AmtNetSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    </hbox>
+                                </vbox>
+
+                            </hbox>
+                        </tab>
+
+                        <tab id="tab_8"
+                             caption="FinTxactItm Table"
+                             expand="tab8_hbox1"
+                             margin="true">
+
+                                <hbox id="tab8_hbox1" width="100%" spacing="true">
+                                    <table id="tableFinTxactItm"
+                                           width="2304px"
+                                           dataContainer="colCntnrFinTxactItm">
+
+                                        <actions>
+                                            <action id="create" type="create"/>
+                                            <action id="edit" type="edit"/>
+                                            <action id="refresh" type="refresh"/>
+                                            <action id="remove" type="remove"/>
+                                        </actions>
+                                        <buttonsPanel>
+                                            <tabSheet  width="100%">
+                                                <tab id="tabCmdFinTxactItm1" caption="Main" spacing="true">
+                                                    <hbox spacing="true">
+                                                        <button id="loadTableFinTxactItmBtn" caption="Load" icon="DOWNLOAD"/>
+                                                        <label value="|" align="MIDDLE_CENTER"/>
+                                                        <button id="refreshTableFinTxactItmBtn" action="tableFinTxactItm.refresh"/>
+                                                        <label value="|" align="MIDDLE_CENTER"/>
+                                                        <button id="createTableFinTxactItmBtn" action="tableFinTxactItm.create"/>
+                                                        <label value="|" align="MIDDLE_CENTER"/>
+                                                        <button id="removeTableFinTxactItmBtn" action="tableFinTxactItm.remove"/>
+                                                        <label value="|" align="MIDDLE_CENTER"/>
+                                                        <button id="editTableFinTxactItmBtn" action="tableFinTxactItm.edit"/>
+                                                        <label value="|" align="MIDDLE_CENTER"/>
+                                                    </hbox>
+                                                </tab>
+                                            </tabSheet>
+                                        </buttonsPanel>
+                                        <simplePagination itemsPerPageVisible="true"
+                                                          itemsPerPageOptions="50, 100, 200, 500"
+                                                          itemsPerPageDefaultValue="50"/>
+                                        <columns>
+                                            <column property="parent1_Id.parent1_Id"/>
+                                            <column property="parent1_Id.parent1_Id.type1_Id" caption="Txs.type1"/>
+                                            <column property="parent1_Id.parent1_Id.desc1" caption="Txs.desc1" width="320px"/>
+
+                                            <column property="parent1_Id"/>
+                                            <column property="parent1_Id.type1_Id" caption="Tx.type1"/>
+                                            <column property="parent1_Id.parent1_EI1_Role" caption="Tx Role"/>
+                                            <column property="parent1_Id.desc1" caption="Txa.desc1" width="320px"/>
+
+                                            <column property="id2"/>
+                                            <column property="id2Dup"/>
+                                            <column property="type1_Id"/>
+                                            <column property="parent1_EI1_Role" caption="Tx Role"/>
+                                            <column property="desc1" width="320px"/>
+                                            <column property="finAcct1_Id"/>
+                                            <column property="finDept1_Id"/>
+
+                                            <column property="amtDebt"><formatter><number format="#,##0.00"/></formatter></column>
+                                            <column property="amtCred"><formatter><number format="#,##0.00"/></formatter></column>
+                                            <column property="amtNet"><formatter><number format="#,##0.00"/></formatter></column>
+                                            <column property="amtEndBalCalc"><formatter><number format="#,##0.00"/></formatter></column>
+                                            <column property="sysNodeFinCurcy1_Id"/>
+                                        </columns>
+                                    </table>
+                                </hbox>
+                        </tab>
+
+                        <tab id="tab_9"
+                             caption="Note"
+                             expand="tab9_hbox1"
+                             margin="true">
+
+                            <hbox id="tab9_hbox1" width="100%" spacing="true">
+                                <hbox caption="note" expand="noteField" width="2304px" >
+                                    <textArea id="noteField" dataContainer="instCntnrMain"
+                                              property="note"/>
+                                </hbox>
+                            </hbox>
+                        </tab>
+                    </tabSheet>
+                </form>
+                </scrollBox>
+                <hbox id="actionsPane" spacing="true" visible="false">
+                    <button id="saveBtn" action="save"/>
+                    <button id="cancelBtn" action="cancel"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemCalcValsBtn" caption="Update Calc Vals"/>
+                    <label value="Upd Option" align="MIDDLE_RIGHT"/>
+                    <comboBox id="updateInstItemCalcValsOption" width="160px"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
+                    <label value="|" align="MIDDLE_CENTER"/>
+                    <button id="updateInstItemManValsBtn" caption="Update Man Vals"/>
+                </hbox>
+            </vbox>
+        </split>
+    </layout>
+</window>

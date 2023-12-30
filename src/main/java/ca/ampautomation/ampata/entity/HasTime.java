@@ -2,8 +2,8 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import java.time.LocalTime;
 import java.util.Objects;
 

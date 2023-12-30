@@ -10,7 +10,7 @@ import io.jmix.core.metamodel.annotation.JmixEntity;
 import io.jmix.core.querycondition.PropertyCondition;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;

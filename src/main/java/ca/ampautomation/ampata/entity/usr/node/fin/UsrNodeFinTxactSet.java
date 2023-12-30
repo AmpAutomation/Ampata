@@ -5,7 +5,7 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import io.jmix.core.DataManager;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
