@@ -6,6 +6,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.EntityStates;
+import io.jmix.flowui.component.combobox.JmixComboBox;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class UserDetailView extends StandardDetailView<User> {
     @ViewComponent
     private PasswordField confirmPasswordField;
     @ViewComponent
-    private ComboBox<String> timeZoneField;
+    private JmixComboBox<String> timeZoneField;
 
     @Autowired
     private EntityStates entityStates;

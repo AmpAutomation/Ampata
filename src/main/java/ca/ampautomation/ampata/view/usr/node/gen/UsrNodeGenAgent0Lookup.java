@@ -3,19 +3,20 @@ package ca.ampautomation.ampata.view.usr.node.gen;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
 import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenAgent0Repo;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgentType;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseLookup;
 import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenAgent0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeGenAgent.lookup")
-@UiDescriptor("usr-node-gen-agent-0-lookup.xml")
-@LookupComponent("tableMain")
-public class UsrNodeGenAgent0Lookup extends UsrNodeBase0BaseLookup<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgent0Service, UsrNodeGenAgent0Repo, Table<UsrNodeGenAgent>> {
+@ViewController("enty_UsrNodeGenAgent.lookup")
+@ViewDescriptor("usr-node-gen-agent-0-lookup.xml")
+@LookupComponent("dataGridMain")
+@DialogMode(width = "64em")
+public class UsrNodeGenAgent0Lookup extends UsrNodeBase0BaseLookup<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgent0Service, UsrNodeGenAgent0Repo, DataGrid<UsrNodeGenAgent>> {
 
     //Service
     @Override

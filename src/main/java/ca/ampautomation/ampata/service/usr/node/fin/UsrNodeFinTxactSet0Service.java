@@ -15,8 +15,8 @@ import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
 import io.jmix.core.Sort;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.screen.Screen;
+import io.jmix.flowui.view.View;
+import io.jmix.flowui.Notifications;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -54,21 +54,21 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateCalcVals(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateCalcVals(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
-        isChanged = updateFinTxacts1_IdCntCalc(screen, thisNode, updOption)  || isChanged;
+        isChanged = updateFinTxacts1_IdCntCalc(view, thisNode, updOption)  || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
-        isChanged = updateSortKey(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
+        isChanged = updateSortKey(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -99,7 +99,7 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateInst1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateInst1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateInst1";
         logger.trace(logPrfx + " --> ");
 
@@ -179,7 +179,7 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateName1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateName1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateName1()";
         logger.trace(logPrfx + " --> ");
 
@@ -283,7 +283,7 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateDesc1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateDesc1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -576,7 +576,7 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
     }
 
 
-    public Boolean updateFinTxacts1_IdCntCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, UpdateOption updOption) {
+    public Boolean updateFinTxacts1_IdCntCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, UpdateOption updOption) {
         String logPrfx = "updateFinTxacts1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -630,16 +630,16 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Integer getSortIdxMax(@NotNull Screen screen, Object grpgKey) {
+    public Integer getSortIdxMax(@NotNull View view, Object grpgKey) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 
         Integer sortIdxMax = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             // Ensure grpgKey is instanceof UsrNodeFinTxactSetGrpg
             if (!(grpgKey instanceof UsrNodeFinTxactSetGrpg l_grpgKey)){
@@ -663,7 +663,7 @@ public class UsrNodeFinTxactSet0Service extends UsrNodeBase0Service {
                         .one();
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- sortIdxCntIsNullQry error: " + e.getMessage());
-                notifications.create().withCaption("sortIdxCntIsNullQry error: " + e.getMessage()).show();
+                notifications.create("sortIdxCntIsNullQry error: " + e.getMessage()).show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }

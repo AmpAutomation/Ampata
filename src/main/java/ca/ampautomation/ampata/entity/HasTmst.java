@@ -3,8 +3,11 @@ package ca.ampautomation.ampata.entity;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
+
 import java.time.*;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -21,29 +24,29 @@ public class HasTmst {
     @Column(name = "EL_DT")
     private LocalDate elDt;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtYr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtQtr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtMon;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private String elDtMon2;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtDay;
 
 
     @Column(name = "EL_TM")
     private LocalTime elTm;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elTmHr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elTmMin;
 
     public void setElTs(LocalDateTime elTs) {

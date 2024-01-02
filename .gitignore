@@ -5,6 +5,10 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+/src/main/dev-bundle/**
+/frontend/generated/**
+
+application-dev.properties
 
 ### IntelliJ IDEA ###
 .idea/*
@@ -17,4 +21,4 @@ out/
 ### VS Code ###
 .vscode/
 
-application-dev.properties
+

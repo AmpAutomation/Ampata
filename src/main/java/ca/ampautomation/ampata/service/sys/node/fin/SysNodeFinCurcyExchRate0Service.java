@@ -6,7 +6,7 @@ import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcy;
 import ca.ampautomation.ampata.entity.sys.node.fin.SysNodeFinCurcyExchRate;
 import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.service.sys.node.base.SysNodeBase0Service;
-import io.jmix.ui.screen.Screen;
+import io.jmix.flowui.view.View;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -46,7 +46,7 @@ public class SysNodeFinCurcyExchRate0Service extends SysNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateId2Calc(@NotNull Screen screen, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Calc(View view, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
         boolean isChanged = false;
@@ -138,7 +138,7 @@ public class SysNodeFinCurcyExchRate0Service extends SysNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateDesc1(@NotNull Screen screen, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateDesc1(@NotNull View view, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -247,7 +247,7 @@ public class SysNodeFinCurcyExchRate0Service extends SysNodeBase0Service {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateAmt2(@NotNull Screen screen, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmt2(@NotNull View view, @NotNull SysNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmt2";
         logger.trace(logPrfx + " --> ");
 

@@ -2,18 +2,20 @@ package ca.ampautomation.ampata.view.usr.node.base;
 
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Repo;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
-import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.*;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
-import io.jmix.ui.screen.LookupComponent;
+import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
+import ca.ampautomation.ampata.view.main.MainView;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeBase.main")
-@UiDescriptor("usr-node-base-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeBase0Main extends UsrNodeBase0BaseMain<UsrNodeBase, UsrNodeBaseType, UsrNodeBase0Service, UsrNodeBase0Repo, Table<UsrNodeBase>> {
+@Route(value = "usrUsrNodeBases", layout = MainView.class)
+@ViewController("enty_UsrNodeBase.main")
+@ViewDescriptor("usr-node-base-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeBase0Main extends UsrNodeBase0BaseMain<UsrNodeBase, UsrNodeBaseType, UsrNodeBase0Service, UsrNodeBase0Repo, DataGrid<UsrNodeBase>> {
 
     //Service
     @Override

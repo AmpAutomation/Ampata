@@ -88,8 +88,6 @@
                 <item view="enty_UsrEdgeBaseType.main" title="msg://ca.ampautomation.ampata.view.usr.edge.base/usrEdgeBaseType0Main.menu"/>
             </menu>
         </menu>
-        <item view="enty_UsrNodeBase.list"
-              title="msg://ca.ampautomation.ampata.view.usrnodebase/usrNodeBaseListView.title"/>
     </menu>
     <menu id="sys" title="msg://ca.ampautomation.ampata.menu/sys">
         <menu id="sysGen" title="msg://ca.ampautomation.ampata.menu/sysGen">
@@ -115,19 +113,7 @@
         </menu>
     </menu>
     <menu id="admin" title="msg://ca.ampautomation.ampata.menu/admin">
-        <item view="enty_User.browse" title="msg://ca.ampautomation.ampata.view.user/User0Browse.caption"/>
-        <item view="themeSettingsScreen" title="msg://io.jmix.ui.app.themesettings/themeSettings.caption"/>
-        <separator> --- </separator>
-        <item view="mten_Tenant.browse"/>
-        <item view="ui_JmxConsoleScreen"/>
-        <item view="sec_ResourceRoleModel.browse"
-              title="msg://io.jmix.securityui/menu.sec_ResourceRoleModel.browse"/>
-        <item view="sec_RowLevelRoleModel.browse"
-              title="msg://io.jmix.securityui/menu.sec_RowLevelRoleModel.browse"/>
-        <item view="entityInspector.browse"/>
+        <item view="Ampata_User.list" title="msg://ca.ampautomation.ampata.view.user/User0List.caption"/>
     </menu>
-    <item view="enty_UsrNodeBase2.list"
-          title="msg://ca.ampautomation.ampata.view.usrnodebase/usrNodeBaseListView2.title"/>
-
 
 </menu-config>

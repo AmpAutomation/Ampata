@@ -7,18 +7,32 @@ import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
 import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.repo.usr.edge.base.UsrEdgeBase0Repo;
 import ca.ampautomation.ampata.service.usr.edge.base.UsrEdgeBase0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxBase;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import io.jmix.core.*;
 import io.jmix.core.querycondition.Condition;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.UiComponents;
-import io.jmix.ui.component.*;
-import io.jmix.ui.component.data.options.ListOptions;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.MasterDetailScreen;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.component.radiobuttongroup.JmixRadioButtonGroup;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.component.valuepicker.JmixMultiValuePicker;
+import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +44,7 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
-public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT extends UsrEdgeBaseType, EdgeServiceT extends UsrEdgeBase0Service, EdgeRepoT extends UsrEdgeBase0Repo, TableT extends Table> extends MasterDetailScreen<EdgeT> implements UsrEdgeBase0BaseComn {
+public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT extends UsrEdgeBaseType, EdgeServiceT extends UsrEdgeBase0Service, EdgeRepoT extends UsrEdgeBase0Repo, DataGridT extends Grid<EdgeT>> extends StandardDetailView<EdgeT> implements UsrEdgeBase0BaseComn {
 
 
     //Common
@@ -61,7 +75,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
                         .getActualTypeArguments()[3];
     }
 
-    protected ListComponent<EdgeT> getTable() { return (ListComponent) getWindow().getComponentNN("tableMain");}
+    protected DataGrid<EdgeT> getDataGrid() {return (DataGrid<EdgeT>) getContent().getComponent("dataGridMain"); }
 
     //Service
     protected EdgeServiceT service;
@@ -102,15 +116,15 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
     //Toolbar
     @Autowired
-    protected ComboBox<Integer> updateColItemCalcValsOption;
+    protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
     @Autowired
-    protected ComboBox<Integer> updateInstItemCalcValsOption;
+    protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected GenericFilter filter;
 
     @Autowired
     protected PropertyFilter<EdgeTypeT> filterConfig1A_Type1_Id;
@@ -118,14 +132,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
     //Template
     @Autowired
-    protected CheckBox tmplt_Type1_IdFieldChk;
+    protected JmixCheckbox tmplt_Type1_IdFieldChk;
     @Autowired
     protected EntityComboBox<EdgeTypeT> tmplt_Type1_IdField;
 
     @Autowired
-    protected TextField<Integer> tmplt_SortIdxField;
+    protected TypedTextField<Integer> tmplt_SortIdxField;
     @Autowired
-    protected RadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
+    protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
@@ -136,7 +150,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     @Autowired
     protected InstanceContainer<EdgeT> instCntnrMain;
     @Autowired
-    protected TableT tableMain;
+    protected DataGridT dataGridMain;
 
 
     //Type data container and loader
@@ -154,27 +168,38 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
     //Field
     @Autowired
-    protected TextField<String> id2Field;
+    protected TypedTextField<String> id2Field;
 
     @Autowired
-    protected TextField<String> id2CalcField;
+    protected TypedTextField<String> id2CalcField;
 
     @Autowired
     protected EntityComboBox<EdgeTypeT> type1_IdField;
 
     @Autowired
-    protected TagField<UsrItemGenTag> genTags1_IdField;
+    protected JmixMultiValuePicker<UsrItemGenTag> genTags1_IdField;
 
 
     /**
-     * InitEvent is sent when the screen controller and all its declaratively defined
-     * components are created, and dependency injection is completed. Nested fragments
-     * are not initialized yet. Some visual components are not fully initialized,
-     * for example, buttons are not linked with actions.
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
      *
+     * @see #addInitListener(ComponentEventListener)
      */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
@@ -193,22 +218,22 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         }
 */
 
-        Map<String, Integer> map1 = new LinkedHashMap<>();
-        map1.put("Skip", 0);
-        map1.put("Max+1", 2);
-        map1.put("", 1);
-        tmplt_SortIdxFieldRdo.setOptionsMap(map1);
+        Map<Integer, String> map1 = new LinkedHashMap<>();
+        map1.put(0, "Skip");
+        map1.put(2, "Max+1");
+        map1.put(1, "");
+        ComponentUtils.setItemsMap(tmplt_SortIdxFieldRdo,map1);
 
-        Map<String, Integer> map2 = new LinkedHashMap<>();
-        map2.put(UpdateOption.SKIP.toString(), UpdateOption.SKIP.toInt());
-        map2.put(UpdateOption.LOCAL.toString(), UpdateOption.LOCAL.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toString(), UpdateOption.LOCAL__REF_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt());
-        updateColItemCalcValsOption.setOptionsMap(map2);
+        Map<Integer,String> map2 = new LinkedHashMap<>();
+        map2.put(UpdateOption.SKIP.toInt(),UpdateOption.SKIP.toString());
+        map2.put(UpdateOption.LOCAL.toInt(),UpdateOption.LOCAL.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString());
+        ComponentUtils.setItemsMap(updateColItemCalcValsOption,map2);
         updateColItemCalcValsOption.setValue(UpdateOption.LOCAL.toInt());
-        updateInstItemCalcValsOption.setOptionsMap(map2);
+        ComponentUtils.setItemsMap(updateInstItemCalcValsOption, map2);
         updateInstItemCalcValsOption.setValue(UpdateOption.LOCAL.toInt());
 
         colCntnrType = dataComponents.createCollectionContainer(this.typeOfEdgeTypeT);
@@ -219,15 +244,15 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
                 .build();
         colLoadrType.setFetchPlan(fchPlnType_Inst);
         colLoadrType.setContainer(colCntnrType);
-        colLoadrType.setDataContext(getScreenData().getDataContext());
+        colLoadrType.setDataContext(getViewData().getDataContext());
         //Field
-        type1_IdField.setOptionsContainer(colCntnrType);
+        type1_IdField.setItems(colCntnrType);
         //Template
-        tmplt_Type1_IdField.setOptionsContainer(colCntnrType);
+        tmplt_Type1_IdField.setItems(colCntnrType);
         //Filter
         EntityComboBox<EdgeTypeT> propFilterCmpnt_Type1_Id;
         propFilterCmpnt_Type1_Id = (EntityComboBox<EdgeTypeT>) filterConfig1A_Type1_Id.getValueComponent();
-        propFilterCmpnt_Type1_Id.setOptionsContainer(colCntnrType);
+        propFilterCmpnt_Type1_Id.setItems(colCntnrType);
 
         colCntnrGenTag = dataComponents.createCollectionContainer(UsrItemGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
@@ -237,63 +262,36 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
                 .build();
         colLoadrGenTag.setFetchPlan(fchPlnGenTag);
         colLoadrGenTag.setContainer(colCntnrGenTag);
-        colLoadrGenTag.setDataContext(getScreenData().getDataContext());
+        colLoadrGenTag.setDataContext(getViewData().getDataContext());
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    /**
-     * InitEntityEvent is sent in screens inherited from StandardEditor and MasterDetailScreen
-     * before the new entity instance is set to edited entity container.
-     * Use this event listener to initialize default values in the new entity instance
-     */
-    @Subscribe
-    public void onInitEntity(InitEntityEvent<EdgeT> event) {
-        String logPrfx = "onInitEntity";
-        logger.trace(logPrfx + " --> ");
-
-        EdgeT thisEdge = event.getEntity();
-        if (thisEdge == null) {
-            logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
-            logger.trace(logPrfx + " <-- ");
-            return;
-        }
-
-        logger.trace(logPrfx + " <-- ");
-
-    }
 
     /**
-     * AfterInitEvent is sent when the screen controller and all its declaratively defined components are created,
-     * dependency injection is completed, and all components have completed their internal initialization procedures.
-     * Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can
-     * create visual and data components and perform additional initialization if it depends on initialized nested
-     * fragments.
+     * The second (after {@link InitEvent}) event in the view opening process.
+     * All components have completed their internal initialization procedures.
+     * Data loaders have been triggered by the automatically configured {@code DataLoadCoordinator} facet.
+     * <p>
+     * In this event listener, you can load data, check permissions and modify UI components. For example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeShow(BeforeShowEvent event) {
+     *         customersDl.load();
+     *     }
+     * </pre>
+     * <p>
+     * You can abort the process of opening the view by throwing an exception.
      */
     @Subscribe
-    public void onAfterInit(AfterInitEvent event) {
-        String logPrfx = "onAfterInit";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    /**
-     * BeforeShowEvent is sent right before the screen is shown, for example, it is
-     * not added to the application UI yet.
-     * Security restrictions are applied to UI components. In this event listener, you can load data,
-     * check permissions and modify UI components.
-     */
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
+    public void onBeforeShowEvent(final View.BeforeShowEvent event) {
         String logPrfx = "onBeforeShow";
         logger.trace(logPrfx + " --> ");
 
         //logger.debug(logPrfx + " --- calling colLoadrMain.load() ");
         //colLoadrMain.load();
         //logger.debug(logPrfx + " --- called colLoadrMain.load() ");
-        //tableMain.sort("sortKey", Table.SortDirection.ASCENDING);
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
 
 /*
         String currentTenantId = tenantProvider.getCurrentUserTenantId();
@@ -308,16 +306,83 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     /**
-     * AfterShowEvent is sent right after the screen is shown, for example, when
-     * it is added to the application UI.
-     * In this event listener, you can show notifications, dialogs or other screens
+     * The last (after {@link View.BeforeShowEvent}) event in the view opening process.
+     * <p>
+     * In this event listener, you can make final configuration of the view according to loaded data and
+     * show notifications or dialogs:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onReady(ReadyEvent event) {
+     *         notifications.show("Just opened");
+     *     }
+     * </pre>
      */
     @Subscribe
-    protected void onAfterShow(AfterShowEvent event) {
-        String logPrfx = "onAfterShow";
+    public void onReadyEvent(final View.ReadyEvent event) {
+        String logPrfx = "onReadyEvent";
         logger.trace(logPrfx + " --> ");
 
         logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * The first event in the view closing process.
+     * The view is still displayed and fully functional.
+     * <p>
+     * In this event listener, you can check any conditions and prevent closing using the
+     * preventClose() method of the event, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeClose(BeforeCloseEvent event) {
+     *         if (Strings.isNullOrEmpty(textField.getTypedValue())) {
+     *             notifications.show("Input required");
+     *             event.preventClose();
+     *         }
+     *     }
+     * </pre>
+     */
+
+    @Subscribe
+    public void onBeforeClose(final View.BeforeCloseEvent event) {
+        String logPrfx = "onBeforeClose";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * Event sent before the new entity instance is set to edited entity container.
+     * <p>
+     * Use this event listener to initialize default values in the new entity instance, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInitEntity(InitEntityEvent&lt;Foo&gt; event) {
+     *         event.getEntity().setStatus(Status.ACTIVE);
+     *     }
+     * </pre>
+     *
+     * param NodeT type of entity
+     */
+
+    @Subscribe
+    public void onInitEntity(final StandardDetailView.InitEntityEvent<EdgeT> event) {
+        String logPrfx = "onInitEntity";
+        logger.trace(logPrfx + " --> ");
+
+        EdgeT thisEdge = event.getEntity();
+        if (thisEdge == null) {
+            logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
+            notifications.create("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
+
+        logger.trace(logPrfx + " <-- ");
+
     }
 
 
@@ -368,7 +433,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -384,7 +449,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateColCalcValsBtn")
-    public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -401,7 +466,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("deleteColDeletedColBtn")
-    public void onDeleteColDeletedColBtnClick(Button.ClickEvent event) {
+    public void onDeleteColDeletedColBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onDeleteColDeletedColBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -418,14 +483,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("duplicateBtn")
-    public void onDuplicateBtnClick(Button.ClickEvent event) {
+    public void onDuplicateBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+        List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
         if (thisEdges == null || thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -459,14 +524,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("setBtn")
-    public void onSetBtnClick(Button.ClickEvent event) {
+    public void onSetBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+        List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
         if (thisEdges == null || thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -501,7 +566,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
         Boolean thisEdgeIsChanged = false;
 
-        if (tmplt_Type1_IdFieldChk.isChecked()
+        if (tmplt_Type1_IdFieldChk.getValue()
         ) {
             thisEdgeIsChanged = true;
             thisEdge.setType1_Id(tmplt_Type1_IdField.getValue());
@@ -520,14 +585,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("rebuildSortIdxBtn")
-    public void onRebuildSortIdxBtnClick(Button.ClickEvent event) {
+    public void onRebuildSortIdxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onRebuildSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+        List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
         if (thisEdges == null || thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdges is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -600,14 +665,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("moveFrstSortIdxBtn")
-    public void onMoveFrstSortIdxBtnClick(Button.ClickEvent event) {
+    public void onMoveFrstSortIdxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveFrstSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = new ArrayList<EdgeT>(tableMain.getSelected().stream().toList());
+        List<EdgeT> thisEdges = new ArrayList<EdgeT>(dataGridMain.getSelectedItems().stream().toList());
         if (thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdges is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -713,8 +778,8 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
             if (dataContext.hasChanges()) {
                 // database write
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
+                logger.debug(logPrfx + " --- executing dataContext.save().");
+                dataContext.save();
             }
         }
 
@@ -722,14 +787,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("movePrevSortIdxBtn")
-    public void onMovePrevSortIdxBtnClick(Button.ClickEvent event) {
+    public void onMovePrevSortIdxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMovePrevSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = new ArrayList<EdgeT>(tableMain.getSelected().stream().toList());
+        List<EdgeT> thisEdges = new ArrayList<EdgeT>(dataGridMain.getSelectedItems().stream().toList());
         if (thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdges is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -755,7 +820,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         Integer sortIdxMax = service.getSortIdxMax(this, grpgKey);
         if(sortIdxMax == null){
             logger.debug(logPrfx + " --- thisWindow.getSortIdxMax(grpgKey) returned null");
-            notifications.create().withCaption("thisWindow.getSortIdxMax(grpgKey) returned null. Rebuild the sortIdx").show();
+            notifications.create("thisWindow.getSortIdxMax(grpgKey) returned null. Rebuild the sortIdx").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -829,8 +894,8 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
             // database write
             if (dataContext.hasChanges()) {
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
+                logger.debug(logPrfx + " --- executing dataContext.save().");
+                dataContext.save();
             }
 
         }
@@ -841,14 +906,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("moveNextSortIdxBtn")
-    public void onMoveNextSortIdxBtnClick(Button.ClickEvent event) {
+    public void onMoveNextSortIdxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveNextSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = new ArrayList<EdgeT>(tableMain.getSelected().stream().toList());
+        List<EdgeT> thisEdges = new ArrayList<EdgeT>(dataGridMain.getSelectedItems().stream().toList());
         if (thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdges is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -941,8 +1006,8 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
                 }
 
                 if (dataContext.hasChanges()) {
-                    logger.debug(logPrfx + " --- executing dataContext.commit().");
-                    dataContext.commit();
+                    logger.debug(logPrfx + " --- executing dataContext.save().");
+                    dataContext.save();
                 }
 
             }
@@ -952,14 +1017,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("moveLastSortIdxBtn")
-    public void onMoveLastSortIdxBtnClick(Button.ClickEvent event) {
+    public void onMoveLastSortIdxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveLastSortIdxBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = new ArrayList<EdgeT>(tableMain.getSelected().stream().toList());
+        List<EdgeT> thisEdges = new ArrayList<EdgeT>(dataGridMain.getSelectedItems().stream().toList());
         if (thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdges is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -986,7 +1051,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         Integer sortIdxMax = service.getSortIdxMax(this, grpgKey);
         if(sortIdxMax == null){
             logger.debug(logPrfx + " --- thisWindow.getSortIdxMax(grpgKey) returned null");
-            notifications.create().withCaption("thisWindow.getSortIdxMax(grpgKey) returned null. Rebuild the sortIdx").show();
+            notifications.create("thisWindow.getSortIdxMax(grpgKey) returned null. Rebuild the sortIdx").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1069,8 +1134,8 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
                 // database write
                 if (dataContext.hasChanges()) {
-                    logger.debug(logPrfx + " --- executing dataContext.commit().");
-                    dataContext.commit();
+                    logger.debug(logPrfx + " --- executing dataContext.save().");
+                    dataContext.save();
                 }
             }
         }
@@ -1132,7 +1197,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+            List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
 
             UpdateOption updOption = UpdateOption.valueOf(updateInstItemCalcValsOption.getValue())
                     .orElse(UpdateOption.SKIP);
@@ -1150,27 +1215,28 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
             });
 
             if (dataContext.hasChanges()) {
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
+                logger.debug(logPrfx + " --- executing dataContext.save().");
+                dataContext.save();
 
                 logger.debug(logPrfx + " --- executing colLoadrMain.load().");
                 colLoadrMain.load();
 
-                tableMain.setSelected(thisEdges);
+                //todo check how to dataGridMain.setSelected
+                //dataGridMain.setSelected(thisEdges);
             }
         }
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateColItemCalcValsBtn")
-    public void onUpdateColItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+        List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
         if (thisEdges == null || thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1190,19 +1256,22 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         });
 
         if (dataContext.hasChanges()){
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
+            logger.debug(logPrfx + " --- executing dataContext.save().");
+            dataContext.save();
 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            //tableMain.sort("id2", Table.SortDirection.ASCENDING);
-            try{tableMain.setSelected(thisEdges);
+            //todo check how to dataGridMain.setSelected
+            //dataGridMain.sort("id2", Table.SortDirection.ASCENDING);
+            /*
+            try{dataGridMain.setSelected(thisEdges);
             }
             catch(IllegalArgumentException e){
                 logger.debug(logPrfx + " --- caught IllegalArgumentException: " + e.getMessage());
-                notifications.create().withCaption("Unable to keep all previous selections.").show();
+                notifications.create("Unable to keep all previous selections.").show();
             }
+            */
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1210,14 +1279,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("updateColItemId2Btn")
-    public void onUpdateColItemId2BtnClick(Button.ClickEvent event) {
+    public void onUpdateColItemId2BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColItemId2BtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<EdgeT> thisEdges = tableMain.getSelected().stream().toList();
+        List<EdgeT> thisEdges = dataGridMain.getSelectedItems().stream().toList();
         if (thisEdges == null || thisEdges.isEmpty()) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1237,14 +1306,15 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         });
 
         if (dataContext.hasChanges()){
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
+            logger.debug(logPrfx + " --- executing dataContext.save().");
+            dataContext.save();
 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            //tableMain.sort("id2", Table.SortDirection.ASCENDING);
-            tableMain.setSelected(thisEdges);
+            //todo check how to dataGridMain.setSelected
+            //dataGridMain.sort("id2", Table.SortDirection.ASCENDING);
+            //dataGridMain.setSelected(thisEdges);
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1260,7 +1330,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
             //todo I observed thisEdge is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
+            //notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1275,14 +1345,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateInstItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInstItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1298,11 +1368,11 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         String logPrfx = "onId2FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             EdgeT thisEdge = instCntnrMain.getItemOrNull();
             if (thisEdge == null) {
                 logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -1314,14 +1384,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1335,14 +1405,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1355,14 +1425,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CmpFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1374,14 +1444,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2DupFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1397,11 +1467,11 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
         String logPrfx = "onSortIdxFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             EdgeT thisEdge = instCntnrMain.getItemOrNull();
             if (thisEdge == null) {
                 logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -1413,14 +1483,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateSortKeyFieldBtn")
-    public void onUpdateSortKeyFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateSortKeyFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateSortKeyFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1432,14 +1502,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateName1FieldBtn")
-    public void onUpdateName1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateName1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateName1FieldBtnClick[super]";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1452,7 +1522,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 
     @Subscribe("updateType1_IdFieldListBtn")
-    public void onUpdateType1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateType1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateType1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1464,14 +1534,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("updateInst1FieldBtn")
-    public void onUpdateInst1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateInst1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInst1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1485,14 +1555,14 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateDesc1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         EdgeT thisEdge = instCntnrMain.getItemOrNull();
         if (thisEdge == null) {
             logger.debug(logPrfx + " --- thisEdge is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1514,35 +1584,33 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     }
 */
 
-    protected void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+    protected void addEnteredTextToComboBoxOptionsList(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
         String logPrfx = "addEnteredTextToComboBoxOptionsList";
         logger.trace(logPrfx + " --> ");
 
-        String text = enterPressEvent.getText();
+        // event.getSource is directly connected to a JmixComboBox
+        JmixComboBox<String> cb = (JmixComboBox<String>) event.getSource();
+
+        String text = event.getSource().getValue();
+
         if (!Objects.equals(text, "<null>")){
             @SuppressWarnings("unchecked")
-            // enterPressEvent.getSource is directly connected to a ComboBox
-            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
 
-            List<String> list;
-            // this comboBox options list is created with a call to setOptionsList(List)
-            // see onUpdateFinStmtItm1_Desc1Field
-            // therefore cb.getOptions is type ListOptions
-            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
-            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
-                list = (List<String>) listOptions.getItemsCollection();
-            } else {
-                list = new ArrayList<String>();
-            }
+            /*
+            If you use combobox.setItems(items); then ComboBox 
+            will automatically create a ListDataProvider out of those items
+            Use the ListDataProvider to get the list
+            */
+            ListDataProvider<String> ldp = (ListDataProvider<String>) cb.getDataProvider();
+
+            List<String> list = new ArrayList<>(ldp.getItems());
 
             list.add(text);
             logger.trace(logPrfx + " --- called list.add( " + text + ")");
 
-            cb.setOptionsList(list);
+            cb.setItems(list);
 
-            notifications.create()
-                    .withCaption("Added " + text + " to list.")
-                    .show();
+            notifications.create("Added " + text + " to list.").show();
         }
 
     }

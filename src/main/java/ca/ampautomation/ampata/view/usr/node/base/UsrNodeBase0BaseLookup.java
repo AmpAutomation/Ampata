@@ -4,23 +4,24 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Repo;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
+import com.vaadin.flow.component.ComponentEventListener;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.CollectionContainer;
-import io.jmix.ui.model.DataComponents;
-import io.jmix.ui.model.DataContext;
-import io.jmix.ui.model.InstanceContainer;
-import io.jmix.ui.screen.StandardLookup;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.*;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.kit.action.*;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeTypeT extends UsrNodeBaseType, NodeServiceT extends UsrNodeBase0Service, NodeRepoT extends UsrNodeBase0Repo, TableT extends Table> extends StandardLookup<NodeT> implements UsrNodeBase0BaseComn {
+public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeTypeT extends UsrNodeBaseType, NodeServiceT extends UsrNodeBase0Service, NodeRepoT extends UsrNodeBase0Repo, DataGridT extends DataGrid> extends StandardListView<NodeT> implements UsrNodeBase0BaseComn {
 
 
     //Common
@@ -41,9 +42,7 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
                         .getActualTypeArguments()[1];
     }
 
-    protected ListComponent<NodeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
+    protected DataGrid<NodeT> getDataGrid() {return (DataGrid<NodeT>) getContent().getComponent("dataGridMain"); }
 
     //Service
     protected NodeServiceT service;
@@ -91,7 +90,7 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected GenericFilter filter;
 
     @Autowired
     protected PropertyFilter<String> filterConfig1A_Id2;
@@ -113,14 +112,25 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
 
 
     /**
-     * InitEvent is sent when the screen controller and all its declaratively defined
-     * components are created, and dependency injection is completed. Nested fragments
-     * are not initialized yet. Some visual components are not fully initialized,
-     * for example, buttons are not linked with actions.
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
      *
+     * @see #addInitListener(ComponentEventListener)
      */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
@@ -129,46 +139,88 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
 
 
     /**
-     * AfterInitEvent is sent when the screen controller and all its declaratively defined components are created,
-     * dependency injection is completed, and all components have completed their internal initialization procedures.
-     * Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can
-     * create visual and data components and perform additional initialization if it depends on initialized nested
-     * fragments.
+     * The second (after {@link InitEvent}) event in the view opening process.
+     * All components have completed their internal initialization procedures.
+     * Data loaders have been triggered by the automatically configured {@code DataLoadCoordinator} facet.
+     * <p>
+     * In this event listener, you can load data, check permissions and modify UI components. For example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeShow(BeforeShowEvent event) {
+     *         customersDl.load();
+     *     }
+     * </pre>
+     * <p>
+     * You can abort the process of opening the view by throwing an exception.
      */
     @Subscribe
-    public void onAfterInit(AfterInitEvent event) {
-        String logPrfx = "onAfterInit";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    /**
-     * BeforeShowEvent is sent right before the screen is shown, for example, it is
-     * not added to the application UI yet.
-     * Security restrictions are applied to UI components. In this event listener, you can load data,
-     * check permissions and modify UI components.
-     */
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
+    public void onBeforeShowEvent(final View.BeforeShowEvent event) {
         String logPrfx = "onBeforeShow";
         logger.trace(logPrfx + " --> ");
 
+        //logger.debug(logPrfx + " --- calling colLoadrMain.load() ");
+        //colLoadrMain.load();
+        //logger.debug(logPrfx + " --- called colLoadrMain.load() ");
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
+
+/*
+        String currentTenantId = tenantProvider.getCurrentUserTenantId();
+        if (!currentTenantId.equals(TenantProvider.NO_TENANT)
+                && Strings.isNullOrEmpty(tenantField.getValue())) {
+            //tenantField.setEditable(false);
+            tenantField.setValue(currentTenantId);
+        }
+*/
         logger.trace(logPrfx + " <-- ");
 
     }
 
     /**
-     * AfterShowEvent is sent right after the screen is shown, for example, when
-     * it is added to the application UI.
-     * In this event listener, you can show notifications, dialogs or other screens
+     * The last (after {@link View.BeforeShowEvent}) event in the view opening process.
+     * <p>
+     * In this event listener, you can make final configuration of the view according to loaded data and
+     * show notifications or dialogs:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onReady(ReadyEvent event) {
+     *         notifications.show("Just opened");
+     *     }
+     * </pre>
      */
     @Subscribe
-    protected void onAfterShow(AfterShowEvent event) {
-        String logPrfx = "onAfterShow";
+    public void onReadyEvent(final View.ReadyEvent event) {
+        String logPrfx = "onReadyEvent";
         logger.trace(logPrfx + " --> ");
 
         logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * The first event in the view closing process.
+     * The view is still displayed and fully functional.
+     * <p>
+     * In this event listener, you can check any conditions and prevent closing using the
+     * preventClose() method of the event, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeClose(BeforeCloseEvent event) {
+     *         if (Strings.isNullOrEmpty(textField.getTypedValue())) {
+     *             notifications.show("Input required");
+     *             event.preventClose();
+     *         }
+     *     }
+     * </pre>
+     */
+
+    @Subscribe
+    public void onBeforeClose(final View.BeforeCloseEvent event) {
+        String logPrfx = "onBeforeClose";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
     }
 
 
@@ -212,7 +264,7 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
         logger.trace(logPrfx + " <-- ");
     }
 
-    public Filter getFilter(){
+    public GenericFilter getFilter(){
         return filter;
     }
 

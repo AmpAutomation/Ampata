@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrNodeFinTxact0Edit.caption"
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://usrNodeFinTxact0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
@@ -20,15 +21,9 @@
         <screenSettings id="settingsFacet" auto="true"/>
     </facets>
     <actions>
-        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
-                icon="EDITOR_OK"
-                primary="true"
-                shortcut="${COMMIT_SHORTCUT}"/>
-        <action id="windowClose"
-                caption="msg:///actions.Close"
-                icon="EDITOR_CANCEL"/>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
     </actions>
-    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="instCntnrMain">
@@ -43,7 +38,7 @@
                                   expand="parent1_Id_Desc1Field" width="1532px">
                                 <textArea id="parent1_Id_Desc1Field" dataContainer="instCntnrMain"
                                           property="parent1_Id.desc1" rows="1"/>
-                                <button id="updateParent1_Desc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                <button id="updateParent1_Desc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 <button id="updateParent1_Desc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                             </hbox>
                             <hbox caption="desc1Node1_Id" expand="parent1_Desc1Node1_IdField" width="374px">
@@ -56,8 +51,8 @@
                                                 <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinTxactItm0Lookup"/>
                                             </properties>
                                         </action>
-                                        <action id="entityOpen" type="entity_open"/>
-                                        <action id="entityClear" type="entity_clear"/>
+                                        <action type="entity_open"/>
+                                        <action type="entity_clear"/>
                                     </actions>
                                 </entityPicker>
                             </hbox>
@@ -71,8 +66,8 @@
                                                 <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinTxactItm0Lookup"/>
                                             </properties>
                                         </action>
-                                        <action id="entityOpen" type="entity_open"/>
-                                        <action id="entityClear" type="entity_clear"/>
+                                        <action type="entity_open"/>
+                                        <action type="entity_clear"/>
                                     </actions>
                                 </entityPicker>
                             </hbox>
@@ -94,32 +89,32 @@
                             <vbox width="374px">
                                 <hbox caption="id" expand="parent1_Id" width="100%">
                                     <textField id="parent1_Id" dataContainer="instCntnrMain"
-                                               property="parent1_Id.id" editable="false"/>
+                                               property="parent1_Id.id" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="dtype" expand="parent1_DtypeField" width="100%">
                                     <textField id="parent1_DtypeField" dataContainer="instCntnrMain"
-                                               property="parent1_Id.dtype" editable="false"/>
+                                               property="parent1_Id.dtype" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="id2" expand="parent1_Id2Field" width="100%">
                                     <textField id="parent1_Id2Field" dataContainer="instCntnrMain"
                                                property="parent1_Id.id2"/>
-                                    <button id="updateParent1_Id2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateParent1_Id2FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Calc" expand="parent1_Id2CalcField" width="100%">
                                     <textField id="parent1_Id2CalcField" dataContainer="instCntnrMain"
-                                               property="parent1_Id.id2Calc" editable="false"/>
-                                    <button id="updateParent1_Id2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                               property="parent1_Id.id2Calc" readOnly="true"/>
+                                    <button id="updateParent1_Id2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
                                     <hbox caption="id2Cmp" expand="parent1_Id2CmpField" width="181px">
-                                        <checkBox id="parent1_Id2CmpField" dataContainer="instCntnrMain"
-                                                  property="parent1_Id.id2Cmp" editable="false"/>
-                                        <button id="updateParent1_Id2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <checkbox id="parent1_Id2CmpField" dataContainer="instCntnrMain"
+                                                  property="parent1_Id.id2Cmp" readOnly="true"/>
+                                        <button id="updateParent1_Id2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Dup" expand="parent1_Id2DupField" width="181px">
                                         <textField id="parent1_Id2DupField" dataContainer="instCntnrMain"
-                                                   property="parent1_Id.id2Dup" editable="false"/>
-                                        <button id="updateParent1_Id2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                                   property="parent1_Id.id2Dup" readOnly="true"/>
+                                        <button id="updateParent1_Id2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
@@ -130,7 +125,7 @@
                                     <hbox caption="sortKey" expand="parent1_SortKeyField" width="181px">
                                         <textField id="parent1_SortKeyField" dataContainer="instCntnrMain"
                                                    property="parent1_Id.sortKey"/>
-                                        <button id="updateParent1_SortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateParent1_SortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                             </vbox>
@@ -139,29 +134,29 @@
                                 <hbox caption="name1" expand="parent1_Name1Field" width="100%">
                                     <textField id="parent1_Name1Field" dataContainer="instCntnrMain"
                                                property="parent1_Id.name1"/>
-                                    <button id="updateParent1_Name1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateParent1_Name1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateParent1_Name1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="type1_Id" expand="parent1_Type1_IdField" width="100%">
                                     <entityComboBox id="parent1_Type1_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.type1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_Type1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    <button id="updateParent1_Type1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="inst1" expand="parent1_Inst1Field" width="100%">
                                     <textField id="parent1_Inst1Field" dataContainer="instCntnrMain"
                                                property="parent1_Id.inst1"/>
-                                    <button id="updateParent1_Inst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateParent1_Inst1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateParent1_Inst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                             </vbox>
                             <vbox width="374px">
                                 <hbox caption="Ts1.elTs" expand="parent1_Ts1_ElTsField" width="100%">
-                                    <dateField id="parent1_Ts1_ElTsField" dataContainer="instCntnrMain"
+                                    <dateTimePicker id="parent1_Ts1_ElTsField" dataContainer="instCntnrMain"
                                                property="ts1.elTs"/>
                                 </hbox>
                             </vbox>
@@ -171,33 +166,33 @@
                                     <entityComboBox id="parent1_GenChan1_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.genChan1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_GenChan1_IdFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_GenChan1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="genChan2" expand="parent1_GenChan2_IdField" width="100%">
                                     <entityComboBox id="parent1_GenChan2_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.genChan2_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_GenChan2_IdFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_GenChan2_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finHow1" expand="parent1_FinHow1_IdField" width="100%">
                                     <entityComboBox id="parent1_FinHow1_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.finHow1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_How1_IdFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_How1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="whatText1" expand="parent1_WhatText1Field" width="100%">
@@ -205,18 +200,18 @@
                                               property="parent1_Id.whatText1">
 
                                     </comboBox>
-                                    <button id="updateParent1_WhatText1FieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_WhatText1FieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finWhat1" expand="parent1_FinWhat1_IdField" width="100%">
                                     <entityComboBox id="parent1_FinWhat1_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.finWhat1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_What1_IdFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_What1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="whyText1" expand="parent1_WhyText1Field" width="100%">
@@ -224,18 +219,18 @@
                                               property="parent1_Id.whyText1">
 
                                     </comboBox>
-                                    <button id="updateParent1_WhyText1FieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_WhyText1FieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finWhy1" expand="parent1_FinWhy1_IdField" width="100%">
                                     <entityComboBox id="parent1_FinWhy1_IdField" dataContainer="instCntnrMain"
                                                     property="parent1_Id.finWhy1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateParent1_Why1_IdFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_Why1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                             </vbox>
@@ -248,14 +243,14 @@
                     </tab>
 
                     <tab id="tab_1"
-                         caption="Main"
+                         label="Main"
                          expand="tab1_hbox3"
                          margin="true">
 
                         <hbox id="tab1_hbox1" width="100%" spacing="true">
                             <hbox caption="desc1" expand="desc1Field" width="2304px">
                                 <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                             </hbox>
                         </hbox>
@@ -275,36 +270,36 @@
                             <vbox width="374px">
                                 <hbox caption="id" expand="id" width="100%">
                                     <textField id="id" dataContainer="instCntnrMain"
-                                               property="id" editable="false"/>
+                                               property="id" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="tenant" expand="tenantField" width="100%">
                                     <textField id="tenantField" dataContainer="instCntnrMain"
-                                               property="tenant" editable="false"/>
+                                               property="tenant" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="dtype" expand="dtypeField" width="100%">
                                     <textField id="dtypeField" dataContainer="instCntnrMain"
-                                               property="dtype" editable="false"/>
+                                               property="dtype" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="id2" expand="id2Field" width="100%">
                                     <textField id="id2Field" dataContainer="instCntnrMain"
                                                property="id2"/>
-                                    <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                     <textField id="id2CalcField" dataContainer="instCntnrMain"
-                                               property="id2Calc" editable="false"/>
-                                    <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                               property="id2Calc" readOnly="true"/>
+                                    <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
                                     <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
-                                        <checkBox id="id2CmpField" dataContainer="instCntnrMain"
-                                                  property="id2Cmp" editable="false"/>
-                                        <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <checkbox id="id2CmpField" dataContainer="instCntnrMain"
+                                                  property="id2Cmp" readOnly="true"/>
+                                        <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                         <textField id="id2DupField" dataContainer="instCntnrMain"
-                                                   property="id2Dup" editable="false"/>
-                                        <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                                   property="id2Dup" readOnly="true"/>
+                                        <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
@@ -315,7 +310,7 @@
                                     <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                         <textField id="sortKeyField" dataContainer="instCntnrMain"
                                                    property="sortKey"/>
-                                        <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateSortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                             </vbox>
@@ -331,40 +326,40 @@
                                                     <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinTxactSet0Lookup"/>
                                                 </properties>
                                             </action>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityPicker>
-                                    <button id="updateParent1_IdFieldBtn" icon="vaadin:refresh"
+                                    <button id="updateParent1_IdFieldBtn" icon="REFRESH"
                                             tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="name1" expand="name1Field" width="100%">
                                     <textField id="name1Field" dataContainer="instCntnrMain"
                                                property="name1"/>
-                                    <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                     <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
                                                     property="type1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateType1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    <button id="updateType1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="inst1" expand="inst1Field" width="100%">
                                     <textField id="inst1Field" dataContainer="instCntnrMain"
                                                property="inst1"/>
-                                    <button id="updateInst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateInst1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateInst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                             </vbox>
 
                             <vbox width="374px">
                                 <hbox caption="ts1.elTs" expand="ts1_ElTsFieldSpace" width="100%" >
-                                    <dateField id="ts1_ElTsField" dataContainer="instCntnrMain"
+                                    <dateTimePicker id="ts1_ElTsField" dataContainer="instCntnrMain"
                                                property="ts1.elTs" datatype="localDateTime"/>
                                     <hbox id="ts1_ElTsFieldSpace"/>
                                     <button id="extractTs1_ElTsFieldBtn" icon="vaadin:adjust"
@@ -374,7 +369,7 @@
                                     <hbox caption="int1" width="100%" expand="int1Field">
                                         <textField id="int1Field" dataContainer="instCntnrMain"
                                                    property="int1"/>
-                                        <button id="updateInt1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateInt1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                             </vbox>
@@ -385,7 +380,7 @@
                                               property="parent1_EI1_Role">
 
                                     </comboBox>
-                                    <button id="updateParent1_EI1_RoleFieldListBtn" icon="vaadin:list"
+                                    <button id="updateParent1_EI1_RoleFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                             </vbox>
@@ -404,32 +399,32 @@
                             <vbox width="374px">
                                 <hbox caption="finTxactItms1_IdCntCalc" expand="finTxactItms1_IdCntCalcField" width="100%">
                                     <textField id="finTxactItms1_IdCntCalcField" dataContainer="instCntnrMain"
-                                               property="finTxactItms1_IdCntCalc" editable="false"/>
-                                    <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                               property="finTxactItms1_IdCntCalc" readOnly="true"/>
+                                    <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxactItms1_AmtDebtSumCalc" expand="finTxactItms1_AmtDebtSumCalc" width="100%">
                                     <textField id="finTxactItms1_AmtDebtSumCalc" dataContainer="instCntnrMain"
                                                property="finTxactItms1_AmtDebtSumCalc">
                                         <formatter><number format="#,###.00"/></formatter>
                                     </textField>
-                                    <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxactItms1_AmtCredSumCalc" expand="finTxactItms1_AmtCredSumCalcField" width="100%">
                                     <textField id="finTxactItms1_AmtCredSumCalcField" dataContainer="instCntnrMain"
                                                property="finTxactItms1_AmtCredSumCalc">
                                         <formatter><number format="#,###.00"/></formatter>
                                     </textField>
-                                    <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxactItms1_AmtEqCalc" expand="finTxactItms1_AmtEqCalcBox" width="100%">
-                                    <checkBox id="finTxactItms1_AmtEqCalcBox" dataContainer="instCntnrMain"
-                                              property="finTxactItms1_AmtEqCalc" editable="false"/>
-                                    <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <checkbox id="finTxactItms1_AmtEqCalcBox" dataContainer="instCntnrMain"
+                                              property="finTxactItms1_AmtEqCalc" readOnly="true"/>
+                                    <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="finTxactItms1_SysNodeFinCurcyEqCalc" expand="finTxactItms1_SysNodeFinCurcyEqCalcBox" width="100%">
-                                    <checkBox id="finTxactItms1_SysNodeFinCurcyEqCalcBox" dataContainer="instCntnrMain"
-                                              property="finTxactItms1_SysNodeFinCurcyEqCalc" editable="false"/>
-                                    <button id="updateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <checkbox id="finTxactItms1_SysNodeFinCurcyEqCalcBox" dataContainer="instCntnrMain"
+                                              property="finTxactItms1_SysNodeFinCurcyEqCalc" readOnly="true"/>
+                                    <button id="updateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                             </vbox>
                             <vbox width="374px">
@@ -444,7 +439,7 @@
                     </tab>
 
                     <tab id="tab_9"
-                         caption="Note"
+                         label="Note"
                          expand="tab9_hbox1"
                          margin="true">
 
@@ -459,7 +454,7 @@
             </form>
         </scrollBox>
         <hbox id="editActions" spacing="true">
-            <button id="reloadListsBtn" text="Reload Lists" icon="vaadin:list"/>
+            <button id="reloadListsBtn" text="Reload Lists" icon="LIST"/>
             <label value="|" align="MIDDLE_CENTER"/>
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
@@ -473,4 +468,4 @@
             <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
         </hbox>
     </layout>
-</window>
+</view>

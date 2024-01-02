@@ -9,8 +9,8 @@ import ca.ampautomation.ampata.view.usr.item.base.UsrItemBase0BaseMain;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseComn;
 import io.jmix.core.DataManager;
 import io.jmix.core.MetadataTools;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.screen.Screen;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.view.View;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,18 +53,18 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateCalcVals(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
+    public Boolean updateCalcVals(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisItem, updOption) || isChanged;
+        isChanged = updateName1(view, thisItem, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisItem, updOption) || isChanged;
-        isChanged = updateSortKey(screen, thisItem, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisItem, updOption) || isChanged;
+        isChanged = updateSortKey(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -80,7 +80,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
@@ -127,13 +127,13 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2Deps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Deps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisItem, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -160,7 +160,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Calc(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Calc(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
@@ -230,13 +230,13 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2CalcDeps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2CalcDeps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2CalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisItem, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -265,7 +265,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Cmp(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Cmp(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
@@ -308,7 +308,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Dup(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Dup(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
@@ -379,13 +379,13 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2DupDeps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateId2DupDeps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2DupDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisItem, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -412,7 +412,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateSortKey(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateSortKey(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortKey";
         logger.trace(logPrfx + " --> ");
 
@@ -479,13 +479,13 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateSortKeyDeps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateSortKeyDeps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortKeyDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisItem, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -515,7 +515,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateName1(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
+    public Boolean updateName1(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
         String logPrfx = "updateName1()";
         logger.trace(logPrfx + " --> ");
 
@@ -594,15 +594,15 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateName1Deps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateName1Deps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateName1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateId2Calc(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisItem, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -628,16 +628,16 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateType1_IdDeps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateType1_IdDeps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateType1_IdDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Calc(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisItem, updOption) || isChanged;
+        isChanged = updateName1(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -650,7 +650,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateInst1(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
+    public Boolean updateInst1(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
         String logPrfx = "updateInst1";
         logger.trace(logPrfx + " --> ");
 
@@ -680,16 +680,16 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInst1Deps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateInst1Deps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInst1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Calc(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisItem, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisItem, updOption) || isChanged;
+        isChanged = updateName1(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisItem, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisItem, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -701,7 +701,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateDesc1(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
+    public Boolean updateDesc1(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -726,7 +726,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateDesc1Deps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateDesc1Deps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateDesc1Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -751,7 +751,7 @@ public class UsrItemBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateSortIdxDeps(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxDeps(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxDeps";
         logger.trace(logPrfx + " --> ");
 
@@ -761,7 +761,7 @@ public class UsrItemBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateSortIdxFrId2(@NotNull Screen screen, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxFrId2(@NotNull View view, @NotNull UsrItemBase thisItem, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxFrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -800,17 +800,17 @@ public class UsrItemBase0Service implements Globals {
         return statuss;
     }
 
-    public Integer getSortIdxMax(@NotNull Screen screen) {
+    public Integer getSortIdxMax(@NotNull View view) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 
         Integer sortIdxMax = null;
 
         Notifications notifications;
-        if(screen instanceof UsrItemBase0BaseMain
-                || screen instanceof SysNodeBase0BaseEdit
+        if(view instanceof UsrItemBase0BaseMain
+//                || view instanceof UsrItemBase0BaseEdit
         ) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
 
             Integer sortIdxCntIsNull = null;
@@ -824,7 +824,7 @@ public class UsrItemBase0Service implements Globals {
                         .one();
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- sortIdxCntIsNullQry error: " + e.getMessage());
-                notifications.create().withCaption("sortIdxCntIsNullQry error: " + e.getMessage()).show();
+                notifications.create("sortIdxCntIsNullQry error: " + e.getMessage()).show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }

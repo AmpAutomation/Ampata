@@ -3,12 +3,15 @@ package ca.ampautomation.ampata.view.usr.node.base;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Type0Repo;
 import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Type0Service;
-import io.jmix.ui.screen.*;
+import ca.ampautomation.ampata.view.main.MainView;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeBaseType.edit")
-@UiDescriptor("usr-node-base-0-type-0-edit.xml")
+@Route(value = "usrNodeBaseTypes/:id", layout = MainView.class)
+@ViewController("enty_UsrNodeBaseType.edit")
+@ViewDescriptor("usr-node-base-0-type-0-edit.xml")
 @EditedEntityContainer("usrNodeTypeDc")
 public class UsrNodeBase0Type0Edit extends UsrNodeBase0Type0BaseEdit<UsrNodeBaseType, UsrNodeBase0Type0Service, UsrNodeBase0Type0Repo> {
 

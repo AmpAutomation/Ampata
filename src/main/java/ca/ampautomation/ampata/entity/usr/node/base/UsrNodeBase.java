@@ -66,8 +66,6 @@ import java.util.*;
         @Index(name = "IDX_USRNODE_FIN_BAL_SET1__ID", columnList = "FIN_BAL_SET1__ID"),
         @Index(name = "IDX_USRNODE_FIN_TAX_LNE1__ID", columnList = "FIN_TAX_LNE1__ID"),
         @Index(name = "IDX_USRNODE_SYS_NODE_FIN_CURCY1__ID", columnList = "SYS_NODE_FIN_CURCY1__ID"),
-        @Index(name = "IDX_USRNODE_AMT_GEN_FMLA1__ID", columnList = "AMT_GEN_FMLA1__ID"),
-        @Index(name = "IDX_USRNODE_AMT_FIN_TXACT_ITM1__ID", columnList = "AMT_FIN_TXACT_ITM1__ID"),
         @Index(name = "IDX_USRNODE_GEN_DOC_VER1__ID", columnList = "GEN_DOC_VER1__ID"),
         @Index(name = "IDX_USRNODE_GEN_FILE1__ID", columnList = "GEN_FILE1__ID"),
         @Index(name = "IDX_USRNODE_GEN_TAG1__ID", columnList = "GEN_TAG1__ID"),

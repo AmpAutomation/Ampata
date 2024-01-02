@@ -2,18 +2,20 @@ package ca.ampautomation.ampata.view.usr.node.fin;
 
 import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinAcct0Type0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0Type0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinAcct0Type0Service;
-import io.jmix.ui.component.*;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.*;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeFinAcctType.main")
-@UiDescriptor("usr-node-fin-acct-0-type-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeFinAcct0Type0Main extends UsrNodeBase0Type0BaseMain<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo, TreeTable<UsrNodeFinAcctType>> {
+@Route(value = "usrNodeFinAcctTypes", layout = MainView.class)
+@ViewController("enty_UsrNodeFinAcctType.main")
+@ViewDescriptor("usr-node-fin-acct-0-type-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeFinAcct0Type0Main extends UsrNodeBase0Type0BaseMain<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo, TreeDataGrid<UsrNodeFinAcctType>> {
 
     //Service
     @Override

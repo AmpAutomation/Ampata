@@ -3,19 +3,20 @@ package ca.ampautomation.ampata.view.usr.edge.gen;
 import ca.ampautomation.ampata.entity.usr.edge.gen.UsrEdgeGenBasic;
 import ca.ampautomation.ampata.entity.usr.edge.gen.UsrEdgeGenBasicType;
 import ca.ampautomation.ampata.repo.usr.edge.gen.UsrEdgeGenBasic0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.edge.base.UsrEdgeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.edge.gen.UsrEdgeGenBasic0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrEdgeGenBasic.main")
-@UiDescriptor("usr-edge-gen-basic-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrEdgeGenBasic0Main extends UsrEdgeBase0BaseMain<UsrEdgeGenBasic, UsrEdgeGenBasicType, UsrEdgeGenBasic0Service, UsrEdgeGenBasic0Repo, Table<UsrEdgeGenBasic>> {
+@Route(value = "usrEdgeGenBasics", layout = MainView.class)
+@ViewController("enty_UsrEdgeGenBasic.main")
+@ViewDescriptor("usr-edge-gen-basic-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrEdgeGenBasic0Main extends UsrEdgeBase0BaseMain<UsrEdgeGenBasic, UsrEdgeGenBasicType, UsrEdgeGenBasic0Service, UsrEdgeGenBasic0Repo, DataGrid<UsrEdgeGenBasic>> {
 
     //Service
     @Override

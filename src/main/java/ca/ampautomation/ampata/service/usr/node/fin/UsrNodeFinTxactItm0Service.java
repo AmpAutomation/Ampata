@@ -15,16 +15,16 @@ import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Service;
 import io.jmix.core.metamodel.annotation.JmixProperty;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.model.DataContext;
-import io.jmix.ui.screen.Screen;
-import io.jmix.ui.screen.UiControllerUtils;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.view.View;
+import io.jmix.flowui.model.DataContext;
+import io.jmix.flowui.view.ViewControllerUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import jakarta.persistence.Transient;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
@@ -65,28 +65,28 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateCalcVals(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateCalcVals(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItm1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItm1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateParent1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateParent1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateAmtNet(screen, thisNode, updOption) || isChanged;
-        isChanged = updateAmtCalcFinTxactItm1_EI1_Rate(screen, thisNode, updOption) || isChanged;
-        isChanged = updateAmtCalc(screen, thisNode, updOption) || isChanged;
+        isChanged = updateAmtNet(view, thisNode, updOption) || isChanged;
+        isChanged = updateAmtCalcFinTxactItm1_EI1_Rate(view, thisNode, updOption) || isChanged;
+        isChanged = updateAmtCalc(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
-        isChanged = updateSortKey(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
+        isChanged = updateSortKey(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -157,7 +157,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateInst1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateInst1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateInst1";
         logger.trace(logPrfx + " --> ");
 
@@ -353,7 +353,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateName1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateName1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateName1()";
         logger.trace(logPrfx + " --> ");
 
@@ -442,7 +442,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
      * @return Boolean true if the field was changed, otherwise false
      */
     @Override
-    public Boolean updateDesc1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateDesc1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -594,23 +594,23 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public Boolean updateTs1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItm1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItm1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateParent1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateParent1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -618,76 +618,76 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateInt1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItm1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItm1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateParent1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateParent1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
     @Override
-    public Boolean updateInt2Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt2Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt2Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItm1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItm1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateParent1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateParent1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
     @Override
-    public Boolean updateSortIdxDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItm1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItm1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateParent1_Id(screen, thisNode, updOption) || isChanged;
+        isChanged = updateParent1_Id(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInst1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateInst1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
     @Override
-    public Boolean updateAmtNet(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtNet(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
@@ -695,9 +695,9 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch(updOption) {
@@ -766,7 +766,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                                     + " with UsrNodeFinAcctType [" + o_finAcct1_Type1_Id.get().getId2() + "]"
                                     + " has fields balIncOnDebt and balIncOnDebt not set. Please set one of them.";
                             logger.debug(logPrfx + " --- " + msg);
-                            notifications.create().withCaption(msg).show();
+                            notifications.create(msg).show();
                             logger.trace(logPrfx + " <-- ");
                             return null;
                         }
@@ -791,7 +791,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public Boolean updateAmtCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -834,7 +834,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                         UsrNodeFinTxactItm amtFinTxactItm1 = thisNode.getAmtCalcFinTxactItm1_Id();
                         if (amtFinTxactItm1 == null) {
                             logger.debug(logPrfx + " --- amtFinTxactItm1: is null");
-                            //notifications.create().withCaption("Unable to get amtFinTxactItm1. Please ensure amtFinTxactItm1 has a finTxactItm selected.").show();
+                            //notifications.create("Unable to get amtFinTxactItm1. Please ensure amtFinTxactItm1 has a finTxactItm selected.").show();
                             logger.trace(logPrfx + " <-- ");
                             return isChanged;
                         } else {
@@ -844,7 +844,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                         BigDecimal val = amtFinTxactItm1.getAmtNet();
                         if (val == null) {
                             logger.debug(logPrfx + " --- amtFinTxactItm1.getAmtNet(): is null");
-                            //notifications.create().withCaption("Unable to get amtFinTxactItm1.amtNet(). Please ensure  amtFinTxactItm1.amtNet() has a value.").show();
+                            //notifications.create("Unable to get amtFinTxactItm1.amtNet(). Please ensure  amtFinTxactItm1.amtNet() has a value.").show();
                             logger.trace(logPrfx + " <-- ");
                             return isChanged;
                         } else {
@@ -854,7 +854,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                         BigDecimal rate = thisNode.getAmtCalcFinTxactItm1_EI1_Rate();
                         if (rate == null){
                             logger.debug(logPrfx + " --- thisNode.getAmtFinTxactItm1_EI1_Rate(): is null");
-                            //notifications.create().withCaption("Unable to get thisNode.getAmtFinTxactItm1_EI1_Rate(). Please ensure thisNode.getFinTxactItm1_EI1_Rate() has a value.").show();
+                            //notifications.create("Unable to get thisNode.getAmtFinTxactItm1_EI1_Rate(). Please ensure thisNode.getFinTxactItm1_EI1_Rate() has a value.").show();
                             logger.trace(logPrfx + " <-- ");
                             return isChanged;
                         }
@@ -898,7 +898,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                     default ->{
 
                         logger.debug(logPrfx + " --- formula not implemented: " + amtCalcGenFmla1.getId2());
-                        // notifications.create().withCaption("Formula not implemented: " + amtCalcGenFmla1.getId2()).show();
+                        // notifications.create("Formula not implemented: " + amtCalcGenFmla1.getId2()).show();
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
                     }
@@ -965,16 +965,16 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
             ;
 
     @Override
-    public Boolean updateIdPartsFrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateIdPartsFrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateTs1FrId2(screen, thisNode, updOption) || isChanged;
-        isChanged = updateInt1FrId2(screen, thisNode, updOption)  || isChanged;
-        isChanged = updateInt2FrId2(screen, thisNode, updOption)  || isChanged;
-        isChanged = updateSortIdxFrId2(screen, thisNode, updOption)  || isChanged;
+        isChanged = updateTs1FrId2(view, thisNode, updOption) || isChanged;
+        isChanged = updateInt1FrId2(view, thisNode, updOption)  || isChanged;
+        isChanged = updateInt2FrId2(view, thisNode, updOption)  || isChanged;
+        isChanged = updateSortIdxFrId2(view, thisNode, updOption)  || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -982,7 +982,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateTs1FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs1FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs1FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1062,7 +1062,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateTs2FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs2FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs2FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1141,7 +1141,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateTs3FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs3FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs3FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1219,7 +1219,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateInt1FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt1FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt1FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1294,7 +1294,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public Boolean updateInt2FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt2FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt2FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1370,7 +1370,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public Boolean updateSortIdxFrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxFrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxFrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1444,7 +1444,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public List<UsrNodeBase> findParentNodes(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeBase> findParentNodes(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findParentNodes";
         logger.trace(logPrfx + " --> ");
 
@@ -1496,18 +1496,18 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public UsrNodeBase createParentNode(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeBase createParentNode(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createParentNode";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact mergedFinTxact = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
-            DataContext dataContext = UiControllerUtils.getScreenData(screen).getDataContext();
+            DataContext dataContext = ViewControllerUtils.getViewData(view).getDataContext();
 
             UsrNodeFinTxact parent1_Id = dataManager.create(UsrNodeFinTxact.class);
 
@@ -1521,19 +1521,19 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
             //thisNode.int2 -> parent1.sortKey
             parent1_Id.setSortIdx(thisNode.getInt2());
 
-            serviceParent1.updateInst1(screen, parent1_Id, UpdateOption.LOCAL);
-            serviceParent1.updateName1(screen, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateInst1(view, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateName1(view, parent1_Id, UpdateOption.LOCAL);
 
-            serviceParent1.updateId2Calc(screen, parent1_Id, UpdateOption.LOCAL);
-            serviceParent1.updateId2(screen, parent1_Id, UpdateOption.LOCAL);
-            serviceParent1.updateId2Cmp(screen, parent1_Id, UpdateOption.LOCAL);
-            serviceParent1.updateId2Dup(screen, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateId2Calc(view, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateId2(view, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateId2Cmp(view, parent1_Id, UpdateOption.LOCAL);
+            serviceParent1.updateId2Dup(view, parent1_Id, UpdateOption.LOCAL);
 
             UsrNodeFinTxact savedFinTxact = dataManager.save(parent1_Id);
 
             mergedFinTxact = dataContext.merge(savedFinTxact);
             logger.debug(logPrfx + " --- created FinTxact id: " + mergedFinTxact.getId());
-            notifications.create().withCaption("Created FinTxact with id2:" + mergedFinTxact.getId2()).show();
+            notifications.create("Created FinTxact with id2:" + mergedFinTxact.getId2()).show();
         }
 
 
@@ -1543,7 +1543,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
 
     @Override
-    public List<UsrNodeFinStmtItm> findFinStmtItms(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeFinStmtItm> findFinStmtItms(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findFinStmtItms";
         logger.trace(logPrfx + " --> ");
 
@@ -1591,18 +1591,18 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
     @Override
-    public UsrNodeFinStmtItm createFinStmtItm(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeFinStmtItm createFinStmtItm(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createFinStmtItm";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinStmtItm mergedFinStmtItm = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
-            DataContext dataContext = UiControllerUtils.getScreenData(screen).getDataContext();
+            DataContext dataContext = ViewControllerUtils.getViewData(view).getDataContext();
 
             UsrNodeFinStmtItm finStmtItm1_Id = dataManager.create(UsrNodeFinStmtItm.class);
 
@@ -1619,19 +1619,19 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
             finStmtItm1_Id.setAmtCred(thisNode.getAmtCred());
             finStmtItm1_Id.setAmtNet(thisNode.getAmtNet());
 
-            serviceFinStmtItm1.updateInst1(screen, finStmtItm1_Id, UpdateOption.LOCAL);
-            serviceFinStmtItm1.updateName1(screen, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateInst1(view, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateName1(view, finStmtItm1_Id, UpdateOption.LOCAL);
 
-            serviceFinStmtItm1.updateId2Calc(screen, finStmtItm1_Id, UpdateOption.LOCAL);
-            serviceFinStmtItm1.updateId2(screen, finStmtItm1_Id, UpdateOption.LOCAL);
-            serviceFinStmtItm1.updateId2Cmp(screen, finStmtItm1_Id, UpdateOption.LOCAL);
-            serviceFinStmtItm1.updateId2Dup(screen, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateId2Calc(view, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateId2(view, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateId2Cmp(view, finStmtItm1_Id, UpdateOption.LOCAL);
+            serviceFinStmtItm1.updateId2Dup(view, finStmtItm1_Id, UpdateOption.LOCAL);
 
             UsrNodeFinStmtItm savedFinStmtItm = dataManager.save(finStmtItm1_Id);
 
             mergedFinStmtItm = dataContext.merge(savedFinStmtItm);
             logger.debug(logPrfx + " --- created FinStmtItm id: " + mergedFinStmtItm.getId());
-            notifications.create().withCaption("Created FinStmtItm with id2:" + mergedFinStmtItm.getId2()).show();
+            notifications.create("Created FinStmtItm with id2:" + mergedFinStmtItm.getId2()).show();
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1639,16 +1639,16 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
 
-    public Boolean updateAmtCalcFinTxactItm1_EI1_Rate(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtCalcFinTxactItm1_EI1_Rate(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtCalcFinTxactItm1_EI1_Rate";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch(updOption) {
@@ -1681,7 +1681,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                     UsrNodeFinTxactItm amtFinTxactItm1 = thisNode.getAmtCalcFinTxactItm1_Id();
                     if (amtFinTxactItm1 == null) {
                         logger.debug(logPrfx + " --- amtFinTxactItm1: null");
-                        notifications.create().withCaption("Unable to get reference to the other FinTxactItm. Please ensure amtFinTxactItm1_Id is selected and it has a currency is selected.").show();
+                        notifications.create("Unable to get reference to the other FinTxactItm. Please ensure amtFinTxactItm1_Id is selected and it has a currency is selected.").show();
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
                     }
@@ -1692,7 +1692,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                     SysNodeBase curcyFr = thisNode.getAmtCalcFinTxactItm1_Id().getSysNodeFinCurcy1_Id();
                     if (curcyFr == null) {
                         logger.debug(logPrfx + " --- curcyFr: null");
-                        notifications.create().withCaption("Unable to get the currency from the other FinTxactItm. Please ensure a FinTxactItm1_Id is selected and it has a currency is selected.").show();
+                        notifications.create("Unable to get the currency from the other FinTxactItm. Please ensure a FinTxactItm1_Id is selected and it has a currency is selected.").show();
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
                     } else {
@@ -1702,7 +1702,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
                     SysNodeBase curcyTo = thisNode.getSysNodeFinCurcy1_Id();
                     if (curcyTo == null) {
                         logger.debug(logPrfx + " --- curcyTo: null");
-                        notifications.create().withCaption("Unable to get the currency from this FinTxactItm. Please ensure a currency is selected.").show();
+                        notifications.create("Unable to get the currency from this FinTxactItm. Please ensure a currency is selected.").show();
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
                     } else {
@@ -1714,7 +1714,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
 
                     if (o_ts1_ElTs.isEmpty()) {
                         logger.debug(logPrfx + " --- o_ts1_ElTs: is empty");
-                        notifications.create().withCaption("Unable to get the date from this FinTxactItm. Please ensure a date is selected.").show();
+                        notifications.create("Unable to get the date from this FinTxactItm. Please ensure a date is selected.").show();
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
                     } else {
@@ -1796,7 +1796,7 @@ public class UsrNodeFinTxactItm0Service extends UsrNodeBase0Service {
     }
 
 
-    public Boolean updateFinTaxLne1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateFinTaxLne1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateFinTaxLne1_Id";
         logger.trace(logPrfx + " --> ");
 

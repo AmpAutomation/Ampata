@@ -2,16 +2,19 @@ package ca.ampautomation.ampata.view.usr.node.fin;
 
 import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinAcctType;
 import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinAcct0Type0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0Type0BaseEdit;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinAcct0Type0Service;
-import io.jmix.ui.screen.*;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeFinAcctType.edit")
-@UiDescriptor("usr-node-fin-acct-0-type-0-edit.xml")
+@Route(value = "usrNodeFinAcctTypes/:id", layout = MainView.class)
+@ViewController("enty_UsrNodeFinAcctType.edit")
+@ViewDescriptor("usr-node-fin-acct-0-type-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrNodeFinAcctType0Edit extends UsrNodeBase0Type0BaseEdit<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo> {
+public class UsrNodeFinAcct0Type0Edit extends UsrNodeBase0Type0BaseEdit<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo> {
 
     //Service
     @Override

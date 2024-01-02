@@ -2,8 +2,11 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
+
 import java.time.LocalTime;
 import java.util.Objects;
 
@@ -15,10 +18,10 @@ public class HasTime {
     @Column(name = "EL_TM")
     private LocalTime elTm;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elTmHr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elTmMin;
 
     public void setElTm(LocalTime elTm) {

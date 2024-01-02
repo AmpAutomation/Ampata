@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrNodeFinAcct0Edit.caption"
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://usrNodeFinAcct0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
@@ -20,28 +21,22 @@
         <screenSettings id="settingsFacet" auto="true"/>
     </facets>
     <actions>
-        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
-                icon="EDITOR_OK"
-                primary="true"
-                shortcut="${COMMIT_SHORTCUT}"/>
-        <action id="windowClose"
-                caption="msg:///actions.Close"
-                icon="EDITOR_CANCEL"/>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
     </actions>
-    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="scrollBox">
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="instCntnrMain">
                 <tabSheet id="tabsheet1" height="100%" width="100%">
                     <tab id="tab_1"
-                         caption="Main"
+                         label="Main"
                          expand="tab1_hbox3"
                          margin="true">
 
                         <hbox id="tab1_hbox1" width="100%" spacing="true">
                             <hbox caption="desc1" expand="desc1Field" width="2304px">
                                 <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                             </hbox>
                         </hbox>
@@ -61,36 +56,36 @@
                             <vbox width="374px">
                                 <hbox caption="id" expand="id" width="100%">
                                     <textField id="id" dataContainer="instCntnrMain"
-                                               property="id" editable="false"/>
+                                               property="id" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="tenant" expand="tenantField" width="100%">
                                     <textField id="tenantField" dataContainer="instCntnrMain"
-                                               property="tenant" editable="false"/>
+                                               property="tenant" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="dtype" expand="dtypeField" width="100%">
                                     <textField id="dtypeField" dataContainer="instCntnrMain"
-                                               property="dtype" editable="false"/>
+                                               property="dtype" readOnly="true"/>
                                 </hbox>
                                 <hbox caption="id2" expand="id2Field" width="100%">
                                     <textField id="id2Field" dataContainer="instCntnrMain"
                                                property="id2"/>
-                                    <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                     <textField id="id2CalcField" dataContainer="instCntnrMain"
-                                               property="id2Calc" editable="false"/>
-                                    <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                               property="id2Calc" readOnly="true"/>
+                                    <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
                                     <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
-                                        <checkBox id="id2CmpField" dataContainer="instCntnrMain"
-                                                  property="id2Cmp" editable="false"/>
-                                        <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <checkbox id="id2CmpField" dataContainer="instCntnrMain"
+                                                  property="id2Cmp" readOnly="true"/>
+                                        <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                         <textField id="id2DupField" dataContainer="instCntnrMain"
-                                                   property="id2Dup" editable="false"/>
-                                        <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                                   property="id2Dup" readOnly="true"/>
+                                        <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
@@ -101,7 +96,7 @@
                                     <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                         <textField id="sortKeyField" dataContainer="instCntnrMain"
                                                    property="sortKey"/>
-                                        <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateSortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                             </vbox>
@@ -117,31 +112,31 @@
                                                     <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.fin.UsrNodeFinAcct0Lookup"/>
                                                 </properties>
                                             </action>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityPicker>
                                 </hbox>
                                 <hbox caption="name1" expand="name1Field" width="100%">
                                     <textField id="name1Field" dataContainer="instCntnrMain"
                                                property="name1"/>
-                                    <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                     <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
                                                     property="type1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateType1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    <button id="updateType1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="inst1" expand="inst1Field" width="100%">
                                     <textField id="inst1Field" dataContainer="instCntnrMain"
                                                property="inst1"/>
-                                    <button id="updateInst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateInst1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateInst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                             </vbox>
@@ -149,34 +144,34 @@
                             <vbox width="374px">
                                 <hbox caption="name2" expand="name2Field" width="100%">
                                     <textField id="name2Field" dataContainer="instCntnrMain" property="name2"/>
-                                    <button id="updateName2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateName2FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="genAgent1_Id" expand="genAgent1_IdField" width="100%">
                                     <entityComboBox id="genAgent1_IdField" dataContainer="instCntnrMain" tabIndex="20"
                                                     property="genAgent1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenAgent1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    <button id="updateGenAgent1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="sysNodeFinCurcy1_Id" expand="sysNodeFinCurcy1_IdField" width="100%">
                                     <entityComboBox id="sysNodeFinCurcy1_IdField" dataContainer="instCntnrMain" tabIndex="20"
                                                     property="sysNodeFinCurcy1_Id">
                                         <actions>
-                                            <action id="entityOpen" type="entity_open"/>
-                                            <action id="entityClear" type="entity_clear"/>
+                                            <action type="entity_open"/>
+                                            <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateFinCurcy1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                    <button id="updateFinCurcy1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="status" expand="statusField" width="100%">
                                     <comboBox id="statusField" dataContainer="instCntnrMain"
                                               property="status" tabIndex="10">
 
                                     </comboBox>
-                                    <button id="updateStatusFieldListBtn" icon="vaadin:list"
+                                    <button id="updateStatusFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
                                 </hbox>
                             </vbox>
@@ -188,11 +183,11 @@
                                             <entityComboBox id="finTaxLne1_IdField" dataContainer="instCntnrMain" tabIndex="10"
                                                             property="finTaxLne1_Id">
                                                 <actions>
-                                                    <action id="entityOpen" type="entity_open"/>
-                                                    <action id="entityClear" type="entity_clear"/>
+                                                    <action type="entity_open"/>
+                                                    <action type="entity_clear"/>
                                                 </actions>
                                             </entityComboBox>
-                                            <button id="updateFinTaxLne1_IdFieldListBtn" icon="vaadin:list" tabIndex="-1"/>
+                                            <button id="updateFinTaxLne1_IdFieldListBtn" icon="LIST" tabIndex="-1"/>
                                         </hbox>
                                     </vbox>
 
@@ -204,7 +199,7 @@
                     </tab>
 
                     <tab id="tab_9"
-                         caption="Note"
+                         label="Note"
                          expand="tab9_hbox1"
                          margin="true">
 
@@ -219,7 +214,7 @@
             </form>
         </scrollBox>
         <hbox id="editActions" spacing="true">
-            <button id="reloadListsBtn" text="Reload Lists" icon="vaadin:list"/>
+            <button id="reloadListsBtn" text="Reload Lists" icon="LIST"/>
             <label value="|" align="MIDDLE_CENTER"/>
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
@@ -231,4 +226,4 @@
             <button id="updateInstItemIdPartsBtn" caption="Update Id Parts"/>
         </hbox>
     </layout>
-</window>
+</view>

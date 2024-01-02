@@ -3,19 +3,20 @@ package ca.ampautomation.ampata.view.usr.node.gen;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocFrg;
 import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenDocFrg0Repo;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenDocFrgType;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenDocFrg0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeGenDocFrg.main")
-@UiDescriptor("usr-node-gen-doc-frg-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeGenDocFrg0Main extends UsrNodeBase0BaseMain<UsrNodeGenDocFrg, UsrNodeGenDocFrgType, UsrNodeGenDocFrg0Service, UsrNodeGenDocFrg0Repo, Table<UsrNodeGenDocFrg>> {
+@Route(value = "UsrNodeGenDocFrgs", layout = MainView.class)
+@ViewController("enty_UsrNodeGenDocFrg.main")
+@ViewDescriptor("usr-node-gen-doc-frg-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeGenDocFrg0Main extends UsrNodeBase0BaseMain<UsrNodeGenDocFrg, UsrNodeGenDocFrgType, UsrNodeGenDocFrg0Service, UsrNodeGenDocFrg0Repo, DataGrid<UsrNodeGenDocFrg>> {
 
     //Service
     @Override

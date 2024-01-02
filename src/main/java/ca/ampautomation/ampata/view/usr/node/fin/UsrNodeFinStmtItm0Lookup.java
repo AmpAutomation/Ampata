@@ -5,21 +5,20 @@ import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinStmtItm0Repo;
 import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinStmtItmType;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseLookup;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinStmtItm0Service;
-import io.jmix.ui.component.PropertyFilter;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@UiController("enty_UsrNodeFinStmtItm.lookup")
-@UiDescriptor("usr-node-fin-stmt-itm-0-lookup.xml")
-@LookupComponent("tableMain")
-public class UsrNodeFinStmtItm0Lookup extends UsrNodeBase0BaseLookup<UsrNodeFinStmtItm, UsrNodeFinStmtItmType, UsrNodeFinStmtItm0Service, UsrNodeFinStmtItm0Repo, Table<UsrNodeFinStmtItm>> {
+@ViewController("enty_UsrNodeFinStmtItm.lookup")
+@ViewDescriptor("usr-node-fin-stmt-itm-0-lookup.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeFinStmtItm0Lookup extends UsrNodeBase0BaseLookup<UsrNodeFinStmtItm, UsrNodeFinStmtItmType, UsrNodeFinStmtItm0Service, UsrNodeFinStmtItm0Repo, DataGrid<UsrNodeFinStmtItm>> {
 
     //Service
     @Override

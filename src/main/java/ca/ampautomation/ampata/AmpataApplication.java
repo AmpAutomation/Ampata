@@ -1,6 +1,10 @@
 package ca.ampautomation.ampata;
 
 import com.google.common.base.Strings;
+import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.theme.Theme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +21,12 @@ import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
+
+@Push
+@Theme(value = "Ampata")
+@PWA(name = "Ampata", shortName = "Ampata")
 @SpringBootApplication
-public class AmpataApplication {
+public class AmpataApplication implements AppShellConfigurator {
 
     @Autowired
     private Environment environment;
@@ -39,7 +47,7 @@ public class AmpataApplication {
     @Bean
     @Primary
     @ConfigurationProperties("main.datasource.hikari")
-    DataSource dataSource(DataSourceProperties dataSourceProperties) {
+    DataSource dataSource(final DataSourceProperties dataSourceProperties) {
         String logPrfx = "dataSource";
         logger.trace(logPrfx + " --> ");
 
@@ -56,7 +64,7 @@ public class AmpataApplication {
     }
 
     @EventListener
-    public void printApplicationUrl(ApplicationStartedEvent event) {
+    public void printApplicationUrl(final ApplicationStartedEvent event) {
         LoggerFactory.getLogger(AmpataApplication.class).info("Application started at "
                 + "http://localhost:"
                 + environment.getProperty("local.server.port")

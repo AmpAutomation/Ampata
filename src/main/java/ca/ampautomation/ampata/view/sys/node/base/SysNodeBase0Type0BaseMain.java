@@ -4,14 +4,20 @@ import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import ca.ampautomation.ampata.entity.sys.item.gen.SysItemGenFmla;
 import ca.ampautomation.ampata.repo.sys.node.base.SysNodeBase0Type0Repo;
 import ca.ampautomation.ampata.service.sys.node.base.SysNodeBase0Type0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.button.Button;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.UiComponents;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.MasterDetailScreen;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +27,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 
-public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseType, NodeTypeServiceT extends SysNodeBase0Type0Service, NodeTypeRepoT extends SysNodeBase0Type0Repo> extends MasterDetailScreen<NodeTypeT> {
+public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseType, NodeTypeServiceT extends SysNodeBase0Type0Service, NodeTypeRepoT extends SysNodeBase0Type0Repo> extends StandardListView<NodeTypeT> {
 
     //Common
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -37,9 +43,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
 
-    protected ListComponent<NodeTypeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
+    protected DataGrid<NodeTypeT> getDataGrid() {return (DataGrid<NodeTypeT>) getContent().getComponent("dataGridMain"); }
 
     //Service
     protected NodeTypeServiceT service;
@@ -84,7 +88,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected GenericFilter filter;
 
 
     //Toolbar
@@ -101,7 +105,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     @Autowired
     protected InstanceContainer<NodeTypeT> instCntnrMain;
     @Autowired
-    protected TreeTable<NodeTypeT> tableMain;
+    protected TreeDataGrid<NodeTypeT> dataGridMain;
 
 
     //GenFmla data container and loader
@@ -115,10 +119,10 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     //Field
 
     @Autowired
-    protected TextField<String> id2Field;
+    protected TypedTextField<String> id2Field;
 
     @Autowired
-    protected TextField<String> id2CalcField;
+    protected TypedTextField<String> id2CalcField;
 
     @Autowired
     protected EntityComboBox<SysItemGenFmla> name1GenFmla1_IdField;
@@ -126,8 +130,26 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     @Autowired
     protected EntityComboBox<SysItemGenFmla> desc1GenFmla1_IdField;
 
+    /**
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
+     *
+     * @see #addInitListener(ComponentEventListener)
+     */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
@@ -140,10 +162,10 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
                 .build();
         colLoadrGenFmla.setFetchPlan(fchPlnGenFmla);
         colLoadrGenFmla.setContainer(colCntnrGenFmla);
-        colLoadrGenFmla.setDataContext(getScreenData().getDataContext());
+        colLoadrGenFmla.setDataContext(getViewData().getDataContext());
         //Field
-        name1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
-        desc1GenFmla1_IdField.setOptionsContainer(colCntnrGenFmla);
+        name1GenFmla1_IdField.setItems(colCntnrGenFmla);
+        desc1GenFmla1_IdField.setItems(colCntnrGenFmla);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -151,7 +173,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
         colLoadrMain.load();
-        //tableMain.sort("sortKey", Table.SortDirection.ASCENDING);
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
 
     }
 
@@ -192,7 +214,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -201,7 +223,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateColCalcValsBtn")
-    public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -218,14 +240,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("duplicateBtn")
-    public void onDuplicateBtnClick(Button.ClickEvent event) {
+    public void onDuplicateBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+        List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -251,14 +273,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("setBtn")
-    public void onSetBtnClick(Button.ClickEvent event) {
+    public void onSetBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+        List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -290,13 +312,13 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         if(dataContext.hasChanges()) {
 
             //call dataContext.commit to sync the UI with the changes to the database
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
+            logger.debug(logPrfx + " --- executing dataContext.save().");
+            dataContext.save();
 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+            List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
 
             //Loop throught the items again to update the id2Dup attribute
             thisNodeTypes.forEach(thisNodeType -> {
@@ -316,14 +338,15 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
             });
 
             if (dataContext.hasChanges()) {
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
+                logger.debug(logPrfx + " --- executing dataContext.save().");
+                dataContext.save();
 
                 logger.debug(logPrfx + " --- executing colLoadrMain.load().");
                 colLoadrMain.load();
 
-                //tableMain.sort("id2", Table.SortDirection.ASCENDING);
-                tableMain.setSelected(thisNodeTypes);
+                //todo check how to dataGridMain.setSelected
+                //dataGridMain.sort("id2", Table.SortDirection.ASCENDING);
+                //dataGridMain.setSelected(thisNodeTypes);
             }
         }
         logger.trace(logPrfx + " <-- ");
@@ -331,14 +354,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("updateColItemCalcValsBtn")
-    public void onUpdateColItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<NodeTypeT> thisNodes = tableMain.getSelected().stream().toList();
+        List<NodeTypeT> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes == null || thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -355,19 +378,19 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         });
 
         if (dataContext.hasChanges()){
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
+            logger.debug(logPrfx + " --- executing dataContext.save().");
+            dataContext.save();
 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            //tableMain.sort("id2", Table.SortDirection.ASCENDING);
-            tableMain.setSelected(thisNodes);
+            //todo check how to dataGridMain.setSelected
+            //dataGridMain.sort("id2", Table.SortDirection.ASCENDING);
+            //dataGridMain.setSelected(thisNodes);
         }
 
         logger.trace(logPrfx + " <-- ");
     }
-
 
     @Subscribe(id = "instCntnrMain", target = Target.DATA_CONTAINER)
     public void onInstCntnrMainItemChange(InstanceContainer.ItemChangeEvent<SysNodeBaseType> event) {
@@ -378,7 +401,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             //todo I observed thisNodeType is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
+            //notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -394,14 +417,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateInstItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInstItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -415,11 +438,11 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         String logPrfx = "onId2FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
             if (thisNodeType == null) {
                 logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -429,14 +452,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -448,14 +471,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -466,14 +489,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CmpFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -483,14 +506,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2DupFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -504,11 +527,11 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
         String logPrfx = "onName1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             NodeTypeT thisNode = instCntnrMain.getItemOrNull();
             if (thisNode == null) {
                 logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -518,14 +541,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateName1FieldBtn")
-    public void onUpdateName1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateName1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateName1FieldBtnClick[super]";
         logger.trace(logPrfx + " --> ");
 
         SysNodeBaseType thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -536,7 +559,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateInst1GenFmla1_IdFieldListBtn")
-    public void onUpdateInst1GenFmla1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateInst1GenFmla1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInst1GenFmla1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -547,14 +570,14 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateDesc1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }

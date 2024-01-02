@@ -3,19 +3,20 @@ package ca.ampautomation.ampata.view.usr.item.fin;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinHow;
 import ca.ampautomation.ampata.entity.usr.item.fin.UsrItemFinHowType;
 import ca.ampautomation.ampata.repo.usr.item.fin.UsrItemFinHow0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.item.base.UsrItemBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.item.fin.UsrItemFinHow0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrItemFinHow.main")
-@UiDescriptor("usr-item-fin-how-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrItemFinHow0Main extends UsrItemBase0BaseMain<UsrItemFinHow, UsrItemFinHowType, UsrItemFinHow0Service, UsrItemFinHow0Repo, Table<UsrItemFinHow>> {
+@Route(value = "usrItemFinHows", layout = MainView.class)
+@ViewController("enty_UsrItemFinHow.main")
+@ViewDescriptor("usr-item-fin-how-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrItemFinHow0Main extends UsrItemBase0BaseMain<UsrItemFinHow, UsrItemFinHowType, UsrItemFinHow0Service, UsrItemFinHow0Repo, DataGrid<UsrItemFinHow>> {
 
     //Service
     @Override

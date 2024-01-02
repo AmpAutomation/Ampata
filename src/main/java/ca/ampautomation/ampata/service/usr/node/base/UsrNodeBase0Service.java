@@ -14,8 +14,8 @@ import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseEdit;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import io.jmix.core.DataManager;
 import io.jmix.core.MetadataTools;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.screen.Screen;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.view.View;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,18 +64,18 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateCalcVals(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateCalcVals(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateCalcVals";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
-        isChanged = updateSortKey(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
+        isChanged = updateSortKey(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -91,7 +91,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2";
         logger.trace(logPrfx + " --> ");
 
@@ -138,13 +138,13 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisNode, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -171,7 +171,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Calc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Calc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Calc";
         logger.trace(logPrfx + " --> ");
 
@@ -241,13 +241,13 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2CalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2CalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2CalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisNode, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -276,7 +276,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Cmp(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Cmp(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Cmp";
         logger.trace(logPrfx + " --> ");
 
@@ -319,7 +319,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateId2Dup(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2Dup(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2Dup";
         logger.trace(logPrfx + " --> ");
 
@@ -388,7 +388,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateSortIdxDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxDeps";
         logger.trace(logPrfx + " --> ");
 
@@ -415,13 +415,13 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateId2DupDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateId2DupDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateId2DupDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = this.updateId2Cmp(screen, thisNode, updOption) || isChanged;
+        isChanged = this.updateId2Cmp(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -448,7 +448,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateSortKey(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortKey(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortKey";
         logger.trace(logPrfx + " --> ");
 
@@ -522,7 +522,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateSortKeyDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortKeyDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortKeyDeps";
         logger.trace(logPrfx + " --> ");
 
@@ -556,7 +556,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateName1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateName1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateName1()";
         logger.trace(logPrfx + " --> ");
 
@@ -635,15 +635,15 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateName1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateName1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateName1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -669,16 +669,16 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateType1_IdDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateType1_IdDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateType1_IdDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -691,7 +691,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateInst1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateInst1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateInst1";
         logger.trace(logPrfx + " --> ");
 
@@ -721,16 +721,16 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInst1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInst1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInst1Deps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
@@ -742,7 +742,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if the field was changed, otherwise false
      */
-    public Boolean updateDesc1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateDesc1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateDesc1";
         logger.trace(logPrfx + " --> ");
 
@@ -767,7 +767,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateDesc1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateDesc1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateDesc1Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -778,7 +778,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateSortIdxFrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateSortIdxFrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateSortIdxFrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -802,7 +802,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateTxt1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTxt1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTxt1Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -811,7 +811,7 @@ public class UsrNodeBase0Service implements Globals {
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
-    public Boolean updateTs1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         // Assume ts1, ts2, ts3 is not null
         String logPrfx = "updateTs1";
         logger.trace(logPrfx + " --> ");
@@ -836,7 +836,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateTs1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs1Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -854,7 +854,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateTs2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs2";
         logger.trace(logPrfx + " --> ");
 
@@ -878,7 +878,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateTs2Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs2Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs2Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -896,7 +896,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt1";
         logger.trace(logPrfx + " --> ");
 
@@ -920,7 +920,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt1Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt1Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt1Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -938,7 +938,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt2";
         logger.trace(logPrfx + " --> ");
 
@@ -963,7 +963,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt2Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt2Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt2Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -981,7 +981,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt3(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt3(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt3";
         logger.trace(logPrfx + " --> ");
 
@@ -1006,7 +1006,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt3Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt3Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt3Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -1023,7 +1023,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt4(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt4(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt4";
         logger.trace(logPrfx + " --> ");
 
@@ -1048,7 +1048,7 @@ public class UsrNodeBase0Service implements Globals {
      * <p></p>
      * @return Boolean true if any field was changed, otherwise false
      */
-    public Boolean updateInt4Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt4Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt4Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -1058,7 +1058,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtDebt(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtDebt(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtDebt";
         logger.trace(logPrfx + " --> ");
 
@@ -1068,19 +1068,19 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtDebtDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtDebtDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtDebtDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateAmtNet(screen, thisNode, updOption);
+        isChanged = updateAmtNet(view, thisNode, updOption);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    public Boolean updateAmtCred(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtCred(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtCred";
         logger.trace(logPrfx + " --> ");
 
@@ -1090,19 +1090,19 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtCredDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtCredDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtCredDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateAmtNet(screen, thisNode, updOption);
+        isChanged = updateAmtNet(view, thisNode, updOption);
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    public Boolean updateAmtNet(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtNet(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtNet";
         logger.trace(logPrfx + " --> ");
 
@@ -1112,7 +1112,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtNetDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtNetDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtNetDeps";
         logger.trace(logPrfx + " --> ");
 
@@ -1122,7 +1122,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtNet2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtNet2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtNet2";
         logger.trace(logPrfx + " --> ");
 
@@ -1163,7 +1163,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtNet2Deps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtNet2Deps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtNet2Deps";
         logger.trace(logPrfx + " --> ");
 
@@ -1173,7 +1173,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateAmtCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateAmtCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1182,7 +1182,7 @@ public class UsrNodeBase0Service implements Globals {
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
-    public Boolean updateAmtBegBal(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmtBegBal(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmtBegBal";
         logger.trace(logPrfx + " --> ");
 
@@ -1217,7 +1217,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtBegBalCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmtBegBalCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmtBegBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1227,7 +1227,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtBegBalCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmtBegBalCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmtBegBalCalcDeps";
         logger.trace(logPrfx + " --> ");
 
@@ -1237,7 +1237,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtEndBal(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmtEndBal(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmtEndBal";
         logger.trace(logPrfx + " --> ");
 
@@ -1257,7 +1257,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateAmtEndBalCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateAmtEndBalCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateAmtEndBalCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1269,7 +1269,7 @@ public class UsrNodeBase0Service implements Globals {
 
 
 
-    public Boolean updateFinStmtItms1_AmtDebtSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtDebtSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtDebtSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1279,20 +1279,20 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinStmtItms1_AmtDebtSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtDebtSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtDebtSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItms1_AmtDebtSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItms1_AmtDebtSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinStmtItms1_AmtDebtSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtDebtSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtDebtSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1331,7 +1331,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinStmtItms1_AmtCredSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtCredSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1344,20 +1344,20 @@ public class UsrNodeBase0Service implements Globals {
 
 
 
-    public Boolean updateFinStmtItms1_AmtCredSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtCredSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtCredSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItms1_AmtCredSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItms1_AmtCredSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinStmtItms1_AmtCredSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtCredSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtCredSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1396,7 +1396,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinStmtItms1_AmtNetSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtNetSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtNetSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1408,20 +1408,20 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinStmtItms1_AmtNetSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtNetSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtNetSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinStmtItms1_AmtNetSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinStmtItms1_AmtNetSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinStmtItms1_AmtNetSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtNetSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtNetSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1460,7 +1460,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinStmtItms1_IdCntCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_IdCntCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1472,7 +1472,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinStmtItms1_AmtEqCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinStmtItms1_AmtEqCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinStmtItms1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1514,7 +1514,7 @@ public class UsrNodeBase0Service implements Globals {
 
 
 
-    public Boolean updateFinTxactItms1_AmtDebtSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtDebtSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtDebtSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1524,20 +1524,20 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_AmtDebtSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtDebtSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtDebtSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinTxactItms1_AmtDebtSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinTxactItms1_AmtDebtSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinTxactItms1_AmtDebtSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtDebtSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtDebtSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1576,7 +1576,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_AmtCredSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtCredSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtCredSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1589,20 +1589,20 @@ public class UsrNodeBase0Service implements Globals {
 
 
 
-    public Boolean updateFinTxactItms1_AmtCredSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtCredSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtCredSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinTxactItms1_AmtCredSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinTxactItms1_AmtCredSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinTxactItms1_AmtCredSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtCredSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtCredSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1641,7 +1641,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_AmtNetSumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNetSumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNetSumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1653,20 +1653,20 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinTxactItms1_AmtNetSumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNetSumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNetSumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinTxactItms1_AmtNetSumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinTxactItms1_AmtNetSumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public Boolean updateFinTxactItms1_AmtNet2SumCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNet2SumCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNet2SumCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1723,19 +1723,19 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinTxactItms1_AmtNet2SumCalcDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNet2SumCalcDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNet2SumCalcDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateFinTxactItms1_AmtNet2SumDiff(screen, thisNode, updOption) || isChanged;
+        isChanged = updateFinTxactItms1_AmtNet2SumDiff(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_AmtNetSumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNetSumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNetSumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1774,7 +1774,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_AmtNet2SumDiff(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtNet2SumDiff(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtNet2SumDiff";
         logger.trace(logPrfx + " --> ");
 
@@ -1813,7 +1813,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateFinTxactItms1_IdCntCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_IdCntCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_IdCntCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1825,7 +1825,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinTxactItms1_AmtEqCalc(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateFinTxactItms1_AmtEqCalc(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateFinTxactItms1_AmtEqCalc";
         logger.trace(logPrfx + " --> ");
 
@@ -1865,7 +1865,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateDt1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateDt1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateDt1";
         logger.trace(logPrfx + " --> ");
 
@@ -1875,7 +1875,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateTm1(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTm1(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTm1";
         logger.trace(logPrfx + " --> ");
 
@@ -1886,7 +1886,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateIdPartsFrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateIdPartsFrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateIdParts";
         logger.trace(logPrfx + " --> ");
 
@@ -1896,7 +1896,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateInt1FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt1FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt1FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1906,7 +1906,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateInt2FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt2FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt2FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1916,7 +1916,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateInt3FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateInt3FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateInt3FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1926,7 +1926,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateTs1FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs1FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs1FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1936,7 +1936,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateTs2FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs2FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs2FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1947,7 +1947,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateTs3FrId2(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateTs3FrId2(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateTs3FrId2";
         logger.trace(logPrfx + " --> ");
 
@@ -1957,16 +1957,16 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public Boolean updateParent1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateParent1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateParent1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch (updOption) {
@@ -1986,7 +1986,7 @@ public class UsrNodeBase0Service implements Globals {
                     UsrNodeBase parent1_Id = null;
 
                     // find parent nodes
-                    List<UsrNodeBase> qryRsltNodes = findParentNodes(screen, thisNode, updOption);
+                    List<UsrNodeBase> qryRsltNodes = findParentNodes(view, thisNode, updOption);
 
                     if (qryRsltNodes.size() == 0){
                         logger.debug(logPrfx + " --- qryRsltNodes.size(): 0.");
@@ -1996,13 +1996,13 @@ public class UsrNodeBase0Service implements Globals {
                                     ->{
                                 // Create a new parent
                                 logger.trace(logPrfx + " --- Creating new parent");
-                                parent1_Id = createParentNode(screen, thisNode, updOption);
+                                parent1_Id = createParentNode(view, thisNode, updOption);
                             }
                         }
                     }else if(qryRsltNodes.size() > 1) {
                         String msg = MessageFormat.format("Can't update Parent1 because {0} candidates for parent1.",qryRsltNodes.size());
                         logger.trace(logPrfx + " --- " + msg);
-                        notifications.create().withCaption(msg);
+                        notifications.create(msg);
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
 
@@ -2032,25 +2032,25 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateParent1_IdDeps(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateParent1_IdDeps(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateParent1_IdDeps";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
-        isChanged = updateDesc1(screen, thisNode, updOption) || isChanged;
-        isChanged = updateName1(screen, thisNode, updOption) || isChanged;
+        isChanged = updateDesc1(view, thisNode, updOption) || isChanged;
+        isChanged = updateName1(view, thisNode, updOption) || isChanged;
 
-        isChanged = updateId2Calc(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Cmp(screen, thisNode, updOption) || isChanged;
-        isChanged = updateId2Dup(screen, thisNode, updOption) || isChanged;
+        isChanged = updateId2Calc(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Cmp(view, thisNode, updOption) || isChanged;
+        isChanged = updateId2Dup(view, thisNode, updOption) || isChanged;
 
         logger.trace(logPrfx + " <-- ");
         return isChanged;
     }
 
 
-    public UsrNodeBase createParentNode(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeBase createParentNode(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createParentNode";
         logger.trace(logPrfx + " --> ");
         UsrNodeBase parent1_Id = null;
@@ -2060,7 +2060,7 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public List<UsrNodeBase> findParentNodes(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeBase> findParentNodes(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findParentNodes";
         logger.trace(logPrfx + " --> ");
 
@@ -2071,16 +2071,16 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinBal1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateFinBal1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateFinBal1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch (updOption) {
@@ -2099,7 +2099,7 @@ public class UsrNodeBase0Service implements Globals {
                     UsrNodeFinBal finBal1_Id = null;
 
                     // find FinBal nodes
-                    List<UsrNodeFinBal> qryRsltNodes = findFinBals(screen, thisNode, updOption);
+                    List<UsrNodeFinBal> qryRsltNodes = findFinBals(view, thisNode, updOption);
 
                     if (qryRsltNodes.size() == 0){
                         logger.debug(logPrfx + " --- qryRsltNodes.size(): 0.");
@@ -2109,13 +2109,13 @@ public class UsrNodeBase0Service implements Globals {
                                     ->{
                                 // Create a new node
                                 logger.trace(logPrfx + " --- Creating new node");
-                                finBal1_Id = createFinBal(screen, thisNode, updOption);
+                                finBal1_Id = createFinBal(view, thisNode, updOption);
                             }
                         }
                     }else if(qryRsltNodes.size() > 1) {
                         String msg = MessageFormat.format("Can't update FinBal1 because {0} candidates found.",qryRsltNodes.size());
                         logger.trace(logPrfx + " --- " + msg);
-                        notifications.create().withCaption(msg);
+                        notifications.create(msg);
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
 
@@ -2146,7 +2146,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public List<UsrNodeFinBal> findFinBals(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeFinBal> findFinBals(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findFinBals";
         logger.trace(logPrfx + " --> ");
 
@@ -2156,7 +2156,7 @@ public class UsrNodeBase0Service implements Globals {
         return rsltNodes;
     }
 
-    public UsrNodeFinBal createFinBal(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeFinBal createFinBal(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createFinBal";
         logger.trace(logPrfx + " --> ");
         UsrNodeFinBal newNode = null;
@@ -2167,16 +2167,16 @@ public class UsrNodeBase0Service implements Globals {
 
 
 
-    public Boolean updateFinStmt1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateFinStmt1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateFinStmt1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch (updOption) {
@@ -2195,7 +2195,7 @@ public class UsrNodeBase0Service implements Globals {
                     UsrNodeFinStmt finStmt1_Id = null;
 
                     // find FinStmt nodes
-                    List<UsrNodeFinStmt> qryRsltNodes = findFinStmts(screen, thisNode, updOption);
+                    List<UsrNodeFinStmt> qryRsltNodes = findFinStmts(view, thisNode, updOption);
 
                     if (qryRsltNodes.size() == 0){
                         logger.debug(logPrfx + " --- qryRsltNodes.size(): 0.");
@@ -2205,13 +2205,13 @@ public class UsrNodeBase0Service implements Globals {
                                     ->{
                                 // Create a new node
                                 logger.trace(logPrfx + " --- Creating new node");
-                                finStmt1_Id = createFinStmt(screen, thisNode, updOption);
+                                finStmt1_Id = createFinStmt(view, thisNode, updOption);
                             }
                         }
                     }else if(qryRsltNodes.size() > 1) {
                         String msg = MessageFormat.format("Can't update FinStmt1 because {0} candidates found.",qryRsltNodes.size());
                         logger.trace(logPrfx + " --- " + msg);
-                        notifications.create().withCaption(msg);
+                        notifications.create(msg);
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
 
@@ -2242,7 +2242,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public List<UsrNodeFinStmt> findFinStmts(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeFinStmt> findFinStmts(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findFinStmts";
         logger.trace(logPrfx + " --> ");
 
@@ -2252,7 +2252,7 @@ public class UsrNodeBase0Service implements Globals {
         return rsltNodes;
     }
 
-    public UsrNodeFinStmt createFinStmt(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeFinStmt createFinStmt(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createFinStmt";
         logger.trace(logPrfx + " --> ");
         UsrNodeFinStmt newNode = null;
@@ -2262,16 +2262,16 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Boolean updateFinStmtItm1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public Boolean updateFinStmtItm1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "updateFinStmtItm1_Id";
         logger.trace(logPrfx + " --> ");
 
         boolean isChanged = false;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             logger.debug(logPrfx + " --- updOption: " + updOption.toString());
             switch (updOption) {
@@ -2290,7 +2290,7 @@ public class UsrNodeBase0Service implements Globals {
                     UsrNodeFinStmtItm finStmtItm1_Id = null;
 
                     // find FinStmtItm nodes
-                    List<UsrNodeFinStmtItm> qryRsltNodes = findFinStmtItms(screen, thisNode, updOption);
+                    List<UsrNodeFinStmtItm> qryRsltNodes = findFinStmtItms(view, thisNode, updOption);
 
                     if (qryRsltNodes.size() == 0){
                         logger.debug(logPrfx + " --- qryRsltNodes.size(): 0.");
@@ -2300,13 +2300,13 @@ public class UsrNodeBase0Service implements Globals {
                                     ->{
                                 // Create a new parent
                                 logger.trace(logPrfx + " --- Creating new parent");
-                                finStmtItm1_Id = createFinStmtItm(screen, thisNode, updOption);
+                                finStmtItm1_Id = createFinStmtItm(view, thisNode, updOption);
                             }
                         }
                     }else if(qryRsltNodes.size() > 1) {
                         String msg = MessageFormat.format("Can't update FinStmtItm1 because {0} candidates for parent1.",qryRsltNodes.size());
                         logger.trace(logPrfx + " --- " + msg);
-                        notifications.create().withCaption(msg);
+                        notifications.create(msg);
                         logger.trace(logPrfx + " <-- ");
                         return isChanged;
 
@@ -2337,7 +2337,7 @@ public class UsrNodeBase0Service implements Globals {
         return isChanged;
     }
 
-    public List<UsrNodeFinStmtItm> findFinStmtItms(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public List<UsrNodeFinStmtItm> findFinStmtItms(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "findFinStmtItms";
         logger.trace(logPrfx + " --> ");
 
@@ -2347,7 +2347,7 @@ public class UsrNodeBase0Service implements Globals {
         return rsltNodes;
     }
 
-    public UsrNodeFinStmtItm createFinStmtItm(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
+    public UsrNodeFinStmtItm createFinStmtItm(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption) {
         String logPrfx = "createFinStmtItm";
         logger.trace(logPrfx + " --> ");
         UsrNodeFinStmtItm newNode = null;
@@ -2356,7 +2356,7 @@ public class UsrNodeBase0Service implements Globals {
         return newNode;
     }
 
-    public Boolean updateGenAgent1_Id(@NotNull Screen screen, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
+    public Boolean updateGenAgent1_Id(@NotNull View view, @NotNull UsrNodeBase thisNode, @NotNull UpdateOption updOption){
         String logPrfx = "updateGenAgent1_Id";
         logger.trace(logPrfx + " --> ");
 
@@ -2405,16 +2405,16 @@ public class UsrNodeBase0Service implements Globals {
         return statuss;
     }
 
-    public Integer getSortIdxMax(@NotNull Screen screen, Object grpgKey) {
+    public Integer getSortIdxMax(@NotNull View view, Object grpgKey) {
         String logPrfx = "getSortIdxMax";
         logger.trace(logPrfx + " --> ");
 
         Integer sortIdxMax = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             // Ensure grpgKey is instanceof UsrNodeBaseGrpg
             if (!(grpgKey instanceof UsrNodeBaseGrpg l_grpgKey)){
@@ -2436,7 +2436,7 @@ public class UsrNodeBase0Service implements Globals {
                         .one();
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- sortIdxCntIsNullQry error: " + e.getMessage());
-                notifications.create().withCaption("sortIdxCntIsNullQry error: " + e.getMessage()).show();
+                notifications.create("sortIdxCntIsNullQry error: " + e.getMessage()).show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }
@@ -2469,16 +2469,16 @@ public class UsrNodeBase0Service implements Globals {
     }
 
 
-    public Integer getInt1Max(@NotNull Screen screen, Object grpgKey) {
+    public Integer getInt1Max(@NotNull View view, Object grpgKey) {
         String logPrfx = "getInt1Max";
         logger.trace(logPrfx + " --> ");
 
         Integer sortIdxMax = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-                || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+                || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             // Ensure grpgKey is instanceof UsrNodeBaseGrpg
             if (!(grpgKey instanceof UsrNodeBaseGrpg l_grpgKey)){
@@ -2500,7 +2500,7 @@ public class UsrNodeBase0Service implements Globals {
                         .one();
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- sortIdxCntIsNullQry error: " + e.getMessage());
-                notifications.create().withCaption("sortIdxCntIsNullQry error: " + e.getMessage()).show();
+                notifications.create("sortIdxCntIsNullQry error: " + e.getMessage()).show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }
@@ -2533,16 +2533,16 @@ public class UsrNodeBase0Service implements Globals {
 
     }
 
-    public Integer getInt2Max(@NotNull Screen screen, Object grpgKey) {
+    public Integer getInt2Max(@NotNull View view, Object grpgKey) {
         String logPrfx = "getInt2Max";
         logger.trace(logPrfx + " --> ");
 
         Integer int2Max = null;
 
         Notifications notifications;
-        if(screen instanceof UsrNodeBase0BaseMain
-        || screen instanceof UsrNodeBase0BaseEdit) {
-            notifications = ((UsrNodeBase0BaseComn) screen).getNotifications();
+        if(view instanceof UsrNodeBase0BaseMain
+        || view instanceof UsrNodeBase0BaseEdit) {
+            notifications = ((UsrNodeBase0BaseComn) view).getNotifications();
 
             // Ensure grpgKey is instanceof UsrNodeBaseGrpg
             if (!(grpgKey instanceof UsrNodeBaseGrpg l_grpgKey)){
@@ -2564,7 +2564,7 @@ public class UsrNodeBase0Service implements Globals {
                         .one();
             } catch (IllegalStateException e) {
                 logger.debug(logPrfx + " --- int2CntIsNullQry error: " + e.getMessage());
-                notifications.create().withCaption("int2CntIsNullQry error: " + e.getMessage()).show();
+                notifications.create("int2CntIsNullQry error: " + e.getMessage()).show();
                 logger.trace(logPrfx + " <-- ");
                 return null;
             }

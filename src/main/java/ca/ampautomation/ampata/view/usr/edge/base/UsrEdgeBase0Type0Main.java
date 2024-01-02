@@ -3,17 +3,18 @@ package ca.ampautomation.ampata.view.usr.edge.base;
 import ca.ampautomation.ampata.entity.usr.edge.base.UsrEdgeBaseType;
 import ca.ampautomation.ampata.repo.usr.edge.base.UsrEdgeBase0Type0Repo;
 import ca.ampautomation.ampata.service.usr.edge.base.UsrEdgeBase0Type0Service;
-import io.jmix.ui.component.Table;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import ca.ampautomation.ampata.view.main.MainView;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrEdgeBaseType.main")
-@UiDescriptor("usr-base-edge-type-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrEdgeBase0Type0Main extends UsrEdgeBase0Type0BaseMain<UsrEdgeBaseType, UsrEdgeBase0Type0Service, UsrEdgeBase0Type0Repo, Table<UsrEdgeBaseType>> {
+@Route(value = "usrEdgeGenBaseTypes", layout = MainView.class)
+@ViewController("enty_UsrEdgeBaseType.main")
+@ViewDescriptor("usr-base-edge-type-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrEdgeBase0Type0Main extends UsrEdgeBase0Type0BaseMain<UsrEdgeBaseType, UsrEdgeBase0Type0Service, UsrEdgeBase0Type0Repo, DataGrid<UsrEdgeBaseType>> {
 
     //Service
     @Override

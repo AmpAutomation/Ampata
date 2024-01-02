@@ -2,8 +2,11 @@ package ca.ampautomation.ampata.entity;
 
 import io.jmix.core.metamodel.annotation.JmixEntity;
 
+import io.jmix.core.metamodel.annotation.JmixProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
+
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
@@ -16,19 +19,19 @@ public class HasDate {
     @Column(name = "EL_DT")
     private LocalDate elDt;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtYr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtQtr;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtMon;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private String elDtMon2;
 
-    @javax.persistence.Column
+    @jakarta.persistence.Column
     private Integer elDtDay;
 
     public void setElDt(LocalDate elDt) {

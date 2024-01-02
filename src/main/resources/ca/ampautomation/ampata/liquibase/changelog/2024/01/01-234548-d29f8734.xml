@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="7" author="ampata">
+        <modifyDataType columnName="AMT_NET2" newDataType="DECIMAL(19, 2)" tableName="AMPATA_USR_NODE"/>
+    </changeSet>
+    <changeSet id="8" author="ampata">
+        <modifyDataType columnName="DTYPE" newDataType="VARCHAR(255)" tableName="AMPATA_USR_EDGE_TYPE"/>
+    </changeSet>
+    <changeSet id="9" author="ampata">
+        <modifyDataType columnName="FIN_TXACT_ITMS1__AMT_NET2_SUM_CALC" newDataType="DECIMAL(19, 2)"
+                        tableName="AMPATA_USR_NODE"/>
+    </changeSet>
+    <changeSet id="10" author="ampata">
+        <modifyDataType columnName="FIN_TXACT_ITMS1__AMT_NET2_SUM_DIFF" newDataType="DECIMAL(19, 2)"
+                        tableName="AMPATA_USR_NODE"/>
+    </changeSet>
+    <changeSet id="11" author="ampata">
+        <modifyDataType columnName="TXT1" newDataType="CLOB" tableName="AMPATA_USR_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="12" author="ampata">
+        <modifyDataType columnName="TXT2" newDataType="CLOB" tableName="AMPATA_USR_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="13" author="ampata">
+        <modifyDataType columnName="TXT3" newDataType="CLOB" tableName="AMPATA_USR_NODE_TYPE"/>
+    </changeSet>
+    <changeSet id="14" author="ampata">
+        <modifyDataType columnName="TXT4" newDataType="CLOB" tableName="AMPATA_USR_NODE_TYPE"/>
+    </changeSet>
+</databaseChangeLog>

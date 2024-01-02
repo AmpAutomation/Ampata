@@ -1,7 +1,8 @@
-<window xmlns="http://jmix.io/schema/ui/window"
-        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
-        caption="msg://usrNodeFinBalSetType0Main.caption"
-        focusComponent="tableMain">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://usrNodeFinBalSetType0Main.caption"
+        focusComponent="dataGridMain">
     <data>
         <collection id="colCntnrMain"
                     class="ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBalSetType"
@@ -22,18 +23,19 @@
     </data>
     <facets>
         <dataLoadCoordinator auto="true"/>
-        <screenSettings id="settingsFacet" auto="true"/>
-        <presentations auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
     </facets>
     <actions>
-        <action id="save" icon="CHECK" caption="msg:///actions.Ok" shortcut="CTRL-ENTER"/>
-        <action id="cancel" icon="CLOSE" caption="msg:///actions.Cancel" description="Esc"/>
+        <action id="save" icon="CHECK" text="msg:///actions.Save" shortcutCombination="CTRL-ENTER"/>
+        <action id="cancel" icon="CLOSE" text="msg:///actions.Cancel"/>
     </actions>
-    <dialogMode width="1024" height="768"/>
     <layout>
         <split id="split" height="100%" orientation="vertical" width="100%" pos="60" reversePosition="true">
-            <vbox id="lookupBox" expand="tableMain" height="100%" margin="false,true,false,false" spacing="true">
-                <table id="tableMain"
+            <vbox id="lookupBox" expand="dataGridMain" height="100%" margin="false,true,false,false" spacing="true">
+                <table id="dataGridMain"
                        width="100%"
                        selectionMode="MULTI"
                        dataContainer="colCntnrMain">
@@ -48,44 +50,44 @@
                         <tabSheet  width="100%">
                             <tab id="tabCmd1" label="Main">
                                 <hbox spacing="true">
-                                    <button id="reloadListsBtn" text="Reload Lists" icon="vaadin:list"/>
-                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="vaadin:refresh"/>
+                                    <button id="reloadListsBtn" text="Reload Lists" icon="LIST"/>
+                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="deleteColDeletedColBtn" text="Purge All Deleted" icon="font-icon:ERASER"/>
+                                    <button id="deleteColDeletedColBtn" text="Purge All Deleted" icon="ERASER"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" label="View">
                             </tab>
                             <tab id="tabCmd3" label="Filter">
-                                <filter id="filter" dataLoader="colLoadrMain" collapsable="true" collapsed="false" columnsCount="5">
+                                <genericFilter id="genericFilter" dataLoader="colLoadrMain" colspan="5" opened="false">
                                     <properties include=".*"/>
                                     <configurations>
                                         <configuration id="filterConfig1" default="true">
-                                            <groupFilter operation="AND" caption="GroupA">
-                                                <propertyFilter id="filterConfig1A_Id2" caption="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
-                                                <propertyFilter id="filterConfig1A_Id2Dup" caption="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
-                                                <propertyFilter id="filterConfig1A_Name1" caption="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
-                                                <propertyFilter id="filterConfig1A_Desc1" caption="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
-                                                <propertyFilter id="filterConfig1A_Parent1_Id" caption="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
+                                            <groupFilter operation="AND" summaryText="GroupA">
+                                                <propertyFilter id="filterConfig1A_Id2" label="id2" operation="CONTAINS" property="id2" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Id2Dup" label="id2Dup" operation="EQUAL" property="id2Dup" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Name1" label="name1" operation="CONTAINS" property="name1" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Desc1" label="desc1" operation="CONTAINS" property="desc1" operationEditable="true"/>
+                                                <propertyFilter id="filterConfig1A_Parent1_Id" label="parent1" operation="EQUAL" property="parent1_Id" operationEditable="true">
                                                     <entityPicker metaClass="enty_UsrNodeFinBalSetType"/>
                                                 </propertyFilter>
                                             </groupFilter>
                                         </configuration>
                                     </configurations>
-                                </filter>
+                                </genericFilter>
                             </tab>
                             <tab id="tabCmd4" label="Create, Edit" spacing="true">
                                 <hbox spacing="true">
-                                    <button id="refreshBtn" action="tableMain.refresh"/>
+                                    <button id="refreshBtn" action="dataGridMain.refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="createBtn" action="tableMain.create"/>
-                                    <button id="duplicateBtn" text="Duplicate" icon="font-icon:COPY"/>
+                                    <button id="createBtn" action="dataGridMain.create"/>
+                                    <button id="duplicateBtn" text="Duplicate" icon="COPY"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="removeBtn" action="tableMain.remove"/>
+                                    <button id="removeBtn" action="dataGridMain.remove"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="editBtn" action="tableMain.edit"/>
+                                    <button id="editBtn" action="dataGridMain.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="setBtn" text="Set" icon="vaadin:refresh"/>
+                                    <button id="setBtn" text="Set" icon="REFRESH"/>
                                     <hbox>
                                         <label value="sortIdx" align="MIDDLE_CENTER"/>
                                         <button id="rebuildSortIdxBtn" text="Rebiuld"/>
@@ -95,10 +97,10 @@
                                         <button id="moveLastSortIdxBtn" text="Last"/>
                                     </hbox>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="vaadin:refresh"/>
-                                    <button id="updateColItemId2Btn" text="Update Id2" icon="vaadin:refresh"/>
+                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="REFRESH"/>
+                                    <button id="updateColItemId2Btn" text="Update Id2" icon="REFRESH"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="updateColItemIdPartsBtn" text="Update Id Parts" icon="vaadin:refresh"/>
+                                    <button id="updateColItemIdPartsBtn" text="Update Id Parts" icon="REFRESH"/>
                                 </hbox>
                                 <tabSheet width="100%">
                                     <tab id="tabCmd4_Tab1" label="Main">
@@ -133,9 +135,10 @@
                         <column property="desc1"/>
                     </columns>
                 </table>
-                <pagination align="MIDDLE_RIGHT" itemsPerPageDefaultValue="50" itemsPerPageVisible="true">
-                    <containerProvider dataContainer="colCntnrMain"/>
-                </pagination>
+                <simplePagination dataLoader="colCntnrMain"
+                                  itemsPerPageDefaultValue="50"
+                                  itemsPerPageVisible="true"/>
+
                 <hbox id="lookupActions" spacing="true" visible="false">
                     <button action="lookupSelectAction"/>
                     <button action="lookupCancelAction"/>
@@ -146,14 +149,14 @@
                     <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
                         <tab id="tab_1"
-                             caption="Main"
+                             label="Main"
                              expand="tab1_hbox3"
                              margin="true">
 
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
                                 <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                    <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                    <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                             </hbox>
@@ -173,36 +176,36 @@
                                 <vbox width="374px">
                                     <hbox caption="id" expand="id" width="100%">
                                         <textField id="id" dataContainer="instCntnrMain"
-                                                   property="id" editable="false"/>
+                                                   property="id" readOnly="true"/>
                                     </hbox>
                                     <hbox caption="tenant" expand="tenantField" width="100%">
                                         <textField id="tenantField" dataContainer="instCntnrMain"
-                                                   property="tenant" editable="false"/>
+                                                   property="tenant" readOnly="true"/>
                                     </hbox>
                                     <hbox caption="dtype" expand="dtypeField" width="100%">
                                         <textField id="dtypeField" dataContainer="instCntnrMain"
-                                                   property="dtype" editable="false"/>
+                                                   property="dtype" readOnly="true"/>
                                     </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain"
                                                    property="id2"/>
-                                        <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                         <textField id="id2CalcField" dataContainer="instCntnrMain"
-                                                   property="id2Calc" editable="false"/>
-                                        <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                                   property="id2Calc" readOnly="true"/>
+                                        <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
                                         <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
-                                            <checkBox id="id2CmpField" dataContainer="instCntnrMain"
-                                                      property="id2Cmp" editable="false"/>
-                                            <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                            <checkbox id="id2CmpField" dataContainer="instCntnrMain"
+                                                      property="id2Cmp" readOnly="true"/>
+                                            <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain"
-                                                       property="id2Dup" editable="false"/>
-                                            <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                                       property="id2Dup" readOnly="true"/>
+                                            <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
@@ -213,7 +216,7 @@
                                         <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                             <textField id="sortKeyField" dataContainer="instCntnrMain"
                                                        property="sortKey"/>
-                                            <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                            <button id="updateSortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                 </vbox>
@@ -229,14 +232,14 @@
                                                         <property name="screenClass" value="ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0Lookup"/>
                                                     </properties>
                                                 </action>
-                                                <action id="entityOpen" type="entity_open"/>
-                                                <action id="entityClear" type="entity_clear"/>                                            </actions>
+                                                <action type="entity_open"/>
+                                                <action type="entity_clear"/>                                            </actions>
                                         </entityPicker>
                                     </hbox>
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain"
                                                    property="name1"/>
-                                        <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
+                                        <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
                                         <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
@@ -293,7 +296,7 @@
                         </tab>
 
                         <tab id="tab_9"
-                             caption="Note"
+                             label="Note"
                              expand="tab9_hbox1"
                              margin="true">
 
@@ -320,4 +323,4 @@
             </vbox>
         </split>
     </layout>
-</window>
+</view>

@@ -10,16 +10,31 @@ import ca.ampautomation.ampata.entity.usr.node.fin.*;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenChan;
 import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinTxact0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinTxact0Service;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinTxactSet0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxBase;
 import io.jmix.core.*;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.*;
-import io.jmix.ui.screen.LookupComponent;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.datetimepicker.TypedDateTimePicker;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.component.radiobuttongroup.JmixRadioButtonGroup;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.model.CollectionContainer;
+import io.jmix.flowui.model.CollectionLoader;
+import io.jmix.flowui.view.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,10 +44,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 
-@UiController("enty_UsrNodeFinTxact.main")
-@UiDescriptor("usr-node-fin-txact-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, UsrNodeFinTxactType, UsrNodeFinTxact0Service, UsrNodeFinTxact0Repo, Table<UsrNodeFinTxact>> {
+@Route(value = "usrNodeFinTxacts", layout = MainView.class)
+@ViewController("enty_UsrNodeFinTxact.main")
+@ViewDescriptor("usr-node-fin-txact-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, UsrNodeFinTxactType, UsrNodeFinTxact0Service, UsrNodeFinTxact0Repo, DataGrid<UsrNodeFinTxact>> {
 
     //Service
     @Override
@@ -115,38 +131,38 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
     //Toolbar
     @Autowired
-    protected ComboBox<Integer> updateColItemCalcValsParent1Option;
+    protected JmixComboBox<Integer> updateColItemCalcValsParent1Option;
 
     @Autowired
-    protected ComboBox<Integer> updateInstItemCalcValsParent1Option;
+    protected JmixComboBox<Integer> updateInstItemCalcValsParent1Option;
 
     @Autowired
-    protected CheckBox updateFilterConfig1A_Ts1_ElTs_LE_SyncChk;
+    protected JmixCheckbox updateFilterConfig1A_Ts1_ElTs_LE_SyncChk;
 
     @Autowired
-    protected RadioButtonGroup<Integer> updateFilterConfig1B_Ts1_ElTs_GERdo;
+    protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_Ts1_ElTs_GERdo;
 
     @Autowired
-    protected RadioButtonGroup<Integer> updateFilterConfig1B_Int1Rdo;
+    protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_Int1Rdo;
 
 
     //Template
 
     @Autowired
-    protected ComboBox<String> tmplt_Parent1_EI1_RoleField;
+    protected JmixComboBox<String> tmplt_Parent1_EI1_RoleField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_EI1_RoleFieldChk;
+    protected JmixCheckbox tmplt_Parent1_EI1_RoleFieldChk;
 
     @Autowired
-    protected DateField<LocalDateTime> tmplt_Ts1_ElTsField;
+    protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
     @Autowired
-    protected CheckBox tmplt_Ts1_ElTsFieldChk;
+    protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
 
     @Autowired
-    protected TextField<Integer> tmplt_Int1Field;
+    protected TypedTextField<Integer> tmplt_Int1Field;
     @Autowired
-    protected RadioButtonGroup<Integer> tmplt_Int1FieldRdo;
+    protected JmixRadioButtonGroup<Integer> tmplt_Int1FieldRdo;
 
 
     //Template (FinTxactSet)
@@ -154,43 +170,43 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     protected EntityComboBox<UsrNodeFinTxactSetType> tmplt_Parent1_Type1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_Type1_IdFieldChk;
+    protected JmixCheckbox tmplt_Parent1_Type1_IdFieldChk;
 
     @Autowired
     protected EntityComboBox<UsrNodeGenChan> tmplt_Parent1_GenChan1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_GenChan1_IdFieldChk;
+    protected JmixCheckbox tmplt_Parent1_GenChan1_IdFieldChk;
 
     @Autowired
     protected EntityComboBox<UsrItemFinHow> tmplt_Parent1_FinHow1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_FinHow1_IdFieldChk;
+    protected JmixCheckbox tmplt_Parent1_FinHow1_IdFieldChk;
 
     @Autowired
-    protected ComboBox<String> tmplt_Parent1_WhatText1Field;
+    protected JmixComboBox<String> tmplt_Parent1_WhatText1Field;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_WhatText1FieldChk;
+    protected JmixCheckbox tmplt_Parent1_WhatText1FieldChk;
 
     @Autowired
     protected EntityComboBox<UsrItemFinWhat> tmplt_Parent1_FinWhat1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_FinWhat1_IdFieldChk;
+    protected JmixCheckbox tmplt_Parent1_FinWhat1_IdFieldChk;
 
     @Autowired
-    protected ComboBox<String> tmplt_Parent1_WhyText1Field;
+    protected JmixComboBox<String> tmplt_Parent1_WhyText1Field;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_WhyText1FieldChk;
+    protected JmixCheckbox tmplt_Parent1_WhyText1FieldChk;
 
     @Autowired
     protected EntityComboBox<UsrItemFinWhy> tmplt_Parent1_FinWhy1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_Parent1_FinWhy1_IdFieldChk;
+    protected JmixCheckbox tmplt_Parent1_FinWhy1_IdFieldChk;
 
 
 
@@ -222,7 +238,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
     //Field
     @Autowired
-    private ComboBox<String> parent1_EI1_RoleField;
+    private JmixComboBox<String> parent1_EI1_RoleField;
 
     // Field (FinTxactSet)
 
@@ -236,13 +252,13 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     private EntityComboBox<UsrItemFinHow> parent1_FinHow1_IdField;
 
     @Autowired
-    private ComboBox<String> parent1_WhatText1Field;
+    private JmixComboBox<String> parent1_WhatText1Field;
 
     @Autowired
     private EntityComboBox<UsrItemFinWhat>  parent1_FinWhat1_IdField;
 
     @Autowired
-    private ComboBox<String> parent1_WhyText1Field;
+    private JmixComboBox<String> parent1_WhyText1Field;
     @Autowired
     private EntityComboBox<UsrItemFinWhy>  parent1_FinWhy1_IdField;
 
@@ -254,35 +270,35 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
         super.onInit(event);
 
-        Map<String, Integer> map1 = new LinkedHashMap<>();
-        map1.put("Skip", 0);
-        map1.put("Max+1", 2);
-        map1.put("", 1);
-        tmplt_Int1FieldRdo.setOptionsMap(map1);
+        Map<Integer, String> map1 = new LinkedHashMap<>();
+        map1.put(0, "Skip");
+        map1.put(2,"Max+1");
+        map1.put(1, "");
+        ComponentUtils.setItemsMap(tmplt_SortIdxFieldRdo, map1);
 
-        Map<String, Integer> map2 = new LinkedHashMap<>();
-        map2.put(UpdateOption.SKIP.toString(), UpdateOption.SKIP.toInt());
-        map2.put(UpdateOption.LOCAL.toString(), UpdateOption.LOCAL.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toString(), UpdateOption.LOCAL__REF_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt());
-        updateColItemCalcValsParent1Option.setOptionsMap(map2);
+        Map<Integer,String> map2 = new LinkedHashMap<>();
+        map2.put(UpdateOption.SKIP.toInt(),UpdateOption.SKIP.toString());
+        map2.put(UpdateOption.LOCAL.toInt(),UpdateOption.LOCAL.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString());
+        ComponentUtils.setItemsMap(updateColItemCalcValsParent1Option, map2);
         updateColItemCalcValsParent1Option.setValue(UpdateOption.LOCAL.toInt());
-        updateInstItemCalcValsParent1Option.setOptionsMap(map2);
+        ComponentUtils.setItemsMap(updateInstItemCalcValsParent1Option, map2);
         updateInstItemCalcValsParent1Option.setValue(UpdateOption.LOCAL.toInt());
 
-        Map<String, Integer> map3 = new LinkedHashMap<>();
-        map3.put("Clear", 0);
-        map3.put("Match Current Row", 1);
-        updateFilterConfig1B_Ts1_ElTs_GERdo.setOptionsMap(map3);
-        updateFilterConfig1B_Int1Rdo.setOptionsMap(map3);
+        Map<Integer, String> map3 = new LinkedHashMap<>();
+        map3.put(0, "Clear");
+        map3.put(1, "Match Current Row");
+        ComponentUtils.setItemsMap(updateFilterConfig1B_Ts1_ElTs_GERdo, map3);
+        ComponentUtils.setItemsMap(updateFilterConfig1B_Int1Rdo, map3);
 
 
         //filter
         EntityComboBox<UsrNodeFinTxactType> propFilterCmpnt_Type1_Id;
         propFilterCmpnt_Type1_Id = (EntityComboBox<UsrNodeFinTxactType>) filterConfig1B_Type1_Id.getValueComponent();
-        propFilterCmpnt_Type1_Id.setOptionsContainer(colCntnrType);
+        propFilterCmpnt_Type1_Id.setItems(colCntnrType);
 
 
         colCntnrGenChan = dataComponents.createCollectionContainer(UsrNodeGenChan.class);
@@ -293,16 +309,16 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrGenChan.setFetchPlan(fchPlnGenChan_Inst);
         colLoadrGenChan.setContainer(colCntnrGenChan);
-        colLoadrGenChan.setDataContext(getScreenData().getDataContext());
-        parent1_GenChan1_IdField.setOptionsContainer(colCntnrGenChan);
+        colLoadrGenChan.setDataContext(getViewData().getDataContext());
+        parent1_GenChan1_IdField.setItems(colCntnrGenChan);
         //template
-        tmplt_Parent1_GenChan1_IdField.setOptionsContainer(colCntnrGenChan);
+        tmplt_Parent1_GenChan1_IdField.setItems(colCntnrGenChan);
         //filter
         EntityComboBox<UsrNodeGenChan> propFilterCmpnt_GenChan1_Id;
         propFilterCmpnt_GenChan1_Id = (EntityComboBox<UsrNodeGenChan>) filterConfig1A_Parent1_GenChan1_Id.getValueComponent();
-        propFilterCmpnt_GenChan1_Id.setOptionsContainer(colCntnrGenChan);
+        propFilterCmpnt_GenChan1_Id.setItems(colCntnrGenChan);
         propFilterCmpnt_GenChan1_Id = (EntityComboBox<UsrNodeGenChan>) filterConfig1B_Parent1_GenChan1_Id.getValueComponent();
-        propFilterCmpnt_GenChan1_Id.setOptionsContainer(colCntnrGenChan);
+        propFilterCmpnt_GenChan1_Id.setItems(colCntnrGenChan);
 
 
         colCntnrFinHow = dataComponents.createCollectionContainer(UsrItemFinHow.class);
@@ -313,17 +329,17 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrFinHow.setFetchPlan(fchPlnFinHow_Inst);
         colLoadrFinHow.setContainer(colCntnrFinHow);
-        colLoadrFinHow.setDataContext(getScreenData().getDataContext());
+        colLoadrFinHow.setDataContext(getViewData().getDataContext());
 
-        parent1_FinHow1_IdField.setOptionsContainer(colCntnrFinHow);
+        parent1_FinHow1_IdField.setItems(colCntnrFinHow);
         //template
-        tmplt_Parent1_FinHow1_IdField.setOptionsContainer(colCntnrFinHow);
+        tmplt_Parent1_FinHow1_IdField.setItems(colCntnrFinHow);
         //filter
         EntityComboBox<UsrItemFinHow> propFilterCmpnt_FinHow1_Id;
         propFilterCmpnt_FinHow1_Id = (EntityComboBox<UsrItemFinHow>) filterConfig1A_Parent1_FinHow1_Id.getValueComponent();
-        propFilterCmpnt_FinHow1_Id.setOptionsContainer(colCntnrFinHow);
+        propFilterCmpnt_FinHow1_Id.setItems(colCntnrFinHow);
         propFilterCmpnt_FinHow1_Id = (EntityComboBox<UsrItemFinHow>) filterConfig1B_Parent1_FinHow1_Id.getValueComponent();
-        propFilterCmpnt_FinHow1_Id.setOptionsContainer(colCntnrFinHow);
+        propFilterCmpnt_FinHow1_Id.setItems(colCntnrFinHow);
 
 
         colCntnrFinWhat = dataComponents.createCollectionContainer(UsrItemFinWhat.class);
@@ -334,17 +350,17 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrFinWhat.setFetchPlan(fchPlnFinWhat_Inst);
         colLoadrFinWhat.setContainer(colCntnrFinWhat);
-        colLoadrFinWhat.setDataContext(getScreenData().getDataContext());
+        colLoadrFinWhat.setDataContext(getViewData().getDataContext());
 
-        parent1_FinWhat1_IdField.setOptionsContainer(colCntnrFinWhat);
+        parent1_FinWhat1_IdField.setItems(colCntnrFinWhat);
         //template
-        tmplt_Parent1_FinWhat1_IdField.setOptionsContainer(colCntnrFinWhat);
+        tmplt_Parent1_FinWhat1_IdField.setItems(colCntnrFinWhat);
         //filter
         EntityComboBox<UsrItemFinWhat> propFilterCmpnt_FinWhat1_Id;
         propFilterCmpnt_FinWhat1_Id = (EntityComboBox<UsrItemFinWhat>) filterConfig1A_Parent1_FinWhat1_Id.getValueComponent();
-        propFilterCmpnt_FinWhat1_Id.setOptionsContainer(colCntnrFinWhat);
+        propFilterCmpnt_FinWhat1_Id.setItems(colCntnrFinWhat);
         propFilterCmpnt_FinWhat1_Id = (EntityComboBox<UsrItemFinWhat>) filterConfig1B_Parent1_FinWhat1_Id.getValueComponent();
-        propFilterCmpnt_FinWhat1_Id.setOptionsContainer(colCntnrFinWhat);
+        propFilterCmpnt_FinWhat1_Id.setItems(colCntnrFinWhat);
 
 
         colCntnrFinWhy = dataComponents.createCollectionContainer(UsrItemFinWhy.class);
@@ -355,17 +371,17 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrFinWhy.setFetchPlan(fchPlnFinWhy_Inst);
         colLoadrFinWhy.setContainer(colCntnrFinWhy);
-        colLoadrFinWhy.setDataContext(getScreenData().getDataContext());
+        colLoadrFinWhy.setDataContext(getViewData().getDataContext());
 
-        parent1_FinWhy1_IdField.setOptionsContainer(colCntnrFinWhy);
+        parent1_FinWhy1_IdField.setItems(colCntnrFinWhy);
         //template
-        tmplt_Parent1_FinWhy1_IdField.setOptionsContainer(colCntnrFinWhy);
+        tmplt_Parent1_FinWhy1_IdField.setItems(colCntnrFinWhy);
         //filter
         EntityComboBox<UsrItemFinWhy> propFilterCmpnt_FinWhy1_Id;
         propFilterCmpnt_FinWhy1_Id = (EntityComboBox<UsrItemFinWhy>) filterConfig1A_Parent1_FinWhy1_Id.getValueComponent();
-        propFilterCmpnt_FinWhy1_Id.setOptionsContainer(colCntnrFinWhy);
+        propFilterCmpnt_FinWhy1_Id.setItems(colCntnrFinWhy);
         propFilterCmpnt_FinWhy1_Id = (EntityComboBox<UsrItemFinWhy>) filterConfig1B_Parent1_FinWhy1_Id.getValueComponent();
-        propFilterCmpnt_FinWhy1_Id.setOptionsContainer(colCntnrFinWhy);
+        propFilterCmpnt_FinWhy1_Id.setItems(colCntnrFinWhy);
 
 
 
@@ -377,7 +393,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrParent1.setFetchPlan(fchPlnFinTxactSet_Inst);
         colLoadrParent1.setContainer(colCntnrParent1);
-        colLoadrParent1.setDataContext(getScreenData().getDataContext());
+        colLoadrParent1.setDataContext(getViewData().getDataContext());
 
 
         colCntnrParent1Type = dataComponents.createCollectionContainer(UsrNodeFinTxactSetType.class);
@@ -388,17 +404,17 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrParent1Type.setFetchPlan(fchPlnFinTxactSetType_Inst);
         colLoadrParent1Type.setContainer(colCntnrParent1Type);
-        colLoadrParent1Type.setDataContext(getScreenData().getDataContext());
+        colLoadrParent1Type.setDataContext(getViewData().getDataContext());
 
-        parent1_Type1_IdField.setOptionsContainer(colCntnrParent1Type);
+        parent1_Type1_IdField.setItems(colCntnrParent1Type);
         //template
-        tmplt_Parent1_Type1_IdField.setOptionsContainer(colCntnrParent1Type);
+        tmplt_Parent1_Type1_IdField.setItems(colCntnrParent1Type);
         //filter
         EntityComboBox<UsrNodeFinTxactSetType> propFilterCmpnt_FinTxactSetType1_Id;
         propFilterCmpnt_FinTxactSetType1_Id = (EntityComboBox<UsrNodeFinTxactSetType>) filterConfig1A_Parent1_Type1_Id.getValueComponent();
-        propFilterCmpnt_FinTxactSetType1_Id.setOptionsContainer(colCntnrParent1Type);
+        propFilterCmpnt_FinTxactSetType1_Id.setItems(colCntnrParent1Type);
         propFilterCmpnt_FinTxactSetType1_Id = (EntityComboBox<UsrNodeFinTxactSetType>) filterConfig1B_Parent1_Type1_Id.getValueComponent();
-        propFilterCmpnt_FinTxactSetType1_Id.setOptionsContainer(colCntnrParent1Type);
+        propFilterCmpnt_FinTxactSetType1_Id.setItems(colCntnrParent1Type);
 
 
         colCntnrFinTxactItm = dataComponents.createCollectionContainer(UsrNodeFinTxactItm.class);
@@ -409,15 +425,15 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 .build();
         colLoadrFinTxactItm.setFetchPlan(fchPlnFinTxactItm_Inst);
         colLoadrFinTxactItm.setContainer(colCntnrFinTxactItm);
-        colLoadrFinTxactItm.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTxactItm.setDataContext(getViewData().getDataContext());
 
         logger.trace(logPrfx + " <-- ");
 
 
     }
 
-    @Install(to = "tableMain.[ts1.elTs]", subject = "formatter")
-    private String tableMainTs1_ElTsFormatter(LocalDateTime ts) {
+    @Install(to = "dataGridMain.[ts1.elTs]", subject = "formatter")
+    private String dataGridMainTs1_ElTsFormatter(LocalDateTime ts) {
         DateTimeFormatter formatter = new DateTimeFormatterBuilder()
                 .appendPattern("yyyy-MM-dd")
                 .toFormatter();
@@ -427,7 +443,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     // Toolbar
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -458,7 +474,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("deleteColOrphansBtn")
-    public void onDeleteColOrphansBtnClick(Button.ClickEvent event) {
+    public void onDeleteColOrphansBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onDeleteColOrphansBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -482,15 +498,15 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         UsrNodeFinTxact copy = metadataTools.copy(orig);
         copy.setId(UuidProvider.createUuid());
 
-        if (tmplt_Type1_IdFieldChk.isChecked()) {
+        if (tmplt_Type1_IdFieldChk.getValue()) {
             copy.setType1_Id(tmplt_Type1_IdField.getValue());
         }
 
-        if (tmplt_Parent1_EI1_RoleFieldChk.isChecked()) {
+        if (tmplt_Parent1_EI1_RoleFieldChk.getValue()) {
             copy.setParent1_EI1_Role(tmplt_Parent1_EI1_RoleField.getValue());
         }
 
-        if (tmplt_Ts1_ElTsFieldChk.isChecked()) {
+        if (tmplt_Ts1_ElTsFieldChk.getValue()) {
             copy.getTs1().setElTs(tmplt_Ts1_ElTsField.getValue());
         }
 
@@ -499,7 +515,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             switch (sortIdx){
                 // Set
                 case 1 ->{
-                    sortIdx = tmplt_SortIdxField.getValue();
+                    sortIdx = tmplt_SortIdxField.getTypedValue();
                     copy.setSortIdx(sortIdx);
                 }
                 // Max+1
@@ -524,7 +540,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 switch (int1){
                     // Set
                     case 1 ->{
-                        int1 = tmplt_Int1Field.getValue();
+                        int1 = tmplt_Int1Field.getTypedValue();
                         copy.setInt1(int1);
                     }
                 }
@@ -550,14 +566,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("setBtn")
-    public void onSetBtnClick(Button.ClickEvent event) {
+    public void onSetBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -579,49 +595,49 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
                     Boolean thisNodeSetIsChanged = false;
 
-                    if (tmplt_Parent1_Type1_IdFieldChk.isChecked()
+                    if (tmplt_Parent1_Type1_IdFieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setType1_Id(tmplt_Parent1_Type1_IdField.getValue());
                     }
 
-                    if (tmplt_Parent1_GenChan1_IdFieldChk.isChecked()
+                    if (tmplt_Parent1_GenChan1_IdFieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setGenChan1_Id(tmplt_Parent1_GenChan1_IdField.getValue());
                     }
 
-                    if (tmplt_Parent1_FinHow1_IdFieldChk.isChecked()
+                    if (tmplt_Parent1_FinHow1_IdFieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setFinHow1_Id(tmplt_Parent1_FinHow1_IdField.getValue());
                     }
 
-                    if (tmplt_Parent1_WhatText1FieldChk.isChecked()
+                    if (tmplt_Parent1_WhatText1FieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setWhatText1(tmplt_Parent1_WhatText1Field.getValue());
                     }
 
-                    if (tmplt_Parent1_FinWhat1_IdFieldChk.isChecked()
+                    if (tmplt_Parent1_FinWhat1_IdFieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setFinWhat1_Id(tmplt_Parent1_FinWhat1_IdField.getValue());
                     }
 
-                    if (tmplt_Parent1_WhyText1FieldChk.isChecked()
+                    if (tmplt_Parent1_WhyText1FieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
                         thisNodeSet.setWhyText1(tmplt_Parent1_WhyText1Field.getValue());
                     }
 
-                    if (tmplt_Parent1_FinWhy1_IdFieldChk.isChecked()
+                    if (tmplt_Parent1_FinWhy1_IdFieldChk.getValue()
                             && thisNodeSet != null
                     ) {
                         thisNodeSetIsChanged = true;
@@ -654,13 +670,13 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
         boolean thisNodeIsChanged = false;
 
-        if (tmplt_Type1_IdFieldChk.isChecked()
+        if (tmplt_Type1_IdFieldChk.getValue()
         ) {
             thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
             thisNodeIsChanged = true;
         }
 
-        if (tmplt_Ts1_ElTsFieldChk.isChecked()) {
+        if (tmplt_Ts1_ElTsFieldChk.getValue()) {
             thisNode.getTs1().setElTs(tmplt_Ts1_ElTsField.getValue());
             thisNodeIsChanged = true;
         }
@@ -670,7 +686,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             switch (sortIdx){
                 // Set
                 case 1 ->{
-                    sortIdx = tmplt_SortIdxField.getValue();
+                    sortIdx = tmplt_SortIdxField.getTypedValue();
                     thisNode.setSortIdx(sortIdx);
                     thisNodeIsChanged = true;
                 }
@@ -687,7 +703,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             }
         }
 
-        if (tmplt_Parent1_EI1_RoleFieldChk.isChecked()) {
+        if (tmplt_Parent1_EI1_RoleFieldChk.getValue()) {
             thisNode.setParent1_EI1_Role(tmplt_Parent1_EI1_RoleField.getValue());
             thisNodeIsChanged = true;
         }
@@ -702,7 +718,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 switch (int1){
                     // Set
                     case 1 ->{
-                        int1 = tmplt_Int1Field.getValue();
+                        int1 = tmplt_Int1Field.getTypedValue();
                         thisNode.setInt1(int1);
                         thisNodeIsChanged = true;
                     }
@@ -726,11 +742,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("updateFilterConfig1A_Ts1_ElTs_GE_DecMonBtn")
-    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_DecMonBtnClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_DecMonBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1A_Ts1_ElTs_GE_DecMonBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        DateField<LocalDateTime> propFilterCmpnt_Ts1_ElTs_GE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
+        TypedDateTimePicker<LocalDateTime> propFilterCmpnt_Ts1_ElTs_GE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
         LocalDateTime ts1_ElTs_GE = propFilterCmpnt_Ts1_ElTs_GE.getValue();
         if (ts1_ElTs_GE == null) {
             logger.debug(logPrfx + " --- ts1_ElTs_GE: null");
@@ -742,8 +758,8 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             filter.apply();
         }
 
-        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.isChecked()){
-            DateField<LocalDateTime> propFilterCmpnt_Ts1_ElTs_LE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
+        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.getValue()){
+            TypedDateTimePicker<LocalDateTime> propFilterCmpnt_Ts1_ElTs_LE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
             LocalDateTime ts1_ElTs_LE = propFilterCmpnt_Ts1_ElTs_LE.getValue();
             if (ts1_ElTs_LE == null) {
                 logger.debug(logPrfx + " --- ts1_ElTs_LE: null");
@@ -759,11 +775,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFilterConfig1A_Ts1_ElTs_GE_IncMonBtn")
-    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_IncMonBtnBtnClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_IncMonBtnBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1A_Ts1_ElTs_GE_IncMonBtnBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        DateField<LocalDateTime> propFilterCmpnt_Ts1_ElTs_GE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
+        TypedDateTimePicker<LocalDateTime> propFilterCmpnt_Ts1_ElTs_GE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
         LocalDateTime ts1_ElTs_GE = propFilterCmpnt_Ts1_ElTs_GE.getValue();
         if (ts1_ElTs_GE == null) {
             logger.debug(logPrfx + " --- ts1_ElTs_GE: null");
@@ -774,8 +790,8 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             propFilterCmpnt_Ts1_ElTs_GE.setValue(ts1_ElTs_GE);
             filter.apply();
         }
-        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.isChecked()) {
-            DateField<LocalDateTime> propFilterCmpnt_Ts1_ElTs_LE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
+        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.getValue()) {
+            TypedDateTimePicker<LocalDateTime> propFilterCmpnt_Ts1_ElTs_LE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
             LocalDateTime ts1_ElTs_LE = propFilterCmpnt_Ts1_ElTs_LE.getValue();
             if (ts1_ElTs_LE == null) {
                 logger.debug(logPrfx + " --- ts1_ElTs_LE: null");
@@ -791,11 +807,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFilterConfig1A_Ts1_ElTs_GE_DecDayBtn")
-    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_DecDayBtnClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_DecDayBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1A_Ts1_ElTs_GE_DecDayBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        DateField<LocalDateTime> cmpnt_Ts1_ElTs_GE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
+        TypedDateTimePicker<LocalDateTime> cmpnt_Ts1_ElTs_GE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
         LocalDateTime ts1_ElTs_GE = cmpnt_Ts1_ElTs_GE.getValue();
         if (ts1_ElTs_GE == null) {
             logger.debug(logPrfx + " --- ts1_ElTs_GE: null");
@@ -807,8 +823,8 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             filter.apply();
         }
 
-        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.isChecked()) {
-            DateField<LocalDateTime> cmpnt_Ts1_ElTs_LE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
+        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.getValue()) {
+            TypedDateTimePicker<LocalDateTime> cmpnt_Ts1_ElTs_LE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
             LocalDateTime ts1_ElTs_LE = cmpnt_Ts1_ElTs_LE.getValue();
             if (ts1_ElTs_LE == null) {
                 logger.debug(logPrfx + " --- ts1_ElTs_LE: null");
@@ -824,11 +840,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFilterConfig1A_Ts1_ElTs_GE_IncDayBtn")
-    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_IncDayClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1A_Ts1_ElTs_GE_IncDayClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1A_Ts1_ElTs_GE_IncDayClick";
         logger.trace(logPrfx + " --> ");
 
-        DateField<LocalDateTime> cmpnt_Ts1_ElTs_GE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
+        TypedDateTimePicker<LocalDateTime> cmpnt_Ts1_ElTs_GE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_GE.getValueComponent();
         LocalDateTime ts1_ElTs_GE = cmpnt_Ts1_ElTs_GE.getValue();
         if (ts1_ElTs_GE == null) {
             logger.debug(logPrfx + " --- ts1_ElTs_GE: null");
@@ -840,8 +856,8 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             filter.apply();
         }
 
-        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.isChecked()) {
-            DateField<LocalDateTime> cmpnt_Ts1_ElTs_LE = (DateField<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
+        if (updateFilterConfig1A_Ts1_ElTs_LE_SyncChk.getValue()) {
+            TypedDateTimePicker<LocalDateTime> cmpnt_Ts1_ElTs_LE = (TypedDateTimePicker<LocalDateTime>) filterConfig1A_Ts1_ElTs_LE.getValueComponent();
             LocalDateTime ts1_ElTs_LE = cmpnt_Ts1_ElTs_LE.getValue();
             if (ts1_ElTs_LE == null) {
                 logger.debug(logPrfx + " --- ts1_ElTs_LE: null");
@@ -857,7 +873,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFilterConfig1B_Ts1_ElTs_GEBtn")
-    public void onUpdateFilterConfig1B_Ts1_ElTs_GEBtnClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1B_Ts1_ElTs_GEBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1B_Ts1_ElTs_GEBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -868,10 +884,10 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 break;
 
             case 1:  // Set to match current row
-                List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+                List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
                 if (thisNodes.isEmpty()) {
                     logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-                    notifications.create().withCaption("No records selected. Please select one or more record.").show();
+                    notifications.create("No records selected. Please select one or more record.").show();
                     logger.trace(logPrfx + " <-- ");
                     return;
                 }
@@ -890,7 +906,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("updateFilterConfig1B_Int1Btn")
-    public void onUpdateFilterConfig1B_Int1BtnClick(Button.ClickEvent event) {
+    public void onUpdateFilterConfig1B_Int1BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFilterConfig1B_Int1BtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -901,10 +917,10 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
                 break;
 
             case 1:  // Set to match current row
-                List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+                List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
                 if (thisNodes.isEmpty()) {
                     logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-                    notifications.create().withCaption("No records selected. Please select one or more record.").show();
+                    notifications.create("No records selected. Please select one or more record.").show();
                     logger.trace(logPrfx + " <-- ");
                     return;
                 }
@@ -942,14 +958,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("moveFrstInt1Btn")
-    public void onMoveFrstInt1BtnClick(Button.ClickEvent event) {
+    public void onMoveFrstInt1BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveFrstInt1BtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -958,14 +974,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("movePrevInt1Btn")
-    public void onMovePrevInt1BtnClick(Button.ClickEvent event) {
+    public void onMovePrevInt1BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMovePrevInt1BtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -974,14 +990,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("moveNextInt1Btn")
-    public void onMoveNextInt1BtnClick(Button.ClickEvent event) {
+    public void onMoveNextInt1BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveNextInt1BtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -991,14 +1007,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("moveLastInt1Btn")
-    public void onMoveLastInt1BtnClick(Button.ClickEvent event) {
+    public void onMoveLastInt1BtnClick(ClickEvent<Button> event) {
         String logPrfx = "onMoveLastInt1BtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1007,14 +1023,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("updateColItemCalcValsBtn")
-    public void onUpdateColItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<UsrNodeFinTxact> thisNodes = tableMain.getSelected().stream().toList();
+        List<UsrNodeFinTxact> thisNodes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1040,19 +1056,22 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         });
 
         if (dataContext.hasChanges()){
-            logger.debug(logPrfx + " --- executing dataContext.commit().");
-            dataContext.commit();
+            logger.debug(logPrfx + " --- executing dataContext.save().");
+            dataContext.save();
 
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            //tableMain.sort("id2", Table.SortDirection.ASCENDING);
-            try{tableMain.setSelected(thisNodes);
+            //todo check how to dataGridMain.setSelected
+            //dataGridMain.sort("id2", Table.SortDirection.ASCENDING);
+            /*
+            try{dataGridMain.setSelected(thisNodes);
             }
             catch(IllegalArgumentException e){
                 logger.debug(logPrfx + " --- caught IllegalArgumentException: " + e.getMessage());
-                notifications.create().withCaption("Unable to keep all previous selections.").show();
+                notifications.create("Unable to keep all previous selections.").show();
             }
+            */
         }
 
         logger.trace(logPrfx + " <-- ");
@@ -1061,14 +1080,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
     @Override
     @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateInstItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInstItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1087,63 +1106,60 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         logger.trace(logPrfx + " <-- ");
     }
 
-
-    @Install(to = "tmplt_Parent1_WhatText1Field", subject = "enterPressHandler")
-    private void tmplt_Parent1_WhatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "tmplt_Parent1_WhatText1FieldEnterPressHandler";
+    @Subscribe("tmplt_Parent1_WhatText1Field")
+    public void onTmplt_Parent1_WhatText1FieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onTmplt_Parent1_WhatText1FieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "tmplt_Parent1_WhyText1Field", subject = "enterPressHandler")
-    private void tmplt_Parent1_WhyText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "tmplt_Parent1_WhyText1FieldEnterPressHandler";
+    @Subscribe("tmplt_Parent1_WhyText1Field")
+    public void onTmplt_Parent1_WhyText1FieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onTmplt_Parent1_WhyText1FieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
-
-    @Install(to = "tmplt_Parent1_EI1_RoleField", subject = "enterPressHandler")
-    private void tmplt_Parent1_EI1_RoleFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "tmplt_Parent1_EI1_RoleFieldEnterPressHandler";
+    @Subscribe("tmplt_Parent1_EI1_RoleField")
+    public void onTmplt_Parent1_EI1_RoleFieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onTmplt_Parent1_EI1_RoleFieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
-
 
 
     // Main Field
 
     @Install(to = "parent1_IdField.entityLookup", subject = "screenConfigurer")
-    private void  parent1_IdFieldLookupScreenConfigurer(Screen screen) {
+    private void  parent1_IdFieldLookupScreenConfigurer(View view) {
         String logPrfx = "parent1_IdFieldLookupScreenConfigurer";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        if(screen instanceof UsrNodeFinTxactSet0Lookup scrn){
+        if(view instanceof UsrNodeFinTxactSet0Lookup view2){
 
             LocalDateTime ts1_ElTs = thisNode.getTs1() == null ? null : thisNode.getTs1().getElTs();
-            scrn.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
-            scrn.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
 
             Integer int1 = thisNode.getInt1();
-            scrn.getFilterConfig1A_SortIdx().setValue(int1);
+            view2.getFilterConfig1A_SortIdx().setValue(int1);
 
         }
 
@@ -1155,11 +1171,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         String logPrfx = "onTs1_ElTsFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
             if (thisNode == null) {
                 logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -1171,14 +1187,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("extractTs1_ElTsFieldBtn")
-    public void onUpdateTs1_ElTsFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateTs1_ElTsFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateTs1_ElTsFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1194,11 +1210,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         String logPrfx = "onInt1FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
             if (thisNode == null) {
                 logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -1210,14 +1226,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateInt1FieldBtn")
-    public void onUpdateInt1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateInt1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInt1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1231,14 +1247,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     
 
     @Subscribe("updateParent1_IdFieldBtn")
-    public void onUpdateParent1_IdFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_IdFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_IdFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1253,14 +1269,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     //Parent1 (FinTxactSet) Field
 
     @Subscribe("updateParent1_Desc1FieldBtn")
-    public void onUpdateParent1_Desc1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_Desc1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_Desc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1276,25 +1292,25 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Install(to = "parent1_Desc1Node1_IdField.entityLookup", subject = "screenConfigurer")
-    private void  parent1_Desc1Node1_IdFieldLookupScreenConfigurer(Screen screen) {
+    private void  parent1_Desc1Node1_IdFieldLookupScreenConfigurer(View view) {
         String logPrfx = "parent1_Desc1Node1_IdFieldLookupScreenConfigurer";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        if(screen instanceof UsrNodeFinTxactItm0Lookup scrn){
+        if(view instanceof UsrNodeFinTxactItm0Lookup view2){
 
             LocalDateTime ts1_ElTs = thisNode.getTs1() == null ? null : thisNode.getTs1().getElTs();
-            scrn.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
-            scrn.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
 
             Integer int1 = thisNode.getInt1() == null ? 0 : thisNode.getInt1();
-            scrn.getFilterConfig1A_Int1().setValue(int1);
+            view2.getFilterConfig1A_Int1().setValue(int1);
 
         }
 
@@ -1302,25 +1318,25 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Install(to = "parent1_Desc1Node2_IdField.entityLookup", subject = "screenConfigurer")
-    private void  parent1_Desc1Node2_IdFieldLookupScreenConfigurer(Screen screen) {
+    private void  parent1_Desc1Node2_IdFieldLookupScreenConfigurer(View view) {
         String logPrfx = "parent1_Desc1Node2_IdFieldLookupScreenConfigurer";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeFinTxact thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
-        if(screen instanceof UsrNodeFinTxactItm0Lookup scrn){
+        if(view instanceof UsrNodeFinTxactItm0Lookup view2){
 
             LocalDateTime ts1_ElTs = thisNode.getTs1() == null ? null : thisNode.getTs1().getElTs();
-            scrn.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
-            scrn.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_GE().setValue(ts1_ElTs);
+            view2.getFilterConfig1A_Ts1_ElTs_LE().setValue(ts1_ElTs);
 
             Integer int1 = thisNode.getInt1() == null ? 0 : thisNode.getInt1();
-            scrn.getFilterConfig1A_Int1().setValue(int1);
+            view2.getFilterConfig1A_Int1().setValue(int1);
 
         }
 
@@ -1328,7 +1344,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateParent1_Type1_IdFieldListBtn")
-    public void onUpdateParent1_Type1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_Type1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_Type1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1339,7 +1355,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateParent1_GenChan1_IdFieldListBtn")
-    public void onUpdateParent1_GenChan1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_GenChan1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_GenChan1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1350,7 +1366,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateParent1_How1_IdFieldListBtn")
-    public void onUpdateParent1_How1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_How1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_How1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1360,18 +1376,18 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "parent1_WhatText1Field", subject = "enterPressHandler")
-    private void parent1_WhatText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "parent1_WhatText1FieldEnterPressHandler";
+    @Subscribe("parent1_WhatText1Field")
+    public void onpParent1_WhatText1FieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onpParent1_WhatText1FieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateParent1_WhatText1FieldListBtn")
-    public void onUpdateParent1_WhatText1FieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_WhatText1FieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_WhatText1FieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1381,7 +1397,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateParent1_What1_IdFieldListBtn")
-    public void onUpdateParent1_What1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_What1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_What1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1391,18 +1407,18 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "parent1_WhyText1Field", subject = "enterPressHandler")
-    private void parent1_WhyText1FieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "parent1_WhyText1FieldEnterPressHandler";
+    @Subscribe("parent1_WhyText1Field")
+    public void onpParent1_WhyText1FieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onpParent1_WhyText1FieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
 
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateParent1_WhyText1FieldListBtn")
-    public void onUpdateParent1_WhyText1FieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_WhyText1FieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_WhyText1FieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1412,7 +1428,7 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateParent1_Why1_IdFieldListBtn")
-    public void onUpdateParent1_Why1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateParent1_Why1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateParent1_Why1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -1424,14 +1440,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     
 
     @Subscribe("updateFinTxactItms1_AmtDebtSumCalcFieldBtn")
-    public void onUpdateFinTxactItms1_AmtDebtSumCalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_AmtDebtSumCalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_AmtDebtSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1444,14 +1460,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("updateFinTxactItms1_AmtCredSumCalcFieldBtn")
-    public void onUpdateFinTxactItms1_AmtCredSumCalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_AmtCredSumCalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_AmtCredSumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1463,14 +1479,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFinTxactItms1_AmtNet2SumCalcFieldBtn")
-    public void onUpdateFinTxactItms1_AmtNet2SumCalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_AmtNet2SumCalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_AmtNet2SumCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1482,14 +1498,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFinTxactItms1_IdCntCalcFieldBtn")
-    public void onUpdateFinTxactItms1_IdCntCalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_IdCntCalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_IdCntCalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1502,14 +1518,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
 
     @Subscribe("updateFinTxactItms1_AmtEqCalcBoxBtn")
-    public void onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_AmtEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1522,14 +1538,14 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
     }
 
     @Subscribe("updateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtn")
-    public void onUpdateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtnClick(Button.ClickEvent event) {
+    public void onUpdateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTxactItms1_SysNodeFinCurcyEqCalcBoxBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -1566,11 +1582,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
         }
 
 
-        tmplt_Parent1_WhatText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called tmplt_Parent1_WhatText1Field.setOptionsList()");
+        tmplt_Parent1_WhatText1Field.setItems(texts);
+        logger.debug(logPrfx + " --- called tmplt_Parent1_WhatText1Field.setItems()");
 
-        parent1_WhatText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called parent1_WhatText1Field.setOptionsList()");
+        parent1_WhatText1Field.setItems(texts);
+        logger.debug(logPrfx + " --- called parent1_WhatText1Field.setItems()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1599,11 +1615,11 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             return;
         }
 
-        tmplt_Parent1_WhyText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called tmplt_Parent1_WhyText1Field.setOptionsList()");
+        tmplt_Parent1_WhyText1Field.setItems(texts);
+        logger.debug(logPrfx + " --- called tmplt_Parent1_WhyText1Field.setItems()");
 
-        parent1_WhyText1Field.setOptionsList(texts);
-        logger.debug(logPrfx + " --- called finParent1_WhyText1Field.setOptionsList()");
+        parent1_WhyText1Field.setItems(texts);
+        logger.debug(logPrfx + " --- called finParent1_WhyText1Field.setItems()");
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1631,24 +1647,24 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
             return;
         }
 
-        tmplt_Parent1_EI1_RoleField.setOptionsList(roles);
-        logger.debug(logPrfx + " --- called tmplt_Parent1_EI1_RoleField.setOptionsList()");
+        tmplt_Parent1_EI1_RoleField.setItems(roles);
+        logger.debug(logPrfx + " --- called tmplt_Parent1_EI1_RoleField.setItems()");
 
-        parent1_EI1_RoleField.setOptionsList(roles);
-        logger.debug(logPrfx + " --- called parent1_EI1_RoleField.setOptionsList()");
+        parent1_EI1_RoleField.setItems(roles);
+        logger.debug(logPrfx + " --- called parent1_EI1_RoleField.setItems()");
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("loadTableFinTxactItmBtn")
-    public void onLoadTableFinTxactItmBtnClick(Button.ClickEvent event) {
+    public void onLoadTableFinTxactItmBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onLoadTableFinTxactItmBtnClick";
         logger.trace(logPrfx + " --> ");
 
         UsrNodeBase thisNode = instCntnrMain.getItemOrNull();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }

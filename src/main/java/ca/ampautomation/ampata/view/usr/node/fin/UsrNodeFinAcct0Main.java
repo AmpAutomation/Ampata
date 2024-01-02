@@ -10,22 +10,34 @@ import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenFmla;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
 import ca.ampautomation.ampata.other.UpdateOption;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinAcct0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxBase;
 import io.jmix.core.*;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.*;
-import io.jmix.ui.screen.LookupComponent;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.component.valuepicker.EntityPicker;
+import io.jmix.flowui.model.CollectionContainer;
+import io.jmix.flowui.model.CollectionLoader;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.*;
 
-@UiController("enty_UsrNodeFinAcct.main")
-@UiDescriptor("usr-node-fin-acct-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, UsrNodeFinAcctType, UsrNodeFinAcct0Service, UsrNodeFinAcct0Repo, TreeTable<UsrNodeFinAcct>> {
+@Route(value = "usrNodeFinAccts", layout = MainView.class)
+@ViewController("enty_UsrNodeFinAcct.main")
+@ViewDescriptor("usr-node-fin-acct-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, UsrNodeFinAcctType, UsrNodeFinAcct0Service, UsrNodeFinAcct0Repo, TreeDataGrid<UsrNodeFinAcct>> {
 
     //Service
     @Override
@@ -56,16 +68,16 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
     @Autowired
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent1_IdField;
     @Autowired
-    protected CheckBox tmplt_GenAgent1_IdFieldChk;
+    protected JmixCheckbox tmplt_GenAgent1_IdFieldChk;
 
     @Autowired
     protected EntityComboBox<SysNodeFinCurcy> tmplt_SysNodeFinCurcy1_IdField;
     @Autowired
-    protected CheckBox tmplt_SysNodeFinCurcy1_IdFieldChk;
+    protected JmixCheckbox tmplt_SysNodeFinCurcy1_IdFieldChk;
     @Autowired
     protected EntityComboBox<UsrNodeFinTaxLne> tmplt_FinTaxLne1_IdField;
     @Autowired
-    protected CheckBox tmplt_FinTaxLne1_IdFieldChk;
+    protected JmixCheckbox tmplt_FinTaxLne1_IdFieldChk;
 
 
 
@@ -91,7 +103,7 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
     @Autowired
     protected EntityPicker<UsrNodeFinAcct> parent1_IdField;
     @Autowired
-    private ComboBox<String> statusField;
+    private JmixComboBox<String> statusField;
 
     @Autowired
     private EntityComboBox<UsrNodeGenAgent> genAgent1_IdField;
@@ -111,8 +123,8 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
         super.onInit(event);
 
-        statusField.setNullOptionVisible(true);
-        statusField.setNullSelectionCaption("<null>");
+        //statusField.setNull(true);
+        //statusField.setNullSelectionCaption("<null>");
 
         colCntnrGenAgent = dataComponents.createCollectionContainer(UsrNodeGenAgent.class);
         colLoadrGenAgent = dataComponents.createCollectionLoader();
@@ -122,14 +134,14 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
                 .build();
         colLoadrGenAgent.setFetchPlan(fchPlnGenAgent_Inst);
         colLoadrGenAgent.setContainer(colCntnrGenAgent);
-        colLoadrGenAgent.setDataContext(getScreenData().getDataContext());
+        colLoadrGenAgent.setDataContext(getViewData().getDataContext());
 
-        genAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
+        genAgent1_IdField.setItems(colCntnrGenAgent);
         //template
-        tmplt_GenAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
+        tmplt_GenAgent1_IdField.setItems(colCntnrGenAgent);
         //filter
         EntityComboBox<UsrNodeGenAgent> propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrNodeGenAgent>) filterConfig1A_GenAgent1_Id.getValueComponent();
-        propFilterCmpnt_GenAgent1_Id.setOptionsContainer(colCntnrGenAgent);
+        propFilterCmpnt_GenAgent1_Id.setItems(colCntnrGenAgent);
 
 
         colCntnrSysNodeFinCurcy = dataComponents.createCollectionContainer(SysNodeFinCurcy.class);
@@ -140,14 +152,14 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
                 .build();
         colLoadrSysNodeFinCurcy.setFetchPlan(fchPlnSysNodeFinCurcy_Inst);
         colLoadrSysNodeFinCurcy.setContainer(colCntnrSysNodeFinCurcy);
-        colLoadrSysNodeFinCurcy.setDataContext(getScreenData().getDataContext());
+        colLoadrSysNodeFinCurcy.setDataContext(getViewData().getDataContext());
 
-        sysNodeFinCurcy1_IdField.setOptionsContainer(colCntnrSysNodeFinCurcy);
+        sysNodeFinCurcy1_IdField.setItems(colCntnrSysNodeFinCurcy);
         //template
-        tmplt_SysNodeFinCurcy1_IdField.setOptionsContainer(colCntnrSysNodeFinCurcy);
+        tmplt_SysNodeFinCurcy1_IdField.setItems(colCntnrSysNodeFinCurcy);
         //filter
         EntityComboBox<SysNodeFinCurcy> propFilterCmpnt_SysNodeFinCurcy1_Id = (EntityComboBox<SysNodeFinCurcy>) filterConfig1A_SysNodeFinCurcy1_Id.getValueComponent();
-        propFilterCmpnt_SysNodeFinCurcy1_Id.setOptionsContainer(colCntnrSysNodeFinCurcy);
+        propFilterCmpnt_SysNodeFinCurcy1_Id.setItems(colCntnrSysNodeFinCurcy);
 
 
         colCntnrFinTaxLne = dataComponents.createCollectionContainer(UsrNodeFinTaxLne.class);
@@ -158,11 +170,11 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
                 .build();
         colLoadrFinTaxLne.setFetchPlan(fchPlnFinTaxLne_Inst);
         colLoadrFinTaxLne.setContainer(colCntnrFinTaxLne);
-        colLoadrFinTaxLne.setDataContext(getScreenData().getDataContext());
+        colLoadrFinTaxLne.setDataContext(getViewData().getDataContext());
 
-        finTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
+        finTaxLne1_IdField.setItems(colCntnrFinTaxLne);
         //template
-        tmplt_FinTaxLne1_IdField.setOptionsContainer(colCntnrFinTaxLne);
+        tmplt_FinTaxLne1_IdField.setItems(colCntnrFinTaxLne);
         //filter
 
 
@@ -171,7 +183,7 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
     @Override
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -199,11 +211,11 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
         copy.setId(UuidProvider.createUuid());
 
 
-        if (tmplt_Type1_IdFieldChk.isChecked()) {
+        if (tmplt_Type1_IdFieldChk.getValue()) {
             copy.setType1_Id(tmplt_Type1_IdField.getValue());
         }
 
-        if (tmplt_GenAgent1_IdFieldChk.isChecked()) {
+        if (tmplt_GenAgent1_IdFieldChk.getValue()) {
             copy.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
         }
 
@@ -231,19 +243,19 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
         Boolean thisNodeIsChanged = false;
 
-        if (tmplt_Type1_IdFieldChk.isChecked()
+        if (tmplt_Type1_IdFieldChk.getValue()
         ) {
             thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
             thisNodeIsChanged = true;
         }
 
-        if (tmplt_GenAgent1_IdFieldChk.isChecked()
+        if (tmplt_GenAgent1_IdFieldChk.getValue()
         ) {
             thisNode.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
             thisNodeIsChanged = true;
         }
 
-        if (tmplt_FinTaxLne1_IdFieldChk.isChecked()
+        if (tmplt_FinTaxLne1_IdFieldChk.getValue()
         ) {
             thisNode.setFinTaxLne1_Id(tmplt_FinTaxLne1_IdField.getValue());
             thisNodeIsChanged = true;
@@ -259,7 +271,7 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
 
     @Subscribe("updateGenAgent1_IdFieldListBtn")
-    public void onUpdateGenAgent1_IdFieldListBtn(Button.ClickEvent event) {
+    public void onUpdateGenAgent1_IdFieldListBtn(ClickEvent<Button> event) {
         String logPrfx = "onUpdateGenAgent1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
@@ -271,7 +283,7 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
 
     @Subscribe("updateFinCurcy1_IdFieldListBtn")
-    public void onUpdateFinCurcy1_IdFieldListBtn(Button.ClickEvent event) {
+    public void onUpdateFinCurcy1_IdFieldListBtn(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinCurcy1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 
@@ -281,31 +293,31 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
         logger.trace(logPrfx + " <-- ");
     }
 
-    @Install(to = "statusField", subject = "enterPressHandler")
-    private void statusFieldEnterPressHandler(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
-        String logPrfx = "statusFieldEnterPressHandler";
+    @Subscribe("statusField")
+    public void onStatusFieldCustomValueSet(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
+        String logPrfx = "onStatusFieldCustomValueSet";
         logger.trace(logPrfx + " --> ");
-
-        addEnteredTextToComboBoxOptionsList(enterPressEvent);
+        
+        addEnteredTextToComboBoxOptionsList(event);
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateStatusFieldListBtn")
-    public void onUpdateStatusFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateStatusFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateStatusFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
         List<String> statuss = service.getStatusList();
         logger.debug(logPrfx + " --- called service.getStatusList()");
-        statusField.setOptionsList(statuss);
+        statusField.setItems(statuss);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
     @Subscribe("updateFinTaxLne1_IdFieldListBtn")
-    public void onUpdateFinTaxLne1_IdFieldListBtn(Button.ClickEvent event) {
+    public void onUpdateFinTaxLne1_IdFieldListBtn(ClickEvent<Button> event) {
         String logPrfx = "onUpdateFinTaxLne1_IdFieldListBtn";
         logger.trace(logPrfx + " --> ");
 

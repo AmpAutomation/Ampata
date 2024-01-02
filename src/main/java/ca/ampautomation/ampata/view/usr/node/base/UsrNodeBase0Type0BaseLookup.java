@@ -4,13 +4,20 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Type0Repo;
 import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Type0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.MasterDetailScreen;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.StandardListView;
+import io.jmix.flowui.view.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +28,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseType, NodeTypeServiceT extends UsrNodeBase0Type0Service, NodeTypeRepoT extends UsrNodeBase0Type0Repo, TableT extends Table> extends MasterDetailScreen<NodeTypeT> {
+public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseType, NodeTypeServiceT extends UsrNodeBase0Type0Service, NodeTypeRepoT extends UsrNodeBase0Type0Repo, DataGridT extends Grid<NodeTypeT>> extends StandardListView<NodeTypeT> {
 
 
     //Common
@@ -37,9 +44,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
                         .getActualTypeArguments()[0];
     }
 
-    protected ListComponent<NodeTypeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
+    protected DataGrid<NodeTypeT> getDataGrid() {return (DataGrid<NodeTypeT>) getContent().getComponent("dataGridMain"); }
 
     //Service
     protected NodeTypeServiceT service;
@@ -88,18 +93,18 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected GenericFilter filter;
 
     @Autowired
-    protected  PropertyFilter<NodeTypeT> filterConfig1A_Parent1_Id;
+    protected PropertyFilter<NodeTypeT> filterConfig1A_Parent1_Id;
 
 
     //Toolbar
     @Autowired
-    protected ComboBox<Integer> updateColItemCalcValsOption;
+    protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
     @Autowired
-    protected ComboBox<Integer> updateInstItemCalcValsOption;
+    protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Template
@@ -111,14 +116,32 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
     @Autowired
     protected CollectionContainer<NodeTypeT> colCntnrMain;
     @Autowired
-    protected TableT tableMain;
+    protected DataGridT dataGridMain;
 
 
     //Other data loaders, containers and tables
 
 
+    /**
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
+     *
+     * @see #addInitListener(ComponentEventListener)
+     */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
@@ -126,10 +149,88 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
         logger.trace(logPrfx + " <-- ");
     }
 
+    /**
+     * The second (after {@link InitEvent}) event in the view opening process.
+     * All components have completed their internal initialization procedures.
+     * Data loaders have been triggered by the automatically configured {@code DataLoadCoordinator} facet.
+     * <p>
+     * In this event listener, you can load data, check permissions and modify UI components. For example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeShow(BeforeShowEvent event) {
+     *         customersDl.load();
+     *     }
+     * </pre>
+     * <p>
+     * You can abort the process of opening the view by throwing an exception.
+     */
     @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-        colLoadrMain.load();
-        //tableMain.sort("sortKey", Table.SortDirection.ASCENDING);
+    public void onBeforeShowEvent(final View.BeforeShowEvent event) {
+        String logPrfx = "onBeforeShow";
+        logger.trace(logPrfx + " --> ");
+
+        //logger.debug(logPrfx + " --- calling colLoadrMain.load() ");
+        //colLoadrMain.load();
+        //logger.debug(logPrfx + " --- called colLoadrMain.load() ");
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
+
+/*
+        String currentTenantId = tenantProvider.getCurrentUserTenantId();
+        if (!currentTenantId.equals(TenantProvider.NO_TENANT)
+                && Strings.isNullOrEmpty(tenantField.getValue())) {
+            //tenantField.setEditable(false);
+            tenantField.setValue(currentTenantId);
+        }
+*/
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    /**
+     * The last (after {@link View.BeforeShowEvent}) event in the view opening process.
+     * <p>
+     * In this event listener, you can make final configuration of the view according to loaded data and
+     * show notifications or dialogs:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onReady(ReadyEvent event) {
+     *         notifications.show("Just opened");
+     *     }
+     * </pre>
+     */
+    @Subscribe
+    public void onReadyEvent(final View.ReadyEvent event) {
+        String logPrfx = "onReadyEvent";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * The first event in the view closing process.
+     * The view is still displayed and fully functional.
+     * <p>
+     * In this event listener, you can check any conditions and prevent closing using the
+     * preventClose() method of the event, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeClose(BeforeCloseEvent event) {
+     *         if (Strings.isNullOrEmpty(textField.getTypedValue())) {
+     *             notifications.show("Input required");
+     *             event.preventClose();
+     *         }
+     *     }
+     * </pre>
+     */
+
+    @Subscribe
+    public void onBeforeClose(final View.BeforeCloseEvent event) {
+        String logPrfx = "onBeforeClose";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
 
     }
 
@@ -164,7 +265,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -173,7 +274,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
     }
 
     @Subscribe("updateColCalcValsBtn")
-    public void onUpdateColCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateColCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateColCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -190,14 +291,14 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
 
     @Subscribe("duplicateBtn")
-    public void onDuplicateBtnClick(Button.ClickEvent event) {
+    public void onDuplicateBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onDuplicateBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+        List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -233,14 +334,14 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
     
     @Subscribe("setBtn")
-    public void onSetBtnClick(Button.ClickEvent event) {
+    public void onSetBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onSetBtnClick";
         logger.trace(logPrfx + " --> ");
 
-        List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+        List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
         if (thisNodeTypes == null || thisNodeTypes.isEmpty()) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no records are selected.");
-            notifications.create().withCaption("No records selected. Please select one or more record.").show();
+            notifications.create("No records selected. Please select one or more record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -295,7 +396,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
             logger.debug(logPrfx + " --- executing colLoadrMain.load().");
             colLoadrMain.load();
 
-            List<NodeTypeT> thisNodeTypes = tableMain.getSelected().stream().toList();
+            List<NodeTypeT> thisNodeTypes = dataGridMain.getSelectedItems().stream().toList();
 
             UpdateOption updOption = UpdateOption.valueOf(updateInstItemCalcValsOption.getValue())
                 .orElse(UpdateOption.SKIP);
@@ -313,13 +414,14 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
             });
 
             if (dataContext.hasChanges()) {
-                logger.debug(logPrfx + " --- executing dataContext.commit().");
-                dataContext.commit();
+                logger.debug(logPrfx + " --- executing dataContext.save().");
+                dataContext.save();
 
                 logger.debug(logPrfx + " --- executing colLoadrMain.load().");
                 colLoadrMain.load();
 
-                tableMain.setSelected(thisNodeTypes);
+                //todo check how to dataGridMain.setSelected
+                //dataGridMain.setSelected(thisNodeTypes);
             }
         }
         logger.trace(logPrfx + " <-- ");
@@ -336,7 +438,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             //todo I observed thisNodeType is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
+            //notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }

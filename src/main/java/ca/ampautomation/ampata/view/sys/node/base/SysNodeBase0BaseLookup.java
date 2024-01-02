@@ -4,20 +4,23 @@ import ca.ampautomation.ampata.repo.sys.node.base.SysNodeBase0Repo;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBase;
 import ca.ampautomation.ampata.entity.sys.node.base.SysNodeBaseType;
 import ca.ampautomation.ampata.service.sys.node.base.SysNodeBase0Service;
+import com.vaadin.flow.component.ComponentEventListener;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.StandardLookup;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeTypeT extends SysNodeBaseType, NodeServiceT extends SysNodeBase0Service, NodeRepoT extends SysNodeBase0Repo> extends StandardLookup<NodeT> implements SysNodeBase0BaseComn{
+public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeTypeT extends SysNodeBaseType, NodeServiceT extends SysNodeBase0Service, NodeRepoT extends SysNodeBase0Repo> extends StandardListView<NodeT> implements SysNodeBase0BaseComn{
 
     //Common
     protected Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -38,9 +41,7 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
                         .getActualTypeArguments()[0];
     }
 
-    protected ListComponent<NodeT> getTable() {
-        return (ListComponent) getWindow().getComponentNN("tableMain");
-    }
+    protected DataGrid<NodeT> getDataGrid() {return (DataGrid<NodeT>) getContent().getComponent("dataGridMain"); }
     //Service
     protected NodeServiceT service;
 
@@ -81,7 +82,7 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
 
     //Filter
     @Autowired
-    protected Filter filter;
+    protected GenericFilter filter;
 
     @Autowired
     protected PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id;
@@ -99,74 +100,152 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
     @Autowired
     protected CollectionContainer<NodeT> colCntnrMain;
     @Autowired
-    protected TreeTable<NodeT> tableMain;
+    protected TreeDataGrid<NodeT> dataGridMain;
 
 
 
     /**
-     * InitEvent is sent when the screen controller and all its declaratively defined components are created, and dependency injection is completed. Nested fragments are not initialized yet. Some visual components are not fully initialized, for example, buttons are not linked with actions.
-     * @param event
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
+     *
+     * @see #addInitListener(ComponentEventListener)
      */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit[super]";
         logger.trace(logPrfx + " --> ");
 
         logger.trace(logPrfx + " <-- ");
     }
 
+
     /**
-     * AfterInitEvent is sent when the screen controller and all its declaratively defined components are created, dependency injection is completed, and all components have completed their internal initialization procedures. Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can create visual and data components and perform additional initialization if it depends on initialized nested fragments.
-     * @param event
+     * The second (after {@link InitEvent}) event in the view opening process.
+     * All components have completed their internal initialization procedures.
+     * Data loaders have been triggered by the automatically configured {@code DataLoadCoordinator} facet.
+     * <p>
+     * In this event listener, you can load data, check permissions and modify UI components. For example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeShow(BeforeShowEvent event) {
+     *         customersDl.load();
+     *     }
+     * </pre>
+     * <p>
+     * You can abort the process of opening the view by throwing an exception.
      */
     @Subscribe
-    public void onAfterInitEvent(AfterInitEvent event) {
-        String logPrfx = "onAfterInitEvent[super]";
+    public void onBeforeShowEvent(final View.BeforeShowEvent event) {
+        String logPrfx = "onBeforeShow";
+        logger.trace(logPrfx + " --> ");
+
+        //logger.debug(logPrfx + " --- calling colLoadrMain.load() ");
+        //colLoadrMain.load();
+        //logger.debug(logPrfx + " --- called colLoadrMain.load() ");
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
+
+/*
+        String currentTenantId = tenantProvider.getCurrentUserTenantId();
+        if (!currentTenantId.equals(TenantProvider.NO_TENANT)
+                && Strings.isNullOrEmpty(tenantField.getValue())) {
+            //tenantField.setEditable(false);
+            tenantField.setValue(currentTenantId);
+        }
+*/
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    /**
+     * The last (after {@link View.BeforeShowEvent}) event in the view opening process.
+     * <p>
+     * In this event listener, you can make final configuration of the view according to loaded data and
+     * show notifications or dialogs:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onReady(ReadyEvent event) {
+     *         notifications.show("Just opened");
+     *     }
+     * </pre>
+     */
+    @Subscribe
+    public void onReadyEvent(final View.ReadyEvent event) {
+        String logPrfx = "onReadyEvent";
         logger.trace(logPrfx + " --> ");
 
         logger.trace(logPrfx + " <-- ");
+
     }
 
 
     /**
-     * InitEntityEvent is sent in screens inherited from StandardEditor and MasterDetailScreen before the new entity instance is set to edited entity container.
+     * The first event in the view closing process.
+     * The view is still displayed and fully functional.
+     * <p>
+     * In this event listener, you can check any conditions and prevent closing using the
+     * preventClose() method of the event, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeClose(BeforeCloseEvent event) {
+     *         if (Strings.isNullOrEmpty(textField.getTypedValue())) {
+     *             notifications.show("Input required");
+     *             event.preventClose();
+     *         }
+     *     }
+     * </pre>
+     */
+
+    @Subscribe
+    public void onBeforeClose(final View.BeforeCloseEvent event) {
+        String logPrfx = "onBeforeClose";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * Event sent before the new entity instance is set to edited entity container.
+     * <p>
+     * Use this event listener to initialize default values in the new entity instance, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInitEntity(InitEntityEvent&lt;Foo&gt; event) {
+     *         event.getEntity().setStatus(Status.ACTIVE);
+     *     }
+     * </pre>
      *
-     * Use this event listener to initialize default values in the new entity instance
-     * @param event
+     * param NodeT type of entity
      */
+
     @Subscribe
-    public void onInitEntityEvent(InitEvent event) {
-        String logPrfx = "onInitEntityEvent[super]";
+    public void onInitEntity(final StandardDetailView.InitEntityEvent<NodeT> event) {
+        String logPrfx = "onInitEntity";
         logger.trace(logPrfx + " --> ");
 
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    /**
-     * BeforeShowEvent is sent right before the screen is shown, for example, it is not added to the application UI yet. Security restrictions are applied to UI components. In this event listener, you can load data, check permissions and modify UI components.
-     * @param event
-     */
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-        String logPrfx = "onBeforeShow[super]";
-        logger.trace(logPrfx + " --> ");
-
-        colLoadrMain.load();
-        //tableMain.sort("sortKey", Table.SortDirection.ASCENDING);
+        NodeT thisNode = event.getEntity();
+        if (thisNode == null) {
+            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
+            notifications.create("No record selected. Please select a record.").show();
+            logger.trace(logPrfx + " <-- ");
+            return;
+        }
 
         logger.trace(logPrfx + " <-- ");
-    }
 
-    /**
-     * AfterShowEvent is sent right after the screen is shown, for example, when it is added to the application UI. In this event listener, you can show notifications, dialogs or other screens
-     * @param event
-     */
-    @Subscribe
-    public void onAfterShow(AfterShowEvent event) {
-        String logPrfx = "onAfterShow[super]";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe(id = "colCntnrMain", target = Target.DATA_CONTAINER)

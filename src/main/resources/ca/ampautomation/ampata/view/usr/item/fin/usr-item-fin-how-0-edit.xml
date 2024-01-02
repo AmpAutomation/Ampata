@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<window xmlns="http://jmix.io/schema/ui/window"
-        caption="msg://usrItemFinHow0Edit.caption"
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://usrItemFinHow0Edit.caption"
         focusComponent="form">
     <data>
         <instance id="instCntnrMain"
@@ -14,26 +15,20 @@
         <screenSettings id="settingsFacet" auto="true"/>
     </facets>
     <actions>
-        <action id="windowCommitAndClose" caption="msg:///actions.Ok"
-                icon="EDITOR_OK"
-                primary="true"
-                shortcut="${COMMIT_SHORTCUT}"/>
-        <action id="windowClose"
-                caption="msg:///actions.Close"
-                icon="EDITOR_CANCEL"/>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
     </actions>
-    <dialogMode width="1024" height="768"/>
     <layout spacing="true" expand="editActions">
         <form id="form" dataContainer="instCntnrMain">
             <column width="350px">
                 <textField id="id2Field" property="id2"/>
                 <textField id="id2CalcField" property="id2Calc"/>
-                <checkBox id="id2CmpField" property="id2Cmp"/>
+                <checkbox id="id2CmpField" property="id2Cmp"/>
                 <textField id="id2DupField" property="id2Dup"/>
                 <entityPicker id="type1_IdField" property="type1_Id">
                     <actions>
                         <action id="entityLookup" type="entity_lookup"/>
-                        <action id="entityClear" type="entity_clear"/>
+                        <action type="entity_clear"/>
                     </actions>
                 </entityPicker>
                 <textField id="type1_Id2Field" property="type1_Id2"/>
@@ -47,4 +42,4 @@
             <button id="closeBtn" action="windowClose"/>
         </hbox>
     </layout>
-</window>
+</view>

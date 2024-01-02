@@ -4,17 +4,16 @@ import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinAcctType;
 import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinAcct0Type0Repo;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0Type0BaseLookup;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinAcct0Type0Service;
-import io.jmix.ui.component.TreeTable;
-import io.jmix.ui.screen.LookupComponent;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeFinAcctType.lookup")
-@UiDescriptor("usr-node-fin-acct-0-type-0-lookup.xml")
-@LookupComponent("tableMain")
-public class UsrNodeFinAcct0Type0Lookup extends UsrNodeBase0Type0BaseLookup<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo, TreeTable<UsrNodeFinAcctType>> {
+@ViewController("enty_UsrNodeFinAcctType.lookup")
+@ViewDescriptor("usr-node-fin-acct-0-type-0-lookup.xml")
+@LookupComponent("dataGridMain")
+public class UsrNodeFinAcct0Type0Lookup extends UsrNodeBase0Type0BaseLookup<UsrNodeFinAcctType, UsrNodeFinAcct0Type0Service, UsrNodeFinAcct0Type0Repo, TreeDataGrid<UsrNodeFinAcctType>> {
 
     //Service
     @Override

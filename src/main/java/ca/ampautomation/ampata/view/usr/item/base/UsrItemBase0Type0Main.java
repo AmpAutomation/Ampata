@@ -3,16 +3,19 @@ package ca.ampautomation.ampata.view.usr.item.base;
 import ca.ampautomation.ampata.entity.usr.item.base.UsrItemBaseType;
 import ca.ampautomation.ampata.repo.usr.item.base.UsrItemBase0Type0Repo;
 import ca.ampautomation.ampata.service.usr.item.base.UsrItemBase0Type0Service;
-import io.jmix.ui.component.*;
-import io.jmix.ui.screen.*;
-import io.jmix.ui.screen.LookupComponent;
+import ca.ampautomation.ampata.view.main.MainView;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.grid.TreeDataGrid;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrItemBaseType.main")
-@UiDescriptor("usr-base-item-type-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrItemBase0Type0Main extends UsrItemBase0Type0BaseMain<UsrItemBaseType, UsrItemBase0Type0Service, UsrItemBase0Type0Repo, TreeTable<UsrItemBaseType>> {
+@Route(value = "usrItemBaseTypes", layout = MainView.class)
+@ViewController("enty_UsrItemBaseType.main")
+@ViewDescriptor("usr-base-item-type-0-main.xml")
+@LookupComponent("dataGridMain")
+public class UsrItemBase0Type0Main extends UsrItemBase0Type0BaseMain<UsrItemBaseType, UsrItemBase0Type0Service, UsrItemBase0Type0Repo, TreeDataGrid<UsrItemBaseType>> {
 
     //Service
     @Override

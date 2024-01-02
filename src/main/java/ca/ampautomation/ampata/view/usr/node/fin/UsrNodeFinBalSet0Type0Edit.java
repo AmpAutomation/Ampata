@@ -2,18 +2,19 @@ package ca.ampautomation.ampata.view.usr.node.fin;
 
 import ca.ampautomation.ampata.entity.usr.node.fin.UsrNodeFinBalSetType;
 import ca.ampautomation.ampata.repo.usr.node.fin.UsrNodeFinBalSet0Type0Repo;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0Type0BaseEdit;
 import ca.ampautomation.ampata.service.usr.node.fin.UsrNodeFinBalSet0Type0Service;
-import io.jmix.ui.screen.EditedEntityContainer;
-import io.jmix.ui.screen.UiController;
-import io.jmix.ui.screen.UiDescriptor;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeFinBalSetType.edit")
-@UiDescriptor("usr-node-fin-bal-set-0-type-0-edit.xml")
+@Route(value = "usrNodeFinBalSetTypes/:id", layout = MainView.class)
+@ViewController("enty_UsrNodeFinBalSetType.edit")
+@ViewDescriptor("usr-node-fin-bal-set-0-type-0-edit.xml")
 @EditedEntityContainer("instCntnrMain")
-public class UsrNodeFinBalSetType0Edit extends UsrNodeBase0Type0BaseEdit<UsrNodeFinBalSetType, UsrNodeFinBalSet0Type0Service, UsrNodeFinBalSet0Type0Repo> {
+public class UsrNodeFinBalSet0Type0Edit extends UsrNodeBase0Type0BaseEdit<UsrNodeFinBalSetType, UsrNodeFinBalSet0Type0Service, UsrNodeFinBalSet0Type0Repo> {
 
     //Service
     @Override

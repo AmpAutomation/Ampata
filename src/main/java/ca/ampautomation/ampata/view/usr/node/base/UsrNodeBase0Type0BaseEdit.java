@@ -5,15 +5,22 @@ import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.other.UpdateOption;
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Type0Repo;
 import ca.ampautomation.ampata.service.usr.node.base.UsrNodeBase0Type0Service;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxBase;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import io.jmix.core.*;
-import io.jmix.ui.Notifications;
-import io.jmix.ui.component.*;
-import io.jmix.ui.component.data.options.ListOptions;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.MasterDetailScreen;
-import io.jmix.ui.screen.StandardEditor;
-import io.jmix.ui.screen.Subscribe;
-import io.jmix.ui.screen.Target;
+import com.vaadin.flow.router.Route;
+import io.jmix.flowui.Notifications;
+import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.component.valuepicker.JmixMultiValuePicker;
+import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.model.*;
+import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +29,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.*;
 
 
-public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseType, NodeTypeServiceT extends UsrNodeBase0Type0Service, NodeTypeRepoT extends UsrNodeBase0Type0Repo> extends MasterDetailScreen<NodeTypeT>  implements UsrNodeBase0BaseComn {
+public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseType, NodeTypeServiceT extends UsrNodeBase0Type0Service, NodeTypeRepoT extends UsrNodeBase0Type0Repo> extends StandardListView<NodeTypeT>  implements UsrNodeBase0BaseComn {
 
 
     //Common
@@ -84,7 +91,7 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
 
     //Toolbar
     @Autowired
-    protected ComboBox<Integer> updateInstItemCalcValsOption;
+    protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
     //Main data containers, loaders and table
     @Autowired
@@ -100,29 +107,47 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
 
     //Field
     @Autowired
-    protected TextField<String> id2Field;
+    protected TypedTextField<String> id2Field;
 
     @Autowired
-    protected TextField<String> id2CalcField;
+    protected TypedTextField<String> id2CalcField;
 
 
     @Autowired
-    protected TagField<UsrItemGenTag> genTags1_IdField;
+    protected JmixMultiValuePicker<UsrItemGenTag> genTags1_IdField;
 
 
+    /**
+     * The first event in the view opening process.
+     * <p>
+     * The view and all its declaratively defined components are created, and dependency injection is completed.
+     * Some visual components are not fully initialized, for example buttons are not yet linked with actions.
+     * <p>
+     * In this event listener, you can create visual and data components, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInit(InitEvent event) {
+     *         Label label = uiComponents.create(Label.class);
+     *         label.setText("Hello World");
+     *         getContent().add(label);
+     *     }
+     * </pre>
+     *
+     * @see #addInitListener(ComponentEventListener)
+     */
     @Subscribe
-    public void onInit(InitEvent event) {
+    public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
 
-        Map<String, Integer> map2 = new LinkedHashMap<>();
-        map2.put(UpdateOption.SKIP.toString(), UpdateOption.SKIP.toInt());
-        map2.put(UpdateOption.LOCAL.toString(), UpdateOption.LOCAL.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toString(), UpdateOption.LOCAL__REF_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt());
-        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt());
-        updateInstItemCalcValsOption.setOptionsMap(map2);
+        Map<Integer,String> map2 = new LinkedHashMap<>();
+        map2.put(UpdateOption.SKIP.toInt(),UpdateOption.SKIP.toString());
+        map2.put(UpdateOption.LOCAL.toInt(),UpdateOption.LOCAL.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_TO_EXIST_NEW.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST.toString());
+        map2.put(UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toInt(), UpdateOption.LOCAL__REF_IF_EMPTY_TO_EXIST_NEW.toString());
+        ComponentUtils.setItemsMap(updateInstItemCalcValsOption, map2);
         updateInstItemCalcValsOption.setValue(UpdateOption.LOCAL.toInt());
 
         colCntnrGenTag = dataComponents.createCollectionContainer(UsrItemGenTag.class);
@@ -133,72 +158,126 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
                 .build();
         colLoadrGenTag.setFetchPlan(fchPlnGenTag);
         colLoadrGenTag.setContainer(colCntnrGenTag);
-        colLoadrGenTag.setDataContext(getScreenData().getDataContext());
+        colLoadrGenTag.setDataContext(getViewData().getDataContext());
 
         logger.trace(logPrfx + " <-- ");
     }
 
-    /*
-    InitEntityEvent is sent in screens inherited from StandardEditor and MasterDetailScreen
-    before the new entity instance is set to edited entity container.
-    Use this event listener to initialize default values in the new entity instance
-    */
+    /**
+     * The second (after {@link InitEvent}) event in the view opening process.
+     * All components have completed their internal initialization procedures.
+     * Data loaders have been triggered by the automatically configured {@code DataLoadCoordinator} facet.
+     * <p>
+     * In this event listener, you can load data, check permissions and modify UI components. For example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeShow(BeforeShowEvent event) {
+     *         customersDl.load();
+     *     }
+     * </pre>
+     * <p>
+     * You can abort the process of opening the view by throwing an exception.
+     */
     @Subscribe
-    public void onInitEntity(StandardEditor.InitEntityEvent<NodeTypeT> event) {
+    public void onBeforeShowEvent(final View.BeforeShowEvent event) {
+        String logPrfx = "onBeforeShow";
+        logger.trace(logPrfx + " --> ");
+
+        //logger.debug(logPrfx + " --- calling colLoadrMain.load() ");
+        //colLoadrMain.load();
+        //logger.debug(logPrfx + " --- called colLoadrMain.load() ");
+        //dataGridMain.sort("sortKey", Table.SortDirection.ASCENDING);
+
+/*
+        String currentTenantId = tenantProvider.getCurrentUserTenantId();
+        if (!currentTenantId.equals(TenantProvider.NO_TENANT)
+                && Strings.isNullOrEmpty(tenantField.getValue())) {
+            //tenantField.setEditable(false);
+            tenantField.setValue(currentTenantId);
+        }
+*/
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+    /**
+     * The last (after {@link View.BeforeShowEvent}) event in the view opening process.
+     * <p>
+     * In this event listener, you can make final configuration of the view according to loaded data and
+     * show notifications or dialogs:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onReady(ReadyEvent event) {
+     *         notifications.show("Just opened");
+     *     }
+     * </pre>
+     */
+    @Subscribe
+    public void onReadyEvent(final View.ReadyEvent event) {
+        String logPrfx = "onReadyEvent";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * The first event in the view closing process.
+     * The view is still displayed and fully functional.
+     * <p>
+     * In this event listener, you can check any conditions and prevent closing using the
+     * preventClose() method of the event, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onBeforeClose(BeforeCloseEvent event) {
+     *         if (Strings.isNullOrEmpty(textField.getTypedValue())) {
+     *             notifications.show("Input required");
+     *             event.preventClose();
+     *         }
+     *     }
+     * </pre>
+     */
+
+    @Subscribe
+    public void onBeforeClose(final View.BeforeCloseEvent event) {
+        String logPrfx = "onBeforeClose";
+        logger.trace(logPrfx + " --> ");
+
+        logger.trace(logPrfx + " <-- ");
+
+    }
+
+
+    /**
+     * Event sent before the new entity instance is set to edited entity container.
+     * <p>
+     * Use this event listener to initialize default values in the new entity instance, for example:
+     * <pre>
+     *     &#64;Subscribe
+     *     protected void onInitEntity(InitEntityEvent&lt;Foo&gt; event) {
+     *         event.getEntity().setStatus(Status.ACTIVE);
+     *     }
+     * </pre>
+     *
+     * param NodeT type of entity
+     */
+
+    @Subscribe
+    public void onInitEntity(final StandardDetailView.InitEntityEvent<NodeTypeT> event) {
         String logPrfx = "onInitEntity";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = event.getEntity();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
 
         logger.trace(logPrfx + " <-- ");
 
-    }
-
-    /*
-    AfterInitEvent is sent when the screen controller and all its declaratively defined components are created,
-    dependency injection is completed, and all components have completed their internal initialization procedures.
-    Nested screen fragments (if any) have sent their InitEvent and AfterInitEvent. In this event listener, you can
-    create visual and data components and perform additional initialization if it depends on initialized nested
-    fragments.
-    */
-    @Subscribe
-    public void onAfterInit(AfterInitEvent event) {
-        String logPrfx = "onAfterInit";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-    }
-
-    /*
-    BeforeShowEvent is sent right before the screen is shown, for example, it is not added to the application UI yet.
-    Security restrictions are applied to UI components. In this event listener, you can load data,
-    check permissions and modify UI components.
-    */
-    @Subscribe
-    public void onBeforeShow(BeforeShowEvent event) {
-        String logPrfx = "onBeforeShow";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
-
-    }
-
-    /*
-    AfterShowEvent is sent right after the screen is shown, for example, when it is added to the application UI.
-    In this event listener, you can show notifications, dialogs or other screens
-    */
-    @Subscribe
-    protected void onAfterShow(AfterShowEvent event) {
-        String logPrfx = "onAfterShow";
-        logger.trace(logPrfx + " --> ");
-
-        logger.trace(logPrfx + " <-- ");
     }
 
 
@@ -213,7 +292,7 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -235,7 +314,7 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
             //todo I observed thisNodeType is null when selecting a new item
-            //notifications.create().withCaption("No record selected. Please select a record.").show();
+            //notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -244,14 +323,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateInstItemCalcValsBtn")
-    public void onUpdateInstItemCalcValsBtnClick(Button.ClickEvent event) {
+    public void onUpdateInstItemCalcValsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateInstItemCalcValsBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -267,11 +346,11 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
         String logPrfx = "onId2FieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
             if (thisNodeType == null) {
                 logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -283,14 +362,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateId2FieldBtn")
-    public void onUpdateId2FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -304,14 +383,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
 
 
     @Subscribe("updateId2CalcFieldBtn")
-    public void onUpdateId2CalcFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CalcFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CalcFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- instCntnrMain is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -324,14 +403,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateId2CmpFieldBtn")
-    public void onUpdateId2CmpFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2CmpFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2CmpFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -343,14 +422,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateId2DupFieldBtn")
-    public void onUpdateId2DupFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateId2DupFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateId2DupFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -366,11 +445,11 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
         String logPrfx = "onSortIdxFieldValueChange";
         logger.trace(logPrfx + " --> ");
 
-        if (event.isUserOriginated()) {
+        if (event.isFromClient()) {
             NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
             if (thisNodeType == null) {
                 logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-                notifications.create().withCaption("No record selected. Please select a record.").show();
+                notifications.create("No record selected. Please select a record.").show();
                 logger.trace(logPrfx + " <-- ");
                 return;
             }
@@ -382,14 +461,14 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateSortKeyFieldBtn")
-    public void onUpdateSortKeyFieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateSortKeyFieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateSortKeyFieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
-            logger.debug(logPrfx + " --- thisNode is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -401,35 +480,35 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     @Subscribe("updateName1FieldBtn")
-    public void onUpdateName1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateName1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateName1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
         UpdateOption updOption = UpdateOption.valueOf(updateInstItemCalcValsOption.getValue())
                 .orElse(UpdateOption.SKIP);
         //todo
-        //service.updateName1(this, thisNode, updOption);
-        //service.updateName1Deps(this, thisNode, updOption);
+        //service.updateName1(this, thisNodeType, updOption);
+        //service.updateName1Deps(this, thisNodeType, updOption);
 
         logger.trace(logPrfx + " <-- ");
     }
 
     @Subscribe("updateDesc1FieldBtn")
-    public void onUpdateDesc1FieldBtnClick(Button.ClickEvent event) {
+    public void onUpdateDesc1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
         logger.trace(logPrfx + " --> ");
 
         NodeTypeT thisNodeType = instCntnrMain.getItemOrNull();
         if (thisNodeType == null) {
             logger.debug(logPrfx + " --- thisNodeType is null, likely because no record is selected.");
-            notifications.create().withCaption("No record selected. Please select a record.").show();
+            notifications.create("No record selected. Please select a record.").show();
             logger.trace(logPrfx + " <-- ");
             return;
         }
@@ -441,35 +520,33 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
         logger.trace(logPrfx + " <-- ");
     }
 
-    protected void addEnteredTextToComboBoxOptionsList(HasEnterPressHandler.EnterPressEvent enterPressEvent) {
+    protected void addEnteredTextToComboBoxOptionsList(final ComboBoxBase.CustomValueSetEvent<ComboBox<String>> event) {
         String logPrfx = "addEnteredTextToComboBoxOptionsList";
         logger.trace(logPrfx + " --> ");
 
-        String text = enterPressEvent.getText();
+        // event.getSource is directly connected to a JmixComboBox
+        JmixComboBox<String> cb = (JmixComboBox<String>) event.getSource();
+
+        String text = event.getSource().getValue();
+
         if (!Objects.equals(text, "<null>")){
             @SuppressWarnings("unchecked")
-            // enterPressEvent.getSource is directly connected to a ComboBox
-            ComboBox<String> cb = (ComboBox<String>) enterPressEvent.getSource();
 
-            List<String> list;
-            // this comboBox options list is created with a call to setOptionsList(List)
-            // see onUpdateFinStmtItm1_Desc1Field
-            // therefore cb.getOptions is type ListOptions
-            ListOptions<String> listOptions = (ListOptions<String>) cb.getOptions();
-            if (listOptions != null && !listOptions.getItemsCollection().isEmpty()) {
-                list = (List<String>) listOptions.getItemsCollection();
-            } else {
-                list = new ArrayList<String>();
-            }
+            /*
+            If you use combobox.setItems(items); then ComboBox 
+            will automatically create a ListDataProvider out of those items
+            Use the ListDataProvider to get the list
+            */
+            ListDataProvider<String> ldp = (ListDataProvider<String>) cb.getDataProvider();
+
+            List<String> list = new ArrayList<>(ldp.getItems());
 
             list.add(text);
             logger.trace(logPrfx + " --- called list.add( " + text + ")");
 
-            cb.setOptionsList(list);
+            cb.setItems(list);
 
-            notifications.create()
-                    .withCaption("Added " + text + " to list.")
-                    .show();
+            notifications.create("Added " + text + " to list.").show();
         }
 
     }

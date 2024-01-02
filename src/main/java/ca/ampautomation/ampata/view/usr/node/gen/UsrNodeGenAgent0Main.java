@@ -4,20 +4,29 @@ import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgent;
 import ca.ampautomation.ampata.repo.usr.node.gen.UsrNodeGenAgent0Repo;
 import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenAgentType;
 import ca.ampautomation.ampata.other.UpdateOption;
+import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenAgent0Service;
+import com.vaadin.flow.router.Route;
 import io.jmix.core.*;
-import io.jmix.ui.component.*;
-import io.jmix.ui.model.*;
-import io.jmix.ui.screen.*;
-import io.jmix.ui.screen.LookupComponent;
+import io.jmix.flowui.component.checkbox.JmixCheckbox;
+import io.jmix.flowui.component.combobox.EntityComboBox;
+import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.propertyfilter.PropertyFilter;
+import io.jmix.flowui.model.CollectionContainer;
+import io.jmix.flowui.model.CollectionLoader;
+import io.jmix.flowui.view.*;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.button.Button;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-@UiController("enty_UsrNodeGenAgent.main")
-@UiDescriptor("usr-node-gen-agent-0-main.xml")
-@LookupComponent("tableMain")
-public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgent0Service, UsrNodeGenAgent0Repo, Table<UsrNodeGenAgent>> {
+@Route(value = "UsrNodeGenAgents", layout = MainView.class)
+@ViewController("enty_UsrNodeGenAgent.main")
+@ViewDescriptor("usr-node-gen-agent-0-main.xml")
+@LookupComponent("dataGridMain")
+@DialogMode(width = "64em")
+public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, UsrNodeGenAgentType, UsrNodeGenAgent0Service, UsrNodeGenAgent0Repo, DataGrid<UsrNodeGenAgent>> {
 
     //Service
     @Override
@@ -43,12 +52,12 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
 
 
     @Autowired
-    protected CheckBox tmplt_GenAgent1_IdFieldChk;
+    protected JmixCheckbox tmplt_GenAgent1_IdFieldChk;
     @Autowired
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent1_IdField;
 
     @Autowired
-    protected CheckBox tmplt_GenAgent2_IdFieldChk;
+    protected JmixCheckbox tmplt_GenAgent2_IdFieldChk;
     @Autowired
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent2_IdField;
 
@@ -84,27 +93,27 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
                 .build();
         colLoadrGenAgent.setFetchPlan(fchPlnGenAgent1_Inst);
         colLoadrGenAgent.setContainer(colCntnrGenAgent);
-        colLoadrGenAgent.setDataContext(getScreenData().getDataContext());
+        colLoadrGenAgent.setDataContext(getViewData().getDataContext());
 
-        genAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
-        genAgent2_IdField.setOptionsContainer(colCntnrGenAgent);
+        genAgent1_IdField.setItems(colCntnrGenAgent);
+        genAgent2_IdField.setItems(colCntnrGenAgent);
         //template
-        tmplt_GenAgent1_IdField.setOptionsContainer(colCntnrGenAgent);
-        tmplt_GenAgent2_IdField.setOptionsContainer(colCntnrGenAgent);
+        tmplt_GenAgent1_IdField.setItems(colCntnrGenAgent);
+        tmplt_GenAgent2_IdField.setItems(colCntnrGenAgent);
         //filter
         EntityComboBox<UsrNodeGenAgent> propFilterCmpnt_GenAgent1_Id;
         propFilterCmpnt_GenAgent1_Id = (EntityComboBox<UsrNodeGenAgent>) filterConfig1A_GenAgent1_Id.getValueComponent();
-        propFilterCmpnt_GenAgent1_Id.setOptionsContainer(colCntnrGenAgent);
+        propFilterCmpnt_GenAgent1_Id.setItems(colCntnrGenAgent);
         EntityComboBox<UsrNodeGenAgent> propFilterCmpnt_GenAgent2_Id;
         propFilterCmpnt_GenAgent2_Id = (EntityComboBox<UsrNodeGenAgent>) filterConfig1A_GenAgent2_Id.getValueComponent();
-        propFilterCmpnt_GenAgent2_Id.setOptionsContainer(colCntnrGenAgent);
+        propFilterCmpnt_GenAgent2_Id.setItems(colCntnrGenAgent);
 
         logger.trace(logPrfx + " <-- ");
     }
 
 
     @Subscribe("reloadListsBtn")
-    public void onReloadListsBtnClick(Button.ClickEvent event) {
+    public void onReloadListsBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onReloadListsBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -125,19 +134,19 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
 
         Boolean thisNodeIsChanged = false;
 
-        if (tmplt_Type1_IdFieldChk.isChecked()
+        if (tmplt_Type1_IdFieldChk.getValue()
         ) {
             thisNode.setType1_Id(tmplt_Type1_IdField.getValue());
             thisNodeIsChanged = true;
         }
 
-        if (tmplt_GenAgent1_IdFieldChk.isChecked()
+        if (tmplt_GenAgent1_IdFieldChk.getValue()
         ) {
             thisNode.setGenAgent1_Id(tmplt_GenAgent1_IdField.getValue());
             thisNodeIsChanged = true;
         }
 
-        if (tmplt_GenAgent2_IdFieldChk.isChecked()
+        if (tmplt_GenAgent2_IdFieldChk.getValue()
         ) {
             thisNode.setGenAgent2_Id(tmplt_GenAgent2_IdField.getValue());
             thisNodeIsChanged = true;
@@ -152,7 +161,7 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
     }
 
     @Subscribe("updateGenAgent1_IdFieldListBtn")
-    public void onUpdateGenAgent1_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateGenAgent1_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateGenAgent1_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -165,7 +174,7 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
     }
 
     @Subscribe("updateGenAgent2_IdFieldListBtn")
-    public void onUpdateGenAgent2_IdFieldListBtnClick(Button.ClickEvent event) {
+    public void onUpdateGenAgent2_IdFieldListBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateGenAgent2_IdFieldListBtnClick";
         logger.trace(logPrfx + " --> ");
 
@@ -176,6 +185,5 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
         logger.trace(logPrfx + " <-- ");
 
     }
-
 
 }

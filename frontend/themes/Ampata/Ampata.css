@@ -1,1 +1,9 @@
 /* Define your styles here */
+html {
+  --lumo-primary-color: green;
+  --lumo-base-color: #fff;
+
+  --lumo-font-family: 'Roboto';
+  --lumo-size-m: 2.20rem;
+}
+
