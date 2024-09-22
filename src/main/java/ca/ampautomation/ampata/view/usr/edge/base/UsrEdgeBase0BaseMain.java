@@ -90,7 +90,7 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -115,41 +115,41 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<EdgeTypeT> filterConfig1A_Type1_Id;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Type1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<EdgeTypeT> tmplt_Type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_SortIdxField;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<EdgeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<EdgeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<EdgeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 
@@ -161,19 +161,19 @@ public abstract class UsrEdgeBase0BaseMain<EdgeT extends UsrEdgeBase, EdgeTypeT 
     //GenTag data container loader and data property container
     protected CollectionContainer<UsrItemGenTag> colCntnrGenTag;
     protected CollectionLoader<UsrItemGenTag> colLoadrGenTag;
-    @Autowired
+    @ViewComponent
     protected CollectionPropertyContainer<UsrItemGenTag> colPropCntnrGenTag;
 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<EdgeTypeT> type1_IdField;
 
     @Autowired

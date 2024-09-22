@@ -24,7 +24,7 @@
         <screenSettings id="settingsFacet" auto="true"/>
     </facets>
     <actions>
-        <action id="save" icon="CHECK" text="msg:///actions.Save" shortcutCombination="CTRL-ENTER"/>
+        <action id="save" icon="CHECK" text="msg:///actions.Save" shortcutCombination="CONTROL-ENTER"/>
         <action id="cancel" icon="CLOSE" text="msg:///actions.Cancel"/>
     </actions>
     <layout>
@@ -61,7 +61,7 @@
                             <tab id="tabCmd1" label="Main">
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" text="Reload Lists" icon="LIST"/>
-                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="REFRESH"/>
+                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="vaadin:refresh"/>
                                 </hbox>
                             </tab>
                             <tab id="tabCmd2" label="View">
@@ -77,7 +77,7 @@
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="dataGridMain.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="setBtn" text="Set" icon="REFRESH"/>
+                                    <button id="setBtn" text="Set" icon="vaadin:refresh"/>
                                     <hbox>
                                         <label value="sortIdx" align="MIDDLE_CENTER"/>
                                         <button id="rebuildSortIdxBtn" text="Rebiuld"/>
@@ -87,14 +87,14 @@
                                         <button id="moveLastSortIdxBtn"  caption="Last"/>
                                     </hbox>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="REFRESH"/>
-                                    <button id="updateColItemId2Btn" text="Update Id2" icon="REFRESH"/>
+                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="vaadin:refresh"/>
+                                    <button id="updateColItemId2Btn" text="Update Id2" icon="vaadin:refresh"/>
                                 </hbox>
                                 <hbox spacing="true">
                                 </hbox>
                             </tab>
                             <tab id="tabCmd4" caption="Filter" spacing="true" margin="true">
-                                <genericFilter id="genericFilter" dataLoader="colLoadrMain" colspan="5" opened="false">
+                                <genericFilter id="filter" dataLoader="colLoadrMain" colspan="5" opened="false">
                                     <properties include=".*"/>
                                     <configurations>
                                         <configuration id="filterConfig1" default="true">
@@ -132,7 +132,7 @@
             <vbox id="editBox" expand="form" spacing="true" margin="false" height="100%" >
                 <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
-                        <tab id="tab_1"
+                        <tab id="tab1"
                              label="Main"
                              expand="tab1_hbox3"
                              margin="true">
@@ -140,7 +140,7 @@
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
                                 <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                    <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="desc1GenFmla1_Id" expand="desc1GenFmla1_IdField" width="374px">
                                     <entityComboBox id="desc1GenFmla1_IdField" dataContainer="instCntnrMain"
@@ -168,20 +168,20 @@
                                     </hbox>
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain" property="id2"/>
-                                        <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                         <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" readOnly="true"/>
-                                        <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
                                         <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
                                             <checkbox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" readOnly="true"/>
-                                            <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                            <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" readOnly="true"/>
-                                            <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                            <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                 </vbox>
@@ -197,7 +197,7 @@
                                     </hbox>
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain" property="name1"/>
-                                        <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="name1GenFmla1_Id" expand="name1GenFmla1_IdField" width="100%">
                                         <entityComboBox id="name1GenFmla1_IdField" dataContainer="instCntnrMain"

@@ -5,7 +5,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-/src/main/dev-bundle/**
+/src/main/bundles/**
 /frontend/generated/**
 
 application-dev.properties

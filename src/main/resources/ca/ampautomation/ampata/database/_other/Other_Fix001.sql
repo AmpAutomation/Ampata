@@ -128,3 +128,9 @@ update ampata_usr_node_type t set dtype = 'enty_UsrNodeTngyEquipType' where dtyp
 
 --dtype
 update ampata_usr_node_type t set class_name = substring(t.dtype from 6);
+
+
+select * from ampata_usr_item_type
+where dtype = 'enty_UsrItemBaseType'
+
+

@@ -63,7 +63,7 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -92,18 +92,18 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Parent1_Id;
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
@@ -111,11 +111,11 @@ public abstract class UsrNodeBase0Type0BaseLookup<NodeTypeT extends UsrNodeBaseT
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeTypeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeTypeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 

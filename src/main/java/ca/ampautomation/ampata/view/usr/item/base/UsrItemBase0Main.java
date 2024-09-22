@@ -6,6 +6,7 @@ import ca.ampautomation.ampata.entity.usr.item.base.UsrItemBaseType;
 import ca.ampautomation.ampata.service.usr.item.base.UsrItemBase0Service;
 import ca.ampautomation.ampata.view.main.MainView;
 import com.vaadin.flow.router.Route;
+import io.jmix.flowui.component.genericfilter.GenericFilter;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.component.grid.TreeDataGrid;
 import io.jmix.flowui.view.*;

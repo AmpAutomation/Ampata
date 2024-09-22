@@ -61,19 +61,19 @@ public class UsrNodeFinStmtItm0Main extends UsrNodeBase0BaseMain<UsrNodeFinStmtI
     public void setRepo(UsrNodeFinStmtItm0Repo repo) { this.repo = repo; }
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Txt1;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Txt2;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Txt3;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Txt4;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinStmt> filterConfig1A_FinStmt1_Id;
 
     //Toolbar
@@ -82,52 +82,52 @@ public class UsrNodeFinStmtItm0Main extends UsrNodeBase0BaseMain<UsrNodeFinStmtI
     //Template
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeFinStmt> tmplt_FinStmt1_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinStmt1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Txt1Field;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Txt1FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Txt2Field;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Txt2FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Txt3Field;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Txt3FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Txt4Field;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Txt4FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> tmplt_TxtCurcyExchField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_TxtCurcyExchFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> tmplt_TxtRefIdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_TxtRefIdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<BigDecimal> tmplt_AmtDebtField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_AmtDebtFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<BigDecimal> tmplt_AmtCredField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_AmtCredFieldChk;
 
 

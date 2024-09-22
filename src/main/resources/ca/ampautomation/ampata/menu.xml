@@ -13,6 +13,8 @@
             <menu id="usrNodeGen" title="Nodes">
                 <menu id="usrNodeGenBasic" title="msg://ca.ampautomation.ampata.menu/usrNodeGenBasic">
                     <item view="enty_UsrNodeGenBasic.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenBasic0Main.menu"/>
+                    <item view="enty_UsrNodeGenBasic.list"
+                          title="msg://ca.ampautomation.ampata.view.usrnodegenbasic/usrNodeGenBasicListView.title"/>
                 </menu>
                 <menu id="usrNodeGenUnion" title="msg://ca.ampautomation.ampata.menu/usrNodeGenUnion">
                     <item view="enty_UsrNodeGenUnion.main" title="msg://ca.ampautomation.ampata.view.usr.node.gen/usrNodeGenUnion0Main.menu"/>

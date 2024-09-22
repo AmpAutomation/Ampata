@@ -51,7 +51,6 @@ public class AmpataApplication implements AppShellConfigurator {
         String logPrfx = "dataSource";
         logger.trace(logPrfx + " --> ");
 
-
         logger.debug(logPrfx + " --- dataSourceProperties.getName(): " + dataSourceProperties.getName());
         logger.debug(logPrfx + " --- dataSourceProperties.getUrl(): " + dataSourceProperties.getUrl());
         logger.debug(logPrfx + " --- dataSourceProperties.getDriverClassName(): " + dataSourceProperties.getDriverClassName());

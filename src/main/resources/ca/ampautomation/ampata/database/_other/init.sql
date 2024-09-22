@@ -2,13 +2,13 @@
 
 
 CREATE ROLE ampata WITH ENCRYPTED PASSWORD '-----';
-alter role ampata login superuser
+alter role ampata login superuser;
 
 CREATE ROLE test WITH ENCRYPTED PASSWORD '-----';
 alter role test login superuser
 
 
-ALTER USER ampata WITH PASSWORD '*******';
+ALTER USER ampata WITH PASSWORD '-----';
 
  
 drop database ampata_dev;

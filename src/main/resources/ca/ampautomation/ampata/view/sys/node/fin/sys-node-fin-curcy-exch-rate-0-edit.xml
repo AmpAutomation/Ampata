@@ -24,19 +24,19 @@
                 <textField id="id" property="id" width="100%" readOnly="true" tabIndex="10"/>
                 <hbox caption="id2" expand="id2Field" width="100%">
                     <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
-                    <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                    <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                     <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" readOnly="true" tabIndex="10"/>
-                    <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                    <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
                     <checkbox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" readOnly="true" tabIndex="10"/>
-                    <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                    <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                 </hbox>
                 <hbox caption="id2Dup" expand="id2DupField" width="100%">
                     <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" readOnly="true" tabIndex="10"/>
-                    <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                    <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                 </hbox>
                 <textField id="name1Field" property="name1"/>
                 <dateTimePicker id="ts1ElDtField" property="ts1.elDt" dateFormat="yyyy-MM-dd"/>

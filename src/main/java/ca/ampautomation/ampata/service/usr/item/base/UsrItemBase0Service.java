@@ -17,10 +17,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import jakarta.persistence.Transient;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Component("bean_UsrItemBase.Service")
 public class UsrItemBase0Service implements Globals {
 
     @Transient

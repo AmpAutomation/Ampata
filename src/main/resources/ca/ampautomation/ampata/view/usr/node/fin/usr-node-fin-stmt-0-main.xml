@@ -37,12 +37,12 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
+            <genericFilter component="filter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
     <actions>
-        <action id="save" icon="CHECK" text="msg:///actions.Save" shortcutCombination="CTRL-ENTER"/>
+        <action id="save" icon="CHECK" text="msg:///actions.Save" shortcutCombination="CONTROL-ENTER"/>
         <action id="cancel" icon="CLOSE" text="msg:///actions.Cancel"/>
     </actions>
     <layout>
@@ -64,7 +64,7 @@
                             <tab id="tabCmd1" label="Main">
                                 <hbox spacing="true">
                                     <button id="reloadListsBtn" text="Reload Lists" icon="LIST"/>
-                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="REFRESH"/>
+                                    <button id="updateColCalcValsBtn" text="Update All Calc Vals" icon="vaadin:refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="deleteColDeletedColBtn" text="Purge All Deleted" icon="ERASER"/>
                                 </hbox>
@@ -76,7 +76,7 @@
                                     <button id="filterPrevTs2ElDtGEBtn" caption="Prev ts2.elTs" icon="ARROW_LEFT"/>
                                     <button id="filterNextTs2ElDtGEBtn" caption="Next ts2.elTs" icon="ARROW_RIGHT"/>
                                 </hbox>
-                                <genericFilter id="genericFilter" dataLoader="colLoadrMain" colspan="5" opened="false">
+                                <genericFilter id="filter" dataLoader="colLoadrMain" colspan="5" opened="false">
                                     <properties include=".*"/>
                                     <configurations>
                                         <configuration id="filterConfig1" default="true">
@@ -113,7 +113,7 @@
                                     <label value="|" align="MIDDLE_CENTER"/>
                                     <button id="editBtn" action="dataGridMain.edit"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="setBtn" text="Set" icon="REFRESH"/>
+                                    <button id="setBtn" text="Set" icon="vaadin:refresh"/>
                                     <hbox>
                                         <label value="sortIdx" align="MIDDLE_CENTER"/>
                                         <button id="rebuildSortIdxBtn" text="Rebiuld"/>
@@ -123,10 +123,10 @@
                                         <button id="moveLastSortIdxBtn" text="Last"/>
                                     </hbox>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="REFRESH"/>
-                                    <button id="updateColItemId2Btn" text="Update Id2" icon="REFRESH"/>
+                                    <button id="updateColItemCalcValsBtn" text="Update Calc Vals" icon="vaadin:refresh"/>
+                                    <button id="updateColItemId2Btn" text="Update Id2" icon="vaadin:refresh"/>
                                     <label value="|" align="MIDDLE_CENTER"/>
-                                    <button id="updateColItemIdPartsBtn" text="Update Id Parts" icon="REFRESH"/>
+                                    <button id="updateColItemIdPartsBtn" text="Update Id Parts" icon="vaadin:refresh"/>
                                 </hbox>
                                 <tabSheet width="100%">
                                     <tab id="tabCmd4_Tab1" label="Main">
@@ -213,7 +213,7 @@
                 <scrollBox id="scrollBox" spacing="true">
                     <form id="form" dataContainer="instCntnrMain">
                     <tabSheet id="tabsheet1" height="100%" width="100%">
-                        <tab id="tab_1"
+                        <tab id="tab1"
                              label="Main"
                              expand="tab1_hbox3"
                              margin="true">
@@ -221,7 +221,7 @@
                             <hbox id="tab1_hbox1" width="100%" spacing="true">
                                 <hbox caption="desc1" expand="desc1Field" width="2304px">
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                    <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                     <button id="setNullDesc1FieldClearBtn" icon="REMOVE" tabIndex="-1"/>
                                 </hbox>
@@ -255,23 +255,23 @@
                                     <hbox caption="id2" expand="id2Field" width="100%">
                                         <textField id="id2Field" dataContainer="instCntnrMain"
                                                    property="id2"/>
-                                        <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                         <textField id="id2CalcField" dataContainer="instCntnrMain"
                                                    property="id2Calc" readOnly="true"/>
-                                        <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
                                         <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
                                             <checkbox id="id2CmpField" dataContainer="instCntnrMain"
                                                       property="id2Cmp" readOnly="true"/>
-                                            <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                            <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         </hbox>
                                         <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                             <textField id="id2DupField" dataContainer="instCntnrMain"
                                                        property="id2Dup" readOnly="true"/>
-                                            <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                            <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                     <hbox width="100%" spacing="true">
@@ -282,7 +282,7 @@
                                         <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                             <textField id="sortKeyField" dataContainer="instCntnrMain"
                                                        property="sortKey"/>
-                                            <button id="updateSortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                            <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         </hbox>
                                     </hbox>
                                 </vbox>
@@ -306,7 +306,7 @@
                                     <hbox caption="name1" expand="name1Field" width="100%">
                                         <textField id="name1Field" dataContainer="instCntnrMain"
                                                    property="name1"/>
-                                        <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="type1_Id" expand="type1_IdField" width="100%">
@@ -322,7 +322,7 @@
                                     <hbox caption="inst1" expand="inst1Field" width="100%">
                                         <textField id="inst1Field" dataContainer="instCntnrMain"
                                                    property="inst1"/>
-                                        <button id="updateInst1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateInst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="updateInst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="ts1.elTs" expand="ts1_ElTsFieldSpace" width="100%" >
@@ -378,7 +378,7 @@
                                                 <action type="entity_clear"/>
                                             </actions>
                                         </entityPicker>
-                                        <button id="updateFinStmt1_IdFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmt1_IdFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 
@@ -388,7 +388,7 @@
                                                    property="amtBegBal">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtBegBalBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtBegBalBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="setNullAmtBegBalBtn" icon="REMOVE" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtBegBalCalc" expand="amtBegBalCalcField" width="100%">
@@ -397,14 +397,14 @@
                                                    readOnly="true">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtBegBalCalcBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtBegBalCalcBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtDebt" expand="amtDebtField" width="100%">
                                         <textField id="amtDebtField" dataContainer="instCntnrMain"
                                                    property="amtDebt">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtDebtBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtDebtBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="setNullAmtDebtBtn" icon="REMOVE" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtCred" expand="amtCredField" width="100%">
@@ -412,7 +412,7 @@
                                                    property="amtCred">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtCredBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtCredBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="setNullAmtCredBtn" icon="REMOVE" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtNet" expand="amtNetField" width="100%">
@@ -420,14 +420,14 @@
                                                    property="amtNet" readOnly="true">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtNetBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtNetBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtEndBal" expand="amtEndBalField" width="100%">
                                         <textField id="amtEndBalField" dataContainer="instCntnrMain"
                                                    property="amtEndBal">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtEndBalBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtEndBalBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                         <button id="setNullAmtEndBalBtn" icon="REMOVE" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="amtEndBalCalc" expand="amtEndBalCalcField" width="100%">
@@ -435,7 +435,7 @@
                                                    property="amtEndBalCalc" readOnly="true">
                                             <formatter><number format="#,##0.00"/></formatter>
                                         </textField>
-                                        <button id="updateAmtEndBalCalcBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateAmtEndBalCalcBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 
@@ -457,7 +457,7 @@
                         </tab>
 
 
-                        <tab id="tab_5"
+                        <tab id="tab5"
                              caption="FinStmtItm Calc"
                              expand="tab5_hbox1"
                              margin="true">
@@ -482,27 +482,27 @@
                                     <hbox caption="finStmtItms1_AmtDebtSumCalc" expand="finStmtItms1_AmtDebtSumCalcField" width="100%">
                                         <textField id="finStmtItms1_AmtDebtSumCalcField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtDebtSumCalc" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtDebtSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtDebtSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_AmtCredSumCalc" expand="finStmtItms1_AmtCredSumCalcField" width="100%">
                                         <textField id="finStmtItms1_AmtCredSumCalcField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtCredSumCalc" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtCredSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtCredSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_AmtNetSumCalc" expand="finStmtItms1_AmtNetSumCalcField" width="100%">
                                         <textField id="finStmtItms1_AmtNetSumCalcField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtNetSumCalc" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtNetSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtNetSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_IdCntCalc" expand="finStmtItms1_IdCntCalcField" width="100%">
                                         <textField id="finStmtItms1_IdCntCalcField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_IdCntCalc" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_IdCntCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_IdCntCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_AmtEqCalc" expand="finStmtItms1_AmtEqCalcBox" width="100%">
                                         <checkbox id="finStmtItms1_AmtEqCalcBox" dataContainer="instCntnrMain"
                                                   property="finStmtItms1_AmtEqCalc" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtEqCalcBoxBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtEqCalcBoxBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 
@@ -511,24 +511,24 @@
                                     <hbox caption="finStmtItms1_AmtDebtSumField" expand="finStmtItms1_AmtDebtSumDiffField" width="100%">
                                         <textField id="finStmtItms1_AmtDebtSumDiffField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtDebtSumDiff" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtDebtSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtDebtSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_AmtCredSumDiff" expand="finStmtItms1_AmtCredSumDiffField" width="100%">
                                         <textField id="finStmtItms1_AmtCredSumDiffField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtCredSumDiff" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtCredSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtCredSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finStmtItms1_AmtNetSumDiff" expand="finStmtItms1_AmtNetSumDiffField" width="100%">
                                         <textField id="finStmtItms1_AmtNetSumDiffField" dataContainer="instCntnrMain"
                                                    property="finStmtItms1_AmtNetSumDiff" readOnly="true"/>
-                                        <button id="updateFinStmtItms1_AmtNetSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinStmtItms1_AmtNetSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 
                             </hbox>
                         </tab>
 
-                        <tab id="tab_6"
+                        <tab id="tab6"
                              caption="FinStmtItm Table"
                              expand="tab6_hbox1"
                              margin="true">
@@ -590,7 +590,7 @@
 
                         </tab>
 
-                        <tab id="tab_7"
+                        <tab id="tab7"
                              caption="FinTxactItm Calc"
                              expand="tab7_hbox1"
                              margin="true">
@@ -615,27 +615,27 @@
                                     <hbox caption="finTxactItms1_AmtDebtSumCalc" expand="finTxactItms1_AmtDebtSumCalcField" width="100%">
                                         <textField id="finTxactItms1_AmtDebtSumCalcField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtDebtSumCalc" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtDebtSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_AmtCredSumCalc" expand="finTxactItms1_AmtCredSumCalcField" width="100%">
                                         <textField id="finTxactItms1_AmtCredSumCalcField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtCredSumCalc" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtCredSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_AmtNetSumCalc" expand="finTxactItms1_AmtNetSumCalcField" width="100%">
                                         <textField id="finTxactItms1_AmtNetSumCalcField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtNetSumCalc" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtNetSumCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtNetSumCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_IdCntCalc" expand="finTxactItms1_IdCntCalcField" width="100%">
                                         <textField id="finTxactItms1_IdCntCalcField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_IdCntCalc" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_IdCntCalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_AmtEqCalc" expand="finTxactItms1_AmtEqCalcBox" width="100%">
                                         <checkbox id="finTxactItms1_AmtEqCalcBox" dataContainer="instCntnrMain"
                                                   property="finTxactItms1_AmtEqCalc" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtEqCalcBoxBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 
@@ -643,17 +643,17 @@
                                     <hbox caption="finTxactItms1_AmtDebtSumDiff" expand="finTxactItms1_AmtDebtSumDiffField" width="100%">
                                         <textField id="finTxactItms1_AmtDebtSumDiffField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtDebtSumDiff" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtDebtSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtDebtSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_AmtCredSumDiff" expand="finTxactItms1_AmtCredSumDiffField" width="100%">
                                         <textField id="finTxactItms1_AmtCredSumDiffField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtCredSumDiff" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtCredSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtCredSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="finTxactItms1_AmtNetSumDiff" expand="finTxactItms1_AmtNetSumDiffField" width="100%">
                                         <textField id="finTxactItms1_AmtNetSumDiffField" dataContainer="instCntnrMain"
                                                    property="finTxactItms1_AmtNetSumDiff" readOnly="true"/>
-                                        <button id="updateFinTxactItms1_AmtNetSumDiffFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateFinTxactItms1_AmtNetSumDiffFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </vbox>
 

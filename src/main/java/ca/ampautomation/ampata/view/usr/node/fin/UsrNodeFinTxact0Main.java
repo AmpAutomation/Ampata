@@ -70,142 +70,142 @@ public class UsrNodeFinTxact0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxact, 
 
     // filterConfig1A
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_LE;
 
 
     // filterConfig1A
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinTxactType> filterConfig1B_Type1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinTxactSetType> filterConfig1A_Parent1_Type1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenChan> filterConfig1A_Parent1_GenChan1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinHow> filterConfig1A_Parent1_FinHow1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhat> filterConfig1A_Parent1_FinWhat1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhy> filterConfig1A_Parent1_FinWhy1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemGenTag> filterConfig1A_Parent1_GenTag1_Id;
 
 
     // filterConfig1B
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1B_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1B_Ts1_ElTs_LE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1B_Int1;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinTxactSetType> filterConfig1B_Parent1_Type1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenChan> filterConfig1B_Parent1_GenChan1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinHow> filterConfig1B_Parent1_FinHow1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhat> filterConfig1B_Parent1_FinWhat1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhy> filterConfig1B_Parent1_FinWhy1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemGenTag> filterConfig1B_Parent1_GenTag1_Id;
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsParent1Option;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsParent1Option;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox updateFilterConfig1A_Ts1_ElTs_LE_SyncChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_Ts1_ElTs_GERdo;
 
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_Int1Rdo;
 
 
     //Template
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Parent1_EI1_RoleField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_EI1_RoleFieldChk;
 
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_Int1Field;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_Int1FieldRdo;
 
 
     //Template (FinTxactSet)
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeFinTxactSetType> tmplt_Parent1_Type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_Type1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenChan> tmplt_Parent1_GenChan1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_GenChan1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinHow> tmplt_Parent1_FinHow1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_FinHow1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Parent1_WhatText1Field;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_WhatText1FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinWhat> tmplt_Parent1_FinWhat1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_FinWhat1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_Parent1_WhyText1Field;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_WhyText1FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinWhy> tmplt_Parent1_FinWhy1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Parent1_FinWhy1_IdFieldChk;
 
 

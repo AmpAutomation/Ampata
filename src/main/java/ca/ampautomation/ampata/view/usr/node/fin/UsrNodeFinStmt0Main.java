@@ -59,28 +59,28 @@ public class UsrNodeFinStmt0Main extends UsrNodeBase0BaseMain<UsrNodeFinStmt, Us
     protected UsrNodeFinStmt0Service serviceFinStmtItm;
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenChan> filterConfig1A_GenChan1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinAcct> filterConfig1A_FinAcct1_Id;
 
     //Toolbar
 
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts2_ElTsFieldChk;
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts2_ElTsField;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_StatusField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_StatusFieldChk;
 
 

@@ -74,7 +74,7 @@ public abstract class UsrNodeBase0Type0BaseMain<NodeTypeT extends UsrNodeBaseTyp
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -103,36 +103,36 @@ public abstract class UsrNodeBase0Type0BaseMain<NodeTypeT extends UsrNodeBaseTyp
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Parent1_Id;
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_SortIdxField;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeTypeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeTypeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<NodeTypeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 
@@ -141,10 +141,10 @@ public abstract class UsrNodeBase0Type0BaseMain<NodeTypeT extends UsrNodeBaseTyp
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
     @Autowired

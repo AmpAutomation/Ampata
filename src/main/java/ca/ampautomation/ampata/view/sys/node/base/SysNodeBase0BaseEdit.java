@@ -63,7 +63,7 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -93,7 +93,7 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<NodeT> instCntnrMain;
 
 
@@ -111,25 +111,25 @@ public abstract class SysNodeBase0BaseEdit<NodeT extends SysNodeBase, NodeTypeT 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
     @Autowired
     protected EntityPicker<NodeT> parent1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<NodeTypeT> type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> name1GenFmla1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> inst1GenFmla1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> desc1GenFmla1_IdField;
 
 

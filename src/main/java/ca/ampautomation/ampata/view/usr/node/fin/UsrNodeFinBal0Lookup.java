@@ -34,35 +34,35 @@ public class UsrNodeFinBal0Lookup extends UsrNodeBase0BaseLookup<UsrNodeFinBal, 
     public void setRepo(UsrNodeFinBal0Repo repo) { this.repo = repo; }
 
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1A_SortIdx;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinAcct> filterConfig1A_FinAcct1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinDept> filterConfig1A_FinDept1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_LE;
 
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts2_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts2_ElTs_LE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<BigDecimal> filterConfig1A_AmtDebt;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<BigDecimal> filterConfig1A_AmtCred;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<BigDecimal> filterConfig1A_AmtNet;
 
 

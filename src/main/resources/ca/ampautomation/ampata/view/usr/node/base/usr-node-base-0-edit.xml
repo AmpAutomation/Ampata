@@ -22,7 +22,7 @@
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="instCntnrMain">
                 <tabSheet width="100%">
-                    <tab id="tab_1"
+                    <tab id="tab1"
                          label="Main"
                          margin="true"
                          spacing="true">
@@ -30,24 +30,24 @@
                             <column width="360px">
                                 <hbox caption="desc1" expand="desc1Field" width="100%" colspan="3" >
                                     <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1" tabIndex="10"/>
-                                    <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <textField id="id" property="id" width="100%" readOnly="true" tabIndex="10"/>
                                 <hbox caption="id2" expand="id2Field" width="100%">
                                     <textField id="id2Field" dataContainer="instCntnrMain" property="id2" tabIndex="10"/>
-                                    <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                     <textField id="id2CalcField" dataContainer="instCntnrMain" property="id2Calc" readOnly="true" tabIndex="10"/>
-                                    <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Cmp" expand="id2CmpField" width="100%">
                                     <checkbox id="id2CmpField" dataContainer="instCntnrMain" property="id2Cmp" readOnly="true" tabIndex="10"/>
-                                    <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Dup" expand="id2DupField" width="100%">
                                     <textField id="id2DupField" dataContainer="instCntnrMain" property="id2Dup" readOnly="true" tabIndex="10"/>
-                                    <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="type1_Id" expand="type1_IdField" width="100%">
                                     <entityComboBox id="type1_IdField" dataContainer="instCntnrMain"
@@ -82,7 +82,7 @@
                             </column>
                         </form>
                     </tab>
-                    <tab id="tab_2"
+                    <tab id="tab2"
                          caption="Docs, Tags"
                          margin="true"
                          spacing="true">
@@ -96,7 +96,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenDocVer1_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenDocVer1_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenDocVer1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
@@ -111,7 +111,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenFile1_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenFile1_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenFile1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
@@ -128,7 +128,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenTag1_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenTag1_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenTag1_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
@@ -142,7 +142,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenTag2_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenTag2_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenTag2_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
@@ -156,7 +156,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenTag3_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenTag3_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenTag3_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>
@@ -170,7 +170,7 @@
                                             <action type="entity_clear"/>
                                         </actions>
                                     </entityComboBox>
-                                    <button id="updateGenTag4_IdFieldBtn" icon="REFRESH"
+                                    <button id="updateGenTag4_IdFieldBtn" icon="vaadin:refresh"
                                             tabIndex="-1"/>
                                     <button id="updateGenTag4_IdFieldListBtn" icon="LIST"
                                             tabIndex="-1"/>

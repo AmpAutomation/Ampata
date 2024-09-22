@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="DESC1_NODE2__ID" baseTableName="AMPATA_USR_NODE"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_DESC1_NODE2_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_NODE"/>
+    </changeSet>
+    <changeSet id="2" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="NAME1_GEN_SEL1__ID" baseTableName="AMPATA_USR_NODE"
+                                 constraintName="FK_AMPATA_USR_NODE_ON_NAME1_GEN_SEL1_" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_ITEM"/>
+    </changeSet>
+    <changeSet id="3" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="EDGE_TYPE_ID" baseTableName="AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK"
+                                 constraintName="FK_AMPUSREDGTYPGENTAG_ON_USR_EDGE_BASE_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_EDGE_TYPE"/>
+    </changeSet>
+    <changeSet id="4" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG_ID" baseTableName="AMPATA_USR_EDGE_TYPE__GEN_TAGS1_LINK"
+                                 constraintName="FK_AMPUSREDGTYPGENTAG_ON_USR_ITEM_GEN_TAG" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_ITEM"/>
+    </changeSet>
+    <changeSet id="5" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="GEN_TAG_ID" baseTableName="AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK"
+                                 constraintName="FK_AMPUSRNODTYPGENTAG_ON_USR_ITEM_GEN_TAG" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_ITEM"/>
+    </changeSet>
+    <changeSet id="6" author="ampata">
+        <addForeignKeyConstraint baseColumnNames="NODE_TYPE_ID" baseTableName="AMPATA_USR_NODE_TYPE__GEN_TAGS1_LINK"
+                                 constraintName="FK_AMPUSRNODTYPGENTAG_ON_USR_NODE_BASE_TYPE" referencedColumnNames="ID"
+                                 referencedTableName="AMPATA_USR_NODE_TYPE"/>
+    </changeSet>
+</databaseChangeLog>

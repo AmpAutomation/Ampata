@@ -69,33 +69,33 @@ public class UsrNodeFinBal0Main extends UsrNodeBase0BaseMain<UsrNodeFinBal, UsrN
     protected UsrNodeFinBal0Service serviceFinBal;
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinBalSet> filterConfig1A_FinBalSet1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinAcct> filterConfig1A_FinAcct1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeFinDept> filterConfig1A_FinDept1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_SysNodeFinCurcy1_Id;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts2_ElTsFieldChk;
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts2_ElTsField;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_StatusField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_StatusFieldChk;
 
 

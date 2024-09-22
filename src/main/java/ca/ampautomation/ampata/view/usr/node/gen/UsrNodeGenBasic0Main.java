@@ -6,6 +6,7 @@ import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenBasicType;
 import ca.ampautomation.ampata.view.main.MainView;
 import ca.ampautomation.ampata.view.usr.node.base.UsrNodeBase0BaseMain;
 import ca.ampautomation.ampata.service.usr.node.gen.UsrNodeGenBasic0Service;
+import io.jmix.flowui.action.entitypicker.EntityLookupAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.vaadin.flow.component.ClickEvent;
@@ -19,27 +20,28 @@ import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.model.*;
 import io.jmix.flowui.view.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 @Route(value = "UsrNodeGenBasics", layout = MainView.class)
 @ViewController("enty_UsrNodeGenBasic.main")
 @ViewDescriptor("usr-node-gen-basic-0-main.xml")
 @LookupComponent("dataGridMain")
 @DialogMode(width = "64em")
-public class UsrNodeGenBasic0Main extends UsrNodeBase0BaseMain<UsrNodeGenBasic, UsrNodeGenBasicType, UsrNodeGenBasic0Service, UsrNodeGenBasic0Repo, DataGrid<UsrNodeGenBasic>> {
+public class UsrNodeGenBasic0Main extends UsrNodeBase0BaseMain<UsrNodeGenBasic, UsrNodeGenBasicType, UsrNodeGenBasic0Service, UsrNodeGenBasic0Repo, DataGrid<UsrNodeGenBasic>>{
 
     //Service
     @Override
     @Autowired
     @Qualifier("bean_UsrNodeGenBasic.Service")
-    public void setService(UsrNodeGenBasic0Service service) {
-        this.service = service;
-    }
+    public void setService(UsrNodeGenBasic0Service service) { this.service = service; }
 
     //Repo
     @Override
     @Autowired
     @Qualifier("bean_UsrNodeGenBasic.Repo")
     public void setRepo(UsrNodeGenBasic0Repo repo) { this.repo = repo; }
+
 
 
 

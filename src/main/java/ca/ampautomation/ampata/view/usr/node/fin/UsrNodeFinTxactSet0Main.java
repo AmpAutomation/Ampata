@@ -64,95 +64,95 @@ public class UsrNodeFinTxactSet0Main extends UsrNodeBase0BaseMain<UsrNodeFinTxac
     public void setRepo(UsrNodeFinTxactSet0Repo repo) { this.repo = repo; }
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_LE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenChan> filterConfig1A_GenChan1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenChan> filterConfig1A_GenChan2_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinHow> filterConfig1A_FinHow1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhat> filterConfig1A_FinWhat1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrItemFinWhy> filterConfig1A_FinWhy1_Id;
 
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1B_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1B_Ts1_ElTs_LE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1B_SortIdx;
 
 
     //Template
     @Autowired
     protected TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Ts1_ElTsFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenChan> tmplt_GenChan1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_GenChan1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenChan> tmplt_GenChan2_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_GenChan2_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinHow> tmplt_FinHow1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinHow1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_WhatText1Field;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_WhatText1FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinWhat> tmplt_FinWhat1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinWhat1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<String> tmplt_WhyText1Field;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_WhyText1FieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrItemFinWhy> tmplt_FinWhy1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinWhy1_IdFieldChk;
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox updateFilterConfig1A_Ts1_ElTs_LE_SyncChk;
 
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_Ts1_ElTs_GERdo;
 
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> updateFilterConfig1B_SortIdxRdo;
 
 

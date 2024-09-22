@@ -74,7 +74,7 @@ public abstract class UsrEdgeBase0Type0BaseMain<EdgeTypeT extends UsrEdgeBaseTyp
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -103,36 +103,36 @@ public abstract class UsrEdgeBase0Type0BaseMain<EdgeTypeT extends UsrEdgeBaseTyp
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<EdgeTypeT> filterConfig1A_Parent1_Id;
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_SortIdxField;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<EdgeTypeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<EdgeTypeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<EdgeTypeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 
@@ -141,10 +141,10 @@ public abstract class UsrEdgeBase0Type0BaseMain<EdgeTypeT extends UsrEdgeBaseTyp
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
     @Autowired

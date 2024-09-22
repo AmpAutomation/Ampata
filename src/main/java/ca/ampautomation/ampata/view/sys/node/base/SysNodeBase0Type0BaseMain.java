@@ -60,7 +60,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -87,7 +87,7 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
 
@@ -98,13 +98,13 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeTypeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeTypeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<NodeTypeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected TreeDataGrid<NodeTypeT> dataGridMain;
 
 
@@ -118,16 +118,16 @@ public abstract class SysNodeBase0Type0BaseMain<NodeTypeT extends SysNodeBaseTyp
 
     //Field
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> name1GenFmla1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> desc1GenFmla1_IdField;
 
     /**

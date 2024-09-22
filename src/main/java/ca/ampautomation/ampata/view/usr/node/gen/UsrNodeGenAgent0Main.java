@@ -44,21 +44,21 @@ public class UsrNodeGenAgent0Main extends UsrNodeBase0BaseMain<UsrNodeGenAgent, 
 
     //Filter
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenAgent> filterConfig1A_GenAgent1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenAgent> filterConfig1A_GenAgent2_Id;
 
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_GenAgent1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_GenAgent2_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent2_IdField;
 
 

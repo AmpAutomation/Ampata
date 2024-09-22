@@ -57,7 +57,7 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -81,10 +81,10 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
     public void setRepo(NodeRepoT repo) { this.repo = repo; }
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id;
 
 
@@ -95,11 +95,11 @@ public abstract class SysNodeBase0BaseLookup<NodeT extends SysNodeBase, NodeType
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected TreeDataGrid<NodeT> dataGridMain;
 
 

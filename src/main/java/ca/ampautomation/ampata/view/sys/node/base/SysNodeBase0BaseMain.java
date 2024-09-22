@@ -72,7 +72,7 @@ public abstract class SysNodeBase0BaseMain<NodeT extends SysNodeBase, NodeTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -99,10 +99,10 @@ public abstract class SysNodeBase0BaseMain<NodeT extends SysNodeBase, NodeTypeT 
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id;
 
     
@@ -110,20 +110,20 @@ public abstract class SysNodeBase0BaseMain<NodeT extends SysNodeBase, NodeTypeT 
 
     
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Type1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<NodeTypeT> tmplt_Type1_IdField;
 
     
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<NodeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected TreeDataGrid<NodeT> dataGridMain;
 
     
@@ -141,25 +141,25 @@ public abstract class SysNodeBase0BaseMain<NodeT extends SysNodeBase, NodeTypeT 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
     @Autowired
     protected EntityPicker<NodeT> parent1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<NodeTypeT> type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> name1GenFmla1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> inst1GenFmla1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysItemGenFmla> desc1GenFmla1_IdField;
 
 

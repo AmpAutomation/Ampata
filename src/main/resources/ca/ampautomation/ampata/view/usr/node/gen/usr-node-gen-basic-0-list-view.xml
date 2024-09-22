@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://usrNodeGenBasicListView.title"
+      focusComponent="usrNodeGenBasicsDataGrid">
+    <data>
+        <collection id="usrNodeGenBasicsDc"
+                    class="ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenBasic"
+                    fetchPlan="fetchPlan_UsrNodeGenBasic_Base">
+            <loader id="usrNodeGenBasicsDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from enty_UsrNodeGenBasic e]]>
+                </query>
+            </loader>
+        </collection>
+        <instance id="usrNodeGenBasicDc"
+                  class="ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenBasic"
+                  fetchPlan="fetchPlan_UsrNodeGenBasic_Base">
+            <loader id="usrNodeGenBasicDl"/>
+            <collection id="genTags1_IdDc" property="genTags1_Id"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="filter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout padding="false">
+        <formLayout classNames="master-detail-layout" height="100%">
+            <vbox id="listLayout" height="100%">
+                <genericFilter id="filter"
+                               dataLoader="usrNodeGenBasicsDl">
+                    <properties include=".*"/>
+                </genericFilter>
+                <hbox id="buttonsPanel" classNames="buttons-panel">
+                    <button id="createBtn" action="usrNodeGenBasicsDataGrid.create"/>
+                    <button id="editBtn" action="usrNodeGenBasicsDataGrid.edit"/>
+                    <button id="removeBtn" action="usrNodeGenBasicsDataGrid.remove"/>
+                    <simplePagination id="pagination" dataLoader="usrNodeGenBasicsDl"/>
+                </hbox>
+                <dataGrid id="usrNodeGenBasicsDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="usrNodeGenBasicsDc"
+                          columnReorderingAllowed="true">
+                    <actions>
+                        <action id="create" type="list_create"/>
+                        <action id="edit" type="list_edit"/>
+                        <action id="remove" type="list_remove"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="tenant"/>
+                        <column property="dtype"/>
+                        <column property="id2"/>
+                        <column property="id2Calc"/>
+                        <column property="id2Cmp"/>
+                        <column property="id2Dup"/>
+                        <column property="parent1_Id"/>
+                        <column property="ancestors1_Id2"/>
+                        <column property="sortIdx"/>
+                        <column property="sortKey"/>
+                        <column property="name1"/>
+                        <column property="name1GenFmla1_Id"/>
+                        <column property="type1_Id"/>
+                        <column property="inst1"/>
+                        <column property="name2"/>
+                        <column property="abrv"/>
+                        <column property="code"/>
+                        <column property="desc1"/>
+                        <column property="desc1GenFmla1_Id"/>
+                        <column property="status"/>
+                        <column property="statusCalc"/>
+                        <column property="note"/>
+                        <column property="edgeIns_Id2"/>
+                        <column property="edgeOts_Id2"/>
+                        <column property="int1"/>
+                        <column property="int2"/>
+                        <column property="int3"/>
+                        <column property="ts1.elTs"/>
+                        <column property="ts1.elDt"/>
+                        <column property="ts1.elDtYr"/>
+                        <column property="ts1.elDtQtr"/>
+                        <column property="ts1.elDtMon"/>
+                        <column property="ts1.elDtMon2"/>
+                        <column property="ts1.elDtDay"/>
+                        <column property="ts1.elTm"/>
+                        <column property="ts1.elTmHr"/>
+                        <column property="ts1.elTmMin"/>
+                        <column property="dt1.elDt"/>
+                        <column property="dt1.elDtYr"/>
+                        <column property="dt1.elDtQtr"/>
+                        <column property="dt1.elDtMon"/>
+                        <column property="dt1.elDtMon2"/>
+                        <column property="dt1.elDtDay"/>
+                        <column property="tm1.elTm"/>
+                        <column property="tm1.elTmHr"/>
+                        <column property="tm1.elTmMin"/>
+                        <column property="genTags1_Id2"/>
+                    </columns>
+                </dataGrid>
+                <hbox id="lookupActions" visible="false">
+                    <button id="selectBtn" action="selectAction"/>
+                    <button id="discardBtn" action="discardAction"/>
+                </hbox>
+            </vbox>
+            <vbox id="detailsLayout" height="100%">
+                <formLayout id="form" dataContainer="usrNodeGenBasicDc">
+                    <textField id="tenantField" property="tenant"/>
+                    <textField id="dtypeField" property="dtype"/>
+                    <textField id="id2Field" property="id2"/>
+                    <textField id="id2CalcField" property="id2Calc"/>
+                    <checkbox id="id2CmpField" property="id2Cmp"/>
+                    <textField id="id2DupField" property="id2Dup"/>
+                    <entityPicker id="parent1_IdField" property="parent1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textArea id="ancestors1_Id2Field" height="9.5em" property="ancestors1_Id2"/>
+                    <textField id="sortIdxField" property="sortIdx"/>
+                    <textField id="sortKeyField" property="sortKey"/>
+                    <textField id="name1Field" property="name1"/>
+                    <entityPicker id="name1GenFmla1_IdField" property="name1GenFmla1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <entityPicker id="type1_IdField" property="type1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="inst1Field" property="inst1"/>
+                    <textField id="name2Field" property="name2"/>
+                    <textField id="abrvField" property="abrv"/>
+                    <textField id="codeField" property="code"/>
+                    <textArea id="desc1Field" height="9.5em" property="desc1"/>
+                    <entityPicker id="desc1GenFmla1_IdField" property="desc1GenFmla1_Id">
+                        <actions>
+                            <action id="entityLookup" type="entity_lookup"/>
+                            <action id="entityClear" type="entity_clear"/>
+                        </actions>
+                    </entityPicker>
+                    <textField id="statusField" property="status"/>
+                    <textField id="statusCalcField" property="statusCalc"/>
+                    <textArea id="noteField" height="9.5em" property="note"/>
+                    <textField id="edgeIns_Id2Field" property="edgeIns_Id2"/>
+                    <textField id="edgeOts_Id2Field" property="edgeOts_Id2"/>
+                    <textField id="int1Field" property="int1"/>
+                    <textField id="int2Field" property="int2"/>
+                    <textField id="int3Field" property="int3"/>
+                    <dateTimePicker id="ts1ElTsField" property="ts1.elTs"/>
+                    <datePicker id="ts1ElDtField" property="ts1.elDt"/>
+                    <textField id="ts1ElDtYrField" property="ts1.elDtYr"/>
+                    <textField id="ts1ElDtQtrField" property="ts1.elDtQtr"/>
+                    <textField id="ts1ElDtMonField" property="ts1.elDtMon"/>
+                    <textField id="ts1ElDtMon2Field" property="ts1.elDtMon2"/>
+                    <textField id="ts1ElDtDayField" property="ts1.elDtDay"/>
+                    <timePicker id="ts1ElTmField" property="ts1.elTm"/>
+                    <textField id="ts1ElTmHrField" property="ts1.elTmHr"/>
+                    <textField id="ts1ElTmMinField" property="ts1.elTmMin"/>
+                    <datePicker id="dt1ElDtField" property="dt1.elDt"/>
+                    <textField id="dt1ElDtYrField" property="dt1.elDtYr"/>
+                    <textField id="dt1ElDtQtrField" property="dt1.elDtQtr"/>
+                    <textField id="dt1ElDtMonField" property="dt1.elDtMon"/>
+                    <textField id="dt1ElDtMon2Field" property="dt1.elDtMon2"/>
+                    <textField id="dt1ElDtDayField" property="dt1.elDtDay"/>
+                    <timePicker id="tm1ElTmField" property="tm1.elTm"/>
+                    <textField id="tm1ElTmHrField" property="tm1.elTmHr"/>
+                    <textField id="tm1ElTmMinField" property="tm1.elTmMin"/>
+                    <textField id="genTags1_Id2Field" property="genTags1_Id2"/>
+                </formLayout>
+                <hbox id="detailActions">
+                    <button id="saveBtn" text="msg:///actions.Save" icon="CHECK" themeNames="primary"/>
+                    <button id="cancelBtn" text="msg:///actions.Cancel" icon="BAN"/>
+                </hbox>
+            </vbox>
+        </formLayout>
+    </layout>
+</view>

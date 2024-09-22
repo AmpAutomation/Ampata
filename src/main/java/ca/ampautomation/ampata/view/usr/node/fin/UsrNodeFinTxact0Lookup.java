@@ -33,16 +33,16 @@ public class UsrNodeFinTxact0Lookup extends UsrNodeBase0BaseLookup<UsrNodeFinTxa
     @Qualifier("bean_UsrNodeFinTxact.Repo")
     public void setRepo(UsrNodeFinTxact0Repo repo) { this.repo = repo; }
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1A_SortIdx;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_GE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDateTime> filterConfig1A_Ts1_ElTs_LE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1A_Int1;
 
     public PropertyFilter<Integer> getFilterConfig1A_SortIdx(){

@@ -62,7 +62,7 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -90,26 +90,26 @@ public abstract class UsrNodeBase0Type0BaseEdit<NodeTypeT extends UsrNodeBaseTyp
     }
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<NodeTypeT> instCntnrMain;
 
 
     //GenTag data container loader and data property container
     protected CollectionContainer<UsrItemGenTag> colCntnrGenTag;
     protected CollectionLoader<UsrItemGenTag> colLoadrGenTag;
-    @Autowired
+    @ViewComponent
     protected CollectionPropertyContainer<UsrItemGenTag> colPropCntnrGenTag;
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
 

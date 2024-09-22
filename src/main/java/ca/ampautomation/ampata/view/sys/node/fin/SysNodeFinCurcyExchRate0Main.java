@@ -52,16 +52,16 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDate> filterConfig1A_Ts1ElDtGE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<LocalDate> filterConfig1A_Ts1ElDtLE;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_FinCurcy1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_FinCurcy2_Id;
 
     @Autowired
@@ -74,14 +74,14 @@ public class SysNodeFinCurcyExchRate0Main extends SysNodeBase0BaseMain<SysNodeFi
     @Autowired
     private TypedDateTimePicker<LocalDateTime> tmplt_Ts1_ElTsField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysNodeFinCurcy> tmplt_FinCurcy1_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinCurcy1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysNodeFinCurcy> tmplt_FinCurcy2_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinCurcy2_IdFieldChk;
 
 

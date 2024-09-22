@@ -57,26 +57,26 @@ public class UsrNodeFinAcct0Main extends UsrNodeBase0BaseMain<UsrNodeFinAcct, Us
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<UsrNodeGenAgent> filterConfig1A_GenAgent1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<SysNodeFinCurcy> filterConfig1A_SysNodeFinCurcy1_Id;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeGenAgent> tmplt_GenAgent1_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_GenAgent1_IdFieldChk;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<SysNodeFinCurcy> tmplt_SysNodeFinCurcy1_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_SysNodeFinCurcy1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<UsrNodeFinTaxLne> tmplt_FinTaxLne1_IdField;
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_FinTaxLne1_IdFieldChk;
 
 

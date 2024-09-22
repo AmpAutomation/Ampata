@@ -2,7 +2,6 @@ package ca.ampautomation.ampata.view.usr.node.base;
 
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBase;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseGrpg;
-import ca.ampautomation.ampata.entity.usr.node.gen.UsrNodeGenBasic;
 import ca.ampautomation.ampata.repo.usr.node.base.UsrNodeBase0Repo;
 import ca.ampautomation.ampata.entity.usr.node.base.UsrNodeBaseType;
 import ca.ampautomation.ampata.entity.usr.item.gen.UsrItemGenTag;
@@ -13,25 +12,30 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.ComboBoxBase;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import io.jmix.core.*;
 import io.jmix.core.querycondition.Condition;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
+import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.combobox.EntityComboBox;
 import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.filter.FilterComponent;
+import io.jmix.flowui.component.genericfilter.Configuration;
 import io.jmix.flowui.component.genericfilter.GenericFilter;
 import io.jmix.flowui.component.grid.DataGrid;
 import io.jmix.flowui.component.propertyfilter.PropertyFilter;
 import io.jmix.flowui.component.radiobuttongroup.JmixRadioButtonGroup;
 import io.jmix.flowui.component.textfield.TypedTextField;
 import io.jmix.flowui.component.valuepicker.JmixMultiValuePicker;
+import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.component.ComponentUtils;
-import io.jmix.flowui.kit.component.grid.JmixTreeGrid;
+import io.jmix.flowui.kit.component.button.JmixButton;
 import io.jmix.flowui.model.*;
-import io.jmix.flowui.util.OperationResult;
 import io.jmix.flowui.view.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,9 +84,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     //Service
     protected NodeServiceT service;
 
-    protected NodeServiceT getService(){
-        return service;
-    }
+    protected NodeServiceT getService(){ return service; }
 
     public void setService(NodeServiceT service) { this.service = service; }
 
@@ -92,7 +94,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -107,53 +109,65 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     @Autowired
     protected Notifications notifications;
 
+    @Autowired
+    private DialogWindows dialogWindows;
+
+    @ViewComponent
+    private VerticalLayout listLayout;
+
+    @ViewComponent
+    private VerticalLayout detailsLayout;
+
+    @ViewComponent
+    private HorizontalLayout detailActions;
+
 
     //Repository
     protected NodeRepoT repo;
 
     protected NodeRepoT getRepo(){ return repo; }
 
-    public void setRepo(NodeRepoT repo) {
-        this.repo = repo;
-    }
+    public void setRepo(NodeRepoT repo) { this.repo = repo; }
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id;
 
 
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Type1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<NodeTypeT> tmplt_Type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_SortIdxField;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<NodeT> colLoadrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<NodeT> colCntnrMain;
-    @Autowired
+    @ViewComponent
+    private InstanceLoader<NodeT> instLoadrMain;
+    @ViewComponent
     protected InstanceContainer<NodeT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 
@@ -165,22 +179,22 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     //GenTag data container loader and data property container
     protected CollectionContainer<UsrItemGenTag> colCntnrGenTag;
     protected CollectionLoader<UsrItemGenTag> colLoadrGenTag;
-    @Autowired
+    @ViewComponent
     protected CollectionPropertyContainer<UsrItemGenTag> colPropCntnrGenTag;
 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<NodeTypeT> type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected JmixMultiValuePicker<UsrItemGenTag> genTags1_IdField;
 
 
@@ -206,6 +220,8 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
+
+        updateControls(false);
 
 /*
         try{
@@ -253,10 +269,6 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         type1_IdField.setItems(colCntnrType);
         //Template
         tmplt_Type1_IdField.setItems(colCntnrType);
-        //Filter
-        EntityComboBox<NodeTypeT> propFilterCmpnt_Type1_Id;
-        propFilterCmpnt_Type1_Id = (EntityComboBox<NodeTypeT>) filterConfig1A_Type1_Id.getValueComponent();
-        propFilterCmpnt_Type1_Id.setItems(colCntnrType);
 
         colCntnrGenTag = dataComponents.createCollectionContainer(UsrItemGenTag.class);
         colLoadrGenTag = dataComponents.createCollectionLoader();
@@ -268,10 +280,9 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         colLoadrGenTag.setContainer(colCntnrGenTag);
         colLoadrGenTag.setDataContext(getViewData().getDataContext());
 
+
         logger.trace(logPrfx + " <-- ");
-
     }
-
 
     /**
      * The second (after {@link InitEvent}) event in the view opening process.
@@ -348,7 +359,6 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
      *     }
      * </pre>
      */
-
     @Subscribe
     public void onBeforeClose(final View.BeforeCloseEvent event) {
         String logPrfx = "onBeforeClose";
@@ -359,7 +369,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
     }
 
 
-        /**
+    /**
      * Event sent before the new entity instance is set to edited entity container.
      * <p>
      * Use this event listener to initialize default values in the new entity instance, for example:
@@ -372,7 +382,7 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
      *
      * param NodeT type of entity
      */
-
+/*
     @Subscribe
     public void onInitEntity(final StandardDetailView.InitEntityEvent<NodeT> event) {
         String logPrfx = "onInitEntity";
@@ -389,7 +399,22 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
 
     }
+*/
+    private void updateControls(boolean editing) {
+        String logPrfx = "updateControls";
+        logger.trace(logPrfx + " --> ");
 
+//        form.getChildren().forEach(component -> {
+//            if (component instanceof HasValueAndElement<?, ?> field) {
+//                field.setReadOnly(!editing);
+//            }
+//        });
+
+        detailActions.setVisible(editing);
+        listLayout.setEnabled(!editing);
+
+        logger.trace(logPrfx + " <-- ");
+    }
 
     @Subscribe(target = Target.DATA_CONTEXT)
     public void onChange(DataContext.ChangeEvent event) {
@@ -421,11 +446,19 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " --> ");
 
         NodeT thisNode = event.getItem();
+        dataContext.clear();
         if (thisNode == null) {
             logger.debug(logPrfx + " --- thisNode is null");
-            //todo I observed thisNode is null when selecting a new item
+
+            instLoadrMain.setEntityId(null);
+            instCntnrMain.setItem(null);
+
             logger.trace(logPrfx + " <-- ");
             return;
+
+        }else{
+            instLoadrMain.setEntityId(thisNode.getId());
+            instLoadrMain.load();
         }
 /*
         if (thisNode.getClassName() == null || thisNode.getClassName().isBlank()){
@@ -433,6 +466,74 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
             logger.debug(logPrfx + " --- className: " + this.getClass().getSimpleName());
         }
 */
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("filter")
+    public void onFilterConfigurationChange(final GenericFilter.ConfigurationChangeEvent event) {
+        String logPrfx = "onFilterConfigurationChange";
+        logger.trace(logPrfx + " --> ");
+
+        Configuration currentConfiguration = event.getNewConfiguration();
+
+        if (currentConfiguration.getId().equals("filterConfig1")) {
+            Optional<FilterComponent> o_filterConfig1A_Type1_Id = currentConfiguration.getRootLogicalFilterComponent().getFilterComponents()
+                    .stream().filter(c -> c instanceof PropertyFilter)
+                    .filter(c -> ((PropertyFilter<?>) c).getId().orElse("").equals("filterConfig1A_Type1_Id"))
+                    .findFirst();
+
+            PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id = (PropertyFilter) o_filterConfig1A_Type1_Id.orElse(null);
+            EntityComboBox<NodeTypeT> propFilterCmpnt_Type1_Id;
+            propFilterCmpnt_Type1_Id = (EntityComboBox<NodeTypeT>) filterConfig1A_Type1_Id.getValueComponent();
+            propFilterCmpnt_Type1_Id.setItems(colCntnrType);
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("dataGridMain.create")
+    public void onDataGridMainCreate(final ActionPerformedEvent event) {
+        String logPrfx = "onDataGridMainCreate";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.clear();
+        NodeT thisNode = dataContext.create(typeOfNodeT);
+        instCntnrMain.setItem(thisNode);
+        updateControls(true);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("dataGridMain.edit")
+    public void ononDataGridMainEdit(final ActionPerformedEvent event) {
+        String logPrfx = "ononDataGridMainEdit";
+        logger.trace(logPrfx + " --> ");
+
+        updateControls(true);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("saveBtn")
+    public void onSaveButtonClick(final ClickEvent<JmixButton> event) {
+        String logPrfx = "onSaveButtonClick";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.save();
+        colCntnrMain.replaceItem(instCntnrMain.getItem());
+        updateControls(false);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("cancelBtn")
+    public void onCancelButtonClick(final ClickEvent<JmixButton> event) {
+        String logPrfx = "onCancelButtonClick";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.clear();
+        instLoadrMain.load();
+        updateControls(false);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -1558,7 +1659,6 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
         logger.trace(logPrfx + " <-- ");
     }
 
-
     @Subscribe("updateDesc1FieldBtn")
     public void onUpdateDesc1FieldBtnClick(ClickEvent<Button> event) {
         String logPrfx = "onUpdateDesc1FieldBtnClick";
@@ -1581,11 +1681,21 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
 /*
 
     @Install(to = "genTags1_IdField", subject = "searchExecutor")
-    protected List<UsrItemGenTag> genTags1_IdFieldSearchExecutor(String searchString, Map<String, Object> searchParams) {
-        return dataManager.load(UsrItemGenTag.class)
+    protected List<UsrNodeGenTag> genTags1_IdFieldSearchExecutor(String searchString, Map<String, Object> searchParams) {
+        return dataManager.load(UsrNodeGenTag.class)
                 .query("e.id2 like ?1 order by e.sortKey, e.id2"
                         , "(?i)%" + searchString + "%")
                 .list();
+    }
+*/
+
+/*
+    @Subscribe("genTags1_IdField.genTags1_IdField_Select")
+    public void onGenTags1_IdFieldSelect(ActionPerformedEvent event) {
+        dialogWindows.lookup(this, UsrItemGenTag.class)
+                .withMultiValueField(genTags1_IdField)
+                .withViewId("enty_UsrItemGenTag.main")
+                .open();
     }
 */
 
@@ -1620,10 +1730,8 @@ public abstract class UsrNodeBase0BaseMain<NodeT extends UsrNodeBase, NodeTypeT 
 
     }
 
-
     public Notifications getNotifications(){
         return notifications;
     }
-
 
 }

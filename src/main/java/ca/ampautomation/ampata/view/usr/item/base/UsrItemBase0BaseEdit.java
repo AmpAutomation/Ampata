@@ -68,7 +68,7 @@ public abstract class UsrItemBase0BaseEdit<ItemT extends UsrItemBase, ItemTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -97,12 +97,12 @@ public abstract class UsrItemBase0BaseEdit<ItemT extends UsrItemBase, ItemTypeT 
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected InstanceContainer<ItemT> instCntnrMain;
 
 
@@ -112,13 +112,13 @@ public abstract class UsrItemBase0BaseEdit<ItemT extends UsrItemBase, ItemTypeT 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<ItemTypeT> type1_IdField;
 
 

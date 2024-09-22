@@ -28,7 +28,7 @@
         <scrollBox id="scrollBox" spacing="true">
             <form id="form" dataContainer="instCntnrMain">
                 <tabSheet id="tabsheet1" height="100%" width="100%">
-                    <tab id="tab_1"
+                    <tab id="tab1"
                          label="Main"
                          expand="tab1_hbox3"
                          margin="true">
@@ -36,7 +36,7 @@
                         <hbox id="tab1_hbox1" width="100%" spacing="true">
                             <hbox caption="desc1" expand="desc1Field" width="2304px">
                                 <textArea id="desc1Field" dataContainer="instCntnrMain" property="desc1" rows="1"/>
-                                <button id="updateDesc1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                <button id="updateDesc1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 <button id="updateDesc1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                             </hbox>
                         </hbox>
@@ -69,23 +69,23 @@
                                 <hbox caption="id2" expand="id2Field" width="100%">
                                     <textField id="id2Field" dataContainer="instCntnrMain"
                                                property="id2"/>
-                                    <button id="updateId2FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="id2Calc" expand="id2CalcField" width="100%">
                                     <textField id="id2CalcField" dataContainer="instCntnrMain"
                                                property="id2Calc" readOnly="true"/>
-                                    <button id="updateId2CalcFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateId2CalcFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
                                     <hbox caption="id2Cmp" expand="id2CmpField" width="181px">
                                         <checkbox id="id2CmpField" dataContainer="instCntnrMain"
                                                   property="id2Cmp" readOnly="true"/>
-                                        <button id="updateId2CmpFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2CmpFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                     <hbox caption="id2Dup" expand="id2DupField" width="181px">
                                         <textField id="id2DupField" dataContainer="instCntnrMain"
                                                    property="id2Dup" readOnly="true"/>
-                                        <button id="updateId2DupFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateId2DupFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                                 <hbox width="100%" spacing="true">
@@ -96,7 +96,7 @@
                                     <hbox caption="sortKey" expand="sortKeyField" width="181px">
                                         <textField id="sortKeyField" dataContainer="instCntnrMain"
                                                    property="sortKey"/>
-                                        <button id="updateSortKeyFieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                        <button id="updateSortKeyFieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     </hbox>
                                 </hbox>
                             </vbox>
@@ -119,7 +119,7 @@
                                 <hbox caption="name1" expand="name1Field" width="100%">
                                     <textField id="name1Field" dataContainer="instCntnrMain"
                                                property="name1"/>
-                                    <button id="updateName1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateName1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     <button id="updateName1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                                 <hbox caption="type1_Id" expand="type1_IdField" width="100%">
@@ -135,7 +135,7 @@
                                 <hbox caption="inst1" expand="inst1Field" width="100%">
                                     <textField id="inst1Field" dataContainer="instCntnrMain"
                                                property="inst1"/>
-                                    <button id="updateInst1FieldBtn" icon="REFRESH" tabIndex="-1"/>
+                                    <button id="updateInst1FieldBtn" icon="vaadin:refresh" tabIndex="-1"/>
                                     <button id="updateInst1FieldFmlaBtn" icon="vaadin:wrench" tabIndex="-1"/>
                                 </hbox>
                             </vbox>

@@ -11,26 +11,40 @@ import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.ComboBoxBase;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import io.jmix.core.*;
+import io.jmix.core.querycondition.Condition;
 import io.jmix.core.querycondition.LogicalCondition;
 import io.jmix.core.querycondition.PropertyCondition;
 import com.vaadin.flow.router.Route;
+import io.jmix.flowui.DialogWindows;
 import io.jmix.flowui.Notifications;
 import io.jmix.flowui.component.*;
 import io.jmix.flowui.component.checkbox.JmixCheckbox;
 import io.jmix.flowui.component.combobox.EntityComboBox;
 import io.jmix.flowui.component.combobox.JmixComboBox;
+import io.jmix.flowui.component.genericfilter.Configuration;
 import io.jmix.flowui.component.genericfilter.GenericFilter;
+import io.jmix.flowui.component.genericfilter.configuration.DesignTimeConfiguration;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.logicalfilter.LogicalFilterComponent;
 import io.jmix.flowui.component.propertyfilter.PropertyFilter;
 import io.jmix.flowui.component.radiobuttongroup.JmixRadioButtonGroup;
 import io.jmix.flowui.component.textfield.TypedTextField;
+import io.jmix.flowui.component.filter.FilterComponent;
+import io.jmix.flowui.entity.filter.FilterCondition;
 import io.jmix.flowui.kit.action.*;
 import io.jmix.flowui.kit.component.ComponentUtils;
+import io.jmix.flowui.kit.component.button.JmixButton;
+import io.jmix.flowui.kit.component.grid.JmixTreeGrid;
 import io.jmix.flowui.model.*;
+import io.jmix.flowui.util.OperationResult;
 import io.jmix.flowui.view.*;
+import io.jmix.flowuidata.entity.FilterConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +73,7 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
         this.typeOfItemTypeT = (Class<ItemTypeT>)
                 ((ParameterizedType)getClass()
                         .getGenericSuperclass())
-                        .getActualTypeArguments()[0];
+                        .getActualTypeArguments()[1];
     }
 
     protected DataGrid<ItemT> getDataGrid() {return (DataGrid<ItemT>) getContent().getComponent("dataGridMain"); }
@@ -67,13 +81,9 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
     //Service
     protected ItemServiceT service;
 
-    protected ItemServiceT getService(){
-        return service;
-    }
+    protected ItemServiceT getService(){ return service; }
 
-    public void setService(ItemServiceT service) {
-        this.service = service;
-    }
+    public void setService(ItemServiceT service) { this.service = service; }
 
     @Autowired
     protected DataComponents dataComponents;
@@ -81,7 +91,7 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -96,55 +106,65 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
     @Autowired
     protected Notifications notifications;
 
+    @Autowired
+    private DialogWindows dialogWindows;
+
+    @ViewComponent
+    private VerticalLayout listLayout;
+
+    @ViewComponent
+    private VerticalLayout detailsLayout;
+
+    @ViewComponent
+    private HorizontalLayout detailActions;
+
 
     //Repository
     protected ItemRepoT repo;
 
-    protected ItemRepoT getRepo(){
-        return repo;
-    }
+    protected ItemRepoT getRepo(){ return repo; }
 
-    public void setRepo(ItemRepoT repo) {
-        this.repo = repo;
-    }
+    public void setRepo(ItemRepoT repo) { this.repo = repo; }
 
 
     //Toolbar
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateColItemCalcValsOption;
 
-    @Autowired
+    @ViewComponent
     protected JmixComboBox<Integer> updateInstItemCalcValsOption;
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<ItemTypeT> filterConfig1A_Type1_Id;
     
     
     //Template
-    @Autowired
+    @ViewComponent
     protected JmixCheckbox tmplt_Type1_IdFieldChk;
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<ItemTypeT> tmplt_Type1_IdField;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<Integer> tmplt_SortIdxField;
-    @Autowired
+    @ViewComponent
     protected JmixRadioButtonGroup<Integer> tmplt_SortIdxFieldRdo;
 
 
     //Main data containers, loaders and table
-    @Autowired
+    @ViewComponent
     protected CollectionContainer<ItemT> colCntnrMain;
-    @Autowired
+    @ViewComponent
     protected CollectionLoader<ItemT> colLoadrMain;
-    @Autowired
+    @ViewComponent
+    private InstanceLoader<ItemT> instLoadrMain;
+    @ViewComponent
     protected InstanceContainer<ItemT> instCntnrMain;
-    @Autowired
+    @ViewComponent
     protected DataGridT dataGridMain;
 
 
@@ -154,13 +174,13 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
 
 
     //Field
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2Field;
 
-    @Autowired
+    @ViewComponent
     protected TypedTextField<String> id2CalcField;
 
-    @Autowired
+    @ViewComponent
     protected EntityComboBox<ItemTypeT> type1_IdField;
 
 
@@ -186,6 +206,8 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
     public void onInit(final View.InitEvent event) {
         String logPrfx = "onInit";
         logger.trace(logPrfx + " --> ");
+
+        updateControls(false);
 
         Map<Integer, String> map1 = new LinkedHashMap<>();
         map1.put(0, "Skip");
@@ -219,9 +241,7 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
         //Template
         tmplt_Type1_IdField.setItems(colCntnrType);
         //Filter
-        EntityComboBox<ItemTypeT> propFilterCmpnt_Type1_Id;
-        propFilterCmpnt_Type1_Id = (EntityComboBox<ItemTypeT>) filterConfig1A_Type1_Id.getValueComponent();
-        propFilterCmpnt_Type1_Id.setItems(colCntnrType);
+        //todo filterConfig1A_Type1_Id.getValueComponent()
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -324,6 +344,7 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
      *
      * param NodeT type of entity
      */
+/*
     @Subscribe
     public void onInitEntity(final StandardDetailView.InitEntityEvent<ItemT> event) {
         String logPrfx = "onInitEntity";
@@ -340,7 +361,22 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
         logger.trace(logPrfx + " <-- ");
 
     }
+*/
+    private void updateControls(boolean editing) {
+        String logPrfx = "updateControls";
+        logger.trace(logPrfx + " --> ");
 
+//        form.getChildren().forEach(component -> {
+//            if (component instanceof HasValueAndElement<?, ?> field) {
+//                field.setReadOnly(!editing);
+//            }
+//        });
+
+        detailActions.setVisible(editing);
+        listLayout.setEnabled(!editing);
+
+        logger.trace(logPrfx + " <-- ");
+    }
 
     @Subscribe(target = Target.DATA_CONTEXT)
     public void onChange(DataContext.ChangeEvent event) {
@@ -372,12 +408,88 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
         logger.trace(logPrfx + " --> ");
 
         ItemT thisItem = event.getItem();
+        dataContext.clear();
         if (thisItem == null) {
             logger.debug(logPrfx + " --- thisItem is null");
-            //todo I observed thisItem is null when selecting a new item
+
+            instLoadrMain.setEntityId(null);
+            instCntnrMain.setItem(null);
+
             logger.trace(logPrfx + " <-- ");
             return;
+
+        }else{
+            instLoadrMain.setEntityId(thisItem.getId());
+            instLoadrMain.load();
         }
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("filter")
+    public void onFilterConfigurationChange(final GenericFilter.ConfigurationChangeEvent event) {
+        String logPrfx = "onFilterConfigurationChange";
+        logger.trace(logPrfx + " --> ");
+
+        Configuration currentConfiguration = event.getNewConfiguration();
+
+        if (currentConfiguration.getId().equals("filterConfig1")) {
+            Optional<FilterComponent> o_filterConfig1A_Type1_Id = currentConfiguration.getRootLogicalFilterComponent().getFilterComponents()
+                    .stream().filter(c -> c instanceof PropertyFilter)
+                    .filter(c -> ((PropertyFilter<?>) c).getId().orElse("").equals("filterConfig1A_Type1_Id"))
+                    .findFirst();
+
+            PropertyFilter<ItemTypeT> filterConfig1A_Type1_Id = (PropertyFilter) o_filterConfig1A_Type1_Id.orElse(null);
+            EntityComboBox<ItemTypeT> propFilterCmpnt_Type1_Id;
+            propFilterCmpnt_Type1_Id = (EntityComboBox<ItemTypeT>) filterConfig1A_Type1_Id.getValueComponent();
+            propFilterCmpnt_Type1_Id.setItems(colCntnrType);
+        }
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("dataGridMain.create")
+    public void onDataGridMainCreate(final ActionPerformedEvent event) {
+        String logPrfx = "onDataGridMainCreate";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.clear();
+        ItemT thisItem = dataContext.create(typeOfItemT);
+        instCntnrMain.setItem(thisItem);
+        updateControls(true);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("dataGridMain.edit")
+    public void ononDataGridMainEdit(final ActionPerformedEvent event) {
+        String logPrfx = "ononDataGridMainEdit";
+        logger.trace(logPrfx + " --> ");
+
+        updateControls(true);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("saveBtn")
+    public void onSaveButtonClick(final ClickEvent<JmixButton> event) {
+        String logPrfx = "onSaveButtonClick";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.save();
+        colCntnrMain.replaceItem(instCntnrMain.getItem());
+        updateControls(false);
+
+        logger.trace(logPrfx + " <-- ");
+    }
+
+    @Subscribe("cancelBtn")
+    public void onCancelButtonClick(final ClickEvent<JmixButton> event) {
+        String logPrfx = "onCancelButtonClick";
+        logger.trace(logPrfx + " --> ");
+
+        dataContext.clear();
+        instLoadrMain.load();
+        updateControls(false);
 
         logger.trace(logPrfx + " <-- ");
     }
@@ -403,7 +515,7 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
         repo.execPr_Upd_AllCalcVals_ForAllRows();
         logger.debug(logPrfx + " --- finished repo.execPr_Upd_AllCalcVals_ForAllRows");
 
-        logger.debug(logPrfx + " --- loading colLoadrMain.load()");
+        logger.debug(logPrfx + " --- executing colLoadrMain.load()");
         colLoadrMain.load();
         logger.debug(logPrfx + " --- finished colLoadrMain.load()");
 
@@ -597,7 +709,6 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
 
         logger.trace(logPrfx + " <-- ");
     }
-
 
     @Subscribe("moveFrstSortIdxBtn")
     public void onMoveFrstSortIdxBtnClick(ClickEvent<Button> event) {
@@ -799,6 +910,8 @@ public abstract class UsrItemBase0BaseMain<ItemT extends UsrItemBase, ItemTypeT 
 
         logger.trace(logPrfx + " <-- ");
     }
+
+
 
     @Subscribe("moveNextSortIdxBtn")
     public void onMoveNextSortIdxBtnClick(ClickEvent<Button> event) {

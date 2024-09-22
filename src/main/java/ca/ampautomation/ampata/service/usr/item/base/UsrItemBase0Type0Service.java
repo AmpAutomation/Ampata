@@ -16,7 +16,7 @@ import jakarta.persistence.Transient;
 import java.util.Objects;
 import java.util.Optional;
 
-@Component("bean_UsrItemBaseTypeService")
+@Component("bean_UsrItemBaseType.Service")
 public class UsrItemBase0Type0Service implements Globals {
 
     @Transient

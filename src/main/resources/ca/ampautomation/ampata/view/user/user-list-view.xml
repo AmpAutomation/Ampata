@@ -20,12 +20,12 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
+            <genericFilter component="filter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="filter"
                        dataLoader="usersDl">
             <properties include=".*"/>
         </genericFilter>

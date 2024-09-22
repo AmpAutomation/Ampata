@@ -17,7 +17,7 @@
     <facets>
         <dataLoadCoordinator auto="true"/>
         <urlQueryParameters>
-            <genericFilter component="genericFilter"/>
+            <genericFilter component="filter"/>
             <pagination component="pagination"/>
         </urlQueryParameters>
     </facets>
@@ -62,7 +62,7 @@
                     </tab>
 
                     <tab id="tabCmd3" label="Filter">
-                        <genericFilter id="genericFilter" dataLoader="colLoadrMain" colspan="4" opened="false">
+                        <genericFilter id="filter" dataLoader="colLoadrMain" colspan="4" opened="false">
                                 dataLoader="colLoadrMain">
                             <properties include=".*"/>
                             <configurations>

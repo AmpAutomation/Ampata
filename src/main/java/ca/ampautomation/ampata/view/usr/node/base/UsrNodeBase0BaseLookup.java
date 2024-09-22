@@ -61,7 +61,7 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
     @Autowired
     protected FetchPlans fetchPlans;
 
-    @Autowired
+    @ViewComponent
     protected DataContext dataContext;
 
     @Autowired
@@ -89,25 +89,25 @@ public abstract class UsrNodeBase0BaseLookup<NodeT extends UsrNodeBase, NodeType
 
 
     //Filter
-    @Autowired
+    @ViewComponent
     protected GenericFilter filter;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Id2;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1A_Id2Dup;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<NodeTypeT> filterConfig1A_Type1_Id;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Name1;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<String> filterConfig1A_Desc1;
 
-    @Autowired
+    @ViewComponent
     protected PropertyFilter<Integer> filterConfig1A_SortIdx;
 
 
