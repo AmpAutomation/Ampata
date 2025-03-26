@@ -8,7 +8,6 @@ import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.multitenancy.core.AcceptsTenant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -30,7 +29,7 @@ import java.util.UUID;
 @Entity(name = "enty_UsrItemBase")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
-public class UsrItemBase implements AcceptsTenant {
+public class UsrItemBase {
 
     //Common
     @Transient
@@ -142,10 +141,7 @@ public class UsrItemBase implements AcceptsTenant {
         this.id = id;
     }
 
-    @Override
-    public String getTenantId() {
-        return tenant;
-    }
+    public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }
 

@@ -202,6 +202,8 @@ public class UsrNodeBaseType {
     }
 
 
+    public String getTenantId() { return tenant; }
+
     public String getTenant() { return tenant; }
 
     public void setTenant(String tenant) { this.tenant = tenant; }
