@@ -110,7 +110,7 @@ import java.util.*;
 
 })
 
-public class UsrNodeBase implements AcceptsTenant, Globals {
+public class UsrNodeBase implements Globals {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -1044,7 +1044,6 @@ public class UsrNodeBase implements AcceptsTenant, Globals {
 
     public void setId(UUID id) { this.id = id; }
 
-    @Override
     public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }

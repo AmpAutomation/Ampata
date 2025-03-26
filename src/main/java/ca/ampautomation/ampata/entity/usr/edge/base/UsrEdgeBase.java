@@ -10,7 +10,6 @@ import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.multitenancy.core.AcceptsTenant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -181,7 +180,6 @@ public class UsrEdgeBase {
 
     public void setId(UUID id) { this.id = id; }
 
-    @Override
     public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }
