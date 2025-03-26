@@ -24,7 +24,6 @@ import io.jmix.core.entity.annotation.EmbeddedParameters;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.multitenancy.core.AcceptsTenant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -111,7 +110,7 @@ import java.util.*;
 
 })
 
-public class UsrNodeBase implements AcceptsTenant, Globals {
+public class UsrNodeBase implements Globals {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -1045,7 +1044,6 @@ public class UsrNodeBase implements AcceptsTenant, Globals {
 
     public void setId(UUID id) { this.id = id; }
 
-    @Override
     public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }

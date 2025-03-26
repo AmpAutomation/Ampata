@@ -10,7 +10,6 @@ import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.multitenancy.core.AcceptsTenant;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +33,7 @@ import java.util.UUID;
 @Entity(name = "enty_UsrNodeBaseType")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.STRING)
-public class UsrNodeBaseType implements AcceptsTenant {
+public class UsrNodeBaseType {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -203,8 +202,7 @@ public class UsrNodeBaseType implements AcceptsTenant {
     }
 
 
-    @Override
-    public String getTenantId() { return tenant;}
+    public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }
 

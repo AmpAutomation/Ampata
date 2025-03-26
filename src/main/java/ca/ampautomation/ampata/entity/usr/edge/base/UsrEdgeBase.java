@@ -10,7 +10,6 @@ import io.jmix.core.annotation.TenantId;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
-import io.jmix.multitenancy.core.AcceptsTenant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.annotation.CreatedBy;
@@ -33,7 +32,7 @@ import java.util.UUID;
         @Index(name = "IDX_AMPATA_USR_EDGE_NODE_OT__ID", columnList = "NODE_OT__ID"),
 })
 @Entity(name = "enty_UsrEdgeBase")
-public class UsrEdgeBase implements AcceptsTenant {
+public class UsrEdgeBase {
 
     @Transient
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -181,7 +180,6 @@ public class UsrEdgeBase implements AcceptsTenant {
 
     public void setId(UUID id) { this.id = id; }
 
-    @Override
     public String getTenantId() { return tenant; }
 
     public String getTenant() { return tenant; }
